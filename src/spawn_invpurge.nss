@@ -1,0 +1,4 @@
+void main()
+{
+ActionCastSpellAtObject(SPELL_INVISIBILITY_PURGE, OBJECT_SELF, METAMAGIC_ANY, TRUE);
+}

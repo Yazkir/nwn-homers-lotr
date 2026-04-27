@@ -1,0 +1,47 @@
+ //::///////////////////////////////////////////////
+//:: This script based on:
+//:: Death Script
+//:: NW_O0_DEATH.NSS
+//:: Copyright (c) 2001 Bioware Corp.
+//:: Created By: Brent Knowles
+//:: Created On: November 6, 2001
+//:://////////////////////////////////////////////
+/*
+    The concept for this script was my idea.  It was a group creation
+    effort in the Script Request Forum at http://nwn.bioware.com/forums/
+    with a huge ammount of help from Haelix and KJ-Meric.  It also would
+    not have been possible for me to have any input into the proccess at all
+    were it not for the wonderful people involved in the NWN Lexicon project
+    at http://www.reapers.org/nwn/reference/
+*/
+
+
+
+void main()
+{
+    object oPC = GetLastPlayerDied() ;
+
+     object oDeathAmulet;
+     oDeathAmulet = GetFirstItemInInventory(oPC);
+
+     while( GetIsObjectValid( oDeathAmulet ))
+     {
+        if( GetTag(oDeathAmulet) == "deathamulet" )
+        {
+           DestroyObject(oDeathAmulet);
+           break;
+        }
+        oDeathAmulet = GetNextItemInInventory(oPC);
+     }
+
+     CreateItemOnObject( "deathamulet" , oPC);
+    SetLocalLocation(GetModule(),""+GetName(oPC)+" Death",GetLocation(oPC));
+
+
+
+
+
+
+    DelayCommand(2.5, PopUpGUIPanel(oPC,GUI_PANEL_PLAYER_DEATH)) ;
+
+}

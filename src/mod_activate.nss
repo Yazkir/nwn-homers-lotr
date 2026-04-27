@@ -1,0 +1,120 @@
+                void main()
+{
+   object oPC;
+   object oItem=GetItemActivated();
+   object oActivator=GetItemActivator();
+// object oCaller = GetItemActivator();
+// object oTarget = GetItemActivatedTarget();
+// string sTag = GetTag(oItem);
+
+
+
+
+   if(GetTag(oItem)=="DyeKit")
+   {
+      AssignCommand(oActivator, ActionStartConversation(oActivator, "dye_dyekit", TRUE));
+      return;
+   }
+   //if(GetTag(oItem)=="00")
+  // {
+   //   AssignCommand(oActivator, ActionStartConversation(oActivator, "00", TRUE));
+   //   return;
+  // }
+   if(GetTag(oItem)=="recall")
+   {
+   object oPC;
+oPC = GetItemActivator();
+object oTarget;
+location lTarget;
+oTarget = GetWaypointByTag("respawn");
+lTarget = GetLocation(oTarget);
+if (GetAreaFromLocation(lTarget)==OBJECT_INVALID) return;
+AssignCommand(oPC, ClearAllActions());
+DelayCommand(1.0, AssignCommand(oPC, ActionJumpToLocation(lTarget)));
+oTarget = oPC;
+int nInt;
+nInt = GetObjectType(oTarget);
+if (nInt != OBJECT_TYPE_WAYPOINT) ApplyEffectToObject(DURATION_TYPE_INSTANT, EffectVisualEffect(VFX_IMP_LIGHTNING_S), oTarget);
+else ApplyEffectAtLocation(DURATION_TYPE_INSTANT, EffectVisualEffect(VFX_IMP_LIGHTNING_S), GetLocation(oTarget));
+   }
+   if(GetTag(oItem)=="EmoteWand")
+   {
+      AssignCommand(oActivator, ActionStartConversation(oActivator, "emotewand", TRUE));
+      return;
+   }
+   if(GetTag(oItem)=="PCQuill")
+   {
+    ExportSingleCharacter(oPC);
+    SendMessageToPC(oPC, "The module, " + GetModuleName() + ", is saving the PC, " + GetName(oPC));
+    PrintString(GetPCPlayerName(oPC) + " has saved their PC, " + GetName(oPC) + ".");
+  }
+   if(GetTag(oItem)=="AutoFollow")
+   {
+      object oTarget = GetItemActivatedTarget();
+
+      if(GetIsObjectValid(oTarget))
+      {
+         AssignCommand ( oActivator, ActionForceFollowObject(oTarget));
+      }
+      return;
+   }
+       if(GetTag(oItem)=="DMsHelper")
+   {
+
+      object oMyActivator = GetItemActivator();
+      object oMyTarget = GetItemActivatedTarget();
+      SetLocalObject(oMyActivator, "dmwandtarget", oMyTarget);
+      location lMyLoc = GetItemActivatedTargetLocation();
+      SetLocalLocation(oMyActivator, "dmwandloc", lMyLoc);
+
+      //Make the activator start a conversation with itself
+      AssignCommand(oMyActivator, ActionStartConversation(oMyActivator, "dmwand", TRUE));
+      return;
+   }
+      if(GetTag(oItem)=="WandOfFX")
+   {
+
+       // get the wand's activator and target, put target info into local vars on activator
+      object oPC = GetItemActivator();
+      object oMyTarget = GetItemActivatedTarget();
+      SetLocalObject(oPC, "FXWandTarget", oMyTarget);
+      location lTargetLoc = GetItemActivatedTargetLocation();
+      SetLocalLocation(oPC, "FXWandLoc", lTargetLoc);
+
+      object oTest=GetFirstPC();
+      string sTestName = GetPCPlayerName(oPC);
+      // Test to make sure the activator is a DM, or is a DM
+      // controlling a creature.
+
+
+      {
+
+
+      }
+
+      //Make the activator start a conversation with itself
+      AssignCommand(oPC, ActionStartConversation(oPC, "fxwand", TRUE));
+      return;
+
+   }
+
+
+object oItem        = GetItemActivated();
+object oPC          = GetItemActivator();
+string sItemTag     = GetTag(oItem);
+
+
+
+if (sItemTag == "bundlethranduil")
+        {
+            ExecuteScript("bundle_thranduil", oPC);
+            return;
+        }
+
+if (sItemTag == "bombfuse")
+        {
+            ExecuteScript("bombfuse", oPC);
+            return;if (sItemTag == "bombfuse")
+        }
+}
+

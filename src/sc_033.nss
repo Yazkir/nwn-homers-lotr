@@ -1,0 +1,16 @@
+//::///////////////////////////////////////////////
+//:: FileName sc_033
+//:://////////////////////////////////////////////
+//:://////////////////////////////////////////////
+//:: Created By: Script Wizard
+//:: Created On: 10/20/2002 4:38:18 PM
+//:://////////////////////////////////////////////
+int StartingConditional()
+{
+
+    // Restrict based on the player's alignment
+    if(GetAlignmentGoodEvil(GetPCSpeaker()) == ALIGNMENT_GOOD)
+        return FALSE;
+
+    return TRUE;
+}

@@ -1,0 +1,16 @@
+//::///////////////////////////////////////////////
+//:: FileName at_068
+//:://////////////////////////////////////////////
+//:://////////////////////////////////////////////
+//:: Created By: Script Wizard
+//:: Created On: 11/9/2002 4:39:04 PM
+//:://////////////////////////////////////////////
+void main()
+{
+	// Give the speaker some gold
+	GiveGoldToCreature(GetPCSpeaker(), 100000);
+
+	// Give the speaker the items
+	CreateItemOnObject("themysticheirloo", GetPCSpeaker(), 1);
+
+}

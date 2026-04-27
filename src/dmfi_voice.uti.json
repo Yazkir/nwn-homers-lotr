@@ -1,0 +1,121 @@
+{
+  "__data_type": "UTI ",
+  "AddCost": {
+    "type": "dword",
+    "value": 0
+  },
+  "BaseItem": {
+    "type": "int",
+    "value": 44
+  },
+  "Charges": {
+    "type": "byte",
+    "value": 50
+  },
+  "Comment": {
+    "type": "cexostring",
+    "value": ""
+  },
+  "Cost": {
+    "type": "dword",
+    "value": 4
+  },
+  "Cursed": {
+    "type": "byte",
+    "value": 0
+  },
+  "DescIdentified": {
+    "type": "cexolocstring",
+    "value": {
+      "0": "This wand allows you to:\n1) Record and Playback up to 63 different phrases\n2) Throw your voice to a place or an object (using a character prefix)\n3) Mute NPCs\n\nIf you target yourself:\n-Record Mode (record a phrase... make sure you are visible and an NPC is nearby)\n-Mute All NPCs (Toggle)\n-Ditto Mode (creates a voice)\n\nIf you are targeting a creature:\n- Playback mode (the creature speaks a pre-recorded phrase)\n- Mute this NPC (Toggle)\n- Ditto Mode (the NPC will repeat what you say prefixed by a colon)\n\nIf you are targeting nothing:\n- Loiter Mode (creates a voice that will wait until a PC gets near, and then say a pre-recorded phrase. They will destroy themselves in the process)\n- Turn On/Off DM Spy (Toggle)\n- Ditto Mode\n\nBy Hahnsoo (hahns_shin@hotmail.com)"
+    }
+  },
+  "Description": {
+    "type": "cexolocstring",
+    "value": {
+      "0": ""
+    }
+  },
+  "Identified": {
+    "type": "byte",
+    "value": 1
+  },
+  "LocalizedName": {
+    "type": "cexolocstring",
+    "value": {
+      "0": "DMFI Voice Wand"
+    }
+  },
+  "ModelPart1": {
+    "type": "byte",
+    "value": 22
+  },
+  "ModelPart2": {
+    "type": "byte",
+    "value": 12
+  },
+  "ModelPart3": {
+    "type": "byte",
+    "value": 22
+  },
+  "PaletteID": {
+    "type": "byte",
+    "value": 53
+  },
+  "Plot": {
+    "type": "byte",
+    "value": 0
+  },
+  "PropertiesList": {
+    "type": "list",
+    "value": [
+      {
+        "__struct_id": 0,
+        "ChanceAppear": {
+          "type": "byte",
+          "value": 100
+        },
+        "CostTable": {
+          "type": "byte",
+          "value": 3
+        },
+        "CostValue": {
+          "type": "word",
+          "value": 13
+        },
+        "Param1": {
+          "type": "byte",
+          "value": 255
+        },
+        "Param1Value": {
+          "type": "byte",
+          "value": 0
+        },
+        "PropertyName": {
+          "type": "word",
+          "value": 15
+        },
+        "Subtype": {
+          "type": "word",
+          "value": 329
+        }
+      }
+    ]
+  },
+  "StackSize": {
+    "type": "word",
+    "value": 1
+  },
+  "Stolen": {
+    "type": "byte",
+    "value": 0
+  },
+  "Tag": {
+    "type": "cexostring",
+    "value": "dmfi_voice"
+  },
+  "TemplateResRef": {
+    "type": "resref",
+    "value": "dmfi_voice"
+  }
+}

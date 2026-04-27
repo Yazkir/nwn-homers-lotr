@@ -1,0 +1,18 @@
+//::///////////////////////////////////////////////
+//:: FileName bearreward
+//:://////////////////////////////////////////////
+//:://////////////////////////////////////////////
+//:: Created By: Script Wizard
+//:: Created On: 11/9/2002 4:10:49 PM
+//:://////////////////////////////////////////////
+#include "nw_i0_tool"
+
+void main()
+{
+	// Give the speaker some gold
+	RewardPartyGP(1000, GetPCSpeaker());
+
+	// Give the speaker some XP
+	RewardPartyXP(400, GetPCSpeaker());
+
+}

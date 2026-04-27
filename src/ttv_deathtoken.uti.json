@@ -1,0 +1,81 @@
+{
+  "__data_type": "UTI ",
+  "AddCost": {
+    "type": "dword",
+    "value": 0
+  },
+  "BaseItem": {
+    "type": "int",
+    "value": 24
+  },
+  "Charges": {
+    "type": "byte",
+    "value": 0
+  },
+  "Comment": {
+    "type": "cexostring",
+    "value": "This object is used to mark a player who has died. It is removed when he is raised. This is handy in case people leave the game while dead - when they come back, the On Client Enter script should detect the token and kill 'em.\r\n\r\nSee  the \"ttv_cliententer\"  script."
+  },
+  "Cost": {
+    "type": "dword",
+    "value": 0
+  },
+  "Cursed": {
+    "type": "byte",
+    "value": 0
+  },
+  "DescIdentified": {
+    "type": "cexolocstring",
+    "value": {
+      "0": "Aw, have a heart!\n\nThis means you are DEAD. It'll go away when you are raised from the dead. If you find yourself alive & walking around with this item for whatever reason, you should drop it immediately. It will dissapear when you do."
+    }
+  },
+  "Description": {
+    "type": "cexolocstring",
+    "value": {
+      "0": ""
+    }
+  },
+  "Identified": {
+    "type": "byte",
+    "value": 1
+  },
+  "LocalizedName": {
+    "type": "cexolocstring",
+    "value": {
+      "0": "Death Token"
+    }
+  },
+  "ModelPart1": {
+    "type": "byte",
+    "value": 41
+  },
+  "PaletteID": {
+    "type": "byte",
+    "value": 54
+  },
+  "Plot": {
+    "type": "byte",
+    "value": 1
+  },
+  "PropertiesList": {
+    "type": "list",
+    "value": []
+  },
+  "StackSize": {
+    "type": "word",
+    "value": 1
+  },
+  "Stolen": {
+    "type": "byte",
+    "value": 0
+  },
+  "Tag": {
+    "type": "cexostring",
+    "value": "TTV_DeathToken"
+  },
+  "TemplateResRef": {
+    "type": "resref",
+    "value": "ttv_deathtoken"
+  }
+}

@@ -1,0 +1,31 @@
+//Put this script OnEnter
+void main()
+{
+
+object oPC = GetEnteringObject();
+
+if (!GetIsPC(oPC)) return;
+
+if (GetTag(GetItemInSlot(INVENTORY_SLOT_BOOTS, oPC)) != "wankerboots")
+if (GetTag(GetItemInSlot(INVENTORY_SLOT_RIGHTRING, oPC)) != "EpicRing")
+if (GetTag(GetItemInSlot(INVENTORY_SLOT_LEFTRING, oPC)) != "EpicRing")
+   return;
+
+
+object oTarget;
+oTarget = GetObjectByTag("wankerboots");
+oTarget = GetObjectByTag("EpicRing");
+
+//Visual effects can't be applied to waypoints, so if it is a WP
+//the VFX will be applied to the WP's location instead
+
+int nInt;
+nInt = GetObjectType(oTarget);
+
+if (nInt != OBJECT_TYPE_WAYPOINT) ApplyEffectToObject(DURATION_TYPE_INSTANT, EffectVisualEffect(VFX_COM_BLOOD_CRT_GREEN), oTarget);
+else ApplyEffectAtLocation(DURATION_TYPE_INSTANT, EffectVisualEffect(VFX_COM_BLOOD_CRT_GREEN), GetLocation(oTarget));
+
+DestroyObject(oTarget, 1.0);
+
+}
+
