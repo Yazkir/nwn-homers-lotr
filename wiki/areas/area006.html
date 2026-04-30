@@ -1,0 +1,134 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Esgaroth (Lake Town)</title>
+  <link rel="stylesheet" href="../assets/style.css">
+</head>
+<body>
+  <header class="site-header">
+    <a class="brand" href="../index.html">Module Wiki</a>
+    <nav>
+      <a href="../index.html">Map</a>
+      <a href="../areas/index.html">Areas</a>
+      <a href="../creatures/index.html">Creatures</a>
+      <a href="../items/index.html">Items</a>
+      <a href="../stores/index.html">Stores</a>
+      <a href="../factions.html">Factions</a>
+      <a href="../journal.html">Journal</a>
+    </nav>
+  </header>
+  <main>
+<h1>Esgaroth (Lake Town)</h1>
+<dl class="meta"><dt>ResRef</dt><dd>area006</dd><dt>Tag</dt><dd>EsgarothLakeTown</dd><dt>Tileset</dt><dd>ttr01</dd><dt>Size</dt><dd>20×20 tiles</dd><dt>OnEnter</dt><dd></dd><dt>OnExit</dt><dd>cleanup</dd><dt>OnHeartbeat</dt><dd></dd><dt>OnUserDefined</dt><dd></dd></dl>
+<h2>Outgoing transitions</h2>
+<table class="data"><thead><tr><th>Kind</th><th>Label</th><th>Destination</th><th>Waypoint tag</th></tr></thead><tbody><tr><td>trigger</td><td>laketown2greenleaves</td><td><a href="woodoflegolas.html">Mirkwood: Forest of Greenleaves</a></td><td><code>WP_greenleaves2laketown</code></td></tr>
+<tr><td>trigger</td><td>laketown2silvermt</td><td><a href="theruinsofdale.html">The Ruins of Dale</a></td><td><code>WP_dale2lake</code></td></tr>
+<tr><td>trigger</td><td>laketown2smirk</td><td><a href="celeduinbanks.html">Celeduin Banks</a></td><td><code>WP_celed2lake</code></td></tr>
+<tr><td>door</td><td>laketown2barn1</td><td><em>(unresolved waypoint <code>barn2laketown</code>)</em></td><td><code>barn2laketown</code></td></tr>
+<tr><td>door</td><td>laketown2slantavern</td><td><em>(unresolved waypoint <code>inn2lake</code>)</em></td><td><code>inn2lake</code></td></tr>
+<tr><td>door</td><td>lakebank2</td><td><em>(unresolved waypoint <code>lakebank</code>)</em></td><td><code>lakebank</code></td></tr>
+<tr><td>door</td><td>laketown2lakeguards</td><td><em>(unresolved waypoint <code>MSindoor</code>)</em></td><td><code>MSindoor</code></td></tr>
+<tr><td>door</td><td>laketown2barn2</td><td><em>(unresolved waypoint <code>barn22laketown</code>)</em></td><td><code>barn22laketown</code></td></tr>
+<tr><td>door</td><td>Laketownforgedoor</td><td><em>(unresolved waypoint <code>forgedoor</code>)</em></td><td><code>forgedoor</code></td></tr>
+<tr><td>door</td><td>laketowncryptsenter</td><td><em>(unresolved waypoint <code>RTomblvl1door2</code>)</em></td><td><code>RTomblvl1door2</code></td></tr></tbody></table>
+<h2>Incoming transitions</h2>
+<table class="data"><thead><tr><th>Kind</th><th>From</th><th>Label</th></tr></thead><tbody><tr><td>trigger</td><td><a href="celeduinbanks.html">Celeduin Banks</a></td><td>celed2lake</td></tr>
+<tr><td>trigger</td><td><a href="theruinsofdale.html">The Ruins of Dale</a></td><td>dale2lake</td></tr>
+<tr><td>trigger</td><td><a href="woodoflegolas.html">Mirkwood: Forest of Greenleaves</a></td><td>greenleaves2laketown</td></tr></tbody></table>
+<h2>NPCs</h2>
+<table class="data"><thead><tr><th>Name</th><th>ResRef</th><th>Race</th><th>Class</th><th>HP</th><th>CR</th><th>Conversation</th></tr></thead><tbody><tr><td><a href="../creatures/dockworker.html">Dock Worker</a></td><td>dockworker</td><td>Human</td><td>Fighter 10</td><td>300</td><td>22.0</td><td></td></tr>
+<tr><td><a href="../creatures/dockworker.html">Dock Worker</a></td><td>dockworker</td><td>Human</td><td>Fighter 10</td><td>300</td><td>22.0</td><td></td></tr>
+<tr><td><a href="../creatures/dockworker.html">Dock Worker</a></td><td>dockworker</td><td>Human</td><td>Fighter 10</td><td>300</td><td>22.0</td><td></td></tr>
+<tr><td><a href="../creatures/dockworker.html">Dock Worker</a></td><td>dockworker</td><td>Human</td><td>Fighter 10</td><td>300</td><td>22.0</td><td></td></tr>
+<tr><td><a href="../creatures/dockworker.html">Dock Worker</a></td><td>dockworker</td><td>Human</td><td>Fighter 10</td><td>300</td><td>22.0</td><td></td></tr>
+<tr><td><a href="../creatures/breelocal002.html">Lake Town Defender</a></td><td>breelocal002</td><td>Human</td><td>Fighter 15/Druid 5</td><td>190</td><td>26.0</td><td>lakeguard</td></tr>
+<tr><td><a href="../creatures/breelocal002.html">Lake Town Defender</a></td><td>breelocal002</td><td>Human</td><td>Fighter 15/Druid 5</td><td>190</td><td>26.0</td><td>lakeguard</td></tr>
+<tr><td><a href="../creatures/breelocal002.html">Lake Town Defender</a></td><td>breelocal002</td><td>Human</td><td>Fighter 15/Druid 5</td><td>190</td><td>26.0</td><td>lakeguard</td></tr>
+<tr><td><a href="../creatures/breelocal002.html">Lake Town Defender</a></td><td>breelocal002</td><td>Human</td><td>Fighter 15/Druid 5</td><td>190</td><td>26.0</td><td>lakeguard</td></tr>
+<tr><td><a href="../creatures/breelocal002.html">Lake Town Defender</a></td><td>breelocal002</td><td>Human</td><td>Fighter 15/Druid 5</td><td>190</td><td>26.0</td><td>lakeguard</td></tr>
+<tr><td><a href="../creatures/breelocal002.html">Lake Town Defender</a></td><td>breelocal002</td><td>Human</td><td>Fighter 15/Druid 5</td><td>190</td><td>26.0</td><td>lakeguard</td></tr>
+<tr><td><a href="../creatures/breelocal002.html">Lake Town Defender</a></td><td>breelocal002</td><td>Human</td><td>Fighter 15/Druid 5</td><td>190</td><td>26.0</td><td>lakeguard</td></tr>
+<tr><td><a href="../creatures/oilahthemystic.html">Oliah The Mystic</a></td><td>oilahthemystic</td><td>Human</td><td>Rogue 20/Sorcerer 20</td><td>920</td><td>56.0</td><td>mystics</td></tr>
+<tr><td>[TLK#12422]</td><td>nw_comfemale</td><td>Human</td><td>Commoner 1</td><td>2</td><td>0.25</td><td></td></tr>
+<tr><td>[TLK#12423]</td><td>nw_commale</td><td>Human</td><td>Commoner 1</td><td>3</td><td>0.25</td><td></td></tr>
+<tr><td>[TLK#12634]</td><td>nw_malekid01</td><td>Human</td><td>Commoner 1</td><td>2</td><td>0.25</td><td></td></tr>
+<tr><td>[TLK#12525]</td><td>nw_femalekid01</td><td>Human</td><td>Commoner 1</td><td>2</td><td>0.25</td><td></td></tr>
+<tr><td>[TLK#12416]</td><td>nw_chicken</td><td>Animal</td><td>Animal 1</td><td>4</td><td>0.25</td><td></td></tr>
+<tr><td>[TLK#12416]</td><td>nw_chicken</td><td>Animal</td><td>Animal 1</td><td>4</td><td>0.25</td><td></td></tr>
+<tr><td>[TLK#12416]</td><td>nw_chicken</td><td>Animal</td><td>Animal 1</td><td>4</td><td>0.25</td><td></td></tr>
+<tr><td>[TLK#12416]</td><td>nw_chicken</td><td>Animal</td><td>Animal 1</td><td>4</td><td>0.25</td><td></td></tr>
+<tr><td>[TLK#12416]</td><td>nw_chicken</td><td>Animal</td><td>Animal 1</td><td>4</td><td>0.25</td><td></td></tr>
+<tr><td>[TLK#12416]</td><td>nw_chicken</td><td>Animal</td><td>Animal 1</td><td>4</td><td>0.25</td><td></td></tr>
+<tr><td>White Raxxoon</td><td>nw_deerstag</td><td>Animal</td><td>Animal 1</td><td>5</td><td>0.3333</td><td></td></tr></tbody></table>
+<h2>Containers / loot</h2>
+<table class="data"><thead><tr><th>Container</th><th>Tag</th><th>ResRef</th><th>Loot</th></tr></thead><tbody><tr><td>Wine Barrel</td><td>WineBarrel</td><td>barrel001</td><td>(unknown)</td></tr>
+<tr><td>Wine Barrel</td><td>WineBarrel</td><td>barrel001</td><td>(unknown)</td></tr>
+<tr><td>Wine Barrel</td><td>WineBarrel</td><td>barrel001</td><td>(unknown)</td></tr>
+<tr><td>Wine Barrel</td><td>WineBarrel</td><td>barrel001</td><td>(unknown)</td></tr>
+<tr><td>Wine Barrel</td><td>WineBarrel</td><td>barrel001</td><td>(unknown)</td></tr>
+<tr><td>Wine Barrel</td><td>WineBarrel</td><td>barrel001</td><td>(unknown)</td></tr>
+<tr><td>Wine Barrel</td><td>WineBarrel</td><td>barrel001</td><td>(unknown)</td></tr>
+<tr><td>Wine Barrel</td><td>WineBarrel</td><td>barrel001</td><td>(unknown)</td></tr>
+<tr><td>Wine Barrel</td><td>WineBarrel</td><td>barrel001</td><td>(unknown)</td></tr>
+<tr><td>Wine Barrel</td><td>WineBarrel</td><td>barrel001</td><td>(unknown)</td></tr>
+<tr><td>Wine Barrel</td><td>WineBarrel</td><td>barrel001</td><td>(unknown)</td></tr>
+<tr><td>Wine Barrel</td><td>WineBarrel</td><td>barrel001</td><td>(unknown)</td></tr>
+<tr><td>Wine Barrel</td><td>WineBarrel</td><td>barrel001</td><td>(unknown)</td></tr>
+<tr><td>Wine Barrel</td><td>WineBarrel</td><td>barrel001</td><td>(unknown)</td></tr>
+<tr><td>Wine Barrel</td><td>WineBarrel</td><td>barrel001</td><td>(unknown)</td></tr>
+<tr><td>Wine Barrel</td><td>WineBarrel</td><td>barrel001</td><td>(unknown)</td></tr>
+<tr><td>Wine Barrel</td><td>WineBarrel</td><td>barrel001</td><td>(unknown)</td></tr>
+<tr><td>Wine Barrel</td><td>WineBarrel</td><td>barrel001</td><td>(unknown)</td></tr>
+<tr><td>Wine Barrel</td><td>WineBarrel</td><td>barrel001</td><td>(unknown)</td></tr>
+<tr><td>Wine Barrel</td><td>WineBarrel</td><td>barrel001</td><td>(unknown)</td></tr>
+<tr><td>Wine Barrel</td><td>WineBarrel</td><td>barrel001</td><td>(unknown)</td></tr>
+<tr><td>Wine Barrel</td><td>WineBarrel</td><td>barrel001</td><td>(unknown)</td></tr>
+<tr><td>Wine Barrel</td><td>WineBarrel</td><td>barrel001</td><td>(unknown)</td></tr>
+<tr><td>Wine Barrel</td><td>WineBarrel</td><td>barrel001</td><td>(unknown)</td></tr>
+<tr><td>Wine Barrel</td><td>WineBarrel</td><td>barrel001</td><td>(unknown)</td></tr>
+<tr><td>Wine Barrel</td><td>WineBarrel</td><td>barrel001</td><td>(unknown)</td></tr></tbody></table>
+<h2>Waypoints</h2>
+<table class="data"><thead><tr><th>Tag</th><th>ResRef</th></tr></thead><tbody><tr><td><code>WP_DockWorker_01</code></td><td></td></tr>
+<tr><td><code>WP_DockWorker_02</code></td><td></td></tr>
+<tr><td><code>WP_DockWorker_03</code></td><td></td></tr>
+<tr><td><code>WP_DockWorker_04</code></td><td></td></tr>
+<tr><td><code>WP_DockWorker_05</code></td><td></td></tr>
+<tr><td><code>WP_DockWorker_06</code></td><td></td></tr>
+<tr><td><code>WP_DockWorker_07</code></td><td></td></tr>
+<tr><td><code>dock workers_01</code></td><td></td></tr>
+<tr><td><code>WP_LakeTownGuardsman_01</code></td><td></td></tr>
+<tr><td><code>WP_LakeTownGuardsman_02</code></td><td></td></tr>
+<tr><td><code>WP_LakeTownGuardsman_03</code></td><td></td></tr>
+<tr><td><code>WP_LakeTownGuardsman_04</code></td><td></td></tr>
+<tr><td><code>WP_LakeTownGuardsman_05</code></td><td></td></tr>
+<tr><td><code>WP_LakeTownGuardsman_06</code></td><td></td></tr>
+<tr><td><code>WP_LakeTownGuardsman_07</code></td><td></td></tr>
+<tr><td><code>WP_LakeTownGuardsman_08</code></td><td></td></tr>
+<tr><td><code>WP_laketown2greenleaves</code></td><td></td></tr>
+<tr><td><code>WP_laketown2silvermt</code></td><td></td></tr>
+<tr><td><code>WP_laketown2smirk</code></td><td></td></tr>
+<tr><td><code>WP_OliahTheMystic_01</code></td><td></td></tr>
+<tr><td><code>WP_OliahTheMystic_02</code></td><td></td></tr>
+<tr><td><code>WP_OliahTheMystic_03</code></td><td></td></tr>
+<tr><td><code>WP_OliahTheMystic_04</code></td><td></td></tr>
+<tr><td><code>WP_OliahTheMystic_05</code></td><td></td></tr>
+<tr><td><code>laketwonenter</code></td><td>nw_waypoint001</td></tr>
+<tr><td><code>WP_NW_CHICKEN_01</code></td><td></td></tr>
+<tr><td><code>WP_NW_CHICKEN_02</code></td><td></td></tr>
+<tr><td><code>WP_NW_CHICKEN_03</code></td><td></td></tr>
+<tr><td><code>WP_NW_CHICKEN_04</code></td><td></td></tr>
+<tr><td><code>WP_NW_CHICKEN_05</code></td><td></td></tr>
+<tr><td><code>WP_NW_CHICKEN_06</code></td><td></td></tr>
+<tr><td><code>WP_NW_CHICKEN_07</code></td><td></td></tr>
+<tr><td><code>WP_NW_CHICKEN_08</code></td><td></td></tr>
+<tr><td><code>WP_NW_DEERSTAG_01</code></td><td></td></tr>
+<tr><td><code>WP_NW_DEERSTAG_02</code></td><td></td></tr>
+<tr><td><code>WP_NW_DEERSTAG_03</code></td><td></td></tr>
+<tr><td><code>WP_NW_DEERSTAG_04</code></td><td></td></tr>
+<tr><td><code>WP_NW_DEERSTAG_05</code></td><td></td></tr>
+<tr><td><code>WP_BBS_SCRIBE_01</code></td><td></td></tr></tbody></table>
+  </main>
+  <footer>generated by nwn-wiki</footer>
+</body>
+</html>

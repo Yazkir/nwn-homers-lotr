@@ -1,0 +1,132 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Bree</title>
+  <link rel="stylesheet" href="../assets/style.css">
+</head>
+<body>
+  <header class="site-header">
+    <a class="brand" href="../index.html">Module Wiki</a>
+    <nav>
+      <a href="../index.html">Map</a>
+      <a href="../areas/index.html">Areas</a>
+      <a href="../creatures/index.html">Creatures</a>
+      <a href="../items/index.html">Items</a>
+      <a href="../stores/index.html">Stores</a>
+      <a href="../factions.html">Factions</a>
+      <a href="../journal.html">Journal</a>
+    </nav>
+  </header>
+  <main>
+<h1>Bree</h1>
+<dl class="meta"><dt>ResRef</dt><dd>bree</dd><dt>Tag</dt><dd>Bree</dd><dt>Tileset</dt><dd>ttr01</dd><dt>Size</dt><dd>16×10 tiles</dd><dt>OnEnter</dt><dd>map</dd><dt>OnExit</dt><dd>d_purge</dd><dt>OnHeartbeat</dt><dd>zep_cr_nocheat</dd><dt>OnUserDefined</dt><dd></dd></dl>
+<h2>Outgoing transitions</h2>
+<table class="data"><thead><tr><th>Kind</th><th>Label</th><th>Destination</th><th>Waypoint tag</th></tr></thead><tbody><tr><td>trigger</td><td>Bree2SGreenway</td><td><a href="greenwaysouth.html">Greenway (South)</a></td><td><code>WP_SGreenway2Bree</code></td></tr>
+<tr><td>trigger</td><td>bree2ngreen</td><td><a href="greenwaynorth.html">Old North Road</a></td><td><code>WP_ngreen2bree</code></td></tr>
+<tr><td>trigger</td><td>bree2chetwood</td><td><a href="chetwood001.html">Chetwood</a></td><td><code>WP_chetwood2bree</code></td></tr>
+<tr><td>trigger</td><td>bree2eastr</td><td><a href="greateastroada.html">Great East Road</a></td><td><code>WP_easta2bree</code></td></tr>
+<tr><td>trigger</td><td>bree2brandy</td><td><a href="area012.html">Old Forest:  Withywindle Path</a></td><td><code>oldforestpath</code></td></tr>
+<tr><td>door</td><td>bree2inn</td><td><em>(unresolved waypoint <code>pony2bree</code>)</em></td><td><code>pony2bree</code></td></tr>
+<tr><td>door</td><td>bree2pony2</td><td><em>(unresolved waypoint <code>pony2bree2</code>)</em></td><td><code>pony2bree2</code></td></tr>
+<tr><td>door</td><td>bree2ferny</td><td><em>(unresolved waypoint <code>fern2bree</code>)</em></td><td><code>fern2bree</code></td></tr>
+<tr><td>door</td><td>bree2tagget</td><td><em>(unresolved waypoint <code>tagget2bree</code>)</em></td><td><code>tagget2bree</code></td></tr>
+<tr><td>door</td><td>Modred</td><td><em>(unresolved waypoint <code>Modredin</code>)</em></td><td><code>Modredin</code></td></tr>
+<tr><td>door</td><td>BreePortcullis</td><td><em>(unresolved waypoint <code>BreeCryptExit</code>)</em></td><td><code>BreeCryptExit</code></td></tr>
+<tr><td>door</td><td>bree2breedarkcavern</td><td><em>(unresolved waypoint <code>BreeDarkCaverns2Bree</code>)</em></td><td><code>BreeDarkCaverns2Bree</code></td></tr>
+<tr><td>door</td><td>PotLuckIn</td><td><em>(unresolved waypoint <code>PotLuckOut</code>)</em></td><td><code>PotLuckOut</code></td></tr>
+<tr><td>door</td><td>breebank</td><td><em>(unresolved waypoint <code>BreeBank_inside</code>)</em></td><td><code>BreeBank_inside</code></td></tr>
+<tr><td>door</td><td>CaveBree12</td><td><em>(unresolved waypoint <code>breecave2bree</code>)</em></td><td><code>breecave2bree</code></td></tr>
+<tr><td>door</td><td>bree2serst</td><td><em>(unresolved waypoint <code>serst2bree</code>)</em></td><td><code>serst2bree</code></td></tr></tbody></table>
+<h2>Incoming transitions</h2>
+<table class="data"><thead><tr><th>Kind</th><th>From</th><th>Label</th></tr></thead><tbody><tr><td>trigger</td><td><a href="area012.html">Old Forest:  Withywindle Path</a></td><td>AreaTransition</td></tr>
+<tr><td>trigger</td><td><a href="chetwood001.html">Chetwood</a></td><td>chetwood2bree</td></tr>
+<tr><td>trigger</td><td><a href="greateastroada.html">Great East Road</a></td><td>easta2bree</td></tr>
+<tr><td>trigger</td><td><a href="greenwaynorth.html">Old North Road</a></td><td>ngreen2bree</td></tr>
+<tr><td>trigger</td><td><a href="greenwaysouth.html">Greenway (South)</a></td><td>SGreenway2Bree</td></tr>
+<tr><td>door</td><td><a href="thewelloferu.html">&lt;c?ò?&gt; &quot;Well of Eru&quot;</a></td><td>x2_doorhard2</td></tr></tbody></table>
+<h2>NPCs</h2>
+<table class="data"><thead><tr><th>Name</th><th>ResRef</th><th>Race</th><th>Class</th><th>HP</th><th>CR</th><th>Conversation</th></tr></thead><tbody><tr><td>[TLK#12678]</td><td>nw_ox</td><td>Animal</td><td>Animal 1</td><td>6</td><td>0.5</td><td></td></tr>
+<tr><td>[TLK#12428]</td><td>nw_cow</td><td>Animal</td><td>Animal 1</td><td>5</td><td>0.1667</td><td></td></tr>
+<tr><td>[TLK#12428]</td><td>nw_cow</td><td>Animal</td><td>Animal 1</td><td>5</td><td>0.1667</td><td></td></tr>
+<tr><td>[TLK#12428]</td><td>nw_cow</td><td>Animal</td><td>Animal 1</td><td>5</td><td>0.1667</td><td></td></tr>
+<tr><td>[TLK#12428]</td><td>nw_cow</td><td>Animal</td><td>Animal 1</td><td>5</td><td>0.1667</td><td></td></tr>
+<tr><td>[TLK#12428]</td><td>nw_cow</td><td>Animal</td><td>Animal 1</td><td>5</td><td>0.1667</td><td></td></tr>
+<tr><td>[TLK#12428]</td><td>nw_cow</td><td>Animal</td><td>Animal 1</td><td>5</td><td>0.1667</td><td></td></tr>
+<tr><td>[TLK#12428]</td><td>nw_cow</td><td>Animal</td><td>Animal 1</td><td>5</td><td>0.1667</td><td></td></tr>
+<tr><td>[TLK#12428]</td><td>nw_cow</td><td>Animal</td><td>Animal 1</td><td>5</td><td>0.1667</td><td></td></tr>
+<tr><td>Boy</td><td>nw_malekid01</td><td>Human</td><td>Commoner 1</td><td>2</td><td>0.25</td><td>tag_game</td></tr>
+<tr><td>Girl</td><td>nw_femalekid01</td><td>Human</td><td>Commoner 1</td><td>2</td><td>0.25</td><td>tag_game</td></tr>
+<tr><td>Bill Ferny</td><td>bill</td><td>Human</td><td>Commoner 3</td><td>10</td><td>2.0</td><td>ferny_convo2</td></tr>
+<tr><td><a href="../creatures/breelocal001.html">Guardian Of Bree</a></td><td>breelocal001</td><td>Human</td><td>Fighter 6</td><td>174</td><td>11.0</td><td>b_guard_convo1</td></tr>
+<tr><td>Hanee The Loon</td><td>nw_oldwoman</td><td>Human</td><td>Commoner 1</td><td>2</td><td>0.25</td><td>b_oldwoman_con1</td></tr>
+<tr><td><a href="../creatures/rangerofthe.html">Ranger of the North</a></td><td>rangerofthe</td><td>Human</td><td>Ranger 13</td><td>155</td><td>19.0</td><td></td></tr>
+<tr><td><a href="../creatures/rangerofthe.html">Ranger of the North</a></td><td>rangerofthe</td><td>Human</td><td>Ranger 13</td><td>155</td><td>19.0</td><td></td></tr>
+<tr><td>Crazy Maggie</td><td>nw_oldwoman</td><td>Human</td><td>Commoner 1</td><td>2</td><td>0.25</td><td>maggie</td></tr>
+<tr><td>Han the Bree Miller</td><td>bree001</td><td>Human</td><td>Commoner 2</td><td>7</td><td>1.0</td><td>b_miller_convo1</td></tr>
+<tr><td>Bree Farmer</td><td>bree</td><td>Human</td><td>Commoner 2</td><td>7</td><td>1.0</td><td></td></tr>
+<tr><td><a href="../creatures/breelocal001.html">Guardian Of Bree</a></td><td>breelocal001</td><td>Human</td><td>Fighter 6</td><td>174</td><td>11.0</td><td>b_guard_convo1</td></tr>
+<tr><td><a href="../creatures/breelocal001.html">Guardian Of Bree</a></td><td>breelocal001</td><td>Human</td><td>Fighter 6</td><td>174</td><td>11.0</td><td>b_guard_convo1</td></tr>
+<tr><td><a href="../creatures/breelocal001.html">Guardian Of Bree</a></td><td>breelocal001</td><td>Human</td><td>Fighter 6</td><td>174</td><td>11.0</td><td>b_guard_convo1</td></tr>
+<tr><td><a href="../creatures/creature015.html">Bree Merchant</a></td><td>creature015</td><td>Human</td><td>Bard 10</td><td>57</td><td>7.0</td><td>store061</td></tr></tbody></table>
+<h2>Encounters</h2>
+<table class="data"><thead><tr><th>Name</th><th>ResRef</th><th>Tag</th><th>Max</th><th>Diff</th><th>Spawn pool</th></tr></thead><tbody><tr><td>Zombie Group</td><td>nw_zombiegrp</td><td>NW_ZOMBIEGRP</td><td>8</td><td>0</td><td>nw_zombie01<small> CR 1.0</small>, nw_zombie02<small> CR 1.0</small>, nw_zombtyrant<small> CR 3.0</small>, nw_zombwarr01<small> CR 4.0</small>, nw_zombwarr02<small> CR 4.0</small></td></tr>
+<tr><td>Undead, Low Group</td><td>nw_undeadlow</td><td>NW_UndeadLow</td><td>6</td><td>0</td><td><a href="../creatures/skeleton001.html">Skeleton</a><small> CR 0.5</small>, nw_zombie01<small> CR 1.0</small>, nw_zombie02<small> CR 1.0</small>, nw_ghoul<small> CR 2.0</small>, nw_allip<small> CR 3.0</small>, nw_shadow<small> CR 3.0</small>, nw_zombtyrant<small> CR 3.0</small>, nw_ghast<small> CR 4.0</small>, nw_zombwarr01<small> CR 4.0</small>, nw_zombwarr02<small> CR 4.0</small></td></tr></tbody></table>
+<h2>Containers / loot</h2>
+<table class="data"><thead><tr><th>Container</th><th>Tag</th><th>ResRef</th><th>Loot</th></tr></thead><tbody><tr><td>Wine Barrel</td><td>WineBarrel</td><td>barrel001</td><td>(unknown)</td></tr></tbody></table>
+<h2>Stores</h2>
+<table class="data"><thead><tr><th>Store</th><th>ResRef</th></tr></thead><tbody><tr><td>nw_storemagic001</td><td>nw_storemagic001</td></tr>
+<tr><td><a href="../stores/wellshop.html">wellshop</a></td><td>wellshop</td></tr></tbody></table>
+<h2>Waypoints</h2>
+<table class="data"><thead><tr><th>Tag</th><th>ResRef</th></tr></thead><tbody><tr><td><code>WP_BreeLocal_01</code></td><td>nw_waypoint001</td></tr>
+<tr><td><code>WP_BreeLocal_02</code></td><td>nw_waypoint001</td></tr>
+<tr><td><code>WP_BreeLocal_03</code></td><td>nw_waypoint001</td></tr>
+<tr><td><code>WP_BreeLocal_04</code></td><td>nw_waypoint001</td></tr>
+<tr><td><code>WP_BreeLocal_05</code></td><td>nw_waypoint001</td></tr>
+<tr><td><code>WP_BreeLocal_06</code></td><td>nw_waypoint001</td></tr>
+<tr><td><code>WP_BreeLocal_07</code></td><td>nw_waypoint001</td></tr>
+<tr><td><code>WP_BreeLocal_08</code></td><td>nw_waypoint001</td></tr>
+<tr><td><code>WP_BreeLocal1_01</code></td><td>nw_waypoint001</td></tr>
+<tr><td><code>WP_BreeLocal1_02</code></td><td>nw_waypoint001</td></tr>
+<tr><td><code>WP_BreeLocal1_03</code></td><td>nw_waypoint001</td></tr>
+<tr><td><code>WP_BreeLocal1_04</code></td><td>nw_waypoint001</td></tr>
+<tr><td><code>WP_BreeLocal1_05</code></td><td>nw_waypoint001</td></tr>
+<tr><td><code>WP_BreeLocal1_06</code></td><td>nw_waypoint001</td></tr>
+<tr><td><code>WP_BreeLocal1_07</code></td><td>nw_waypoint001</td></tr>
+<tr><td><code>WP_BreeLocal3_01</code></td><td>nw_waypoint001</td></tr>
+<tr><td><code>WP_BreeLocal3_02</code></td><td>nw_waypoint001</td></tr>
+<tr><td><code>WP_BreeLocal3_03</code></td><td>nw_waypoint001</td></tr>
+<tr><td><code>WP_BreeLocal3_04</code></td><td>nw_waypoint001</td></tr>
+<tr><td><code>WP_BreeLocal3_05</code></td><td>nw_waypoint001</td></tr>
+<tr><td><code>WP_BreeLocal3_06</code></td><td>nw_waypoint001</td></tr>
+<tr><td><code>NW_MAPNOTE001</code></td><td>nw_mapnote001</td></tr>
+<tr><td><code>NW_MAPNOTE001</code></td><td>nw_mapnote001</td></tr>
+<tr><td><code>NW_MAPNOTE001</code></td><td>nw_mapnote001</td></tr>
+<tr><td><code>NW_MAPNOTE001</code></td><td>nw_mapnote001</td></tr>
+<tr><td><code>NW_MAPNOTE001</code></td><td>nw_mapnote001</td></tr>
+<tr><td><code>NW_MAPNOTE001</code></td><td>nw_mapnote001</td></tr>
+<tr><td><code>WP_boy1_01</code></td><td>nw_waypoint001</td></tr>
+<tr><td><code>WP_boy1_04</code></td><td>nw_waypoint001</td></tr>
+<tr><td><code>WP_boy1_03</code></td><td>nw_waypoint001</td></tr>
+<tr><td><code>WP_boy1_02</code></td><td>nw_waypoint001</td></tr>
+<tr><td><code>WP_girl1_02</code></td><td>nw_waypoint001</td></tr>
+<tr><td><code>WP_girl1_03</code></td><td>nw_waypoint001</td></tr>
+<tr><td><code>WP_girl1_04</code></td><td>nw_waypoint001</td></tr>
+<tr><td><code>WP_girl1_01</code></td><td>nw_waypoint001</td></tr>
+<tr><td><code>WP_bree2ngreen</code></td><td></td></tr>
+<tr><td><code>WP_Bree2SGreenway</code></td><td></td></tr>
+<tr><td><code>breeenter</code></td><td>nw_waypoint001</td></tr>
+<tr><td><code>NW_MAPNOTE001</code></td><td>nw_mapnote001</td></tr>
+<tr><td><code>NW_MAPNOTE001</code></td><td>nw_mapnote001</td></tr>
+<tr><td><code>bree2brandy</code></td><td>nw_waypoint001</td></tr>
+<tr><td><code>WP_bree2brandy</code></td><td></td></tr>
+<tr><td><code>BreeCave</code></td><td>nw_mapnote001</td></tr>
+<tr><td><code>WP_bree2chetwood</code></td><td></td></tr>
+<tr><td><code>WP_bree2brandy</code></td><td></td></tr>
+<tr><td><code>WP_bree2eastr</code></td><td></td></tr>
+<tr><td><code>WP_WellMart_01</code></td><td></td></tr>
+<tr><td><code>NW_MAPNOTE001</code></td><td>nw_mapnote001</td></tr></tbody></table>
+  </main>
+  <footer>generated by nwn-wiki</footer>
+</body>
+</html>

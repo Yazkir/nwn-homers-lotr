@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Mirkwood: Dol Guldur</title>
+  <link rel="stylesheet" href="../assets/style.css">
+</head>
+<body>
+  <header class="site-header">
+    <a class="brand" href="../index.html">Module Wiki</a>
+    <nav>
+      <a href="../index.html">Map</a>
+      <a href="../areas/index.html">Areas</a>
+      <a href="../creatures/index.html">Creatures</a>
+      <a href="../items/index.html">Items</a>
+      <a href="../stores/index.html">Stores</a>
+      <a href="../factions.html">Factions</a>
+      <a href="../journal.html">Journal</a>
+    </nav>
+  </header>
+  <main>
+<h1>Mirkwood: Dol Guldur</h1>
+<dl class="meta"><dt>ResRef</dt><dd>dolguldur</dd><dt>Tag</dt><dd>DolGuldur</dd><dt>Tileset</dt><dd>ttr01</dd><dt>Size</dt><dd>18×15 tiles</dd><dt>OnEnter</dt><dd>map</dd><dt>OnExit</dt><dd>d_purge</dd><dt>OnHeartbeat</dt><dd></dd><dt>OnUserDefined</dt><dd></dd></dl>
+<h2>Outgoing transitions</h2>
+<table class="data"><thead><tr><th>Kind</th><th>Label</th><th>Destination</th><th>Waypoint tag</th></tr></thead><tbody><tr><td>trigger</td><td>guldur2mirk</td><td><a href="mirkwoodcentrals.html">Mirkwood: Central South</a></td><td><code>WP_mirkwood2dolguldur</code></td></tr>
+<tr><td>trigger</td><td>dolGul2Robo</td><td><a href="rhosgobel.html">Rhosgobel</a></td><td><code>WP_Rhosgobel2MirkwoodOutskirts</code></td></tr>
+<tr><td>trigger</td><td>inner2dolgulder</td><td><a href="dolguldur001.html">Dol Guldur</a></td><td><code>WP_dolgulder2inner</code></td></tr>
+<tr><td>door</td><td>CaveofDolGulgur</td><td><em>(unresolved waypoint <code>MineCaveofDol</code>)</em></td><td><code>MineCaveofDol</code></td></tr></tbody></table>
+<h2>Incoming transitions</h2>
+<table class="data"><thead><tr><th>Kind</th><th>From</th><th>Label</th></tr></thead><tbody><tr><td>trigger</td><td><a href="dolguldur001.html">Dol Guldur</a></td><td>dolgulder2inner</td></tr>
+<tr><td>trigger</td><td><a href="mirkwoodcentrals.html">Mirkwood: Central South</a></td><td>mirkwood2dolguldur</td></tr>
+<tr><td>trigger</td><td><a href="rhosgobel.html">Rhosgobel</a></td><td>Rhosgobel2MirkwoodOutskirts</td></tr></tbody></table>
+<h2>NPCs</h2>
+<table class="data"><thead><tr><th>Name</th><th>ResRef</th><th>Race</th><th>Class</th><th>HP</th><th>CR</th><th>Conversation</th></tr></thead><tbody><tr><td><a href="../creatures/dolguldurgatekee.html">Dol Guldur Gate Keeper</a></td><td>dolguldurgatekee</td><td>Elf</td><td>Weapon Master 20/Wizard 60/Pale Master 20</td><td>6000</td><td>696.0</td><td></td></tr>
+<tr><td><a href="../creatures/archerofdolguldu.html">Archer of Dol Guldur</a></td><td>archerofdolguldu</td><td>Elf</td><td>Ranger 20/Arcane Archer 40</td><td>4314</td><td>234.0</td><td></td></tr>
+<tr><td><a href="../creatures/archerofdolguldu.html">Archer of Dol Guldur</a></td><td>archerofdolguldu</td><td>Elf</td><td>Ranger 20/Arcane Archer 40</td><td>4314</td><td>234.0</td><td></td></tr>
+<tr><td><a href="../creatures/archerofdolgu001.html">Shadow Walker</a></td><td>archerofdolgu001</td><td>Elf</td><td>Rogue 20/Shadowdancer 30</td><td>4310</td><td>264.0</td><td></td></tr>
+<tr><td><a href="../creatures/archerofdolguldu.html">Archer of Dol Guldur</a></td><td>archerofdolguldu</td><td>Elf</td><td>Ranger 20/Arcane Archer 40</td><td>4314</td><td>234.0</td><td></td></tr>
+<tr><td><a href="../creatures/archerofdolguldu.html">Archer of Dol Guldur</a></td><td>archerofdolguldu</td><td>Elf</td><td>Ranger 20/Arcane Archer 40</td><td>4314</td><td>234.0</td><td></td></tr>
+<tr><td><a href="../creatures/dolguldurgatekee.html">Dol Guldur Gate Keeper</a></td><td>dolguldurgatekee</td><td>Elf</td><td>Weapon Master 20/Wizard 60/Pale Master 20</td><td>6000</td><td>701.0</td><td></td></tr>
+<tr><td><a href="../creatures/shadowlordof.html">Shadow Lord of Dol Guldur</a></td><td>shadowlordof</td><td>Elf</td><td>Assassin 40/Fighter 40</td><td>8470</td><td>660.0</td><td></td></tr>
+<tr><td><a href="../creatures/archerofdolgu001.html">Shadow Walker</a></td><td>archerofdolgu001</td><td>Elf</td><td>Rogue 20/Shadowdancer 30</td><td>4310</td><td>264.0</td><td></td></tr>
+<tr><td><a href="../creatures/archerofdolguldu.html">Archer of Dol Guldur</a></td><td>archerofdolguldu</td><td>Elf</td><td>Ranger 20/Arcane Archer 40</td><td>4314</td><td>234.0</td><td></td></tr>
+<tr><td><a href="../creatures/archerofdolguldu.html">Archer of Dol Guldur</a></td><td>archerofdolguldu</td><td>Elf</td><td>Ranger 20/Arcane Archer 40</td><td>4314</td><td>234.0</td><td></td></tr>
+<tr><td><a href="../creatures/archerofdolgu001.html">Shadow Walker</a></td><td>archerofdolgu001</td><td>Elf</td><td>Rogue 20/Shadowdancer 30</td><td>4310</td><td>264.0</td><td></td></tr>
+<tr><td><a href="../creatures/archerofdolgu001.html">Shadow Walker</a></td><td>archerofdolgu001</td><td>Elf</td><td>Rogue 20/Shadowdancer 30</td><td>4310</td><td>264.0</td><td></td></tr>
+<tr><td><a href="../creatures/archerofdolgu001.html">Shadow Walker</a></td><td>archerofdolgu001</td><td>Elf</td><td>Rogue 20/Shadowdancer 30</td><td>4310</td><td>264.0</td><td></td></tr></tbody></table>
+<h2>Encounters</h2>
+<table class="data"><thead><tr><th>Name</th><th>ResRef</th><th>Tag</th><th>Max</th><th>Diff</th><th>Spawn pool</th></tr></thead><tbody><tr><td>zombie dol gur</td><td>zombiedolgur</td><td>zombiedolgur</td><td>2</td><td>4</td><td><a href="../creatures/zombieofdolguldu.html">Zombie of Dol Guldur</a><small> CR 75.0</small></td></tr></tbody></table>
+<h2>Waypoints</h2>
+<table class="data"><thead><tr><th>Tag</th><th>ResRef</th></tr></thead><tbody><tr><td><code>WP_guldur2mirk</code></td><td></td></tr>
+<tr><td><code>dolgurjump</code></td><td>nw_waypoint001</td></tr>
+<tr><td><code>DolGularcher001</code></td><td>waypoint012</td></tr>
+<tr><td><code>DolGularcher002</code></td><td>waypoint012</td></tr>
+<tr><td><code>DolGularcher003</code></td><td>waypoint012</td></tr>
+<tr><td><code>DolGularcher004</code></td><td>waypoint012</td></tr>
+<tr><td><code>DolGularcher005</code></td><td>waypoint012</td></tr>
+<tr><td><code>DolGularcher006</code></td><td>waypoint012</td></tr>
+<tr><td><code>DolGulSW001</code></td><td>waypoint013</td></tr>
+<tr><td><code>DolGulSW004</code></td><td>waypoint013</td></tr>
+<tr><td><code>DolGulSW005</code></td><td>waypoint013</td></tr>
+<tr><td><code>DolGulSW006</code></td><td>waypoint013</td></tr>
+<tr><td><code>DolGulSW007</code></td><td>waypoint013</td></tr>
+<tr><td><code>WP_fromRohosgobel</code></td><td>nw_waypoint001</td></tr>
+<tr><td><code>Keeper001</code></td><td>nw_waypoint001</td></tr>
+<tr><td><code>Keeper002</code></td><td>nw_waypoint001</td></tr>
+<tr><td><code>ShadowLord001</code></td><td>nw_waypoint001</td></tr>
+<tr><td><code>WP_inner2dolgulder</code></td><td></td></tr></tbody></table>
+  </main>
+  <footer>generated by nwn-wiki</footer>
+</body>
+</html>

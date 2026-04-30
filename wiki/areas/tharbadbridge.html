@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Tharbad Bridge</title>
+  <link rel="stylesheet" href="../assets/style.css">
+</head>
+<body>
+  <header class="site-header">
+    <a class="brand" href="../index.html">Module Wiki</a>
+    <nav>
+      <a href="../index.html">Map</a>
+      <a href="../areas/index.html">Areas</a>
+      <a href="../creatures/index.html">Creatures</a>
+      <a href="../items/index.html">Items</a>
+      <a href="../stores/index.html">Stores</a>
+      <a href="../factions.html">Factions</a>
+      <a href="../journal.html">Journal</a>
+    </nav>
+  </header>
+  <main>
+<h1>Tharbad Bridge</h1>
+<dl class="meta"><dt>ResRef</dt><dd>tharbadbridge</dd><dt>Tag</dt><dd>TharbadBridge</dd><dt>Tileset</dt><dd>tcn01</dd><dt>Size</dt><dd>15×10 tiles</dd><dt>OnEnter</dt><dd></dd><dt>OnExit</dt><dd>cleanup</dd><dt>OnHeartbeat</dt><dd></dd><dt>OnUserDefined</dt><dd></dd></dl>
+<h2>Outgoing transitions</h2>
+<table class="data"><thead><tr><th>Kind</th><th>Label</th><th>Destination</th><th>Waypoint tag</th></tr></thead><tbody><tr><td>trigger</td><td>tharbad2tharbadwest</td><td><a href="tharbadwest001.html">Tharbad (West)</a></td><td><code>WP_tharbadwest2bridge</code></td></tr>
+<tr><td>trigger</td><td>bridge2tharbadeast</td><td><a href="thardbadeast.html">Tharbad (East)</a></td><td><code>WP_tharbadeast2bridge</code></td></tr>
+<tr><td>door</td><td>tharbad2stink</td><td><em>(unresolved waypoint <code>stink2tharbad</code>)</em></td><td><code>stink2tharbad</code></td></tr></tbody></table>
+<h2>Incoming transitions</h2>
+<table class="data"><thead><tr><th>Kind</th><th>From</th><th>Label</th></tr></thead><tbody><tr><td>trigger</td><td><a href="tharbadwest001.html">Tharbad (West)</a></td><td>tharbadwest2bridge</td></tr>
+<tr><td>trigger</td><td><a href="thardbadeast.html">Tharbad (East)</a></td><td>tharbadeast2bridge</td></tr></tbody></table>
+<h2>NPCs</h2>
+<table class="data"><thead><tr><th>Name</th><th>ResRef</th><th>Race</th><th>Class</th><th>HP</th><th>CR</th><th>Conversation</th></tr></thead><tbody><tr><td>Tharbad Guard</td><td>luskanite001</td><td>Human</td><td>Fighter 6</td><td>52</td><td>4.0</td><td>tharbadguard</td></tr>
+<tr><td>Tharbad Guard</td><td>luskanite001</td><td>Human</td><td>Fighter 6</td><td>52</td><td>4.0</td><td>tharbadguard</td></tr>
+<tr><td>A Deck Swabby</td><td>adeckswabby</td><td>Human</td><td>Commoner 1</td><td>3</td><td>0.25</td><td></td></tr>
+<tr><td>A Deck Swabby</td><td>adeckswabby</td><td>Human</td><td>Commoner 1</td><td>3</td><td>0.25</td><td></td></tr>
+<tr><td>A Deck Swabby</td><td>adeckswabby</td><td>Human</td><td>Commoner 1</td><td>3</td><td>0.25</td><td></td></tr>
+<tr><td>A Deck Swabby</td><td>adeckswabby</td><td>Human</td><td>Commoner 1</td><td>3</td><td>0.25</td><td></td></tr>
+<tr><td>A Hungry Refugee</td><td>ahungryrefuge001</td><td>Human</td><td>Commoner 1</td><td>3</td><td>0.25</td><td>hungrypeas</td></tr>
+<tr><td>A Hungry Refugee</td><td>ahungryrefuge002</td><td>Human</td><td>Commoner 1</td><td>3</td><td>0.25</td><td>hungrypeas</td></tr>
+<tr><td>A Hungry Refugee</td><td>ahungryrefuge003</td><td>Human</td><td>Commoner 1</td><td>3</td><td>0.25</td><td>hungrypeas</td></tr>
+<tr><td>A Hungry Refugee</td><td>ahungryrefugee</td><td>Human</td><td>Commoner 1</td><td>3</td><td>0.25</td><td>hungrypeas</td></tr>
+<tr><td>A Hungry Refugee</td><td>malekid002</td><td>Human</td><td>Commoner 1</td><td>2</td><td>0.25</td><td>hungrypeas</td></tr>
+<tr><td>A Hungry Refugee</td><td>oldman001</td><td>Human</td><td>Commoner 1</td><td>2</td><td>0.25</td><td>hungrypeas</td></tr>
+<tr><td>A Hungry Refugee</td><td>oldwoman001</td><td>Human</td><td>Commoner 1</td><td>2</td><td>0.25</td><td>hungrypeas</td></tr>
+<tr><td>A Hungry Refugee</td><td>femalekid002</td><td>Human</td><td>Commoner 1</td><td>2</td><td>0.25</td><td>hungrypeas</td></tr>
+<tr><td>A Hungry Refugee</td><td>ahungryrefuge001</td><td>Human</td><td>Commoner 1</td><td>3</td><td>0.25</td><td>hungrypeas</td></tr>
+<tr><td>A Hungry Refugee</td><td>ahungryrefuge002</td><td>Human</td><td>Commoner 1</td><td>3</td><td>0.25</td><td>hungrypeas</td></tr>
+<tr><td>A Hungry Refugee</td><td>ahungryrefuge003</td><td>Human</td><td>Commoner 1</td><td>3</td><td>0.25</td><td>hungrypeas</td></tr>
+<tr><td>A Hungry Refugee</td><td>ahungryrefugee</td><td>Human</td><td>Commoner 1</td><td>3</td><td>0.25</td><td>hungrypeas</td></tr>
+<tr><td>A Hungry Refugee</td><td>femalekid002</td><td>Human</td><td>Commoner 1</td><td>2</td><td>0.25</td><td>hungrypeas</td></tr>
+<tr><td>A Hungry Refugee</td><td>malekid002</td><td>Human</td><td>Commoner 1</td><td>2</td><td>0.25</td><td>hungrypeas</td></tr>
+<tr><td>A Hungry Refugee</td><td>oldman001</td><td>Human</td><td>Commoner 1</td><td>2</td><td>0.25</td><td>hungrypeas</td></tr>
+<tr><td>A Hungry Refugee</td><td>oldwoman001</td><td>Human</td><td>Commoner 1</td><td>2</td><td>0.25</td><td>hungrypeas</td></tr>
+<tr><td>A Hungry Refugee</td><td>ahungryrefuge001</td><td>Human</td><td>Commoner 1</td><td>3</td><td>0.25</td><td>hungrypeas</td></tr>
+<tr><td>A Hungry Refugee</td><td>ahungryrefuge003</td><td>Human</td><td>Commoner 1</td><td>3</td><td>0.25</td><td>hungrypeas</td></tr>
+<tr><td>A Hungry Refugee</td><td>femalekid002</td><td>Human</td><td>Commoner 1</td><td>2</td><td>0.25</td><td>hungrypeas</td></tr>
+<tr><td>A Hungry Refugee</td><td>oldwoman001</td><td>Human</td><td>Commoner 1</td><td>2</td><td>0.25</td><td>hungrypeas</td></tr>
+<tr><td>A Hungry Refugee</td><td>oldman001</td><td>Human</td><td>Commoner 1</td><td>2</td><td>0.25</td><td>hungrypeas</td></tr>
+<tr><td>A Hungry Refugee</td><td>femalekid002</td><td>Human</td><td>Commoner 1</td><td>2</td><td>0.25</td><td>hungrypeas</td></tr>
+<tr><td>A Hungry Refugee</td><td>malekid002</td><td>Human</td><td>Commoner 1</td><td>2</td><td>0.25</td><td>hungrypeas</td></tr>
+<tr><td>Andrick Webber</td><td>humsailor001</td><td>Human</td><td>Commoner 1</td><td>3</td><td>0.25</td><td>andrick2</td></tr></tbody></table>
+<h2>Waypoints</h2>
+<table class="data"><thead><tr><th>Tag</th><th>ResRef</th></tr></thead><tbody><tr><td><code>WP_tharbad2tharbadwest</code></td><td></td></tr>
+<tr><td><code>WP_bridge2tharbadeast</code></td><td></td></tr>
+<tr><td><code>callrisexit</code></td><td>nw_waypoint001</td></tr>
+<tr><td><code>tharenter</code></td><td>nw_waypoint001</td></tr>
+<tr><td><code>WP_Thar2Homel</code></td><td>nw_waypoint001</td></tr></tbody></table>
+  </main>
+  <footer>generated by nwn-wiki</footer>
+</body>
+</html>
