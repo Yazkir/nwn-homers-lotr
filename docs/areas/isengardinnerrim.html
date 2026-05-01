@@ -23,8 +23,12 @@
 <dl class="meta"><dt>ResRef</dt><dd>isengardinnerrim</dd><dt>Tag</dt><dd>IsengardInnerRim</dd><dt>Tileset</dt><dd>tcn01</dd><dt>Size</dt><dd>15×15 tiles</dd><dt>OnEnter</dt><dd>d_cleartrash</dd><dt>OnExit</dt><dd>d_purge</dd><dt>OnHeartbeat</dt><dd></dd><dt>OnUserDefined</dt><dd></dd></dl>
 <h2>Outgoing transitions</h2>
 <table class="data"><thead><tr><th>Kind</th><th>Label</th><th>Destination</th><th>Waypoint tag</th></tr></thead><tbody><tr><td>door</td><td>isengin2isenout</td><td><a href="isengardouterrim.html">Isengard (Outerrim)</a></td><td><code>WP_isenout2isenin</code></td></tr>
-<tr><td>door</td><td>isen2orth</td><td><em>(unresolved waypoint <code>orth2isen</code>)</em></td><td><code>orth2isen</code></td></tr>
-<tr><td>door</td><td>inner2vault</td><td><em>(unresolved waypoint <code>vault2isen</code>)</em></td><td><code>vault2isen</code></td></tr></tbody></table>
+<tr><td>door</td><td>isen2orth</td><td><a href="toweroforthanc.html">Tower of Orthanc</a></td><td><code>orth2isen</code></td></tr>
+<tr><td>door</td><td>inner2vault</td><td><a href="isengardmagicroo.html">Isengard (Magic Room)</a></td><td><code>vault2isen</code></td></tr></tbody></table>
+<h2>Incoming transitions</h2>
+<table class="data"><thead><tr><th>Kind</th><th>From</th><th>Label</th></tr></thead><tbody><tr><td>trigger</td><td><a href="isengardouterrim.html">Isengard (Outerrim)</a></td><td>isenout2isenin</td></tr>
+<tr><td>door</td><td><a href="isengardmagicroo.html">Isengard (Magic Room)</a></td><td>vault2isen</td></tr>
+<tr><td>door</td><td><a href="toweroforthanc.html">Tower of Orthanc</a></td><td>orth2isen</td></tr></tbody></table>
 <h2>NPCs</h2>
 <table class="data"><thead><tr><th>Name</th><th>ResRef</th><th>Race</th><th>Class</th><th>HP</th><th>CR</th><th>Conversation</th></tr></thead><tbody><tr><td><a href="../creatures/uthgard006.html">Dunland Shaman</a></td><td>uthgard006</td><td>Human</td><td>Barbarian 15/Druid 35</td><td>1200</td><td>80.0</td><td></td></tr>
 <tr><td><a href="../creatures/urukai015.html">White Hand Enervator</a></td><td>urukai015</td><td>Half-Orc</td><td>Cleric 30</td><td>650</td><td>47.0</td><td></td></tr>

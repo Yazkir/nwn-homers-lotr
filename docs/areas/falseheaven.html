@@ -22,8 +22,11 @@
 <h1>Númenor:  Noirinan</h1>
 <dl class="meta"><dt>ResRef</dt><dd>falseheaven</dd><dt>Tag</dt><dd>FalseHeaven</dd><dt>Tileset</dt><dd>tic01</dd><dt>Size</dt><dd>10×13 tiles</dd><dt>OnEnter</dt><dd>ent</dd><dt>OnExit</dt><dd>ext</dd><dt>OnHeartbeat</dt><dd></dd><dt>OnUserDefined</dt><dd></dd></dl>
 <h2>Outgoing transitions</h2>
-<table class="data"><thead><tr><th>Kind</th><th>Label</th><th>Destination</th><th>Waypoint tag</th></tr></thead><tbody><tr><td>door</td><td>EnterHeavenHeavensFoundry</td><td><em>(unresolved waypoint <code>ExitHeavenHeavensFoundry</code>)</em></td><td><code>ExitHeavenHeavensFoundry</code></td></tr>
-<tr><td>door</td><td>ExitHeavenFalseHeaven</td><td><em>(unresolved waypoint <code>EnterHeavenFalseHeaven</code>)</em></td><td><code>EnterHeavenFalseHeaven</code></td></tr></tbody></table>
+<table class="data"><thead><tr><th>Kind</th><th>Label</th><th>Destination</th><th>Waypoint tag</th></tr></thead><tbody><tr><td>door</td><td>EnterHeavenHeavensFoundry</td><td><a href="heavensfoundry.html">Númenor:  The Great Forge Of Númenor</a></td><td><code>ExitHeavenHeavensFoundry</code></td></tr>
+<tr><td>door</td><td>ExitHeavenFalseHeaven</td><td><a href="heavensdisdain.html">Númenor:  Arnenelos</a></td><td><code>EnterHeavenFalseHeaven</code></td></tr></tbody></table>
+<h2>Incoming transitions</h2>
+<table class="data"><thead><tr><th>Kind</th><th>From</th><th>Label</th></tr></thead><tbody><tr><td>door</td><td><a href="heavensdisdain.html">Númenor:  Arnenelos</a></td><td>EnterHeavenFalseHeaven</td></tr>
+<tr><td>door</td><td><a href="heavensfoundry.html">Númenor:  The Great Forge Of Númenor</a></td><td>ExitHeavenHeavensFoundry</td></tr></tbody></table>
 <h2>Encounters</h2>
 <table class="data"><thead><tr><th>Name</th><th>ResRef</th><th>Tag</th><th>Max</th><th>Diff</th><th>Spawn pool</th></tr></thead><tbody><tr><td>Sommanus</td><td>sommanus</td><td>Sommanus</td><td>1</td><td>1</td><td><a href="../creatures/summanus.html">Summanus</a><small> CR 2864.0</small></td></tr>
 <tr><td>Storm Raider</td><td>stormraider</td><td>StormRaider</td><td>2</td><td>3</td><td><a href="../creatures/nathanu014.html">Númenorian Barbaric Warlord</a><small> CR 1028.0</small></td></tr>

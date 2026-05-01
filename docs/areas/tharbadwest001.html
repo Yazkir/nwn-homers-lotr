@@ -23,11 +23,14 @@
 <dl class="meta"><dt>ResRef</dt><dd>tharbadwest001</dd><dt>Tag</dt><dd>TharbadWest</dd><dt>Tileset</dt><dd>tcn01</dd><dt>Size</dt><dd>12×15 tiles</dd><dt>OnEnter</dt><dd></dd><dt>OnExit</dt><dd>cleanup</dd><dt>OnHeartbeat</dt><dd></dd><dt>OnUserDefined</dt><dd></dd></dl>
 <h2>Outgoing transitions</h2>
 <table class="data"><thead><tr><th>Kind</th><th>Label</th><th>Destination</th><th>Waypoint tag</th></tr></thead><tbody><tr><td>trigger</td><td>tharbadwest2bridge</td><td><a href="tharbadbridge.html">Tharbad Bridge</a></td><td><code>WP_tharbad2tharbadwest</code></td></tr>
-<tr><td>door</td><td>tharbad2theglass</td><td><em>(unresolved waypoint <code>elvendglass2tharbad</code>)</em></td><td><code>elvendglass2tharbad</code></td></tr>
-<tr><td>door</td><td>tharbad2alatar</td><td><em>(unresolved waypoint <code>alatar2tharbad</code>)</em></td><td><code>alatar2tharbad</code></td></tr>
+<tr><td>door</td><td>tharbad2theglass</td><td><a href="theelvenglassinn.html">The Elven Glass Inn</a></td><td><code>elvendglass2tharbad</code></td></tr>
+<tr><td>door</td><td>tharbad2alatar</td><td><a href="towerofalatar.html">Tower of Alatar</a></td><td><code>alatar2tharbad</code></td></tr>
 <tr><td>door</td><td>thardbadwest2greenway</td><td><a href="greenwaysoutheas.html">Greenway (SouthEast)</a></td><td><code>WP_greenway2tharbad</code></td></tr></tbody></table>
 <h2>Incoming transitions</h2>
-<table class="data"><thead><tr><th>Kind</th><th>From</th><th>Label</th></tr></thead><tbody><tr><td>trigger</td><td><a href="tharbadbridge.html">Tharbad Bridge</a></td><td>tharbad2tharbadwest</td></tr>
+<table class="data"><thead><tr><th>Kind</th><th>From</th><th>Label</th></tr></thead><tbody><tr><td>trigger</td><td><a href="greenwaysoutheas.html">Greenway (SouthEast)</a></td><td>greenway2tharbad</td></tr>
+<tr><td>trigger</td><td><a href="tharbadbridge.html">Tharbad Bridge</a></td><td>tharbad2tharbadwest</td></tr>
+<tr><td>door</td><td><a href="theelvenglassinn.html">The Elven Glass Inn</a></td><td>elvendglass2tharbad</td></tr>
+<tr><td>door</td><td><a href="towerofalatar.html">Tower of Alatar</a></td><td>alatar2tharbad</td></tr>
 <tr><td>door</td><td><a href="towerofalatar.html">Tower of Alatar</a></td><td>alatarden2tharbad</td></tr></tbody></table>
 <h2>NPCs</h2>
 <table class="data"><thead><tr><th>Name</th><th>ResRef</th><th>Race</th><th>Class</th><th>HP</th><th>CR</th><th>Conversation</th></tr></thead><tbody><tr><td>Tharbad Guard</td><td>luskanite001</td><td>Human</td><td>Fighter 6</td><td>52</td><td>4.0</td><td>tharbadguard</td></tr>

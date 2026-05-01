@@ -23,8 +23,11 @@
 <dl class="meta"><dt>ResRef</dt><dd>area010</dd><dt>Tag</dt><dd>Area001</dd><dt>Tileset</dt><dd>tdc01</dd><dt>Size</dt><dd>7×15 tiles</dd><dt>OnEnter</dt><dd>d_cleartrash</dd><dt>OnExit</dt><dd>d_purge</dd><dt>OnHeartbeat</dt><dd></dd><dt>OnUserDefined</dt><dd></dd></dl>
 <h2>Outgoing transitions</h2>
 <table class="data"><thead><tr><th>Kind</th><th>Label</th><th>Destination</th><th>Waypoint tag</th></tr></thead><tbody><tr><td>door</td><td>battleplaintemple</td><td><em>(unresolved waypoint <code>DagBPtemp</code>)</em></td><td><code>DagBPtemp</code></td></tr>
-<tr><td>door</td><td>BPtempleboss1</td><td><em>(unresolved waypoint <code>BPtempleboss2</code>)</em></td><td><code>BPtempleboss2</code></td></tr>
-<tr><td>door</td><td>BPtempleboss2</td><td><em>(unresolved waypoint <code>BPtempleboss1</code>)</em></td><td><code>BPtempleboss1</code></td></tr></tbody></table>
+<tr><td>door</td><td>BPtempleboss1</td><td><a href="area010.html">Temple of Nazgul</a></td><td><code>BPtempleboss2</code></td></tr>
+<tr><td>door</td><td>BPtempleboss2</td><td><a href="area010.html">Temple of Nazgul</a></td><td><code>BPtempleboss1</code></td></tr></tbody></table>
+<h2>Incoming transitions</h2>
+<table class="data"><thead><tr><th>Kind</th><th>From</th><th>Label</th></tr></thead><tbody><tr><td>door</td><td><a href="area010.html">Temple of Nazgul</a></td><td>BPtempleboss1</td></tr>
+<tr><td>door</td><td><a href="area010.html">Temple of Nazgul</a></td><td>BPtempleboss2</td></tr></tbody></table>
 <h2>Encounters</h2>
 <table class="data"><thead><tr><th>Name</th><th>ResRef</th><th>Tag</th><th>Max</th><th>Diff</th><th>Spawn pool</th></tr></thead><tbody><tr><td>Mazgul</td><td>mazgul001</td><td>Mazgul</td><td>1</td><td>1</td><td><a href="../creatures/thundergut.html">Nazgul</a><small> CR 249.0</small></td></tr>
 <tr><td>Great Bkack</td><td>greatbkack</td><td>GreatBkack</td><td>1</td><td>4</td><td><a href="../creatures/epicblackdragon.html">Great Black Dragon</a><small> CR 126.0</small></td></tr>

@@ -22,8 +22,11 @@
 <h1>Brandywine Inn</h1>
 <dl class="meta"><dt>ResRef</dt><dd>brandywineinn</dd><dt>Tag</dt><dd>BrandywineInn</dd><dt>Tileset</dt><dd>tin01</dd><dt>Size</dt><dd>8×8 tiles</dd><dt>OnEnter</dt><dd></dd><dt>OnExit</dt><dd>cleanup</dd><dt>OnHeartbeat</dt><dd></dd><dt>OnUserDefined</dt><dd></dd></dl>
 <h2>Outgoing transitions</h2>
-<table class="data"><thead><tr><th>Kind</th><th>Label</th><th>Destination</th><th>Waypoint tag</th></tr></thead><tbody><tr><td>door</td><td>brandy12brandy2</td><td><em>(unresolved waypoint <code>brandyinn2to1</code>)</em></td><td><code>brandyinn2to1</code></td></tr>
-<tr><td>door</td><td>Brandy2bridge</td><td><em>(unresolved waypoint <code>bridge2brandy</code>)</em></td><td><code>bridge2brandy</code></td></tr></tbody></table>
+<table class="data"><thead><tr><th>Kind</th><th>Label</th><th>Destination</th><th>Waypoint tag</th></tr></thead><tbody><tr><td>door</td><td>brandy12brandy2</td><td><a href="brandywinesecflo.html">Brandywine Inn : Second Floor</a></td><td><code>brandyinn2to1</code></td></tr>
+<tr><td>door</td><td>Brandy2bridge</td><td><a href="brandywinebridge.html">Brandywine Bridge</a></td><td><code>bridge2brandy</code></td></tr></tbody></table>
+<h2>Incoming transitions</h2>
+<table class="data"><thead><tr><th>Kind</th><th>From</th><th>Label</th></tr></thead><tbody><tr><td>door</td><td><a href="brandywinebridge.html">Brandywine Bridge</a></td><td>bridge2brandy</td></tr>
+<tr><td>door</td><td><a href="brandywinesecflo.html">Brandywine Inn : Second Floor</a></td><td>brandyinn2to1</td></tr></tbody></table>
 <h2>NPCs</h2>
 <table class="data"><thead><tr><th>Name</th><th>ResRef</th><th>Race</th><th>Class</th><th>HP</th><th>CR</th><th>Conversation</th></tr></thead><tbody><tr><td><a href="../creatures/perry.html">Perry Blimeaf</a></td><td>perry</td><td>Halfling</td><td>Rogue 5/Barbarian 5</td><td>72</td><td>7.0</td><td>store002</td></tr>
 <tr><td><a href="../creatures/part.html">Part Willey</a></td><td>part</td><td>Human</td><td>Fighter 3/Barbarian 6</td><td>78</td><td>7.0</td><td>brandywine1</td></tr>

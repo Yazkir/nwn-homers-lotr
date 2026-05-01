@@ -24,12 +24,14 @@
 <h2>Outgoing transitions</h2>
 <table class="data"><thead><tr><th>Kind</th><th>Label</th><th>Destination</th><th>Waypoint tag</th></tr></thead><tbody><tr><td>trigger</td><td>oldforest2toms</td><td><a href="alterwald.html">Old Forest</a></td><td><code>tomsfromoldforest</code></td></tr>
 <tr><td>trigger</td><td>oldforest2buckland</td><td><a href="buckland.html">Buckland</a></td><td><code>bucklandfromoldforest</code></td></tr>
-<tr><td>door</td><td>OldForestExit2</td><td><em>(unresolved waypoint <code>OldForestExit1</code>)</em></td><td><code>OldForestExit1</code></td></tr>
+<tr><td>door</td><td>OldForestExit2</td><td><a href="oldforest001.html">Old Forest</a></td><td><code>OldForestExit1</code></td></tr>
 <tr><td>door</td><td>DispairDoor</td><td><em>(unresolved waypoint <code>DispairPort</code>)</em></td><td><code>DispairPort</code></td></tr>
-<tr><td>door</td><td>OldForestExit1</td><td><em>(unresolved waypoint <code>OldForestExit2</code>)</em></td><td><code>OldForestExit2</code></td></tr></tbody></table>
+<tr><td>door</td><td>OldForestExit1</td><td><a href="oldforest001.html">Old Forest</a></td><td><code>OldForestExit2</code></td></tr></tbody></table>
 <h2>Incoming transitions</h2>
 <table class="data"><thead><tr><th>Kind</th><th>From</th><th>Label</th></tr></thead><tbody><tr><td>trigger</td><td><a href="alterwald.html">Old Forest</a></td><td>tom2oldforest</td></tr>
-<tr><td>trigger</td><td><a href="buckland.html">Buckland</a></td><td>buckland2oldforest</td></tr></tbody></table>
+<tr><td>trigger</td><td><a href="buckland.html">Buckland</a></td><td>buckland2oldforest</td></tr>
+<tr><td>door</td><td><a href="oldforest001.html">Old Forest</a></td><td>OldForestExit2</td></tr>
+<tr><td>door</td><td><a href="oldforest001.html">Old Forest</a></td><td>OldForestExit1</td></tr></tbody></table>
 <h2>Encounters</h2>
 <table class="data"><thead><tr><th>Name</th><th>ResRef</th><th>Tag</th><th>Max</th><th>Diff</th><th>Spawn pool</th></tr></thead><tbody><tr><td>Greater Giant Spider</td><td>greatergiantspid</td><td>GreaterGiantSpider</td><td>6</td><td>4</td><td><a href="../creatures/spidgiant002.html">White Widow</a><small> CR 39.0</small></td></tr>
 <tr><td>Greater Giant Spider</td><td>greatergiantspid</td><td>GreaterGiantSpider</td><td>6</td><td>4</td><td><a href="../creatures/spidgiant002.html">White Widow</a><small> CR 39.0</small></td></tr>

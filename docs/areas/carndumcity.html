@@ -22,13 +22,20 @@
 <h1>Carn Dum: City</h1>
 <dl class="meta"><dt>ResRef</dt><dd>carndumcity</dd><dt>Tag</dt><dd>CarnDumCity</dd><dt>Tileset</dt><dd>tcn01</dd><dt>Size</dt><dd>18×14 tiles</dd><dt>OnEnter</dt><dd>d_cleartrash</dd><dt>OnExit</dt><dd>d_purge</dd><dt>OnHeartbeat</dt><dd></dd><dt>OnUserDefined</dt><dd></dd></dl>
 <h2>Outgoing transitions</h2>
-<table class="data"><thead><tr><th>Kind</th><th>Label</th><th>Destination</th><th>Waypoint tag</th></tr></thead><tbody><tr><td>door</td><td>carn2temple</td><td><em>(unresolved waypoint <code>temple2carn</code>)</em></td><td><code>temple2carn</code></td></tr>
+<table class="data"><thead><tr><th>Kind</th><th>Label</th><th>Destination</th><th>Waypoint tag</th></tr></thead><tbody><tr><td>door</td><td>carn2temple</td><td><a href="carndumtemple.html">Carn Dum: Temple</a></td><td><code>temple2carn</code></td></tr>
 <tr><td>door</td><td>carncity2carngate</td><td><a href="carndum.html">Carn Dum</a></td><td><code>WP_carndum2gate</code></td></tr>
-<tr><td>door</td><td>carn2smith</td><td><em>(unresolved waypoint <code>smith2carn</code>)</em></td><td><code>smith2carn</code></td></tr>
-<tr><td>door</td><td>carn2adu2</td><td><em>(unresolved waypoint <code>adu2carn2</code>)</em></td><td><code>adu2carn2</code></td></tr>
-<tr><td>door</td><td>carn2adu1</td><td><em>(unresolved waypoint <code>adu2carn1</code>)</em></td><td><code>adu2carn1</code></td></tr>
+<tr><td>door</td><td>carn2smith</td><td><a href="carndumsmithy.html">Carn Dum: Smithy</a></td><td><code>smith2carn</code></td></tr>
+<tr><td>door</td><td>carn2adu2</td><td><a href="carndumthrone.html">Carn Dum: Throne</a></td><td><code>adu2carn2</code></td></tr>
+<tr><td>door</td><td>carn2adu1</td><td><a href="carndumthrone.html">Carn Dum: Throne</a></td><td><code>adu2carn1</code></td></tr>
 <tr><td>door</td><td>DarkStarGuildHouse</td><td><em>(unresolved waypoint <code>darkstarexit</code>)</em></td><td><code>darkstarexit</code></td></tr>
-<tr><td>door</td><td>Carndum2Numerock</td><td><em>(unresolved waypoint <code>Numerock2Carndum</code>)</em></td><td><code>Numerock2Carndum</code></td></tr></tbody></table>
+<tr><td>door</td><td>Carndum2Numerock</td><td><a href="area078.html">Carn Dum: Numerok&#x27;s Den</a></td><td><code>Numerock2Carndum</code></td></tr></tbody></table>
+<h2>Incoming transitions</h2>
+<table class="data"><thead><tr><th>Kind</th><th>From</th><th>Label</th></tr></thead><tbody><tr><td>trigger</td><td><a href="carndum.html">Carn Dum</a></td><td>carndum2gate</td></tr>
+<tr><td>door</td><td><a href="area078.html">Carn Dum: Numerok&#x27;s Den</a></td><td>Numerock2Carndum</td></tr>
+<tr><td>door</td><td><a href="carndumsmithy.html">Carn Dum: Smithy</a></td><td>smith2carn</td></tr>
+<tr><td>door</td><td><a href="carndumtemple.html">Carn Dum: Temple</a></td><td>temple2carn</td></tr>
+<tr><td>door</td><td><a href="carndumthrone.html">Carn Dum: Throne</a></td><td>adu2carn1</td></tr>
+<tr><td>door</td><td><a href="carndumthrone.html">Carn Dum: Throne</a></td><td>adu2carn2</td></tr></tbody></table>
 <h2>NPCs</h2>
 <table class="data"><thead><tr><th>Name</th><th>ResRef</th><th>Race</th><th>Class</th><th>HP</th><th>CR</th><th>Conversation</th></tr></thead><tbody><tr><td><a href="../creatures/drowmage002.html">Black Numenorean Mage</a></td><td>drowmage002</td><td>Elf</td><td>Wizard 30</td><td>760</td><td>50.0</td><td></td></tr>
 <tr><td><a href="../creatures/drowfight024.html">Norfin Thielve&#x27;len</a></td><td>drowfight024</td><td>Elf</td><td>Fighter 20</td><td>540</td><td>40.0</td><td>adas</td></tr>

@@ -23,10 +23,11 @@
 <dl class="meta"><dt>ResRef</dt><dd>greenwaysoutheas</dd><dt>Tag</dt><dd>GreenwaySouthEast</dd><dt>Tileset</dt><dd>ttr01</dd><dt>Size</dt><dd>12×12 tiles</dd><dt>OnEnter</dt><dd></dd><dt>OnExit</dt><dd>cleanup</dd><dt>OnHeartbeat</dt><dd></dd><dt>OnUserDefined</dt><dd></dd></dl>
 <h2>Outgoing transitions</h2>
 <table class="data"><thead><tr><th>Kind</th><th>Label</th><th>Destination</th><th>Waypoint tag</th></tr></thead><tbody><tr><td>trigger</td><td>greenwayse2greenways</td><td><a href="greenwaysouth.html">Greenway (South)</a></td><td><code>WP_greenways2greenwayse</code></td></tr>
-<tr><td>trigger</td><td>greenway2tharbad</td><td><em>(unresolved waypoint <code>thardbadwest2greenway</code>)</em></td><td><code>thardbadwest2greenway</code></td></tr>
-<tr><td>door</td><td>greenway2sharkey</td><td><em>(unresolved waypoint <code>sharkey2greenway</code>)</em></td><td><code>sharkey2greenway</code></td></tr></tbody></table>
+<tr><td>trigger</td><td>greenway2tharbad</td><td><a href="tharbadwest001.html">Tharbad (West)</a></td><td><code>thardbadwest2greenway</code></td></tr>
+<tr><td>door</td><td>greenway2sharkey</td><td><a href="sharkeysmill.html">Sharkey&#x27;s Mill</a></td><td><code>sharkey2greenway</code></td></tr></tbody></table>
 <h2>Incoming transitions</h2>
 <table class="data"><thead><tr><th>Kind</th><th>From</th><th>Label</th></tr></thead><tbody><tr><td>trigger</td><td><a href="greenwaysouth.html">Greenway (South)</a></td><td>greenways2greenwayse</td></tr>
+<tr><td>door</td><td><a href="sharkeysmill.html">Sharkey&#x27;s Mill</a></td><td>sharkey2greenway</td></tr>
 <tr><td>door</td><td><a href="tharbadwest001.html">Tharbad (West)</a></td><td>thardbadwest2greenway</td></tr></tbody></table>
 <h2>Encounters</h2>
 <table class="data"><thead><tr><th>Name</th><th>ResRef</th><th>Tag</th><th>Max</th><th>Diff</th><th>Spawn pool</th></tr></thead><tbody><tr><td>Human, Bandit Group</td><td>nw_humbandit</td><td>NW_HumBandit</td><td>4</td><td>0</td><td>nw_bandit001<small> CR 0.5</small>, nw_bandit002<small> CR 0.5</small>, nw_bandit003<small> CR 1.0</small>, nw_bandit004<small> CR 3.0</small>, nw_bandit005<small> CR 4.0</small></td></tr>

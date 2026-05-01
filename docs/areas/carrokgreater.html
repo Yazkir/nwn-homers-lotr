@@ -22,8 +22,11 @@
 <h1>Carrok: Greater</h1>
 <dl class="meta"><dt>ResRef</dt><dd>carrokgreater</dd><dt>Tag</dt><dd>CarrokGreater</dd><dt>Tileset</dt><dd>tdm01</dd><dt>Size</dt><dd>15×15 tiles</dd><dt>OnEnter</dt><dd>d_cleartrash</dd><dt>OnExit</dt><dd>d_purge</dd><dt>OnHeartbeat</dt><dd></dd><dt>OnUserDefined</dt><dd></dd></dl>
 <h2>Outgoing transitions</h2>
-<table class="data"><thead><tr><th>Kind</th><th>Label</th><th>Destination</th><th>Waypoint tag</th></tr></thead><tbody><tr><td>door</td><td>carrok2ice</td><td><em>(unresolved waypoint <code>ice2carrok</code>)</em></td><td><code>ice2carrok</code></td></tr>
-<tr><td>door</td><td>cagreat2caless</td><td><em>(unresolved waypoint <code>caless2cagreat</code>)</em></td><td><code>caless2cagreat</code></td></tr></tbody></table>
+<table class="data"><thead><tr><th>Kind</th><th>Label</th><th>Destination</th><th>Waypoint tag</th></tr></thead><tbody><tr><td>door</td><td>carrok2ice</td><td><a href="icequeenlair.html">Ice Queen: Lair</a></td><td><code>ice2carrok</code></td></tr>
+<tr><td>door</td><td>cagreat2caless</td><td><a href="carroklesser.html">Carrok: Lesser</a></td><td><code>caless2cagreat</code></td></tr></tbody></table>
+<h2>Incoming transitions</h2>
+<table class="data"><thead><tr><th>Kind</th><th>From</th><th>Label</th></tr></thead><tbody><tr><td>door</td><td><a href="carroklesser.html">Carrok: Lesser</a></td><td>caless2cagreat</td></tr>
+<tr><td>door</td><td><a href="icequeenlair.html">Ice Queen: Lair</a></td><td>ice2carrok</td></tr></tbody></table>
 <h2>Encounters</h2>
 <table class="data"><thead><tr><th>Name</th><th>ResRef</th><th>Tag</th><th>Max</th><th>Diff</th><th>Spawn pool</th></tr></thead><tbody><tr><td>Carrokinner</td><td>carrokmixed001</td><td>Carrokinner</td><td>4</td><td>3</td><td><a href="../creatures/gntfrost001.html">Carrok Lesser Guard</a><small> CR 11.0</small>, <a href="../creatures/gntfrost002.html">Carrok Guardian</a><small> CR 13.0</small>, <a href="../creatures/wolfwint001.html">Carrok Ice Hound</a><small> CR 13.0</small>, <a href="../creatures/gntfrost003.html">Carrok Elite Guard</a><small> CR 16.0</small>, <a href="../creatures/gntfrost005.html">Carrok Healer</a><small> CR 16.0</small>, <a href="../creatures/gntfrost006.html">Carrok Sorcerer</a><small> CR 19.0</small></td></tr>
 <tr><td>Carrokinner</td><td>carrokmixed001</td><td>Carrokinner</td><td>3</td><td>2</td><td><a href="../creatures/gntfrost002.html">Carrok Guardian</a><small> CR 13.0</small>, <a href="../creatures/wolfwint001.html">Carrok Ice Hound</a><small> CR 13.0</small>, <a href="../creatures/gntfrost014.html">Herfugul the Healer</a><small> CR 16.0</small></td></tr>
