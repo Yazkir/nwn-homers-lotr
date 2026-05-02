@@ -48,6 +48,16 @@ per-machine). It points at:
 `nwn-manager` sanitizes the path through `/tmp` before invoking `nwn_erf`,
 so the apostrophe in the filename is no longer an issue.
 
+## Wiki
+
+A browsable reference for all areas, creatures, items, quests, and scripts is
+published at:
+
+**<https://mrprice22.github.io/nwn-homers-lotr/index.html>**
+
+The wiki is generated from `unpacked/` via `nwn-manager wiki` and deployed
+separately; the `wiki/` directory is gitignored.
+
 ## Prerequisites
 
 `nasher`, `nwn_gff`, `nwn_script_comp`, and `python3` (for `wiki`) must be
