@@ -1,0 +1,79 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Conversation mystics</title>
+  <link rel="stylesheet" href="../assets/style.css">
+</head>
+<body>
+  <header class="site-header">
+    <a class="brand" href="../index.html">Module Wiki</a>
+    <nav>
+      <a href="../index.html">Map</a>
+      <a href="../areas/index.html">Areas</a>
+      <a href="../creatures/index.html">Creatures</a>
+      <a href="../items/index.html">Items</a>
+      <a href="../stores/index.html">Stores</a>
+      <a href="../conversations/index.html">Conversations</a>
+      <a href="../factions.html">Factions</a>
+      <a href="../journal.html">Journal</a>
+    </nav>
+  </header>
+  <main>
+<h1>Conversation: <code>mystics</code></h1>
+<dl class="meta">
+<dt>NPC lines</dt><dd>12</dd>
+<dt>PC replies</dt><dd>12</dd>
+<dt>NumWords</dt><dd>515</dd>
+<dt>OnEnd</dt><dd><code>nw_walk_wp</code></dd>
+<dt>OnAbort</dt><dd><code>nw_walk_wp</code></dd>
+</dl>
+<h2>Triggered by</h2><ul class="dlg-callers">
+<li>NPC <a href="../creatures/oilahthemystic.html">Oliah The Mystic</a> <code>oilahthemystic</code> — in <a href="../areas/area006.html">Esgaroth (Lake Town)</a></li>
+</ul>
+<h2>Scripts referenced</h2>
+<table class="data"><thead><tr><th>Script</th><th>Slot</th><th>In module</th><th>Notes</th></tr></thead><tbody><tr><td><code>sc_041</code></td><td>active</td><td>✓</td><td></td></tr>
+<tr><td><code>at_068</code></td><td>action</td><td>✓</td><td></td></tr>
+<tr><td><code>at_065</code></td><td>action</td><td>✓</td><td></td></tr>
+<tr><td><code>at_066</code></td><td>action</td><td>✓</td><td></td></tr>
+<tr><td><code>at_069</code></td><td>action</td><td>✓</td><td></td></tr>
+<tr><td><code>at_067</code></td><td>action</td><td>✓</td><td></td></tr>
+<tr><td><code>sc_038</code></td><td>active</td><td>✓</td><td></td></tr>
+<tr><td><code>sc_039</code></td><td>active</td><td>✓</td><td></td></tr>
+<tr><td><code>sc_040</code></td><td>active</td><td>✓</td><td></td></tr></tbody></table>
+<h2>Starting entries</h2><ul>
+<li><a href="#e11">entry #11</a> <small class="muted">(if <code>sc_038</code>)</small> — I told you to be gone! You are not the one in the prophesy.</li>
+<li><a href="#e8">entry #8</a> <small class="muted">(if <code>sc_039</code>)</small> — Have you put to rest my sister at last?</li>
+<li><a href="#e7">entry #7</a> <small class="muted">(if <code>sc_040</code>)</small> — Ahh a welcome sight &lt;Lord/Lady&gt; &lt;FirstName&gt;, a chance meeting I doubt very much.…</li>
+<li><a href="#e0">entry #0</a> — The Planets aling our meeting, this is good fortune indeed. I could use an adven…</li>
+</ul>
+<h2>NPC lines (entries)</h2>
+<div class="dlg-node entry" id="e0"><div class="dlg-head"><span class="dlg-id">entry #0</span></div><div class="dlg-text">The Planets aling our meeting, this is good fortune indeed. I could use an adventurer such as yourself! Speak quick your answer, will you aid me?</div><div class="dlg-links"><a href="#r2">→ reply #2</a> · <a href="#r0">→ reply #0</a></div></div>
+<div class="dlg-node entry" id="e1"><div class="dlg-head"><span class="dlg-id">entry #1</span></div><div class="dlg-text">Then you are not the one the prophets fortell. Be gone!</div><div class="dlg-links"><a href="#r1">→ reply #1</a></div></div>
+<div class="dlg-node entry" id="e2"><div class="dlg-head"><span class="dlg-id">entry #2</span></div><div class="dlg-text">Excellent! I knew you were the one the prophets fortold! Let us speak quickly for you have precious little time.</div><div class="dlg-links"><a href="#r3">→ reply #3</a></div></div>
+<div class="dlg-node entry" id="e3"><div class="dlg-head"><span class="dlg-id">entry #3</span></div><div class="dlg-text">I have a sister, or shall I say I had a sister... Her name was Anaralia, a powerful Mystic such as myself. Until she met with an untimely demise. While travelling through Mirkwood forrest. Her curiosity got the better of her. And she found a passage to the central south of the forrest. *shudders a moment*</div><div class="dlg-links"><a href="#r4">→ reply #4</a></div></div>
+<div class="dlg-node entry" id="e4"><div class="dlg-head"><span class="dlg-id">entry #4</span></div><div class="dlg-text">Yes indeed. Anaralia sought a dark path through the southern end of Mirkwood. Her demise was at the hands of terrible spiders with unnatural power. It is said they were the spawn of Ungoliant a fearsome spider of the First Age.</div><div class="dlg-links"><a href="#r5">→ reply #5</a></div></div>
+<div class="dlg-node entry" id="e5"><div class="dlg-head"><span class="dlg-id">entry #5</span></div><div class="dlg-text">Ah the worse is to come. The poison and twisted magic of the spiders has made her into an undead Mystic of terrible power. She has all the strengths of the spiders and all the strengths of her previous life as a mystic. Anaralia must be stopped before she gains more power. Even now she plans to rally the spiders to seek more followers. She seeks to raize Lake Town.</div><div class="dlg-links"><a href="#r6">→ reply #6</a></div></div>
+<div class="dlg-node entry" id="e6"><div class="dlg-head"><span class="dlg-id">entry #6</span></div><div class="dlg-text">You help is fortold, seek her out in the South East of Mirkwood, she has made a home among the spiders there.</div><div class="dlg-links"><a href="#r7">→ reply #7</a></div></div>
+<div class="dlg-node entry" id="e7"><div class="dlg-head"><span class="dlg-id">entry #7</span></div><div class="dlg-text">Ahh a welcome sight &lt;Lord/Lady&gt; &lt;FirstName&gt;, a chance meeting I doubt very much. The gods guide your path.</div></div>
+<div class="dlg-node entry" id="e8"><div class="dlg-head"><span class="dlg-id">entry #8</span></div><div class="dlg-text">Have you put to rest my sister at last?</div><div class="dlg-links"><a href="#r10">→ reply #10</a> · <a href="#r8">→ reply #8</a> <small class="muted">(if <code>sc_041</code>)</small></div></div>
+<div class="dlg-node entry" id="e9"><div class="dlg-head"><span class="dlg-id">entry #9</span> <span class="dlg-action">→ <code>at_068</code></span></div><div class="dlg-text">Words fail me, thy deed is great. And you save the lives of countless others. I have a small trinket to grant you for your bravery. It is an ancient heirloom of an age long forgotten. Perhaps you might be able to unlock its mystery. My sight has failed me in divining its purpose. However I can tell you that I have seen strange tidings upon the northern side of Lonely Mountain.</div><div class="dlg-links"><a href="#r9">→ reply #9</a></div></div>
+<div class="dlg-node entry" id="e10"><div class="dlg-head"><span class="dlg-id">entry #10</span></div><div class="dlg-text">Hurry, until she is destroyed Lake Town is in dire peril!</div><div class="dlg-links"><a href="#r11">→ reply #11</a></div></div>
+<div class="dlg-node entry" id="e11"><div class="dlg-head"><span class="dlg-id">entry #11</span></div><div class="dlg-text">I told you to be gone! You are not the one in the prophesy.</div></div>
+<h2>PC replies</h2>
+<div class="dlg-node reply" id="r0"><div class="dlg-head"><span class="dlg-id">reply #0</span> <span class="dlg-action">→ <code>at_065</code></span></div><div class="dlg-text">I think not! I don&#x27;t agree to anything without fully knowing what I pledge to!</div><div class="dlg-links"><a href="#e1">→ entry #1</a></div></div>
+<div class="dlg-node reply" id="r1"><div class="dlg-head"><span class="dlg-id">reply #1</span></div><div class="dlg-text">I shall indeed.</div></div>
+<div class="dlg-node reply" id="r2"><div class="dlg-head"><span class="dlg-id">reply #2</span></div><div class="dlg-text">Yes I shall.</div><div class="dlg-links"><a href="#e2">→ entry #2</a></div></div>
+<div class="dlg-node reply" id="r3"><div class="dlg-head"><span class="dlg-id">reply #3</span></div><div class="dlg-text">Go on.</div><div class="dlg-links"><a href="#e3">→ entry #3</a></div></div>
+<div class="dlg-node reply" id="r4"><div class="dlg-head"><span class="dlg-id">reply #4</span></div><div class="dlg-text">Please continue M&#x27;Lady... If haste is called for I must know how to help.</div><div class="dlg-links"><a href="#e4">→ entry #4</a></div></div>
+<div class="dlg-node reply" id="r5"><div class="dlg-head"><span class="dlg-id">reply #5</span></div><div class="dlg-text">A terible end. I knew the spiders were trecherous but I had no idea.</div><div class="dlg-links"><a href="#e5">→ entry #5</a></div></div>
+<div class="dlg-node reply" id="r6"><div class="dlg-head"><span class="dlg-id">reply #6</span></div><div class="dlg-text">This is grevious indeed, There are those on this World I care not for. But Lake Town is a haven for all weary travellers. I shall not let this come to pass.</div><div class="dlg-links"><a href="#e6">→ entry #6</a></div></div>
+<div class="dlg-node reply" id="r7"><div class="dlg-head"><span class="dlg-id">reply #7</span> <span class="dlg-action">→ <code>at_066</code></span></div><div class="dlg-text">I will Lady Mistic, never fear the foul desicration that pretends to be your sister shall be no more.</div></div>
+<div class="dlg-node reply" id="r8"><div class="dlg-head"><span class="dlg-id">reply #8</span> <span class="dlg-action">→ <code>at_069</code></span></div><div class="dlg-text">The deed is done. I have brought you the heart of you long lost sister. Now perhaps both of you shall gain a much deserved rest.</div><div class="dlg-links"><a href="#e9">→ entry #9</a></div></div>
+<div class="dlg-node reply" id="r9"><div class="dlg-head"><span class="dlg-id">reply #9</span> <span class="dlg-action">→ <code>at_067</code></span></div><div class="dlg-text">My thanks I take my leave.</div></div>
+<div class="dlg-node reply" id="r10"><div class="dlg-head"><span class="dlg-id">reply #10</span></div><div class="dlg-text">Not yet, but soon she will be at peace.</div><div class="dlg-links"><a href="#e10">→ entry #10</a></div></div>
+<div class="dlg-node reply" id="r11"><div class="dlg-head"><span class="dlg-id">reply #11</span></div><div class="dlg-text">I shall.</div></div>
+  </main>
+  <footer>generated by <a href="https://github.com/mrprice22/nwn-manager">nwn-manager</a></footer>
+</body>
+</html>

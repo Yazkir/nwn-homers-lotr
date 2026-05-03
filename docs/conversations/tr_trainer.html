@@ -1,0 +1,69 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Conversation tr_trainer</title>
+  <link rel="stylesheet" href="../assets/style.css">
+</head>
+<body>
+  <header class="site-header">
+    <a class="brand" href="../index.html">Module Wiki</a>
+    <nav>
+      <a href="../index.html">Map</a>
+      <a href="../areas/index.html">Areas</a>
+      <a href="../creatures/index.html">Creatures</a>
+      <a href="../items/index.html">Items</a>
+      <a href="../stores/index.html">Stores</a>
+      <a href="../conversations/index.html">Conversations</a>
+      <a href="../factions.html">Factions</a>
+      <a href="../journal.html">Journal</a>
+    </nav>
+  </header>
+  <main>
+<h1>Conversation: <code>tr_trainer</code></h1>
+<dl class="meta">
+<dt>NPC lines</dt><dd>3</dd>
+<dt>PC replies</dt><dd>12</dd>
+<dt>NumWords</dt><dd>57</dd>
+<dt>OnEnd</dt><dd><code>nw_walk_wp</code></dd>
+<dt>OnAbort</dt><dd><code>tr_done</code></dd>
+</dl>
+<h2>Triggered by</h2><ul class="dlg-callers">
+<li>NPC <a href="../creatures/lvl_alig_trai002.html">Alignment Adjuster</a> <code>lvl_alig_trai002</code> — in <a href="../areas/appearancechange.html">Appearance Changer and Character Modifying Area</a>, <a href="../areas/houseofdispai001.html"><span style="color:#ff7d7d">House of Homer</span></a></li>
+<li>NPC <a href="../creatures/lvl_alig_trainer.html">Alignment Adjuster</a> <code>lvl_alig_trainer</code></li>
+</ul>
+<h2>Scripts referenced</h2>
+<table class="data"><thead><tr><th>Script</th><th>Slot</th><th>In module</th><th>Notes</th></tr></thead><tbody><tr><td><code>tr_done</code></td><td>action</td><td>✓</td><td></td></tr>
+<tr><td><code>shift_chao_evil</code></td><td>action</td><td>✓</td><td></td></tr>
+<tr><td><code>shift_chao_neutr</code></td><td>action</td><td>✓</td><td></td></tr>
+<tr><td><code>shift_chao_good</code></td><td>action</td><td>✓</td><td></td></tr>
+<tr><td><code>shift_neut_evil</code></td><td>action</td><td>✓</td><td></td></tr>
+<tr><td><code>shift_true_neut</code></td><td>action</td><td>✓</td><td></td></tr>
+<tr><td><code>shift_neut_good</code></td><td>action</td><td>✓</td><td></td></tr>
+<tr><td><code>shift_lawevil</code></td><td>action</td><td>✓</td><td></td></tr>
+<tr><td><code>shift_lawneutral</code></td><td>action</td><td>✓</td><td></td></tr>
+<tr><td><code>shift_lawfulgood</code></td><td>action</td><td>✓</td><td></td></tr></tbody></table>
+<h2>Starting entries</h2><ul>
+<li><a href="#e0">entry #0</a> — Greeting here.</li>
+</ul>
+<h2>NPC lines (entries)</h2>
+<div class="dlg-node entry" id="e0"><div class="dlg-head"><span class="dlg-id">entry #0</span></div><div class="dlg-text">Greeting here.</div><div class="dlg-links"><a href="#r1">→ reply #1</a> · <a href="#r0">→ reply #0</a></div></div>
+<div class="dlg-node entry" id="e1"><div class="dlg-head"><span class="dlg-id">entry #1</span></div><div class="dlg-text">player will specify alignment to change to.  These are default alignment settings used on character creation.</div><div class="dlg-links"><a href="#r10">→ reply #10</a> · <a href="#r9">→ reply #9</a> · <a href="#r8">→ reply #8</a> · <a href="#r7">→ reply #7</a> · <a href="#r6">→ reply #6</a> · <a href="#r5">→ reply #5</a> · <a href="#r4">→ reply #4</a> · <a href="#r3">→ reply #3</a> · <a href="#r2">→ reply #2</a> · <a href="#r0">→ child</a></div></div>
+<div class="dlg-node entry" id="e2"><div class="dlg-head"><span class="dlg-id">entry #2</span></div><div class="dlg-text">alignment changed.  ask player for further instructions</div><div class="dlg-links"><a href="#r11">→ reply #11</a> · <a href="#r0">→ child</a></div></div>
+<h2>PC replies</h2>
+<div class="dlg-node reply" id="r0"><div class="dlg-head"><span class="dlg-id">reply #0</span> <span class="dlg-action">→ <code>tr_done</code></span></div><div class="dlg-text">End</div></div>
+<div class="dlg-node reply" id="r1"><div class="dlg-head"><span class="dlg-id">reply #1</span></div><div class="dlg-text">I wish to change my alignment.</div><div class="dlg-links"><a href="#e1">→ entry #1</a></div></div>
+<div class="dlg-node reply" id="r2"><div class="dlg-head"><span class="dlg-id">reply #2</span> <span class="dlg-action">→ <code>shift_chao_evil</code></span></div><div class="dlg-text">Chaotic Evil</div><div class="dlg-links"><a href="#e2">→ child</a></div></div>
+<div class="dlg-node reply" id="r3"><div class="dlg-head"><span class="dlg-id">reply #3</span> <span class="dlg-action">→ <code>shift_chao_neutr</code></span></div><div class="dlg-text">Chaotic Neutral</div><div class="dlg-links"><a href="#e2">→ child</a></div></div>
+<div class="dlg-node reply" id="r4"><div class="dlg-head"><span class="dlg-id">reply #4</span> <span class="dlg-action">→ <code>shift_chao_good</code></span></div><div class="dlg-text">Chaotic Good</div><div class="dlg-links"><a href="#e2">→ child</a></div></div>
+<div class="dlg-node reply" id="r5"><div class="dlg-head"><span class="dlg-id">reply #5</span> <span class="dlg-action">→ <code>shift_neut_evil</code></span></div><div class="dlg-text">Neutral Evil</div><div class="dlg-links"><a href="#e2">→ child</a></div></div>
+<div class="dlg-node reply" id="r6"><div class="dlg-head"><span class="dlg-id">reply #6</span> <span class="dlg-action">→ <code>shift_true_neut</code></span></div><div class="dlg-text">True Neutral</div><div class="dlg-links"><a href="#e2">→ child</a></div></div>
+<div class="dlg-node reply" id="r7"><div class="dlg-head"><span class="dlg-id">reply #7</span> <span class="dlg-action">→ <code>shift_neut_good</code></span></div><div class="dlg-text">Neutral Good</div><div class="dlg-links"><a href="#e2">→ child</a></div></div>
+<div class="dlg-node reply" id="r8"><div class="dlg-head"><span class="dlg-id">reply #8</span> <span class="dlg-action">→ <code>shift_lawevil</code></span></div><div class="dlg-text">Lawful Evil</div><div class="dlg-links"><a href="#e2">→ child</a></div></div>
+<div class="dlg-node reply" id="r9"><div class="dlg-head"><span class="dlg-id">reply #9</span> <span class="dlg-action">→ <code>shift_lawneutral</code></span></div><div class="dlg-text">Lawful neutral</div><div class="dlg-links"><a href="#e2">→ child</a></div></div>
+<div class="dlg-node reply" id="r10"><div class="dlg-head"><span class="dlg-id">reply #10</span> <span class="dlg-action">→ <code>shift_lawfulgood</code></span></div><div class="dlg-text">Lawful Good</div><div class="dlg-links"><a href="#e2">→ entry #2</a></div></div>
+<div class="dlg-node reply" id="r11"><div class="dlg-head"><span class="dlg-id">reply #11</span></div><div class="dlg-text">I wish to change my alignment again.</div><div class="dlg-links"><a href="#e1">→ child</a></div></div>
+  </main>
+  <footer>generated by <a href="https://github.com/mrprice22/nwn-manager">nwn-manager</a></footer>
+</body>
+</html>

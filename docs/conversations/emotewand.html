@@ -1,0 +1,188 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Conversation emotewand</title>
+  <link rel="stylesheet" href="../assets/style.css">
+</head>
+<body>
+  <header class="site-header">
+    <a class="brand" href="../index.html">Module Wiki</a>
+    <nav>
+      <a href="../index.html">Map</a>
+      <a href="../areas/index.html">Areas</a>
+      <a href="../creatures/index.html">Creatures</a>
+      <a href="../items/index.html">Items</a>
+      <a href="../stores/index.html">Stores</a>
+      <a href="../conversations/index.html">Conversations</a>
+      <a href="../factions.html">Factions</a>
+      <a href="../journal.html">Journal</a>
+    </nav>
+  </header>
+  <main>
+<h1>Conversation: <code>emotewand</code></h1>
+<dl class="meta">
+<dt>NPC lines</dt><dd>9</dd>
+<dt>PC replies</dt><dd>61</dd>
+<dt>NumWords</dt><dd>161</dd>
+<dt>OnEnd</dt><dd><code>nw_walk_wp</code></dd>
+<dt>OnAbort</dt><dd><code>nw_walk_wp</code></dd>
+</dl>
+<h2>Triggered by</h2><ul class="dlg-callers">
+<li><span class="badge global">global</span> Module <code>OnActivateItem</code> via script <code>dmfi_activate</code></li>
+<li><span class="badge global">global</span> Module <code>OnPlayerRest</code> via script <code>on_mod_rest</code></li>
+</ul>
+<h2>Teleport destinations</h2>
+<table class="data"><thead><tr><th>Waypoint / object tag</th><th>Destination area</th><th>Via script</th><th>From node</th></tr></thead><tbody><tr><td><code>darklord</code></td><td><a href="../areas/gwaththrone.html">Gwathdor:  Throne of the Lord</a></td><td><code>_homerdarklord</code></td><td><a href="#r5">reply #5</a></td></tr>
+<tr><td><code>Dunport</code></td><td><a href="../areas/dunharrow.html">Dimholt: Dunharrow</a></td><td><code>_homerdunh</code></td><td><a href="#r6">reply #6</a></td></tr>
+<tr><td><code>lairjump</code></td><td><a href="../areas/area009.html">Angmar&#x27;s Lair</a></td><td><code>_homerangmar</code></td><td><a href="#r7">reply #7</a></td></tr>
+<tr><td><code>hobtele</code></td><td><a href="../areas/shirehobbiton001.html">Hobbiton</a></td><td><code>_homerhob</code></td><td><a href="#r8">reply #8</a></td></tr>
+<tr><td><code>weathertop</code></td><td><em class="muted">unresolved</em></td><td><code>_homerweather</code></td><td><a href="#r9">reply #9</a></td></tr>
+<tr><td><code>MorBal</code></td><td><a href="../areas/thebalrogofmoria.html">Moria: The Balrog of Moria</a></td><td><code>_homerbalrog</code></td><td><a href="#r10">reply #10</a></td></tr>
+<tr><td><code>WP_Homeless</code></td><td><a href="../areas/castlehomelessgr.html">Castle Homeless (Ground Floor)</a></td><td><code>_homeless</code></td><td><a href="#r11">reply #11</a></td></tr>
+<tr><td><code>pvp</code></td><td><a href="../areas/thewelloferu.html"><span style="color:#3ff23f"> &quot;Well of Eru&quot;</span></a></td><td><code>_teleportlake</code></td><td><a href="#r26">reply #26</a></td></tr>
+<tr><td><code>laketwonenter</code></td><td><a href="../areas/area006.html">Esgaroth (Lake Town)</a></td><td><code>_teleportlake</code></td><td><a href="#r26">reply #26</a></td></tr>
+<tr><td><code>pvp</code></td><td><a href="../areas/thewelloferu.html"><span style="color:#3ff23f"> &quot;Well of Eru&quot;</span></a></td><td><code>_teleportbree</code></td><td><a href="#r27">reply #27</a></td></tr>
+<tr><td><code>breeenter</code></td><td><a href="../areas/bree.html">Bree</a></td><td><code>_teleportbree</code></td><td><a href="#r27">reply #27</a></td></tr>
+<tr><td><code>pvp</code></td><td><a href="../areas/thewelloferu.html"><span style="color:#3ff23f"> &quot;Well of Eru&quot;</span></a></td><td><code>_teleportpvp</code></td><td><a href="#r28">reply #28</a></td></tr>
+<tr><td><code>secondchance</code></td><td><a href="../areas/thewelloferu.html"><span style="color:#3ff23f"> &quot;Well of Eru&quot;</span></a></td><td><code>_teleportpvp</code></td><td><a href="#r28">reply #28</a></td></tr>
+<tr><td><code>darklord</code></td><td><a href="../areas/gwaththrone.html">Gwathdor:  Throne of the Lord</a></td><td><code>_homerdarklord</code></td><td><a href="#r36">reply #36</a></td></tr>
+<tr><td><code>helmdeepcave</code></td><td><a href="../areas/area013.html">Helm&#x27;s Deep: Cave</a></td><td><code>_homerhdcave</code></td><td><a href="#r37">reply #37</a></td></tr>
+<tr><td><code>helmkeepport</code></td><td><a href="../areas/area008.html">Helm&#x27;s Deep: Keep</a></td><td><code>_homerhelm</code></td><td><a href="#r38">reply #38</a></td></tr>
+<tr><td><code>Dunport</code></td><td><a href="../areas/dunharrow.html">Dimholt: Dunharrow</a></td><td><code>_homerdunh</code></td><td><a href="#r39">reply #39</a></td></tr>
+<tr><td><code>PortDol</code></td><td><a href="../areas/dolguldur001.html">Dol Guldur</a></td><td><code>_homerdoport</code></td><td><a href="#r40">reply #40</a></td></tr>
+<tr><td><code>Jailport</code></td><td><a href="../areas/prison.html">0o Pit Prison o0</a></td><td><code>_homerjail</code></td><td><a href="#r41">reply #41</a></td></tr>
+<tr><td><code>weathertop</code></td><td><em class="muted">unresolved</em></td><td><code>_homerweather</code></td><td><a href="#r42">reply #42</a></td></tr>
+<tr><td><code>Green</code></td><td><a href="../areas/area023.html">Mirkwoods - Halls of Greenleafs</a></td><td><code>_homermirk</code></td><td><a href="#r43">reply #43</a></td></tr>
+<tr><td><code>hobtele</code></td><td><a href="../areas/shirehobbiton001.html">Hobbiton</a></td><td><code>_homerhob</code></td><td><a href="#r44">reply #44</a></td></tr>
+<tr><td><code>Great</code></td><td><a href="../areas/heavensfoundry.html">Númenor:  The Great Forge Of Númenor</a></td><td><code>_homertest5</code></td><td><a href="#r45">reply #45</a></td></tr>
+<tr><td><code>GonDen</code></td><td><a href="../areas/area005.html">Minas Tirith: Keep</a></td><td><code>_homerdenth</code></td><td><a href="#r46">reply #46</a></td></tr>
+<tr><td><code>ForgeMoria</code></td><td><a href="../areas/area057.html">Moria: Forge of Wonders</a></td><td><code>_homerleg</code></td><td><a href="#r47">reply #47</a></td></tr>
+<tr><td><code>house</code></td><td><a href="../areas/houseofdispai001.html"><span style="color:#ff7d7d">House of Homer</span></a></td><td><code>telehouse</code></td><td><a href="#r48">reply #48</a></td></tr>
+<tr><td><code>witchenter</code></td><td><a href="../areas/thewitchkingsthr.html">The Witch King&#x27;s Throne</a></td><td><code>_homerking</code></td><td><a href="#r49">reply #49</a></td></tr>
+<tr><td><code>MorBal</code></td><td><a href="../areas/thebalrogofmoria.html">Moria: The Balrog of Moria</a></td><td><code>_homerbalrog</code></td><td><a href="#r50">reply #50</a></td></tr>
+<tr><td><code>KerJump</code></td><td><a href="../areas/kerufallslair.html">Kerufall&#x27;s Lair</a></td><td><code>_homerker</code></td><td><a href="#r51">reply #51</a></td></tr>
+<tr><td><code>dolgurjump</code></td><td><a href="../areas/dolguldur.html">Mirkwood: Dol Guldur</a></td><td><code>_homerdol</code></td><td><a href="#r52">reply #52</a></td></tr>
+<tr><td><code>mtdoom111</code></td><td><a href="../areas/area016.html">Mount Doom: Halls of Sauron </a></td><td><code>_homercon</code></td><td><a href="#r53">reply #53</a></td></tr>
+<tr><td><code>lairjump</code></td><td><a href="../areas/area009.html">Angmar&#x27;s Lair</a></td><td><code>_homerangmar</code></td><td><a href="#r54">reply #54</a></td></tr>
+<tr><td><code>control</code></td><td><a href="../areas/dmcontrolroom.html">0 Control Room 0</a></td><td><code>_homercontroljum</code></td><td><a href="#r55">reply #55</a></td></tr></tbody></table>
+<h2>Scripts referenced</h2>
+<table class="data"><thead><tr><th>Script</th><th>Slot</th><th>In module</th><th>Notes</th></tr></thead><tbody><tr><td><code>_cdkey</code></td><td>active</td><td>✓</td><td></td></tr>
+<tr><td><code>_cdkeysum1</code></td><td>active</td><td>✓</td><td></td></tr>
+<tr><td><code>_cdkeyhome</code></td><td>active</td><td>✓</td><td></td></tr>
+<tr><td><code>_homerdarklord</code></td><td>action</td><td>✓</td><td>teleports to: <code>darklord</code></td></tr>
+<tr><td><code>_homerdunh</code></td><td>action</td><td>✓</td><td>teleports to: <code>Dunport</code></td></tr>
+<tr><td><code>_homerangmar</code></td><td>action</td><td>✓</td><td>teleports to: <code>lairjump</code></td></tr>
+<tr><td><code>_homerhob</code></td><td>action</td><td>✓</td><td>teleports to: <code>hobtele</code></td></tr>
+<tr><td><code>_homerweather</code></td><td>action</td><td>✓</td><td>teleports to: <code>weathertop</code></td></tr>
+<tr><td><code>_homerbalrog</code></td><td>action</td><td>✓</td><td>teleports to: <code>MorBal</code></td></tr>
+<tr><td><code>_homeless</code></td><td>action</td><td>✓</td><td>teleports to: <code>WP_Homeless</code></td></tr>
+<tr><td><code>sum_petrock</code></td><td>action</td><td>✓</td><td></td></tr>
+<tr><td><code>ew_d4roll</code></td><td>action</td><td>✓</td><td></td></tr>
+<tr><td><code>ew_d6roll</code></td><td>action</td><td>✓</td><td></td></tr>
+<tr><td><code>ew_d8roll</code></td><td>action</td><td>✓</td><td></td></tr>
+<tr><td><code>ew_d12roll</code></td><td>action</td><td>✓</td><td></td></tr>
+<tr><td><code>ew_d20roll</code></td><td>action</td><td>✓</td><td></td></tr>
+<tr><td><code>ew_d100roll</code></td><td>action</td><td>✓</td><td></td></tr>
+<tr><td><code>ew_forcerest</code></td><td>action</td><td>✓</td><td></td></tr>
+<tr><td><code>_teleportlake</code></td><td>action</td><td>✓</td><td>teleports to: <code>laketwonenter</code>, <code>pvp</code></td></tr>
+<tr><td><code>_teleportbree</code></td><td>action</td><td>✓</td><td>teleports to: <code>breeenter</code>, <code>pvp</code></td></tr>
+<tr><td><code>_teleportpvp</code></td><td>action</td><td>✓</td><td>teleports to: <code>pvp</code>, <code>secondchance</code></td></tr>
+<tr><td><code>forcerest</code></td><td>action</td><td>✓</td><td></td></tr>
+<tr><td><code>_homerhdcave</code></td><td>action</td><td>✓</td><td>teleports to: <code>helmdeepcave</code></td></tr>
+<tr><td><code>_homerhelm</code></td><td>action</td><td>✓</td><td>teleports to: <code>helmkeepport</code></td></tr>
+<tr><td><code>_homerdoport</code></td><td>action</td><td>✓</td><td>teleports to: <code>PortDol</code></td></tr>
+<tr><td><code>_homerjail</code></td><td>action</td><td>✓</td><td>teleports to: <code>Jailport</code></td></tr>
+<tr><td><code>_homermirk</code></td><td>action</td><td>✓</td><td>teleports to: <code>Green</code></td></tr>
+<tr><td><code>_homertest5</code></td><td>action</td><td>✓</td><td>teleports to: <code>Great</code></td></tr>
+<tr><td><code>_homerdenth</code></td><td>action</td><td>✓</td><td>teleports to: <code>GonDen</code></td></tr>
+<tr><td><code>_homerleg</code></td><td>action</td><td>✓</td><td>teleports to: <code>ForgeMoria</code></td></tr>
+<tr><td><code>telehouse</code></td><td>action</td><td>✓</td><td>teleports to: <code>house</code></td></tr>
+<tr><td><code>_homerking</code></td><td>action</td><td>✓</td><td>teleports to: <code>witchenter</code></td></tr>
+<tr><td><code>_homerker</code></td><td>action</td><td>✓</td><td>teleports to: <code>KerJump</code></td></tr>
+<tr><td><code>_homerdol</code></td><td>action</td><td>✓</td><td>teleports to: <code>dolgurjump</code></td></tr>
+<tr><td><code>_homercon</code></td><td>action</td><td>✓</td><td>teleports to: <code>mtdoom111</code></td></tr>
+<tr><td><code>_homercontroljum</code></td><td>action</td><td>✓</td><td>teleports to: <code>control</code></td></tr>
+<tr><td><code>ew_ad_dis_app</code></td><td>action</td><td>✓</td><td></td></tr>
+<tr><td><code>ew_ad_gotmode</code></td><td>action</td><td>✓</td><td></td></tr>
+<tr><td><code>dmheal</code></td><td>action</td><td>✓</td><td></td></tr>
+<tr><td><code>_dmwand</code></td><td>action</td><td>✓</td><td>starts: <a href="dmwand.html">dmwand</a></td></tr></tbody></table>
+<h2>Starting entries</h2><ul>
+<li><a href="#e0">entry #0</a></li>
+</ul>
+<h2>NPC lines (entries)</h2>
+<div class="dlg-node entry" id="e0"><div class="dlg-head"><span class="dlg-id">entry #0</span></div><div class="dlg-text"><em>(no text)</em></div><div class="dlg-links"><a href="#r29">→ reply #29</a> <small class="muted">(if <code>_cdkey</code>)</small> · <a href="#r24">→ reply #24</a> · <a href="#r23">→ reply #23</a> · <a href="#r15">→ reply #15</a> · <a href="#r12">→ reply #12</a> <small class="muted">(if <code>_cdkeysum1</code>)</small> · <a href="#r1">→ reply #1</a> <small class="muted">(if <code>_cdkeyhome</code>)</small> · <a href="#r0">→ reply #0</a></div></div>
+<div class="dlg-node entry" id="e1"><div class="dlg-head"><span class="dlg-id">entry #1</span></div><div class="dlg-text">Hello &lt;FullName&gt;.</div><div class="dlg-links"><a href="#r3">→ reply #3</a> · <a href="#r2">→ reply #2</a></div></div>
+<div class="dlg-node entry" id="e2"><div class="dlg-head"><span class="dlg-id">entry #2</span></div><div class="dlg-text"><em>(no text)</em></div><div class="dlg-links"><a href="#r11">→ reply #11</a> · <a href="#r10">→ reply #10</a> · <a href="#r9">→ reply #9</a> · <a href="#r8">→ reply #8</a> · <a href="#r7">→ reply #7</a> · <a href="#r6">→ reply #6</a> · <a href="#r5">→ reply #5</a> · <a href="#r4">→ reply #4</a></div></div>
+<div class="dlg-node entry" id="e3"><div class="dlg-head"><span class="dlg-id">entry #3</span></div><div class="dlg-text">Hello &lt;FullName&gt; Would you like to summons your Pet Rock?</div><div class="dlg-links"><a href="#r14">→ reply #14</a> · <a href="#r13">→ reply #13</a></div></div>
+<div class="dlg-node entry" id="e4"><div class="dlg-head"><span class="dlg-id">entry #4</span></div><div class="dlg-text"><em>(no text)</em></div><div class="dlg-links"><a href="#r22">→ reply #22</a> · <a href="#r21">→ reply #21</a> · <a href="#r20">→ reply #20</a> · <a href="#r19">→ reply #19</a> · <a href="#r18">→ reply #18</a> · <a href="#r17">→ reply #17</a> · <a href="#r16">→ reply #16</a></div></div>
+<div class="dlg-node entry" id="e5"><div class="dlg-head"><span class="dlg-id">entry #5</span></div><div class="dlg-text"><em>(no text)</em></div><div class="dlg-links"><a href="#r28">→ reply #28</a> · <a href="#r27">→ reply #27</a> · <a href="#r26">→ reply #26</a> · <a href="#r25">→ reply #25</a></div></div>
+<div class="dlg-node entry" id="e6"><div class="dlg-head"><span class="dlg-id">entry #6</span></div><div class="dlg-text">Yo &lt;FullName&gt;.</div><div class="dlg-links"><a href="#r60">→ reply #60</a> · <a href="#r59">→ reply #59</a> · <a href="#r58">→ reply #58</a> · <a href="#r57">→ reply #57</a> · <a href="#r32">→ reply #32</a> · <a href="#r31">→ reply #31</a> · <a href="#r30">→ reply #30</a></div></div>
+<div class="dlg-node entry" id="e7"><div class="dlg-head"><span class="dlg-id">entry #7</span></div><div class="dlg-text"><em>(no text)</em></div><div class="dlg-links"><a href="#r56">→ reply #56</a> · <a href="#r55">→ reply #55</a> · <a href="#r54">→ reply #54</a> · <a href="#r53">→ reply #53</a> · <a href="#r52">→ reply #52</a> · <a href="#r51">→ reply #51</a> · <a href="#r50">→ reply #50</a> · <a href="#r49">→ reply #49</a> · <a href="#r48">→ reply #48</a> · <a href="#r47">→ reply #47</a> · <a href="#r34">→ reply #34</a> · <a href="#r33">→ reply #33</a></div></div>
+<div class="dlg-node entry" id="e8"><div class="dlg-head"><span class="dlg-id">entry #8</span></div><div class="dlg-text">Yo.</div><div class="dlg-links"><a href="#r46">→ reply #46</a> · <a href="#r45">→ reply #45</a> · <a href="#r44">→ reply #44</a> · <a href="#r43">→ reply #43</a> · <a href="#r42">→ reply #42</a> · <a href="#r41">→ reply #41</a> · <a href="#r40">→ reply #40</a> · <a href="#r39">→ reply #39</a> · <a href="#r38">→ reply #38</a> · <a href="#r37">→ reply #37</a> · <a href="#r36">→ reply #36</a> · <a href="#r35">→ reply #35</a></div></div>
+<h2>PC replies</h2>
+<div class="dlg-node reply" id="r0"><div class="dlg-head"><span class="dlg-id">reply #0</span></div><div class="dlg-text">Exit.</div></div>
+<div class="dlg-node reply" id="r1"><div class="dlg-head"><span class="dlg-id">reply #1</span></div><div class="dlg-text">&lt;StartHighlight&gt;[Options of the Homeless]&lt;/Start&gt;</div><div class="dlg-links"><a href="#e1">→ entry #1</a></div></div>
+<div class="dlg-node reply" id="r2"><div class="dlg-head"><span class="dlg-id">reply #2</span></div><div class="dlg-text">Exit.</div></div>
+<div class="dlg-node reply" id="r3"><div class="dlg-head"><span class="dlg-id">reply #3</span></div><div class="dlg-text">Teleports.</div><div class="dlg-links"><a href="#e2">→ entry #2</a></div></div>
+<div class="dlg-node reply" id="r4"><div class="dlg-head"><span class="dlg-id">reply #4</span></div><div class="dlg-text">Exit.</div></div>
+<div class="dlg-node reply" id="r5"><div class="dlg-head"><span class="dlg-id">reply #5</span> <span class="dlg-action">→ <code>_homerdarklord</code></span></div><div class="dlg-text">To. The Lord of the Dark Arts</div></div>
+<div class="dlg-node reply" id="r6"><div class="dlg-head"><span class="dlg-id">reply #6</span> <span class="dlg-action">→ <code>_homerdunh</code></span></div><div class="dlg-text">To. Dunharrow</div></div>
+<div class="dlg-node reply" id="r7"><div class="dlg-head"><span class="dlg-id">reply #7</span> <span class="dlg-action">→ <code>_homerangmar</code></span></div><div class="dlg-text">To. Angmar</div></div>
+<div class="dlg-node reply" id="r8"><div class="dlg-head"><span class="dlg-id">reply #8</span> <span class="dlg-action">→ <code>_homerhob</code></span></div><div class="dlg-text">To. Hobbiton</div></div>
+<div class="dlg-node reply" id="r9"><div class="dlg-head"><span class="dlg-id">reply #9</span> <span class="dlg-action">→ <code>_homerweather</code></span></div><div class="dlg-text">To. Weather Top</div></div>
+<div class="dlg-node reply" id="r10"><div class="dlg-head"><span class="dlg-id">reply #10</span> <span class="dlg-action">→ <code>_homerbalrog</code></span></div><div class="dlg-text">To. Balrog</div></div>
+<div class="dlg-node reply" id="r11"><div class="dlg-head"><span class="dlg-id">reply #11</span> <span class="dlg-action">→ <code>_homeless</code></span></div><div class="dlg-text">To. Castle of Homeless</div></div>
+<div class="dlg-node reply" id="r12"><div class="dlg-head"><span class="dlg-id">reply #12</span></div><div class="dlg-text">&lt;StartHighlight&gt;[Summons Options.]&lt;/Start&gt;</div><div class="dlg-links"><a href="#e3">→ entry #3</a></div></div>
+<div class="dlg-node reply" id="r13"><div class="dlg-head"><span class="dlg-id">reply #13</span></div><div class="dlg-text">No thank you.</div></div>
+<div class="dlg-node reply" id="r14"><div class="dlg-head"><span class="dlg-id">reply #14</span> <span class="dlg-action">→ <code>sum_petrock</code></span></div><div class="dlg-text">Heck yeah!!</div></div>
+<div class="dlg-node reply" id="r15"><div class="dlg-head"><span class="dlg-id">reply #15</span></div><div class="dlg-text">Role Dice.</div><div class="dlg-links"><a href="#e4">→ entry #4</a></div></div>
+<div class="dlg-node reply" id="r16"><div class="dlg-head"><span class="dlg-id">reply #16</span></div><div class="dlg-text">Exit.</div></div>
+<div class="dlg-node reply" id="r17"><div class="dlg-head"><span class="dlg-id">reply #17</span> <span class="dlg-action">→ <code>ew_d4roll</code></span></div><div class="dlg-text">1d4</div></div>
+<div class="dlg-node reply" id="r18"><div class="dlg-head"><span class="dlg-id">reply #18</span> <span class="dlg-action">→ <code>ew_d6roll</code></span></div><div class="dlg-text">1d6</div></div>
+<div class="dlg-node reply" id="r19"><div class="dlg-head"><span class="dlg-id">reply #19</span> <span class="dlg-action">→ <code>ew_d8roll</code></span></div><div class="dlg-text">1d8</div></div>
+<div class="dlg-node reply" id="r20"><div class="dlg-head"><span class="dlg-id">reply #20</span> <span class="dlg-action">→ <code>ew_d12roll</code></span></div><div class="dlg-text">1d12</div></div>
+<div class="dlg-node reply" id="r21"><div class="dlg-head"><span class="dlg-id">reply #21</span> <span class="dlg-action">→ <code>ew_d20roll</code></span></div><div class="dlg-text">1d20</div></div>
+<div class="dlg-node reply" id="r22"><div class="dlg-head"><span class="dlg-id">reply #22</span> <span class="dlg-action">→ <code>ew_d100roll</code></span></div><div class="dlg-text">1d100</div></div>
+<div class="dlg-node reply" id="r23"><div class="dlg-head"><span class="dlg-id">reply #23</span> <span class="dlg-action">→ <code>ew_forcerest</code></span></div><div class="dlg-text">Force Rest</div></div>
+<div class="dlg-node reply" id="r24"><div class="dlg-head"><span class="dlg-id">reply #24</span></div><div class="dlg-text">Teleports.</div><div class="dlg-links"><a href="#e5">→ entry #5</a></div></div>
+<div class="dlg-node reply" id="r25"><div class="dlg-head"><span class="dlg-id">reply #25</span></div><div class="dlg-text">Exit.</div></div>
+<div class="dlg-node reply" id="r26"><div class="dlg-head"><span class="dlg-id">reply #26</span> <span class="dlg-action">→ <code>_teleportlake</code></span></div><div class="dlg-text">To. Lake Town</div></div>
+<div class="dlg-node reply" id="r27"><div class="dlg-head"><span class="dlg-id">reply #27</span> <span class="dlg-action">→ <code>_teleportbree</code></span></div><div class="dlg-text">To. Bree</div></div>
+<div class="dlg-node reply" id="r28"><div class="dlg-head"><span class="dlg-id">reply #28</span> <span class="dlg-action">→ <code>_teleportpvp</code></span></div><div class="dlg-text">To. The Well of Eru.</div></div>
+<div class="dlg-node reply" id="r29"><div class="dlg-head"><span class="dlg-id">reply #29</span></div><div class="dlg-text">&lt;StartHighlight&gt;[Admin Options]&lt;/Start&gt;</div><div class="dlg-links"><a href="#e6">→ entry #6</a></div></div>
+<div class="dlg-node reply" id="r30"><div class="dlg-head"><span class="dlg-id">reply #30</span></div><div class="dlg-text">Exit</div></div>
+<div class="dlg-node reply" id="r31"><div class="dlg-head"><span class="dlg-id">reply #31</span> <span class="dlg-action">→ <code>forcerest</code></span></div><div class="dlg-text">Force Rest</div></div>
+<div class="dlg-node reply" id="r32"><div class="dlg-head"><span class="dlg-id">reply #32</span></div><div class="dlg-text">Teleports</div><div class="dlg-links"><a href="#e7">→ entry #7</a></div></div>
+<div class="dlg-node reply" id="r33"><div class="dlg-head"><span class="dlg-id">reply #33</span></div><div class="dlg-text">Exit.</div></div>
+<div class="dlg-node reply" id="r34"><div class="dlg-head"><span class="dlg-id">reply #34</span></div><div class="dlg-text">More.</div><div class="dlg-links"><a href="#e8">→ entry #8</a></div></div>
+<div class="dlg-node reply" id="r35"><div class="dlg-head"><span class="dlg-id">reply #35</span></div><div class="dlg-text">Exit.</div></div>
+<div class="dlg-node reply" id="r36"><div class="dlg-head"><span class="dlg-id">reply #36</span> <span class="dlg-action">→ <code>_homerdarklord</code></span></div><div class="dlg-text">To. Gwathdor: Throne of the Lord</div></div>
+<div class="dlg-node reply" id="r37"><div class="dlg-head"><span class="dlg-id">reply #37</span> <span class="dlg-action">→ <code>_homerhdcave</code></span></div><div class="dlg-text">To. Helm&#x27;s Deep: Cave</div></div>
+<div class="dlg-node reply" id="r38"><div class="dlg-head"><span class="dlg-id">reply #38</span> <span class="dlg-action">→ <code>_homerhelm</code></span></div><div class="dlg-text">To. Helm&#x27;s Deep: Keep</div></div>
+<div class="dlg-node reply" id="r39"><div class="dlg-head"><span class="dlg-id">reply #39</span> <span class="dlg-action">→ <code>_homerdunh</code></span></div><div class="dlg-text">To. Dimholt: Dunharrow</div></div>
+<div class="dlg-node reply" id="r40"><div class="dlg-head"><span class="dlg-id">reply #40</span> <span class="dlg-action">→ <code>_homerdoport</code></span></div><div class="dlg-text">To. Dol Guldur</div></div>
+<div class="dlg-node reply" id="r41"><div class="dlg-head"><span class="dlg-id">reply #41</span> <span class="dlg-action">→ <code>_homerjail</code></span></div><div class="dlg-text">To. Pit Prison</div></div>
+<div class="dlg-node reply" id="r42"><div class="dlg-head"><span class="dlg-id">reply #42</span> <span class="dlg-action">→ <code>_homerweather</code></span></div><div class="dlg-text">To. Weathertop.</div></div>
+<div class="dlg-node reply" id="r43"><div class="dlg-head"><span class="dlg-id">reply #43</span> <span class="dlg-action">→ <code>_homermirk</code></span></div><div class="dlg-text">To. Mirkwoods: Halls of Greenleaf.</div></div>
+<div class="dlg-node reply" id="r44"><div class="dlg-head"><span class="dlg-id">reply #44</span> <span class="dlg-action">→ <code>_homerhob</code></span></div><div class="dlg-text">To. Hobbiton.</div></div>
+<div class="dlg-node reply" id="r45"><div class="dlg-head"><span class="dlg-id">reply #45</span> <span class="dlg-action">→ <code>_homertest5</code></span></div><div class="dlg-text">To. Númenor:  The Great Forge</div></div>
+<div class="dlg-node reply" id="r46"><div class="dlg-head"><span class="dlg-id">reply #46</span> <span class="dlg-action">→ <code>_homerdenth</code></span></div><div class="dlg-text">To. Minas Tirith Keep.</div></div>
+<div class="dlg-node reply" id="r47"><div class="dlg-head"><span class="dlg-id">reply #47</span> <span class="dlg-action">→ <code>_homerleg</code></span></div><div class="dlg-text">To. Moria Forge</div></div>
+<div class="dlg-node reply" id="r48"><div class="dlg-head"><span class="dlg-id">reply #48</span> <span class="dlg-action">→ <code>telehouse</code></span></div><div class="dlg-text">To. House of Homer</div></div>
+<div class="dlg-node reply" id="r49"><div class="dlg-head"><span class="dlg-id">reply #49</span> <span class="dlg-action">→ <code>_homerking</code></span></div><div class="dlg-text">To. Witch King</div></div>
+<div class="dlg-node reply" id="r50"><div class="dlg-head"><span class="dlg-id">reply #50</span> <span class="dlg-action">→ <code>_homerbalrog</code></span></div><div class="dlg-text">To. Balrog</div></div>
+<div class="dlg-node reply" id="r51"><div class="dlg-head"><span class="dlg-id">reply #51</span> <span class="dlg-action">→ <code>_homerker</code></span></div><div class="dlg-text">To. Kerufall</div></div>
+<div class="dlg-node reply" id="r52"><div class="dlg-head"><span class="dlg-id">reply #52</span> <span class="dlg-action">→ <code>_homerdol</code></span></div><div class="dlg-text">To. Dol Guldur</div></div>
+<div class="dlg-node reply" id="r53"><div class="dlg-head"><span class="dlg-id">reply #53</span> <span class="dlg-action">→ <code>_homercon</code></span></div><div class="dlg-text">To. Mount Doom: Suarons Hall</div></div>
+<div class="dlg-node reply" id="r54"><div class="dlg-head"><span class="dlg-id">reply #54</span> <span class="dlg-action">→ <code>_homerangmar</code></span></div><div class="dlg-text">To. Angmar</div></div>
+<div class="dlg-node reply" id="r55"><div class="dlg-head"><span class="dlg-id">reply #55</span> <span class="dlg-action">→ <code>_homercontroljum</code></span></div><div class="dlg-text">To. The Control Room</div></div>
+<div class="dlg-node reply" id="r56"><div class="dlg-head"><span class="dlg-id">reply #56</span></div><div class="dlg-text">Back.</div><div class="dlg-links"><a href="#e6">→ child</a></div></div>
+<div class="dlg-node reply" id="r57"><div class="dlg-head"><span class="dlg-id">reply #57</span> <span class="dlg-action">→ <code>ew_ad_dis_app</code></span></div><div class="dlg-text">Invisibility</div><div class="dlg-links"><a href="#e6">→ child</a></div></div>
+<div class="dlg-node reply" id="r58"><div class="dlg-head"><span class="dlg-id">reply #58</span> <span class="dlg-action">→ <code>ew_ad_gotmode</code></span></div><div class="dlg-text">God Mode</div></div>
+<div class="dlg-node reply" id="r59"><div class="dlg-head"><span class="dlg-id">reply #59</span> <span class="dlg-action">→ <code>dmheal</code></span></div><div class="dlg-text">DM Heal</div></div>
+<div class="dlg-node reply" id="r60"><div class="dlg-head"><span class="dlg-id">reply #60</span> <span class="dlg-action">→ <code>_dmwand</code></span></div><div class="dlg-text">DM Options</div></div>
+  </main>
+  <footer>generated by <a href="https://github.com/mrprice22/nwn-manager">nwn-manager</a></footer>
+</body>
+</html>

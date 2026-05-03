@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Conversation wecome</title>
+  <link rel="stylesheet" href="../assets/style.css">
+</head>
+<body>
+  <header class="site-header">
+    <a class="brand" href="../index.html">Module Wiki</a>
+    <nav>
+      <a href="../index.html">Map</a>
+      <a href="../areas/index.html">Areas</a>
+      <a href="../creatures/index.html">Creatures</a>
+      <a href="../items/index.html">Items</a>
+      <a href="../stores/index.html">Stores</a>
+      <a href="../conversations/index.html">Conversations</a>
+      <a href="../factions.html">Factions</a>
+      <a href="../journal.html">Journal</a>
+    </nav>
+  </header>
+  <main>
+<h1>Conversation: <code>wecome</code></h1>
+<dl class="meta">
+<dt>NPC lines</dt><dd>5</dd>
+<dt>PC replies</dt><dd>10</dd>
+<dt>NumWords</dt><dd>276</dd>
+<dt>OnEnd</dt><dd><code>nw_walk_wp</code></dd>
+<dt>OnAbort</dt><dd><code>nw_walk_wp</code></dd>
+</dl>
+<h2>Triggered by</h2><p class="muted">No caller found in static analysis. May be invoked from runtime-only code paths (string-built resrefs, etc.).</p>
+<h2>Teleport destinations</h2>
+<table class="data"><thead><tr><th>Waypoint / object tag</th><th>Destination area</th><th>Via script</th><th>From node</th></tr></thead><tbody><tr><td><code>pvp</code></td><td><a href="../areas/thewelloferu.html"><span style="color:#3ff23f"> &quot;Well of Eru&quot;</span></a></td><td><code>_homerstart</code></td><td><a href="#r7">reply #7</a></td></tr></tbody></table>
+<h2>Scripts referenced</h2>
+<table class="data"><thead><tr><th>Script</th><th>Slot</th><th>In module</th><th>Notes</th></tr></thead><tbody><tr><td><code>_homerstart</code></td><td>action</td><td>✓</td><td>teleports to: <code>pvp</code></td></tr></tbody></table>
+<h2>Starting entries</h2><ul>
+<li><a href="#e0">entry #0</a> — Hello &amp; Welcome to Homer&#x27;s Lord of the Rings. This is a full PvP server with afe…</li>
+</ul>
+<h2>NPC lines (entries)</h2>
+<div class="dlg-node entry" id="e0"><div class="dlg-head"><span class="dlg-id">entry #0</span></div><div class="dlg-text">Hello &amp; Welcome to Homer&#x27;s Lord of the Rings. This is a full PvP server with afew very simple rules. I must ask you a few questions to make sure you read the rules that govern this land.</div><div class="dlg-links"><a href="#r1">→ reply #1</a> · <a href="#r0">→ reply #0</a></div></div>
+<div class="dlg-node entry" id="e1"><div class="dlg-head"><span class="dlg-id">entry #1</span></div><div class="dlg-text">You do understand that this is a Full PvP server. That means disarming, powerkilling, ninja looting, pick pocketing and all the stuff that is illegal in those lame servers is all legal here. </div><div class="dlg-links"><a href="#r3">→ reply #3</a> · <a href="#r2">→ reply #2</a></div></div>
+<div class="dlg-node entry" id="e2"><div class="dlg-head"><span class="dlg-id">entry #2</span></div><div class="dlg-text">Good, It sounds to me that you might have what it takes to play here. Just a few more simple things and I will port you into the game. Okay?</div><div class="dlg-links"><a href="#r5">→ reply #5</a> · <a href="#r4">→ reply #4</a></div></div>
+<div class="dlg-node entry" id="e3"><div class="dlg-head"><span class="dlg-id">entry #3</span></div><div class="dlg-text">Captain..? Okay 
+Just a question or two more. Is it okay to bug the DM for free levels or if another player has just disarmed your favorite weapon or you have lost an item while crafting,  ect.  ect.  ect.? 
+</div><div class="dlg-links"><a href="#r9">→ reply #9</a> · <a href="#r6">→ reply #6</a></div></div>
+<div class="dlg-node entry" id="e4"><div class="dlg-head"><span class="dlg-id">entry #4</span></div><div class="dlg-text">Alright then one more thing.  It is okay to pick on Homer for his limited vocabulary and lack of typing skills?</div><div class="dlg-links"><a href="#r8">→ reply #8</a> · <a href="#r7">→ reply #7</a></div></div>
+<h2>PC replies</h2>
+<div class="dlg-node reply" id="r0"><div class="dlg-head"><span class="dlg-id">reply #0</span></div><div class="dlg-text">&quot;I&#x27;ll come back when I have read the rules.&quot;</div></div>
+<div class="dlg-node reply" id="r1"><div class="dlg-head"><span class="dlg-id">reply #1</span></div><div class="dlg-text">&quot; I have read the rules and would love to take the time to answer a few simple questions.&quot;</div><div class="dlg-links"><a href="#e1">→ entry #1</a></div></div>
+<div class="dlg-node reply" id="r2"><div class="dlg-head"><span class="dlg-id">reply #2</span></div><div class="dlg-text">&quot;That sounds a little to hardcore for me. I will be exiting stage left now.&quot;</div></div>
+<div class="dlg-node reply" id="r3"><div class="dlg-head"><span class="dlg-id">reply #3</span></div><div class="dlg-text">&quot;That sounds good to me. I will hunt down and kill any little wanker that trys to pick pocket me!!&quot;</div><div class="dlg-links"><a href="#e2">→ entry #2</a></div></div>
+<div class="dlg-node reply" id="r4"><div class="dlg-head"><span class="dlg-id">reply #4</span></div><div class="dlg-text">&quot;I have already grew bored with your hog wash. I am outta here.&quot;</div></div>
+<div class="dlg-node reply" id="r5"><div class="dlg-head"><span class="dlg-id">reply #5</span></div><div class="dlg-text">&quot;Sure thing there captain.&quot;</div><div class="dlg-links"><a href="#e3">→ entry #3</a></div></div>
+<div class="dlg-node reply" id="r6"><div class="dlg-head"><span class="dlg-id">reply #6</span></div><div class="dlg-text">&quot;No I understand the DMs not here to baby sit me.&quot;</div><div class="dlg-links"><a href="#e4">→ entry #4</a></div></div>
+<div class="dlg-node reply" id="r7"><div class="dlg-head"><span class="dlg-id">reply #7</span> <span class="dlg-action">→ <code>_homerstart</code></span></div><div class="dlg-text">&quot;Sure,  I didn&#x27;t see that one in the rules.&quot;</div></div>
+<div class="dlg-node reply" id="r8"><div class="dlg-head"><span class="dlg-id">reply #8</span></div><div class="dlg-text">&quot;No way, Homer is a tightass!!!&quot;</div></div>
+<div class="dlg-node reply" id="r9"><div class="dlg-head"><span class="dlg-id">reply #9</span></div><div class="dlg-text">&quot;Sure it is!! The DMs are to server me.......&quot;</div></div>
+  </main>
+  <footer>generated by <a href="https://github.com/mrprice22/nwn-manager">nwn-manager</a></footer>
+</body>
+</html>

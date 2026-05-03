@@ -1,0 +1,85 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Conversation elrondconv</title>
+  <link rel="stylesheet" href="../assets/style.css">
+</head>
+<body>
+  <header class="site-header">
+    <a class="brand" href="../index.html">Module Wiki</a>
+    <nav>
+      <a href="../index.html">Map</a>
+      <a href="../areas/index.html">Areas</a>
+      <a href="../creatures/index.html">Creatures</a>
+      <a href="../items/index.html">Items</a>
+      <a href="../stores/index.html">Stores</a>
+      <a href="../conversations/index.html">Conversations</a>
+      <a href="../factions.html">Factions</a>
+      <a href="../journal.html">Journal</a>
+    </nav>
+  </header>
+  <main>
+<h1>Conversation: <code>elrondconv</code></h1>
+<dl class="meta">
+<dt>NPC lines</dt><dd>13</dd>
+<dt>PC replies</dt><dd>17</dd>
+<dt>NumWords</dt><dd>561</dd>
+<dt>OnEnd</dt><dd><code>nw_walk_wp</code></dd>
+<dt>OnAbort</dt><dd><code>nw_walk_wp</code></dd>
+</dl>
+<h2>Triggered by</h2><ul class="dlg-callers">
+<li>NPC <a href="../creatures/elrond001.html">Elrond</a> <code>elrond001</code> — in <a href="../areas/rivendellupperha.html">Rivendell Upper Halls</a></li>
+</ul>
+<h2>Scripts referenced</h2>
+<table class="data"><thead><tr><th>Script</th><th>Slot</th><th>In module</th><th>Notes</th></tr></thead><tbody><tr><td><code>sc_015</code></td><td>active</td><td>✓</td><td></td></tr>
+<tr><td><code>at_026</code></td><td>action</td><td>✓</td><td></td></tr>
+<tr><td><code>at_025</code></td><td>action</td><td>✓</td><td></td></tr>
+<tr><td><code>at_022</code></td><td>action</td><td>✓</td><td></td></tr>
+<tr><td><code>at_024</code></td><td>action</td><td>✓</td><td></td></tr>
+<tr><td><code>at_023</code></td><td>action</td><td>✓</td><td></td></tr>
+<tr><td><code>sc_013</code></td><td>active</td><td>✓</td><td></td></tr>
+<tr><td><code>sc_016</code></td><td>active</td><td>✓</td><td></td></tr>
+<tr><td><code>sc_014</code></td><td>active</td><td>✓</td><td></td></tr></tbody></table>
+<h2>Starting entries</h2><ul>
+<li><a href="#e7">entry #7</a> <small class="muted">(if <code>sc_013</code>)</small> — Greetings again &lt;FullName&gt;. Say perhaps we should talk, you and I.</li>
+<li><a href="#e6">entry #6</a> <small class="muted">(if <code>sc_016</code>)</small> — We rejoice to see you again Master &lt;FirstName&gt;. Have a pleasant stay in Rivendel…</li>
+<li><a href="#e2">entry #2</a> <small class="muted">(if <code>sc_014</code>)</small> — Have you accomplished the tasks you have agreed to undertake?</li>
+<li><a href="#e0">entry #0</a> — Welcome to Rivendell, &lt;FirstName&gt; the &lt;Class&gt;. You are known for your deeds thou…</li>
+</ul>
+<h2>NPC lines (entries)</h2>
+<div class="dlg-node entry" id="e0"><div class="dlg-head"><span class="dlg-id">entry #0</span></div><div class="dlg-text">Welcome to Rivendell, &lt;FirstName&gt; the &lt;Class&gt;. You are known for your deeds though out this land. I trust you will enjoy the hospitality of the Elves while you are here.</div><div class="dlg-links"><a href="#r2">→ reply #2</a> · <a href="#r0">→ reply #0</a></div></div>
+<div class="dlg-node entry" id="e1"><div class="dlg-head"><span class="dlg-id">entry #1</span></div><div class="dlg-text">*Raises an Eyebrow* I am sure a well mannered guest such as yourself shall find respite here.</div><div class="dlg-links"><a href="#r1">→ reply #1</a></div></div>
+<div class="dlg-node entry" id="e2"><div class="dlg-head"><span class="dlg-id">entry #2</span></div><div class="dlg-text">Have you accomplished the tasks you have agreed to undertake?</div><div class="dlg-links"><a href="#r7">→ reply #7</a> · <a href="#r3">→ reply #3</a> <small class="muted">(if <code>sc_015</code>)</small></div></div>
+<div class="dlg-node entry" id="e3"><div class="dlg-head"><span class="dlg-id">entry #3</span> <span class="dlg-action">→ <code>at_026</code></span></div><div class="dlg-text">Yes I see this is glad news having the helm of Azog might be a foul thing. But would be fouler if he had lived.</div><div class="dlg-links"><a href="#r4">→ reply #4</a></div></div>
+<div class="dlg-node entry" id="e4"><div class="dlg-head"><span class="dlg-id">entry #4</span></div><div class="dlg-text">My heart falters to think of the ill fate they might have suffered. But hope still there may be. perhaps however unlikely. Balin is help up in some long forgotten hold of his ancestors. Light might shine again and bring him to us.</div><div class="dlg-links"><a href="#r5">→ reply #5</a></div></div>
+<div class="dlg-node entry" id="e5"><div class="dlg-head"><span class="dlg-id">entry #5</span> <span class="dlg-action">→ <code>at_025</code></span></div><div class="dlg-text">Your merit is well worth your reward. Take this writ with my seal. Gladly do I give it to you &lt;FullName&gt;. May the light of Elendil shine upon your brow.</div><div class="dlg-links"><a href="#r6">→ reply #6</a></div></div>
+<div class="dlg-node entry" id="e6"><div class="dlg-head"><span class="dlg-id">entry #6</span></div><div class="dlg-text">We rejoice to see you again Master &lt;FirstName&gt;. Have a pleasant stay in Rivendell.</div></div>
+<div class="dlg-node entry" id="e7"><div class="dlg-head"><span class="dlg-id">entry #7</span></div><div class="dlg-text">Greetings again &lt;FullName&gt;. Say perhaps we should talk, you and I. </div><div class="dlg-links"><a href="#r11">→ reply #11</a> · <a href="#r8">→ reply #8</a></div></div>
+<div class="dlg-node entry" id="e8"><div class="dlg-head"><span class="dlg-id">entry #8</span></div><div class="dlg-text">I assure you it wont come to that. If anything this is a dire task of much crucial import.</div><div class="dlg-links"><a href="#r10">→ reply #10</a> · <a href="#r9">→ reply #9</a></div></div>
+<div class="dlg-node entry" id="e9"><div class="dlg-head"><span class="dlg-id">entry #9</span></div><div class="dlg-text">Grave news has come by my Master at Arms Glorfindel. He sends word that the Orcs are massing from Angmar. They have reached the Northern Trollshalls and are marching to reveal the location of Rivendell. They must be stopped! They are driven by a powerful Warlord called Azog. Bring me back his helm as proof that the assault has been broken. But alas there are more grim tidings.</div><div class="dlg-links"><a href="#r12">→ reply #12</a></div></div>
+<div class="dlg-node entry" id="e10"><div class="dlg-head"><span class="dlg-id">entry #10</span></div><div class="dlg-text">I have recently sent scouts into the ancient mines of Moria to make contact with a dwarven expedition that was sent. This dwarven expedition led by Balin son of Fundin regularly sends word back of their status. Recently they said they had discovered Mithril again. They are overdue for another update.</div><div class="dlg-links"><a href="#r13">→ reply #13</a></div></div>
+<div class="dlg-node entry" id="e11"><div class="dlg-head"><span class="dlg-id">entry #11</span></div><div class="dlg-text">Venture into the City of Dwarrow Delf in Moria. See if you can Locate Balin&#x27;s expedition. And bring back word of their status.</div><div class="dlg-links"><a href="#r15">→ reply #15</a> · <a href="#r14">→ reply #14</a></div></div>
+<div class="dlg-node entry" id="e12"><div class="dlg-head"><span class="dlg-id">entry #12</span></div><div class="dlg-text">Once you have completed these tasks. I shall furnish you with a writ of allegiance. Supplying you with access to our sacred vault.</div><div class="dlg-links"><a href="#r16">→ reply #16</a></div></div>
+<h2>PC replies</h2>
+<div class="dlg-node reply" id="r0"><div class="dlg-head"><span class="dlg-id">reply #0</span></div><div class="dlg-text">Hmm we&#x27;ll see how much hospitality I can find *winks*.</div><div class="dlg-links"><a href="#e1">→ entry #1</a></div></div>
+<div class="dlg-node reply" id="r1"><div class="dlg-head"><span class="dlg-id">reply #1</span> <span class="dlg-action">→ <code>at_022</code></span></div><div class="dlg-text">Hah! Great. Now lets go find that Respite!</div></div>
+<div class="dlg-node reply" id="r2"><div class="dlg-head"><span class="dlg-id">reply #2</span> <span class="dlg-action">→ <code>at_022</code></span></div><div class="dlg-text">Thank you M&#x27;Lord Elrond. I surely will.</div></div>
+<div class="dlg-node reply" id="r3"><div class="dlg-head"><span class="dlg-id">reply #3</span></div><div class="dlg-text">Indeed my lord Elrond I have been victorious and both deeds for good and ill are accomplished.</div><div class="dlg-links"><a href="#e3">→ entry #3</a></div></div>
+<div class="dlg-node reply" id="r4"><div class="dlg-head"><span class="dlg-id">reply #4</span></div><div class="dlg-text">I have ill news to bear. I have found a dwarf head within Moria. I believe it to be one of Balin&#x27;s Expidition. It was a hard fight against fell beasts but out of the long dark this news does come.</div><div class="dlg-links"><a href="#e4">→ entry #4</a></div></div>
+<div class="dlg-node reply" id="r5"><div class="dlg-head"><span class="dlg-id">reply #5</span></div><div class="dlg-text">I do indeed hope he resurfaces.</div><div class="dlg-links"><a href="#e5">→ entry #5</a></div></div>
+<div class="dlg-node reply" id="r6"><div class="dlg-head"><span class="dlg-id">reply #6</span> <span class="dlg-action">→ <code>at_024</code></span></div><div class="dlg-text">I thank Thee M&#x27;Lord. Until we meet again.</div></div>
+<div class="dlg-node reply" id="r7"><div class="dlg-head"><span class="dlg-id">reply #7</span></div><div class="dlg-text">Not yet, but soon I shall.</div></div>
+<div class="dlg-node reply" id="r8"><div class="dlg-head"><span class="dlg-id">reply #8</span></div><div class="dlg-text">Oh no you don&#x27;t! Last time I helped an Elf, I woke up naked in the forrest!</div><div class="dlg-links"><a href="#e8">→ entry #8</a></div></div>
+<div class="dlg-node reply" id="r9"><div class="dlg-head"><span class="dlg-id">reply #9</span></div><div class="dlg-text">Alright what da ya want?</div><div class="dlg-links"><a href="#e9">→ child</a></div></div>
+<div class="dlg-node reply" id="r10"><div class="dlg-head"><span class="dlg-id">reply #10</span></div><div class="dlg-text">Bah you ain&#x27;t foolin me! I want no part of it!</div></div>
+<div class="dlg-node reply" id="r11"><div class="dlg-head"><span class="dlg-id">reply #11</span></div><div class="dlg-text">What do you require of me lord Elrond?</div><div class="dlg-links"><a href="#e9">→ entry #9</a></div></div>
+<div class="dlg-node reply" id="r12"><div class="dlg-head"><span class="dlg-id">reply #12</span></div><div class="dlg-text">Er... what could be worse than rampaging Urukai?</div><div class="dlg-links"><a href="#e10">→ entry #10</a></div></div>
+<div class="dlg-node reply" id="r13"><div class="dlg-head"><span class="dlg-id">reply #13</span></div><div class="dlg-text">What must I do?</div><div class="dlg-links"><a href="#e11">→ entry #11</a></div></div>
+<div class="dlg-node reply" id="r14"><div class="dlg-head"><span class="dlg-id">reply #14</span></div><div class="dlg-text">I think you should find a real hero. This is way out of my League.</div></div>
+<div class="dlg-node reply" id="r15"><div class="dlg-head"><span class="dlg-id">reply #15</span></div><div class="dlg-text">I shall venture to complete these tasks. Thank you Elrond for your trust and faith in me.</div><div class="dlg-links"><a href="#e12">→ entry #12</a></div></div>
+<div class="dlg-node reply" id="r16"><div class="dlg-head"><span class="dlg-id">reply #16</span> <span class="dlg-action">→ <code>at_023</code></span></div><div class="dlg-text">Thank you lord Elrond you generosity is much appreciated.</div></div>
+  </main>
+  <footer>generated by <a href="https://github.com/mrprice22/nwn-manager">nwn-manager</a></footer>
+</body>
+</html>

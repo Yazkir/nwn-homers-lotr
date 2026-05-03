@@ -1,0 +1,197 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Conversation bellnius_smith</title>
+  <link rel="stylesheet" href="../assets/style.css">
+</head>
+<body>
+  <header class="site-header">
+    <a class="brand" href="../index.html">Module Wiki</a>
+    <nav>
+      <a href="../index.html">Map</a>
+      <a href="../areas/index.html">Areas</a>
+      <a href="../creatures/index.html">Creatures</a>
+      <a href="../items/index.html">Items</a>
+      <a href="../stores/index.html">Stores</a>
+      <a href="../conversations/index.html">Conversations</a>
+      <a href="../factions.html">Factions</a>
+      <a href="../journal.html">Journal</a>
+    </nav>
+  </header>
+  <main>
+<h1>Conversation: <code>bellnius_smith</code></h1>
+<dl class="meta">
+<dt>NPC lines</dt><dd>16</dd>
+<dt>PC replies</dt><dd>69</dd>
+<dt>NumWords</dt><dd>236</dd>
+<dt>OnEnd</dt><dd><code>nw_walk_wp</code></dd>
+<dt>OnAbort</dt><dd><code>nw_walk_wp</code></dd>
+</dl>
+<h2>Triggered by</h2><p class="muted">No caller found in static analysis. May be invoked from runtime-only code paths (string-built resrefs, etc.).</p>
+<h2>Scripts referenced</h2>
+<table class="data"><thead><tr><th>Script</th><th>Slot</th><th>In module</th><th>Notes</th></tr></thead><tbody><tr><td><code>removeallitems</code></td><td>action</td><td>✓</td><td></td></tr>
+<tr><td><code>ismeleeweapon</code></td><td>active</td><td>✓</td><td></td></tr>
+<tr><td><code>isweapon</code></td><td>active</td><td>✓</td><td></td></tr>
+<tr><td><code>israngedweapon</code></td><td>active</td><td>✓</td><td></td></tr>
+<tr><td><code>calcmodvalue1</code></td><td>action</td><td>✓</td><td></td></tr>
+<tr><td><code>isitemonanvil</code></td><td>active</td><td>✓</td><td></td></tr>
+<tr><td><code>removeall</code></td><td>action</td><td>✓</td><td></td></tr>
+<tr><td><code>setpropunlimammo</code></td><td>action</td><td>✓</td><td></td></tr>
+<tr><td><code>setammolight</code></td><td>action</td><td>✓</td><td></td></tr>
+<tr><td><code>setammofire</code></td><td>action</td><td>✓</td><td></td></tr>
+<tr><td><code>setammocold</code></td><td>action</td><td>✓</td><td></td></tr>
+<tr><td><code>setammoplus5</code></td><td>action</td><td>✓</td><td></td></tr>
+<tr><td><code>setammoplus4</code></td><td>action</td><td>✓</td><td></td></tr>
+<tr><td><code>setammoplus3</code></td><td>action</td><td>✓</td><td></td></tr>
+<tr><td><code>setammoplus2</code></td><td>action</td><td>✓</td><td></td></tr>
+<tr><td><code>setammoplus1</code></td><td>action</td><td>✓</td><td></td></tr>
+<tr><td><code>setammobasic</code></td><td>action</td><td>✓</td><td></td></tr>
+<tr><td><code>setpropfreedom</code></td><td>action</td><td>✓</td><td></td></tr>
+<tr><td><code>setpropvampiric</code></td><td>action</td><td>✓</td><td></td></tr>
+<tr><td><code>setpropattack</code></td><td>action</td><td>✓</td><td></td></tr>
+<tr><td><code>setpropskilbonus</code></td><td>action</td><td>✓</td><td></td></tr>
+<tr><td><code>setskilltaunt</code></td><td>action</td><td>✓</td><td></td></tr>
+<tr><td><code>setskillsettrap</code></td><td>action</td><td>✓</td><td></td></tr>
+<tr><td><code>setskillsearch</code></td><td>action</td><td>✓</td><td></td></tr>
+<tr><td><code>setskillpickpokt</code></td><td>action</td><td>✓</td><td></td></tr>
+<tr><td><code>setskillpersuade</code></td><td>action</td><td>✓</td><td></td></tr>
+<tr><td><code>setskillperform</code></td><td>action</td><td>✓</td><td></td></tr>
+<tr><td><code>setskillparry</code></td><td>action</td><td>✓</td><td></td></tr>
+<tr><td><code>setskillopenlock</code></td><td>action</td><td>✓</td><td></td></tr>
+<tr><td><code>setskilllisten</code></td><td>action</td><td>✓</td><td></td></tr>
+<tr><td><code>setskillintimidt</code></td><td>action</td><td>✓</td><td></td></tr>
+<tr><td><code>setskillhide</code></td><td>action</td><td>✓</td><td></td></tr>
+<tr><td><code>setskillheal</code></td><td>action</td><td>✓</td><td></td></tr>
+<tr><td><code>setskilldisabtrp</code></td><td>action</td><td>✓</td><td></td></tr>
+<tr><td><code>setskillcraftwpn</code></td><td>action</td><td>✓</td><td></td></tr>
+<tr><td><code>setskillcrafttrp</code></td><td>action</td><td>✓</td><td></td></tr>
+<tr><td><code>setskillcraftarm</code></td><td>action</td><td>✓</td><td></td></tr>
+<tr><td><code>setskillconcentr</code></td><td>action</td><td>✓</td><td></td></tr>
+<tr><td><code>setskillbluff</code></td><td>action</td><td>✓</td><td></td></tr>
+<tr><td><code>setskillappraise</code></td><td>action</td><td>✓</td><td></td></tr>
+<tr><td><code>setskillanempath</code></td><td>action</td><td>✓</td><td></td></tr>
+<tr><td><code>setpropmighty</code></td><td>action</td><td>✓</td><td></td></tr>
+<tr><td><code>setpropmasscrit</code></td><td>action</td><td>✓</td><td></td></tr>
+<tr><td><code>setproplight</code></td><td>action</td><td>✓</td><td></td></tr>
+<tr><td><code>setpropkeen</code></td><td>action</td><td>✓</td><td></td></tr>
+<tr><td><code>setpropmagicres</code></td><td>action</td><td>✓</td><td></td></tr>
+<tr><td><code>setspellresist10</code></td><td>action</td><td>✓</td><td></td></tr>
+<tr><td><code>setprophaste</code></td><td>action</td><td>✓</td><td></td></tr>
+<tr><td><code>setpropdarkvis</code></td><td>action</td><td>✓</td><td></td></tr>
+<tr><td><code>setpropdambonus</code></td><td>action</td><td>✓</td><td></td></tr>
+<tr><td><code>setdambludg</code></td><td>action</td><td>✓</td><td></td></tr>
+<tr><td><code>setdampierce</code></td><td>action</td><td>✓</td><td></td></tr>
+<tr><td><code>setdamslash</code></td><td>action</td><td>✓</td><td></td></tr>
+<tr><td><code>setdam2d8</code></td><td>action</td><td>✓</td><td></td></tr>
+<tr><td><code>setdam2d6</code></td><td>action</td><td>✓</td><td></td></tr>
+<tr><td><code>setdam1d12</code></td><td>action</td><td>✓</td><td></td></tr>
+<tr><td><code>setpropac</code></td><td>action</td><td>✓</td><td></td></tr>
+<tr><td><code>setplus0</code></td><td>action</td><td>✓</td><td></td></tr>
+<tr><td><code>setplus8</code></td><td>action</td><td>✓</td><td></td></tr>
+<tr><td><code>setplus7</code></td><td>action</td><td>✓</td><td></td></tr>
+<tr><td><code>setplus6</code></td><td>action</td><td>✓</td><td></td></tr>
+<tr><td><code>setplus5</code></td><td>action</td><td>✓</td><td></td></tr>
+<tr><td><code>setplus4</code></td><td>action</td><td>✓</td><td></td></tr>
+<tr><td><code>setplus3</code></td><td>action</td><td>✓</td><td></td></tr>
+<tr><td><code>setplus2</code></td><td>action</td><td>✓</td><td></td></tr>
+<tr><td><code>setplus1</code></td><td>action</td><td>✓</td><td></td></tr>
+<tr><td><code>calcmodvalue2</code></td><td>action</td><td>✓</td><td></td></tr>
+<tr><td><code>cannotafford</code></td><td>active</td><td>✓</td><td></td></tr>
+<tr><td><code>isamttopay</code></td><td>active</td><td>✓</td><td></td></tr>
+<tr><td><code>isamtrefund</code></td><td>active</td><td>✓</td><td></td></tr>
+<tr><td><code>modifyitem</code></td><td>action</td><td>✓</td><td></td></tr></tbody></table>
+<h2>Starting entries</h2><ul>
+<li><a href="#e0">entry #0</a> — Greetings my &lt;lord/lady&gt;. What can I do for you?</li>
+</ul>
+<h2>NPC lines (entries)</h2>
+<div class="dlg-node entry" id="e0"><div class="dlg-head"><span class="dlg-id">entry #0</span> <span class="dlg-action">→ <code>removeallitems</code></span></div><div class="dlg-text">Greetings my &lt;lord/lady&gt;. What can I do for you?</div><div class="dlg-links"><a href="#r1">→ reply #1</a> · <a href="#r0">→ reply #0</a></div></div>
+<div class="dlg-node entry" id="e1"><div class="dlg-head"><span class="dlg-id">entry #1</span></div><div class="dlg-text">Please place exactly one item on the anvil, then speak to me again.</div><div class="dlg-links"><a href="#r2">→ reply #2</a></div></div>
+<div class="dlg-node entry" id="e2"><div class="dlg-head"><span class="dlg-id">entry #2</span></div><div class="dlg-text">Are you sure you want to modify the &lt;CUSTOM100&gt;?</div><div class="dlg-links"><a href="#r4">→ reply #4</a> · <a href="#r3">→ reply #3</a></div></div>
+<div class="dlg-node entry" id="e3"><div class="dlg-head"><span class="dlg-id">entry #3</span></div><div class="dlg-text">Is there anything else?</div><div class="dlg-links"><a href="#r1">→ child</a> · <a href="#r0">→ child</a></div></div>
+<div class="dlg-node entry" id="e4"><div class="dlg-head"><span class="dlg-id">entry #4</span></div><div class="dlg-text">What type of modification would you like?</div><div class="dlg-links"><a href="#r55">→ reply #55</a> · <a href="#r48">→ reply #48</a> <small class="muted">(if <code>ismeleeweapon</code>)</small> · <a href="#r47">→ reply #47</a> · <a href="#r46">→ reply #46</a> · <a href="#r44">→ reply #44</a> · <a href="#r43">→ reply #43</a> <small class="muted">(if <code>ismeleeweapon</code>)</small> · <a href="#r42">→ reply #42</a> · <a href="#r41">→ reply #41</a> <small class="muted">(if <code>isweapon</code>)</small> · <a href="#r40">→ reply #40</a> <small class="muted">(if <code>israngedweapon</code>)</small> · <a href="#r19">→ reply #19</a> · <a href="#r18">→ reply #18</a> <small class="muted">(if <code>isweapon</code>)</small> · <a href="#r17">→ reply #17</a> <small class="muted">(if <code>ismeleeweapon</code>)</small> · <a href="#r16">→ reply #16</a> · <a href="#r6">→ reply #6</a> <small class="muted">(if <code>israngedweapon</code>)</small> · <a href="#r5">→ reply #5</a></div></div>
+<div class="dlg-node entry" id="e5"><div class="dlg-head"><span class="dlg-id">entry #5</span></div><div class="dlg-text">Select the ammo type.</div><div class="dlg-links"><a href="#r15">→ reply #15</a> · <a href="#r14">→ reply #14</a> · <a href="#r13">→ reply #13</a> · <a href="#r12">→ reply #12</a> · <a href="#r11">→ reply #11</a> · <a href="#r10">→ reply #10</a> · <a href="#r9">→ reply #9</a> · <a href="#r8">→ reply #8</a> · <a href="#r7">→ reply #7</a></div></div>
+<div class="dlg-node entry" id="e6"><div class="dlg-head"><span class="dlg-id">entry #6</span></div><div class="dlg-text">Now please select the skill to be enhanced.</div><div class="dlg-links"><a href="#r39">→ reply #39</a> · <a href="#r38">→ reply #38</a> · <a href="#r37">→ reply #37</a> · <a href="#r36">→ reply #36</a> · <a href="#r35">→ reply #35</a> · <a href="#r34">→ reply #34</a> · <a href="#r33">→ reply #33</a> · <a href="#r32">→ reply #32</a> · <a href="#r31">→ reply #31</a> · <a href="#r30">→ reply #30</a> · <a href="#r29">→ reply #29</a> · <a href="#r28">→ reply #28</a> · <a href="#r27">→ reply #27</a> · <a href="#r26">→ reply #26</a> · <a href="#r25">→ reply #25</a> · <a href="#r24">→ reply #24</a> · <a href="#r23">→ reply #23</a> · <a href="#r22">→ reply #22</a> · <a href="#r21">→ reply #21</a> · <a href="#r20">→ reply #20</a></div></div>
+<div class="dlg-node entry" id="e7"><div class="dlg-head"><span class="dlg-id">entry #7</span></div><div class="dlg-text">Please choose the magic resistance level.</div><div class="dlg-links"><a href="#r45">→ reply #45</a></div></div>
+<div class="dlg-node entry" id="e8"><div class="dlg-head"><span class="dlg-id">entry #8</span></div><div class="dlg-text">Please tell me what damage type you would like.</div><div class="dlg-links"><a href="#r51">→ reply #51</a> · <a href="#r50">→ reply #50</a> · <a href="#r49">→ reply #49</a></div></div>
+<div class="dlg-node entry" id="e9"><div class="dlg-head"><span class="dlg-id">entry #9</span></div><div class="dlg-text">Now choose the damage amount.</div><div class="dlg-links"><a href="#r54">→ reply #54</a> · <a href="#r53">→ reply #53</a> · <a href="#r52">→ reply #52</a></div></div>
+<div class="dlg-node entry" id="e10"><div class="dlg-head"><span class="dlg-id">entry #10</span></div><div class="dlg-text">Now, please select the bonus amount.</div><div class="dlg-links"><a href="#r64">→ reply #64</a> · <a href="#r63">→ reply #63</a> · <a href="#r62">→ reply #62</a> · <a href="#r61">→ reply #61</a> · <a href="#r60">→ reply #60</a> · <a href="#r59">→ reply #59</a> · <a href="#r58">→ reply #58</a> · <a href="#r57">→ reply #57</a> · <a href="#r56">→ reply #56</a></div></div>
+<div class="dlg-node entry" id="e11"><div class="dlg-head"><span class="dlg-id">entry #11</span> <span class="dlg-action">→ <code>calcmodvalue1</code></span></div><div class="dlg-text">Please wait while I calculate the cost of this modification.</div><div class="dlg-links"><a href="#r65">→ reply #65</a></div></div>
+<div class="dlg-node entry" id="e12"><div class="dlg-head"><span class="dlg-id">entry #12</span></div><div class="dlg-text">There is no charge for this modification.</div><div class="dlg-links"><a href="#r67">→ child</a> · <a href="#r66">→ child</a></div></div>
+<div class="dlg-node entry" id="e13"><div class="dlg-head"><span class="dlg-id">entry #13</span></div><div class="dlg-text">This modification will give you a refund of &lt;CUSTOM101&gt; gold.</div><div class="dlg-links"><a href="#r67">→ reply #67</a> · <a href="#r66">→ reply #66</a></div></div>
+<div class="dlg-node entry" id="e14"><div class="dlg-head"><span class="dlg-id">entry #14</span></div><div class="dlg-text">This modification will cost you &lt;CUSTOM101&gt; gold.</div><div class="dlg-links"><a href="#r67">→ child</a> · <a href="#r66">→ child</a></div></div>
+<div class="dlg-node entry" id="e15"><div class="dlg-head"><span class="dlg-id">entry #15</span></div><div class="dlg-text">This modification will cost you &lt;CUSTOM101&gt; gold.</div><div class="dlg-links"><a href="#r68">→ reply #68</a></div></div>
+<h2>PC replies</h2>
+<div class="dlg-node reply" id="r0"><div class="dlg-head"><span class="dlg-id">reply #0</span></div><div class="dlg-text">Goodbye.</div></div>
+<div class="dlg-node reply" id="r1"><div class="dlg-head"><span class="dlg-id">reply #1</span></div><div class="dlg-text">Modify the item on the anvil.</div><div class="dlg-links"><a href="#e2">→ entry #2</a> <small class="muted">(if <code>isitemonanvil</code>)</small> · <a href="#e1">→ entry #1</a></div></div>
+<div class="dlg-node reply" id="r2"><div class="dlg-head"><span class="dlg-id">reply #2</span></div><div class="dlg-text"><em>(no text)</em></div></div>
+<div class="dlg-node reply" id="r3"><div class="dlg-head"><span class="dlg-id">reply #3</span></div><div class="dlg-text">No.</div><div class="dlg-links"><a href="#e3">→ entry #3</a></div></div>
+<div class="dlg-node reply" id="r4"><div class="dlg-head"><span class="dlg-id">reply #4</span></div><div class="dlg-text">Yes.</div><div class="dlg-links"><a href="#e4">→ entry #4</a></div></div>
+<div class="dlg-node reply" id="r5"><div class="dlg-head"><span class="dlg-id">reply #5</span> <span class="dlg-action">→ <code>removeall</code></span></div><div class="dlg-text">Remove all magical properties from the item.</div><div class="dlg-links"><a href="#e3">→ child</a></div></div>
+<div class="dlg-node reply" id="r6"><div class="dlg-head"><span class="dlg-id">reply #6</span> <span class="dlg-action">→ <code>setpropunlimammo</code></span></div><div class="dlg-text">Unlimited Ammo.</div><div class="dlg-links"><a href="#e5">→ entry #5</a></div></div>
+<div class="dlg-node reply" id="r7"><div class="dlg-head"><span class="dlg-id">reply #7</span> <span class="dlg-action">→ <code>setammolight</code></span></div><div class="dlg-text">1d6 Light.</div><div class="dlg-links"><a href="#e11">→ child</a></div></div>
+<div class="dlg-node reply" id="r8"><div class="dlg-head"><span class="dlg-id">reply #8</span> <span class="dlg-action">→ <code>setammofire</code></span></div><div class="dlg-text">1d6 Fire.</div><div class="dlg-links"><a href="#e11">→ child</a></div></div>
+<div class="dlg-node reply" id="r9"><div class="dlg-head"><span class="dlg-id">reply #9</span> <span class="dlg-action">→ <code>setammocold</code></span></div><div class="dlg-text">1d6 Cold.</div><div class="dlg-links"><a href="#e11">→ child</a></div></div>
+<div class="dlg-node reply" id="r10"><div class="dlg-head"><span class="dlg-id">reply #10</span> <span class="dlg-action">→ <code>setammoplus5</code></span></div><div class="dlg-text">+5</div><div class="dlg-links"><a href="#e11">→ child</a></div></div>
+<div class="dlg-node reply" id="r11"><div class="dlg-head"><span class="dlg-id">reply #11</span> <span class="dlg-action">→ <code>setammoplus4</code></span></div><div class="dlg-text">+4</div><div class="dlg-links"><a href="#e11">→ child</a></div></div>
+<div class="dlg-node reply" id="r12"><div class="dlg-head"><span class="dlg-id">reply #12</span> <span class="dlg-action">→ <code>setammoplus3</code></span></div><div class="dlg-text">+3</div><div class="dlg-links"><a href="#e11">→ child</a></div></div>
+<div class="dlg-node reply" id="r13"><div class="dlg-head"><span class="dlg-id">reply #13</span> <span class="dlg-action">→ <code>setammoplus2</code></span></div><div class="dlg-text">+2</div><div class="dlg-links"><a href="#e11">→ child</a></div></div>
+<div class="dlg-node reply" id="r14"><div class="dlg-head"><span class="dlg-id">reply #14</span> <span class="dlg-action">→ <code>setammoplus1</code></span></div><div class="dlg-text">+1</div><div class="dlg-links"><a href="#e11">→ child</a></div></div>
+<div class="dlg-node reply" id="r15"><div class="dlg-head"><span class="dlg-id">reply #15</span> <span class="dlg-action">→ <code>setammobasic</code></span></div><div class="dlg-text">Basic.</div><div class="dlg-links"><a href="#e11">→ child</a></div></div>
+<div class="dlg-node reply" id="r16"><div class="dlg-head"><span class="dlg-id">reply #16</span> <span class="dlg-action">→ <code>setpropfreedom</code></span></div><div class="dlg-text">Freedom of Movement.</div><div class="dlg-links"><a href="#e11">→ child</a></div></div>
+<div class="dlg-node reply" id="r17"><div class="dlg-head"><span class="dlg-id">reply #17</span> <span class="dlg-action">→ <code>setpropvampiric</code></span></div><div class="dlg-text">Vampiric Regeneration.</div><div class="dlg-links"><a href="#e10">→ child</a></div></div>
+<div class="dlg-node reply" id="r18"><div class="dlg-head"><span class="dlg-id">reply #18</span> <span class="dlg-action">→ <code>setpropattack</code></span></div><div class="dlg-text">Attack Bonus.</div><div class="dlg-links"><a href="#e10">→ child</a></div></div>
+<div class="dlg-node reply" id="r19"><div class="dlg-head"><span class="dlg-id">reply #19</span> <span class="dlg-action">→ <code>setpropskilbonus</code></span></div><div class="dlg-text">Skill Bonus.</div><div class="dlg-links"><a href="#e6">→ entry #6</a></div></div>
+<div class="dlg-node reply" id="r20"><div class="dlg-head"><span class="dlg-id">reply #20</span> <span class="dlg-action">→ <code>setskilltaunt</code></span></div><div class="dlg-text">Taunt.</div><div class="dlg-links"><a href="#e10">→ child</a></div></div>
+<div class="dlg-node reply" id="r21"><div class="dlg-head"><span class="dlg-id">reply #21</span> <span class="dlg-action">→ <code>setskillsettrap</code></span></div><div class="dlg-text">Set Trap.</div><div class="dlg-links"><a href="#e10">→ child</a></div></div>
+<div class="dlg-node reply" id="r22"><div class="dlg-head"><span class="dlg-id">reply #22</span> <span class="dlg-action">→ <code>setskillsearch</code></span></div><div class="dlg-text">Search.</div><div class="dlg-links"><a href="#e10">→ child</a></div></div>
+<div class="dlg-node reply" id="r23"><div class="dlg-head"><span class="dlg-id">reply #23</span> <span class="dlg-action">→ <code>setskillpickpokt</code></span></div><div class="dlg-text">Pick Pocket.</div><div class="dlg-links"><a href="#e10">→ child</a></div></div>
+<div class="dlg-node reply" id="r24"><div class="dlg-head"><span class="dlg-id">reply #24</span> <span class="dlg-action">→ <code>setskillpersuade</code></span></div><div class="dlg-text">Persuade.</div><div class="dlg-links"><a href="#e10">→ child</a></div></div>
+<div class="dlg-node reply" id="r25"><div class="dlg-head"><span class="dlg-id">reply #25</span> <span class="dlg-action">→ <code>setskillperform</code></span></div><div class="dlg-text">Perform.</div><div class="dlg-links"><a href="#e10">→ child</a></div></div>
+<div class="dlg-node reply" id="r26"><div class="dlg-head"><span class="dlg-id">reply #26</span> <span class="dlg-action">→ <code>setskillparry</code></span></div><div class="dlg-text">Parry.</div><div class="dlg-links"><a href="#e10">→ child</a></div></div>
+<div class="dlg-node reply" id="r27"><div class="dlg-head"><span class="dlg-id">reply #27</span> <span class="dlg-action">→ <code>setskillopenlock</code></span></div><div class="dlg-text">Open Lock.</div><div class="dlg-links"><a href="#e10">→ child</a></div></div>
+<div class="dlg-node reply" id="r28"><div class="dlg-head"><span class="dlg-id">reply #28</span> <span class="dlg-action">→ <code>setskilllisten</code></span></div><div class="dlg-text">Listen.</div><div class="dlg-links"><a href="#e10">→ child</a></div></div>
+<div class="dlg-node reply" id="r29"><div class="dlg-head"><span class="dlg-id">reply #29</span> <span class="dlg-action">→ <code>setskillintimidt</code></span></div><div class="dlg-text">Intimidate.</div><div class="dlg-links"><a href="#e10">→ child</a></div></div>
+<div class="dlg-node reply" id="r30"><div class="dlg-head"><span class="dlg-id">reply #30</span> <span class="dlg-action">→ <code>setskillhide</code></span></div><div class="dlg-text">Hide.</div><div class="dlg-links"><a href="#e10">→ child</a></div></div>
+<div class="dlg-node reply" id="r31"><div class="dlg-head"><span class="dlg-id">reply #31</span> <span class="dlg-action">→ <code>setskillheal</code></span></div><div class="dlg-text">Heal.</div><div class="dlg-links"><a href="#e10">→ child</a></div></div>
+<div class="dlg-node reply" id="r32"><div class="dlg-head"><span class="dlg-id">reply #32</span> <span class="dlg-action">→ <code>setskilldisabtrp</code></span></div><div class="dlg-text">Disable Trap.</div><div class="dlg-links"><a href="#e10">→ child</a></div></div>
+<div class="dlg-node reply" id="r33"><div class="dlg-head"><span class="dlg-id">reply #33</span> <span class="dlg-action">→ <code>setskillcraftwpn</code></span></div><div class="dlg-text">Craft Weapon.</div><div class="dlg-links"><a href="#e10">→ child</a></div></div>
+<div class="dlg-node reply" id="r34"><div class="dlg-head"><span class="dlg-id">reply #34</span> <span class="dlg-action">→ <code>setskillcrafttrp</code></span></div><div class="dlg-text">Craft Trap.</div><div class="dlg-links"><a href="#e10">→ child</a></div></div>
+<div class="dlg-node reply" id="r35"><div class="dlg-head"><span class="dlg-id">reply #35</span> <span class="dlg-action">→ <code>setskillcraftarm</code></span></div><div class="dlg-text">Craft Armor.</div><div class="dlg-links"><a href="#e10">→ child</a></div></div>
+<div class="dlg-node reply" id="r36"><div class="dlg-head"><span class="dlg-id">reply #36</span> <span class="dlg-action">→ <code>setskillconcentr</code></span></div><div class="dlg-text">Concentration.</div><div class="dlg-links"><a href="#e10">→ child</a></div></div>
+<div class="dlg-node reply" id="r37"><div class="dlg-head"><span class="dlg-id">reply #37</span> <span class="dlg-action">→ <code>setskillbluff</code></span></div><div class="dlg-text">Bluff.</div><div class="dlg-links"><a href="#e10">→ child</a></div></div>
+<div class="dlg-node reply" id="r38"><div class="dlg-head"><span class="dlg-id">reply #38</span> <span class="dlg-action">→ <code>setskillappraise</code></span></div><div class="dlg-text">Appraise.</div><div class="dlg-links"><a href="#e10">→ child</a></div></div>
+<div class="dlg-node reply" id="r39"><div class="dlg-head"><span class="dlg-id">reply #39</span> <span class="dlg-action">→ <code>setskillanempath</code></span></div><div class="dlg-text">Animal Empathy.</div><div class="dlg-links"><a href="#e10">→ child</a></div></div>
+<div class="dlg-node reply" id="r40"><div class="dlg-head"><span class="dlg-id">reply #40</span> <span class="dlg-action">→ <code>setpropmighty</code></span></div><div class="dlg-text">Mighty.</div><div class="dlg-links"><a href="#e10">→ child</a></div></div>
+<div class="dlg-node reply" id="r41"><div class="dlg-head"><span class="dlg-id">reply #41</span> <span class="dlg-action">→ <code>setpropmasscrit</code></span></div><div class="dlg-text">Massive Criticals</div><div class="dlg-links"><a href="#e9">→ child</a></div></div>
+<div class="dlg-node reply" id="r42"><div class="dlg-head"><span class="dlg-id">reply #42</span> <span class="dlg-action">→ <code>setproplight</code></span></div><div class="dlg-text">Light.</div><div class="dlg-links"><a href="#e11">→ child</a></div></div>
+<div class="dlg-node reply" id="r43"><div class="dlg-head"><span class="dlg-id">reply #43</span> <span class="dlg-action">→ <code>setpropkeen</code></span></div><div class="dlg-text">Keen.</div><div class="dlg-links"><a href="#e11">→ child</a></div></div>
+<div class="dlg-node reply" id="r44"><div class="dlg-head"><span class="dlg-id">reply #44</span> <span class="dlg-action">→ <code>setpropmagicres</code></span></div><div class="dlg-text">Improved Magic Resistance.</div><div class="dlg-links"><a href="#e7">→ entry #7</a></div></div>
+<div class="dlg-node reply" id="r45"><div class="dlg-head"><span class="dlg-id">reply #45</span> <span class="dlg-action">→ <code>setspellresist10</code></span></div><div class="dlg-text">10%</div><div class="dlg-links"><a href="#e11">→ child</a></div></div>
+<div class="dlg-node reply" id="r46"><div class="dlg-head"><span class="dlg-id">reply #46</span> <span class="dlg-action">→ <code>setprophaste</code></span></div><div class="dlg-text">Haste.</div><div class="dlg-links"><a href="#e11">→ child</a></div></div>
+<div class="dlg-node reply" id="r47"><div class="dlg-head"><span class="dlg-id">reply #47</span> <span class="dlg-action">→ <code>setpropdarkvis</code></span></div><div class="dlg-text">Darkvision.</div><div class="dlg-links"><a href="#e11">→ child</a></div></div>
+<div class="dlg-node reply" id="r48"><div class="dlg-head"><span class="dlg-id">reply #48</span> <span class="dlg-action">→ <code>setpropdambonus</code></span></div><div class="dlg-text">Damage Bonus.</div><div class="dlg-links"><a href="#e8">→ entry #8</a></div></div>
+<div class="dlg-node reply" id="r49"><div class="dlg-head"><span class="dlg-id">reply #49</span> <span class="dlg-action">→ <code>setdambludg</code></span></div><div class="dlg-text">Bludgeoning.</div><div class="dlg-links"><a href="#e9">→ child</a></div></div>
+<div class="dlg-node reply" id="r50"><div class="dlg-head"><span class="dlg-id">reply #50</span> <span class="dlg-action">→ <code>setdampierce</code></span></div><div class="dlg-text">Piercing.</div><div class="dlg-links"><a href="#e9">→ child</a></div></div>
+<div class="dlg-node reply" id="r51"><div class="dlg-head"><span class="dlg-id">reply #51</span> <span class="dlg-action">→ <code>setdamslash</code></span></div><div class="dlg-text">Slashing.</div><div class="dlg-links"><a href="#e9">→ entry #9</a></div></div>
+<div class="dlg-node reply" id="r52"><div class="dlg-head"><span class="dlg-id">reply #52</span> <span class="dlg-action">→ <code>setdam2d8</code></span></div><div class="dlg-text">2d8</div><div class="dlg-links"><a href="#e11">→ child</a></div></div>
+<div class="dlg-node reply" id="r53"><div class="dlg-head"><span class="dlg-id">reply #53</span> <span class="dlg-action">→ <code>setdam2d6</code></span></div><div class="dlg-text">2d6</div><div class="dlg-links"><a href="#e11">→ child</a></div></div>
+<div class="dlg-node reply" id="r54"><div class="dlg-head"><span class="dlg-id">reply #54</span> <span class="dlg-action">→ <code>setdam1d12</code></span></div><div class="dlg-text">1d12</div><div class="dlg-links"><a href="#e11">→ child</a></div></div>
+<div class="dlg-node reply" id="r55"><div class="dlg-head"><span class="dlg-id">reply #55</span> <span class="dlg-action">→ <code>setpropac</code></span></div><div class="dlg-text">Armour Bonus.</div><div class="dlg-links"><a href="#e10">→ entry #10</a></div></div>
+<div class="dlg-node reply" id="r56"><div class="dlg-head"><span class="dlg-id">reply #56</span> <span class="dlg-action">→ <code>setplus0</code></span></div><div class="dlg-text">Remove the existing bonus.</div><div class="dlg-links"><a href="#e11">→ child</a></div></div>
+<div class="dlg-node reply" id="r57"><div class="dlg-head"><span class="dlg-id">reply #57</span> <span class="dlg-action">→ <code>setplus8</code></span></div><div class="dlg-text">+8</div><div class="dlg-links"><a href="#e11">→ child</a></div></div>
+<div class="dlg-node reply" id="r58"><div class="dlg-head"><span class="dlg-id">reply #58</span> <span class="dlg-action">→ <code>setplus7</code></span></div><div class="dlg-text">+7</div><div class="dlg-links"><a href="#e11">→ child</a></div></div>
+<div class="dlg-node reply" id="r59"><div class="dlg-head"><span class="dlg-id">reply #59</span> <span class="dlg-action">→ <code>setplus6</code></span></div><div class="dlg-text">+6</div><div class="dlg-links"><a href="#e11">→ child</a></div></div>
+<div class="dlg-node reply" id="r60"><div class="dlg-head"><span class="dlg-id">reply #60</span> <span class="dlg-action">→ <code>setplus5</code></span></div><div class="dlg-text">+5</div><div class="dlg-links"><a href="#e11">→ child</a></div></div>
+<div class="dlg-node reply" id="r61"><div class="dlg-head"><span class="dlg-id">reply #61</span> <span class="dlg-action">→ <code>setplus4</code></span></div><div class="dlg-text">+4</div><div class="dlg-links"><a href="#e11">→ child</a></div></div>
+<div class="dlg-node reply" id="r62"><div class="dlg-head"><span class="dlg-id">reply #62</span> <span class="dlg-action">→ <code>setplus3</code></span></div><div class="dlg-text">+3</div><div class="dlg-links"><a href="#e11">→ child</a></div></div>
+<div class="dlg-node reply" id="r63"><div class="dlg-head"><span class="dlg-id">reply #63</span> <span class="dlg-action">→ <code>setplus2</code></span></div><div class="dlg-text">+2</div><div class="dlg-links"><a href="#e11">→ child</a></div></div>
+<div class="dlg-node reply" id="r64"><div class="dlg-head"><span class="dlg-id">reply #64</span> <span class="dlg-action">→ <code>setplus1</code></span></div><div class="dlg-text">+1</div><div class="dlg-links"><a href="#e11">→ entry #11</a></div></div>
+<div class="dlg-node reply" id="r65"><div class="dlg-head"><span class="dlg-id">reply #65</span> <span class="dlg-action">→ <code>calcmodvalue2</code></span></div><div class="dlg-text"><em>(no text)</em></div><div class="dlg-links"><a href="#e15">→ entry #15</a> <small class="muted">(if <code>cannotafford</code>)</small> · <a href="#e14">→ entry #14</a> <small class="muted">(if <code>isamttopay</code>)</small> · <a href="#e13">→ entry #13</a> <small class="muted">(if <code>isamtrefund</code>)</small> · <a href="#e12">→ entry #12</a></div></div>
+<div class="dlg-node reply" id="r66"><div class="dlg-head"><span class="dlg-id">reply #66</span></div><div class="dlg-text">I&#x27;ve changed my mind.</div><div class="dlg-links"><a href="#e3">→ child</a></div></div>
+<div class="dlg-node reply" id="r67"><div class="dlg-head"><span class="dlg-id">reply #67</span> <span class="dlg-action">→ <code>modifyitem</code></span></div><div class="dlg-text">Please go ahead.</div><div class="dlg-links"><a href="#e3">→ child</a></div></div>
+<div class="dlg-node reply" id="r68"><div class="dlg-head"><span class="dlg-id">reply #68</span></div><div class="dlg-text">Sorry, I don&#x27;t seem to have enough gold.</div><div class="dlg-links"><a href="#e3">→ child</a></div></div>
+  </main>
+  <footer>generated by <a href="https://github.com/mrprice22/nwn-manager">nwn-manager</a></footer>
+</body>
+</html>
