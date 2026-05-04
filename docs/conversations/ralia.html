@@ -37,12 +37,46 @@
 <h2>Starting entries</h2><ul>
 <li><a href="#e0">entry #0</a> — Good &lt;QuarterDay&gt;, M&#x27;&lt;Lord/Lady&gt; it is a pleasure to see one such as yourself co…</li>
 </ul>
-<h2>NPC lines (entries)</h2>
-<div class="dlg-node entry" id="e0"><div class="dlg-head"><span class="dlg-id">entry #0</span></div><div class="dlg-text">Good &lt;QuarterDay&gt;, M&#x27;&lt;Lord/Lady&gt; it is a pleasure to see one such as yourself come to the Temple of Illuvatar, my heart gladdens to see you.</div><div class="dlg-links"><a href="#r1">→ reply #1</a> · <a href="#r0">→ reply #0</a></div></div>
-<div class="dlg-node entry" id="e1"><div class="dlg-head"><span class="dlg-id">entry #1</span></div><div class="dlg-text">Ah yes, Tharbad has seen better days. But I digress, we have had some interesting artifacts that have crossed our door, would you care for a look?</div><div class="dlg-links"><a href="#r3">→ reply #3</a> · <a href="#r2">→ reply #2</a></div></div>
-<h2>PC replies</h2>
+<h2>Conversation flow</h2>
+<p class="muted">Each starting entry is expanded recursively. Repeated nodes (cycles, shared continuations) appear inline as <code>↩ link</code> backrefs to the first occurrence.</p>
+<div class="dlg-tree">
+<details class="dlg-tree-node entry" open>
+<summary><span class="dlg-id">entry #0</span> <a class="dlg-anchor" href="#e0" title="jump to flat entry #0">¶</a></summary>
+<div class="dlg-text">Good &lt;QuarterDay&gt;, M&#x27;&lt;Lord/Lady&gt; it is a pleasure to see one such as yourself come to the Temple of Illuvatar, my heart gladdens to see you.</div>
+<div class="dlg-tree-children">
+<details class="dlg-tree-node reply" open>
+<summary><span class="dlg-id">reply #1</span> <a class="dlg-anchor" href="#r1" title="jump to flat reply #1">¶</a></summary>
+<div class="dlg-text">Indeed I feel better with such a warm welcome. The guards of this city are no more than common thugs.</div>
+<div class="dlg-tree-children">
+<details class="dlg-tree-node entry" open>
+<summary><span class="dlg-id">entry #1</span> <a class="dlg-anchor" href="#e1" title="jump to flat entry #1">¶</a></summary>
+<div class="dlg-text">Ah yes, Tharbad has seen better days. But I digress, we have had some interesting artifacts that have crossed our door, would you care for a look?</div>
+<div class="dlg-tree-children">
+<details class="dlg-tree-node reply" open>
+<summary><span class="dlg-id">reply #3</span> <span class="dlg-action">→ <code>at_016</code></span> <a class="dlg-anchor" href="#r3" title="jump to flat reply #3">¶</a></summary>
+<div class="dlg-text">Please.</div>
+</details>
+<details class="dlg-tree-node reply" open>
+<summary><span class="dlg-id">reply #2</span> <a class="dlg-anchor" href="#r2" title="jump to flat reply #2">¶</a></summary>
+<div class="dlg-text">No thanks. I must be off now.</div>
+</details>
+</div>
+</details>
+</div>
+</details>
+<details class="dlg-tree-node reply" open>
+<summary><span class="dlg-id">reply #0</span> <span class="dlg-action">→ <code>at_016</code></span> <a class="dlg-anchor" href="#r0" title="jump to flat reply #0">¶</a></summary>
+<div class="dlg-text">Ya ya skip the chit chat whats in the vault for sale?</div>
+</details>
+</div>
+</details>
+</div>
+<h2>NPC lines (entries) — flat index</h2>
+<div class="dlg-node entry" id="e0"><div class="dlg-head"><span class="dlg-id">entry #0</span></div><div class="dlg-text">Good &lt;QuarterDay&gt;, M&#x27;&lt;Lord/Lady&gt; it is a pleasure to see one such as yourself come to the Temple of Illuvatar, my heart gladdens to see you.</div><ul class="dlg-links"><li><a href="#r1">→ reply #1</a> <span class="dlg-link-preview">“Indeed I feel better with such a warm welcome. The guards of this city are no mo…”</span></li><li><a href="#r0">→ reply #0</a> <span class="dlg-link-preview">“Ya ya skip the chit chat whats in the vault for sale?”</span></li></ul></div>
+<div class="dlg-node entry" id="e1"><div class="dlg-head"><span class="dlg-id">entry #1</span></div><div class="dlg-text">Ah yes, Tharbad has seen better days. But I digress, we have had some interesting artifacts that have crossed our door, would you care for a look?</div><ul class="dlg-links"><li><a href="#r3">→ reply #3</a> <span class="dlg-link-preview">“Please.”</span></li><li><a href="#r2">→ reply #2</a> <span class="dlg-link-preview">“No thanks. I must be off now.”</span></li></ul></div>
+<h2>PC replies — flat index</h2>
 <div class="dlg-node reply" id="r0"><div class="dlg-head"><span class="dlg-id">reply #0</span> <span class="dlg-action">→ <code>at_016</code></span></div><div class="dlg-text">Ya ya skip the chit chat whats in the vault for sale?</div></div>
-<div class="dlg-node reply" id="r1"><div class="dlg-head"><span class="dlg-id">reply #1</span></div><div class="dlg-text">Indeed I feel better with such a warm welcome. The guards of this city are no more than common thugs.</div><div class="dlg-links"><a href="#e1">→ entry #1</a></div></div>
+<div class="dlg-node reply" id="r1"><div class="dlg-head"><span class="dlg-id">reply #1</span></div><div class="dlg-text">Indeed I feel better with such a warm welcome. The guards of this city are no more than common thugs.</div><ul class="dlg-links"><li><a href="#e1">→ entry #1</a> <span class="dlg-link-preview">“Ah yes, Tharbad has seen better days. But I digress, we have had some interestin…”</span></li></ul></div>
 <div class="dlg-node reply" id="r2"><div class="dlg-head"><span class="dlg-id">reply #2</span></div><div class="dlg-text">No thanks. I must be off now.</div></div>
 <div class="dlg-node reply" id="r3"><div class="dlg-head"><span class="dlg-id">reply #3</span> <span class="dlg-action">→ <code>at_016</code></span></div><div class="dlg-text">Please.</div></div>
   </main>

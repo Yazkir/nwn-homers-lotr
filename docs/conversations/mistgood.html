@@ -35,16 +35,70 @@
 <h2>Starting entries</h2><ul>
 <li><a href="#e0">entry #0</a> — Good Morrow kind &lt;Sir/Madam&gt;, let me tell you a tale of the times, troubles and …</li>
 </ul>
-<h2>NPC lines (entries)</h2>
-<div class="dlg-node entry" id="e0"><div class="dlg-head"><span class="dlg-id">entry #0</span></div><div class="dlg-text">Good Morrow kind &lt;Sir/Madam&gt;, let me tell you a tale of the times, troubles and tribulations.</div><div class="dlg-links"><a href="#r1">→ reply #1</a> · <a href="#r0">→ reply #0</a></div></div>
-<div class="dlg-node entry" id="e1"><div class="dlg-head"><span class="dlg-id">entry #1</span></div><div class="dlg-text">On November 2nd a Contest of Champions will be held in Lake Town. The contest will run the gamut of power ranges and signups will start on the 27th. Prizes will be awarded. Food and Drink of rare quality.  fun and adventure await. And there will be one grand prize to be awarded to the bravest champion. All are welcome to Enter. Matches will be set up by the Guides. There will be a small entry fee of 50 gold per level.</div><div class="dlg-links"><a href="#r2">→ reply #2</a></div></div>
-<div class="dlg-node entry" id="e2"><div class="dlg-head"><span class="dlg-id">entry #2</span></div><div class="dlg-text">Ah tis a sad time. Edoras was attacked recently and many of the Ridermark were slaughtered. And even King Theoden took injury.</div><div class="dlg-links"><a href="#r3">→ reply #3</a></div></div>
-<div class="dlg-node entry" id="e3"><div class="dlg-head"><span class="dlg-id">entry #3</span></div><div class="dlg-text">As if that were not enough... These Servants of Sauron then assailed the Valley of Rivendell, many brave elven ranger and Ronger of the north were cut down. And Glorfindel was found unconcious among the dead. It is said that this all was mastermind by two very powerful Servants. Dylanth Pike and Ugah Boogah. It is rumored that Dylanth one of the most powerful wizards of the region has breached the protection of Rivendell. And there now stands a secret entrance that evil may pass through.</div><div class="dlg-links"><a href="#r4">→ reply #4</a></div></div>
-<h2>PC replies</h2>
+<h2>Conversation flow</h2>
+<p class="muted">Each starting entry is expanded recursively. Repeated nodes (cycles, shared continuations) appear inline as <code>↩ link</code> backrefs to the first occurrence.</p>
+<div class="dlg-tree">
+<details class="dlg-tree-node entry" open>
+<summary><span class="dlg-id">entry #0</span> <a class="dlg-anchor" href="#e0" title="jump to flat entry #0">¶</a></summary>
+<div class="dlg-text">Good Morrow kind &lt;Sir/Madam&gt;, let me tell you a tale of the times, troubles and tribulations.</div>
+<div class="dlg-tree-children">
+<details class="dlg-tree-node reply" open>
+<summary><span class="dlg-id">reply #1</span> <a class="dlg-anchor" href="#r1" title="jump to flat reply #1">¶</a></summary>
+<div class="dlg-text">Alright lets here it.</div>
+<div class="dlg-tree-children">
+<details class="dlg-tree-node entry" open>
+<summary><span class="dlg-id">entry #1</span> <a class="dlg-anchor" href="#e1" title="jump to flat entry #1">¶</a></summary>
+<div class="dlg-text">On November 2nd a Contest of Champions will be held in Lake Town. The contest will run the gamut of power ranges and signups will start on the 27th. Prizes will be awarded. Food and Drink of rare quality.  fun and adventure await. And there will be one grand prize to be awarded to the bravest champion. All are welcome to Enter. Matches will be set up by the Guides. There will be a small entry fee of 50 gold per level.</div>
+<div class="dlg-tree-children">
+<details class="dlg-tree-node reply" open>
+<summary><span class="dlg-id">reply #2</span> <a class="dlg-anchor" href="#r2" title="jump to flat reply #2">¶</a></summary>
+<div class="dlg-text">Wow what else?</div>
+<div class="dlg-tree-children">
+<details class="dlg-tree-node entry" open>
+<summary><span class="dlg-id">entry #2</span> <a class="dlg-anchor" href="#e2" title="jump to flat entry #2">¶</a></summary>
+<div class="dlg-text">Ah tis a sad time. Edoras was attacked recently and many of the Ridermark were slaughtered. And even King Theoden took injury.</div>
+<div class="dlg-tree-children">
+<details class="dlg-tree-node reply" open>
+<summary><span class="dlg-id">reply #3</span> <a class="dlg-anchor" href="#r3" title="jump to flat reply #3">¶</a></summary>
+<div class="dlg-text">Gods what else?</div>
+<div class="dlg-tree-children">
+<details class="dlg-tree-node entry" open>
+<summary><span class="dlg-id">entry #3</span> <a class="dlg-anchor" href="#e3" title="jump to flat entry #3">¶</a></summary>
+<div class="dlg-text">As if that were not enough... These Servants of Sauron then assailed the Valley of Rivendell, many brave elven ranger and Ronger of the north were cut down. And Glorfindel was found unconcious among the dead. It is said that this all was mastermind by two very powerful Servants. Dylanth Pike and Ugah Boogah. It is rumored that Dylanth one of the most powerful wizards of the region has breached the protection of Rivendell. And there now stands a secret entrance that evil may pass through.</div>
+<div class="dlg-tree-children">
+<details class="dlg-tree-node reply" open>
+<summary><span class="dlg-id">reply #4</span> <a class="dlg-anchor" href="#r4" title="jump to flat reply #4">¶</a></summary>
+<div class="dlg-text">They will be avenged.</div>
+</details>
+</div>
+</details>
+</div>
+</details>
+</div>
+</details>
+</div>
+</details>
+</div>
+</details>
+</div>
+</details>
+<details class="dlg-tree-node reply" open>
+<summary><span class="dlg-id">reply #0</span> <a class="dlg-anchor" href="#r0" title="jump to flat reply #0">¶</a></summary>
+<div class="dlg-text">Maybe some other time.</div>
+</details>
+</div>
+</details>
+</div>
+<h2>NPC lines (entries) — flat index</h2>
+<div class="dlg-node entry" id="e0"><div class="dlg-head"><span class="dlg-id">entry #0</span></div><div class="dlg-text">Good Morrow kind &lt;Sir/Madam&gt;, let me tell you a tale of the times, troubles and tribulations.</div><ul class="dlg-links"><li><a href="#r1">→ reply #1</a> <span class="dlg-link-preview">“Alright lets here it.”</span></li><li><a href="#r0">→ reply #0</a> <span class="dlg-link-preview">“Maybe some other time.”</span></li></ul></div>
+<div class="dlg-node entry" id="e1"><div class="dlg-head"><span class="dlg-id">entry #1</span></div><div class="dlg-text">On November 2nd a Contest of Champions will be held in Lake Town. The contest will run the gamut of power ranges and signups will start on the 27th. Prizes will be awarded. Food and Drink of rare quality.  fun and adventure await. And there will be one grand prize to be awarded to the bravest champion. All are welcome to Enter. Matches will be set up by the Guides. There will be a small entry fee of 50 gold per level.</div><ul class="dlg-links"><li><a href="#r2">→ reply #2</a> <span class="dlg-link-preview">“Wow what else?”</span></li></ul></div>
+<div class="dlg-node entry" id="e2"><div class="dlg-head"><span class="dlg-id">entry #2</span></div><div class="dlg-text">Ah tis a sad time. Edoras was attacked recently and many of the Ridermark were slaughtered. And even King Theoden took injury.</div><ul class="dlg-links"><li><a href="#r3">→ reply #3</a> <span class="dlg-link-preview">“Gods what else?”</span></li></ul></div>
+<div class="dlg-node entry" id="e3"><div class="dlg-head"><span class="dlg-id">entry #3</span></div><div class="dlg-text">As if that were not enough... These Servants of Sauron then assailed the Valley of Rivendell, many brave elven ranger and Ronger of the north were cut down. And Glorfindel was found unconcious among the dead. It is said that this all was mastermind by two very powerful Servants. Dylanth Pike and Ugah Boogah. It is rumored that Dylanth one of the most powerful wizards of the region has breached the protection of Rivendell. And there now stands a secret entrance that evil may pass through.</div><ul class="dlg-links"><li><a href="#r4">→ reply #4</a> <span class="dlg-link-preview">“They will be avenged.”</span></li></ul></div>
+<h2>PC replies — flat index</h2>
 <div class="dlg-node reply" id="r0"><div class="dlg-head"><span class="dlg-id">reply #0</span></div><div class="dlg-text">Maybe some other time.</div></div>
-<div class="dlg-node reply" id="r1"><div class="dlg-head"><span class="dlg-id">reply #1</span></div><div class="dlg-text">Alright lets here it.</div><div class="dlg-links"><a href="#e1">→ entry #1</a></div></div>
-<div class="dlg-node reply" id="r2"><div class="dlg-head"><span class="dlg-id">reply #2</span></div><div class="dlg-text">Wow what else?</div><div class="dlg-links"><a href="#e2">→ entry #2</a></div></div>
-<div class="dlg-node reply" id="r3"><div class="dlg-head"><span class="dlg-id">reply #3</span></div><div class="dlg-text">Gods what else?</div><div class="dlg-links"><a href="#e3">→ entry #3</a></div></div>
+<div class="dlg-node reply" id="r1"><div class="dlg-head"><span class="dlg-id">reply #1</span></div><div class="dlg-text">Alright lets here it.</div><ul class="dlg-links"><li><a href="#e1">→ entry #1</a> <span class="dlg-link-preview">“On November 2nd a Contest of Champions will be held in Lake Town. The contest wi…”</span></li></ul></div>
+<div class="dlg-node reply" id="r2"><div class="dlg-head"><span class="dlg-id">reply #2</span></div><div class="dlg-text">Wow what else?</div><ul class="dlg-links"><li><a href="#e2">→ entry #2</a> <span class="dlg-link-preview">“Ah tis a sad time. Edoras was attacked recently and many of the Ridermark were s…”</span></li></ul></div>
+<div class="dlg-node reply" id="r3"><div class="dlg-head"><span class="dlg-id">reply #3</span></div><div class="dlg-text">Gods what else?</div><ul class="dlg-links"><li><a href="#e3">→ entry #3</a> <span class="dlg-link-preview">“As if that were not enough... These Servants of Sauron then assailed the Valley…”</span></li></ul></div>
 <div class="dlg-node reply" id="r4"><div class="dlg-head"><span class="dlg-id">reply #4</span></div><div class="dlg-text">They will be avenged.</div></div>
   </main>
   <footer>generated by <a href="https://github.com/mrprice22/nwn-manager">nwn-manager</a></footer>

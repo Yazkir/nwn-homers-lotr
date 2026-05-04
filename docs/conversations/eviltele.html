@@ -66,9 +66,71 @@
 <h2>Starting entries</h2><ul>
 <li><a href="#e0">entry #0</a> — Welcome &lt;FullName&gt;! Tell me where you wish to be sent.</li>
 </ul>
-<h2>NPC lines (entries)</h2>
-<div class="dlg-node entry" id="e0"><div class="dlg-head"><span class="dlg-id">entry #0</span></div><div class="dlg-text">Welcome &lt;FullName&gt;! Tell me where you wish to be sent.</div><div class="dlg-links"><a href="#r12">→ reply #12</a> · <a href="#r11">→ reply #11</a> · <a href="#r10">→ reply #10</a> · <a href="#r9">→ reply #9</a> · <a href="#r8">→ reply #8</a> · <a href="#r7">→ reply #7</a> · <a href="#r6">→ reply #6</a> · <a href="#r5">→ reply #5</a> · <a href="#r4">→ reply #4</a> · <a href="#r3">→ reply #3</a> · <a href="#r2">→ reply #2</a> · <a href="#r1">→ reply #1</a> · <a href="#r0">→ reply #0</a></div></div>
-<h2>PC replies</h2>
+<h2>Conversation flow</h2>
+<p class="muted">Each starting entry is expanded recursively. Repeated nodes (cycles, shared continuations) appear inline as <code>↩ link</code> backrefs to the first occurrence.</p>
+<div class="dlg-tree">
+<details class="dlg-tree-node entry" open>
+<summary><span class="dlg-id">entry #0</span> <a class="dlg-anchor" href="#e0" title="jump to flat entry #0">¶</a></summary>
+<div class="dlg-text">Welcome &lt;FullName&gt;! Tell me where you wish to be sent.</div>
+<div class="dlg-tree-children">
+<details class="dlg-tree-node reply" open>
+<summary><span class="dlg-id">reply #12</span> <span class="dlg-action">→ <code>breetele</code></span> <a class="dlg-anchor" href="#r12" title="jump to flat reply #12">¶</a></summary>
+<div class="dlg-text">Bree.</div>
+</details>
+<details class="dlg-tree-node reply" open>
+<summary><span class="dlg-id">reply #11</span> <span class="dlg-action">→ <code>fornostjump</code></span> <a class="dlg-anchor" href="#r11" title="jump to flat reply #11">¶</a></summary>
+<div class="dlg-text">Fornost.</div>
+</details>
+<details class="dlg-tree-node reply" open>
+<summary><span class="dlg-id">reply #10</span> <span class="dlg-action">→ <code>thrtele</code></span> <a class="dlg-anchor" href="#r10" title="jump to flat reply #10">¶</a></summary>
+<div class="dlg-text">Tharbad.</div>
+</details>
+<details class="dlg-tree-node reply" open>
+<summary><span class="dlg-id">reply #9</span> <span class="dlg-action">→ <code>laketele</code></span> <a class="dlg-anchor" href="#r9" title="jump to flat reply #9">¶</a></summary>
+<div class="dlg-text">Lake Town.</div>
+</details>
+<details class="dlg-tree-node reply" open>
+<summary><span class="dlg-id">reply #8</span> <span class="dlg-action">→ <code>carntele</code></span> <a class="dlg-anchor" href="#r8" title="jump to flat reply #8">¶</a></summary>
+<div class="dlg-text">Carn Dum.</div>
+</details>
+<details class="dlg-tree-node reply" open>
+<summary><span class="dlg-id">reply #7</span> <span class="dlg-action">→ <code>cirithtele</code></span> <a class="dlg-anchor" href="#r7" title="jump to flat reply #7">¶</a></summary>
+<div class="dlg-text">Cirith Ungol.</div>
+</details>
+<details class="dlg-tree-node reply" open>
+<summary><span class="dlg-id">reply #6</span> <span class="dlg-action">→ <code>isentele</code></span> <a class="dlg-anchor" href="#r6" title="jump to flat reply #6">¶</a></summary>
+<div class="dlg-text">Isengrad, Innerrim.</div>
+</details>
+<details class="dlg-tree-node reply" open>
+<summary><span class="dlg-id">reply #5</span> <span class="dlg-action">→ <code>baradtele</code></span> <a class="dlg-anchor" href="#r5" title="jump to flat reply #5">¶</a></summary>
+<div class="dlg-text">Barad - Dur.</div>
+</details>
+<details class="dlg-tree-node reply" open>
+<summary><span class="dlg-id">reply #4</span> <span class="dlg-action">→ <code>blackenter</code></span> <a class="dlg-anchor" href="#r4" title="jump to flat reply #4">¶</a></summary>
+<div class="dlg-text">Morannan (The Black Gate).</div>
+</details>
+<details class="dlg-tree-node reply" open>
+<summary><span class="dlg-id">reply #3</span> <span class="dlg-action">→ <code>arenaenter</code></span> <a class="dlg-anchor" href="#r3" title="jump to flat reply #3">¶</a></summary>
+<div class="dlg-text">Arena.</div>
+</details>
+<details class="dlg-tree-node reply" open>
+<summary><span class="dlg-id">reply #2</span> <span class="dlg-action">→ <code>_homerbattle</code></span> <a class="dlg-anchor" href="#r2" title="jump to flat reply #2">¶</a></summary>
+<div class="dlg-text">Arena - .Team.</div>
+</details>
+<details class="dlg-tree-node reply" open>
+<summary><span class="dlg-id">reply #1</span> <span class="dlg-action">→ <code>_homerglad</code></span> <a class="dlg-anchor" href="#r1" title="jump to flat reply #1">¶</a></summary>
+<div class="dlg-text">Arena - Gladiator.</div>
+</details>
+<details class="dlg-tree-node reply" open>
+<summary><span class="dlg-id">reply #0</span> <a class="dlg-anchor" href="#r0" title="jump to flat reply #0">¶</a></summary>
+<div class="dlg-text">Exit.</div>
+</details>
+</div>
+</details>
+</div>
+<h2>NPC lines (entries) — flat index</h2>
+<div class="dlg-node entry" id="e0"><div class="dlg-head"><span class="dlg-id">entry #0</span></div><div class="dlg-text">Welcome &lt;FullName&gt;! Tell me where you wish to be sent.</div><ul class="dlg-links"><li><a href="#r12">→ reply #12</a> <span class="dlg-link-preview">“Bree.”</span></li><li><a href="#r11">→ reply #11</a> <span class="dlg-link-preview">“Fornost.”</span></li><li><a href="#r10">→ reply #10</a> <span class="dlg-link-preview">“Tharbad.”</span></li><li><a href="#r9">→ reply #9</a> <span class="dlg-link-preview">“Lake Town.”</span></li><li><a href="#r8">→ reply #8</a> <span class="dlg-link-preview">“Carn Dum.”</span></li><li><a href="#r7">→ reply #7</a> <span class="dlg-link-preview">“Cirith Ungol.”</span></li><li><a href="#r6">→ reply #6</a> <span class="dlg-link-preview">“Isengrad, Innerrim.”</span></li><li><a href="#r5">→ reply #5</a> <span class="dlg-link-preview">“Barad - Dur.”</span></li><li><a href="#r4">→ reply #4</a> <span class="dlg-link-preview">“Morannan (The Black Gate).”</span></li><li><a href="#r3">→ reply #3</a> <span class="dlg-link-preview">“Arena.”</span></li><li><a href="#r2">→ reply #2</a> <span class="dlg-link-preview">“Arena - .Team.”</span></li><li><a href="#r1">→ reply #1</a> <span class="dlg-link-preview">“Arena - Gladiator.”</span></li><li><a href="#r0">→ reply #0</a> <span class="dlg-link-preview">“Exit.”</span></li></ul></div>
+<h2>PC replies — flat index</h2>
 <div class="dlg-node reply" id="r0"><div class="dlg-head"><span class="dlg-id">reply #0</span></div><div class="dlg-text">Exit.</div></div>
 <div class="dlg-node reply" id="r1"><div class="dlg-head"><span class="dlg-id">reply #1</span> <span class="dlg-action">→ <code>_homerglad</code></span></div><div class="dlg-text">Arena - Gladiator.</div></div>
 <div class="dlg-node reply" id="r2"><div class="dlg-head"><span class="dlg-id">reply #2</span> <span class="dlg-action">→ <code>_homerbattle</code></span></div><div class="dlg-text">Arena - .Team.</div></div>

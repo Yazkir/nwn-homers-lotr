@@ -63,16 +63,72 @@
 <li><a href="#e2">entry #2</a> <small class="muted">(if <code>sc_024</code>)</small> — Have you brought us food M&#x27;&lt;Lord/Lady&gt;? We all grow so weak.</li>
 <li><a href="#e0">entry #0</a> — We are all so hungry, why did we ever leave. Could you spare some food?</li>
 </ul>
-<h2>NPC lines (entries)</h2>
-<div class="dlg-node entry" id="e0"><div class="dlg-head"><span class="dlg-id">entry #0</span></div><div class="dlg-text">We are all so hungry, why did we ever leave. Could you spare some food?</div><div class="dlg-links"><a href="#r2">→ reply #2</a> · <a href="#r0">→ reply #0</a></div></div>
-<div class="dlg-node entry" id="e1"><div class="dlg-head"><span class="dlg-id">entry #1</span></div><div class="dlg-text">My grateful thanks M&#x27;&lt;Lord/Lady&gt;. Please speak to the clerics of Illuvatar. They will know what to do.</div><div class="dlg-links"><a href="#r1">→ reply #1</a></div></div>
-<div class="dlg-node entry" id="e2"><div class="dlg-head"><span class="dlg-id">entry #2</span></div><div class="dlg-text">Have you brought us food M&#x27;&lt;Lord/Lady&gt;? We all grow so weak.</div><div class="dlg-links"><a href="#r5">→ reply #5</a> · <a href="#r3">→ reply #3</a> <small class="muted">(if <code>sc_025</code>)</small></div></div>
-<div class="dlg-node entry" id="e3"><div class="dlg-head"><span class="dlg-id">entry #3</span></div><div class="dlg-text">Oh thank you so much!</div><div class="dlg-links"><a href="#r4">→ reply #4</a></div></div>
-<h2>PC replies</h2>
-<div class="dlg-node reply" id="r0"><div class="dlg-head"><span class="dlg-id">reply #0</span></div><div class="dlg-text">I would surely find you some food.</div><div class="dlg-links"><a href="#e1">→ entry #1</a></div></div>
+<h2>Conversation flow</h2>
+<p class="muted">Each starting entry is expanded recursively. Repeated nodes (cycles, shared continuations) appear inline as <code>↩ link</code> backrefs to the first occurrence.</p>
+<div class="dlg-tree">
+<details class="dlg-tree-node entry" open>
+<summary><span class="dlg-id">entry #2</span> <small class="muted">(if <code>sc_024</code>)</small> <a class="dlg-anchor" href="#e2" title="jump to flat entry #2">¶</a></summary>
+<div class="dlg-text">Have you brought us food M&#x27;&lt;Lord/Lady&gt;? We all grow so weak.</div>
+<div class="dlg-tree-children">
+<details class="dlg-tree-node reply" open>
+<summary><span class="dlg-id">reply #5</span> <a class="dlg-anchor" href="#r5" title="jump to flat reply #5">¶</a></summary>
+<div class="dlg-text">No I will find some soon though, don&#x27;t you worry.</div>
+</details>
+<details class="dlg-tree-node reply" open>
+<summary><span class="dlg-id">reply #3</span> <span class="dlg-action">→ <code>at_044</code></span> <small class="muted">(if <code>sc_025</code>)</small> <a class="dlg-anchor" href="#r3" title="jump to flat reply #3">¶</a></summary>
+<div class="dlg-text">Yes here it is, eat well my friend.</div>
+<div class="dlg-tree-children">
+<details class="dlg-tree-node entry" open>
+<summary><span class="dlg-id">entry #3</span> <a class="dlg-anchor" href="#e3" title="jump to flat entry #3">¶</a></summary>
+<div class="dlg-text">Oh thank you so much!</div>
+<div class="dlg-tree-children">
+<details class="dlg-tree-node reply" open>
+<summary><span class="dlg-id">reply #4</span> <a class="dlg-anchor" href="#r4" title="jump to flat reply #4">¶</a></summary>
+<div class="dlg-text">Eat now, do not tarry on courtesy that will drain your strength.</div>
+</details>
+</div>
+</details>
+</div>
+</details>
+</div>
+</details>
+<details class="dlg-tree-node entry" open>
+<summary><span class="dlg-id">entry #0</span> <a class="dlg-anchor" href="#e0" title="jump to flat entry #0">¶</a></summary>
+<div class="dlg-text">We are all so hungry, why did we ever leave. Could you spare some food?</div>
+<div class="dlg-tree-children">
+<details class="dlg-tree-node reply" open>
+<summary><span class="dlg-id">reply #2</span> <a class="dlg-anchor" href="#r2" title="jump to flat reply #2">¶</a></summary>
+<div class="dlg-text">Get away from me begger!</div>
+</details>
+<details class="dlg-tree-node reply" open>
+<summary><span class="dlg-id">reply #0</span> <a class="dlg-anchor" href="#r0" title="jump to flat reply #0">¶</a></summary>
+<div class="dlg-text">I would surely find you some food.</div>
+<div class="dlg-tree-children">
+<details class="dlg-tree-node entry" open>
+<summary><span class="dlg-id">entry #1</span> <a class="dlg-anchor" href="#e1" title="jump to flat entry #1">¶</a></summary>
+<div class="dlg-text">My grateful thanks M&#x27;&lt;Lord/Lady&gt;. Please speak to the clerics of Illuvatar. They will know what to do.</div>
+<div class="dlg-tree-children">
+<details class="dlg-tree-node reply" open>
+<summary><span class="dlg-id">reply #1</span> <span class="dlg-action">→ <code>at_043</code></span> <a class="dlg-anchor" href="#r1" title="jump to flat reply #1">¶</a></summary>
+<div class="dlg-text">I surely will, hold on a bit longer. Food is coming.</div>
+</details>
+</div>
+</details>
+</div>
+</details>
+</div>
+</details>
+</div>
+<h2>NPC lines (entries) — flat index</h2>
+<div class="dlg-node entry" id="e0"><div class="dlg-head"><span class="dlg-id">entry #0</span></div><div class="dlg-text">We are all so hungry, why did we ever leave. Could you spare some food?</div><ul class="dlg-links"><li><a href="#r2">→ reply #2</a> <span class="dlg-link-preview">“Get away from me begger!”</span></li><li><a href="#r0">→ reply #0</a> <span class="dlg-link-preview">“I would surely find you some food.”</span></li></ul></div>
+<div class="dlg-node entry" id="e1"><div class="dlg-head"><span class="dlg-id">entry #1</span></div><div class="dlg-text">My grateful thanks M&#x27;&lt;Lord/Lady&gt;. Please speak to the clerics of Illuvatar. They will know what to do.</div><ul class="dlg-links"><li><a href="#r1">→ reply #1</a> <span class="dlg-link-preview">“I surely will, hold on a bit longer. Food is coming.”</span></li></ul></div>
+<div class="dlg-node entry" id="e2"><div class="dlg-head"><span class="dlg-id">entry #2</span></div><div class="dlg-text">Have you brought us food M&#x27;&lt;Lord/Lady&gt;? We all grow so weak.</div><ul class="dlg-links"><li><a href="#r5">→ reply #5</a> <span class="dlg-link-preview">“No I will find some soon though, don&#x27;t you worry.”</span></li><li><a href="#r3">→ reply #3</a> <span class="dlg-link-preview">“Yes here it is, eat well my friend.”</span> <small class="muted">(if <code>sc_025</code>)</small></li></ul></div>
+<div class="dlg-node entry" id="e3"><div class="dlg-head"><span class="dlg-id">entry #3</span></div><div class="dlg-text">Oh thank you so much!</div><ul class="dlg-links"><li><a href="#r4">→ reply #4</a> <span class="dlg-link-preview">“Eat now, do not tarry on courtesy that will drain your strength.”</span></li></ul></div>
+<h2>PC replies — flat index</h2>
+<div class="dlg-node reply" id="r0"><div class="dlg-head"><span class="dlg-id">reply #0</span></div><div class="dlg-text">I would surely find you some food.</div><ul class="dlg-links"><li><a href="#e1">→ entry #1</a> <span class="dlg-link-preview">“My grateful thanks M&#x27;&lt;Lord/Lady&gt;. Please speak to the clerics of Illuvatar. They…”</span></li></ul></div>
 <div class="dlg-node reply" id="r1"><div class="dlg-head"><span class="dlg-id">reply #1</span> <span class="dlg-action">→ <code>at_043</code></span></div><div class="dlg-text">I surely will, hold on a bit longer. Food is coming.</div></div>
 <div class="dlg-node reply" id="r2"><div class="dlg-head"><span class="dlg-id">reply #2</span></div><div class="dlg-text">Get away from me begger!</div></div>
-<div class="dlg-node reply" id="r3"><div class="dlg-head"><span class="dlg-id">reply #3</span> <span class="dlg-action">→ <code>at_044</code></span></div><div class="dlg-text">Yes here it is, eat well my friend.</div><div class="dlg-links"><a href="#e3">→ entry #3</a></div></div>
+<div class="dlg-node reply" id="r3"><div class="dlg-head"><span class="dlg-id">reply #3</span> <span class="dlg-action">→ <code>at_044</code></span></div><div class="dlg-text">Yes here it is, eat well my friend.</div><ul class="dlg-links"><li><a href="#e3">→ entry #3</a> <span class="dlg-link-preview">“Oh thank you so much!”</span></li></ul></div>
 <div class="dlg-node reply" id="r4"><div class="dlg-head"><span class="dlg-id">reply #4</span></div><div class="dlg-text">Eat now, do not tarry on courtesy that will drain your strength.</div></div>
 <div class="dlg-node reply" id="r5"><div class="dlg-head"><span class="dlg-id">reply #5</span></div><div class="dlg-text">No I will find some soon though, don&#x27;t you worry.</div></div>
   </main>

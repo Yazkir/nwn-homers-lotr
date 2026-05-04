@@ -37,9 +37,121 @@
 <h2>Starting entries</h2><ul>
 <li><a href="#e0">entry #0</a> — Hello!  Care to try your Fortune on the Wheel?</li>
 </ul>
-<h2>NPC lines (entries)</h2>
-<div class="dlg-node entry" id="e0"><div class="dlg-head"><span class="dlg-id">entry #0</span></div><div class="dlg-text">Hello!  Care to try your Fortune on the Wheel?</div><div class="dlg-links"><a href="#r1">→ reply #1</a> · <a href="#r0">→ reply #0</a></div></div>
-<div class="dlg-node entry" id="e1"><div class="dlg-head"><span class="dlg-id">entry #1</span></div><div class="dlg-text">It costs 500 gold pieces to spin the wheel.</div><div class="dlg-links"><a href="#r6">→ reply #6</a> <small class="muted">(if <code>nwa_pay500</code>)</small> · <a href="#r3">→ reply #3</a> · <a href="#r2">→ reply #2</a></div></div>
+<h2>Conversation flow</h2>
+<p class="muted">Each starting entry is expanded recursively. Repeated nodes (cycles, shared continuations) appear inline as <code>↩ link</code> backrefs to the first occurrence.</p>
+<div class="dlg-tree">
+<details class="dlg-tree-node entry" open>
+<summary><span class="dlg-id">entry #0</span> <a class="dlg-anchor" href="#e0" title="jump to flat entry #0">¶</a></summary>
+<div class="dlg-text">Hello!  Care to try your Fortune on the Wheel?</div>
+<div class="dlg-tree-children">
+<details class="dlg-tree-node reply" open>
+<summary><span class="dlg-id">reply #1</span> <a class="dlg-anchor" href="#r1" title="jump to flat reply #1">¶</a></summary>
+<div class="dlg-text">Yes, let&#x27;s play!</div>
+<div class="dlg-tree-children">
+<details class="dlg-tree-node entry" open>
+<summary><span class="dlg-id">entry #1</span> <a class="dlg-anchor" href="#e1" title="jump to flat entry #1">¶</a></summary>
+<div class="dlg-text">It costs 500 gold pieces to spin the wheel.</div>
+<div class="dlg-tree-children">
+<details class="dlg-tree-node reply" open>
+<summary><span class="dlg-id">reply #6</span> <small class="muted">(if <code>nwa_pay500</code>)</small> <a class="dlg-anchor" href="#r6" title="jump to flat reply #6">¶</a></summary>
+<div class="dlg-text">&lt;StartAction&gt;::pay 500 gold::&lt;/Start&gt;</div>
+<div class="dlg-tree-children">
+<details class="dlg-tree-node entry" open>
+<summary><span class="dlg-id">entry #5</span> <span class="dlg-action">→ <code>brc_wheel</code></span> <a class="dlg-anchor" href="#e5" title="jump to flat entry #5">¶</a></summary>
+<div class="dlg-text">Round and round it goes, where it stops, nobody knows!</div>
+<div class="dlg-tree-children">
+<details class="dlg-tree-node reply" open>
+<summary><span class="dlg-id">reply #7</span> <a class="dlg-anchor" href="#r7" title="jump to flat reply #7">¶</a></summary>
+<div class="dlg-text">&lt;StartAction&gt;::the wheel spins and spins and slowly comes to rest...::&lt;/Start&gt;&lt;StartHighlight&gt;(click to continue)&lt;/Start&gt;  </div>
+<div class="dlg-tree-children">
+<details class="dlg-tree-node entry" open>
+<summary><span class="dlg-id">entry #6</span> <span class="dlg-action">→ <code>brc_wheelpay</code></span> <a class="dlg-anchor" href="#e6" title="jump to flat entry #6">¶</a></summary>
+<div class="dlg-text">&lt;CUSTOM90001&gt; &lt;CUSTOM90002&gt;
+Care to spin again?</div>
+<div class="dlg-tree-children">
+<details class="dlg-tree-node reply" open>
+<summary><span class="dlg-id">reply #9</span> <a class="dlg-anchor" href="#r9" title="jump to flat reply #9">¶</a></summary>
+<div class="dlg-text">Yeah, baby, yeah!</div>
+<div class="dlg-tree-children">
+<div class="dlg-tree-ref entry-ref">↩ <a href="#e5">entry #5</a> <span class="dlg-link-preview">“Round and round it goes, where it stops, nobody knows!”</span></div>
+</div>
+</details>
+<details class="dlg-tree-node reply" open>
+<summary><span class="dlg-id">reply #8</span> <a class="dlg-anchor" href="#r8" title="jump to flat reply #8">¶</a></summary>
+<div class="dlg-text">No, I&#x27;m done.</div>
+</details>
+</div>
+</details>
+</div>
+</details>
+</div>
+</details>
+</div>
+</details>
+<details class="dlg-tree-node reply" open>
+<summary><span class="dlg-id">reply #3</span> <a class="dlg-anchor" href="#r3" title="jump to flat reply #3">¶</a></summary>
+<div class="dlg-text">What can I win?</div>
+<div class="dlg-tree-children">
+<details class="dlg-tree-node entry" open>
+<summary><span class="dlg-id">entry #3</span> <a class="dlg-anchor" href="#e3" title="jump to flat entry #3">¶</a></summary>
+<div class="dlg-text">There are 13 spots.  
+You can win 50, 100, 200, 500, 1000, 5000, or the big Jackpot of 10,000 gold pieces!
+The other spots are --
+Lose  (you get doodle, luv)
+Curse (what&#x27;s a sport without a little danger?)
+Booby Prize (tis a lot of fun!)
+Mystery Prize (goodies)
+Potion 
+Magic (a bit of a blessing, instead of a curse)</div>
+<div class="dlg-tree-children">
+<details class="dlg-tree-node reply" open>
+<summary><span class="dlg-id">reply #5</span> <a class="dlg-anchor" href="#r5" title="jump to flat reply #5">¶</a></summary>
+<div class="dlg-text">Sounds good, I&#x27;ll give the ol&#x27; Wheel a spin.</div>
+<div class="dlg-tree-children">
+<div class="dlg-tree-ref entry-ref">↩ <a href="#e1">entry #1</a> <span class="dlg-link-preview">“It costs 500 gold pieces to spin the wheel.”</span></div>
+</div>
+</details>
+<details class="dlg-tree-node reply" open>
+<summary><span class="dlg-id">reply #4</span> <a class="dlg-anchor" href="#r4" title="jump to flat reply #4">¶</a></summary>
+<div class="dlg-text">I don&#x27;t think I like this game.</div>
+<div class="dlg-tree-children">
+<details class="dlg-tree-node entry" open>
+<summary><span class="dlg-id">entry #4</span> <a class="dlg-anchor" href="#e4" title="jump to flat entry #4">¶</a></summary>
+<div class="dlg-text">Well, try to enjoy our other games, then.</div>
+</details>
+</div>
+</details>
+</div>
+</details>
+</div>
+</details>
+<details class="dlg-tree-node reply" open>
+<summary><span class="dlg-id">reply #2</span> <a class="dlg-anchor" href="#r2" title="jump to flat reply #2">¶</a></summary>
+<div class="dlg-text">500 gold?  I... seem to have left it in my other tunic.</div>
+<div class="dlg-tree-children">
+<details class="dlg-tree-node entry" open>
+<summary><span class="dlg-id">entry #2</span> <a class="dlg-anchor" href="#e2" title="jump to flat entry #2">¶</a></summary>
+<div class="dlg-text">Come back when you have some money.</div>
+</details>
+</div>
+</details>
+</div>
+</details>
+</div>
+</details>
+<details class="dlg-tree-node reply" open>
+<summary><span class="dlg-id">reply #0</span> <a class="dlg-anchor" href="#r0" title="jump to flat reply #0">¶</a></summary>
+<div class="dlg-text">No, thank you.</div>
+<div class="dlg-tree-children">
+<div class="dlg-tree-ref entry-ref">↩ <a href="#e4">entry #4</a> <span class="dlg-link-preview">“Well, try to enjoy our other games, then.”</span></div>
+</div>
+</details>
+</div>
+</details>
+</div>
+<h2>NPC lines (entries) — flat index</h2>
+<div class="dlg-node entry" id="e0"><div class="dlg-head"><span class="dlg-id">entry #0</span></div><div class="dlg-text">Hello!  Care to try your Fortune on the Wheel?</div><ul class="dlg-links"><li><a href="#r1">→ reply #1</a> <span class="dlg-link-preview">“Yes, let&#x27;s play!”</span></li><li><a href="#r0">→ reply #0</a> <span class="dlg-link-preview">“No, thank you.”</span></li></ul></div>
+<div class="dlg-node entry" id="e1"><div class="dlg-head"><span class="dlg-id">entry #1</span></div><div class="dlg-text">It costs 500 gold pieces to spin the wheel.</div><ul class="dlg-links"><li><a href="#r6">→ reply #6</a> <span class="dlg-link-preview">“&lt;StartAction&gt;::pay 500 gold::&lt;/Start&gt;”</span> <small class="muted">(if <code>nwa_pay500</code>)</small></li><li><a href="#r3">→ reply #3</a> <span class="dlg-link-preview">“What can I win?”</span></li><li><a href="#r2">→ reply #2</a> <span class="dlg-link-preview">“500 gold?  I... seem to have left it in my other tunic.”</span></li></ul></div>
 <div class="dlg-node entry" id="e2"><div class="dlg-head"><span class="dlg-id">entry #2</span></div><div class="dlg-text">Come back when you have some money.</div></div>
 <div class="dlg-node entry" id="e3"><div class="dlg-head"><span class="dlg-id">entry #3</span></div><div class="dlg-text">There are 13 spots.  
 You can win 50, 100, 200, 500, 1000, 5000, or the big Jackpot of 10,000 gold pieces!
@@ -49,22 +161,22 @@ Curse (what&#x27;s a sport without a little danger?)
 Booby Prize (tis a lot of fun!)
 Mystery Prize (goodies)
 Potion 
-Magic (a bit of a blessing, instead of a curse)</div><div class="dlg-links"><a href="#r5">→ reply #5</a> · <a href="#r4">→ reply #4</a></div></div>
+Magic (a bit of a blessing, instead of a curse)</div><ul class="dlg-links"><li><a href="#r5">→ reply #5</a> <span class="dlg-link-preview">“Sounds good, I&#x27;ll give the ol&#x27; Wheel a spin.”</span></li><li><a href="#r4">→ reply #4</a> <span class="dlg-link-preview">“I don&#x27;t think I like this game.”</span></li></ul></div>
 <div class="dlg-node entry" id="e4"><div class="dlg-head"><span class="dlg-id">entry #4</span></div><div class="dlg-text">Well, try to enjoy our other games, then.</div></div>
-<div class="dlg-node entry" id="e5"><div class="dlg-head"><span class="dlg-id">entry #5</span> <span class="dlg-action">→ <code>brc_wheel</code></span></div><div class="dlg-text">Round and round it goes, where it stops, nobody knows!</div><div class="dlg-links"><a href="#r7">→ reply #7</a></div></div>
+<div class="dlg-node entry" id="e5"><div class="dlg-head"><span class="dlg-id">entry #5</span> <span class="dlg-action">→ <code>brc_wheel</code></span></div><div class="dlg-text">Round and round it goes, where it stops, nobody knows!</div><ul class="dlg-links"><li><a href="#r7">→ reply #7</a> <span class="dlg-link-preview">“&lt;StartAction&gt;::the wheel spins and spins and slowly comes to rest...::&lt;/Start&gt;&lt;S…”</span></li></ul></div>
 <div class="dlg-node entry" id="e6"><div class="dlg-head"><span class="dlg-id">entry #6</span> <span class="dlg-action">→ <code>brc_wheelpay</code></span></div><div class="dlg-text">&lt;CUSTOM90001&gt; &lt;CUSTOM90002&gt;
-Care to spin again?</div><div class="dlg-links"><a href="#r9">→ reply #9</a> · <a href="#r8">→ reply #8</a></div></div>
-<h2>PC replies</h2>
-<div class="dlg-node reply" id="r0"><div class="dlg-head"><span class="dlg-id">reply #0</span></div><div class="dlg-text">No, thank you.</div><div class="dlg-links"><a href="#e4">→ child</a></div></div>
-<div class="dlg-node reply" id="r1"><div class="dlg-head"><span class="dlg-id">reply #1</span></div><div class="dlg-text">Yes, let&#x27;s play!</div><div class="dlg-links"><a href="#e1">→ entry #1</a></div></div>
-<div class="dlg-node reply" id="r2"><div class="dlg-head"><span class="dlg-id">reply #2</span></div><div class="dlg-text">500 gold?  I... seem to have left it in my other tunic.</div><div class="dlg-links"><a href="#e2">→ entry #2</a></div></div>
-<div class="dlg-node reply" id="r3"><div class="dlg-head"><span class="dlg-id">reply #3</span></div><div class="dlg-text">What can I win?</div><div class="dlg-links"><a href="#e3">→ entry #3</a></div></div>
-<div class="dlg-node reply" id="r4"><div class="dlg-head"><span class="dlg-id">reply #4</span></div><div class="dlg-text">I don&#x27;t think I like this game.</div><div class="dlg-links"><a href="#e4">→ entry #4</a></div></div>
-<div class="dlg-node reply" id="r5"><div class="dlg-head"><span class="dlg-id">reply #5</span></div><div class="dlg-text">Sounds good, I&#x27;ll give the ol&#x27; Wheel a spin.</div><div class="dlg-links"><a href="#e1">→ child</a></div></div>
-<div class="dlg-node reply" id="r6"><div class="dlg-head"><span class="dlg-id">reply #6</span></div><div class="dlg-text">&lt;StartAction&gt;::pay 500 gold::&lt;/Start&gt;</div><div class="dlg-links"><a href="#e5">→ entry #5</a></div></div>
-<div class="dlg-node reply" id="r7"><div class="dlg-head"><span class="dlg-id">reply #7</span></div><div class="dlg-text">&lt;StartAction&gt;::the wheel spins and spins and slowly comes to rest...::&lt;/Start&gt;&lt;StartHighlight&gt;(click to continue)&lt;/Start&gt;  </div><div class="dlg-links"><a href="#e6">→ entry #6</a></div></div>
+Care to spin again?</div><ul class="dlg-links"><li><a href="#r9">→ reply #9</a> <span class="dlg-link-preview">“Yeah, baby, yeah!”</span></li><li><a href="#r8">→ reply #8</a> <span class="dlg-link-preview">“No, I&#x27;m done.”</span></li></ul></div>
+<h2>PC replies — flat index</h2>
+<div class="dlg-node reply" id="r0"><div class="dlg-head"><span class="dlg-id">reply #0</span></div><div class="dlg-text">No, thank you.</div><ul class="dlg-links"><li><a href="#e4">→ child</a> <span class="dlg-link-preview">“Well, try to enjoy our other games, then.”</span></li></ul></div>
+<div class="dlg-node reply" id="r1"><div class="dlg-head"><span class="dlg-id">reply #1</span></div><div class="dlg-text">Yes, let&#x27;s play!</div><ul class="dlg-links"><li><a href="#e1">→ entry #1</a> <span class="dlg-link-preview">“It costs 500 gold pieces to spin the wheel.”</span></li></ul></div>
+<div class="dlg-node reply" id="r2"><div class="dlg-head"><span class="dlg-id">reply #2</span></div><div class="dlg-text">500 gold?  I... seem to have left it in my other tunic.</div><ul class="dlg-links"><li><a href="#e2">→ entry #2</a> <span class="dlg-link-preview">“Come back when you have some money.”</span></li></ul></div>
+<div class="dlg-node reply" id="r3"><div class="dlg-head"><span class="dlg-id">reply #3</span></div><div class="dlg-text">What can I win?</div><ul class="dlg-links"><li><a href="#e3">→ entry #3</a> <span class="dlg-link-preview">“There are 13 spots.”</span></li></ul></div>
+<div class="dlg-node reply" id="r4"><div class="dlg-head"><span class="dlg-id">reply #4</span></div><div class="dlg-text">I don&#x27;t think I like this game.</div><ul class="dlg-links"><li><a href="#e4">→ entry #4</a> <span class="dlg-link-preview">“Well, try to enjoy our other games, then.”</span></li></ul></div>
+<div class="dlg-node reply" id="r5"><div class="dlg-head"><span class="dlg-id">reply #5</span></div><div class="dlg-text">Sounds good, I&#x27;ll give the ol&#x27; Wheel a spin.</div><ul class="dlg-links"><li><a href="#e1">→ child</a> <span class="dlg-link-preview">“It costs 500 gold pieces to spin the wheel.”</span></li></ul></div>
+<div class="dlg-node reply" id="r6"><div class="dlg-head"><span class="dlg-id">reply #6</span></div><div class="dlg-text">&lt;StartAction&gt;::pay 500 gold::&lt;/Start&gt;</div><ul class="dlg-links"><li><a href="#e5">→ entry #5</a> <span class="dlg-link-preview">“Round and round it goes, where it stops, nobody knows!”</span></li></ul></div>
+<div class="dlg-node reply" id="r7"><div class="dlg-head"><span class="dlg-id">reply #7</span></div><div class="dlg-text">&lt;StartAction&gt;::the wheel spins and spins and slowly comes to rest...::&lt;/Start&gt;&lt;StartHighlight&gt;(click to continue)&lt;/Start&gt;  </div><ul class="dlg-links"><li><a href="#e6">→ entry #6</a> <span class="dlg-link-preview">“&lt;CUSTOM90001&gt; &lt;CUSTOM90002&gt;”</span></li></ul></div>
 <div class="dlg-node reply" id="r8"><div class="dlg-head"><span class="dlg-id">reply #8</span></div><div class="dlg-text">No, I&#x27;m done.</div></div>
-<div class="dlg-node reply" id="r9"><div class="dlg-head"><span class="dlg-id">reply #9</span></div><div class="dlg-text">Yeah, baby, yeah!</div><div class="dlg-links"><a href="#e5">→ child</a></div></div>
+<div class="dlg-node reply" id="r9"><div class="dlg-head"><span class="dlg-id">reply #9</span></div><div class="dlg-text">Yeah, baby, yeah!</div><ul class="dlg-links"><li><a href="#e5">→ child</a> <span class="dlg-link-preview">“Round and round it goes, where it stops, nobody knows!”</span></li></ul></div>
   </main>
   <footer>generated by <a href="https://github.com/mrprice22/nwn-manager">nwn-manager</a></footer>
 </body>

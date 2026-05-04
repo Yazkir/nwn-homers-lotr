@@ -47,11 +47,65 @@
 <h2>Starting entries</h2><ul>
 <li><a href="#e0">entry #0</a> — I welcome you. I know what your thinking, it&#x27;s gloomy in here. Forgive me I like…</li>
 </ul>
-<h2>NPC lines (entries)</h2>
-<div class="dlg-node entry" id="e0"><div class="dlg-head"><span class="dlg-id">entry #0</span></div><div class="dlg-text">I welcome you. I know what your thinking, it&#x27;s gloomy in here. Forgive me I like small dark places. Now were was I? Ahh yes, my trade is crafting. I am very perticular with my craft, I use only the finest materials. Perhaps you would like a book to show you my work?</div><div class="dlg-links"><a href="#r8">→ reply #8</a> · <a href="#r7">→ reply #7</a> · <a href="#r0">→ reply #0</a></div></div>
-<div class="dlg-node entry" id="e1"><div class="dlg-head"><span class="dlg-id">entry #1</span></div><div class="dlg-text">Well, let me see here...</div><div class="dlg-links"><a href="#r6">→ reply #6</a> <small class="muted">(if <code>ronus_craft_01</code>)</small> · <a href="#r5">→ reply #5</a> <small class="muted">(if <code>ronus_craft_02</code>)</small> · <a href="#r4">→ reply #4</a> <small class="muted">(if <code>ronus_craft_03</code>)</small> · <a href="#r3">→ reply #3</a> <small class="muted">(if <code>ronus_craft_04</code>)</small> · <a href="#r2">→ reply #2</a> <small class="muted">(if <code>ronus_craft_05</code>)</small> · <a href="#r1">→ reply #1</a></div></div>
-<h2>PC replies</h2>
-<div class="dlg-node reply" id="r0"><div class="dlg-head"><span class="dlg-id">reply #0</span></div><div class="dlg-text">I have the book. I&#x27;m interested in crafting. What can you make me with this?</div><div class="dlg-links"><a href="#e1">→ entry #1</a></div></div>
+<h2>Conversation flow</h2>
+<p class="muted">Each starting entry is expanded recursively. Repeated nodes (cycles, shared continuations) appear inline as <code>↩ link</code> backrefs to the first occurrence.</p>
+<div class="dlg-tree">
+<details class="dlg-tree-node entry" open>
+<summary><span class="dlg-id">entry #0</span> <a class="dlg-anchor" href="#e0" title="jump to flat entry #0">¶</a></summary>
+<div class="dlg-text">I welcome you. I know what your thinking, it&#x27;s gloomy in here. Forgive me I like small dark places. Now were was I? Ahh yes, my trade is crafting. I am very perticular with my craft, I use only the finest materials. Perhaps you would like a book to show you my work?</div>
+<div class="dlg-tree-children">
+<details class="dlg-tree-node reply" open>
+<summary><span class="dlg-id">reply #8</span> <span class="dlg-action">→ <code>give_craft_book</code></span> <a class="dlg-anchor" href="#r8" title="jump to flat reply #8">¶</a></summary>
+<div class="dlg-text">Yes, that sounds handy.</div>
+</details>
+<details class="dlg-tree-node reply" open>
+<summary><span class="dlg-id">reply #7</span> <a class="dlg-anchor" href="#r7" title="jump to flat reply #7">¶</a></summary>
+<div class="dlg-text">No thanks, I don&#x27;t have the time to be looking at books.</div>
+</details>
+<details class="dlg-tree-node reply" open>
+<summary><span class="dlg-id">reply #0</span> <a class="dlg-anchor" href="#r0" title="jump to flat reply #0">¶</a></summary>
+<div class="dlg-text">I have the book. I&#x27;m interested in crafting. What can you make me with this?</div>
+<div class="dlg-tree-children">
+<details class="dlg-tree-node entry" open>
+<summary><span class="dlg-id">entry #1</span> <a class="dlg-anchor" href="#e1" title="jump to flat entry #1">¶</a></summary>
+<div class="dlg-text">Well, let me see here...</div>
+<div class="dlg-tree-children">
+<details class="dlg-tree-node reply" open>
+<summary><span class="dlg-id">reply #6</span> <span class="dlg-action">→ <code>craft_trans_01</code></span> <small class="muted">(if <code>ronus_craft_01</code>)</small> <a class="dlg-anchor" href="#r6" title="jump to flat reply #6">¶</a></summary>
+<div class="dlg-text">Epic Robes of Master Craft</div>
+</details>
+<details class="dlg-tree-node reply" open>
+<summary><span class="dlg-id">reply #5</span> <span class="dlg-action">→ <code>ronus_trans_02</code></span> <small class="muted">(if <code>ronus_craft_02</code>)</small> <a class="dlg-anchor" href="#r5" title="jump to flat reply #5">¶</a></summary>
+<div class="dlg-text">Epic Katana of the Ronin</div>
+</details>
+<details class="dlg-tree-node reply" open>
+<summary><span class="dlg-id">reply #4</span> <span class="dlg-action">→ <code>ronus_trans_03</code></span> <small class="muted">(if <code>ronus_craft_03</code>)</small> <a class="dlg-anchor" href="#r4" title="jump to flat reply #4">¶</a></summary>
+<div class="dlg-text">Discipline of the Master</div>
+</details>
+<details class="dlg-tree-node reply" open>
+<summary><span class="dlg-id">reply #3</span> <span class="dlg-action">→ <code>ronus_trans_04</code></span> <small class="muted">(if <code>ronus_craft_04</code>)</small> <a class="dlg-anchor" href="#r3" title="jump to flat reply #3">¶</a></summary>
+<div class="dlg-text">Epic Plate of Royalty</div>
+</details>
+<details class="dlg-tree-node reply" open>
+<summary><span class="dlg-id">reply #2</span> <span class="dlg-action">→ <code>ronus_trans_05</code></span> <small class="muted">(if <code>ronus_craft_05</code>)</small> <a class="dlg-anchor" href="#r2" title="jump to flat reply #2">¶</a></summary>
+<div class="dlg-text">Arrows of True Flight</div>
+</details>
+<details class="dlg-tree-node reply" open>
+<summary><span class="dlg-id">reply #1</span> <a class="dlg-anchor" href="#r1" title="jump to flat reply #1">¶</a></summary>
+<div class="dlg-text">Nevermind</div>
+</details>
+</div>
+</details>
+</div>
+</details>
+</div>
+</details>
+</div>
+<h2>NPC lines (entries) — flat index</h2>
+<div class="dlg-node entry" id="e0"><div class="dlg-head"><span class="dlg-id">entry #0</span></div><div class="dlg-text">I welcome you. I know what your thinking, it&#x27;s gloomy in here. Forgive me I like small dark places. Now were was I? Ahh yes, my trade is crafting. I am very perticular with my craft, I use only the finest materials. Perhaps you would like a book to show you my work?</div><ul class="dlg-links"><li><a href="#r8">→ reply #8</a> <span class="dlg-link-preview">“Yes, that sounds handy.”</span></li><li><a href="#r7">→ reply #7</a> <span class="dlg-link-preview">“No thanks, I don&#x27;t have the time to be looking at books.”</span></li><li><a href="#r0">→ reply #0</a> <span class="dlg-link-preview">“I have the book. I&#x27;m interested in crafting. What can you make me with this?”</span></li></ul></div>
+<div class="dlg-node entry" id="e1"><div class="dlg-head"><span class="dlg-id">entry #1</span></div><div class="dlg-text">Well, let me see here...</div><ul class="dlg-links"><li><a href="#r6">→ reply #6</a> <span class="dlg-link-preview">“Epic Robes of Master Craft”</span> <small class="muted">(if <code>ronus_craft_01</code>)</small></li><li><a href="#r5">→ reply #5</a> <span class="dlg-link-preview">“Epic Katana of the Ronin”</span> <small class="muted">(if <code>ronus_craft_02</code>)</small></li><li><a href="#r4">→ reply #4</a> <span class="dlg-link-preview">“Discipline of the Master”</span> <small class="muted">(if <code>ronus_craft_03</code>)</small></li><li><a href="#r3">→ reply #3</a> <span class="dlg-link-preview">“Epic Plate of Royalty”</span> <small class="muted">(if <code>ronus_craft_04</code>)</small></li><li><a href="#r2">→ reply #2</a> <span class="dlg-link-preview">“Arrows of True Flight”</span> <small class="muted">(if <code>ronus_craft_05</code>)</small></li><li><a href="#r1">→ reply #1</a> <span class="dlg-link-preview">“Nevermind”</span></li></ul></div>
+<h2>PC replies — flat index</h2>
+<div class="dlg-node reply" id="r0"><div class="dlg-head"><span class="dlg-id">reply #0</span></div><div class="dlg-text">I have the book. I&#x27;m interested in crafting. What can you make me with this?</div><ul class="dlg-links"><li><a href="#e1">→ entry #1</a> <span class="dlg-link-preview">“Well, let me see here...”</span></li></ul></div>
 <div class="dlg-node reply" id="r1"><div class="dlg-head"><span class="dlg-id">reply #1</span></div><div class="dlg-text">Nevermind</div></div>
 <div class="dlg-node reply" id="r2"><div class="dlg-head"><span class="dlg-id">reply #2</span> <span class="dlg-action">→ <code>ronus_trans_05</code></span></div><div class="dlg-text">Arrows of True Flight</div></div>
 <div class="dlg-node reply" id="r3"><div class="dlg-head"><span class="dlg-id">reply #3</span> <span class="dlg-action">→ <code>ronus_trans_04</code></span></div><div class="dlg-text">Epic Plate of Royalty</div></div>

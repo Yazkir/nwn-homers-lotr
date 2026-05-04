@@ -37,9 +37,27 @@
 <h2>Starting entries</h2><ul>
 <li><a href="#e0">entry #0</a> — Well met, &lt;Race&gt;. Tis a dangerous road you shall soon travel. would you care to …</li>
 </ul>
-<h2>NPC lines (entries)</h2>
-<div class="dlg-node entry" id="e0"><div class="dlg-head"><span class="dlg-id">entry #0</span></div><div class="dlg-text">Well met, &lt;Race&gt;. Tis a dangerous road you shall soon travel. would you care to see how the elves of Lorien prepare themselves?</div><div class="dlg-links"><a href="#r1">→ reply #1</a> · <a href="#r0">→ reply #0</a></div></div>
-<h2>PC replies</h2>
+<h2>Conversation flow</h2>
+<p class="muted">Each starting entry is expanded recursively. Repeated nodes (cycles, shared continuations) appear inline as <code>↩ link</code> backrefs to the first occurrence.</p>
+<div class="dlg-tree">
+<details class="dlg-tree-node entry" open>
+<summary><span class="dlg-id">entry #0</span> <a class="dlg-anchor" href="#e0" title="jump to flat entry #0">¶</a></summary>
+<div class="dlg-text">Well met, &lt;Race&gt;. Tis a dangerous road you shall soon travel. would you care to see how the elves of Lorien prepare themselves?</div>
+<div class="dlg-tree-children">
+<details class="dlg-tree-node reply" open>
+<summary><span class="dlg-id">reply #1</span> <span class="dlg-action">→ <code>at_062</code></span> <a class="dlg-anchor" href="#r1" title="jump to flat reply #1">¶</a></summary>
+<div class="dlg-text">Yes indeed.</div>
+</details>
+<details class="dlg-tree-node reply" open>
+<summary><span class="dlg-id">reply #0</span> <a class="dlg-anchor" href="#r0" title="jump to flat reply #0">¶</a></summary>
+<div class="dlg-text">No not at the moment.</div>
+</details>
+</div>
+</details>
+</div>
+<h2>NPC lines (entries) — flat index</h2>
+<div class="dlg-node entry" id="e0"><div class="dlg-head"><span class="dlg-id">entry #0</span></div><div class="dlg-text">Well met, &lt;Race&gt;. Tis a dangerous road you shall soon travel. would you care to see how the elves of Lorien prepare themselves?</div><ul class="dlg-links"><li><a href="#r1">→ reply #1</a> <span class="dlg-link-preview">“Yes indeed.”</span></li><li><a href="#r0">→ reply #0</a> <span class="dlg-link-preview">“No not at the moment.”</span></li></ul></div>
+<h2>PC replies — flat index</h2>
 <div class="dlg-node reply" id="r0"><div class="dlg-head"><span class="dlg-id">reply #0</span></div><div class="dlg-text">No not at the moment.</div></div>
 <div class="dlg-node reply" id="r1"><div class="dlg-head"><span class="dlg-id">reply #1</span> <span class="dlg-action">→ <code>at_062</code></span></div><div class="dlg-text">Yes indeed.</div></div>
   </main>

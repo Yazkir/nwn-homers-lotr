@@ -49,23 +49,126 @@
 <h2>Starting entries</h2><ul>
 <li><a href="#e0">entry #0</a> — Greeting here.</li>
 </ul>
-<h2>NPC lines (entries)</h2>
-<div class="dlg-node entry" id="e0"><div class="dlg-head"><span class="dlg-id">entry #0</span></div><div class="dlg-text">Greeting here.</div><div class="dlg-links"><a href="#r1">→ reply #1</a> · <a href="#r0">→ reply #0</a></div></div>
-<div class="dlg-node entry" id="e1"><div class="dlg-head"><span class="dlg-id">entry #1</span></div><div class="dlg-text">player will specify alignment to change to.  These are default alignment settings used on character creation.</div><div class="dlg-links"><a href="#r10">→ reply #10</a> · <a href="#r9">→ reply #9</a> · <a href="#r8">→ reply #8</a> · <a href="#r7">→ reply #7</a> · <a href="#r6">→ reply #6</a> · <a href="#r5">→ reply #5</a> · <a href="#r4">→ reply #4</a> · <a href="#r3">→ reply #3</a> · <a href="#r2">→ reply #2</a> · <a href="#r0">→ child</a></div></div>
-<div class="dlg-node entry" id="e2"><div class="dlg-head"><span class="dlg-id">entry #2</span></div><div class="dlg-text">alignment changed.  ask player for further instructions</div><div class="dlg-links"><a href="#r11">→ reply #11</a> · <a href="#r0">→ child</a></div></div>
-<h2>PC replies</h2>
+<h2>Conversation flow</h2>
+<p class="muted">Each starting entry is expanded recursively. Repeated nodes (cycles, shared continuations) appear inline as <code>↩ link</code> backrefs to the first occurrence.</p>
+<div class="dlg-tree">
+<details class="dlg-tree-node entry" open>
+<summary><span class="dlg-id">entry #0</span> <a class="dlg-anchor" href="#e0" title="jump to flat entry #0">¶</a></summary>
+<div class="dlg-text">Greeting here.</div>
+<div class="dlg-tree-children">
+<details class="dlg-tree-node reply" open>
+<summary><span class="dlg-id">reply #1</span> <a class="dlg-anchor" href="#r1" title="jump to flat reply #1">¶</a></summary>
+<div class="dlg-text">I wish to change my alignment.</div>
+<div class="dlg-tree-children">
+<details class="dlg-tree-node entry" open>
+<summary><span class="dlg-id">entry #1</span> <a class="dlg-anchor" href="#e1" title="jump to flat entry #1">¶</a></summary>
+<div class="dlg-text">player will specify alignment to change to.  These are default alignment settings used on character creation.</div>
+<div class="dlg-tree-children">
+<details class="dlg-tree-node reply" open>
+<summary><span class="dlg-id">reply #10</span> <span class="dlg-action">→ <code>shift_lawfulgood</code></span> <a class="dlg-anchor" href="#r10" title="jump to flat reply #10">¶</a></summary>
+<div class="dlg-text">Lawful Good</div>
+<div class="dlg-tree-children">
+<details class="dlg-tree-node entry" open>
+<summary><span class="dlg-id">entry #2</span> <a class="dlg-anchor" href="#e2" title="jump to flat entry #2">¶</a></summary>
+<div class="dlg-text">alignment changed.  ask player for further instructions</div>
+<div class="dlg-tree-children">
+<details class="dlg-tree-node reply" open>
+<summary><span class="dlg-id">reply #11</span> <a class="dlg-anchor" href="#r11" title="jump to flat reply #11">¶</a></summary>
+<div class="dlg-text">I wish to change my alignment again.</div>
+<div class="dlg-tree-children">
+<div class="dlg-tree-ref entry-ref">↩ <a href="#e1">entry #1</a> <span class="dlg-link-preview">“player will specify alignment to change to.  These are default alignment setting…”</span></div>
+</div>
+</details>
+<details class="dlg-tree-node reply" open>
+<summary><span class="dlg-id">reply #0</span> <span class="dlg-action">→ <code>tr_done</code></span> <a class="dlg-anchor" href="#r0" title="jump to flat reply #0">¶</a></summary>
+<div class="dlg-text">End</div>
+</details>
+</div>
+</details>
+</div>
+</details>
+<details class="dlg-tree-node reply" open>
+<summary><span class="dlg-id">reply #9</span> <span class="dlg-action">→ <code>shift_lawneutral</code></span> <a class="dlg-anchor" href="#r9" title="jump to flat reply #9">¶</a></summary>
+<div class="dlg-text">Lawful neutral</div>
+<div class="dlg-tree-children">
+<div class="dlg-tree-ref entry-ref">↩ <a href="#e2">entry #2</a> <span class="dlg-link-preview">“alignment changed.  ask player for further instructions”</span></div>
+</div>
+</details>
+<details class="dlg-tree-node reply" open>
+<summary><span class="dlg-id">reply #8</span> <span class="dlg-action">→ <code>shift_lawevil</code></span> <a class="dlg-anchor" href="#r8" title="jump to flat reply #8">¶</a></summary>
+<div class="dlg-text">Lawful Evil</div>
+<div class="dlg-tree-children">
+<div class="dlg-tree-ref entry-ref">↩ <a href="#e2">entry #2</a> <span class="dlg-link-preview">“alignment changed.  ask player for further instructions”</span></div>
+</div>
+</details>
+<details class="dlg-tree-node reply" open>
+<summary><span class="dlg-id">reply #7</span> <span class="dlg-action">→ <code>shift_neut_good</code></span> <a class="dlg-anchor" href="#r7" title="jump to flat reply #7">¶</a></summary>
+<div class="dlg-text">Neutral Good</div>
+<div class="dlg-tree-children">
+<div class="dlg-tree-ref entry-ref">↩ <a href="#e2">entry #2</a> <span class="dlg-link-preview">“alignment changed.  ask player for further instructions”</span></div>
+</div>
+</details>
+<details class="dlg-tree-node reply" open>
+<summary><span class="dlg-id">reply #6</span> <span class="dlg-action">→ <code>shift_true_neut</code></span> <a class="dlg-anchor" href="#r6" title="jump to flat reply #6">¶</a></summary>
+<div class="dlg-text">True Neutral</div>
+<div class="dlg-tree-children">
+<div class="dlg-tree-ref entry-ref">↩ <a href="#e2">entry #2</a> <span class="dlg-link-preview">“alignment changed.  ask player for further instructions”</span></div>
+</div>
+</details>
+<details class="dlg-tree-node reply" open>
+<summary><span class="dlg-id">reply #5</span> <span class="dlg-action">→ <code>shift_neut_evil</code></span> <a class="dlg-anchor" href="#r5" title="jump to flat reply #5">¶</a></summary>
+<div class="dlg-text">Neutral Evil</div>
+<div class="dlg-tree-children">
+<div class="dlg-tree-ref entry-ref">↩ <a href="#e2">entry #2</a> <span class="dlg-link-preview">“alignment changed.  ask player for further instructions”</span></div>
+</div>
+</details>
+<details class="dlg-tree-node reply" open>
+<summary><span class="dlg-id">reply #4</span> <span class="dlg-action">→ <code>shift_chao_good</code></span> <a class="dlg-anchor" href="#r4" title="jump to flat reply #4">¶</a></summary>
+<div class="dlg-text">Chaotic Good</div>
+<div class="dlg-tree-children">
+<div class="dlg-tree-ref entry-ref">↩ <a href="#e2">entry #2</a> <span class="dlg-link-preview">“alignment changed.  ask player for further instructions”</span></div>
+</div>
+</details>
+<details class="dlg-tree-node reply" open>
+<summary><span class="dlg-id">reply #3</span> <span class="dlg-action">→ <code>shift_chao_neutr</code></span> <a class="dlg-anchor" href="#r3" title="jump to flat reply #3">¶</a></summary>
+<div class="dlg-text">Chaotic Neutral</div>
+<div class="dlg-tree-children">
+<div class="dlg-tree-ref entry-ref">↩ <a href="#e2">entry #2</a> <span class="dlg-link-preview">“alignment changed.  ask player for further instructions”</span></div>
+</div>
+</details>
+<details class="dlg-tree-node reply" open>
+<summary><span class="dlg-id">reply #2</span> <span class="dlg-action">→ <code>shift_chao_evil</code></span> <a class="dlg-anchor" href="#r2" title="jump to flat reply #2">¶</a></summary>
+<div class="dlg-text">Chaotic Evil</div>
+<div class="dlg-tree-children">
+<div class="dlg-tree-ref entry-ref">↩ <a href="#e2">entry #2</a> <span class="dlg-link-preview">“alignment changed.  ask player for further instructions”</span></div>
+</div>
+</details>
+<div class="dlg-tree-ref reply-ref">↩ <a href="#r0">reply #0</a> <span class="dlg-link-preview">“End”</span></div>
+</div>
+</details>
+</div>
+</details>
+<div class="dlg-tree-ref reply-ref">↩ <a href="#r0">reply #0</a> <span class="dlg-link-preview">“End”</span></div>
+</div>
+</details>
+</div>
+<h2>NPC lines (entries) — flat index</h2>
+<div class="dlg-node entry" id="e0"><div class="dlg-head"><span class="dlg-id">entry #0</span></div><div class="dlg-text">Greeting here.</div><ul class="dlg-links"><li><a href="#r1">→ reply #1</a> <span class="dlg-link-preview">“I wish to change my alignment.”</span></li><li><a href="#r0">→ reply #0</a> <span class="dlg-link-preview">“End”</span></li></ul></div>
+<div class="dlg-node entry" id="e1"><div class="dlg-head"><span class="dlg-id">entry #1</span></div><div class="dlg-text">player will specify alignment to change to.  These are default alignment settings used on character creation.</div><ul class="dlg-links"><li><a href="#r10">→ reply #10</a> <span class="dlg-link-preview">“Lawful Good”</span></li><li><a href="#r9">→ reply #9</a> <span class="dlg-link-preview">“Lawful neutral”</span></li><li><a href="#r8">→ reply #8</a> <span class="dlg-link-preview">“Lawful Evil”</span></li><li><a href="#r7">→ reply #7</a> <span class="dlg-link-preview">“Neutral Good”</span></li><li><a href="#r6">→ reply #6</a> <span class="dlg-link-preview">“True Neutral”</span></li><li><a href="#r5">→ reply #5</a> <span class="dlg-link-preview">“Neutral Evil”</span></li><li><a href="#r4">→ reply #4</a> <span class="dlg-link-preview">“Chaotic Good”</span></li><li><a href="#r3">→ reply #3</a> <span class="dlg-link-preview">“Chaotic Neutral”</span></li><li><a href="#r2">→ reply #2</a> <span class="dlg-link-preview">“Chaotic Evil”</span></li><li><a href="#r0">→ child</a> <span class="dlg-link-preview">“End”</span></li></ul></div>
+<div class="dlg-node entry" id="e2"><div class="dlg-head"><span class="dlg-id">entry #2</span></div><div class="dlg-text">alignment changed.  ask player for further instructions</div><ul class="dlg-links"><li><a href="#r11">→ reply #11</a> <span class="dlg-link-preview">“I wish to change my alignment again.”</span></li><li><a href="#r0">→ child</a> <span class="dlg-link-preview">“End”</span></li></ul></div>
+<h2>PC replies — flat index</h2>
 <div class="dlg-node reply" id="r0"><div class="dlg-head"><span class="dlg-id">reply #0</span> <span class="dlg-action">→ <code>tr_done</code></span></div><div class="dlg-text">End</div></div>
-<div class="dlg-node reply" id="r1"><div class="dlg-head"><span class="dlg-id">reply #1</span></div><div class="dlg-text">I wish to change my alignment.</div><div class="dlg-links"><a href="#e1">→ entry #1</a></div></div>
-<div class="dlg-node reply" id="r2"><div class="dlg-head"><span class="dlg-id">reply #2</span> <span class="dlg-action">→ <code>shift_chao_evil</code></span></div><div class="dlg-text">Chaotic Evil</div><div class="dlg-links"><a href="#e2">→ child</a></div></div>
-<div class="dlg-node reply" id="r3"><div class="dlg-head"><span class="dlg-id">reply #3</span> <span class="dlg-action">→ <code>shift_chao_neutr</code></span></div><div class="dlg-text">Chaotic Neutral</div><div class="dlg-links"><a href="#e2">→ child</a></div></div>
-<div class="dlg-node reply" id="r4"><div class="dlg-head"><span class="dlg-id">reply #4</span> <span class="dlg-action">→ <code>shift_chao_good</code></span></div><div class="dlg-text">Chaotic Good</div><div class="dlg-links"><a href="#e2">→ child</a></div></div>
-<div class="dlg-node reply" id="r5"><div class="dlg-head"><span class="dlg-id">reply #5</span> <span class="dlg-action">→ <code>shift_neut_evil</code></span></div><div class="dlg-text">Neutral Evil</div><div class="dlg-links"><a href="#e2">→ child</a></div></div>
-<div class="dlg-node reply" id="r6"><div class="dlg-head"><span class="dlg-id">reply #6</span> <span class="dlg-action">→ <code>shift_true_neut</code></span></div><div class="dlg-text">True Neutral</div><div class="dlg-links"><a href="#e2">→ child</a></div></div>
-<div class="dlg-node reply" id="r7"><div class="dlg-head"><span class="dlg-id">reply #7</span> <span class="dlg-action">→ <code>shift_neut_good</code></span></div><div class="dlg-text">Neutral Good</div><div class="dlg-links"><a href="#e2">→ child</a></div></div>
-<div class="dlg-node reply" id="r8"><div class="dlg-head"><span class="dlg-id">reply #8</span> <span class="dlg-action">→ <code>shift_lawevil</code></span></div><div class="dlg-text">Lawful Evil</div><div class="dlg-links"><a href="#e2">→ child</a></div></div>
-<div class="dlg-node reply" id="r9"><div class="dlg-head"><span class="dlg-id">reply #9</span> <span class="dlg-action">→ <code>shift_lawneutral</code></span></div><div class="dlg-text">Lawful neutral</div><div class="dlg-links"><a href="#e2">→ child</a></div></div>
-<div class="dlg-node reply" id="r10"><div class="dlg-head"><span class="dlg-id">reply #10</span> <span class="dlg-action">→ <code>shift_lawfulgood</code></span></div><div class="dlg-text">Lawful Good</div><div class="dlg-links"><a href="#e2">→ entry #2</a></div></div>
-<div class="dlg-node reply" id="r11"><div class="dlg-head"><span class="dlg-id">reply #11</span></div><div class="dlg-text">I wish to change my alignment again.</div><div class="dlg-links"><a href="#e1">→ child</a></div></div>
+<div class="dlg-node reply" id="r1"><div class="dlg-head"><span class="dlg-id">reply #1</span></div><div class="dlg-text">I wish to change my alignment.</div><ul class="dlg-links"><li><a href="#e1">→ entry #1</a> <span class="dlg-link-preview">“player will specify alignment to change to.  These are default alignment setting…”</span></li></ul></div>
+<div class="dlg-node reply" id="r2"><div class="dlg-head"><span class="dlg-id">reply #2</span> <span class="dlg-action">→ <code>shift_chao_evil</code></span></div><div class="dlg-text">Chaotic Evil</div><ul class="dlg-links"><li><a href="#e2">→ child</a> <span class="dlg-link-preview">“alignment changed.  ask player for further instructions”</span></li></ul></div>
+<div class="dlg-node reply" id="r3"><div class="dlg-head"><span class="dlg-id">reply #3</span> <span class="dlg-action">→ <code>shift_chao_neutr</code></span></div><div class="dlg-text">Chaotic Neutral</div><ul class="dlg-links"><li><a href="#e2">→ child</a> <span class="dlg-link-preview">“alignment changed.  ask player for further instructions”</span></li></ul></div>
+<div class="dlg-node reply" id="r4"><div class="dlg-head"><span class="dlg-id">reply #4</span> <span class="dlg-action">→ <code>shift_chao_good</code></span></div><div class="dlg-text">Chaotic Good</div><ul class="dlg-links"><li><a href="#e2">→ child</a> <span class="dlg-link-preview">“alignment changed.  ask player for further instructions”</span></li></ul></div>
+<div class="dlg-node reply" id="r5"><div class="dlg-head"><span class="dlg-id">reply #5</span> <span class="dlg-action">→ <code>shift_neut_evil</code></span></div><div class="dlg-text">Neutral Evil</div><ul class="dlg-links"><li><a href="#e2">→ child</a> <span class="dlg-link-preview">“alignment changed.  ask player for further instructions”</span></li></ul></div>
+<div class="dlg-node reply" id="r6"><div class="dlg-head"><span class="dlg-id">reply #6</span> <span class="dlg-action">→ <code>shift_true_neut</code></span></div><div class="dlg-text">True Neutral</div><ul class="dlg-links"><li><a href="#e2">→ child</a> <span class="dlg-link-preview">“alignment changed.  ask player for further instructions”</span></li></ul></div>
+<div class="dlg-node reply" id="r7"><div class="dlg-head"><span class="dlg-id">reply #7</span> <span class="dlg-action">→ <code>shift_neut_good</code></span></div><div class="dlg-text">Neutral Good</div><ul class="dlg-links"><li><a href="#e2">→ child</a> <span class="dlg-link-preview">“alignment changed.  ask player for further instructions”</span></li></ul></div>
+<div class="dlg-node reply" id="r8"><div class="dlg-head"><span class="dlg-id">reply #8</span> <span class="dlg-action">→ <code>shift_lawevil</code></span></div><div class="dlg-text">Lawful Evil</div><ul class="dlg-links"><li><a href="#e2">→ child</a> <span class="dlg-link-preview">“alignment changed.  ask player for further instructions”</span></li></ul></div>
+<div class="dlg-node reply" id="r9"><div class="dlg-head"><span class="dlg-id">reply #9</span> <span class="dlg-action">→ <code>shift_lawneutral</code></span></div><div class="dlg-text">Lawful neutral</div><ul class="dlg-links"><li><a href="#e2">→ child</a> <span class="dlg-link-preview">“alignment changed.  ask player for further instructions”</span></li></ul></div>
+<div class="dlg-node reply" id="r10"><div class="dlg-head"><span class="dlg-id">reply #10</span> <span class="dlg-action">→ <code>shift_lawfulgood</code></span></div><div class="dlg-text">Lawful Good</div><ul class="dlg-links"><li><a href="#e2">→ entry #2</a> <span class="dlg-link-preview">“alignment changed.  ask player for further instructions”</span></li></ul></div>
+<div class="dlg-node reply" id="r11"><div class="dlg-head"><span class="dlg-id">reply #11</span></div><div class="dlg-text">I wish to change my alignment again.</div><ul class="dlg-links"><li><a href="#e1">→ child</a> <span class="dlg-link-preview">“player will specify alignment to change to.  These are default alignment setting…”</span></li></ul></div>
   </main>
   <footer>generated by <a href="https://github.com/mrprice22/nwn-manager">nwn-manager</a></footer>
 </body>

@@ -46,18 +46,80 @@
 <h2>Starting entries</h2><ul>
 <li><a href="#e0">entry #0</a> — Have you made a decision about joining the War of the Ring?</li>
 </ul>
-<h2>NPC lines (entries)</h2>
-<div class="dlg-node entry" id="e0"><div class="dlg-head"><span class="dlg-id">entry #0</span></div><div class="dlg-text">Have you made a decision about joining the War of the Ring?</div><div class="dlg-links"><a href="#r1">→ reply #1</a> · <a href="#r0">→ reply #0</a></div></div>
-<div class="dlg-node entry" id="e1"><div class="dlg-head"><span class="dlg-id">entry #1</span></div><div class="dlg-text">What faction do you wish to join? REMEMBER: If you have created a character of GOOD or EVIL alignment after the new version release, your alignment is set and you should not adjust it..</div><div class="dlg-links"><a href="#r5">→ reply #5</a> <small class="muted">(if <code>sc_033</code>)</small> · <a href="#r3">→ reply #3</a> <small class="muted">(if <code>sc_034</code>)</small> · <a href="#r2">→ reply #2</a></div></div>
-<div class="dlg-node entry" id="e2"><div class="dlg-head"><span class="dlg-id">entry #2</span></div><div class="dlg-text">So be it. You are now allied with the Free Peoples of Middle Earth. Go forth through the blue room to begin your adventure.</div><div class="dlg-links"><a href="#r4">→ reply #4</a></div></div>
-<div class="dlg-node entry" id="e3"><div class="dlg-head"><span class="dlg-id">entry #3</span></div><div class="dlg-text">So Be it. You are now a Servant of Sauron. Go forth through the red room to begin your adventure.</div><div class="dlg-links"><a href="#r6">→ reply #6</a></div></div>
-<h2>PC replies</h2>
+<h2>Conversation flow</h2>
+<p class="muted">Each starting entry is expanded recursively. Repeated nodes (cycles, shared continuations) appear inline as <code>↩ link</code> backrefs to the first occurrence.</p>
+<div class="dlg-tree">
+<details class="dlg-tree-node entry" open>
+<summary><span class="dlg-id">entry #0</span> <a class="dlg-anchor" href="#e0" title="jump to flat entry #0">¶</a></summary>
+<div class="dlg-text">Have you made a decision about joining the War of the Ring?</div>
+<div class="dlg-tree-children">
+<details class="dlg-tree-node reply" open>
+<summary><span class="dlg-id">reply #1</span> <a class="dlg-anchor" href="#r1" title="jump to flat reply #1">¶</a></summary>
+<div class="dlg-text">Yes I have.</div>
+<div class="dlg-tree-children">
+<details class="dlg-tree-node entry" open>
+<summary><span class="dlg-id">entry #1</span> <a class="dlg-anchor" href="#e1" title="jump to flat entry #1">¶</a></summary>
+<div class="dlg-text">What faction do you wish to join? REMEMBER: If you have created a character of GOOD or EVIL alignment after the new version release, your alignment is set and you should not adjust it..</div>
+<div class="dlg-tree-children">
+<details class="dlg-tree-node reply" open>
+<summary><span class="dlg-id">reply #5</span> <span class="dlg-action">→ <code>eiladjust</code></span> <small class="muted">(if <code>sc_033</code>)</small> <a class="dlg-anchor" href="#r5" title="jump to flat reply #5">¶</a></summary>
+<div class="dlg-text">EVIL: Sauron, Lord of Mordor.</div>
+<div class="dlg-tree-children">
+<details class="dlg-tree-node entry" open>
+<summary><span class="dlg-id">entry #3</span> <a class="dlg-anchor" href="#e3" title="jump to flat entry #3">¶</a></summary>
+<div class="dlg-text">So Be it. You are now a Servant of Sauron. Go forth through the red room to begin your adventure.</div>
+<div class="dlg-tree-children">
+<details class="dlg-tree-node reply" open>
+<summary><span class="dlg-id">reply #6</span> <span class="dlg-action">→ <code>evilplayerjump</code></span> <a class="dlg-anchor" href="#r6" title="jump to flat reply #6">¶</a></summary>
+<div class="dlg-text">My thanks.</div>
+</details>
+</div>
+</details>
+</div>
+</details>
+<details class="dlg-tree-node reply" open>
+<summary><span class="dlg-id">reply #3</span> <span class="dlg-action">→ <code>goodadjuster</code></span> <small class="muted">(if <code>sc_034</code>)</small> <a class="dlg-anchor" href="#r3" title="jump to flat reply #3">¶</a></summary>
+<div class="dlg-text">GOOD: The Free Peoples of Middle Earth.</div>
+<div class="dlg-tree-children">
+<details class="dlg-tree-node entry" open>
+<summary><span class="dlg-id">entry #2</span> <a class="dlg-anchor" href="#e2" title="jump to flat entry #2">¶</a></summary>
+<div class="dlg-text">So be it. You are now allied with the Free Peoples of Middle Earth. Go forth through the blue room to begin your adventure.</div>
+<div class="dlg-tree-children">
+<details class="dlg-tree-node reply" open>
+<summary><span class="dlg-id">reply #4</span> <span class="dlg-action">→ <code>goodplayerjump</code></span> <a class="dlg-anchor" href="#r4" title="jump to flat reply #4">¶</a></summary>
+<div class="dlg-text">My thanks.</div>
+</details>
+</div>
+</details>
+</div>
+</details>
+<details class="dlg-tree-node reply" open>
+<summary><span class="dlg-id">reply #2</span> <a class="dlg-anchor" href="#r2" title="jump to flat reply #2">¶</a></summary>
+<div class="dlg-text">I don&#x27;t wish to adjust my faction at this time.</div>
+</details>
+</div>
+</details>
+</div>
+</details>
+<details class="dlg-tree-node reply" open>
+<summary><span class="dlg-id">reply #0</span> <a class="dlg-anchor" href="#r0" title="jump to flat reply #0">¶</a></summary>
+<div class="dlg-text">No I still need more time.</div>
+</details>
+</div>
+</details>
+</div>
+<h2>NPC lines (entries) — flat index</h2>
+<div class="dlg-node entry" id="e0"><div class="dlg-head"><span class="dlg-id">entry #0</span></div><div class="dlg-text">Have you made a decision about joining the War of the Ring?</div><ul class="dlg-links"><li><a href="#r1">→ reply #1</a> <span class="dlg-link-preview">“Yes I have.”</span></li><li><a href="#r0">→ reply #0</a> <span class="dlg-link-preview">“No I still need more time.”</span></li></ul></div>
+<div class="dlg-node entry" id="e1"><div class="dlg-head"><span class="dlg-id">entry #1</span></div><div class="dlg-text">What faction do you wish to join? REMEMBER: If you have created a character of GOOD or EVIL alignment after the new version release, your alignment is set and you should not adjust it..</div><ul class="dlg-links"><li><a href="#r5">→ reply #5</a> <span class="dlg-link-preview">“EVIL: Sauron, Lord of Mordor.”</span> <small class="muted">(if <code>sc_033</code>)</small></li><li><a href="#r3">→ reply #3</a> <span class="dlg-link-preview">“GOOD: The Free Peoples of Middle Earth.”</span> <small class="muted">(if <code>sc_034</code>)</small></li><li><a href="#r2">→ reply #2</a> <span class="dlg-link-preview">“I don&#x27;t wish to adjust my faction at this time.”</span></li></ul></div>
+<div class="dlg-node entry" id="e2"><div class="dlg-head"><span class="dlg-id">entry #2</span></div><div class="dlg-text">So be it. You are now allied with the Free Peoples of Middle Earth. Go forth through the blue room to begin your adventure.</div><ul class="dlg-links"><li><a href="#r4">→ reply #4</a> <span class="dlg-link-preview">“My thanks.”</span></li></ul></div>
+<div class="dlg-node entry" id="e3"><div class="dlg-head"><span class="dlg-id">entry #3</span></div><div class="dlg-text">So Be it. You are now a Servant of Sauron. Go forth through the red room to begin your adventure.</div><ul class="dlg-links"><li><a href="#r6">→ reply #6</a> <span class="dlg-link-preview">“My thanks.”</span></li></ul></div>
+<h2>PC replies — flat index</h2>
 <div class="dlg-node reply" id="r0"><div class="dlg-head"><span class="dlg-id">reply #0</span></div><div class="dlg-text">No I still need more time.</div></div>
-<div class="dlg-node reply" id="r1"><div class="dlg-head"><span class="dlg-id">reply #1</span></div><div class="dlg-text">Yes I have.</div><div class="dlg-links"><a href="#e1">→ entry #1</a></div></div>
+<div class="dlg-node reply" id="r1"><div class="dlg-head"><span class="dlg-id">reply #1</span></div><div class="dlg-text">Yes I have.</div><ul class="dlg-links"><li><a href="#e1">→ entry #1</a> <span class="dlg-link-preview">“What faction do you wish to join? REMEMBER: If you have created a character of G…”</span></li></ul></div>
 <div class="dlg-node reply" id="r2"><div class="dlg-head"><span class="dlg-id">reply #2</span></div><div class="dlg-text">I don&#x27;t wish to adjust my faction at this time.</div></div>
-<div class="dlg-node reply" id="r3"><div class="dlg-head"><span class="dlg-id">reply #3</span> <span class="dlg-action">→ <code>goodadjuster</code></span></div><div class="dlg-text">GOOD: The Free Peoples of Middle Earth.</div><div class="dlg-links"><a href="#e2">→ entry #2</a></div></div>
+<div class="dlg-node reply" id="r3"><div class="dlg-head"><span class="dlg-id">reply #3</span> <span class="dlg-action">→ <code>goodadjuster</code></span></div><div class="dlg-text">GOOD: The Free Peoples of Middle Earth.</div><ul class="dlg-links"><li><a href="#e2">→ entry #2</a> <span class="dlg-link-preview">“So be it. You are now allied with the Free Peoples of Middle Earth. Go forth thr…”</span></li></ul></div>
 <div class="dlg-node reply" id="r4"><div class="dlg-head"><span class="dlg-id">reply #4</span> <span class="dlg-action">→ <code>goodplayerjump</code></span></div><div class="dlg-text">My thanks.</div></div>
-<div class="dlg-node reply" id="r5"><div class="dlg-head"><span class="dlg-id">reply #5</span> <span class="dlg-action">→ <code>eiladjust</code></span></div><div class="dlg-text">EVIL: Sauron, Lord of Mordor.</div><div class="dlg-links"><a href="#e3">→ entry #3</a></div></div>
+<div class="dlg-node reply" id="r5"><div class="dlg-head"><span class="dlg-id">reply #5</span> <span class="dlg-action">→ <code>eiladjust</code></span></div><div class="dlg-text">EVIL: Sauron, Lord of Mordor.</div><ul class="dlg-links"><li><a href="#e3">→ entry #3</a> <span class="dlg-link-preview">“So Be it. You are now a Servant of Sauron. Go forth through the red room to begi…”</span></li></ul></div>
 <div class="dlg-node reply" id="r6"><div class="dlg-head"><span class="dlg-id">reply #6</span> <span class="dlg-action">→ <code>evilplayerjump</code></span></div><div class="dlg-text">My thanks.</div></div>
   </main>
   <footer>generated by <a href="https://github.com/mrprice22/nwn-manager">nwn-manager</a></footer>

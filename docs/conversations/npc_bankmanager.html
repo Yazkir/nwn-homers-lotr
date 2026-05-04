@@ -46,41 +46,247 @@
 <li><a href="#e9">entry #9</a> <small class="muted">(if <code>bank_hasaccount</code>)</small> — Welcome back &lt;FullName&gt;.  Is there something you need?</li>
 <li><a href="#e0">entry #0</a> <small class="muted">(if <code>bank_noaccount</code>)</small> — Hello, is there something I can help you with?</li>
 </ul>
-<h2>NPC lines (entries)</h2>
-<div class="dlg-node entry" id="e0"><div class="dlg-head"><span class="dlg-id">entry #0</span></div><div class="dlg-text">Hello, is there something I can help you with?</div><div class="dlg-links"><a href="#r5">→ reply #5</a> · <a href="#r1">→ reply #1</a> · <a href="#r0">→ reply #0</a></div></div>
-<div class="dlg-node entry" id="e1"><div class="dlg-head"><span class="dlg-id">entry #1</span></div><div class="dlg-text">To open an account requires a small fee of 150gp for your first Strongbox, and you also need 1,000gp to prove that it&#x27;s worth our time to make the account for you.  Do you have the gold?</div><div class="dlg-links"><a href="#r3">→ reply #3</a> <small class="muted">(if <code>bank_1150gp_chk</code>)</small> · <a href="#r2">→ reply #2</a></div></div>
-<div class="dlg-node entry" id="e2"><div class="dlg-head"><span class="dlg-id">entry #2</span></div><div class="dlg-text">Sorry, but I can&#x27;t make an account for you unless you pay the fee&#x27;s.  Is there anything else you need?</div><div class="dlg-links"><a href="#r5">→ child</a> · <a href="#r0">→ child</a></div></div>
-<div class="dlg-node entry" id="e3"><div class="dlg-head"><span class="dlg-id">entry #3</span></div><div class="dlg-text">Good!  Here&#x27;s your Bank Book so you can tell how much gold you have in your account.  Now go and talk to one of the Bankers in the front room to learn how to use your account.</div><div class="dlg-links"><a href="#r4">→ reply #4</a></div></div>
-<div class="dlg-node entry" id="e4"><div class="dlg-head"><span class="dlg-id">entry #4</span></div><div class="dlg-text">Most certainly.  What is it you wish to know?</div><div class="dlg-links"><a href="#r8">→ reply #8</a> · <a href="#r7">→ reply #7</a> · <a href="#r6">→ reply #6</a></div></div>
-<div class="dlg-node entry" id="e5"><div class="dlg-head"><span class="dlg-id">entry #5</span></div><div class="dlg-text">Well, just about anything.  The only problem is that we have limited space in the item vault, so you will only get one Strongbox to store items in.  We don&#x27;t have any problems storing gold, but you must put in atleast 1,000gp at a time.</div><div class="dlg-links"><a href="#r12">→ child</a> · <a href="#r9">→ child</a></div></div>
-<div class="dlg-node entry" id="e6"><div class="dlg-head"><span class="dlg-id">entry #6</span></div><div class="dlg-text">Ask one of the Bankers in the front room.  They&#x27;ll tell you what you need to know.</div><div class="dlg-links"><a href="#r12">→ child</a> · <a href="#r9">→ child</a></div></div>
-<div class="dlg-node entry" id="e7"><div class="dlg-head"><span class="dlg-id">entry #7</span></div><div class="dlg-text">Well, I am the bank manager, so just tell me if you want an account and then we&#x27;ll work things out.</div><div class="dlg-links"><a href="#r12">→ reply #12</a> · <a href="#r11">→ reply #11</a> · <a href="#r9">→ reply #9</a></div></div>
-<div class="dlg-node entry" id="e8"><div class="dlg-head"><span class="dlg-id">entry #8</span></div><div class="dlg-text">Come back any time.</div><div class="dlg-links"><a href="#r10">→ reply #10</a></div></div>
-<div class="dlg-node entry" id="e9"><div class="dlg-head"><span class="dlg-id">entry #9</span></div><div class="dlg-text">Welcome back &lt;FullName&gt;.  Is there something you need?</div><div class="dlg-links"><a href="#r14">→ reply #14</a> · <a href="#r13">→ reply #13</a></div></div>
-<div class="dlg-node entry" id="e10"><div class="dlg-head"><span class="dlg-id">entry #10</span></div><div class="dlg-text">Alright, additional strongboxes will cost you 5,000gp each.  Do you have the gold?</div><div class="dlg-links"><a href="#r17">→ reply #17</a> <small class="muted">(if <code>bank_5k_chk</code>)</small> · <a href="#r15">→ reply #15</a></div></div>
-<div class="dlg-node entry" id="e11"><div class="dlg-head"><span class="dlg-id">entry #11</span></div><div class="dlg-text">Sorry, I can&#x27;t give you another Strongbox untill you pay the price.</div><div class="dlg-links"><a href="#r16">→ reply #16</a></div></div>
-<div class="dlg-node entry" id="e12"><div class="dlg-head"><span class="dlg-id">entry #12</span></div><div class="dlg-text">Good!  I&#x27;ll tell the Bankers in the front to add another box to your account then.</div><div class="dlg-links"><a href="#r18">→ reply #18</a></div></div>
-<div class="dlg-node entry" id="e13"><div class="dlg-head"><span class="dlg-id">entry #13</span></div><div class="dlg-text">Well, you will have to close your bank vault before I can tell the bankers to add boxes to your account.</div><div class="dlg-links"><a href="#r19">→ reply #19</a></div></div>
+<h2>Conversation flow</h2>
+<p class="muted">Each starting entry is expanded recursively. Repeated nodes (cycles, shared continuations) appear inline as <code>↩ link</code> backrefs to the first occurrence.</p>
+<div class="dlg-tree">
+<details class="dlg-tree-node entry" open>
+<summary><span class="dlg-id">entry #14</span> <small class="muted">(if <code>bank_box_hasall</code>)</small> <a class="dlg-anchor" href="#e14" title="jump to flat entry #14">¶</a></summary>
+<div class="dlg-text">Sorry, but you can&#x27;t have more than 5 Strongboxes.</div>
+</details>
+<details class="dlg-tree-node entry" open>
+<summary><span class="dlg-id">entry #9</span> <small class="muted">(if <code>bank_hasaccount</code>)</small> <a class="dlg-anchor" href="#e9" title="jump to flat entry #9">¶</a></summary>
+<div class="dlg-text">Welcome back &lt;FullName&gt;.  Is there something you need?</div>
+<div class="dlg-tree-children">
+<details class="dlg-tree-node reply" open>
+<summary><span class="dlg-id">reply #14</span> <a class="dlg-anchor" href="#r14" title="jump to flat reply #14">¶</a></summary>
+<div class="dlg-text">Yes, I need another Strongbox for my bank account.</div>
+<div class="dlg-tree-children">
+<details class="dlg-tree-node entry" open>
+<summary><span class="dlg-id">entry #13</span> <small class="muted">(if <code>bank_box_hasbox</code>)</small> <a class="dlg-anchor" href="#e13" title="jump to flat entry #13">¶</a></summary>
+<div class="dlg-text">Well, you will have to close your bank vault before I can tell the bankers to add boxes to your account.</div>
+<div class="dlg-tree-children">
+<details class="dlg-tree-node reply" open>
+<summary><span class="dlg-id">reply #19</span> <a class="dlg-anchor" href="#r19" title="jump to flat reply #19">¶</a></summary>
+<div class="dlg-text">Alright.  Thanks anyway.</div>
+</details>
+</div>
+</details>
+<details class="dlg-tree-node entry" open>
+<summary><span class="dlg-id">entry #10</span> <a class="dlg-anchor" href="#e10" title="jump to flat entry #10">¶</a></summary>
+<div class="dlg-text">Alright, additional strongboxes will cost you 5,000gp each.  Do you have the gold?</div>
+<div class="dlg-tree-children">
+<details class="dlg-tree-node reply" open>
+<summary><span class="dlg-id">reply #17</span> <span class="dlg-action">→ <code>bank_growaccount</code></span> <small class="muted">(if <code>bank_5k_chk</code>)</small> <a class="dlg-anchor" href="#r17" title="jump to flat reply #17">¶</a></summary>
+<div class="dlg-text">Yes, here it is.</div>
+<div class="dlg-tree-children">
+<details class="dlg-tree-node entry" open>
+<summary><span class="dlg-id">entry #12</span> <a class="dlg-anchor" href="#e12" title="jump to flat entry #12">¶</a></summary>
+<div class="dlg-text">Good!  I&#x27;ll tell the Bankers in the front to add another box to your account then.</div>
+<div class="dlg-tree-children">
+<details class="dlg-tree-node reply" open>
+<summary><span class="dlg-id">reply #18</span> <a class="dlg-anchor" href="#r18" title="jump to flat reply #18">¶</a></summary>
+<div class="dlg-text">Thank you.</div>
+</details>
+</div>
+</details>
+</div>
+</details>
+<details class="dlg-tree-node reply" open>
+<summary><span class="dlg-id">reply #15</span> <a class="dlg-anchor" href="#r15" title="jump to flat reply #15">¶</a></summary>
+<div class="dlg-text">Not just yet.</div>
+<div class="dlg-tree-children">
+<details class="dlg-tree-node entry" open>
+<summary><span class="dlg-id">entry #11</span> <a class="dlg-anchor" href="#e11" title="jump to flat entry #11">¶</a></summary>
+<div class="dlg-text">Sorry, I can&#x27;t give you another Strongbox untill you pay the price.</div>
+<div class="dlg-tree-children">
+<details class="dlg-tree-node reply" open>
+<summary><span class="dlg-id">reply #16</span> <a class="dlg-anchor" href="#r16" title="jump to flat reply #16">¶</a></summary>
+<div class="dlg-text"><em>(no text)</em></div>
+</details>
+</div>
+</details>
+</div>
+</details>
+</div>
+</details>
+</div>
+</details>
+<details class="dlg-tree-node reply" open>
+<summary><span class="dlg-id">reply #13</span> <a class="dlg-anchor" href="#r13" title="jump to flat reply #13">¶</a></summary>
+<div class="dlg-text">No, just passing by.</div>
+</details>
+</div>
+</details>
+<details class="dlg-tree-node entry" open>
+<summary><span class="dlg-id">entry #0</span> <small class="muted">(if <code>bank_noaccount</code>)</small> <a class="dlg-anchor" href="#e0" title="jump to flat entry #0">¶</a></summary>
+<div class="dlg-text">Hello, is there something I can help you with?</div>
+<div class="dlg-tree-children">
+<details class="dlg-tree-node reply" open>
+<summary><span class="dlg-id">reply #5</span> <a class="dlg-anchor" href="#r5" title="jump to flat reply #5">¶</a></summary>
+<div class="dlg-text">Yes, could you tell me about the bank?</div>
+<div class="dlg-tree-children">
+<details class="dlg-tree-node entry" open>
+<summary><span class="dlg-id">entry #4</span> <a class="dlg-anchor" href="#e4" title="jump to flat entry #4">¶</a></summary>
+<div class="dlg-text">Most certainly.  What is it you wish to know?</div>
+<div class="dlg-tree-children">
+<details class="dlg-tree-node reply" open>
+<summary><span class="dlg-id">reply #8</span> <a class="dlg-anchor" href="#r8" title="jump to flat reply #8">¶</a></summary>
+<div class="dlg-text">How do I get a bank account?</div>
+<div class="dlg-tree-children">
+<details class="dlg-tree-node entry" open>
+<summary><span class="dlg-id">entry #7</span> <a class="dlg-anchor" href="#e7" title="jump to flat entry #7">¶</a></summary>
+<div class="dlg-text">Well, I am the bank manager, so just tell me if you want an account and then we&#x27;ll work things out.</div>
+<div class="dlg-tree-children">
+<details class="dlg-tree-node reply" open>
+<summary><span class="dlg-id">reply #12</span> <a class="dlg-anchor" href="#r12" title="jump to flat reply #12">¶</a></summary>
+<div class="dlg-text">I have some other questions.</div>
+<div class="dlg-tree-children">
+<div class="dlg-tree-ref entry-ref">↩ <a href="#e4">entry #4</a> <span class="dlg-link-preview">“Most certainly.  What is it you wish to know?”</span></div>
+</div>
+</details>
+<details class="dlg-tree-node reply" open>
+<summary><span class="dlg-id">reply #11</span> <a class="dlg-anchor" href="#r11" title="jump to flat reply #11">¶</a></summary>
+<div class="dlg-text">I would like to open an account.</div>
+<div class="dlg-tree-children">
+<details class="dlg-tree-node entry" open>
+<summary><span class="dlg-id">entry #1</span> <a class="dlg-anchor" href="#e1" title="jump to flat entry #1">¶</a></summary>
+<div class="dlg-text">To open an account requires a small fee of 150gp for your first Strongbox, and you also need 1,000gp to prove that it&#x27;s worth our time to make the account for you.  Do you have the gold?</div>
+<div class="dlg-tree-children">
+<details class="dlg-tree-node reply" open>
+<summary><span class="dlg-id">reply #3</span> <span class="dlg-action">→ <code>bank_makeaccount</code></span> <small class="muted">(if <code>bank_1150gp_chk</code>)</small> <a class="dlg-anchor" href="#r3" title="jump to flat reply #3">¶</a></summary>
+<div class="dlg-text">Yes, here it is.</div>
+<div class="dlg-tree-children">
+<details class="dlg-tree-node entry" open>
+<summary><span class="dlg-id">entry #3</span> <a class="dlg-anchor" href="#e3" title="jump to flat entry #3">¶</a></summary>
+<div class="dlg-text">Good!  Here&#x27;s your Bank Book so you can tell how much gold you have in your account.  Now go and talk to one of the Bankers in the front room to learn how to use your account.</div>
+<div class="dlg-tree-children">
+<details class="dlg-tree-node reply" open>
+<summary><span class="dlg-id">reply #4</span> <a class="dlg-anchor" href="#r4" title="jump to flat reply #4">¶</a></summary>
+<div class="dlg-text">Alright.  Thank you.</div>
+</details>
+</div>
+</details>
+</div>
+</details>
+<details class="dlg-tree-node reply" open>
+<summary><span class="dlg-id">reply #2</span> <a class="dlg-anchor" href="#r2" title="jump to flat reply #2">¶</a></summary>
+<div class="dlg-text">Err, not just yet.</div>
+<div class="dlg-tree-children">
+<details class="dlg-tree-node entry" open>
+<summary><span class="dlg-id">entry #2</span> <a class="dlg-anchor" href="#e2" title="jump to flat entry #2">¶</a></summary>
+<div class="dlg-text">Sorry, but I can&#x27;t make an account for you unless you pay the fee&#x27;s.  Is there anything else you need?</div>
+<div class="dlg-tree-children">
+<div class="dlg-tree-ref reply-ref">↩ <a href="#r5">reply #5</a> <span class="dlg-link-preview">“Yes, could you tell me about the bank?”</span></div>
+<details class="dlg-tree-node reply" open>
+<summary><span class="dlg-id">reply #0</span> <a class="dlg-anchor" href="#r0" title="jump to flat reply #0">¶</a></summary>
+<div class="dlg-text">Not at the moment.</div>
+</details>
+</div>
+</details>
+</div>
+</details>
+</div>
+</details>
+</div>
+</details>
+<details class="dlg-tree-node reply" open>
+<summary><span class="dlg-id">reply #9</span> <a class="dlg-anchor" href="#r9" title="jump to flat reply #9">¶</a></summary>
+<div class="dlg-text">Alright, thank you.</div>
+<div class="dlg-tree-children">
+<details class="dlg-tree-node entry" open>
+<summary><span class="dlg-id">entry #8</span> <a class="dlg-anchor" href="#e8" title="jump to flat entry #8">¶</a></summary>
+<div class="dlg-text">Come back any time.</div>
+<div class="dlg-tree-children">
+<details class="dlg-tree-node reply" open>
+<summary><span class="dlg-id">reply #10</span> <a class="dlg-anchor" href="#r10" title="jump to flat reply #10">¶</a></summary>
+<div class="dlg-text"><em>(no text)</em></div>
+</details>
+</div>
+</details>
+</div>
+</details>
+</div>
+</details>
+</div>
+</details>
+<details class="dlg-tree-node reply" open>
+<summary><span class="dlg-id">reply #7</span> <a class="dlg-anchor" href="#r7" title="jump to flat reply #7">¶</a></summary>
+<div class="dlg-text">How do I use my bank account once I get it?</div>
+<div class="dlg-tree-children">
+<details class="dlg-tree-node entry" open>
+<summary><span class="dlg-id">entry #6</span> <a class="dlg-anchor" href="#e6" title="jump to flat entry #6">¶</a></summary>
+<div class="dlg-text">Ask one of the Bankers in the front room.  They&#x27;ll tell you what you need to know.</div>
+<div class="dlg-tree-children">
+<div class="dlg-tree-ref reply-ref">↩ <a href="#r12">reply #12</a> <span class="dlg-link-preview">“I have some other questions.”</span></div>
+<div class="dlg-tree-ref reply-ref">↩ <a href="#r9">reply #9</a> <span class="dlg-link-preview">“Alright, thank you.”</span></div>
+</div>
+</details>
+</div>
+</details>
+<details class="dlg-tree-node reply" open>
+<summary><span class="dlg-id">reply #6</span> <a class="dlg-anchor" href="#r6" title="jump to flat reply #6">¶</a></summary>
+<div class="dlg-text">What can I put in my bank account?</div>
+<div class="dlg-tree-children">
+<details class="dlg-tree-node entry" open>
+<summary><span class="dlg-id">entry #5</span> <a class="dlg-anchor" href="#e5" title="jump to flat entry #5">¶</a></summary>
+<div class="dlg-text">Well, just about anything.  The only problem is that we have limited space in the item vault, so you will only get one Strongbox to store items in.  We don&#x27;t have any problems storing gold, but you must put in atleast 1,000gp at a time.</div>
+<div class="dlg-tree-children">
+<div class="dlg-tree-ref reply-ref">↩ <a href="#r12">reply #12</a> <span class="dlg-link-preview">“I have some other questions.”</span></div>
+<div class="dlg-tree-ref reply-ref">↩ <a href="#r9">reply #9</a> <span class="dlg-link-preview">“Alright, thank you.”</span></div>
+</div>
+</details>
+</div>
+</details>
+</div>
+</details>
+</div>
+</details>
+<details class="dlg-tree-node reply" open>
+<summary><span class="dlg-id">reply #1</span> <a class="dlg-anchor" href="#r1" title="jump to flat reply #1">¶</a></summary>
+<div class="dlg-text">Yes, I would like to open an account.</div>
+<div class="dlg-tree-children">
+<div class="dlg-tree-ref entry-ref">↩ <a href="#e1">entry #1</a> <span class="dlg-link-preview">“To open an account requires a small fee of 150gp for your first Strongbox, and y…”</span></div>
+</div>
+</details>
+<div class="dlg-tree-ref reply-ref">↩ <a href="#r0">reply #0</a> <span class="dlg-link-preview">“Not at the moment.”</span></div>
+</div>
+</details>
+</div>
+<h2>NPC lines (entries) — flat index</h2>
+<div class="dlg-node entry" id="e0"><div class="dlg-head"><span class="dlg-id">entry #0</span></div><div class="dlg-text">Hello, is there something I can help you with?</div><ul class="dlg-links"><li><a href="#r5">→ reply #5</a> <span class="dlg-link-preview">“Yes, could you tell me about the bank?”</span></li><li><a href="#r1">→ reply #1</a> <span class="dlg-link-preview">“Yes, I would like to open an account.”</span></li><li><a href="#r0">→ reply #0</a> <span class="dlg-link-preview">“Not at the moment.”</span></li></ul></div>
+<div class="dlg-node entry" id="e1"><div class="dlg-head"><span class="dlg-id">entry #1</span></div><div class="dlg-text">To open an account requires a small fee of 150gp for your first Strongbox, and you also need 1,000gp to prove that it&#x27;s worth our time to make the account for you.  Do you have the gold?</div><ul class="dlg-links"><li><a href="#r3">→ reply #3</a> <span class="dlg-link-preview">“Yes, here it is.”</span> <small class="muted">(if <code>bank_1150gp_chk</code>)</small></li><li><a href="#r2">→ reply #2</a> <span class="dlg-link-preview">“Err, not just yet.”</span></li></ul></div>
+<div class="dlg-node entry" id="e2"><div class="dlg-head"><span class="dlg-id">entry #2</span></div><div class="dlg-text">Sorry, but I can&#x27;t make an account for you unless you pay the fee&#x27;s.  Is there anything else you need?</div><ul class="dlg-links"><li><a href="#r5">→ child</a> <span class="dlg-link-preview">“Yes, could you tell me about the bank?”</span></li><li><a href="#r0">→ child</a> <span class="dlg-link-preview">“Not at the moment.”</span></li></ul></div>
+<div class="dlg-node entry" id="e3"><div class="dlg-head"><span class="dlg-id">entry #3</span></div><div class="dlg-text">Good!  Here&#x27;s your Bank Book so you can tell how much gold you have in your account.  Now go and talk to one of the Bankers in the front room to learn how to use your account.</div><ul class="dlg-links"><li><a href="#r4">→ reply #4</a> <span class="dlg-link-preview">“Alright.  Thank you.”</span></li></ul></div>
+<div class="dlg-node entry" id="e4"><div class="dlg-head"><span class="dlg-id">entry #4</span></div><div class="dlg-text">Most certainly.  What is it you wish to know?</div><ul class="dlg-links"><li><a href="#r8">→ reply #8</a> <span class="dlg-link-preview">“How do I get a bank account?”</span></li><li><a href="#r7">→ reply #7</a> <span class="dlg-link-preview">“How do I use my bank account once I get it?”</span></li><li><a href="#r6">→ reply #6</a> <span class="dlg-link-preview">“What can I put in my bank account?”</span></li></ul></div>
+<div class="dlg-node entry" id="e5"><div class="dlg-head"><span class="dlg-id">entry #5</span></div><div class="dlg-text">Well, just about anything.  The only problem is that we have limited space in the item vault, so you will only get one Strongbox to store items in.  We don&#x27;t have any problems storing gold, but you must put in atleast 1,000gp at a time.</div><ul class="dlg-links"><li><a href="#r12">→ child</a> <span class="dlg-link-preview">“I have some other questions.”</span></li><li><a href="#r9">→ child</a> <span class="dlg-link-preview">“Alright, thank you.”</span></li></ul></div>
+<div class="dlg-node entry" id="e6"><div class="dlg-head"><span class="dlg-id">entry #6</span></div><div class="dlg-text">Ask one of the Bankers in the front room.  They&#x27;ll tell you what you need to know.</div><ul class="dlg-links"><li><a href="#r12">→ child</a> <span class="dlg-link-preview">“I have some other questions.”</span></li><li><a href="#r9">→ child</a> <span class="dlg-link-preview">“Alright, thank you.”</span></li></ul></div>
+<div class="dlg-node entry" id="e7"><div class="dlg-head"><span class="dlg-id">entry #7</span></div><div class="dlg-text">Well, I am the bank manager, so just tell me if you want an account and then we&#x27;ll work things out.</div><ul class="dlg-links"><li><a href="#r12">→ reply #12</a> <span class="dlg-link-preview">“I have some other questions.”</span></li><li><a href="#r11">→ reply #11</a> <span class="dlg-link-preview">“I would like to open an account.”</span></li><li><a href="#r9">→ reply #9</a> <span class="dlg-link-preview">“Alright, thank you.”</span></li></ul></div>
+<div class="dlg-node entry" id="e8"><div class="dlg-head"><span class="dlg-id">entry #8</span></div><div class="dlg-text">Come back any time.</div><ul class="dlg-links"><li><a href="#r10">→ reply #10</a></li></ul></div>
+<div class="dlg-node entry" id="e9"><div class="dlg-head"><span class="dlg-id">entry #9</span></div><div class="dlg-text">Welcome back &lt;FullName&gt;.  Is there something you need?</div><ul class="dlg-links"><li><a href="#r14">→ reply #14</a> <span class="dlg-link-preview">“Yes, I need another Strongbox for my bank account.”</span></li><li><a href="#r13">→ reply #13</a> <span class="dlg-link-preview">“No, just passing by.”</span></li></ul></div>
+<div class="dlg-node entry" id="e10"><div class="dlg-head"><span class="dlg-id">entry #10</span></div><div class="dlg-text">Alright, additional strongboxes will cost you 5,000gp each.  Do you have the gold?</div><ul class="dlg-links"><li><a href="#r17">→ reply #17</a> <span class="dlg-link-preview">“Yes, here it is.”</span> <small class="muted">(if <code>bank_5k_chk</code>)</small></li><li><a href="#r15">→ reply #15</a> <span class="dlg-link-preview">“Not just yet.”</span></li></ul></div>
+<div class="dlg-node entry" id="e11"><div class="dlg-head"><span class="dlg-id">entry #11</span></div><div class="dlg-text">Sorry, I can&#x27;t give you another Strongbox untill you pay the price.</div><ul class="dlg-links"><li><a href="#r16">→ reply #16</a></li></ul></div>
+<div class="dlg-node entry" id="e12"><div class="dlg-head"><span class="dlg-id">entry #12</span></div><div class="dlg-text">Good!  I&#x27;ll tell the Bankers in the front to add another box to your account then.</div><ul class="dlg-links"><li><a href="#r18">→ reply #18</a> <span class="dlg-link-preview">“Thank you.”</span></li></ul></div>
+<div class="dlg-node entry" id="e13"><div class="dlg-head"><span class="dlg-id">entry #13</span></div><div class="dlg-text">Well, you will have to close your bank vault before I can tell the bankers to add boxes to your account.</div><ul class="dlg-links"><li><a href="#r19">→ reply #19</a> <span class="dlg-link-preview">“Alright.  Thanks anyway.”</span></li></ul></div>
 <div class="dlg-node entry" id="e14"><div class="dlg-head"><span class="dlg-id">entry #14</span></div><div class="dlg-text">Sorry, but you can&#x27;t have more than 5 Strongboxes.</div></div>
-<h2>PC replies</h2>
+<h2>PC replies — flat index</h2>
 <div class="dlg-node reply" id="r0"><div class="dlg-head"><span class="dlg-id">reply #0</span></div><div class="dlg-text">Not at the moment.</div></div>
-<div class="dlg-node reply" id="r1"><div class="dlg-head"><span class="dlg-id">reply #1</span></div><div class="dlg-text">Yes, I would like to open an account.</div><div class="dlg-links"><a href="#e1">→ entry #1</a></div></div>
-<div class="dlg-node reply" id="r2"><div class="dlg-head"><span class="dlg-id">reply #2</span></div><div class="dlg-text">Err, not just yet.</div><div class="dlg-links"><a href="#e2">→ entry #2</a></div></div>
-<div class="dlg-node reply" id="r3"><div class="dlg-head"><span class="dlg-id">reply #3</span> <span class="dlg-action">→ <code>bank_makeaccount</code></span></div><div class="dlg-text">Yes, here it is.</div><div class="dlg-links"><a href="#e3">→ entry #3</a></div></div>
+<div class="dlg-node reply" id="r1"><div class="dlg-head"><span class="dlg-id">reply #1</span></div><div class="dlg-text">Yes, I would like to open an account.</div><ul class="dlg-links"><li><a href="#e1">→ entry #1</a> <span class="dlg-link-preview">“To open an account requires a small fee of 150gp for your first Strongbox, and y…”</span></li></ul></div>
+<div class="dlg-node reply" id="r2"><div class="dlg-head"><span class="dlg-id">reply #2</span></div><div class="dlg-text">Err, not just yet.</div><ul class="dlg-links"><li><a href="#e2">→ entry #2</a> <span class="dlg-link-preview">“Sorry, but I can&#x27;t make an account for you unless you pay the fee&#x27;s.  Is there a…”</span></li></ul></div>
+<div class="dlg-node reply" id="r3"><div class="dlg-head"><span class="dlg-id">reply #3</span> <span class="dlg-action">→ <code>bank_makeaccount</code></span></div><div class="dlg-text">Yes, here it is.</div><ul class="dlg-links"><li><a href="#e3">→ entry #3</a> <span class="dlg-link-preview">“Good!  Here&#x27;s your Bank Book so you can tell how much gold you have in your acco…”</span></li></ul></div>
 <div class="dlg-node reply" id="r4"><div class="dlg-head"><span class="dlg-id">reply #4</span></div><div class="dlg-text">Alright.  Thank you.</div></div>
-<div class="dlg-node reply" id="r5"><div class="dlg-head"><span class="dlg-id">reply #5</span></div><div class="dlg-text">Yes, could you tell me about the bank?</div><div class="dlg-links"><a href="#e4">→ entry #4</a></div></div>
-<div class="dlg-node reply" id="r6"><div class="dlg-head"><span class="dlg-id">reply #6</span></div><div class="dlg-text">What can I put in my bank account?</div><div class="dlg-links"><a href="#e5">→ entry #5</a></div></div>
-<div class="dlg-node reply" id="r7"><div class="dlg-head"><span class="dlg-id">reply #7</span></div><div class="dlg-text">How do I use my bank account once I get it?</div><div class="dlg-links"><a href="#e6">→ entry #6</a></div></div>
-<div class="dlg-node reply" id="r8"><div class="dlg-head"><span class="dlg-id">reply #8</span></div><div class="dlg-text">How do I get a bank account?</div><div class="dlg-links"><a href="#e7">→ entry #7</a></div></div>
-<div class="dlg-node reply" id="r9"><div class="dlg-head"><span class="dlg-id">reply #9</span></div><div class="dlg-text">Alright, thank you.</div><div class="dlg-links"><a href="#e8">→ entry #8</a></div></div>
+<div class="dlg-node reply" id="r5"><div class="dlg-head"><span class="dlg-id">reply #5</span></div><div class="dlg-text">Yes, could you tell me about the bank?</div><ul class="dlg-links"><li><a href="#e4">→ entry #4</a> <span class="dlg-link-preview">“Most certainly.  What is it you wish to know?”</span></li></ul></div>
+<div class="dlg-node reply" id="r6"><div class="dlg-head"><span class="dlg-id">reply #6</span></div><div class="dlg-text">What can I put in my bank account?</div><ul class="dlg-links"><li><a href="#e5">→ entry #5</a> <span class="dlg-link-preview">“Well, just about anything.  The only problem is that we have limited space in th…”</span></li></ul></div>
+<div class="dlg-node reply" id="r7"><div class="dlg-head"><span class="dlg-id">reply #7</span></div><div class="dlg-text">How do I use my bank account once I get it?</div><ul class="dlg-links"><li><a href="#e6">→ entry #6</a> <span class="dlg-link-preview">“Ask one of the Bankers in the front room.  They&#x27;ll tell you what you need to kno…”</span></li></ul></div>
+<div class="dlg-node reply" id="r8"><div class="dlg-head"><span class="dlg-id">reply #8</span></div><div class="dlg-text">How do I get a bank account?</div><ul class="dlg-links"><li><a href="#e7">→ entry #7</a> <span class="dlg-link-preview">“Well, I am the bank manager, so just tell me if you want an account and then we&#x27;…”</span></li></ul></div>
+<div class="dlg-node reply" id="r9"><div class="dlg-head"><span class="dlg-id">reply #9</span></div><div class="dlg-text">Alright, thank you.</div><ul class="dlg-links"><li><a href="#e8">→ entry #8</a> <span class="dlg-link-preview">“Come back any time.”</span></li></ul></div>
 <div class="dlg-node reply" id="r10"><div class="dlg-head"><span class="dlg-id">reply #10</span></div><div class="dlg-text"><em>(no text)</em></div></div>
-<div class="dlg-node reply" id="r11"><div class="dlg-head"><span class="dlg-id">reply #11</span></div><div class="dlg-text">I would like to open an account.</div><div class="dlg-links"><a href="#e1">→ child</a></div></div>
-<div class="dlg-node reply" id="r12"><div class="dlg-head"><span class="dlg-id">reply #12</span></div><div class="dlg-text">I have some other questions.</div><div class="dlg-links"><a href="#e4">→ child</a></div></div>
+<div class="dlg-node reply" id="r11"><div class="dlg-head"><span class="dlg-id">reply #11</span></div><div class="dlg-text">I would like to open an account.</div><ul class="dlg-links"><li><a href="#e1">→ child</a> <span class="dlg-link-preview">“To open an account requires a small fee of 150gp for your first Strongbox, and y…”</span></li></ul></div>
+<div class="dlg-node reply" id="r12"><div class="dlg-head"><span class="dlg-id">reply #12</span></div><div class="dlg-text">I have some other questions.</div><ul class="dlg-links"><li><a href="#e4">→ child</a> <span class="dlg-link-preview">“Most certainly.  What is it you wish to know?”</span></li></ul></div>
 <div class="dlg-node reply" id="r13"><div class="dlg-head"><span class="dlg-id">reply #13</span></div><div class="dlg-text">No, just passing by.</div></div>
-<div class="dlg-node reply" id="r14"><div class="dlg-head"><span class="dlg-id">reply #14</span></div><div class="dlg-text">Yes, I need another Strongbox for my bank account.</div><div class="dlg-links"><a href="#e13">→ entry #13</a> <small class="muted">(if <code>bank_box_hasbox</code>)</small> · <a href="#e10">→ entry #10</a></div></div>
-<div class="dlg-node reply" id="r15"><div class="dlg-head"><span class="dlg-id">reply #15</span></div><div class="dlg-text">Not just yet.</div><div class="dlg-links"><a href="#e11">→ entry #11</a></div></div>
+<div class="dlg-node reply" id="r14"><div class="dlg-head"><span class="dlg-id">reply #14</span></div><div class="dlg-text">Yes, I need another Strongbox for my bank account.</div><ul class="dlg-links"><li><a href="#e13">→ entry #13</a> <span class="dlg-link-preview">“Well, you will have to close your bank vault before I can tell the bankers to ad…”</span> <small class="muted">(if <code>bank_box_hasbox</code>)</small></li><li><a href="#e10">→ entry #10</a> <span class="dlg-link-preview">“Alright, additional strongboxes will cost you 5,000gp each.  Do you have the gol…”</span></li></ul></div>
+<div class="dlg-node reply" id="r15"><div class="dlg-head"><span class="dlg-id">reply #15</span></div><div class="dlg-text">Not just yet.</div><ul class="dlg-links"><li><a href="#e11">→ entry #11</a> <span class="dlg-link-preview">“Sorry, I can&#x27;t give you another Strongbox untill you pay the price.”</span></li></ul></div>
 <div class="dlg-node reply" id="r16"><div class="dlg-head"><span class="dlg-id">reply #16</span></div><div class="dlg-text"><em>(no text)</em></div></div>
-<div class="dlg-node reply" id="r17"><div class="dlg-head"><span class="dlg-id">reply #17</span> <span class="dlg-action">→ <code>bank_growaccount</code></span></div><div class="dlg-text">Yes, here it is.</div><div class="dlg-links"><a href="#e12">→ entry #12</a></div></div>
+<div class="dlg-node reply" id="r17"><div class="dlg-head"><span class="dlg-id">reply #17</span> <span class="dlg-action">→ <code>bank_growaccount</code></span></div><div class="dlg-text">Yes, here it is.</div><ul class="dlg-links"><li><a href="#e12">→ entry #12</a> <span class="dlg-link-preview">“Good!  I&#x27;ll tell the Bankers in the front to add another box to your account the…”</span></li></ul></div>
 <div class="dlg-node reply" id="r18"><div class="dlg-head"><span class="dlg-id">reply #18</span></div><div class="dlg-text">Thank you.</div></div>
 <div class="dlg-node reply" id="r19"><div class="dlg-head"><span class="dlg-id">reply #19</span></div><div class="dlg-text">Alright.  Thanks anyway.</div></div>
   </main>

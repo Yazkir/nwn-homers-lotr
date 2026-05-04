@@ -47,10 +47,44 @@
 <li><a href="#e1">entry #1</a> <small class="muted">(if <code>neutraltele</code>)</small> — Be gone fool you have no place before me!</li>
 <li><a href="#e0">entry #0</a> — Weclome &lt;FullName&gt;! Where do you wish to go?</li>
 </ul>
-<h2>NPC lines (entries)</h2>
-<div class="dlg-node entry" id="e0"><div class="dlg-head"><span class="dlg-id">entry #0</span></div><div class="dlg-text">Weclome &lt;FullName&gt;! Where do you wish to go?</div><div class="dlg-links"><a href="#r4">→ reply #4</a> · <a href="#r3">→ reply #3</a> · <a href="#r2">→ reply #2</a> · <a href="#r1">→ reply #1</a> · <a href="#r0">→ reply #0</a></div></div>
+<h2>Conversation flow</h2>
+<p class="muted">Each starting entry is expanded recursively. Repeated nodes (cycles, shared continuations) appear inline as <code>↩ link</code> backrefs to the first occurrence.</p>
+<div class="dlg-tree">
+<details class="dlg-tree-node entry" open>
+<summary><span class="dlg-id">entry #1</span> <small class="muted">(if <code>neutraltele</code>)</small> <a class="dlg-anchor" href="#e1" title="jump to flat entry #1">¶</a></summary>
+<div class="dlg-text">Be gone fool you have no place before me!</div>
+</details>
+<details class="dlg-tree-node entry" open>
+<summary><span class="dlg-id">entry #0</span> <a class="dlg-anchor" href="#e0" title="jump to flat entry #0">¶</a></summary>
+<div class="dlg-text">Weclome &lt;FullName&gt;! Where do you wish to go?</div>
+<div class="dlg-tree-children">
+<details class="dlg-tree-node reply" open>
+<summary><span class="dlg-id">reply #4</span> <span class="dlg-action">→ <code>breetele</code></span> <a class="dlg-anchor" href="#r4" title="jump to flat reply #4">¶</a></summary>
+<div class="dlg-text">Bree.</div>
+</details>
+<details class="dlg-tree-node reply" open>
+<summary><span class="dlg-id">reply #3</span> <span class="dlg-action">→ <code>thrtele</code></span> <a class="dlg-anchor" href="#r3" title="jump to flat reply #3">¶</a></summary>
+<div class="dlg-text">Tharbad.</div>
+</details>
+<details class="dlg-tree-node reply" open>
+<summary><span class="dlg-id">reply #2</span> <span class="dlg-action">→ <code>laketele</code></span> <a class="dlg-anchor" href="#r2" title="jump to flat reply #2">¶</a></summary>
+<div class="dlg-text">Lake Town.</div>
+</details>
+<details class="dlg-tree-node reply" open>
+<summary><span class="dlg-id">reply #1</span> <span class="dlg-action">→ <code>fornostjump</code></span> <a class="dlg-anchor" href="#r1" title="jump to flat reply #1">¶</a></summary>
+<div class="dlg-text">Fornost.</div>
+</details>
+<details class="dlg-tree-node reply" open>
+<summary><span class="dlg-id">reply #0</span> <span class="dlg-action">→ <code>dunharrowjump</code></span> <a class="dlg-anchor" href="#r0" title="jump to flat reply #0">¶</a></summary>
+<div class="dlg-text">Dunharrow.</div>
+</details>
+</div>
+</details>
+</div>
+<h2>NPC lines (entries) — flat index</h2>
+<div class="dlg-node entry" id="e0"><div class="dlg-head"><span class="dlg-id">entry #0</span></div><div class="dlg-text">Weclome &lt;FullName&gt;! Where do you wish to go?</div><ul class="dlg-links"><li><a href="#r4">→ reply #4</a> <span class="dlg-link-preview">“Bree.”</span></li><li><a href="#r3">→ reply #3</a> <span class="dlg-link-preview">“Tharbad.”</span></li><li><a href="#r2">→ reply #2</a> <span class="dlg-link-preview">“Lake Town.”</span></li><li><a href="#r1">→ reply #1</a> <span class="dlg-link-preview">“Fornost.”</span></li><li><a href="#r0">→ reply #0</a> <span class="dlg-link-preview">“Dunharrow.”</span></li></ul></div>
 <div class="dlg-node entry" id="e1"><div class="dlg-head"><span class="dlg-id">entry #1</span></div><div class="dlg-text">Be gone fool you have no place before me!</div></div>
-<h2>PC replies</h2>
+<h2>PC replies — flat index</h2>
 <div class="dlg-node reply" id="r0"><div class="dlg-head"><span class="dlg-id">reply #0</span> <span class="dlg-action">→ <code>dunharrowjump</code></span></div><div class="dlg-text">Dunharrow.</div></div>
 <div class="dlg-node reply" id="r1"><div class="dlg-head"><span class="dlg-id">reply #1</span> <span class="dlg-action">→ <code>fornostjump</code></span></div><div class="dlg-text">Fornost.</div></div>
 <div class="dlg-node reply" id="r2"><div class="dlg-head"><span class="dlg-id">reply #2</span> <span class="dlg-action">→ <code>laketele</code></span></div><div class="dlg-text">Lake Town.</div></div>

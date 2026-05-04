@@ -51,36 +51,206 @@
 <li><a href="#e1">entry #1</a> <small class="muted">(if <code>gdqc6</code>)</small> — How have you done, my friend?</li>
 <li><a href="#e0">entry #0</a> <small class="muted">(if <code>gdqc7</code>)</small> — Hello friend, why dont you grab a seat over there and I&#x27;ll bring you some refres…</li>
 </ul>
-<h2>NPC lines (entries)</h2>
-<div class="dlg-node entry" id="e0"><div class="dlg-head"><span class="dlg-id">entry #0</span></div><div class="dlg-text">Hello friend, why dont you grab a seat over there and I&#x27;ll bring you some refreshments soon. Just for you, on the house, as a thank you to what you have done for us.</div><div class="dlg-links"><a href="#r0">→ reply #0</a></div></div>
-<div class="dlg-node entry" id="e1"><div class="dlg-head"><span class="dlg-id">entry #1</span></div><div class="dlg-text">How have you done, my friend?</div><div class="dlg-links"><a href="#r8">→ reply #8</a> · <a href="#r1">→ reply #1</a> <small class="muted">(if <code>gdqc4</code>)</small></div></div>
-<div class="dlg-node entry" id="e2"><div class="dlg-head"><span class="dlg-id">entry #2</span> <span class="dlg-action">→ <code>gdqc5</code></span></div><div class="dlg-text">Hmm... Hold on. Let me see...</div><div class="dlg-links"><a href="#r6">→ reply #6</a> <small class="muted">(if <code>gdrcheck1</code>)</small> · <a href="#r4">→ reply #4</a> <small class="muted">(if <code>gdrcheck2</code>)</small> · <a href="#r2">→ reply #2</a> <small class="muted">(if <code>gdrcheck3</code>)</small></div></div>
-<div class="dlg-node entry" id="e3"><div class="dlg-head"><span class="dlg-id">entry #3</span> <span class="dlg-action">→ <code>gdrev3</code></span></div><div class="dlg-text">Allright! You found the right man! This is the ring that the man who attacked our friend took. You deserve a nice reward and many Thank Yous from the Green Dragon Inn. May you always be welcome here!!</div><div class="dlg-links"><a href="#r3">→ reply #3</a></div></div>
-<div class="dlg-node entry" id="e4"><div class="dlg-head"><span class="dlg-id">entry #4</span> <span class="dlg-action">→ <code>gdrev2</code></span></div><div class="dlg-text">Yep! Its the ring that the guy keeping guard took. Here&#x27;s some reward for ya! You&#x27;re always welcome to come around here now.</div><div class="dlg-links"><a href="#r5">→ reply #5</a></div></div>
-<div class="dlg-node entry" id="e5"><div class="dlg-head"><span class="dlg-id">entry #5</span> <span class="dlg-action">→ <code>gdrev1</code></span></div><div class="dlg-text">This is some stolen ring, it seems but it didn&#x27;t belong to one of our fellow Inn Keepers. I am sure of it. Well, anyway... we told them not to mess with us now, and I thank you! We should be having less troubles with them now.</div><div class="dlg-links"><a href="#r7">→ reply #7</a></div></div>
-<div class="dlg-node entry" id="e6"><div class="dlg-head"><span class="dlg-id">entry #6</span></div><div class="dlg-text">Hello. What will ye be doing here?</div><div class="dlg-links"><a href="#r16">→ reply #16</a> · <a href="#r9">→ reply #9</a> <small class="muted">(if <code>qdqc1</code>)</small></div></div>
-<div class="dlg-node entry" id="e7"><div class="dlg-head"><span class="dlg-id">entry #7</span></div><div class="dlg-text">Ah. So I see! You must be some fella when you gained HIS trust. Well you got mine too then.</div><div class="dlg-links"><a href="#r10">→ reply #10</a></div></div>
-<div class="dlg-node entry" id="e8"><div class="dlg-head"><span class="dlg-id">entry #8</span></div><div class="dlg-text">It seems to me that most of all Sharkey dislikes our Inn because it is the main place where people find out about the good news from distant cities. Even I have learned about the great cities of Gondor, Edoras, and such.</div><div class="dlg-links"><a href="#r11">→ reply #11</a></div></div>
-<div class="dlg-node entry" id="e9"><div class="dlg-head"><span class="dlg-id">entry #9</span></div><div class="dlg-text">He knows that if any rumored evil becomes powerful in the east, we will spread the news and collect support for fighting him. No one sane wants him to rule Shire and Hobbitton, but perhaps maybe of his henchmen.</div><div class="dlg-links"><a href="#r12">→ reply #12</a></div></div>
-<div class="dlg-node entry" id="e10"><div class="dlg-head"><span class="dlg-id">entry #10</span></div><div class="dlg-text">He has poisoned our guests, made rats come around the Inn, and last night they did something which crossed the line and made us sure it was them. They attacked one of our Inn Keepers and cut his arm. We are hoping he will survive, but this calls for drastic measures.</div><div class="dlg-links"><a href="#r13">→ reply #13</a></div></div>
-<div class="dlg-node entry" id="e11"><div class="dlg-head"><span class="dlg-id">entry #11</span></div><div class="dlg-text">*Grin* Indeed. There were two assailants that attacked him. One just kept guard, while the other drew a blade and cut his arm. They obviously just wanted to scare him, and us, as they only took two rings they found, nothing else. If you find one of them, bring back a ring you might find on them so I confirm.</div><div class="dlg-links"><a href="#r14">→ reply #14</a></div></div>
-<div class="dlg-node entry" id="e12"><div class="dlg-head"><span class="dlg-id">entry #12</span></div><div class="dlg-text">They are someplace around the Shire and Bree, as usually I suppose. I will reward you the most if you get the man who attacked him, slightly less if you get his guard. We do not know what they look like, so I suppose you should just try to be lucky. Whoever you find, cut him down. We must show we can defend ourselves.</div><div class="dlg-links"><a href="#r15">→ reply #15</a></div></div>
-<h2>PC replies</h2>
+<h2>Conversation flow</h2>
+<p class="muted">Each starting entry is expanded recursively. Repeated nodes (cycles, shared continuations) appear inline as <code>↩ link</code> backrefs to the first occurrence.</p>
+<div class="dlg-tree">
+<details class="dlg-tree-node entry" open>
+<summary><span class="dlg-id">entry #6</span> <small class="muted">(if <code>gdqc3</code>)</small> <a class="dlg-anchor" href="#e6" title="jump to flat entry #6">¶</a></summary>
+<div class="dlg-text">Hello. What will ye be doing here?</div>
+<div class="dlg-tree-children">
+<details class="dlg-tree-node reply" open>
+<summary><span class="dlg-id">reply #16</span> <a class="dlg-anchor" href="#r16" title="jump to flat reply #16">¶</a></summary>
+<div class="dlg-text">Nothing sorry. Just looking around.</div>
+</details>
+<details class="dlg-tree-node reply" open>
+<summary><span class="dlg-id">reply #9</span> <small class="muted">(if <code>qdqc1</code>)</small> <a class="dlg-anchor" href="#r9" title="jump to flat reply #9">¶</a></summary>
+<div class="dlg-text">I have been talking to one of the Inn keepers. He has told me about the troubles that Sharkey and his men have been giving you, but I need details. What exactly have they done to you?</div>
+<div class="dlg-tree-children">
+<details class="dlg-tree-node entry" open>
+<summary><span class="dlg-id">entry #7</span> <a class="dlg-anchor" href="#e7" title="jump to flat entry #7">¶</a></summary>
+<div class="dlg-text">Ah. So I see! You must be some fella when you gained HIS trust. Well you got mine too then.</div>
+<div class="dlg-tree-children">
+<details class="dlg-tree-node reply" open>
+<summary><span class="dlg-id">reply #10</span> <a class="dlg-anchor" href="#r10" title="jump to flat reply #10">¶</a></summary>
+<div class="dlg-text">Speak up.</div>
+<div class="dlg-tree-children">
+<details class="dlg-tree-node entry" open>
+<summary><span class="dlg-id">entry #8</span> <a class="dlg-anchor" href="#e8" title="jump to flat entry #8">¶</a></summary>
+<div class="dlg-text">It seems to me that most of all Sharkey dislikes our Inn because it is the main place where people find out about the good news from distant cities. Even I have learned about the great cities of Gondor, Edoras, and such.</div>
+<div class="dlg-tree-children">
+<details class="dlg-tree-node reply" open>
+<summary><span class="dlg-id">reply #11</span> <a class="dlg-anchor" href="#r11" title="jump to flat reply #11">¶</a></summary>
+<div class="dlg-text">Yes, that must be true. This place is a gossip central!</div>
+<div class="dlg-tree-children">
+<details class="dlg-tree-node entry" open>
+<summary><span class="dlg-id">entry #9</span> <a class="dlg-anchor" href="#e9" title="jump to flat entry #9">¶</a></summary>
+<div class="dlg-text">He knows that if any rumored evil becomes powerful in the east, we will spread the news and collect support for fighting him. No one sane wants him to rule Shire and Hobbitton, but perhaps maybe of his henchmen.</div>
+<div class="dlg-tree-children">
+<details class="dlg-tree-node reply" open>
+<summary><span class="dlg-id">reply #12</span> <a class="dlg-anchor" href="#r12" title="jump to flat reply #12">¶</a></summary>
+<div class="dlg-text">So what has he done to you so far?</div>
+<div class="dlg-tree-children">
+<details class="dlg-tree-node entry" open>
+<summary><span class="dlg-id">entry #10</span> <a class="dlg-anchor" href="#e10" title="jump to flat entry #10">¶</a></summary>
+<div class="dlg-text">He has poisoned our guests, made rats come around the Inn, and last night they did something which crossed the line and made us sure it was them. They attacked one of our Inn Keepers and cut his arm. We are hoping he will survive, but this calls for drastic measures.</div>
+<div class="dlg-tree-children">
+<details class="dlg-tree-node reply" open>
+<summary><span class="dlg-id">reply #13</span> <a class="dlg-anchor" href="#r13" title="jump to flat reply #13">¶</a></summary>
+<div class="dlg-text">You say &quot;drastic measures&quot; ? Would slitting their throats suffice?</div>
+<div class="dlg-tree-children">
+<details class="dlg-tree-node entry" open>
+<summary><span class="dlg-id">entry #11</span> <a class="dlg-anchor" href="#e11" title="jump to flat entry #11">¶</a></summary>
+<div class="dlg-text">*Grin* Indeed. There were two assailants that attacked him. One just kept guard, while the other drew a blade and cut his arm. They obviously just wanted to scare him, and us, as they only took two rings they found, nothing else. If you find one of them, bring back a ring you might find on them so I confirm.</div>
+<div class="dlg-tree-children">
+<details class="dlg-tree-node reply" open>
+<summary><span class="dlg-id">reply #14</span> <a class="dlg-anchor" href="#r14" title="jump to flat reply #14">¶</a></summary>
+<div class="dlg-text">Where do I find them, any suggestions?</div>
+<div class="dlg-tree-children">
+<details class="dlg-tree-node entry" open>
+<summary><span class="dlg-id">entry #12</span> <a class="dlg-anchor" href="#e12" title="jump to flat entry #12">¶</a></summary>
+<div class="dlg-text">They are someplace around the Shire and Bree, as usually I suppose. I will reward you the most if you get the man who attacked him, slightly less if you get his guard. We do not know what they look like, so I suppose you should just try to be lucky. Whoever you find, cut him down. We must show we can defend ourselves.</div>
+<div class="dlg-tree-children">
+<details class="dlg-tree-node reply" open>
+<summary><span class="dlg-id">reply #15</span> <span class="dlg-action">→ <code>gdqc2</code></span> <a class="dlg-anchor" href="#r15" title="jump to flat reply #15">¶</a></summary>
+<div class="dlg-text">I am on my way.</div>
+</details>
+</div>
+</details>
+</div>
+</details>
+</div>
+</details>
+</div>
+</details>
+</div>
+</details>
+</div>
+</details>
+</div>
+</details>
+</div>
+</details>
+</div>
+</details>
+</div>
+</details>
+</div>
+</details>
+</div>
+</details>
+</div>
+</details>
+<details class="dlg-tree-node entry" open>
+<summary><span class="dlg-id">entry #1</span> <small class="muted">(if <code>gdqc6</code>)</small> <a class="dlg-anchor" href="#e1" title="jump to flat entry #1">¶</a></summary>
+<div class="dlg-text">How have you done, my friend?</div>
+<div class="dlg-tree-children">
+<details class="dlg-tree-node reply" open>
+<summary><span class="dlg-id">reply #8</span> <a class="dlg-anchor" href="#r8" title="jump to flat reply #8">¶</a></summary>
+<div class="dlg-text">Not done yet.</div>
+</details>
+<details class="dlg-tree-node reply" open>
+<summary><span class="dlg-id">reply #1</span> <small class="muted">(if <code>gdqc4</code>)</small> <a class="dlg-anchor" href="#r1" title="jump to flat reply #1">¶</a></summary>
+<div class="dlg-text">I have done well, I suppose. I have brought a ring back, so you may tell me.</div>
+<div class="dlg-tree-children">
+<details class="dlg-tree-node entry" open>
+<summary><span class="dlg-id">entry #2</span> <span class="dlg-action">→ <code>gdqc5</code></span> <a class="dlg-anchor" href="#e2" title="jump to flat entry #2">¶</a></summary>
+<div class="dlg-text">Hmm... Hold on. Let me see...</div>
+<div class="dlg-tree-children">
+<details class="dlg-tree-node reply" open>
+<summary><span class="dlg-id">reply #6</span> <small class="muted">(if <code>gdrcheck1</code>)</small> <a class="dlg-anchor" href="#r6" title="jump to flat reply #6">¶</a></summary>
+<div class="dlg-text">*You wait*</div>
+<div class="dlg-tree-children">
+<details class="dlg-tree-node entry" open>
+<summary><span class="dlg-id">entry #5</span> <span class="dlg-action">→ <code>gdrev1</code></span> <a class="dlg-anchor" href="#e5" title="jump to flat entry #5">¶</a></summary>
+<div class="dlg-text">This is some stolen ring, it seems but it didn&#x27;t belong to one of our fellow Inn Keepers. I am sure of it. Well, anyway... we told them not to mess with us now, and I thank you! We should be having less troubles with them now.</div>
+<div class="dlg-tree-children">
+<details class="dlg-tree-node reply" open>
+<summary><span class="dlg-id">reply #7</span> <a class="dlg-anchor" href="#r7" title="jump to flat reply #7">¶</a></summary>
+<div class="dlg-text">Oh well, seems I wasn&#x27;t so lucky then. Bye.</div>
+</details>
+</div>
+</details>
+</div>
+</details>
+<details class="dlg-tree-node reply" open>
+<summary><span class="dlg-id">reply #4</span> <small class="muted">(if <code>gdrcheck2</code>)</small> <a class="dlg-anchor" href="#r4" title="jump to flat reply #4">¶</a></summary>
+<div class="dlg-text">*You wait*</div>
+<div class="dlg-tree-children">
+<details class="dlg-tree-node entry" open>
+<summary><span class="dlg-id">entry #4</span> <span class="dlg-action">→ <code>gdrev2</code></span> <a class="dlg-anchor" href="#e4" title="jump to flat entry #4">¶</a></summary>
+<div class="dlg-text">Yep! Its the ring that the guy keeping guard took. Here&#x27;s some reward for ya! You&#x27;re always welcome to come around here now.</div>
+<div class="dlg-tree-children">
+<details class="dlg-tree-node reply" open>
+<summary><span class="dlg-id">reply #5</span> <a class="dlg-anchor" href="#r5" title="jump to flat reply #5">¶</a></summary>
+<div class="dlg-text">Too bad I didn&#x27;t get the one who harmed our friend. Still, this should teach them a lesson I suppose. Goodbye.</div>
+</details>
+</div>
+</details>
+</div>
+</details>
+<details class="dlg-tree-node reply" open>
+<summary><span class="dlg-id">reply #2</span> <small class="muted">(if <code>gdrcheck3</code>)</small> <a class="dlg-anchor" href="#r2" title="jump to flat reply #2">¶</a></summary>
+<div class="dlg-text">*You wait*</div>
+<div class="dlg-tree-children">
+<details class="dlg-tree-node entry" open>
+<summary><span class="dlg-id">entry #3</span> <span class="dlg-action">→ <code>gdrev3</code></span> <a class="dlg-anchor" href="#e3" title="jump to flat entry #3">¶</a></summary>
+<div class="dlg-text">Allright! You found the right man! This is the ring that the man who attacked our friend took. You deserve a nice reward and many Thank Yous from the Green Dragon Inn. May you always be welcome here!!</div>
+<div class="dlg-tree-children">
+<details class="dlg-tree-node reply" open>
+<summary><span class="dlg-id">reply #3</span> <a class="dlg-anchor" href="#r3" title="jump to flat reply #3">¶</a></summary>
+<div class="dlg-text">That is good to know. It was an easy target, like all cowards. See you around.</div>
+</details>
+</div>
+</details>
+</div>
+</details>
+</div>
+</details>
+</div>
+</details>
+</div>
+</details>
+<details class="dlg-tree-node entry" open>
+<summary><span class="dlg-id">entry #0</span> <small class="muted">(if <code>gdqc7</code>)</small> <a class="dlg-anchor" href="#e0" title="jump to flat entry #0">¶</a></summary>
+<div class="dlg-text">Hello friend, why dont you grab a seat over there and I&#x27;ll bring you some refreshments soon. Just for you, on the house, as a thank you to what you have done for us.</div>
+<div class="dlg-tree-children">
+<details class="dlg-tree-node reply" open>
+<summary><span class="dlg-id">reply #0</span> <a class="dlg-anchor" href="#r0" title="jump to flat reply #0">¶</a></summary>
+<div class="dlg-text">O.K.</div>
+</details>
+</div>
+</details>
+</div>
+<h2>NPC lines (entries) — flat index</h2>
+<div class="dlg-node entry" id="e0"><div class="dlg-head"><span class="dlg-id">entry #0</span></div><div class="dlg-text">Hello friend, why dont you grab a seat over there and I&#x27;ll bring you some refreshments soon. Just for you, on the house, as a thank you to what you have done for us.</div><ul class="dlg-links"><li><a href="#r0">→ reply #0</a> <span class="dlg-link-preview">“O.K.”</span></li></ul></div>
+<div class="dlg-node entry" id="e1"><div class="dlg-head"><span class="dlg-id">entry #1</span></div><div class="dlg-text">How have you done, my friend?</div><ul class="dlg-links"><li><a href="#r8">→ reply #8</a> <span class="dlg-link-preview">“Not done yet.”</span></li><li><a href="#r1">→ reply #1</a> <span class="dlg-link-preview">“I have done well, I suppose. I have brought a ring back, so you may tell me.”</span> <small class="muted">(if <code>gdqc4</code>)</small></li></ul></div>
+<div class="dlg-node entry" id="e2"><div class="dlg-head"><span class="dlg-id">entry #2</span> <span class="dlg-action">→ <code>gdqc5</code></span></div><div class="dlg-text">Hmm... Hold on. Let me see...</div><ul class="dlg-links"><li><a href="#r6">→ reply #6</a> <span class="dlg-link-preview">“*You wait*”</span> <small class="muted">(if <code>gdrcheck1</code>)</small></li><li><a href="#r4">→ reply #4</a> <span class="dlg-link-preview">“*You wait*”</span> <small class="muted">(if <code>gdrcheck2</code>)</small></li><li><a href="#r2">→ reply #2</a> <span class="dlg-link-preview">“*You wait*”</span> <small class="muted">(if <code>gdrcheck3</code>)</small></li></ul></div>
+<div class="dlg-node entry" id="e3"><div class="dlg-head"><span class="dlg-id">entry #3</span> <span class="dlg-action">→ <code>gdrev3</code></span></div><div class="dlg-text">Allright! You found the right man! This is the ring that the man who attacked our friend took. You deserve a nice reward and many Thank Yous from the Green Dragon Inn. May you always be welcome here!!</div><ul class="dlg-links"><li><a href="#r3">→ reply #3</a> <span class="dlg-link-preview">“That is good to know. It was an easy target, like all cowards. See you around.”</span></li></ul></div>
+<div class="dlg-node entry" id="e4"><div class="dlg-head"><span class="dlg-id">entry #4</span> <span class="dlg-action">→ <code>gdrev2</code></span></div><div class="dlg-text">Yep! Its the ring that the guy keeping guard took. Here&#x27;s some reward for ya! You&#x27;re always welcome to come around here now.</div><ul class="dlg-links"><li><a href="#r5">→ reply #5</a> <span class="dlg-link-preview">“Too bad I didn&#x27;t get the one who harmed our friend. Still, this should teach the…”</span></li></ul></div>
+<div class="dlg-node entry" id="e5"><div class="dlg-head"><span class="dlg-id">entry #5</span> <span class="dlg-action">→ <code>gdrev1</code></span></div><div class="dlg-text">This is some stolen ring, it seems but it didn&#x27;t belong to one of our fellow Inn Keepers. I am sure of it. Well, anyway... we told them not to mess with us now, and I thank you! We should be having less troubles with them now.</div><ul class="dlg-links"><li><a href="#r7">→ reply #7</a> <span class="dlg-link-preview">“Oh well, seems I wasn&#x27;t so lucky then. Bye.”</span></li></ul></div>
+<div class="dlg-node entry" id="e6"><div class="dlg-head"><span class="dlg-id">entry #6</span></div><div class="dlg-text">Hello. What will ye be doing here?</div><ul class="dlg-links"><li><a href="#r16">→ reply #16</a> <span class="dlg-link-preview">“Nothing sorry. Just looking around.”</span></li><li><a href="#r9">→ reply #9</a> <span class="dlg-link-preview">“I have been talking to one of the Inn keepers. He has told me about the troubles…”</span> <small class="muted">(if <code>qdqc1</code>)</small></li></ul></div>
+<div class="dlg-node entry" id="e7"><div class="dlg-head"><span class="dlg-id">entry #7</span></div><div class="dlg-text">Ah. So I see! You must be some fella when you gained HIS trust. Well you got mine too then.</div><ul class="dlg-links"><li><a href="#r10">→ reply #10</a> <span class="dlg-link-preview">“Speak up.”</span></li></ul></div>
+<div class="dlg-node entry" id="e8"><div class="dlg-head"><span class="dlg-id">entry #8</span></div><div class="dlg-text">It seems to me that most of all Sharkey dislikes our Inn because it is the main place where people find out about the good news from distant cities. Even I have learned about the great cities of Gondor, Edoras, and such.</div><ul class="dlg-links"><li><a href="#r11">→ reply #11</a> <span class="dlg-link-preview">“Yes, that must be true. This place is a gossip central!”</span></li></ul></div>
+<div class="dlg-node entry" id="e9"><div class="dlg-head"><span class="dlg-id">entry #9</span></div><div class="dlg-text">He knows that if any rumored evil becomes powerful in the east, we will spread the news and collect support for fighting him. No one sane wants him to rule Shire and Hobbitton, but perhaps maybe of his henchmen.</div><ul class="dlg-links"><li><a href="#r12">→ reply #12</a> <span class="dlg-link-preview">“So what has he done to you so far?”</span></li></ul></div>
+<div class="dlg-node entry" id="e10"><div class="dlg-head"><span class="dlg-id">entry #10</span></div><div class="dlg-text">He has poisoned our guests, made rats come around the Inn, and last night they did something which crossed the line and made us sure it was them. They attacked one of our Inn Keepers and cut his arm. We are hoping he will survive, but this calls for drastic measures.</div><ul class="dlg-links"><li><a href="#r13">→ reply #13</a> <span class="dlg-link-preview">“You say &quot;drastic measures&quot; ? Would slitting their throats suffice?”</span></li></ul></div>
+<div class="dlg-node entry" id="e11"><div class="dlg-head"><span class="dlg-id">entry #11</span></div><div class="dlg-text">*Grin* Indeed. There were two assailants that attacked him. One just kept guard, while the other drew a blade and cut his arm. They obviously just wanted to scare him, and us, as they only took two rings they found, nothing else. If you find one of them, bring back a ring you might find on them so I confirm.</div><ul class="dlg-links"><li><a href="#r14">→ reply #14</a> <span class="dlg-link-preview">“Where do I find them, any suggestions?”</span></li></ul></div>
+<div class="dlg-node entry" id="e12"><div class="dlg-head"><span class="dlg-id">entry #12</span></div><div class="dlg-text">They are someplace around the Shire and Bree, as usually I suppose. I will reward you the most if you get the man who attacked him, slightly less if you get his guard. We do not know what they look like, so I suppose you should just try to be lucky. Whoever you find, cut him down. We must show we can defend ourselves.</div><ul class="dlg-links"><li><a href="#r15">→ reply #15</a> <span class="dlg-link-preview">“I am on my way.”</span></li></ul></div>
+<h2>PC replies — flat index</h2>
 <div class="dlg-node reply" id="r0"><div class="dlg-head"><span class="dlg-id">reply #0</span></div><div class="dlg-text">O.K.</div></div>
-<div class="dlg-node reply" id="r1"><div class="dlg-head"><span class="dlg-id">reply #1</span></div><div class="dlg-text">I have done well, I suppose. I have brought a ring back, so you may tell me.</div><div class="dlg-links"><a href="#e2">→ entry #2</a></div></div>
-<div class="dlg-node reply" id="r2"><div class="dlg-head"><span class="dlg-id">reply #2</span></div><div class="dlg-text">*You wait*</div><div class="dlg-links"><a href="#e3">→ entry #3</a></div></div>
+<div class="dlg-node reply" id="r1"><div class="dlg-head"><span class="dlg-id">reply #1</span></div><div class="dlg-text">I have done well, I suppose. I have brought a ring back, so you may tell me.</div><ul class="dlg-links"><li><a href="#e2">→ entry #2</a> <span class="dlg-link-preview">“Hmm... Hold on. Let me see...”</span></li></ul></div>
+<div class="dlg-node reply" id="r2"><div class="dlg-head"><span class="dlg-id">reply #2</span></div><div class="dlg-text">*You wait*</div><ul class="dlg-links"><li><a href="#e3">→ entry #3</a> <span class="dlg-link-preview">“Allright! You found the right man! This is the ring that the man who attacked ou…”</span></li></ul></div>
 <div class="dlg-node reply" id="r3"><div class="dlg-head"><span class="dlg-id">reply #3</span></div><div class="dlg-text">That is good to know. It was an easy target, like all cowards. See you around.</div></div>
-<div class="dlg-node reply" id="r4"><div class="dlg-head"><span class="dlg-id">reply #4</span></div><div class="dlg-text">*You wait*</div><div class="dlg-links"><a href="#e4">→ entry #4</a></div></div>
+<div class="dlg-node reply" id="r4"><div class="dlg-head"><span class="dlg-id">reply #4</span></div><div class="dlg-text">*You wait*</div><ul class="dlg-links"><li><a href="#e4">→ entry #4</a> <span class="dlg-link-preview">“Yep! Its the ring that the guy keeping guard took. Here&#x27;s some reward for ya! Yo…”</span></li></ul></div>
 <div class="dlg-node reply" id="r5"><div class="dlg-head"><span class="dlg-id">reply #5</span></div><div class="dlg-text">Too bad I didn&#x27;t get the one who harmed our friend. Still, this should teach them a lesson I suppose. Goodbye.</div></div>
-<div class="dlg-node reply" id="r6"><div class="dlg-head"><span class="dlg-id">reply #6</span></div><div class="dlg-text">*You wait*</div><div class="dlg-links"><a href="#e5">→ entry #5</a></div></div>
+<div class="dlg-node reply" id="r6"><div class="dlg-head"><span class="dlg-id">reply #6</span></div><div class="dlg-text">*You wait*</div><ul class="dlg-links"><li><a href="#e5">→ entry #5</a> <span class="dlg-link-preview">“This is some stolen ring, it seems but it didn&#x27;t belong to one of our fellow Inn…”</span></li></ul></div>
 <div class="dlg-node reply" id="r7"><div class="dlg-head"><span class="dlg-id">reply #7</span></div><div class="dlg-text">Oh well, seems I wasn&#x27;t so lucky then. Bye.</div></div>
 <div class="dlg-node reply" id="r8"><div class="dlg-head"><span class="dlg-id">reply #8</span></div><div class="dlg-text">Not done yet.</div></div>
-<div class="dlg-node reply" id="r9"><div class="dlg-head"><span class="dlg-id">reply #9</span></div><div class="dlg-text">I have been talking to one of the Inn keepers. He has told me about the troubles that Sharkey and his men have been giving you, but I need details. What exactly have they done to you?</div><div class="dlg-links"><a href="#e7">→ entry #7</a></div></div>
-<div class="dlg-node reply" id="r10"><div class="dlg-head"><span class="dlg-id">reply #10</span></div><div class="dlg-text">Speak up.</div><div class="dlg-links"><a href="#e8">→ entry #8</a></div></div>
-<div class="dlg-node reply" id="r11"><div class="dlg-head"><span class="dlg-id">reply #11</span></div><div class="dlg-text">Yes, that must be true. This place is a gossip central!</div><div class="dlg-links"><a href="#e9">→ entry #9</a></div></div>
-<div class="dlg-node reply" id="r12"><div class="dlg-head"><span class="dlg-id">reply #12</span></div><div class="dlg-text">So what has he done to you so far?</div><div class="dlg-links"><a href="#e10">→ entry #10</a></div></div>
-<div class="dlg-node reply" id="r13"><div class="dlg-head"><span class="dlg-id">reply #13</span></div><div class="dlg-text">You say &quot;drastic measures&quot; ? Would slitting their throats suffice?</div><div class="dlg-links"><a href="#e11">→ entry #11</a></div></div>
-<div class="dlg-node reply" id="r14"><div class="dlg-head"><span class="dlg-id">reply #14</span></div><div class="dlg-text">Where do I find them, any suggestions?</div><div class="dlg-links"><a href="#e12">→ entry #12</a></div></div>
+<div class="dlg-node reply" id="r9"><div class="dlg-head"><span class="dlg-id">reply #9</span></div><div class="dlg-text">I have been talking to one of the Inn keepers. He has told me about the troubles that Sharkey and his men have been giving you, but I need details. What exactly have they done to you?</div><ul class="dlg-links"><li><a href="#e7">→ entry #7</a> <span class="dlg-link-preview">“Ah. So I see! You must be some fella when you gained HIS trust. Well you got min…”</span></li></ul></div>
+<div class="dlg-node reply" id="r10"><div class="dlg-head"><span class="dlg-id">reply #10</span></div><div class="dlg-text">Speak up.</div><ul class="dlg-links"><li><a href="#e8">→ entry #8</a> <span class="dlg-link-preview">“It seems to me that most of all Sharkey dislikes our Inn because it is the main…”</span></li></ul></div>
+<div class="dlg-node reply" id="r11"><div class="dlg-head"><span class="dlg-id">reply #11</span></div><div class="dlg-text">Yes, that must be true. This place is a gossip central!</div><ul class="dlg-links"><li><a href="#e9">→ entry #9</a> <span class="dlg-link-preview">“He knows that if any rumored evil becomes powerful in the east, we will spread t…”</span></li></ul></div>
+<div class="dlg-node reply" id="r12"><div class="dlg-head"><span class="dlg-id">reply #12</span></div><div class="dlg-text">So what has he done to you so far?</div><ul class="dlg-links"><li><a href="#e10">→ entry #10</a> <span class="dlg-link-preview">“He has poisoned our guests, made rats come around the Inn, and last night they d…”</span></li></ul></div>
+<div class="dlg-node reply" id="r13"><div class="dlg-head"><span class="dlg-id">reply #13</span></div><div class="dlg-text">You say &quot;drastic measures&quot; ? Would slitting their throats suffice?</div><ul class="dlg-links"><li><a href="#e11">→ entry #11</a> <span class="dlg-link-preview">“*Grin* Indeed. There were two assailants that attacked him. One just kept guard,…”</span></li></ul></div>
+<div class="dlg-node reply" id="r14"><div class="dlg-head"><span class="dlg-id">reply #14</span></div><div class="dlg-text">Where do I find them, any suggestions?</div><ul class="dlg-links"><li><a href="#e12">→ entry #12</a> <span class="dlg-link-preview">“They are someplace around the Shire and Bree, as usually I suppose. I will rewar…”</span></li></ul></div>
 <div class="dlg-node reply" id="r15"><div class="dlg-head"><span class="dlg-id">reply #15</span> <span class="dlg-action">→ <code>gdqc2</code></span></div><div class="dlg-text">I am on my way.</div></div>
 <div class="dlg-node reply" id="r16"><div class="dlg-head"><span class="dlg-id">reply #16</span></div><div class="dlg-text">Nothing sorry. Just looking around.</div></div>
   </main>

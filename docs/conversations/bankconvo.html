@@ -37,14 +37,48 @@
 <h2>Starting entries</h2><ul>
 <li><a href="#e0">entry #0</a> — Hello, welcome to the bank!</li>
 </ul>
-<h2>NPC lines (entries)</h2>
-<div class="dlg-node entry" id="e0"><div class="dlg-head"><span class="dlg-id">entry #0</span></div><div class="dlg-text">Hello, welcome to the bank!</div><div class="dlg-links"><a href="#r2">→ reply #2</a> · <a href="#r1">→ reply #1</a> · <a href="#r0">→ reply #0</a></div></div>
+<h2>Conversation flow</h2>
+<p class="muted">Each starting entry is expanded recursively. Repeated nodes (cycles, shared continuations) appear inline as <code>↩ link</code> backrefs to the first occurrence.</p>
+<div class="dlg-tree">
+<details class="dlg-tree-node entry" open>
+<summary><span class="dlg-id">entry #0</span> <a class="dlg-anchor" href="#e0" title="jump to flat entry #0">¶</a></summary>
+<div class="dlg-text">Hello, welcome to the bank!</div>
+<div class="dlg-tree-children">
+<details class="dlg-tree-node reply" open>
+<summary><span class="dlg-id">reply #2</span> <span class="dlg-action">→ <code>bank_getgold</code></span> <a class="dlg-anchor" href="#r2" title="jump to flat reply #2">¶</a></summary>
+<div class="dlg-text">I&#x27;d like to see my balance.</div>
+<div class="dlg-tree-children">
+<details class="dlg-tree-node entry" open>
+<summary><span class="dlg-id">entry #2</span> <a class="dlg-anchor" href="#e2" title="jump to flat entry #2">¶</a></summary>
+<div class="dlg-text">&lt;Sir/Madam&gt;, you&#x27;ve got &lt;CUSTOM4958&gt; gold.</div>
+</details>
+</div>
+</details>
+<details class="dlg-tree-node reply" open>
+<summary><span class="dlg-id">reply #1</span> <a class="dlg-anchor" href="#r1" title="jump to flat reply #1">¶</a></summary>
+<div class="dlg-text">I&#x27;d like to make some transactions.</div>
+<div class="dlg-tree-children">
+<details class="dlg-tree-node entry" open>
+<summary><span class="dlg-id">entry #1</span> <a class="dlg-anchor" href="#e1" title="jump to flat entry #1">¶</a></summary>
+<div class="dlg-text">Say &quot;I want to deposit ___ gold&quot; to deposit gold and &quot;I want to withdraw _____ gold&quot; to withdraw gold.  If you want to deposit 50 gold, for example, simply say &quot;I want to deposit 50 gold.&quot;</div>
+</details>
+</div>
+</details>
+<details class="dlg-tree-node reply" open>
+<summary><span class="dlg-id">reply #0</span> <a class="dlg-anchor" href="#r0" title="jump to flat reply #0">¶</a></summary>
+<div class="dlg-text">Goodbye.</div>
+</details>
+</div>
+</details>
+</div>
+<h2>NPC lines (entries) — flat index</h2>
+<div class="dlg-node entry" id="e0"><div class="dlg-head"><span class="dlg-id">entry #0</span></div><div class="dlg-text">Hello, welcome to the bank!</div><ul class="dlg-links"><li><a href="#r2">→ reply #2</a> <span class="dlg-link-preview">“I&#x27;d like to see my balance.”</span></li><li><a href="#r1">→ reply #1</a> <span class="dlg-link-preview">“I&#x27;d like to make some transactions.”</span></li><li><a href="#r0">→ reply #0</a> <span class="dlg-link-preview">“Goodbye.”</span></li></ul></div>
 <div class="dlg-node entry" id="e1"><div class="dlg-head"><span class="dlg-id">entry #1</span></div><div class="dlg-text">Say &quot;I want to deposit ___ gold&quot; to deposit gold and &quot;I want to withdraw _____ gold&quot; to withdraw gold.  If you want to deposit 50 gold, for example, simply say &quot;I want to deposit 50 gold.&quot;</div></div>
 <div class="dlg-node entry" id="e2"><div class="dlg-head"><span class="dlg-id">entry #2</span></div><div class="dlg-text">&lt;Sir/Madam&gt;, you&#x27;ve got &lt;CUSTOM4958&gt; gold.</div></div>
-<h2>PC replies</h2>
+<h2>PC replies — flat index</h2>
 <div class="dlg-node reply" id="r0"><div class="dlg-head"><span class="dlg-id">reply #0</span></div><div class="dlg-text">Goodbye.</div></div>
-<div class="dlg-node reply" id="r1"><div class="dlg-head"><span class="dlg-id">reply #1</span></div><div class="dlg-text">I&#x27;d like to make some transactions.</div><div class="dlg-links"><a href="#e1">→ entry #1</a></div></div>
-<div class="dlg-node reply" id="r2"><div class="dlg-head"><span class="dlg-id">reply #2</span> <span class="dlg-action">→ <code>bank_getgold</code></span></div><div class="dlg-text">I&#x27;d like to see my balance.</div><div class="dlg-links"><a href="#e2">→ entry #2</a></div></div>
+<div class="dlg-node reply" id="r1"><div class="dlg-head"><span class="dlg-id">reply #1</span></div><div class="dlg-text">I&#x27;d like to make some transactions.</div><ul class="dlg-links"><li><a href="#e1">→ entry #1</a> <span class="dlg-link-preview">“Say &quot;I want to deposit ___ gold&quot; to deposit gold and &quot;I want to withdraw _____ g…”</span></li></ul></div>
+<div class="dlg-node reply" id="r2"><div class="dlg-head"><span class="dlg-id">reply #2</span> <span class="dlg-action">→ <code>bank_getgold</code></span></div><div class="dlg-text">I&#x27;d like to see my balance.</div><ul class="dlg-links"><li><a href="#e2">→ entry #2</a> <span class="dlg-link-preview">“&lt;Sir/Madam&gt;, you&#x27;ve got &lt;CUSTOM4958&gt; gold.”</span></li></ul></div>
   </main>
   <footer>generated by <a href="https://github.com/mrprice22/nwn-manager">nwn-manager</a></footer>
 </body>

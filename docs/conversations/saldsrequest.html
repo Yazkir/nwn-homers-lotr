@@ -42,19 +42,91 @@
 <li><a href="#e3">entry #3</a> <small class="muted">(if <code>sc_sald02</code>)</small> — Welcome again, &lt;FirstName&gt;, have you found a tiger or two?</li>
 <li><a href="#e0">entry #0</a> — Well hello, &lt;FirstName&gt; I saw you on the trip over. You seam to be a fine advent…</li>
 </ul>
-<h2>NPC lines (entries)</h2>
-<div class="dlg-node entry" id="e0"><div class="dlg-head"><span class="dlg-id">entry #0</span></div><div class="dlg-text">Well hello, &lt;FirstName&gt; I saw you on the trip over. You seam to be a fine adventurer, would you care to help me in a hunt?</div><div class="dlg-links"><a href="#r1">→ reply #1</a> · <a href="#r0">→ reply #0</a></div></div>
-<div class="dlg-node entry" id="e1"><div class="dlg-head"><span class="dlg-id">entry #1</span></div><div class="dlg-text">Ah well, this island holds a special type of tiger, the Kallrist tiger. The heart of the tiger is used to make many magic and healing potions. I am low on stock, and need to resupply, my customers are demanding more.</div><div class="dlg-links"><a href="#r2">→ reply #2</a></div></div>
-<div class="dlg-node entry" id="e2"><div class="dlg-head"><span class="dlg-id">entry #2</span></div><div class="dlg-text">Aye, and I would reward you well for each heart you bring me. </div><div class="dlg-links"><a href="#r4">→ reply #4</a> · <a href="#r3">→ reply #3</a></div></div>
-<div class="dlg-node entry" id="e3"><div class="dlg-head"><span class="dlg-id">entry #3</span></div><div class="dlg-text">Welcome again, &lt;FirstName&gt;, have you found a tiger or two?</div><div class="dlg-links"><a href="#r7">→ reply #7</a> · <a href="#r5">→ reply #5</a> <small class="muted">(if <code>sc_sald05</code>)</small></div></div>
-<div class="dlg-node entry" id="e4"><div class="dlg-head"><span class="dlg-id">entry #4</span> <span class="dlg-action">→ <code>at_sald05</code></span></div><div class="dlg-text">Wonderful! Here you go, I hope 200 gold will be enough. I will pay you for more if you bring them.</div><div class="dlg-links"><a href="#r6">→ reply #6</a></div></div>
-<h2>PC replies</h2>
+<h2>Conversation flow</h2>
+<p class="muted">Each starting entry is expanded recursively. Repeated nodes (cycles, shared continuations) appear inline as <code>↩ link</code> backrefs to the first occurrence.</p>
+<div class="dlg-tree">
+<details class="dlg-tree-node entry" open>
+<summary><span class="dlg-id">entry #3</span> <small class="muted">(if <code>sc_sald02</code>)</small> <a class="dlg-anchor" href="#e3" title="jump to flat entry #3">¶</a></summary>
+<div class="dlg-text">Welcome again, &lt;FirstName&gt;, have you found a tiger or two?</div>
+<div class="dlg-tree-children">
+<details class="dlg-tree-node reply" open>
+<summary><span class="dlg-id">reply #7</span> <a class="dlg-anchor" href="#r7" title="jump to flat reply #7">¶</a></summary>
+<div class="dlg-text">Not yet Sald, but I will find one soon.</div>
+</details>
+<details class="dlg-tree-node reply" open>
+<summary><span class="dlg-id">reply #5</span> <span class="dlg-action">→ <code>at_sald08</code></span> <small class="muted">(if <code>sc_sald05</code>)</small> <a class="dlg-anchor" href="#r5" title="jump to flat reply #5">¶</a></summary>
+<div class="dlg-text">Aye, here is the heart of the beast as you requested.</div>
+<div class="dlg-tree-children">
+<details class="dlg-tree-node entry" open>
+<summary><span class="dlg-id">entry #4</span> <span class="dlg-action">→ <code>at_sald05</code></span> <a class="dlg-anchor" href="#e4" title="jump to flat entry #4">¶</a></summary>
+<div class="dlg-text">Wonderful! Here you go, I hope 200 gold will be enough. I will pay you for more if you bring them.</div>
+<div class="dlg-tree-children">
+<details class="dlg-tree-node reply" open>
+<summary><span class="dlg-id">reply #6</span> <a class="dlg-anchor" href="#r6" title="jump to flat reply #6">¶</a></summary>
+<div class="dlg-text">My thanks.</div>
+</details>
+</div>
+</details>
+</div>
+</details>
+</div>
+</details>
+<details class="dlg-tree-node entry" open>
+<summary><span class="dlg-id">entry #0</span> <a class="dlg-anchor" href="#e0" title="jump to flat entry #0">¶</a></summary>
+<div class="dlg-text">Well hello, &lt;FirstName&gt; I saw you on the trip over. You seam to be a fine adventurer, would you care to help me in a hunt?</div>
+<div class="dlg-tree-children">
+<details class="dlg-tree-node reply" open>
+<summary><span class="dlg-id">reply #1</span> <a class="dlg-anchor" href="#r1" title="jump to flat reply #1">¶</a></summary>
+<div class="dlg-text">A hunt? What did you have in mind?</div>
+<div class="dlg-tree-children">
+<details class="dlg-tree-node entry" open>
+<summary><span class="dlg-id">entry #1</span> <a class="dlg-anchor" href="#e1" title="jump to flat entry #1">¶</a></summary>
+<div class="dlg-text">Ah well, this island holds a special type of tiger, the Kallrist tiger. The heart of the tiger is used to make many magic and healing potions. I am low on stock, and need to resupply, my customers are demanding more.</div>
+<div class="dlg-tree-children">
+<details class="dlg-tree-node reply" open>
+<summary><span class="dlg-id">reply #2</span> <a class="dlg-anchor" href="#r2" title="jump to flat reply #2">¶</a></summary>
+<div class="dlg-text">So you want me to go hunt down a few tigers for you?</div>
+<div class="dlg-tree-children">
+<details class="dlg-tree-node entry" open>
+<summary><span class="dlg-id">entry #2</span> <a class="dlg-anchor" href="#e2" title="jump to flat entry #2">¶</a></summary>
+<div class="dlg-text">Aye, and I would reward you well for each heart you bring me. </div>
+<div class="dlg-tree-children">
+<details class="dlg-tree-node reply" open>
+<summary><span class="dlg-id">reply #4</span> <span class="dlg-action">→ <code>at_sald01</code></span> <a class="dlg-anchor" href="#r4" title="jump to flat reply #4">¶</a></summary>
+<div class="dlg-text">Then I am off to find some, I will return shortly.</div>
+</details>
+<details class="dlg-tree-node reply" open>
+<summary><span class="dlg-id">reply #3</span> <a class="dlg-anchor" href="#r3" title="jump to flat reply #3">¶</a></summary>
+<div class="dlg-text">I am sorry I have no time to hunt tigers.</div>
+</details>
+</div>
+</details>
+</div>
+</details>
+</div>
+</details>
+</div>
+</details>
+<details class="dlg-tree-node reply" open>
+<summary><span class="dlg-id">reply #0</span> <a class="dlg-anchor" href="#r0" title="jump to flat reply #0">¶</a></summary>
+<div class="dlg-text">I have no time to chat, fare well.</div>
+</details>
+</div>
+</details>
+</div>
+<h2>NPC lines (entries) — flat index</h2>
+<div class="dlg-node entry" id="e0"><div class="dlg-head"><span class="dlg-id">entry #0</span></div><div class="dlg-text">Well hello, &lt;FirstName&gt; I saw you on the trip over. You seam to be a fine adventurer, would you care to help me in a hunt?</div><ul class="dlg-links"><li><a href="#r1">→ reply #1</a> <span class="dlg-link-preview">“A hunt? What did you have in mind?”</span></li><li><a href="#r0">→ reply #0</a> <span class="dlg-link-preview">“I have no time to chat, fare well.”</span></li></ul></div>
+<div class="dlg-node entry" id="e1"><div class="dlg-head"><span class="dlg-id">entry #1</span></div><div class="dlg-text">Ah well, this island holds a special type of tiger, the Kallrist tiger. The heart of the tiger is used to make many magic and healing potions. I am low on stock, and need to resupply, my customers are demanding more.</div><ul class="dlg-links"><li><a href="#r2">→ reply #2</a> <span class="dlg-link-preview">“So you want me to go hunt down a few tigers for you?”</span></li></ul></div>
+<div class="dlg-node entry" id="e2"><div class="dlg-head"><span class="dlg-id">entry #2</span></div><div class="dlg-text">Aye, and I would reward you well for each heart you bring me. </div><ul class="dlg-links"><li><a href="#r4">→ reply #4</a> <span class="dlg-link-preview">“Then I am off to find some, I will return shortly.”</span></li><li><a href="#r3">→ reply #3</a> <span class="dlg-link-preview">“I am sorry I have no time to hunt tigers.”</span></li></ul></div>
+<div class="dlg-node entry" id="e3"><div class="dlg-head"><span class="dlg-id">entry #3</span></div><div class="dlg-text">Welcome again, &lt;FirstName&gt;, have you found a tiger or two?</div><ul class="dlg-links"><li><a href="#r7">→ reply #7</a> <span class="dlg-link-preview">“Not yet Sald, but I will find one soon.”</span></li><li><a href="#r5">→ reply #5</a> <span class="dlg-link-preview">“Aye, here is the heart of the beast as you requested.”</span> <small class="muted">(if <code>sc_sald05</code>)</small></li></ul></div>
+<div class="dlg-node entry" id="e4"><div class="dlg-head"><span class="dlg-id">entry #4</span> <span class="dlg-action">→ <code>at_sald05</code></span></div><div class="dlg-text">Wonderful! Here you go, I hope 200 gold will be enough. I will pay you for more if you bring them.</div><ul class="dlg-links"><li><a href="#r6">→ reply #6</a> <span class="dlg-link-preview">“My thanks.”</span></li></ul></div>
+<h2>PC replies — flat index</h2>
 <div class="dlg-node reply" id="r0"><div class="dlg-head"><span class="dlg-id">reply #0</span></div><div class="dlg-text">I have no time to chat, fare well.</div></div>
-<div class="dlg-node reply" id="r1"><div class="dlg-head"><span class="dlg-id">reply #1</span></div><div class="dlg-text">A hunt? What did you have in mind?</div><div class="dlg-links"><a href="#e1">→ entry #1</a></div></div>
-<div class="dlg-node reply" id="r2"><div class="dlg-head"><span class="dlg-id">reply #2</span></div><div class="dlg-text">So you want me to go hunt down a few tigers for you?</div><div class="dlg-links"><a href="#e2">→ entry #2</a></div></div>
+<div class="dlg-node reply" id="r1"><div class="dlg-head"><span class="dlg-id">reply #1</span></div><div class="dlg-text">A hunt? What did you have in mind?</div><ul class="dlg-links"><li><a href="#e1">→ entry #1</a> <span class="dlg-link-preview">“Ah well, this island holds a special type of tiger, the Kallrist tiger. The hear…”</span></li></ul></div>
+<div class="dlg-node reply" id="r2"><div class="dlg-head"><span class="dlg-id">reply #2</span></div><div class="dlg-text">So you want me to go hunt down a few tigers for you?</div><ul class="dlg-links"><li><a href="#e2">→ entry #2</a> <span class="dlg-link-preview">“Aye, and I would reward you well for each heart you bring me.”</span></li></ul></div>
 <div class="dlg-node reply" id="r3"><div class="dlg-head"><span class="dlg-id">reply #3</span></div><div class="dlg-text">I am sorry I have no time to hunt tigers.</div></div>
 <div class="dlg-node reply" id="r4"><div class="dlg-head"><span class="dlg-id">reply #4</span> <span class="dlg-action">→ <code>at_sald01</code></span></div><div class="dlg-text">Then I am off to find some, I will return shortly.</div></div>
-<div class="dlg-node reply" id="r5"><div class="dlg-head"><span class="dlg-id">reply #5</span> <span class="dlg-action">→ <code>at_sald08</code></span></div><div class="dlg-text">Aye, here is the heart of the beast as you requested.</div><div class="dlg-links"><a href="#e4">→ entry #4</a></div></div>
+<div class="dlg-node reply" id="r5"><div class="dlg-head"><span class="dlg-id">reply #5</span> <span class="dlg-action">→ <code>at_sald08</code></span></div><div class="dlg-text">Aye, here is the heart of the beast as you requested.</div><ul class="dlg-links"><li><a href="#e4">→ entry #4</a> <span class="dlg-link-preview">“Wonderful! Here you go, I hope 200 gold will be enough. I will pay you for more…”</span></li></ul></div>
 <div class="dlg-node reply" id="r6"><div class="dlg-head"><span class="dlg-id">reply #6</span></div><div class="dlg-text">My thanks.</div></div>
 <div class="dlg-node reply" id="r7"><div class="dlg-head"><span class="dlg-id">reply #7</span></div><div class="dlg-text">Not yet Sald, but I will find one soon.</div></div>
   </main>

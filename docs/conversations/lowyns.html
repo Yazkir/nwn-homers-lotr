@@ -37,14 +37,60 @@
 <h2>Starting entries</h2><ul>
 <li><a href="#e0">entry #0</a> — Wipe that look off your face, I know what your thinking.</li>
 </ul>
-<h2>NPC lines (entries)</h2>
-<div class="dlg-node entry" id="e0"><div class="dlg-head"><span class="dlg-id">entry #0</span></div><div class="dlg-text">Wipe that look off your face, I know what your thinking.</div><div class="dlg-links"><a href="#r0">→ reply #0</a></div></div>
-<div class="dlg-node entry" id="e1"><div class="dlg-head"><span class="dlg-id">entry #1</span></div><div class="dlg-text">Yes I do... Your Thinking whats a woman doing being a smith aren&#x27;t ya? A Rohan Women smith hah thats a laugh. But I tell you I can make some of the finest goods you will ever see.</div><div class="dlg-links"><a href="#r4">→ reply #4</a> · <a href="#r2">→ reply #2</a> · <a href="#r1">→ reply #1</a></div></div>
-<div class="dlg-node entry" id="e2"><div class="dlg-head"><span class="dlg-id">entry #2</span></div><div class="dlg-text">A true &lt;lord/lady&gt;, it so rare to come across in these parts.</div><div class="dlg-links"><a href="#r3">→ reply #3</a></div></div>
-<h2>PC replies</h2>
-<div class="dlg-node reply" id="r0"><div class="dlg-head"><span class="dlg-id">reply #0</span></div><div class="dlg-text">You do?</div><div class="dlg-links"><a href="#e1">→ entry #1</a></div></div>
+<h2>Conversation flow</h2>
+<p class="muted">Each starting entry is expanded recursively. Repeated nodes (cycles, shared continuations) appear inline as <code>↩ link</code> backrefs to the first occurrence.</p>
+<div class="dlg-tree">
+<details class="dlg-tree-node entry" open>
+<summary><span class="dlg-id">entry #0</span> <a class="dlg-anchor" href="#e0" title="jump to flat entry #0">¶</a></summary>
+<div class="dlg-text">Wipe that look off your face, I know what your thinking.</div>
+<div class="dlg-tree-children">
+<details class="dlg-tree-node reply" open>
+<summary><span class="dlg-id">reply #0</span> <a class="dlg-anchor" href="#r0" title="jump to flat reply #0">¶</a></summary>
+<div class="dlg-text">You do?</div>
+<div class="dlg-tree-children">
+<details class="dlg-tree-node entry" open>
+<summary><span class="dlg-id">entry #1</span> <a class="dlg-anchor" href="#e1" title="jump to flat entry #1">¶</a></summary>
+<div class="dlg-text">Yes I do... Your Thinking whats a woman doing being a smith aren&#x27;t ya? A Rohan Women smith hah thats a laugh. But I tell you I can make some of the finest goods you will ever see.</div>
+<div class="dlg-tree-children">
+<details class="dlg-tree-node reply" open>
+<summary><span class="dlg-id">reply #4</span> <span class="dlg-action">→ <code>at_034</code></span> <a class="dlg-anchor" href="#r4" title="jump to flat reply #4">¶</a></summary>
+<div class="dlg-text">Sorry about that miss I will close my mouth. May I see what you have for sale?</div>
+</details>
+<details class="dlg-tree-node reply" open>
+<summary><span class="dlg-id">reply #2</span> <a class="dlg-anchor" href="#r2" title="jump to flat reply #2">¶</a></summary>
+<div class="dlg-text">Good woman I though nothing of the kind. I believe talent defies gender.</div>
+<div class="dlg-tree-children">
+<details class="dlg-tree-node entry" open>
+<summary><span class="dlg-id">entry #2</span> <a class="dlg-anchor" href="#e2" title="jump to flat entry #2">¶</a></summary>
+<div class="dlg-text">A true &lt;lord/lady&gt;, it so rare to come across in these parts.</div>
+<div class="dlg-tree-children">
+<details class="dlg-tree-node reply" open>
+<summary><span class="dlg-id">reply #3</span> <span class="dlg-action">→ <code>at_034</code></span> <a class="dlg-anchor" href="#r3" title="jump to flat reply #3">¶</a></summary>
+<div class="dlg-text">May I see what you have for sale?</div>
+</details>
+</div>
+</details>
+</div>
+</details>
+<details class="dlg-tree-node reply" open>
+<summary><span class="dlg-id">reply #1</span> <a class="dlg-anchor" href="#r1" title="jump to flat reply #1">¶</a></summary>
+<div class="dlg-text">I think I&#x27;ll leave you alone. Good Day.</div>
+</details>
+</div>
+</details>
+</div>
+</details>
+</div>
+</details>
+</div>
+<h2>NPC lines (entries) — flat index</h2>
+<div class="dlg-node entry" id="e0"><div class="dlg-head"><span class="dlg-id">entry #0</span></div><div class="dlg-text">Wipe that look off your face, I know what your thinking.</div><ul class="dlg-links"><li><a href="#r0">→ reply #0</a> <span class="dlg-link-preview">“You do?”</span></li></ul></div>
+<div class="dlg-node entry" id="e1"><div class="dlg-head"><span class="dlg-id">entry #1</span></div><div class="dlg-text">Yes I do... Your Thinking whats a woman doing being a smith aren&#x27;t ya? A Rohan Women smith hah thats a laugh. But I tell you I can make some of the finest goods you will ever see.</div><ul class="dlg-links"><li><a href="#r4">→ reply #4</a> <span class="dlg-link-preview">“Sorry about that miss I will close my mouth. May I see what you have for sale?”</span></li><li><a href="#r2">→ reply #2</a> <span class="dlg-link-preview">“Good woman I though nothing of the kind. I believe talent defies gender.”</span></li><li><a href="#r1">→ reply #1</a> <span class="dlg-link-preview">“I think I&#x27;ll leave you alone. Good Day.”</span></li></ul></div>
+<div class="dlg-node entry" id="e2"><div class="dlg-head"><span class="dlg-id">entry #2</span></div><div class="dlg-text">A true &lt;lord/lady&gt;, it so rare to come across in these parts.</div><ul class="dlg-links"><li><a href="#r3">→ reply #3</a> <span class="dlg-link-preview">“May I see what you have for sale?”</span></li></ul></div>
+<h2>PC replies — flat index</h2>
+<div class="dlg-node reply" id="r0"><div class="dlg-head"><span class="dlg-id">reply #0</span></div><div class="dlg-text">You do?</div><ul class="dlg-links"><li><a href="#e1">→ entry #1</a> <span class="dlg-link-preview">“Yes I do... Your Thinking whats a woman doing being a smith aren&#x27;t ya? A Rohan W…”</span></li></ul></div>
 <div class="dlg-node reply" id="r1"><div class="dlg-head"><span class="dlg-id">reply #1</span></div><div class="dlg-text">I think I&#x27;ll leave you alone. Good Day.</div></div>
-<div class="dlg-node reply" id="r2"><div class="dlg-head"><span class="dlg-id">reply #2</span></div><div class="dlg-text">Good woman I though nothing of the kind. I believe talent defies gender.</div><div class="dlg-links"><a href="#e2">→ entry #2</a></div></div>
+<div class="dlg-node reply" id="r2"><div class="dlg-head"><span class="dlg-id">reply #2</span></div><div class="dlg-text">Good woman I though nothing of the kind. I believe talent defies gender.</div><ul class="dlg-links"><li><a href="#e2">→ entry #2</a> <span class="dlg-link-preview">“A true &lt;lord/lady&gt;, it so rare to come across in these parts.”</span></li></ul></div>
 <div class="dlg-node reply" id="r3"><div class="dlg-head"><span class="dlg-id">reply #3</span> <span class="dlg-action">→ <code>at_034</code></span></div><div class="dlg-text">May I see what you have for sale?</div></div>
 <div class="dlg-node reply" id="r4"><div class="dlg-head"><span class="dlg-id">reply #4</span> <span class="dlg-action">→ <code>at_034</code></span></div><div class="dlg-text">Sorry about that miss I will close my mouth. May I see what you have for sale?</div></div>
   </main>

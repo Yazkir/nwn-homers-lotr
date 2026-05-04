@@ -35,24 +35,131 @@
 <h2>Starting entries</h2><ul>
 <li><a href="#e0">entry #0</a> — Ahh you have come seeking some clues on cheesy roleplaying hooks?</li>
 </ul>
-<h2>NPC lines (entries)</h2>
-<div class="dlg-node entry" id="e0"><div class="dlg-head"><span class="dlg-id">entry #0</span></div><div class="dlg-text">Ahh you have come seeking some clues on cheesy roleplaying hooks?</div><div class="dlg-links"><a href="#r1">→ reply #1</a> · <a href="#r0">→ reply #0</a></div></div>
-<div class="dlg-node entry" id="e1"><div class="dlg-head"><span class="dlg-id">entry #1</span></div><div class="dlg-text">Well then lets see what I have here in me books. Choose a plot thread you wish more explanation on. Remember you can adapt these to suit your needs.</div><div class="dlg-links"><a href="#r7">→ reply #7</a> · <a href="#r6">→ reply #6</a> · <a href="#r5">→ reply #5</a> · <a href="#r4">→ reply #4</a> · <a href="#r3">→ reply #3</a> · <a href="#r2">→ reply #2</a></div></div>
-<div class="dlg-node entry" id="e2"><div class="dlg-head"><span class="dlg-id">entry #2</span></div><div class="dlg-text">If you play as an agent of Sauron or the Free People of middl earth. It might be time to recruit followers of the lower levels.</div><div class="dlg-links"><a href="#r8">→ child</a></div></div>
-<div class="dlg-node entry" id="e3"><div class="dlg-head"><span class="dlg-id">entry #3</span></div><div class="dlg-text">You or one of your companions has taken ill due to a touch of a wraith fromt he barrows. And only a heal from the scepter of celedring can cure you.</div><div class="dlg-links"><a href="#r8">→ child</a></div></div>
-<div class="dlg-node entry" id="e4"><div class="dlg-head"><span class="dlg-id">entry #4</span></div><div class="dlg-text">Organize a couple of friendly duels and have allow others the chance to place bets on the outsomes. This is best done somewhere outside of a town for less NPC interference. There are all kinds of real life rules that you can implement. Such as Salutes and Fair Play. Or perhaps a dule to the first cut etc.</div><div class="dlg-links"><a href="#r8">→ child</a></div></div>
-<div class="dlg-node entry" id="e5"><div class="dlg-head"><span class="dlg-id">entry #5</span></div><div class="dlg-text">Organize a old fashioned tavern story contest. Have all present give a tale or two about themselves or a latest adventure. The best story wins a prize.</div><div class="dlg-links"><a href="#r8">→ child</a></div></div>
-<div class="dlg-node entry" id="e6"><div class="dlg-head"><span class="dlg-id">entry #6</span></div><div class="dlg-text">Organize a meeting between the forces of Sauron and the Free Peoples of Middle Earth. Discuss a possible cease to the endless attacks on the havens. A good place to hold the meeting would be the Prancing Pony.</div><div class="dlg-links"><a href="#r8">→ child</a></div></div>
-<div class="dlg-node entry" id="e7"><div class="dlg-head"><span class="dlg-id">entry #7</span></div><div class="dlg-text">This is a classic one. Two dwarves steak out a road bridge collecting a toll to aid in the rebuilding of the Lonely Mountain since Smaug left it in ruins. And they do pass out friendly reminders to pay.</div><div class="dlg-links"><a href="#r8">→ reply #8</a></div></div>
-<h2>PC replies</h2>
+<h2>Conversation flow</h2>
+<p class="muted">Each starting entry is expanded recursively. Repeated nodes (cycles, shared continuations) appear inline as <code>↩ link</code> backrefs to the first occurrence.</p>
+<div class="dlg-tree">
+<details class="dlg-tree-node entry" open>
+<summary><span class="dlg-id">entry #0</span> <a class="dlg-anchor" href="#e0" title="jump to flat entry #0">¶</a></summary>
+<div class="dlg-text">Ahh you have come seeking some clues on cheesy roleplaying hooks?</div>
+<div class="dlg-tree-children">
+<details class="dlg-tree-node reply" open>
+<summary><span class="dlg-id">reply #1</span> <a class="dlg-anchor" href="#r1" title="jump to flat reply #1">¶</a></summary>
+<div class="dlg-text">Yes what can you offer?</div>
+<div class="dlg-tree-children">
+<details class="dlg-tree-node entry" open>
+<summary><span class="dlg-id">entry #1</span> <a class="dlg-anchor" href="#e1" title="jump to flat entry #1">¶</a></summary>
+<div class="dlg-text">Well then lets see what I have here in me books. Choose a plot thread you wish more explanation on. Remember you can adapt these to suit your needs.</div>
+<div class="dlg-tree-children">
+<details class="dlg-tree-node reply" open>
+<summary><span class="dlg-id">reply #7</span> <span class="dlg-action">→ <code>at_061</code></span> <a class="dlg-anchor" href="#r7" title="jump to flat reply #7">¶</a></summary>
+<div class="dlg-text">Taxing the roads.</div>
+<div class="dlg-tree-children">
+<details class="dlg-tree-node entry" open>
+<summary><span class="dlg-id">entry #7</span> <a class="dlg-anchor" href="#e7" title="jump to flat entry #7">¶</a></summary>
+<div class="dlg-text">This is a classic one. Two dwarves steak out a road bridge collecting a toll to aid in the rebuilding of the Lonely Mountain since Smaug left it in ruins. And they do pass out friendly reminders to pay.</div>
+<div class="dlg-tree-children">
+<details class="dlg-tree-node reply" open>
+<summary><span class="dlg-id">reply #8</span> <a class="dlg-anchor" href="#r8" title="jump to flat reply #8">¶</a></summary>
+<div class="dlg-text">Thanks I think....</div>
+</details>
+</div>
+</details>
+</div>
+</details>
+<details class="dlg-tree-node reply" open>
+<summary><span class="dlg-id">reply #6</span> <span class="dlg-action">→ <code>at_061</code></span> <a class="dlg-anchor" href="#r6" title="jump to flat reply #6">¶</a></summary>
+<div class="dlg-text">A Truce of the Ages</div>
+<div class="dlg-tree-children">
+<details class="dlg-tree-node entry" open>
+<summary><span class="dlg-id">entry #6</span> <a class="dlg-anchor" href="#e6" title="jump to flat entry #6">¶</a></summary>
+<div class="dlg-text">Organize a meeting between the forces of Sauron and the Free Peoples of Middle Earth. Discuss a possible cease to the endless attacks on the havens. A good place to hold the meeting would be the Prancing Pony.</div>
+<div class="dlg-tree-children">
+<div class="dlg-tree-ref reply-ref">↩ <a href="#r8">reply #8</a> <span class="dlg-link-preview">“Thanks I think....”</span></div>
+</div>
+</details>
+</div>
+</details>
+<details class="dlg-tree-node reply" open>
+<summary><span class="dlg-id">reply #5</span> <span class="dlg-action">→ <code>at_061</code></span> <a class="dlg-anchor" href="#r5" title="jump to flat reply #5">¶</a></summary>
+<div class="dlg-text">The Longest tale.</div>
+<div class="dlg-tree-children">
+<details class="dlg-tree-node entry" open>
+<summary><span class="dlg-id">entry #5</span> <a class="dlg-anchor" href="#e5" title="jump to flat entry #5">¶</a></summary>
+<div class="dlg-text">Organize a old fashioned tavern story contest. Have all present give a tale or two about themselves or a latest adventure. The best story wins a prize.</div>
+<div class="dlg-tree-children">
+<div class="dlg-tree-ref reply-ref">↩ <a href="#r8">reply #8</a> <span class="dlg-link-preview">“Thanks I think....”</span></div>
+</div>
+</details>
+</div>
+</details>
+<details class="dlg-tree-node reply" open>
+<summary><span class="dlg-id">reply #4</span> <span class="dlg-action">→ <code>at_061</code></span> <a class="dlg-anchor" href="#r4" title="jump to flat reply #4">¶</a></summary>
+<div class="dlg-text">Duels and Contests.</div>
+<div class="dlg-tree-children">
+<details class="dlg-tree-node entry" open>
+<summary><span class="dlg-id">entry #4</span> <a class="dlg-anchor" href="#e4" title="jump to flat entry #4">¶</a></summary>
+<div class="dlg-text">Organize a couple of friendly duels and have allow others the chance to place bets on the outsomes. This is best done somewhere outside of a town for less NPC interference. There are all kinds of real life rules that you can implement. Such as Salutes and Fair Play. Or perhaps a dule to the first cut etc.</div>
+<div class="dlg-tree-children">
+<div class="dlg-tree-ref reply-ref">↩ <a href="#r8">reply #8</a> <span class="dlg-link-preview">“Thanks I think....”</span></div>
+</div>
+</details>
+</div>
+</details>
+<details class="dlg-tree-node reply" open>
+<summary><span class="dlg-id">reply #3</span> <span class="dlg-action">→ <code>at_061</code></span> <a class="dlg-anchor" href="#r3" title="jump to flat reply #3">¶</a></summary>
+<div class="dlg-text">A sickly state.</div>
+<div class="dlg-tree-children">
+<details class="dlg-tree-node entry" open>
+<summary><span class="dlg-id">entry #3</span> <a class="dlg-anchor" href="#e3" title="jump to flat entry #3">¶</a></summary>
+<div class="dlg-text">You or one of your companions has taken ill due to a touch of a wraith fromt he barrows. And only a heal from the scepter of celedring can cure you.</div>
+<div class="dlg-tree-children">
+<div class="dlg-tree-ref reply-ref">↩ <a href="#r8">reply #8</a> <span class="dlg-link-preview">“Thanks I think....”</span></div>
+</div>
+</details>
+</div>
+</details>
+<details class="dlg-tree-node reply" open>
+<summary><span class="dlg-id">reply #2</span> <span class="dlg-action">→ <code>at_061</code></span> <a class="dlg-anchor" href="#r2" title="jump to flat reply #2">¶</a></summary>
+<div class="dlg-text">Recruits...</div>
+<div class="dlg-tree-children">
+<details class="dlg-tree-node entry" open>
+<summary><span class="dlg-id">entry #2</span> <a class="dlg-anchor" href="#e2" title="jump to flat entry #2">¶</a></summary>
+<div class="dlg-text">If you play as an agent of Sauron or the Free People of middl earth. It might be time to recruit followers of the lower levels.</div>
+<div class="dlg-tree-children">
+<div class="dlg-tree-ref reply-ref">↩ <a href="#r8">reply #8</a> <span class="dlg-link-preview">“Thanks I think....”</span></div>
+</div>
+</details>
+</div>
+</details>
+</div>
+</details>
+</div>
+</details>
+<details class="dlg-tree-node reply" open>
+<summary><span class="dlg-id">reply #0</span> <a class="dlg-anchor" href="#r0" title="jump to flat reply #0">¶</a></summary>
+<div class="dlg-text">Bah that stinky DM made me come here.</div>
+</details>
+</div>
+</details>
+</div>
+<h2>NPC lines (entries) — flat index</h2>
+<div class="dlg-node entry" id="e0"><div class="dlg-head"><span class="dlg-id">entry #0</span></div><div class="dlg-text">Ahh you have come seeking some clues on cheesy roleplaying hooks?</div><ul class="dlg-links"><li><a href="#r1">→ reply #1</a> <span class="dlg-link-preview">“Yes what can you offer?”</span></li><li><a href="#r0">→ reply #0</a> <span class="dlg-link-preview">“Bah that stinky DM made me come here.”</span></li></ul></div>
+<div class="dlg-node entry" id="e1"><div class="dlg-head"><span class="dlg-id">entry #1</span></div><div class="dlg-text">Well then lets see what I have here in me books. Choose a plot thread you wish more explanation on. Remember you can adapt these to suit your needs.</div><ul class="dlg-links"><li><a href="#r7">→ reply #7</a> <span class="dlg-link-preview">“Taxing the roads.”</span></li><li><a href="#r6">→ reply #6</a> <span class="dlg-link-preview">“A Truce of the Ages”</span></li><li><a href="#r5">→ reply #5</a> <span class="dlg-link-preview">“The Longest tale.”</span></li><li><a href="#r4">→ reply #4</a> <span class="dlg-link-preview">“Duels and Contests.”</span></li><li><a href="#r3">→ reply #3</a> <span class="dlg-link-preview">“A sickly state.”</span></li><li><a href="#r2">→ reply #2</a> <span class="dlg-link-preview">“Recruits...”</span></li></ul></div>
+<div class="dlg-node entry" id="e2"><div class="dlg-head"><span class="dlg-id">entry #2</span></div><div class="dlg-text">If you play as an agent of Sauron or the Free People of middl earth. It might be time to recruit followers of the lower levels.</div><ul class="dlg-links"><li><a href="#r8">→ child</a> <span class="dlg-link-preview">“Thanks I think....”</span></li></ul></div>
+<div class="dlg-node entry" id="e3"><div class="dlg-head"><span class="dlg-id">entry #3</span></div><div class="dlg-text">You or one of your companions has taken ill due to a touch of a wraith fromt he barrows. And only a heal from the scepter of celedring can cure you.</div><ul class="dlg-links"><li><a href="#r8">→ child</a> <span class="dlg-link-preview">“Thanks I think....”</span></li></ul></div>
+<div class="dlg-node entry" id="e4"><div class="dlg-head"><span class="dlg-id">entry #4</span></div><div class="dlg-text">Organize a couple of friendly duels and have allow others the chance to place bets on the outsomes. This is best done somewhere outside of a town for less NPC interference. There are all kinds of real life rules that you can implement. Such as Salutes and Fair Play. Or perhaps a dule to the first cut etc.</div><ul class="dlg-links"><li><a href="#r8">→ child</a> <span class="dlg-link-preview">“Thanks I think....”</span></li></ul></div>
+<div class="dlg-node entry" id="e5"><div class="dlg-head"><span class="dlg-id">entry #5</span></div><div class="dlg-text">Organize a old fashioned tavern story contest. Have all present give a tale or two about themselves or a latest adventure. The best story wins a prize.</div><ul class="dlg-links"><li><a href="#r8">→ child</a> <span class="dlg-link-preview">“Thanks I think....”</span></li></ul></div>
+<div class="dlg-node entry" id="e6"><div class="dlg-head"><span class="dlg-id">entry #6</span></div><div class="dlg-text">Organize a meeting between the forces of Sauron and the Free Peoples of Middle Earth. Discuss a possible cease to the endless attacks on the havens. A good place to hold the meeting would be the Prancing Pony.</div><ul class="dlg-links"><li><a href="#r8">→ child</a> <span class="dlg-link-preview">“Thanks I think....”</span></li></ul></div>
+<div class="dlg-node entry" id="e7"><div class="dlg-head"><span class="dlg-id">entry #7</span></div><div class="dlg-text">This is a classic one. Two dwarves steak out a road bridge collecting a toll to aid in the rebuilding of the Lonely Mountain since Smaug left it in ruins. And they do pass out friendly reminders to pay.</div><ul class="dlg-links"><li><a href="#r8">→ reply #8</a> <span class="dlg-link-preview">“Thanks I think....”</span></li></ul></div>
+<h2>PC replies — flat index</h2>
 <div class="dlg-node reply" id="r0"><div class="dlg-head"><span class="dlg-id">reply #0</span></div><div class="dlg-text">Bah that stinky DM made me come here.</div></div>
-<div class="dlg-node reply" id="r1"><div class="dlg-head"><span class="dlg-id">reply #1</span></div><div class="dlg-text">Yes what can you offer?</div><div class="dlg-links"><a href="#e1">→ entry #1</a></div></div>
-<div class="dlg-node reply" id="r2"><div class="dlg-head"><span class="dlg-id">reply #2</span> <span class="dlg-action">→ <code>at_061</code></span></div><div class="dlg-text">Recruits...</div><div class="dlg-links"><a href="#e2">→ entry #2</a></div></div>
-<div class="dlg-node reply" id="r3"><div class="dlg-head"><span class="dlg-id">reply #3</span> <span class="dlg-action">→ <code>at_061</code></span></div><div class="dlg-text">A sickly state.</div><div class="dlg-links"><a href="#e3">→ entry #3</a></div></div>
-<div class="dlg-node reply" id="r4"><div class="dlg-head"><span class="dlg-id">reply #4</span> <span class="dlg-action">→ <code>at_061</code></span></div><div class="dlg-text">Duels and Contests.</div><div class="dlg-links"><a href="#e4">→ entry #4</a></div></div>
-<div class="dlg-node reply" id="r5"><div class="dlg-head"><span class="dlg-id">reply #5</span> <span class="dlg-action">→ <code>at_061</code></span></div><div class="dlg-text">The Longest tale.</div><div class="dlg-links"><a href="#e5">→ entry #5</a></div></div>
-<div class="dlg-node reply" id="r6"><div class="dlg-head"><span class="dlg-id">reply #6</span> <span class="dlg-action">→ <code>at_061</code></span></div><div class="dlg-text">A Truce of the Ages</div><div class="dlg-links"><a href="#e6">→ entry #6</a></div></div>
-<div class="dlg-node reply" id="r7"><div class="dlg-head"><span class="dlg-id">reply #7</span> <span class="dlg-action">→ <code>at_061</code></span></div><div class="dlg-text">Taxing the roads.</div><div class="dlg-links"><a href="#e7">→ entry #7</a></div></div>
+<div class="dlg-node reply" id="r1"><div class="dlg-head"><span class="dlg-id">reply #1</span></div><div class="dlg-text">Yes what can you offer?</div><ul class="dlg-links"><li><a href="#e1">→ entry #1</a> <span class="dlg-link-preview">“Well then lets see what I have here in me books. Choose a plot thread you wish m…”</span></li></ul></div>
+<div class="dlg-node reply" id="r2"><div class="dlg-head"><span class="dlg-id">reply #2</span> <span class="dlg-action">→ <code>at_061</code></span></div><div class="dlg-text">Recruits...</div><ul class="dlg-links"><li><a href="#e2">→ entry #2</a> <span class="dlg-link-preview">“If you play as an agent of Sauron or the Free People of middl earth. It might be…”</span></li></ul></div>
+<div class="dlg-node reply" id="r3"><div class="dlg-head"><span class="dlg-id">reply #3</span> <span class="dlg-action">→ <code>at_061</code></span></div><div class="dlg-text">A sickly state.</div><ul class="dlg-links"><li><a href="#e3">→ entry #3</a> <span class="dlg-link-preview">“You or one of your companions has taken ill due to a touch of a wraith fromt he…”</span></li></ul></div>
+<div class="dlg-node reply" id="r4"><div class="dlg-head"><span class="dlg-id">reply #4</span> <span class="dlg-action">→ <code>at_061</code></span></div><div class="dlg-text">Duels and Contests.</div><ul class="dlg-links"><li><a href="#e4">→ entry #4</a> <span class="dlg-link-preview">“Organize a couple of friendly duels and have allow others the chance to place be…”</span></li></ul></div>
+<div class="dlg-node reply" id="r5"><div class="dlg-head"><span class="dlg-id">reply #5</span> <span class="dlg-action">→ <code>at_061</code></span></div><div class="dlg-text">The Longest tale.</div><ul class="dlg-links"><li><a href="#e5">→ entry #5</a> <span class="dlg-link-preview">“Organize a old fashioned tavern story contest. Have all present give a tale or t…”</span></li></ul></div>
+<div class="dlg-node reply" id="r6"><div class="dlg-head"><span class="dlg-id">reply #6</span> <span class="dlg-action">→ <code>at_061</code></span></div><div class="dlg-text">A Truce of the Ages</div><ul class="dlg-links"><li><a href="#e6">→ entry #6</a> <span class="dlg-link-preview">“Organize a meeting between the forces of Sauron and the Free Peoples of Middle E…”</span></li></ul></div>
+<div class="dlg-node reply" id="r7"><div class="dlg-head"><span class="dlg-id">reply #7</span> <span class="dlg-action">→ <code>at_061</code></span></div><div class="dlg-text">Taxing the roads.</div><ul class="dlg-links"><li><a href="#e7">→ entry #7</a> <span class="dlg-link-preview">“This is a classic one. Two dwarves steak out a road bridge collecting a toll to…”</span></li></ul></div>
 <div class="dlg-node reply" id="r8"><div class="dlg-head"><span class="dlg-id">reply #8</span></div><div class="dlg-text">Thanks I think....</div></div>
   </main>
   <footer>generated by <a href="https://github.com/mrprice22/nwn-manager">nwn-manager</a></footer>

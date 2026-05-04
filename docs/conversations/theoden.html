@@ -48,40 +48,232 @@
 <li><a href="#e9">entry #9</a> <small class="muted">(if <code>sc_023</code>)</small> — Ah Greetings &lt;FullName&gt;, the Golden Halls of Edoras brighten with your presence.</li>
 <li><a href="#e0">entry #0</a> — Hail young one. You come upon Rohan in troubles times. Ah but now I am so old an…</li>
 </ul>
-<h2>NPC lines (entries)</h2>
-<div class="dlg-node entry" id="e0"><div class="dlg-head"><span class="dlg-id">entry #0</span></div><div class="dlg-text">Hail young one. You come upon Rohan in troubles times. Ah but now I am so old and not as powerful as I once was. If only there was a way!</div><div class="dlg-links"><a href="#r2">→ reply #2</a> · <a href="#r0">→ reply #0</a></div></div>
-<div class="dlg-node entry" id="e1"><div class="dlg-head"><span class="dlg-id">entry #1</span></div><div class="dlg-text">Ah yes I tend to do that now from time to time.</div><div class="dlg-links"><a href="#r1">→ reply #1</a></div></div>
-<div class="dlg-node entry" id="e2"><div class="dlg-head"><span class="dlg-id">entry #2</span></div><div class="dlg-text">My trusted friend Worm Tongue has left for Isengard. But I fear he may never come back.</div><div class="dlg-links"><a href="#r3">→ reply #3</a></div></div>
-<div class="dlg-node entry" id="e3"><div class="dlg-head"><span class="dlg-id">entry #3</span></div><div class="dlg-text">Nay I sent him to Saruman the wise seeking counsel. The Plains of Rohan are beset by orcs. And even fouler things groan from the mountains.</div><div class="dlg-links"><a href="#r4">→ reply #4</a></div></div>
-<div class="dlg-node entry" id="e4"><div class="dlg-head"><span class="dlg-id">entry #4</span></div><div class="dlg-text">I&#x27;m afraid the road to Saruman and Isengard has been cut off. A foul band of a new breed of orcs have blockaded the way!</div><div class="dlg-links"><a href="#r5">→ reply #5</a></div></div>
-<div class="dlg-node entry" id="e5"><div class="dlg-head"><span class="dlg-id">entry #5</span></div><div class="dlg-text">Yes black devilry they are and claim the allegiance of the White Hand, whatever that is.. I sent messengers to Isengard for Worm Tongue was long overdue. They came back bloodied and broken. If you are brave enough.. I would reward you handsomely for clearing the blockade.</div><div class="dlg-links"><a href="#r6">→ reply #6</a></div></div>
-<div class="dlg-node entry" id="e6"><div class="dlg-head"><span class="dlg-id">entry #6</span></div><div class="dlg-text">I sent my best and bravest after Worm Tongue and out of 30... Twenty of them now lay still forever more.</div><div class="dlg-links"><a href="#r10">→ reply #10</a> · <a href="#r7">→ reply #7</a></div></div>
-<div class="dlg-node entry" id="e7"><div class="dlg-head"><span class="dlg-id">entry #7</span></div><div class="dlg-text">My heart warms to hear this. Perhaps it is not as dark a day as I had imagined. There is one there who is their leader. They call him, The White Hand Destroyer. Bring me his weapon of choice and I will consider the blockade broken!</div><div class="dlg-links"><a href="#r8">→ reply #8</a></div></div>
-<div class="dlg-node entry" id="e8"><div class="dlg-head"><span class="dlg-id">entry #8</span></div><div class="dlg-text">Good, Seek these Orcs out in the Isangard outer rim. They make a home in the hills outside Saurman&#x27;s Wall. Look to the hills for these corrupt vermin.</div><div class="dlg-links"><a href="#r9">→ reply #9</a></div></div>
+<h2>Conversation flow</h2>
+<p class="muted">Each starting entry is expanded recursively. Repeated nodes (cycles, shared continuations) appear inline as <code>↩ link</code> backrefs to the first occurrence.</p>
+<div class="dlg-tree">
+<details class="dlg-tree-node entry" open>
+<summary><span class="dlg-id">entry #10</span> <small class="muted">(if <code>sc_020</code>)</small> <a class="dlg-anchor" href="#e10" title="jump to flat entry #10">¶</a></summary>
+<div class="dlg-text">Have your returned triumphant?</div>
+<div class="dlg-tree-children">
+<details class="dlg-tree-node reply" open>
+<summary><span class="dlg-id">reply #18</span> <a class="dlg-anchor" href="#r18" title="jump to flat reply #18">¶</a></summary>
+<div class="dlg-text">Not yet good King, the blockade still stands however I will be victorious soon.</div>
+</details>
+<details class="dlg-tree-node reply" open>
+<summary><span class="dlg-id">reply #11</span> <span class="dlg-action">→ <code>at_036</code></span> <small class="muted">(if <code>sc_021</code>)</small> <a class="dlg-anchor" href="#r11" title="jump to flat reply #11">¶</a></summary>
+<div class="dlg-text">Yes King Theoden, the blockade is no more. Here is the proof of the matter, the scythe of the beast.</div>
+<div class="dlg-tree-children">
+<details class="dlg-tree-node entry" open>
+<summary><span class="dlg-id">entry #11</span> <span class="dlg-action">→ <code>at_040</code></span> <a class="dlg-anchor" href="#e11" title="jump to flat entry #11">¶</a></summary>
+<div class="dlg-text">Hurrah! Three cheers for &lt;FullName&gt;. Thy deed is great! And for reward I can offer you three of my most prized possessions. What would be to you taste? The Spear? The Helm? Or the Shield?</div>
+<div class="dlg-tree-children">
+<details class="dlg-tree-node reply" open>
+<summary><span class="dlg-id">reply #16</span> <a class="dlg-anchor" href="#r16" title="jump to flat reply #16">¶</a></summary>
+<div class="dlg-text">The Spear.</div>
+<div class="dlg-tree-children">
+<details class="dlg-tree-node entry" open>
+<summary><span class="dlg-id">entry #14</span> <span class="dlg-action">→ <code>at_037</code></span> <a class="dlg-anchor" href="#e14" title="jump to flat entry #14">¶</a></summary>
+<div class="dlg-text">So be it. I have opened the Edoras coffers and provided you with some coin for the road. I wish that it could be more but we still have a great long road ahead of us. Once again, thank you for your service and sacrifice.</div>
+<div class="dlg-tree-children">
+<details class="dlg-tree-node reply" open>
+<summary><span class="dlg-id">reply #17</span> <a class="dlg-anchor" href="#r17" title="jump to flat reply #17">¶</a></summary>
+<div class="dlg-text">I thank you Theoden your gifts are most generous. Fare well.</div>
+</details>
+</div>
+</details>
+</div>
+</details>
+<details class="dlg-tree-node reply" open>
+<summary><span class="dlg-id">reply #14</span> <a class="dlg-anchor" href="#r14" title="jump to flat reply #14">¶</a></summary>
+<div class="dlg-text">The Helm.</div>
+<div class="dlg-tree-children">
+<details class="dlg-tree-node entry" open>
+<summary><span class="dlg-id">entry #13</span> <span class="dlg-action">→ <code>at_038</code></span> <a class="dlg-anchor" href="#e13" title="jump to flat entry #13">¶</a></summary>
+<div class="dlg-text">So be it. I have opened the Edoras coffers and provided you with some coin for the road. I wish that it could be more but we still have a great long road ahead of us. Once again, thank you for your service and sacrifice.</div>
+<div class="dlg-tree-children">
+<details class="dlg-tree-node reply" open>
+<summary><span class="dlg-id">reply #15</span> <a class="dlg-anchor" href="#r15" title="jump to flat reply #15">¶</a></summary>
+<div class="dlg-text">I thank you Theoden your gifts are most generous. Fare well.</div>
+</details>
+</div>
+</details>
+</div>
+</details>
+<details class="dlg-tree-node reply" open>
+<summary><span class="dlg-id">reply #12</span> <a class="dlg-anchor" href="#r12" title="jump to flat reply #12">¶</a></summary>
+<div class="dlg-text">The Shield.</div>
+<div class="dlg-tree-children">
+<details class="dlg-tree-node entry" open>
+<summary><span class="dlg-id">entry #12</span> <span class="dlg-action">→ <code>at_039</code></span> <a class="dlg-anchor" href="#e12" title="jump to flat entry #12">¶</a></summary>
+<div class="dlg-text">So be it. I have opened the Edoras coffers and provided you with some coin for the road. I wish that it could be more but we still have a great long road ahead of us. Once again, thank you for your service and sacrifice.</div>
+<div class="dlg-tree-children">
+<details class="dlg-tree-node reply" open>
+<summary><span class="dlg-id">reply #13</span> <a class="dlg-anchor" href="#r13" title="jump to flat reply #13">¶</a></summary>
+<div class="dlg-text">I thank you Theoden your gifts are most generous. Fare well.</div>
+</details>
+</div>
+</details>
+</div>
+</details>
+</div>
+</details>
+</div>
+</details>
+</div>
+</details>
+<details class="dlg-tree-node entry" open>
+<summary><span class="dlg-id">entry #9</span> <small class="muted">(if <code>sc_023</code>)</small> <a class="dlg-anchor" href="#e9" title="jump to flat entry #9">¶</a></summary>
+<div class="dlg-text">Ah Greetings &lt;FullName&gt;, the Golden Halls of Edoras brighten with your presence.</div>
+</details>
+<details class="dlg-tree-node entry" open>
+<summary><span class="dlg-id">entry #0</span> <a class="dlg-anchor" href="#e0" title="jump to flat entry #0">¶</a></summary>
+<div class="dlg-text">Hail young one. You come upon Rohan in troubles times. Ah but now I am so old and not as powerful as I once was. If only there was a way!</div>
+<div class="dlg-tree-children">
+<details class="dlg-tree-node reply" open>
+<summary><span class="dlg-id">reply #2</span> <a class="dlg-anchor" href="#r2" title="jump to flat reply #2">¶</a></summary>
+<div class="dlg-text">A way for what great king?</div>
+<div class="dlg-tree-children">
+<details class="dlg-tree-node entry" open>
+<summary><span class="dlg-id">entry #2</span> <a class="dlg-anchor" href="#e2" title="jump to flat entry #2">¶</a></summary>
+<div class="dlg-text">My trusted friend Worm Tongue has left for Isengard. But I fear he may never come back.</div>
+<div class="dlg-tree-children">
+<details class="dlg-tree-node reply" open>
+<summary><span class="dlg-id">reply #3</span> <a class="dlg-anchor" href="#r3" title="jump to flat reply #3">¶</a></summary>
+<div class="dlg-text">Your servant has gone missing?</div>
+<div class="dlg-tree-children">
+<details class="dlg-tree-node entry" open>
+<summary><span class="dlg-id">entry #3</span> <a class="dlg-anchor" href="#e3" title="jump to flat entry #3">¶</a></summary>
+<div class="dlg-text">Nay I sent him to Saruman the wise seeking counsel. The Plains of Rohan are beset by orcs. And even fouler things groan from the mountains.</div>
+<div class="dlg-tree-children">
+<details class="dlg-tree-node reply" open>
+<summary><span class="dlg-id">reply #4</span> <a class="dlg-anchor" href="#r4" title="jump to flat reply #4">¶</a></summary>
+<div class="dlg-text">This is grave news surely Saruman will look after him</div>
+<div class="dlg-tree-children">
+<details class="dlg-tree-node entry" open>
+<summary><span class="dlg-id">entry #4</span> <a class="dlg-anchor" href="#e4" title="jump to flat entry #4">¶</a></summary>
+<div class="dlg-text">I&#x27;m afraid the road to Saruman and Isengard has been cut off. A foul band of a new breed of orcs have blockaded the way!</div>
+<div class="dlg-tree-children">
+<details class="dlg-tree-node reply" open>
+<summary><span class="dlg-id">reply #5</span> <a class="dlg-anchor" href="#r5" title="jump to flat reply #5">¶</a></summary>
+<div class="dlg-text">A new breed of orcs?</div>
+<div class="dlg-tree-children">
+<details class="dlg-tree-node entry" open>
+<summary><span class="dlg-id">entry #5</span> <a class="dlg-anchor" href="#e5" title="jump to flat entry #5">¶</a></summary>
+<div class="dlg-text">Yes black devilry they are and claim the allegiance of the White Hand, whatever that is.. I sent messengers to Isengard for Worm Tongue was long overdue. They came back bloodied and broken. If you are brave enough.. I would reward you handsomely for clearing the blockade.</div>
+<div class="dlg-tree-children">
+<details class="dlg-tree-node reply" open>
+<summary><span class="dlg-id">reply #6</span> <a class="dlg-anchor" href="#r6" title="jump to flat reply #6">¶</a></summary>
+<div class="dlg-text">What odds do I have of survival?</div>
+<div class="dlg-tree-children">
+<details class="dlg-tree-node entry" open>
+<summary><span class="dlg-id">entry #6</span> <a class="dlg-anchor" href="#e6" title="jump to flat entry #6">¶</a></summary>
+<div class="dlg-text">I sent my best and bravest after Worm Tongue and out of 30... Twenty of them now lay still forever more.</div>
+<div class="dlg-tree-children">
+<details class="dlg-tree-node reply" open>
+<summary><span class="dlg-id">reply #10</span> <a class="dlg-anchor" href="#r10" title="jump to flat reply #10">¶</a></summary>
+<div class="dlg-text">That is suicide! I must object to being sent to my death. I am sorry great king but you are better off saving your numbers here.</div>
+</details>
+<details class="dlg-tree-node reply" open>
+<summary><span class="dlg-id">reply #7</span> <a class="dlg-anchor" href="#r7" title="jump to flat reply #7">¶</a></summary>
+<div class="dlg-text">I will go on your behalf Lord Theoden. If I die in battle it will be glorious and for a righteous cause.</div>
+<div class="dlg-tree-children">
+<details class="dlg-tree-node entry" open>
+<summary><span class="dlg-id">entry #7</span> <a class="dlg-anchor" href="#e7" title="jump to flat entry #7">¶</a></summary>
+<div class="dlg-text">My heart warms to hear this. Perhaps it is not as dark a day as I had imagined. There is one there who is their leader. They call him, The White Hand Destroyer. Bring me his weapon of choice and I will consider the blockade broken!</div>
+<div class="dlg-tree-children">
+<details class="dlg-tree-node reply" open>
+<summary><span class="dlg-id">reply #8</span> <span class="dlg-action">→ <code>at_035</code></span> <a class="dlg-anchor" href="#r8" title="jump to flat reply #8">¶</a></summary>
+<div class="dlg-text">I will Lord Theoden, rest assured your advisor will have a safe road soon.</div>
+<div class="dlg-tree-children">
+<details class="dlg-tree-node entry" open>
+<summary><span class="dlg-id">entry #8</span> <a class="dlg-anchor" href="#e8" title="jump to flat entry #8">¶</a></summary>
+<div class="dlg-text">Good, Seek these Orcs out in the Isangard outer rim. They make a home in the hills outside Saurman&#x27;s Wall. Look to the hills for these corrupt vermin.</div>
+<div class="dlg-tree-children">
+<details class="dlg-tree-node reply" open>
+<summary><span class="dlg-id">reply #9</span> <a class="dlg-anchor" href="#r9" title="jump to flat reply #9">¶</a></summary>
+<div class="dlg-text">I shall, thank you.</div>
+</details>
+</div>
+</details>
+</div>
+</details>
+</div>
+</details>
+</div>
+</details>
+</div>
+</details>
+</div>
+</details>
+</div>
+</details>
+</div>
+</details>
+</div>
+</details>
+</div>
+</details>
+</div>
+</details>
+</div>
+</details>
+</div>
+</details>
+</div>
+</details>
+<details class="dlg-tree-node reply" open>
+<summary><span class="dlg-id">reply #0</span> <a class="dlg-anchor" href="#r0" title="jump to flat reply #0">¶</a></summary>
+<div class="dlg-text">You ramble and forget your guests.</div>
+<div class="dlg-tree-children">
+<details class="dlg-tree-node entry" open>
+<summary><span class="dlg-id">entry #1</span> <a class="dlg-anchor" href="#e1" title="jump to flat entry #1">¶</a></summary>
+<div class="dlg-text">Ah yes I tend to do that now from time to time.</div>
+<div class="dlg-tree-children">
+<details class="dlg-tree-node reply" open>
+<summary><span class="dlg-id">reply #1</span> <a class="dlg-anchor" href="#r1" title="jump to flat reply #1">¶</a></summary>
+<div class="dlg-text">I have no time for this.</div>
+</details>
+</div>
+</details>
+</div>
+</details>
+</div>
+</details>
+</div>
+<h2>NPC lines (entries) — flat index</h2>
+<div class="dlg-node entry" id="e0"><div class="dlg-head"><span class="dlg-id">entry #0</span></div><div class="dlg-text">Hail young one. You come upon Rohan in troubles times. Ah but now I am so old and not as powerful as I once was. If only there was a way!</div><ul class="dlg-links"><li><a href="#r2">→ reply #2</a> <span class="dlg-link-preview">“A way for what great king?”</span></li><li><a href="#r0">→ reply #0</a> <span class="dlg-link-preview">“You ramble and forget your guests.”</span></li></ul></div>
+<div class="dlg-node entry" id="e1"><div class="dlg-head"><span class="dlg-id">entry #1</span></div><div class="dlg-text">Ah yes I tend to do that now from time to time.</div><ul class="dlg-links"><li><a href="#r1">→ reply #1</a> <span class="dlg-link-preview">“I have no time for this.”</span></li></ul></div>
+<div class="dlg-node entry" id="e2"><div class="dlg-head"><span class="dlg-id">entry #2</span></div><div class="dlg-text">My trusted friend Worm Tongue has left for Isengard. But I fear he may never come back.</div><ul class="dlg-links"><li><a href="#r3">→ reply #3</a> <span class="dlg-link-preview">“Your servant has gone missing?”</span></li></ul></div>
+<div class="dlg-node entry" id="e3"><div class="dlg-head"><span class="dlg-id">entry #3</span></div><div class="dlg-text">Nay I sent him to Saruman the wise seeking counsel. The Plains of Rohan are beset by orcs. And even fouler things groan from the mountains.</div><ul class="dlg-links"><li><a href="#r4">→ reply #4</a> <span class="dlg-link-preview">“This is grave news surely Saruman will look after him”</span></li></ul></div>
+<div class="dlg-node entry" id="e4"><div class="dlg-head"><span class="dlg-id">entry #4</span></div><div class="dlg-text">I&#x27;m afraid the road to Saruman and Isengard has been cut off. A foul band of a new breed of orcs have blockaded the way!</div><ul class="dlg-links"><li><a href="#r5">→ reply #5</a> <span class="dlg-link-preview">“A new breed of orcs?”</span></li></ul></div>
+<div class="dlg-node entry" id="e5"><div class="dlg-head"><span class="dlg-id">entry #5</span></div><div class="dlg-text">Yes black devilry they are and claim the allegiance of the White Hand, whatever that is.. I sent messengers to Isengard for Worm Tongue was long overdue. They came back bloodied and broken. If you are brave enough.. I would reward you handsomely for clearing the blockade.</div><ul class="dlg-links"><li><a href="#r6">→ reply #6</a> <span class="dlg-link-preview">“What odds do I have of survival?”</span></li></ul></div>
+<div class="dlg-node entry" id="e6"><div class="dlg-head"><span class="dlg-id">entry #6</span></div><div class="dlg-text">I sent my best and bravest after Worm Tongue and out of 30... Twenty of them now lay still forever more.</div><ul class="dlg-links"><li><a href="#r10">→ reply #10</a> <span class="dlg-link-preview">“That is suicide! I must object to being sent to my death. I am sorry great king…”</span></li><li><a href="#r7">→ reply #7</a> <span class="dlg-link-preview">“I will go on your behalf Lord Theoden. If I die in battle it will be glorious an…”</span></li></ul></div>
+<div class="dlg-node entry" id="e7"><div class="dlg-head"><span class="dlg-id">entry #7</span></div><div class="dlg-text">My heart warms to hear this. Perhaps it is not as dark a day as I had imagined. There is one there who is their leader. They call him, The White Hand Destroyer. Bring me his weapon of choice and I will consider the blockade broken!</div><ul class="dlg-links"><li><a href="#r8">→ reply #8</a> <span class="dlg-link-preview">“I will Lord Theoden, rest assured your advisor will have a safe road soon.”</span></li></ul></div>
+<div class="dlg-node entry" id="e8"><div class="dlg-head"><span class="dlg-id">entry #8</span></div><div class="dlg-text">Good, Seek these Orcs out in the Isangard outer rim. They make a home in the hills outside Saurman&#x27;s Wall. Look to the hills for these corrupt vermin.</div><ul class="dlg-links"><li><a href="#r9">→ reply #9</a> <span class="dlg-link-preview">“I shall, thank you.”</span></li></ul></div>
 <div class="dlg-node entry" id="e9"><div class="dlg-head"><span class="dlg-id">entry #9</span></div><div class="dlg-text">Ah Greetings &lt;FullName&gt;, the Golden Halls of Edoras brighten with your presence.</div></div>
-<div class="dlg-node entry" id="e10"><div class="dlg-head"><span class="dlg-id">entry #10</span></div><div class="dlg-text">Have your returned triumphant?</div><div class="dlg-links"><a href="#r18">→ reply #18</a> · <a href="#r11">→ reply #11</a> <small class="muted">(if <code>sc_021</code>)</small></div></div>
-<div class="dlg-node entry" id="e11"><div class="dlg-head"><span class="dlg-id">entry #11</span> <span class="dlg-action">→ <code>at_040</code></span></div><div class="dlg-text">Hurrah! Three cheers for &lt;FullName&gt;. Thy deed is great! And for reward I can offer you three of my most prized possessions. What would be to you taste? The Spear? The Helm? Or the Shield?</div><div class="dlg-links"><a href="#r16">→ reply #16</a> · <a href="#r14">→ reply #14</a> · <a href="#r12">→ reply #12</a></div></div>
-<div class="dlg-node entry" id="e12"><div class="dlg-head"><span class="dlg-id">entry #12</span> <span class="dlg-action">→ <code>at_039</code></span></div><div class="dlg-text">So be it. I have opened the Edoras coffers and provided you with some coin for the road. I wish that it could be more but we still have a great long road ahead of us. Once again, thank you for your service and sacrifice.</div><div class="dlg-links"><a href="#r13">→ reply #13</a></div></div>
-<div class="dlg-node entry" id="e13"><div class="dlg-head"><span class="dlg-id">entry #13</span> <span class="dlg-action">→ <code>at_038</code></span></div><div class="dlg-text">So be it. I have opened the Edoras coffers and provided you with some coin for the road. I wish that it could be more but we still have a great long road ahead of us. Once again, thank you for your service and sacrifice.</div><div class="dlg-links"><a href="#r15">→ reply #15</a></div></div>
-<div class="dlg-node entry" id="e14"><div class="dlg-head"><span class="dlg-id">entry #14</span> <span class="dlg-action">→ <code>at_037</code></span></div><div class="dlg-text">So be it. I have opened the Edoras coffers and provided you with some coin for the road. I wish that it could be more but we still have a great long road ahead of us. Once again, thank you for your service and sacrifice.</div><div class="dlg-links"><a href="#r17">→ reply #17</a></div></div>
-<h2>PC replies</h2>
-<div class="dlg-node reply" id="r0"><div class="dlg-head"><span class="dlg-id">reply #0</span></div><div class="dlg-text">You ramble and forget your guests.</div><div class="dlg-links"><a href="#e1">→ entry #1</a></div></div>
+<div class="dlg-node entry" id="e10"><div class="dlg-head"><span class="dlg-id">entry #10</span></div><div class="dlg-text">Have your returned triumphant?</div><ul class="dlg-links"><li><a href="#r18">→ reply #18</a> <span class="dlg-link-preview">“Not yet good King, the blockade still stands however I will be victorious soon.”</span></li><li><a href="#r11">→ reply #11</a> <span class="dlg-link-preview">“Yes King Theoden, the blockade is no more. Here is the proof of the matter, the…”</span> <small class="muted">(if <code>sc_021</code>)</small></li></ul></div>
+<div class="dlg-node entry" id="e11"><div class="dlg-head"><span class="dlg-id">entry #11</span> <span class="dlg-action">→ <code>at_040</code></span></div><div class="dlg-text">Hurrah! Three cheers for &lt;FullName&gt;. Thy deed is great! And for reward I can offer you three of my most prized possessions. What would be to you taste? The Spear? The Helm? Or the Shield?</div><ul class="dlg-links"><li><a href="#r16">→ reply #16</a> <span class="dlg-link-preview">“The Spear.”</span></li><li><a href="#r14">→ reply #14</a> <span class="dlg-link-preview">“The Helm.”</span></li><li><a href="#r12">→ reply #12</a> <span class="dlg-link-preview">“The Shield.”</span></li></ul></div>
+<div class="dlg-node entry" id="e12"><div class="dlg-head"><span class="dlg-id">entry #12</span> <span class="dlg-action">→ <code>at_039</code></span></div><div class="dlg-text">So be it. I have opened the Edoras coffers and provided you with some coin for the road. I wish that it could be more but we still have a great long road ahead of us. Once again, thank you for your service and sacrifice.</div><ul class="dlg-links"><li><a href="#r13">→ reply #13</a> <span class="dlg-link-preview">“I thank you Theoden your gifts are most generous. Fare well.”</span></li></ul></div>
+<div class="dlg-node entry" id="e13"><div class="dlg-head"><span class="dlg-id">entry #13</span> <span class="dlg-action">→ <code>at_038</code></span></div><div class="dlg-text">So be it. I have opened the Edoras coffers and provided you with some coin for the road. I wish that it could be more but we still have a great long road ahead of us. Once again, thank you for your service and sacrifice.</div><ul class="dlg-links"><li><a href="#r15">→ reply #15</a> <span class="dlg-link-preview">“I thank you Theoden your gifts are most generous. Fare well.”</span></li></ul></div>
+<div class="dlg-node entry" id="e14"><div class="dlg-head"><span class="dlg-id">entry #14</span> <span class="dlg-action">→ <code>at_037</code></span></div><div class="dlg-text">So be it. I have opened the Edoras coffers and provided you with some coin for the road. I wish that it could be more but we still have a great long road ahead of us. Once again, thank you for your service and sacrifice.</div><ul class="dlg-links"><li><a href="#r17">→ reply #17</a> <span class="dlg-link-preview">“I thank you Theoden your gifts are most generous. Fare well.”</span></li></ul></div>
+<h2>PC replies — flat index</h2>
+<div class="dlg-node reply" id="r0"><div class="dlg-head"><span class="dlg-id">reply #0</span></div><div class="dlg-text">You ramble and forget your guests.</div><ul class="dlg-links"><li><a href="#e1">→ entry #1</a> <span class="dlg-link-preview">“Ah yes I tend to do that now from time to time.”</span></li></ul></div>
 <div class="dlg-node reply" id="r1"><div class="dlg-head"><span class="dlg-id">reply #1</span></div><div class="dlg-text">I have no time for this.</div></div>
-<div class="dlg-node reply" id="r2"><div class="dlg-head"><span class="dlg-id">reply #2</span></div><div class="dlg-text">A way for what great king?</div><div class="dlg-links"><a href="#e2">→ entry #2</a></div></div>
-<div class="dlg-node reply" id="r3"><div class="dlg-head"><span class="dlg-id">reply #3</span></div><div class="dlg-text">Your servant has gone missing?</div><div class="dlg-links"><a href="#e3">→ entry #3</a></div></div>
-<div class="dlg-node reply" id="r4"><div class="dlg-head"><span class="dlg-id">reply #4</span></div><div class="dlg-text">This is grave news surely Saruman will look after him</div><div class="dlg-links"><a href="#e4">→ entry #4</a></div></div>
-<div class="dlg-node reply" id="r5"><div class="dlg-head"><span class="dlg-id">reply #5</span></div><div class="dlg-text">A new breed of orcs?</div><div class="dlg-links"><a href="#e5">→ entry #5</a></div></div>
-<div class="dlg-node reply" id="r6"><div class="dlg-head"><span class="dlg-id">reply #6</span></div><div class="dlg-text">What odds do I have of survival?</div><div class="dlg-links"><a href="#e6">→ entry #6</a></div></div>
-<div class="dlg-node reply" id="r7"><div class="dlg-head"><span class="dlg-id">reply #7</span></div><div class="dlg-text">I will go on your behalf Lord Theoden. If I die in battle it will be glorious and for a righteous cause.</div><div class="dlg-links"><a href="#e7">→ entry #7</a></div></div>
-<div class="dlg-node reply" id="r8"><div class="dlg-head"><span class="dlg-id">reply #8</span> <span class="dlg-action">→ <code>at_035</code></span></div><div class="dlg-text">I will Lord Theoden, rest assured your advisor will have a safe road soon.</div><div class="dlg-links"><a href="#e8">→ entry #8</a></div></div>
+<div class="dlg-node reply" id="r2"><div class="dlg-head"><span class="dlg-id">reply #2</span></div><div class="dlg-text">A way for what great king?</div><ul class="dlg-links"><li><a href="#e2">→ entry #2</a> <span class="dlg-link-preview">“My trusted friend Worm Tongue has left for Isengard. But I fear he may never com…”</span></li></ul></div>
+<div class="dlg-node reply" id="r3"><div class="dlg-head"><span class="dlg-id">reply #3</span></div><div class="dlg-text">Your servant has gone missing?</div><ul class="dlg-links"><li><a href="#e3">→ entry #3</a> <span class="dlg-link-preview">“Nay I sent him to Saruman the wise seeking counsel. The Plains of Rohan are bese…”</span></li></ul></div>
+<div class="dlg-node reply" id="r4"><div class="dlg-head"><span class="dlg-id">reply #4</span></div><div class="dlg-text">This is grave news surely Saruman will look after him</div><ul class="dlg-links"><li><a href="#e4">→ entry #4</a> <span class="dlg-link-preview">“I&#x27;m afraid the road to Saruman and Isengard has been cut off. A foul band of a n…”</span></li></ul></div>
+<div class="dlg-node reply" id="r5"><div class="dlg-head"><span class="dlg-id">reply #5</span></div><div class="dlg-text">A new breed of orcs?</div><ul class="dlg-links"><li><a href="#e5">→ entry #5</a> <span class="dlg-link-preview">“Yes black devilry they are and claim the allegiance of the White Hand, whatever…”</span></li></ul></div>
+<div class="dlg-node reply" id="r6"><div class="dlg-head"><span class="dlg-id">reply #6</span></div><div class="dlg-text">What odds do I have of survival?</div><ul class="dlg-links"><li><a href="#e6">→ entry #6</a> <span class="dlg-link-preview">“I sent my best and bravest after Worm Tongue and out of 30... Twenty of them now…”</span></li></ul></div>
+<div class="dlg-node reply" id="r7"><div class="dlg-head"><span class="dlg-id">reply #7</span></div><div class="dlg-text">I will go on your behalf Lord Theoden. If I die in battle it will be glorious and for a righteous cause.</div><ul class="dlg-links"><li><a href="#e7">→ entry #7</a> <span class="dlg-link-preview">“My heart warms to hear this. Perhaps it is not as dark a day as I had imagined.…”</span></li></ul></div>
+<div class="dlg-node reply" id="r8"><div class="dlg-head"><span class="dlg-id">reply #8</span> <span class="dlg-action">→ <code>at_035</code></span></div><div class="dlg-text">I will Lord Theoden, rest assured your advisor will have a safe road soon.</div><ul class="dlg-links"><li><a href="#e8">→ entry #8</a> <span class="dlg-link-preview">“Good, Seek these Orcs out in the Isangard outer rim. They make a home in the hil…”</span></li></ul></div>
 <div class="dlg-node reply" id="r9"><div class="dlg-head"><span class="dlg-id">reply #9</span></div><div class="dlg-text">I shall, thank you.</div></div>
 <div class="dlg-node reply" id="r10"><div class="dlg-head"><span class="dlg-id">reply #10</span></div><div class="dlg-text">That is suicide! I must object to being sent to my death. I am sorry great king but you are better off saving your numbers here.</div></div>
-<div class="dlg-node reply" id="r11"><div class="dlg-head"><span class="dlg-id">reply #11</span> <span class="dlg-action">→ <code>at_036</code></span></div><div class="dlg-text">Yes King Theoden, the blockade is no more. Here is the proof of the matter, the scythe of the beast.</div><div class="dlg-links"><a href="#e11">→ entry #11</a></div></div>
-<div class="dlg-node reply" id="r12"><div class="dlg-head"><span class="dlg-id">reply #12</span></div><div class="dlg-text">The Shield.</div><div class="dlg-links"><a href="#e12">→ entry #12</a></div></div>
+<div class="dlg-node reply" id="r11"><div class="dlg-head"><span class="dlg-id">reply #11</span> <span class="dlg-action">→ <code>at_036</code></span></div><div class="dlg-text">Yes King Theoden, the blockade is no more. Here is the proof of the matter, the scythe of the beast.</div><ul class="dlg-links"><li><a href="#e11">→ entry #11</a> <span class="dlg-link-preview">“Hurrah! Three cheers for &lt;FullName&gt;. Thy deed is great! And for reward I can off…”</span></li></ul></div>
+<div class="dlg-node reply" id="r12"><div class="dlg-head"><span class="dlg-id">reply #12</span></div><div class="dlg-text">The Shield.</div><ul class="dlg-links"><li><a href="#e12">→ entry #12</a> <span class="dlg-link-preview">“So be it. I have opened the Edoras coffers and provided you with some coin for t…”</span></li></ul></div>
 <div class="dlg-node reply" id="r13"><div class="dlg-head"><span class="dlg-id">reply #13</span></div><div class="dlg-text">I thank you Theoden your gifts are most generous. Fare well.</div></div>
-<div class="dlg-node reply" id="r14"><div class="dlg-head"><span class="dlg-id">reply #14</span></div><div class="dlg-text">The Helm.</div><div class="dlg-links"><a href="#e13">→ entry #13</a></div></div>
+<div class="dlg-node reply" id="r14"><div class="dlg-head"><span class="dlg-id">reply #14</span></div><div class="dlg-text">The Helm.</div><ul class="dlg-links"><li><a href="#e13">→ entry #13</a> <span class="dlg-link-preview">“So be it. I have opened the Edoras coffers and provided you with some coin for t…”</span></li></ul></div>
 <div class="dlg-node reply" id="r15"><div class="dlg-head"><span class="dlg-id">reply #15</span></div><div class="dlg-text">I thank you Theoden your gifts are most generous. Fare well.</div></div>
-<div class="dlg-node reply" id="r16"><div class="dlg-head"><span class="dlg-id">reply #16</span></div><div class="dlg-text">The Spear.</div><div class="dlg-links"><a href="#e14">→ entry #14</a></div></div>
+<div class="dlg-node reply" id="r16"><div class="dlg-head"><span class="dlg-id">reply #16</span></div><div class="dlg-text">The Spear.</div><ul class="dlg-links"><li><a href="#e14">→ entry #14</a> <span class="dlg-link-preview">“So be it. I have opened the Edoras coffers and provided you with some coin for t…”</span></li></ul></div>
 <div class="dlg-node reply" id="r17"><div class="dlg-head"><span class="dlg-id">reply #17</span></div><div class="dlg-text">I thank you Theoden your gifts are most generous. Fare well.</div></div>
 <div class="dlg-node reply" id="r18"><div class="dlg-head"><span class="dlg-id">reply #18</span></div><div class="dlg-text">Not yet good King, the blockade still stands however I will be victorious soon.</div></div>
   </main>

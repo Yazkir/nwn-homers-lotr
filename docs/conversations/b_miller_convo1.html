@@ -45,28 +45,151 @@
 <li><a href="#e4">entry #4</a> <small class="muted">(if <code>sc_043</code>)</small> — Thank you again for finding my boy, and the shipment. I don&#x27;t know how the missu…</li>
 <li><a href="#e0">entry #0</a> — Hey there. I&#x27;ve seen you around town, perhaps you could help me.</li>
 </ul>
-<h2>NPC lines (entries)</h2>
-<div class="dlg-node entry" id="e0"><div class="dlg-head"><span class="dlg-id">entry #0</span></div><div class="dlg-text">Hey there. I&#x27;ve seen you around town, perhaps you could help me.  </div><div class="dlg-links"><a href="#r1">→ reply #1</a> · <a href="#r0">→ reply #0</a></div></div>
-<div class="dlg-node entry" id="e1"><div class="dlg-head"><span class="dlg-id">entry #1</span></div><div class="dlg-text">I recently sent out a big&#x27;old shipment of Ale to Tharbad. Its been several months and no word back on payment or my men that went out. Course I fear the men have drunk all the supplies and staggered off somewhere. But ya see my boy was with em and leadin the shipment.</div><div class="dlg-links"><a href="#r2">→ reply #2</a></div></div>
-<div class="dlg-node entry" id="e2"><div class="dlg-head"><span class="dlg-id">entry #2</span></div><div class="dlg-text">I know my boy and there ain&#x27;t no way heed desert his dear old pappy. If you could find out what happened to him and the Ale I would be mighty grateful.  I&#x27;m sure I could come up with something as for a reward if your interested.</div><div class="dlg-links"><a href="#r4">→ reply #4</a> · <a href="#r3">→ reply #3</a></div></div>
-<div class="dlg-node entry" id="e3"><div class="dlg-head"><span class="dlg-id">entry #3</span></div><div class="dlg-text">Thank you much &lt;FirstName&gt;. I will be building my second shipement while I wait. Good Luck to ya.</div><div class="dlg-links"><a href="#r5">→ reply #5</a></div></div>
+<h2>Conversation flow</h2>
+<p class="muted">Each starting entry is expanded recursively. Repeated nodes (cycles, shared continuations) appear inline as <code>↩ link</code> backrefs to the first occurrence.</p>
+<div class="dlg-tree">
+<details class="dlg-tree-node entry" open>
+<summary><span class="dlg-id">entry #5</span> <small class="muted">(if <code>checkmiller</code>)</small> <a class="dlg-anchor" href="#e5" title="jump to flat entry #5">¶</a></summary>
+<div class="dlg-text">Hello again, &lt;FirstName&gt;. Any word on my Son and the shipment fo Ale?</div>
+<div class="dlg-tree-children">
+<details class="dlg-tree-node reply" open>
+<summary><span class="dlg-id">reply #12</span> <a class="dlg-anchor" href="#r12" title="jump to flat reply #12">¶</a></summary>
+<div class="dlg-text">No not yet. I will keep searching.</div>
+</details>
+<details class="dlg-tree-node reply" open>
+<summary><span class="dlg-id">reply #6</span> <small class="muted">(if <code>sc_031</code>)</small> <a class="dlg-anchor" href="#r6" title="jump to flat reply #6">¶</a></summary>
+<div class="dlg-text">Yes, I have terrible news for you Miller. You shipment has been befouled by goblins. And I fear your son has died at their hands. Here is the letter you sent along with your son as proof I found them.</div>
+<div class="dlg-tree-children">
+<details class="dlg-tree-node entry" open>
+<summary><span class="dlg-id">entry #6</span> <span class="dlg-action">→ <code>at_001</code></span> <a class="dlg-anchor" href="#e6" title="jump to flat entry #6">¶</a></summary>
+<div class="dlg-text">My poor son! *Sobs* Ahh my son!</div>
+<div class="dlg-tree-children">
+<details class="dlg-tree-node reply" open>
+<summary><span class="dlg-id">reply #10</span> <a class="dlg-anchor" href="#r10" title="jump to flat reply #10">¶</a></summary>
+<div class="dlg-text">*Comfort the Miller*</div>
+<div class="dlg-tree-children">
+<details class="dlg-tree-node entry" open>
+<summary><span class="dlg-id">entry #8</span> <span class="dlg-action">→ <code>at_002</code></span> <a class="dlg-anchor" href="#e8" title="jump to flat entry #8">¶</a></summary>
+<div class="dlg-text">Thank you for all your hard work and toil. I owe ya. I have some gold tucked away. It was going to buy my son a trip to Gondor, he&#x27;d always wanted to see the White City. You take it. It seems right to me that you should carry it now.</div>
+<div class="dlg-tree-children">
+<details class="dlg-tree-node reply" open>
+<summary><span class="dlg-id">reply #11</span> <span class="dlg-action">→ <code>at_003</code></span> <a class="dlg-anchor" href="#r11" title="jump to flat reply #11">¶</a></summary>
+<div class="dlg-text">Thank you for your generosity. Have faith good Miller. Fare Well.</div>
+</details>
+</div>
+</details>
+</div>
+</details>
+<details class="dlg-tree-node reply" open>
+<summary><span class="dlg-id">reply #7</span> <a class="dlg-anchor" href="#r7" title="jump to flat reply #7">¶</a></summary>
+<div class="dlg-text">Pull yourself together man you got no backbone.</div>
+<div class="dlg-tree-children">
+<details class="dlg-tree-node entry" open>
+<summary><span class="dlg-id">entry #7</span> <a class="dlg-anchor" href="#e7" title="jump to flat entry #7">¶</a></summary>
+<div class="dlg-text">Hmph. *Looks at your Sternly*</div>
+<div class="dlg-tree-children">
+<details class="dlg-tree-node reply" open>
+<summary><span class="dlg-id">reply #9</span> <a class="dlg-anchor" href="#r9" title="jump to flat reply #9">¶</a></summary>
+<div class="dlg-text">Common Folk!</div>
+</details>
+<details class="dlg-tree-node reply" open>
+<summary><span class="dlg-id">reply #8</span> <a class="dlg-anchor" href="#r8" title="jump to flat reply #8">¶</a></summary>
+<div class="dlg-text">Ah there, I might have been a little stern, but think of your wife now. She will need you.</div>
+<div class="dlg-tree-children">
+<div class="dlg-tree-ref entry-ref">↩ <a href="#e8">entry #8</a> <span class="dlg-link-preview">“Thank you for all your hard work and toil. I owe ya. I have some gold tucked awa…”</span></div>
+</div>
+</details>
+</div>
+</details>
+</div>
+</details>
+</div>
+</details>
+</div>
+</details>
+</div>
+</details>
+<details class="dlg-tree-node entry" open>
+<summary><span class="dlg-id">entry #4</span> <small class="muted">(if <code>sc_043</code>)</small> <a class="dlg-anchor" href="#e4" title="jump to flat entry #4">¶</a></summary>
+<div class="dlg-text">Thank you again for finding my boy, and the shipment. I don&#x27;t know how the missus and I are going ot make it...</div>
+</details>
+<details class="dlg-tree-node entry" open>
+<summary><span class="dlg-id">entry #0</span> <a class="dlg-anchor" href="#e0" title="jump to flat entry #0">¶</a></summary>
+<div class="dlg-text">Hey there. I&#x27;ve seen you around town, perhaps you could help me.  </div>
+<div class="dlg-tree-children">
+<details class="dlg-tree-node reply" open>
+<summary><span class="dlg-id">reply #1</span> <a class="dlg-anchor" href="#r1" title="jump to flat reply #1">¶</a></summary>
+<div class="dlg-text">What do you require Miller?</div>
+<div class="dlg-tree-children">
+<details class="dlg-tree-node entry" open>
+<summary><span class="dlg-id">entry #1</span> <a class="dlg-anchor" href="#e1" title="jump to flat entry #1">¶</a></summary>
+<div class="dlg-text">I recently sent out a big&#x27;old shipment of Ale to Tharbad. Its been several months and no word back on payment or my men that went out. Course I fear the men have drunk all the supplies and staggered off somewhere. But ya see my boy was with em and leadin the shipment.</div>
+<div class="dlg-tree-children">
+<details class="dlg-tree-node reply" open>
+<summary><span class="dlg-id">reply #2</span> <a class="dlg-anchor" href="#r2" title="jump to flat reply #2">¶</a></summary>
+<div class="dlg-text">Go on.</div>
+<div class="dlg-tree-children">
+<details class="dlg-tree-node entry" open>
+<summary><span class="dlg-id">entry #2</span> <a class="dlg-anchor" href="#e2" title="jump to flat entry #2">¶</a></summary>
+<div class="dlg-text">I know my boy and there ain&#x27;t no way heed desert his dear old pappy. If you could find out what happened to him and the Ale I would be mighty grateful.  I&#x27;m sure I could come up with something as for a reward if your interested.</div>
+<div class="dlg-tree-children">
+<details class="dlg-tree-node reply" open>
+<summary><span class="dlg-id">reply #4</span> <a class="dlg-anchor" href="#r4" title="jump to flat reply #4">¶</a></summary>
+<div class="dlg-text">I will find the Ale and your son. Take heart I shall return with word soon.</div>
+<div class="dlg-tree-children">
+<details class="dlg-tree-node entry" open>
+<summary><span class="dlg-id">entry #3</span> <a class="dlg-anchor" href="#e3" title="jump to flat entry #3">¶</a></summary>
+<div class="dlg-text">Thank you much &lt;FirstName&gt;. I will be building my second shipement while I wait. Good Luck to ya.</div>
+<div class="dlg-tree-children">
+<details class="dlg-tree-node reply" open>
+<summary><span class="dlg-id">reply #5</span> <span class="dlg-action">→ <code>millerson</code></span> <a class="dlg-anchor" href="#r5" title="jump to flat reply #5">¶</a></summary>
+<div class="dlg-text">Good Bye for now.</div>
+</details>
+</div>
+</details>
+</div>
+</details>
+<details class="dlg-tree-node reply" open>
+<summary><span class="dlg-id">reply #3</span> <a class="dlg-anchor" href="#r3" title="jump to flat reply #3">¶</a></summary>
+<div class="dlg-text">Sounds like a fools errand to me. No thanks</div>
+</details>
+</div>
+</details>
+</div>
+</details>
+</div>
+</details>
+</div>
+</details>
+<details class="dlg-tree-node reply" open>
+<summary><span class="dlg-id">reply #0</span> <a class="dlg-anchor" href="#r0" title="jump to flat reply #0">¶</a></summary>
+<div class="dlg-text">I dont do chores.</div>
+</details>
+</div>
+</details>
+</div>
+<h2>NPC lines (entries) — flat index</h2>
+<div class="dlg-node entry" id="e0"><div class="dlg-head"><span class="dlg-id">entry #0</span></div><div class="dlg-text">Hey there. I&#x27;ve seen you around town, perhaps you could help me.  </div><ul class="dlg-links"><li><a href="#r1">→ reply #1</a> <span class="dlg-link-preview">“What do you require Miller?”</span></li><li><a href="#r0">→ reply #0</a> <span class="dlg-link-preview">“I dont do chores.”</span></li></ul></div>
+<div class="dlg-node entry" id="e1"><div class="dlg-head"><span class="dlg-id">entry #1</span></div><div class="dlg-text">I recently sent out a big&#x27;old shipment of Ale to Tharbad. Its been several months and no word back on payment or my men that went out. Course I fear the men have drunk all the supplies and staggered off somewhere. But ya see my boy was with em and leadin the shipment.</div><ul class="dlg-links"><li><a href="#r2">→ reply #2</a> <span class="dlg-link-preview">“Go on.”</span></li></ul></div>
+<div class="dlg-node entry" id="e2"><div class="dlg-head"><span class="dlg-id">entry #2</span></div><div class="dlg-text">I know my boy and there ain&#x27;t no way heed desert his dear old pappy. If you could find out what happened to him and the Ale I would be mighty grateful.  I&#x27;m sure I could come up with something as for a reward if your interested.</div><ul class="dlg-links"><li><a href="#r4">→ reply #4</a> <span class="dlg-link-preview">“I will find the Ale and your son. Take heart I shall return with word soon.”</span></li><li><a href="#r3">→ reply #3</a> <span class="dlg-link-preview">“Sounds like a fools errand to me. No thanks”</span></li></ul></div>
+<div class="dlg-node entry" id="e3"><div class="dlg-head"><span class="dlg-id">entry #3</span></div><div class="dlg-text">Thank you much &lt;FirstName&gt;. I will be building my second shipement while I wait. Good Luck to ya.</div><ul class="dlg-links"><li><a href="#r5">→ reply #5</a> <span class="dlg-link-preview">“Good Bye for now.”</span></li></ul></div>
 <div class="dlg-node entry" id="e4"><div class="dlg-head"><span class="dlg-id">entry #4</span></div><div class="dlg-text">Thank you again for finding my boy, and the shipment. I don&#x27;t know how the missus and I are going ot make it...</div></div>
-<div class="dlg-node entry" id="e5"><div class="dlg-head"><span class="dlg-id">entry #5</span></div><div class="dlg-text">Hello again, &lt;FirstName&gt;. Any word on my Son and the shipment fo Ale?</div><div class="dlg-links"><a href="#r12">→ reply #12</a> · <a href="#r6">→ reply #6</a> <small class="muted">(if <code>sc_031</code>)</small></div></div>
-<div class="dlg-node entry" id="e6"><div class="dlg-head"><span class="dlg-id">entry #6</span> <span class="dlg-action">→ <code>at_001</code></span></div><div class="dlg-text">My poor son! *Sobs* Ahh my son!</div><div class="dlg-links"><a href="#r10">→ reply #10</a> · <a href="#r7">→ reply #7</a></div></div>
-<div class="dlg-node entry" id="e7"><div class="dlg-head"><span class="dlg-id">entry #7</span></div><div class="dlg-text">Hmph. *Looks at your Sternly*</div><div class="dlg-links"><a href="#r9">→ reply #9</a> · <a href="#r8">→ reply #8</a></div></div>
-<div class="dlg-node entry" id="e8"><div class="dlg-head"><span class="dlg-id">entry #8</span> <span class="dlg-action">→ <code>at_002</code></span></div><div class="dlg-text">Thank you for all your hard work and toil. I owe ya. I have some gold tucked away. It was going to buy my son a trip to Gondor, he&#x27;d always wanted to see the White City. You take it. It seems right to me that you should carry it now.</div><div class="dlg-links"><a href="#r11">→ reply #11</a></div></div>
-<h2>PC replies</h2>
+<div class="dlg-node entry" id="e5"><div class="dlg-head"><span class="dlg-id">entry #5</span></div><div class="dlg-text">Hello again, &lt;FirstName&gt;. Any word on my Son and the shipment fo Ale?</div><ul class="dlg-links"><li><a href="#r12">→ reply #12</a> <span class="dlg-link-preview">“No not yet. I will keep searching.”</span></li><li><a href="#r6">→ reply #6</a> <span class="dlg-link-preview">“Yes, I have terrible news for you Miller. You shipment has been befouled by gobl…”</span> <small class="muted">(if <code>sc_031</code>)</small></li></ul></div>
+<div class="dlg-node entry" id="e6"><div class="dlg-head"><span class="dlg-id">entry #6</span> <span class="dlg-action">→ <code>at_001</code></span></div><div class="dlg-text">My poor son! *Sobs* Ahh my son!</div><ul class="dlg-links"><li><a href="#r10">→ reply #10</a> <span class="dlg-link-preview">“*Comfort the Miller*”</span></li><li><a href="#r7">→ reply #7</a> <span class="dlg-link-preview">“Pull yourself together man you got no backbone.”</span></li></ul></div>
+<div class="dlg-node entry" id="e7"><div class="dlg-head"><span class="dlg-id">entry #7</span></div><div class="dlg-text">Hmph. *Looks at your Sternly*</div><ul class="dlg-links"><li><a href="#r9">→ reply #9</a> <span class="dlg-link-preview">“Common Folk!”</span></li><li><a href="#r8">→ reply #8</a> <span class="dlg-link-preview">“Ah there, I might have been a little stern, but think of your wife now. She will…”</span></li></ul></div>
+<div class="dlg-node entry" id="e8"><div class="dlg-head"><span class="dlg-id">entry #8</span> <span class="dlg-action">→ <code>at_002</code></span></div><div class="dlg-text">Thank you for all your hard work and toil. I owe ya. I have some gold tucked away. It was going to buy my son a trip to Gondor, he&#x27;d always wanted to see the White City. You take it. It seems right to me that you should carry it now.</div><ul class="dlg-links"><li><a href="#r11">→ reply #11</a> <span class="dlg-link-preview">“Thank you for your generosity. Have faith good Miller. Fare Well.”</span></li></ul></div>
+<h2>PC replies — flat index</h2>
 <div class="dlg-node reply" id="r0"><div class="dlg-head"><span class="dlg-id">reply #0</span></div><div class="dlg-text">I dont do chores.</div></div>
-<div class="dlg-node reply" id="r1"><div class="dlg-head"><span class="dlg-id">reply #1</span></div><div class="dlg-text">What do you require Miller?</div><div class="dlg-links"><a href="#e1">→ entry #1</a></div></div>
-<div class="dlg-node reply" id="r2"><div class="dlg-head"><span class="dlg-id">reply #2</span></div><div class="dlg-text">Go on.</div><div class="dlg-links"><a href="#e2">→ entry #2</a></div></div>
+<div class="dlg-node reply" id="r1"><div class="dlg-head"><span class="dlg-id">reply #1</span></div><div class="dlg-text">What do you require Miller?</div><ul class="dlg-links"><li><a href="#e1">→ entry #1</a> <span class="dlg-link-preview">“I recently sent out a big&#x27;old shipment of Ale to Tharbad. Its been several month…”</span></li></ul></div>
+<div class="dlg-node reply" id="r2"><div class="dlg-head"><span class="dlg-id">reply #2</span></div><div class="dlg-text">Go on.</div><ul class="dlg-links"><li><a href="#e2">→ entry #2</a> <span class="dlg-link-preview">“I know my boy and there ain&#x27;t no way heed desert his dear old pappy. If you coul…”</span></li></ul></div>
 <div class="dlg-node reply" id="r3"><div class="dlg-head"><span class="dlg-id">reply #3</span></div><div class="dlg-text">Sounds like a fools errand to me. No thanks</div></div>
-<div class="dlg-node reply" id="r4"><div class="dlg-head"><span class="dlg-id">reply #4</span></div><div class="dlg-text">I will find the Ale and your son. Take heart I shall return with word soon.</div><div class="dlg-links"><a href="#e3">→ entry #3</a></div></div>
+<div class="dlg-node reply" id="r4"><div class="dlg-head"><span class="dlg-id">reply #4</span></div><div class="dlg-text">I will find the Ale and your son. Take heart I shall return with word soon.</div><ul class="dlg-links"><li><a href="#e3">→ entry #3</a> <span class="dlg-link-preview">“Thank you much &lt;FirstName&gt;. I will be building my second shipement while I wait.…”</span></li></ul></div>
 <div class="dlg-node reply" id="r5"><div class="dlg-head"><span class="dlg-id">reply #5</span> <span class="dlg-action">→ <code>millerson</code></span></div><div class="dlg-text">Good Bye for now.</div></div>
-<div class="dlg-node reply" id="r6"><div class="dlg-head"><span class="dlg-id">reply #6</span></div><div class="dlg-text">Yes, I have terrible news for you Miller. You shipment has been befouled by goblins. And I fear your son has died at their hands. Here is the letter you sent along with your son as proof I found them.</div><div class="dlg-links"><a href="#e6">→ entry #6</a></div></div>
-<div class="dlg-node reply" id="r7"><div class="dlg-head"><span class="dlg-id">reply #7</span></div><div class="dlg-text">Pull yourself together man you got no backbone.</div><div class="dlg-links"><a href="#e7">→ entry #7</a></div></div>
-<div class="dlg-node reply" id="r8"><div class="dlg-head"><span class="dlg-id">reply #8</span></div><div class="dlg-text">Ah there, I might have been a little stern, but think of your wife now. She will need you.</div><div class="dlg-links"><a href="#e8">→ child</a></div></div>
+<div class="dlg-node reply" id="r6"><div class="dlg-head"><span class="dlg-id">reply #6</span></div><div class="dlg-text">Yes, I have terrible news for you Miller. You shipment has been befouled by goblins. And I fear your son has died at their hands. Here is the letter you sent along with your son as proof I found them.</div><ul class="dlg-links"><li><a href="#e6">→ entry #6</a> <span class="dlg-link-preview">“My poor son! *Sobs* Ahh my son!”</span></li></ul></div>
+<div class="dlg-node reply" id="r7"><div class="dlg-head"><span class="dlg-id">reply #7</span></div><div class="dlg-text">Pull yourself together man you got no backbone.</div><ul class="dlg-links"><li><a href="#e7">→ entry #7</a> <span class="dlg-link-preview">“Hmph. *Looks at your Sternly*”</span></li></ul></div>
+<div class="dlg-node reply" id="r8"><div class="dlg-head"><span class="dlg-id">reply #8</span></div><div class="dlg-text">Ah there, I might have been a little stern, but think of your wife now. She will need you.</div><ul class="dlg-links"><li><a href="#e8">→ child</a> <span class="dlg-link-preview">“Thank you for all your hard work and toil. I owe ya. I have some gold tucked awa…”</span></li></ul></div>
 <div class="dlg-node reply" id="r9"><div class="dlg-head"><span class="dlg-id">reply #9</span></div><div class="dlg-text">Common Folk!</div></div>
-<div class="dlg-node reply" id="r10"><div class="dlg-head"><span class="dlg-id">reply #10</span></div><div class="dlg-text">*Comfort the Miller*</div><div class="dlg-links"><a href="#e8">→ entry #8</a></div></div>
+<div class="dlg-node reply" id="r10"><div class="dlg-head"><span class="dlg-id">reply #10</span></div><div class="dlg-text">*Comfort the Miller*</div><ul class="dlg-links"><li><a href="#e8">→ entry #8</a> <span class="dlg-link-preview">“Thank you for all your hard work and toil. I owe ya. I have some gold tucked awa…”</span></li></ul></div>
 <div class="dlg-node reply" id="r11"><div class="dlg-head"><span class="dlg-id">reply #11</span> <span class="dlg-action">→ <code>at_003</code></span></div><div class="dlg-text">Thank you for your generosity. Have faith good Miller. Fare Well.</div></div>
 <div class="dlg-node reply" id="r12"><div class="dlg-head"><span class="dlg-id">reply #12</span></div><div class="dlg-text">No not yet. I will keep searching.</div></div>
   </main>

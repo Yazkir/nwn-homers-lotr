@@ -44,21 +44,108 @@
 <h2>Starting entries</h2><ul>
 <li><a href="#e0">entry #0</a> — Sup?</li>
 </ul>
-<h2>NPC lines (entries)</h2>
-<div class="dlg-node entry" id="e0"><div class="dlg-head"><span class="dlg-id">entry #0</span></div><div class="dlg-text">Sup?</div><div class="dlg-links"><a href="#r0">→ reply #0</a></div></div>
-<div class="dlg-node entry" id="e1"><div class="dlg-head"><span class="dlg-id">entry #1</span></div><div class="dlg-text">You currently have &lt;StartAction&gt; &lt;CUSTOM699&gt; &lt;/Start&gt; XP available for withdrawl.  I store only &lt;StartAction&gt;&lt;CUSTOM698&gt;%&lt;/Start&gt; of the total XP you deposit.  You may then transfer it to any of your characters.</div><div class="dlg-links"><a href="#r5">→ reply #5</a> · <a href="#r1">→ reply #1</a></div></div>
-<div class="dlg-node entry" id="e2"><div class="dlg-head"><span class="dlg-id">entry #2</span></div><div class="dlg-text">How Much XP would you like to withdraw?</div><div class="dlg-links"><a href="#r4">→ reply #4</a> <small class="muted">(if <code>xp_sc_50k</code>)</small> · <a href="#r3">→ reply #3</a> <small class="muted">(if <code>xp_sc_10k</code>)</small> · <a href="#r2">→ reply #2</a></div></div>
-<div class="dlg-node entry" id="e3"><div class="dlg-head"><span class="dlg-id">entry #3</span></div><div class="dlg-text">How much XP would you like to deposit?</div><div class="dlg-links"><a href="#r9">→ reply #9</a> · <a href="#r8">→ reply #8</a> · <a href="#r7">→ reply #7</a> · <a href="#r6">→ reply #6</a></div></div>
-<h2>PC replies</h2>
-<div class="dlg-node reply" id="r0"><div class="dlg-head"><span class="dlg-id">reply #0</span> <span class="dlg-action">→ <code>xp_settokens</code></span></div><div class="dlg-text">I would like to use the XP bank, and understand that I am only &#x27;keeping&#x27; a percentage of the XP that I deposit, so that I may give it to another character who uses my CD-Key.</div><div class="dlg-links"><a href="#e1">→ entry #1</a></div></div>
-<div class="dlg-node reply" id="r1"><div class="dlg-head"><span class="dlg-id">reply #1</span></div><div class="dlg-text">I would like to withdraw Experience.</div><div class="dlg-links"><a href="#e2">→ entry #2</a></div></div>
+<h2>Conversation flow</h2>
+<p class="muted">Each starting entry is expanded recursively. Repeated nodes (cycles, shared continuations) appear inline as <code>↩ link</code> backrefs to the first occurrence.</p>
+<div class="dlg-tree">
+<details class="dlg-tree-node entry" open>
+<summary><span class="dlg-id">entry #0</span> <a class="dlg-anchor" href="#e0" title="jump to flat entry #0">¶</a></summary>
+<div class="dlg-text">Sup?</div>
+<div class="dlg-tree-children">
+<details class="dlg-tree-node reply" open>
+<summary><span class="dlg-id">reply #0</span> <span class="dlg-action">→ <code>xp_settokens</code></span> <a class="dlg-anchor" href="#r0" title="jump to flat reply #0">¶</a></summary>
+<div class="dlg-text">I would like to use the XP bank, and understand that I am only &#x27;keeping&#x27; a percentage of the XP that I deposit, so that I may give it to another character who uses my CD-Key.</div>
+<div class="dlg-tree-children">
+<details class="dlg-tree-node entry" open>
+<summary><span class="dlg-id">entry #1</span> <a class="dlg-anchor" href="#e1" title="jump to flat entry #1">¶</a></summary>
+<div class="dlg-text">You currently have &lt;StartAction&gt; &lt;CUSTOM699&gt; &lt;/Start&gt; XP available for withdrawl.  I store only &lt;StartAction&gt;&lt;CUSTOM698&gt;%&lt;/Start&gt; of the total XP you deposit.  You may then transfer it to any of your characters.</div>
+<div class="dlg-tree-children">
+<details class="dlg-tree-node reply" open>
+<summary><span class="dlg-id">reply #5</span> <a class="dlg-anchor" href="#r5" title="jump to flat reply #5">¶</a></summary>
+<div class="dlg-text">I would like to deposit Experience.</div>
+<div class="dlg-tree-children">
+<details class="dlg-tree-node entry" open>
+<summary><span class="dlg-id">entry #3</span> <a class="dlg-anchor" href="#e3" title="jump to flat entry #3">¶</a></summary>
+<div class="dlg-text">How much XP would you like to deposit?</div>
+<div class="dlg-tree-children">
+<details class="dlg-tree-node reply" open>
+<summary><span class="dlg-id">reply #9</span> <span class="dlg-action">→ <code>xp_deposit_all</code></span> <a class="dlg-anchor" href="#r9" title="jump to flat reply #9">¶</a></summary>
+<div class="dlg-text">All the XP I have !</div>
+</details>
+<details class="dlg-tree-node reply" open>
+<summary><span class="dlg-id">reply #8</span> <span class="dlg-action">→ <code>xp_deposit_10k</code></span> <a class="dlg-anchor" href="#r8" title="jump to flat reply #8">¶</a></summary>
+<div class="dlg-text">10,000 Experience Points</div>
+<div class="dlg-tree-children">
+<div class="dlg-tree-ref entry-ref">↩ <a href="#e0">entry #0</a> <span class="dlg-link-preview">“Sup?”</span></div>
+<div class="dlg-tree-ref entry-ref">↩ <a href="#e0">entry #0</a> <span class="dlg-link-preview">“Sup?”</span></div>
+</div>
+</details>
+<details class="dlg-tree-node reply" open>
+<summary><span class="dlg-id">reply #7</span> <span class="dlg-action">→ <code>xp_deposit_100k</code></span> <a class="dlg-anchor" href="#r7" title="jump to flat reply #7">¶</a></summary>
+<div class="dlg-text">100,000 Experience Points.</div>
+<div class="dlg-tree-children">
+<div class="dlg-tree-ref entry-ref">↩ <a href="#e0">entry #0</a> <span class="dlg-link-preview">“Sup?”</span></div>
+</div>
+</details>
+<details class="dlg-tree-node reply" open>
+<summary><span class="dlg-id">reply #6</span> <a class="dlg-anchor" href="#r6" title="jump to flat reply #6">¶</a></summary>
+<div class="dlg-text">None, I changed my mind.</div>
+</details>
+</div>
+</details>
+</div>
+</details>
+<details class="dlg-tree-node reply" open>
+<summary><span class="dlg-id">reply #1</span> <a class="dlg-anchor" href="#r1" title="jump to flat reply #1">¶</a></summary>
+<div class="dlg-text">I would like to withdraw Experience.</div>
+<div class="dlg-tree-children">
+<details class="dlg-tree-node entry" open>
+<summary><span class="dlg-id">entry #2</span> <a class="dlg-anchor" href="#e2" title="jump to flat entry #2">¶</a></summary>
+<div class="dlg-text">How Much XP would you like to withdraw?</div>
+<div class="dlg-tree-children">
+<details class="dlg-tree-node reply" open>
+<summary><span class="dlg-id">reply #4</span> <span class="dlg-action">→ <code>xp_withdraw_50k</code></span> <small class="muted">(if <code>xp_sc_50k</code>)</small> <a class="dlg-anchor" href="#r4" title="jump to flat reply #4">¶</a></summary>
+<div class="dlg-text">50,000 Experience Points.</div>
+<div class="dlg-tree-children">
+<div class="dlg-tree-ref entry-ref">↩ <a href="#e0">entry #0</a> <span class="dlg-link-preview">“Sup?”</span></div>
+</div>
+</details>
+<details class="dlg-tree-node reply" open>
+<summary><span class="dlg-id">reply #3</span> <span class="dlg-action">→ <code>xp_withdraw_10k</code></span> <small class="muted">(if <code>xp_sc_10k</code>)</small> <a class="dlg-anchor" href="#r3" title="jump to flat reply #3">¶</a></summary>
+<div class="dlg-text">10,000 Experience Points.</div>
+<div class="dlg-tree-children">
+<div class="dlg-tree-ref entry-ref">↩ <a href="#e0">entry #0</a> <span class="dlg-link-preview">“Sup?”</span></div>
+</div>
+</details>
+<details class="dlg-tree-node reply" open>
+<summary><span class="dlg-id">reply #2</span> <a class="dlg-anchor" href="#r2" title="jump to flat reply #2">¶</a></summary>
+<div class="dlg-text">None, nevermind.</div>
+</details>
+</div>
+</details>
+</div>
+</details>
+</div>
+</details>
+</div>
+</details>
+</div>
+</details>
+</div>
+<h2>NPC lines (entries) — flat index</h2>
+<div class="dlg-node entry" id="e0"><div class="dlg-head"><span class="dlg-id">entry #0</span></div><div class="dlg-text">Sup?</div><ul class="dlg-links"><li><a href="#r0">→ reply #0</a> <span class="dlg-link-preview">“I would like to use the XP bank, and understand that I am only &#x27;keeping&#x27; a perce…”</span></li></ul></div>
+<div class="dlg-node entry" id="e1"><div class="dlg-head"><span class="dlg-id">entry #1</span></div><div class="dlg-text">You currently have &lt;StartAction&gt; &lt;CUSTOM699&gt; &lt;/Start&gt; XP available for withdrawl.  I store only &lt;StartAction&gt;&lt;CUSTOM698&gt;%&lt;/Start&gt; of the total XP you deposit.  You may then transfer it to any of your characters.</div><ul class="dlg-links"><li><a href="#r5">→ reply #5</a> <span class="dlg-link-preview">“I would like to deposit Experience.”</span></li><li><a href="#r1">→ reply #1</a> <span class="dlg-link-preview">“I would like to withdraw Experience.”</span></li></ul></div>
+<div class="dlg-node entry" id="e2"><div class="dlg-head"><span class="dlg-id">entry #2</span></div><div class="dlg-text">How Much XP would you like to withdraw?</div><ul class="dlg-links"><li><a href="#r4">→ reply #4</a> <span class="dlg-link-preview">“50,000 Experience Points.”</span> <small class="muted">(if <code>xp_sc_50k</code>)</small></li><li><a href="#r3">→ reply #3</a> <span class="dlg-link-preview">“10,000 Experience Points.”</span> <small class="muted">(if <code>xp_sc_10k</code>)</small></li><li><a href="#r2">→ reply #2</a> <span class="dlg-link-preview">“None, nevermind.”</span></li></ul></div>
+<div class="dlg-node entry" id="e3"><div class="dlg-head"><span class="dlg-id">entry #3</span></div><div class="dlg-text">How much XP would you like to deposit?</div><ul class="dlg-links"><li><a href="#r9">→ reply #9</a> <span class="dlg-link-preview">“All the XP I have !”</span></li><li><a href="#r8">→ reply #8</a> <span class="dlg-link-preview">“10,000 Experience Points”</span></li><li><a href="#r7">→ reply #7</a> <span class="dlg-link-preview">“100,000 Experience Points.”</span></li><li><a href="#r6">→ reply #6</a> <span class="dlg-link-preview">“None, I changed my mind.”</span></li></ul></div>
+<h2>PC replies — flat index</h2>
+<div class="dlg-node reply" id="r0"><div class="dlg-head"><span class="dlg-id">reply #0</span> <span class="dlg-action">→ <code>xp_settokens</code></span></div><div class="dlg-text">I would like to use the XP bank, and understand that I am only &#x27;keeping&#x27; a percentage of the XP that I deposit, so that I may give it to another character who uses my CD-Key.</div><ul class="dlg-links"><li><a href="#e1">→ entry #1</a> <span class="dlg-link-preview">“You currently have &lt;StartAction&gt; &lt;CUSTOM699&gt; &lt;/Start&gt; XP available for withdrawl…”</span></li></ul></div>
+<div class="dlg-node reply" id="r1"><div class="dlg-head"><span class="dlg-id">reply #1</span></div><div class="dlg-text">I would like to withdraw Experience.</div><ul class="dlg-links"><li><a href="#e2">→ entry #2</a> <span class="dlg-link-preview">“How Much XP would you like to withdraw?”</span></li></ul></div>
 <div class="dlg-node reply" id="r2"><div class="dlg-head"><span class="dlg-id">reply #2</span></div><div class="dlg-text">None, nevermind.</div></div>
-<div class="dlg-node reply" id="r3"><div class="dlg-head"><span class="dlg-id">reply #3</span> <span class="dlg-action">→ <code>xp_withdraw_10k</code></span></div><div class="dlg-text">10,000 Experience Points.</div><div class="dlg-links"><a href="#e0">→ child</a></div></div>
-<div class="dlg-node reply" id="r4"><div class="dlg-head"><span class="dlg-id">reply #4</span> <span class="dlg-action">→ <code>xp_withdraw_50k</code></span></div><div class="dlg-text">50,000 Experience Points.</div><div class="dlg-links"><a href="#e0">→ child</a></div></div>
-<div class="dlg-node reply" id="r5"><div class="dlg-head"><span class="dlg-id">reply #5</span></div><div class="dlg-text">I would like to deposit Experience.</div><div class="dlg-links"><a href="#e3">→ entry #3</a></div></div>
+<div class="dlg-node reply" id="r3"><div class="dlg-head"><span class="dlg-id">reply #3</span> <span class="dlg-action">→ <code>xp_withdraw_10k</code></span></div><div class="dlg-text">10,000 Experience Points.</div><ul class="dlg-links"><li><a href="#e0">→ child</a> <span class="dlg-link-preview">“Sup?”</span></li></ul></div>
+<div class="dlg-node reply" id="r4"><div class="dlg-head"><span class="dlg-id">reply #4</span> <span class="dlg-action">→ <code>xp_withdraw_50k</code></span></div><div class="dlg-text">50,000 Experience Points.</div><ul class="dlg-links"><li><a href="#e0">→ child</a> <span class="dlg-link-preview">“Sup?”</span></li></ul></div>
+<div class="dlg-node reply" id="r5"><div class="dlg-head"><span class="dlg-id">reply #5</span></div><div class="dlg-text">I would like to deposit Experience.</div><ul class="dlg-links"><li><a href="#e3">→ entry #3</a> <span class="dlg-link-preview">“How much XP would you like to deposit?”</span></li></ul></div>
 <div class="dlg-node reply" id="r6"><div class="dlg-head"><span class="dlg-id">reply #6</span></div><div class="dlg-text">None, I changed my mind.</div></div>
-<div class="dlg-node reply" id="r7"><div class="dlg-head"><span class="dlg-id">reply #7</span> <span class="dlg-action">→ <code>xp_deposit_100k</code></span></div><div class="dlg-text">100,000 Experience Points.</div><div class="dlg-links"><a href="#e0">→ child</a></div></div>
-<div class="dlg-node reply" id="r8"><div class="dlg-head"><span class="dlg-id">reply #8</span> <span class="dlg-action">→ <code>xp_deposit_10k</code></span></div><div class="dlg-text">10,000 Experience Points</div><div class="dlg-links"><a href="#e0">→ child</a> · <a href="#e0">→ child</a></div></div>
+<div class="dlg-node reply" id="r7"><div class="dlg-head"><span class="dlg-id">reply #7</span> <span class="dlg-action">→ <code>xp_deposit_100k</code></span></div><div class="dlg-text">100,000 Experience Points.</div><ul class="dlg-links"><li><a href="#e0">→ child</a> <span class="dlg-link-preview">“Sup?”</span></li></ul></div>
+<div class="dlg-node reply" id="r8"><div class="dlg-head"><span class="dlg-id">reply #8</span> <span class="dlg-action">→ <code>xp_deposit_10k</code></span></div><div class="dlg-text">10,000 Experience Points</div><ul class="dlg-links"><li><a href="#e0">→ child</a> <span class="dlg-link-preview">“Sup?”</span></li><li><a href="#e0">→ child</a> <span class="dlg-link-preview">“Sup?”</span></li></ul></div>
 <div class="dlg-node reply" id="r9"><div class="dlg-head"><span class="dlg-id">reply #9</span> <span class="dlg-action">→ <code>xp_deposit_all</code></span></div><div class="dlg-text">All the XP I have !</div></div>
   </main>
   <footer>generated by <a href="https://github.com/mrprice22/nwn-manager">nwn-manager</a></footer>

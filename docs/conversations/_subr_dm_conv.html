@@ -45,31 +45,155 @@
 <h2>Starting entries</h2><ul>
 <li><a href="#e0">entry #0</a> — &lt;StartCheck&gt;Subrace Wand:&lt;/Start&gt; What would you like to do...?</li>
 </ul>
-<h2>NPC lines (entries)</h2>
-<div class="dlg-node entry" id="e0"><div class="dlg-head"><span class="dlg-id">entry #0</span> <span class="dlg-action">→ <code>_dm_subrace_wan6</code></span></div><div class="dlg-text">&lt;StartCheck&gt;Subrace Wand:&lt;/Start&gt; What would you like to do...?</div><div class="dlg-links"><a href="#r15">→ reply #15</a> · <a href="#r1">→ reply #1</a> <small class="muted">(if <code>_dm_subrace_wan1</code>)</small> · <a href="#r0">→ reply #0</a></div></div>
-<div class="dlg-node entry" id="e1"><div class="dlg-head"><span class="dlg-id">entry #1</span></div><div class="dlg-text">What would you like to do?</div><div class="dlg-links"><a href="#r10">→ reply #10</a> · <a href="#r9">→ reply #9</a> · <a href="#r6">→ reply #6</a> · <a href="#r3">→ reply #3</a> · <a href="#r2">→ reply #2</a></div></div>
-<div class="dlg-node entry" id="e2"><div class="dlg-head"><span class="dlg-id">entry #2</span></div><div class="dlg-text">Are you sure? (This will remove the player from having any association with his/her current subrace)</div><div class="dlg-links"><a href="#r5">→ reply #5</a> · <a href="#r4">→ reply #4</a></div></div>
-<div class="dlg-node entry" id="e3"><div class="dlg-head"><span class="dlg-id">entry #3</span></div><div class="dlg-text">Are you sure? (This will simply clear the player of all subracial information and items... he/she will not be removed from the subrace completely... meaning if they re-login they will once again gain all the subracial abilities)</div><div class="dlg-links"><a href="#r8">→ reply #8</a> · <a href="#r7">→ reply #7</a></div></div>
+<h2>Conversation flow</h2>
+<p class="muted">Each starting entry is expanded recursively. Repeated nodes (cycles, shared continuations) appear inline as <code>↩ link</code> backrefs to the first occurrence.</p>
+<div class="dlg-tree">
+<details class="dlg-tree-node entry" open>
+<summary><span class="dlg-id">entry #0</span> <span class="dlg-action">→ <code>_dm_subrace_wan6</code></span> <a class="dlg-anchor" href="#e0" title="jump to flat entry #0">¶</a></summary>
+<div class="dlg-text">&lt;StartCheck&gt;Subrace Wand:&lt;/Start&gt; What would you like to do...?</div>
+<div class="dlg-tree-children">
+<details class="dlg-tree-node reply" open>
+<summary><span class="dlg-id">reply #15</span> <span class="dlg-action">→ <code>_dm_subrace_wan3</code></span> <a class="dlg-anchor" href="#r15" title="jump to flat reply #15">¶</a></summary>
+<div class="dlg-text">Show all subraces in the module.</div>
+</details>
+<details class="dlg-tree-node reply" open>
+<summary><span class="dlg-id">reply #1</span> <small class="muted">(if <code>_dm_subrace_wan1</code>)</small> <a class="dlg-anchor" href="#r1" title="jump to flat reply #1">¶</a></summary>
+<div class="dlg-text">Work with the chosen player. . . </div>
+<div class="dlg-tree-children">
+<details class="dlg-tree-node entry" open>
+<summary><span class="dlg-id">entry #1</span> <a class="dlg-anchor" href="#e1" title="jump to flat entry #1">¶</a></summary>
+<div class="dlg-text">What would you like to do?</div>
+<div class="dlg-tree-children">
+<details class="dlg-tree-node reply" open>
+<summary><span class="dlg-id">reply #10</span> <a class="dlg-anchor" href="#r10" title="jump to flat reply #10">¶</a></summary>
+<div class="dlg-text">Set a new subrace. . . </div>
+<div class="dlg-tree-children">
+<details class="dlg-tree-node entry" open>
+<summary><span class="dlg-id">entry #4</span> <span class="dlg-action">→ <code>_dm_subrace_lis4</code></span> <a class="dlg-anchor" href="#e4" title="jump to flat entry #4">¶</a></summary>
+<div class="dlg-text">This will remove the player from any of their current subrace. . . and set a new subrace. Setting a subrace through this way will NOT check any requirements for the subrace (IE: Race, Class, Alignments, etc).
+
+&lt;StartCheck&gt;Please speak the name of the subrace you want to set the player. . . &lt;/Start&gt;</div>
+<div class="dlg-tree-children">
+<details class="dlg-tree-node reply" open>
+<summary><span class="dlg-id">reply #12</span> <a class="dlg-anchor" href="#r12" title="jump to flat reply #12">¶</a></summary>
+<div class="dlg-text">I have spoken . . . [CONTINUE].</div>
+<div class="dlg-tree-children">
+<details class="dlg-tree-node entry" open>
+<summary><span class="dlg-id">entry #5</span> <small class="muted">(if <code>_dm_subrace_lis3</code>)</small> <a class="dlg-anchor" href="#e5" title="jump to flat entry #5">¶</a></summary>
+<div class="dlg-text">Setting the player&#x27;s subrace to: &lt;CUSTOM8686&gt; . . . </div>
+<div class="dlg-tree-children">
+<details class="dlg-tree-node reply" open>
+<summary><span class="dlg-id">reply #13</span> <span class="dlg-action">→ <code>_dm_subrace_lis5</code></span> <a class="dlg-anchor" href="#r13" title="jump to flat reply #13">¶</a></summary>
+<div class="dlg-text"><em>(no text)</em></div>
+<div class="dlg-tree-children">
+<details class="dlg-tree-node entry" open>
+<summary><span class="dlg-id">entry #6</span> <small class="muted">(if <code>_dm_subrace_lis3</code>)</small> <a class="dlg-anchor" href="#e6" title="jump to flat entry #6">¶</a></summary>
+<div class="dlg-text">Player&#x27;s subrace was set to: &lt;CUSTOM8686&gt;.</div>
+<div class="dlg-tree-children">
+<details class="dlg-tree-node reply" open>
+<summary><span class="dlg-id">reply #14</span> <span class="dlg-action">→ <code>_dm_subrace_lis4</code></span> <a class="dlg-anchor" href="#r14" title="jump to flat reply #14">¶</a></summary>
+<div class="dlg-text">Done.</div>
+</details>
+</div>
+</details>
+</div>
+</details>
+</div>
+</details>
+</div>
+</details>
+<details class="dlg-tree-node reply" open>
+<summary><span class="dlg-id">reply #11</span> <a class="dlg-anchor" href="#r11" title="jump to flat reply #11">¶</a></summary>
+<div class="dlg-text">End.</div>
+</details>
+</div>
+</details>
+</div>
+</details>
+<details class="dlg-tree-node reply" open>
+<summary><span class="dlg-id">reply #9</span> <span class="dlg-action">→ <code>_dm_subrace_wan2</code></span> <a class="dlg-anchor" href="#r9" title="jump to flat reply #9">¶</a></summary>
+<div class="dlg-text">Show player&#x27;s subrace information.</div>
+</details>
+<details class="dlg-tree-node reply" open>
+<summary><span class="dlg-id">reply #6</span> <span class="dlg-action">→ <code>_dm_subrace_wan4</code></span> <a class="dlg-anchor" href="#r6" title="jump to flat reply #6">¶</a></summary>
+<div class="dlg-text">Erase all subrace information stored on the player. . . </div>
+<div class="dlg-tree-children">
+<details class="dlg-tree-node entry" open>
+<summary><span class="dlg-id">entry #3</span> <a class="dlg-anchor" href="#e3" title="jump to flat entry #3">¶</a></summary>
+<div class="dlg-text">Are you sure? (This will simply clear the player of all subracial information and items... he/she will not be removed from the subrace completely... meaning if they re-login they will once again gain all the subracial abilities)</div>
+<div class="dlg-tree-children">
+<details class="dlg-tree-node reply" open>
+<summary><span class="dlg-id">reply #8</span> <span class="dlg-action">→ <code>_dm_subrace_wan4</code></span> <a class="dlg-anchor" href="#r8" title="jump to flat reply #8">¶</a></summary>
+<div class="dlg-text">Yes.</div>
+</details>
+<details class="dlg-tree-node reply" open>
+<summary><span class="dlg-id">reply #7</span> <a class="dlg-anchor" href="#r7" title="jump to flat reply #7">¶</a></summary>
+<div class="dlg-text">No.</div>
+</details>
+</div>
+</details>
+</div>
+</details>
+<details class="dlg-tree-node reply" open>
+<summary><span class="dlg-id">reply #3</span> <a class="dlg-anchor" href="#r3" title="jump to flat reply #3">¶</a></summary>
+<div class="dlg-text">Erase and remove the player from their current subrace. . . </div>
+<div class="dlg-tree-children">
+<details class="dlg-tree-node entry" open>
+<summary><span class="dlg-id">entry #2</span> <a class="dlg-anchor" href="#e2" title="jump to flat entry #2">¶</a></summary>
+<div class="dlg-text">Are you sure? (This will remove the player from having any association with his/her current subrace)</div>
+<div class="dlg-tree-children">
+<details class="dlg-tree-node reply" open>
+<summary><span class="dlg-id">reply #5</span> <span class="dlg-action">→ <code>_dm_subrace_wan5</code></span> <a class="dlg-anchor" href="#r5" title="jump to flat reply #5">¶</a></summary>
+<div class="dlg-text">Yes.</div>
+</details>
+<details class="dlg-tree-node reply" open>
+<summary><span class="dlg-id">reply #4</span> <a class="dlg-anchor" href="#r4" title="jump to flat reply #4">¶</a></summary>
+<div class="dlg-text">No.</div>
+</details>
+</div>
+</details>
+</div>
+</details>
+<details class="dlg-tree-node reply" open>
+<summary><span class="dlg-id">reply #2</span> <a class="dlg-anchor" href="#r2" title="jump to flat reply #2">¶</a></summary>
+<div class="dlg-text">Nothing.</div>
+</details>
+</div>
+</details>
+</div>
+</details>
+<details class="dlg-tree-node reply" open>
+<summary><span class="dlg-id">reply #0</span> <a class="dlg-anchor" href="#r0" title="jump to flat reply #0">¶</a></summary>
+<div class="dlg-text">Nothing.</div>
+</details>
+</div>
+</details>
+</div>
+<h2>NPC lines (entries) — flat index</h2>
+<div class="dlg-node entry" id="e0"><div class="dlg-head"><span class="dlg-id">entry #0</span> <span class="dlg-action">→ <code>_dm_subrace_wan6</code></span></div><div class="dlg-text">&lt;StartCheck&gt;Subrace Wand:&lt;/Start&gt; What would you like to do...?</div><ul class="dlg-links"><li><a href="#r15">→ reply #15</a> <span class="dlg-link-preview">“Show all subraces in the module.”</span></li><li><a href="#r1">→ reply #1</a> <span class="dlg-link-preview">“Work with the chosen player. . .”</span> <small class="muted">(if <code>_dm_subrace_wan1</code>)</small></li><li><a href="#r0">→ reply #0</a> <span class="dlg-link-preview">“Nothing.”</span></li></ul></div>
+<div class="dlg-node entry" id="e1"><div class="dlg-head"><span class="dlg-id">entry #1</span></div><div class="dlg-text">What would you like to do?</div><ul class="dlg-links"><li><a href="#r10">→ reply #10</a> <span class="dlg-link-preview">“Set a new subrace. . .”</span></li><li><a href="#r9">→ reply #9</a> <span class="dlg-link-preview">“Show player&#x27;s subrace information.”</span></li><li><a href="#r6">→ reply #6</a> <span class="dlg-link-preview">“Erase all subrace information stored on the player. . .”</span></li><li><a href="#r3">→ reply #3</a> <span class="dlg-link-preview">“Erase and remove the player from their current subrace. . .”</span></li><li><a href="#r2">→ reply #2</a> <span class="dlg-link-preview">“Nothing.”</span></li></ul></div>
+<div class="dlg-node entry" id="e2"><div class="dlg-head"><span class="dlg-id">entry #2</span></div><div class="dlg-text">Are you sure? (This will remove the player from having any association with his/her current subrace)</div><ul class="dlg-links"><li><a href="#r5">→ reply #5</a> <span class="dlg-link-preview">“Yes.”</span></li><li><a href="#r4">→ reply #4</a> <span class="dlg-link-preview">“No.”</span></li></ul></div>
+<div class="dlg-node entry" id="e3"><div class="dlg-head"><span class="dlg-id">entry #3</span></div><div class="dlg-text">Are you sure? (This will simply clear the player of all subracial information and items... he/she will not be removed from the subrace completely... meaning if they re-login they will once again gain all the subracial abilities)</div><ul class="dlg-links"><li><a href="#r8">→ reply #8</a> <span class="dlg-link-preview">“Yes.”</span></li><li><a href="#r7">→ reply #7</a> <span class="dlg-link-preview">“No.”</span></li></ul></div>
 <div class="dlg-node entry" id="e4"><div class="dlg-head"><span class="dlg-id">entry #4</span> <span class="dlg-action">→ <code>_dm_subrace_lis4</code></span></div><div class="dlg-text">This will remove the player from any of their current subrace. . . and set a new subrace. Setting a subrace through this way will NOT check any requirements for the subrace (IE: Race, Class, Alignments, etc).
 
-&lt;StartCheck&gt;Please speak the name of the subrace you want to set the player. . . &lt;/Start&gt;</div><div class="dlg-links"><a href="#r12">→ reply #12</a> · <a href="#r11">→ reply #11</a></div></div>
-<div class="dlg-node entry" id="e5"><div class="dlg-head"><span class="dlg-id">entry #5</span></div><div class="dlg-text">Setting the player&#x27;s subrace to: &lt;CUSTOM8686&gt; . . . </div><div class="dlg-links"><a href="#r13">→ reply #13</a></div></div>
-<div class="dlg-node entry" id="e6"><div class="dlg-head"><span class="dlg-id">entry #6</span></div><div class="dlg-text">Player&#x27;s subrace was set to: &lt;CUSTOM8686&gt;.</div><div class="dlg-links"><a href="#r14">→ reply #14</a></div></div>
-<h2>PC replies</h2>
+&lt;StartCheck&gt;Please speak the name of the subrace you want to set the player. . . &lt;/Start&gt;</div><ul class="dlg-links"><li><a href="#r12">→ reply #12</a> <span class="dlg-link-preview">“I have spoken . . . [CONTINUE].”</span></li><li><a href="#r11">→ reply #11</a> <span class="dlg-link-preview">“End.”</span></li></ul></div>
+<div class="dlg-node entry" id="e5"><div class="dlg-head"><span class="dlg-id">entry #5</span></div><div class="dlg-text">Setting the player&#x27;s subrace to: &lt;CUSTOM8686&gt; . . . </div><ul class="dlg-links"><li><a href="#r13">→ reply #13</a></li></ul></div>
+<div class="dlg-node entry" id="e6"><div class="dlg-head"><span class="dlg-id">entry #6</span></div><div class="dlg-text">Player&#x27;s subrace was set to: &lt;CUSTOM8686&gt;.</div><ul class="dlg-links"><li><a href="#r14">→ reply #14</a> <span class="dlg-link-preview">“Done.”</span></li></ul></div>
+<h2>PC replies — flat index</h2>
 <div class="dlg-node reply" id="r0"><div class="dlg-head"><span class="dlg-id">reply #0</span></div><div class="dlg-text">Nothing.</div></div>
-<div class="dlg-node reply" id="r1"><div class="dlg-head"><span class="dlg-id">reply #1</span></div><div class="dlg-text">Work with the chosen player. . . </div><div class="dlg-links"><a href="#e1">→ entry #1</a></div></div>
+<div class="dlg-node reply" id="r1"><div class="dlg-head"><span class="dlg-id">reply #1</span></div><div class="dlg-text">Work with the chosen player. . . </div><ul class="dlg-links"><li><a href="#e1">→ entry #1</a> <span class="dlg-link-preview">“What would you like to do?”</span></li></ul></div>
 <div class="dlg-node reply" id="r2"><div class="dlg-head"><span class="dlg-id">reply #2</span></div><div class="dlg-text">Nothing.</div></div>
-<div class="dlg-node reply" id="r3"><div class="dlg-head"><span class="dlg-id">reply #3</span></div><div class="dlg-text">Erase and remove the player from their current subrace. . . </div><div class="dlg-links"><a href="#e2">→ entry #2</a></div></div>
+<div class="dlg-node reply" id="r3"><div class="dlg-head"><span class="dlg-id">reply #3</span></div><div class="dlg-text">Erase and remove the player from their current subrace. . . </div><ul class="dlg-links"><li><a href="#e2">→ entry #2</a> <span class="dlg-link-preview">“Are you sure? (This will remove the player from having any association with his/…”</span></li></ul></div>
 <div class="dlg-node reply" id="r4"><div class="dlg-head"><span class="dlg-id">reply #4</span></div><div class="dlg-text">No.</div></div>
 <div class="dlg-node reply" id="r5"><div class="dlg-head"><span class="dlg-id">reply #5</span> <span class="dlg-action">→ <code>_dm_subrace_wan5</code></span></div><div class="dlg-text">Yes.</div></div>
-<div class="dlg-node reply" id="r6"><div class="dlg-head"><span class="dlg-id">reply #6</span> <span class="dlg-action">→ <code>_dm_subrace_wan4</code></span></div><div class="dlg-text">Erase all subrace information stored on the player. . . </div><div class="dlg-links"><a href="#e3">→ entry #3</a></div></div>
+<div class="dlg-node reply" id="r6"><div class="dlg-head"><span class="dlg-id">reply #6</span> <span class="dlg-action">→ <code>_dm_subrace_wan4</code></span></div><div class="dlg-text">Erase all subrace information stored on the player. . . </div><ul class="dlg-links"><li><a href="#e3">→ entry #3</a> <span class="dlg-link-preview">“Are you sure? (This will simply clear the player of all subracial information an…”</span></li></ul></div>
 <div class="dlg-node reply" id="r7"><div class="dlg-head"><span class="dlg-id">reply #7</span></div><div class="dlg-text">No.</div></div>
 <div class="dlg-node reply" id="r8"><div class="dlg-head"><span class="dlg-id">reply #8</span> <span class="dlg-action">→ <code>_dm_subrace_wan4</code></span></div><div class="dlg-text">Yes.</div></div>
 <div class="dlg-node reply" id="r9"><div class="dlg-head"><span class="dlg-id">reply #9</span> <span class="dlg-action">→ <code>_dm_subrace_wan2</code></span></div><div class="dlg-text">Show player&#x27;s subrace information.</div></div>
-<div class="dlg-node reply" id="r10"><div class="dlg-head"><span class="dlg-id">reply #10</span></div><div class="dlg-text">Set a new subrace. . . </div><div class="dlg-links"><a href="#e4">→ entry #4</a></div></div>
+<div class="dlg-node reply" id="r10"><div class="dlg-head"><span class="dlg-id">reply #10</span></div><div class="dlg-text">Set a new subrace. . . </div><ul class="dlg-links"><li><a href="#e4">→ entry #4</a> <span class="dlg-link-preview">“This will remove the player from any of their current subrace. . . and set a new…”</span></li></ul></div>
 <div class="dlg-node reply" id="r11"><div class="dlg-head"><span class="dlg-id">reply #11</span></div><div class="dlg-text">End.</div></div>
-<div class="dlg-node reply" id="r12"><div class="dlg-head"><span class="dlg-id">reply #12</span></div><div class="dlg-text">I have spoken . . . [CONTINUE].</div><div class="dlg-links"><a href="#e5">→ entry #5</a> <small class="muted">(if <code>_dm_subrace_lis3</code>)</small></div></div>
-<div class="dlg-node reply" id="r13"><div class="dlg-head"><span class="dlg-id">reply #13</span> <span class="dlg-action">→ <code>_dm_subrace_lis5</code></span></div><div class="dlg-text"><em>(no text)</em></div><div class="dlg-links"><a href="#e6">→ entry #6</a> <small class="muted">(if <code>_dm_subrace_lis3</code>)</small></div></div>
+<div class="dlg-node reply" id="r12"><div class="dlg-head"><span class="dlg-id">reply #12</span></div><div class="dlg-text">I have spoken . . . [CONTINUE].</div><ul class="dlg-links"><li><a href="#e5">→ entry #5</a> <span class="dlg-link-preview">“Setting the player&#x27;s subrace to: &lt;CUSTOM8686&gt; . . .”</span> <small class="muted">(if <code>_dm_subrace_lis3</code>)</small></li></ul></div>
+<div class="dlg-node reply" id="r13"><div class="dlg-head"><span class="dlg-id">reply #13</span> <span class="dlg-action">→ <code>_dm_subrace_lis5</code></span></div><div class="dlg-text"><em>(no text)</em></div><ul class="dlg-links"><li><a href="#e6">→ entry #6</a> <span class="dlg-link-preview">“Player&#x27;s subrace was set to: &lt;CUSTOM8686&gt;.”</span> <small class="muted">(if <code>_dm_subrace_lis3</code>)</small></li></ul></div>
 <div class="dlg-node reply" id="r14"><div class="dlg-head"><span class="dlg-id">reply #14</span> <span class="dlg-action">→ <code>_dm_subrace_lis4</code></span></div><div class="dlg-text">Done.</div></div>
 <div class="dlg-node reply" id="r15"><div class="dlg-head"><span class="dlg-id">reply #15</span> <span class="dlg-action">→ <code>_dm_subrace_wan3</code></span></div><div class="dlg-text">Show all subraces in the module.</div></div>
   </main>
