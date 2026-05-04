@@ -1,0 +1,72 @@
+#!/usr/bin/env bash
+# serve — launch the Homer's LOTR VEL v3 dedicated server in podman.
+#
+# Reads ../server.env for all tuning. Pass any extra args you'd give
+# `podman run` (e.g. `--detach`); they are appended after the env-derived
+# flags. Default mode is foreground with stdout streaming so the app-grid
+# launcher window shows server output.
+#
+# Stop a backgrounded run with: podman stop -t 8 nwnxee-homer
+
+set -euo pipefail
+
+PROJECT_ROOT=$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)
+ENV_FILE="$PROJECT_ROOT/server.env"
+LOCAL_ENV_FILE="$PROJECT_ROOT/server.env.local"
+
+if [[ ! -f $ENV_FILE ]]; then
+  echo "error: $ENV_FILE not found" >&2
+  exit 1
+fi
+
+# shellcheck disable=SC1090
+. "$ENV_FILE"
+if [[ -f $LOCAL_ENV_FILE ]]; then
+  # shellcheck disable=SC1090
+  . "$LOCAL_ENV_FILE"
+fi
+
+mkdir -p "$NWN_RUN_DIR"
+
+# Stop any prior instance so the bind-mounted /nwn/run isn't fought over.
+if podman container exists "$NWN_CONTAINER_NAME" 2>/dev/null; then
+  echo "[serve] stopping existing $NWN_CONTAINER_NAME"
+  podman stop -t 8 "$NWN_CONTAINER_NAME" >/dev/null 2>&1 || true
+  podman rm -f "$NWN_CONTAINER_NAME" >/dev/null 2>&1 || true
+fi
+
+# Build the env-var list. Only NWN_ prefixed vars and NWNX_ prefixed vars
+# are forwarded — intentional, so accidental shell vars don't leak in.
+env_files=("$ENV_FILE")
+[[ -f $LOCAL_ENV_FILE ]] && env_files+=("$LOCAL_ENV_FILE")
+env_args=()
+while IFS='=' read -r k _; do
+  case "$k" in
+    NWN_IMAGE|NWN_CONTAINER_NAME|NWN_RUN_DIR|NWN_HOME_DIR) continue ;;
+    NWN_*|NWNX_*) env_args+=(-e "$k=${!k}") ;;
+  esac
+done < <(cat "${env_files[@]}" | grep -E '^[A-Z_][A-Z0-9_]*=')
+
+echo "[serve] image:   $NWN_IMAGE"
+echo "[serve] module:  $NWN_MODULE"
+echo "[serve] port:    ${NWN_PORT}/udp"
+echo "[serve] runtime: $NWN_RUN_DIR"
+echo "[serve] logs:    $NWN_RUN_DIR/logs/  (also: podman logs $NWN_CONTAINER_NAME)"
+echo
+
+exec podman run --rm --name "$NWN_CONTAINER_NAME" \
+  --userns=keep-id --user "$(id -u):$(id -g)" \
+  --network=host \
+  "${env_args[@]}" \
+  -v "$NWN_RUN_DIR:/nwn/run:rw,Z" \
+  -v "$NWN_HOME_DIR:/nwn/home:rw,z" \
+  "$@" \
+  "$NWN_IMAGE"
+
+# Note: --network=host (instead of `-p 5121:5121/udp`) is required so the
+# container sees UDP *broadcast* packets from LAN clients running the
+# multiplayer server browser. Pasta (rootless podman's default userspace
+# net) port-forwards unicast only; broadcast probes never reach the
+# container, so the server stays invisible to the LAN list. With host
+# networking the container binds NWN_PORT directly on the host's
+# interfaces, picks up broadcasts, and shows up in the LAN browser.
