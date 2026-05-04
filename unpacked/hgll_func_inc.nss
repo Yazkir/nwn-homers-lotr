@@ -125,7 +125,7 @@ int GetIsClassFeat(int nFeat, int nClass, object oPC);
 
 int CheckLegendaryLevel(object oPC)
 {
-int nLevel = GetLootable(oPC);
+int nLevel = HGLL_GetDocumentedLevel(oPC);
 if (nLevel<41)
     {
     return GetHitDice(oPC);

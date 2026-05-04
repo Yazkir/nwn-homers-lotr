@@ -237,6 +237,7 @@ void HandleSelection()
                 sChange = GetLocalString(oPC, "LastResponse") + ", ";
                 nChange = GetLocalInt(oPC, "LastResponseInt");
                 DoDebug(oPC, "LastResponseInt: " + IntToString(nChange));
+                HGLL_AddSkillPoint(oPC, nChange);
                 sLeto += AddSkillPoint(nChange);
                 SetLocalString(oPC, "LetoscriptLL", sLeto);
                 sTrack += sChange;
@@ -319,6 +320,7 @@ void HandleSelection()
                 sTrack = GetLocalString(oPC, "TrackChanges");//String to track description of changes to be made
                 sChange = GetLocalString(oPC, "LastResponse") + ", ";
                 nChange = GetLocalInt(oPC, "LastResponseInt");
+                HGLL_AddFeat(oPC, nChange);
                 sLeto += AddFeat(nChange);
                 SetLocalString(oPC, "LetoscriptLL", sLeto);
                 sTrack += sChange;
@@ -358,6 +360,7 @@ void HandleSelection()
                 sTrack = GetLocalString(oPC, "TrackChanges");//String to track description of changes to be made
                 sChange = GetLocalString(oPC, "LastResponse") + ", ";
                 nChange = GetLocalInt(oPC, "LastResponseInt");
+                HGLL_AddStatPoint(oPC, nChange);
                 sLeto += AddStatPoint(nChange);
                 DoDebug(oPC, "Leto String: " + sLeto);
                 SetLocalString(oPC, "LetoscriptLL", sLeto);
@@ -375,29 +378,28 @@ void HandleSelection()
         switch( selection )
             {
             case 0: // Yes
-                 sLeto = GetLocalString(oPC, "LetoscriptLL");//String to track Letoscript changes to be made
+                 sLeto = GetLocalString(oPC, "LetoscriptLL");//String to track Letoscript changes to be made (now unused; see hgll_leto_inc port notes)
                  nHP = GetHitPointsGainedOnLevelUp(oPC);//calcualate hit point gain
-                 nLevel = GetLootable(oPC);
-                 sLeto += AddHitPoints(nHP, nLevel);
+                 nLevel = HGLL_GetDocumentedLevel(oPC);
+                 HGLL_AddHitPoints(oPC, nHP, nLevel);
                  if (GetGainsSavesOnLevelUp(oPC))
                     {
-                    sLeto += ModifySaves();
+                    HGLL_ModifySaves(oPC);
                     }
-                 nLootable = GetLootable(oPC);//track the PC's level with lootable
+                 nLootable = HGLL_GetDocumentedLevel(oPC);//track the PC's HGLL level
                  if (nLootable < 41)
                     {
-                    sLeto += SetDocumentedLevel(41);
+                    HGLL_SetDocumentedLevel(oPC, 41);
                     }
                  else
                     {
                     nLootable++;
-                    sLeto += SetDocumentedLevel(nLootable);
+                    HGLL_SetDocumentedLevel(oPC, nLootable);
                     }
-                 DoDebug(oPC, "Leto String: " + sLeto);
                  //SubtractXPForNextLL(oPC);
                  nPointsAvailable = GetLocalInt(oPC, "PointsAvailable");//check to see if any skill points left over
                  SetPersistentInt(oPC, "PointsAvailable", nPointsAvailable);//if so, store them for use for next level
-                 ApplyLetoScriptToPC(sLeto, oPC);
+                 HGLL_FlushChanges(oPC);
                  EndDlg();
                  break;
             case 1: // No

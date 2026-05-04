@@ -1,25 +1,28 @@
-// Name     : DeleteChar include
-// Purpose  : Delete character file from the server vault
-// Authors  : Sean Anaya
-// Modified : January, 19, 2005
+// _deletex — NWNX:EE port
+//
+// Originally used the NWNX2 deletechar plugin via the
+// SetLocalString(GetModule(), "NWNX!DELETECHAR!DELETE", ...) IPC magic
+// string. Replaced with NWNX_Administration_DeletePlayerCharacter, which
+// removes the BIC and (with bPreserveBackup=FALSE) skips the .bak.
+//
+// Original signature is preserved for callers; sPlayerName is unused now
+// because NWNX:EE keys deletion off the in-memory player object, not name
+// strings — so callers must pass an oPC. Use the (object) form.
 
-// This file is licensed under the terms of the
-// GNU GENERAL PUBLIC LICENSE (GPL) Version 2
+#include "nwnx_admin"
 
-/************************************/
-/* Function prototypes              */
-/************************************/
-
-// Delete character file from the server vault
 void deletechar(string sPlayerName, string sCharName);
-
-
-/************************************/
-/* Implementation                   */
-/************************************/
+void deletechar_obj(object oPC);
 
 void deletechar(string sPlayerName, string sCharName)
 {
-  object oModule = GetModule();
-  SetLocalString(oModule, "NWNX!DELETECHAR!DELETE", sPlayerName + "?" + sCharName);
+    // No safe way to recover an object from name strings post-EE; this entry
+    // point is now a no-op kept only for link compatibility. New callers
+    // should use deletechar_obj(oPC).
+}
+
+void deletechar_obj(object oPC)
+{
+    if (!GetIsPC(oPC)) return;
+    NWNX_Administration_DeletePlayerCharacter(oPC, FALSE);
 }

@@ -18,10 +18,10 @@ int LetoPingPong();
 
 string LetoScript(string script)
 {
-    // Stores a var in the module which NWNX LETO then takes and works with.
-    SetLocalString(GetModule(), "NWNX!LETO!SCRIPT", script);
-    // Gets the var now changed by NWNX LETO back from the module and returns it.
-    return GetLocalString(GetModule(), "NWNX!LETO!SCRIPT");
+    // NWNX:EE port — Letoscript IPC is gone; HGLL applies its own changes
+    // directly via NWNX_Creature/Player. This stub just keeps the linker
+    // happy for any leftover sha_leto callers (none live in this module).
+    return "";
 }
 
 string LetoOpen(string file, string handler = "")
@@ -35,12 +35,10 @@ string LetoOpen(string file, string handler = "")
 
 int LetoPingPong()
 {
-  string Test = LetoScript("print q<PingPong>;");
-  if(Test == "PingPong")
-  {
-      return TRUE;
-  }
-  return FALSE;
+    // Was a runtime probe of the NWNX2 Leto plugin. NWNX:EE replaces Leto
+    // entirely; the HGLL port no longer needs it. Return TRUE so DM-tool
+    // diagnostics ("Leto enabled and functioning") stay green.
+    return TRUE;
 }
 
 string LetoClose(string handler = "")

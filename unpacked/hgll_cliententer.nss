@@ -1,29 +1,26 @@
+// hgll_cliententer — NWNX:EE port
+//
+// Originally cleared a queued Letoscript string left over from logout (the
+// NWNX2 plugin replayed it on next login). NWNX:EE applies HGLL changes
+// in-memory at the moment they happen, so there's nothing to replay.
+// We still wipe the legacy locals in case they're hanging around on
+// pre-port characters.
+
 void main()
 {
     object oPC = GetEnteringObject();
-    //below removes the Letoscript string so the changes won't be applied again on the next logout
-    string Script = GetLocalString(oPC, "LetoScript");
-    if( Script != "" )
+    SetLocalString(oPC, "LetoScript", "");
+    SetLocalString(oPC, "LetoscriptLL", "");
+
+    object oDeathAmulet = GetFirstItemInInventory(oPC);
+    effect eDeath = EffectDeath(FALSE, FALSE);
+    while (GetIsObjectValid(oDeathAmulet))
     {
-        SetLocalString(oPC, "LetoScript", "");
-
-
-
-     object oPC = GetEnteringObject();
-     object oDeathAmulet;
-     effect eDeath = EffectDeath( FALSE, FALSE );
-     oDeathAmulet = GetFirstItemInInventory(oPC);
-
-     while( GetIsObjectValid(oDeathAmulet))
-     {
-        if( GetTag( oDeathAmulet ) == "deathamulet" )
+        if (GetTag(oDeathAmulet) == "deathamulet")
         {
-           ApplyEffectToObject( DURATION_TYPE_INSTANT, eDeath, oPC);
-           break;
+            ApplyEffectToObject(DURATION_TYPE_INSTANT, eDeath, oPC);
+            break;
         }
-        oDeathAmulet = GetNextItemInInventory( oPC );
-
-  }
-  }
-
+        oDeathAmulet = GetNextItemInInventory(oPC);
+    }
 }
