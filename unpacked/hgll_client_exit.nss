@@ -6,10 +6,12 @@
 // from the leveler dialog itself, so there's nothing to do here.
 
 #include "hgll_func_inc"
+#include "pers_state_inc"
 
 void main()
 {
     object PC = GetExitingObject();
+    PersState_Snapshot(PC);
     SetLocalString(PC, "LetoScript", "");
     SetLocalString(PC, "LetoscriptLL", "");
 }
