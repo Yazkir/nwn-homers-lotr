@@ -11,6 +11,6 @@ if (DoOnce==TRUE) return;
 
 SetLocalInt(oPC, GetTag(OBJECT_SELF), TRUE);
 
-FloatingTextStringOnCreature("Join the forums. Register today!!  Homerspad.14.forumer.com ", oPC);
+FloatingTextStringOnCreature("Join the discord at https://discord.gg/VpAtSpe", oPC);
 
 }
