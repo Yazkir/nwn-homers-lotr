@@ -14,12 +14,16 @@
 // PersState_Restore deliberately skips HP restoration when the saved
 // HP is <= 0 so the deathamulet path is the sole arbiter of death.
 
-#include "nwnx_creature"
-#include "nwnx_object"
+#include "nwnx_creature"   // still used for GetFeatRemainingUses / Set
+#include "nwnx_object"     // SetInt persistence + SetCurrentHitPoints
+#include "nwnx_player"     // UpdateCharacterSheet
 
 const string PERS_HP            = "pers_hp";
 const string PERS_HP_VALID      = "pers_hp_valid";
-const string PERS_SLOT_PREFIX   = "pers_slot_";    // + "<class>_<level>"
+const string PERS_MSP_PREFIX    = "pers_msp_";     // + "<class>_<level>_<idx>"
+                                                   // 0 = not snapshotted,
+                                                   // 1 = snapshotted not-ready,
+                                                   // 2 = snapshotted ready
 const string PERS_FEAT_PREFIX   = "pers_feat_";    // + "<featId>"
 
 // Daily-use feats to track. Edit this single array to add more
@@ -80,11 +84,18 @@ void PersState_Snapshot(object oPC)
         if (nClassType == CLASS_TYPE_INVALID) continue;
         for (nLevel = 0; nLevel <= 9; nLevel++)
         {
-            if (NWNX_Creature_GetMaxSpellSlots(oPC, nClassType, nLevel) <= 0) continue;
-            int nRem = NWNX_Creature_GetRemainingSpellSlots(oPC, nClassType, nLevel);
-            NWNX_Object_SetInt(oPC,
-                PERS_SLOT_PREFIX + IntToString(nClassType) + "_" + IntToString(nLevel),
-                nRem, TRUE);
+            // Prepared casters: snapshot the per-slot Ready flag using
+            // stock APIs. NWNX_Creature_GetRemainingSpellSlots in this
+            // build returns 0 unconditionally, so we can't rely on it.
+            int nCount = GetMemorizedSpellCountByLevel(oPC, nClassType, nLevel);
+            for (i = 0; i < nCount; i++)
+            {
+                int bReady = GetMemorizedSpellReady(oPC, nClassType, nLevel, i);
+                NWNX_Object_SetInt(oPC,
+                    PERS_MSP_PREFIX + IntToString(nClassType) + "_"
+                        + IntToString(nLevel) + "_" + IntToString(i),
+                    bReady ? 2 : 1, TRUE);
+            }
         }
     }
 
@@ -110,12 +121,21 @@ void PersState_Restore(object oPC)
         if (nClassType == CLASS_TYPE_INVALID) continue;
         for (nLevel = 0; nLevel <= 9; nLevel++)
         {
-            int nMax = NWNX_Creature_GetMaxSpellSlots(oPC, nClassType, nLevel);
-            if (nMax <= 0) continue;
-            string sKey = PERS_SLOT_PREFIX + IntToString(nClassType) + "_" + IntToString(nLevel);
-            int nRem = NWNX_Object_GetInt(oPC, sKey);
-            if (nRem >= 0 && nRem <= nMax)
-                NWNX_Creature_SetRemainingSpellSlots(oPC, nClassType, nLevel, nRem);
+            int nCount = GetMemorizedSpellCountByLevel(oPC, nClassType, nLevel);
+            for (i = 0; i < nCount; i++)
+            {
+                int nState = NWNX_Object_GetInt(oPC,
+                    PERS_MSP_PREFIX + IntToString(nClassType) + "_"
+                        + IntToString(nLevel) + "_" + IntToString(i));
+                if (nState == 0) continue; // never snapshotted
+                int bSavedReady = (nState == 2);
+                // Engine restores all prepared slots to ready on enter;
+                // only flip back to not-ready those the snapshot says
+                // were spent. Don't go the other way (snap back to
+                // ready) — we only ever take spells away, never give.
+                if (!bSavedReady && GetMemorizedSpellReady(oPC, nClassType, nLevel, i))
+                    SetMemorizedSpellReady(oPC, nClassType, nLevel, i, FALSE);
+            }
         }
     }
 
@@ -144,4 +164,8 @@ void PersState_Restore(object oPC)
         if (nSaved > 0 && nSaved < GetCurrentHitPoints(oPC))
             NWNX_Object_SetCurrentHitPoints(oPC, nSaved);
     }
+
+    // Force the client's character sheet / spellbook UI to redraw so
+    // restored spell-slot and feat-use counts are visible immediately.
+    NWNX_Player_UpdateCharacterSheet(oPC);
 }

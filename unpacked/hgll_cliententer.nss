@@ -33,5 +33,5 @@ void main()
     SetLocalString(oPC, "LetoScript", "");
     SetLocalString(oPC, "LetoscriptLL", "");
 
-    DelayCommand(3.0, HgllPostEnter(oPC));
+    DelayCommand(1.0, HgllPostEnter(oPC));
 }
