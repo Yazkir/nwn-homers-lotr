@@ -1,0 +1,390 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Script nw_s0_summon</title>
+  <link rel="stylesheet" href="../assets/style.css">
+</head>
+<body>
+  <header class="site-header">
+    <a class="brand" href="../index.html">Module Wiki</a>
+    <nav>
+      <a href="../index.html">Map</a>
+      <a href="../areas/index.html">Areas</a>
+      <a href="../creatures/index.html">Creature Blueprints</a>
+      <a href="../creatures/instances/index.html">Creature Instances</a>
+      <a href="../items/index.html">Items</a>
+      <a href="../stores/index.html">Stores</a>
+      <a href="../conversations/index.html">Conversations</a>
+      <a href="../factions.html">Factions</a>
+      <a href="../journal.html">Journal</a>
+    </nav>
+  </header>
+  <main>
+<h1>Script: <code>nw_s0_summon</code></h1><pre class="nss-source"><code>//::///////////////////////////////////////////////
+//:: Summon Creature Series
+//:: NW_S0_Summon
+//:: Copyright (c) 2001 Bioware Corp.
+//:://////////////////////////////////////////////
+/*
+    Carries out the summoning of the appropriate
+    creature for the Summon Monster Series of spells
+    1 to 9
+*/
+//:://////////////////////////////////////////////
+//:: Created By: Preston Watamaniuk
+//:: Created On: Jan 8, 2002
+//:://////////////////////////////////////////////
+
+effect SetSummonEffect(int nSpellID);
+
+void main()
+{
+    //Declare major variables
+    int nSpellID = GetSpellId();
+    int nDuration = GetCasterLevel(OBJECT_SELF);
+    nDuration = 24;
+    if(nDuration == 1)
+    {
+        nDuration = 2;
+    }
+    effect eSummon = SetSummonEffect(nSpellID);
+
+    //Make metamagic check for extend
+    int nMetaMagic = GetMetaMagicFeat();
+    if (nMetaMagic == METAMAGIC_EXTEND)
+    {
+        nDuration = nDuration *2;   //Duration is +100%
+    }
+    //Apply the VFX impact and summon effect
+
+    ApplyEffectAtLocation(DURATION_TYPE_TEMPORARY, eSummon, GetSpellTargetLocation(), HoursToSeconds(nDuration));
+}
+
+
+effect SetSummonEffect(int nSpellID)
+{
+    int nFNF_Effect;
+    int nRoll = d3();
+    string sSummon;
+    if(GetHasFeat(FEAT_ANIMAL_DOMAIN_POWER)) //WITH THE ANIMAL DOMAIN
+    {
+        if(nSpellID == SPELL_SUMMON_CREATURE_I)
+        {
+            nFNF_Effect = VFX_FNF_SUMMON_MONSTER_1;
+            sSummon = &quot;NW_S_BOARDIRE&quot;;
+        }
+        else if(nSpellID == SPELL_SUMMON_CREATURE_II)
+        {
+            nFNF_Effect = VFX_FNF_SUMMON_MONSTER_1;
+            sSummon = &quot;NW_S_WOLFDIRE&quot;;
+        }
+        else if(nSpellID == SPELL_SUMMON_CREATURE_III)
+        {
+            nFNF_Effect = VFX_FNF_SUMMON_MONSTER_1;
+            sSummon = &quot;NW_S_SPIDDIRE&quot;;
+        }
+        else if(nSpellID == SPELL_SUMMON_CREATURE_IV)
+        {
+            nFNF_Effect = VFX_FNF_SUMMON_MONSTER_2;
+            sSummon = &quot;NW_S_beardire&quot;;
+        }
+        else if(nSpellID == SPELL_SUMMON_CREATURE_V)
+        {
+            nFNF_Effect = VFX_FNF_SUMMON_MONSTER_2;
+            sSummon = &quot;NW_S_diretiger&quot;;
+        }
+        else if(nSpellID == SPELL_SUMMON_CREATURE_VI)
+        {
+            nFNF_Effect = VFX_FNF_SUMMON_MONSTER_3;
+            switch (nRoll)
+            {
+                case 1:
+                    sSummon = &quot;NW_S_AIRHUGE&quot;;
+                break;
+
+                case 2:
+                    sSummon = &quot;NW_S_WATERHUGE&quot;;
+                break;
+
+                case 3:
+                    sSummon = &quot;NW_S_FIREHUGE&quot;;
+                break;
+            }
+        }
+        else if(nSpellID == SPELL_SUMMON_CREATURE_VII)
+        {
+            nFNF_Effect = VFX_FNF_SUMMON_MONSTER_3;
+            switch (nRoll)
+            {
+                case 1:
+                    sSummon = &quot;NW_S_AIRGREAT&quot;;
+                break;
+
+                case 2:
+                    sSummon = &quot;NW_S_WATERGREAT&quot;;
+                break;
+
+                case 3:
+                    sSummon = &quot;NW_S_FIREGREAT&quot;;
+                break;
+            }
+        }
+        else if(nSpellID == SPELL_SUMMON_CREATURE_VIII)
+        {
+            nFNF_Effect = VFX_FNF_SUMMON_MONSTER_3;
+            switch (nRoll)
+            {
+                case 1:
+                    sSummon = &quot;NW_S_AIRELDER&quot;;
+                break;
+
+                case 2:
+                    sSummon = &quot;NW_S_WATERELDER&quot;;
+                break;
+
+                case 3:
+                    sSummon = &quot;NW_S_FIREELDER&quot;;
+                break;
+            }
+        }
+        else if(nSpellID == SPELL_SUMMON_CREATURE_IX)
+        {
+            nFNF_Effect = VFX_FNF_SUMMON_MONSTER_3;
+            switch (nRoll)
+            {
+                case 1:
+                    sSummon = &quot;NW_S_AIRELDER&quot;;
+                break;
+
+                case 2:
+                    sSummon = &quot;NW_S_WATERELDER&quot;;
+                break;
+
+                case 3:
+                    sSummon = &quot;NW_S_FIREELDER&quot;;
+                break;
+            }
+        }
+    }
+    else  //WITOUT THE ANIMAL DOMAIN
+    {
+        if(nSpellID == SPELL_SUMMON_CREATURE_I)
+        {
+            nFNF_Effect = VFX_FNF_SUMMON_MONSTER_1;
+            sSummon = &quot;NW_S_badgerdire&quot;;
+        }
+        else if(nSpellID == SPELL_SUMMON_CREATURE_II)
+        {
+            nFNF_Effect = VFX_FNF_SUMMON_MONSTER_1;
+            sSummon = &quot;NW_S_BOARDIRE&quot;;
+        }
+        else if(nSpellID == SPELL_SUMMON_CREATURE_III)
+        {
+            nFNF_Effect = VFX_FNF_SUMMON_MONSTER_1;
+            sSummon = &quot;NW_S_WOLFDIRE&quot;;
+        }
+        else if(nSpellID == SPELL_SUMMON_CREATURE_IV)
+        {
+            nFNF_Effect = VFX_FNF_SUMMON_MONSTER_2;
+            sSummon = &quot;NW_S_SPIDDIRE&quot;;
+        }
+        else if(nSpellID == SPELL_SUMMON_CREATURE_V)
+        {
+            nFNF_Effect = VFX_FNF_SUMMON_MONSTER_2;
+            sSummon = &quot;NW_S_beardire&quot;;
+        }
+        else if(nSpellID == SPELL_SUMMON_CREATURE_VI)
+        {
+            nFNF_Effect = VFX_FNF_SUMMON_MONSTER_2;
+            sSummon = &quot;NW_S_diretiger&quot;;
+        }
+        else if(nSpellID == SPELL_SUMMON_CREATURE_VII)
+        {
+            nFNF_Effect = VFX_FNF_SUMMON_MONSTER_3;
+            switch (nRoll)
+            {
+                case 1:
+                    sSummon = &quot;NW_S_AIRHUGE&quot;;
+                break;
+
+                case 2:
+                    sSummon = &quot;NW_S_WATERHUGE&quot;;
+                break;
+
+                case 3:
+                    sSummon = &quot;NW_S_FIREHUGE&quot;;
+                break;
+            }
+        }
+        else if(nSpellID == SPELL_SUMMON_CREATURE_VIII)
+        {
+            nFNF_Effect = VFX_FNF_SUMMON_MONSTER_3;
+            switch (nRoll)
+            {
+                case 1:
+                    sSummon = &quot;NW_S_AIRGREAT&quot;;
+                break;
+
+                case 2:
+                    sSummon = &quot;NW_S_WATERGREAT&quot;;
+                break;
+
+                case 3:
+                    sSummon = &quot;NW_S_FIREGREAT&quot;;
+                break;
+            }
+        }
+        else if(nSpellID == SPELL_SUMMON_CREATURE_IX)
+        {
+            nFNF_Effect = VFX_FNF_SUMMON_MONSTER_3;
+            switch (nRoll)
+            {
+                case 1:
+                    sSummon = &quot;NW_S_AIRELDER&quot;;
+                break;
+
+                case 2:
+                    sSummon = &quot;NW_S_WATERELDER&quot;;
+                break;
+
+                case 3:
+                    sSummon = &quot;NW_S_FIREELDER&quot;;
+                break;
+            }
+        }
+    }
+
+    // Start of customized summon spells
+    // Check for Creature Summoning IX
+    if (nSpellID == SPELL_SUMMON_CREATURE_IX)
+    {
+
+    // Get object for usage
+    object oAmulet = GetItemInSlot(INVENTORY_SLOT_NECK);
+    string sAmuletTag = GetTag(oAmulet);
+    // Rolling dice for determen which creature of the amulet is summoned
+    int nRandomCreature = Random(3)+1;
+    // begin checkink for the specified amulet
+
+    if (sAmuletTag == &quot;wwi_amuletalch&quot;){
+        switch (nRandomCreature) {
+        case 1:
+            sSummon = &quot;wwp_dreadstaff&quot;;
+        break;
+        case 2:
+            sSummon = &quot;wwp_sanguineswor&quot;;
+        break;
+        case 3:
+            sSummon = &quot;wwp_floatingbow&quot;;
+        break;
+        }
+    }
+    if (sAmuletTag == &quot;wwi_amuletshadow&quot;){
+        switch (nRandomCreature) {
+        case 1:
+            sSummon = &quot;wwp_shadowdragon&quot;;
+        break;
+        case 2:
+            sSummon = &quot;wwp_shadowweaver&quot;;
+        break;
+        case 3:
+            sSummon = &quot;wwp_spellweaver&quot;;
+        break;
+        }
+    }
+    if (sAmuletTag == &quot;wwi_amuletplanar&quot;){
+        switch (nRandomCreature) {
+        case 1:
+            sSummon = &quot;wwp_balrog&quot;;
+        break;
+        case 2:
+            sSummon = &quot;wwp_darkmage&quot;;
+        break;
+        case 3:
+            sSummon = &quot;wwp_animatedarmo&quot;;
+        break;
+        }
+    }
+    if (sAmuletTag == &quot;wwi_amuletfire&quot;){
+        switch (nRandomCreature) {
+        case 1:
+            sSummon = &quot;wwp_firewarrior&quot;;
+        break;
+        case 2:
+            sSummon = &quot;wwp_firecat&quot;;
+        break;
+        case 3:
+            sSummon = &quot;wwp_lightningwol&quot;;
+        break;
+        }
+    }
+    if (sAmuletTag == &quot;wwi_amuletdead&quot;){
+        switch (nRandomCreature) {
+        case 1:
+            sSummon = &quot;wwp_mummypharaoh&quot;;
+        break;
+        case 2:
+            sSummon = &quot;wwp_undeadgiant&quot;;
+        break;
+        case 3:
+            sSummon = &quot;wwp_bonewarrior&quot;;
+        break;
+        }
+    }
+    if (sAmuletTag == &quot;wwi_amuletvenom&quot;){
+        switch (nRandomCreature) {
+        case 1:
+            sSummon = &quot;wwp_succubusquee&quot;;
+        break;
+        case 2:
+            sSummon = &quot;wwp_greaterarach&quot;;
+        break;
+        case 3:
+            sSummon = &quot;wwp_flamespider&quot;;
+        break;
+        }
+    }
+    if (sAmuletTag == &quot;wwi_amuletwild&quot;){
+        switch (nRandomCreature) {
+        case 1:
+            sSummon = &quot;wwp_trollseer&quot;;
+        break;
+        case 2:
+            sSummon = &quot;wwp_umberhulksha&quot;;
+        break;
+        case 3:
+            sSummon = &quot;wwp_koboldren&quot;;
+        break;
+        }
+    }
+    if (sAmuletTag == &quot;wwi_amuletmagic&quot;){
+        switch (nRandomCreature) {
+        case 1:
+            sSummon = &quot;wwp_wizardslayer&quot;;
+        break;
+        case 2:
+            sSummon = &quot;wwp_fairy&quot;;
+        break;
+        case 3:
+            sSummon = &quot;wwp_rashakafemal&quot;;
+        break;
+        }
+    }
+
+
+
+    }
+    // End of Customized summoning
+
+    //effect eVis = EffectVisualEffect(nFNF_Effect);
+    //ApplyEffectAtLocation(DURATION_TYPE_INSTANT, eVis, GetSpellTargetLocation());
+    effect eSummonedMonster = EffectSummonCreature(sSummon, nFNF_Effect);
+    return eSummonedMonster;
+}
+
+</code></pre>
+  </main>
+  <footer>generated by <a href="https://github.com/mrprice22/nwn-manager">nwn-manager</a></footer>
+</body>
+</html>

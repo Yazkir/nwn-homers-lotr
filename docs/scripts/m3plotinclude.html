@@ -1,0 +1,1033 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Script m3plotinclude</title>
+  <link rel="stylesheet" href="../assets/style.css">
+</head>
+<body>
+  <header class="site-header">
+    <a class="brand" href="../index.html">Module Wiki</a>
+    <nav>
+      <a href="../index.html">Map</a>
+      <a href="../areas/index.html">Areas</a>
+      <a href="../creatures/index.html">Creature Blueprints</a>
+      <a href="../creatures/instances/index.html">Creature Instances</a>
+      <a href="../items/index.html">Items</a>
+      <a href="../stores/index.html">Stores</a>
+      <a href="../conversations/index.html">Conversations</a>
+      <a href="../factions.html">Factions</a>
+      <a href="../journal.html">Journal</a>
+    </nav>
+  </header>
+  <main>
+<h1>Script: <code>m3plotinclude</code></h1><dl class="meta"><dt>Teleports to</dt><dd><code>M3Q04H_Dragon</code>, <code>M3Q2A14_PHEAD1</code>, <code>M3Q2A14_PHEAD2</code>, <code>M3Q2D01FortGate</code>, <code>M3Q2D08ZokPlace</code>, <code>M3Q2DFACTIONOBJ</code>, <code>M3Q2D_FORTFACGOOD</code>, <code>M3Q2D_FORTFACTION</code>, <code>M3Q2D_VAULT1</code>, <code>M3Q2D_VAULT2</code>, <code>M3Q2D_VAULT3</code>, <code>M3Q2F24MAGICDOOR</code>, <code>M3Q2G</code>, <code>M3Q3C</code>, <code>M3Q3C04_ARWYL</code>, <code>M3Q3C07_HODD</code>, <code>M3Q3CA01_OUT</code>, <code>M3Q3CSnowDryad</code>, <code>M3Q3CSnowDwarf</code>, <code>M3Q4WordDoor</code>, <code>WP_Insidesnowglobe</code>, <code>WP_Tolowersnowglobe</code>, <code>Zokan3Q21</code></dd></dl><pre class="nss-source"><code>//::///////////////////////////////////////////////
+//:: Chapter 3 Include File
+//:: Copyright (c) 2001 Bioware Corp.
+//:://////////////////////////////////////////////
+/*
+  This is the main include file for the entire plot.
+*/
+//:://////////////////////////////////////////////
+//:: Created By:         Brent
+//:: Created On:         November 2001
+//:://////////////////////////////////////////////
+
+// * Constants
+
+int M3Q2_SIEGEENGINESGONE = 10;
+string M3Q2A11_REWARD2_PERSUASION =&quot;NW_ASHMSW004&quot;; // Hearth Shield
+string M3Q2A11_REWARD3_PERSUASION =&quot;NW_WAXMBT003&quot;; // Axe of Dead Illusk
+string M3Q2A11_PLAGUE_CURE =&quot;M3Q2A14_CURE&quot;; // Plague Cure
+string M3Q2C06_GALIA_EXTRA_REWARD = &quot;NW_IT_SPSCROL086&quot;;
+string M3Q2A05YUSAMHIGH  =&quot;M3Q1_YUSAMRING&quot;;
+string M3Q2A05YUSAMMID   =&quot;NW_IT_MRING002&quot;;
+string M3Q2A05YUSAMLOW   =&quot;NW_IT_MRING002&quot;;
+string M3Q2D8ZOKANSPEAR = &quot;NW_WPLMSS010&quot;; // Just a generic +2 spear he gives out
+// * Functions
+
+int DoesPlayerHave(object oPC, string sTag)
+{
+object oItem = GetItemPossessedBy(oPC, sTag);
+    if (GetIsObjectValid(oItem) == FALSE)
+        return FALSE;
+    return TRUE;
+}
+void TakeAndDestroy(object oPC, string sTag)
+{
+ object oItem = GetItemPossessedBy(oPC, sTag);
+    if (GetIsObjectValid(oItem) == TRUE)
+    {
+      DestroyObject(oItem);
+    }
+}
+
+// *
+// *
+// *
+int HaveAnyWord(object oPlayer)
+{
+    int iResult = FALSE;
+    object oWord = OBJECT_INVALID;
+
+    if (GetIsObjectValid(GetItemPossessedBy(oPlayer,&quot;M3Q1_WORDPOWER1&quot;)) == TRUE
+       &amp;&amp; GetLocalInt(OBJECT_SELF, GetTag(GetItemPossessedBy(oPlayer,&quot;M3Q1_WORDPOWER1&quot;))) == FALSE)
+    {
+        oWord = GetItemPossessedBy(oPlayer,&quot;M3Q1_WORDPOWER1&quot;);
+        iResult = TRUE;
+    }
+    else
+    if (GetIsObjectValid(GetItemPossessedBy(oPlayer,&quot;M3Q1_WORDPOWER2&quot;)) == TRUE
+           &amp;&amp; GetLocalInt(OBJECT_SELF, GetTag(GetItemPossessedBy(oPlayer,&quot;M3Q1_WORDPOWER2&quot;))) == FALSE)
+    {
+        oWord = GetItemPossessedBy(oPlayer,&quot;M3Q1_WORDPOWER2&quot;);
+        iResult = TRUE;
+    }
+    else
+    if (GetIsObjectValid(GetItemPossessedBy(oPlayer,&quot;M3Q1_WORDPOWER3&quot;)) == TRUE
+           &amp;&amp; GetLocalInt(OBJECT_SELF, GetTag(GetItemPossessedBy(oPlayer,&quot;M3Q1_WORDPOWER3&quot;))) == FALSE)
+    {
+        oWord = GetItemPossessedBy(oPlayer,&quot;M3Q1_WORDPOWER3&quot;);
+        iResult = TRUE;
+    }
+
+    SetLocalObject(OBJECT_SELF, &quot;NW_G_M3Q1L_LASTWORD&quot;,oWord);
+
+    if (iResult == TRUE)
+    {
+        // * May 2002: Brent: create a local with the name of the item
+        // * tag for the word just taken. This way Aarin won&#x27;t
+        // * take multiples of the same word
+        if (GetLocalInt(OBJECT_SELF, GetTag(oWord)) == TRUE)
+        {
+            iResult = FALSE;
+        }
+    }
+    return (iResult);
+}
+
+
+// *
+// * M3Q2
+// *
+
+int HasHeadOfSubCommand(object oPC)
+{
+    return GetIsObjectValid(GetItemPossessedBy(oPC, &quot;M3Q2A14_ARNESS&quot;));
+}
+void TakeHeadOfSubCommand(object oPC)
+{
+    object oItem = GetItemPossessedBy(oPC, &quot;M3Q2A14_ARNESS&quot;);
+    ActionTakeItem(oItem, oPC);
+    DestroyObject(oItem);
+    CreateObject(OBJECT_TYPE_PLACEABLE, &quot;M3Q2A14_PHEAD1&quot;, GetLocation(GetObjectByTag(&quot;M3Q2A14_PHEAD1&quot;)));
+}
+int HasHeadOfCommand(object oPC)
+{
+    return GetIsObjectValid(GetItemPossessedBy(oPC, &quot;M3Q2D08_ZOKAN&quot;));
+}
+void TakeHeadOfCommand(object oPC)
+{
+    object oItem = GetItemPossessedBy(oPC, &quot;M3Q2D08_ZOKAN&quot;);
+    ActionTakeItem(oItem, oPC);
+    DestroyObject(oItem);
+    CreateObject(OBJECT_TYPE_PLACEABLE, &quot;M3Q2A14_PHEAD2&quot;, GetLocation(GetObjectByTag(&quot;M3Q2A14_PHEAD2&quot;)));
+}
+int HasPlagueBlankets(object oPC)
+{
+    return GetIsObjectValid(GetItemPossessedBy(oPC, &quot;M3Q2_A11BLANKETS&quot;));
+}
+
+void TakePlagueBlankets(object oPC)
+{
+    object oItem = GetItemPossessedBy(oPC, &quot;M3Q2_A11BLANKETS&quot;);
+    ActionTakeItem(oItem, oPC);
+    DestroyObject(oItem);
+}
+void GivePlagueBlankets(object oPC)
+{
+     CreateItemOnObject(&quot;M3Q2_A11BLANKETS&quot;, oPC);
+}
+int HasPlagueCure(object oPC)
+{
+    return DoesPlayerHave(oPC, &quot;M3Q2A14_CURE&quot;);
+}
+
+void TakePlagueCure(object oPC)
+{
+    object oItem = GetItemPossessedBy(oPC, &quot;M3Q2A14_CURE&quot;);
+    ActionTakeItem(oItem, oPC);
+    DestroyObject(oItem);
+
+}
+
+void GivePlayerYusamToken(object oPC)
+{
+     CreateItemOnObject(&quot;M3Q2_D08_DREAM&quot;, oPC);
+}
+int HasYusamToken(object oPC)
+{
+    return DoesPlayerHave(oPC, &quot;M3Q2_D08_DREAM&quot;);
+}
+void TakeYusamToken(object oPC)
+{object oItem = GetItemPossessedBy(oPC, &quot;M3Q2_D08_DREAM&quot;);
+    if (GetIsObjectValid(oItem) == TRUE)
+    {
+      DestroyObject(oItem);
+    }
+}
+
+string GetDamasJournal()
+{
+    return &quot;M3Q2_A11_DAMAS&quot;;
+}
+
+int ElkChiefDead()
+{
+    return !GetIsObjectValid(GetObjectByTag(&quot;Zokan3Q21&quot;));
+}
+void BretGiveRing(object oPC)
+{
+    CreateItemOnObject(&quot;M3Q2A10BRETBAND&quot;, oPC);
+}
+void TakeBretRing(object oPC)
+{
+object oItem = GetItemPossessedBy(oPC, &quot;M3Q2A10BRETBAND&quot;);
+    if (GetIsObjectValid(oItem) == TRUE)
+    {
+      DestroyObject(oItem);
+    }
+}
+ // * Returns True if Bret still has his bracelet
+ // * that he gives as a reward to a player
+int DoesBretHaveHisBraceletStill()
+{
+  object oItem = GetItemPossessedBy(OBJECT_SELF, &quot;M3Q2_A10BRACELET&quot;);
+    if (GetIsObjectValid(oItem) == FALSE)
+        return FALSE;
+    return TRUE;
+}
+void BretGiveBracelet(object oPC)
+{
+    object oItem = GetItemPossessedBy(OBJECT_SELF, &quot;M3Q2_A10BRACELET&quot;);
+    if (GetIsObjectValid(oItem) == FALSE)
+        return;
+
+    DestroyObject(oItem);
+    CreateItemOnObject(&quot;M3Q2_A10BRACELET&quot;, oPC);
+}
+
+int DoesPlayerHaveBretsRing(object oPC)
+{
+ object oItem = GetItemPossessedBy(oPC, &quot;M3Q2A10BRETBAND&quot;);
+    if (GetIsObjectValid(oItem) == FALSE)
+        return FALSE;
+    return TRUE;
+}
+
+void EckelGiveNote(object oPC)
+{
+    CreateItemOnObject(&quot;M3Q2A10ECKNOTE&quot;, oPC);
+}
+
+int DoesPlayerHaveEckelNote(object oPC)
+{
+    return DoesPlayerHave(oPC, &quot;M3Q2A10ECKNOTE&quot;);
+}
+
+void TakeEckelNote(object oPC)
+
+{
+   TakeAndDestroy(oPC,&quot;M3Q2A10ECKNOTE&quot;);
+}
+
+// * this feather is given by either the captured shaman
+// * or Yusam to allow entrance into the Elk Tribe Fortress
+
+void GiveShamanFeather(object oPC)
+{
+    CreateItemOnObject(&quot;M3Q2_B07_FEATHE&quot;, oPC);
+}
+
+int DoesPlayerHaveShamanFeather(object oPC)
+{
+    return DoesPlayerHave(oPC,&quot;M3Q2_B07_FEATHE&quot;);
+}
+
+
+int HasVaathHead(object oPC)
+{
+  object oItem = GetItemPossessedBy(oPC, &quot;M3Q3_A02VAATH&quot;);
+    if (GetIsObjectValid(oItem) == FALSE)
+        return FALSE;
+    return TRUE;
+}
+void GuzudGiveHead(object oPC)
+{
+    object oItem = GetItemPossessedBy(OBJECT_SELF, &quot;M3Q3_A02GUZUD&quot;);
+    if (GetIsObjectValid(oItem) == FALSE)
+        return;
+
+    DestroyObject(oItem);
+    CreateItemOnObject(&quot;M3Q3_A02GUZUD&quot;, oPC);
+}
+
+
+
+//
+// * Get Functions
+// *
+object GetQ2D08FortDoor()
+{
+    return GetObjectByTag(&quot;M3Q2D01FortGate&quot;);
+}
+
+object GetZokanPlace()
+{
+
+    return GetObjectByTag(&quot;M3Q2D08ZokPlace&quot;);
+}
+
+
+int PlayerHasMyBook(object oPC)
+{
+    if (GetTag(OBJECT_SELF) == &quot;M3Q2D_BOOK1&quot;)
+    {
+        return DoesPlayerHave(oPC,&quot;M3Q2D_BOOK_1&quot;);
+    }
+    else if (GetTag(OBJECT_SELF) == &quot;M3Q2D_BOOK2&quot;)
+    {
+        return DoesPlayerHave(oPC,&quot;M3Q2D_BOOK_2&quot;);
+    }
+    else if (GetTag(OBJECT_SELF) == &quot;M3Q2D_BOOK3&quot;)
+    {
+        return DoesPlayerHave(oPC,&quot;M3Q2D_BOOK_3&quot;);
+    }
+
+    return FALSE;
+}
+void PlaceMyBook(object oPC)
+{
+    if (GetTag(OBJECT_SELF) == &quot;M3Q2D_BOOK1&quot;)
+    {
+        TakeAndDestroy(oPC,&quot;M3Q2D_BOOK_1&quot;);
+    }
+    else if (GetTag(OBJECT_SELF) == &quot;M3Q2D_BOOK2&quot;)
+    {
+        TakeAndDestroy(oPC,&quot;M3Q2D_BOOK_2&quot;);
+    }
+    else if (GetTag(OBJECT_SELF) == &quot;M3Q2D_BOOK3&quot;)
+    {
+        TakeAndDestroy(oPC,&quot;M3Q2D_BOOK_3&quot;);
+    }
+}
+
+// * opens the door for the M3Q2D map puzzles
+void OpenMyDoor()
+{
+    if (GetTag(OBJECT_SELF) == &quot;M3Q2D_BOOK1&quot;)
+    {
+        AssignCommand(GetObjectByTag(&quot;M3Q2D_VAULT1&quot;), ActionOpenDoor(OBJECT_SELF));
+        SetLocked(GetObjectByTag(&quot;M3Q2D_VAULT1&quot;), FALSE);
+    }
+    else if (GetTag(OBJECT_SELF) == &quot;M3Q2D_BOOK2&quot;)
+    {
+        AssignCommand(GetObjectByTag(&quot;M3Q2D_VAULT2&quot;), ActionOpenDoor(OBJECT_SELF));
+        SetLocked(GetObjectByTag(&quot;M3Q2D_VAULT2&quot;), FALSE);
+    }
+    else if (GetTag(OBJECT_SELF) == &quot;M3Q2D_BOOK3&quot;)
+    {
+        AssignCommand(GetObjectByTag(&quot;M3Q2D_VAULT3&quot;), ActionOpenDoor(OBJECT_SELF));
+        SetLocked(GetObjectByTag(&quot;M3Q2D_VAULT3&quot;), FALSE);
+    }
+
+}
+
+//::///////////////////////////////////////////////
+//:: GetElkTribePeaceful
+//:: Copyright (c) 2001 Bioware Corp.
+//:://////////////////////////////////////////////
+/*
+    Returns true, if player already
+    tried to speak with one of them and
+    is being escorted to Zokan.
+    Does this check by using the invisible
+    faction object and see if it hates player
+    or not. (Faction is set to Friend when
+    player gets escorted).
+*/
+//:://////////////////////////////////////////////
+//:: Created By:
+//:: Created On:
+//:://////////////////////////////////////////////
+
+int GetElkTribePeaceful(object oPC)
+{
+    return  GetIsFriend(GetObjectByTag(&quot;M3Q2DFACTIONOBJ&quot;), oPC);
+}
+
+void SetElkTribePeaceful(object oPC)
+{
+    object oElkFaction = GetObjectByTag(&quot;M3Q2DFACTIONOBJ&quot;);
+    AdjustReputation(oPC,oElkFaction, 100);
+    object oElk = GetFirstFactionMember(oElkFaction,FALSE);
+    while(GetIsObjectValid(oElk))
+    {
+        AssignCommand(oElk,ClearAllActions());
+        ClearPersonalReputation(oElk,oPC);
+        oElk = GetNextFactionMember(oElkFaction);
+    }
+}
+
+void SetAllElkTribePeaceful(object oPC)
+{
+    AdjustReputation(oPC,GetObjectByTag(&quot;M3Q2DFACTIONOBJ&quot;), 100);
+    AdjustReputation(oPC,GetObjectByTag(&quot;M3Q2D_FORTFACTION&quot;),100);
+    object oElkFaction =GetObjectByTag(&quot;M3Q2D_FORTFACTION&quot;);
+    object oFortFaction = GetObjectByTag(&quot;M3Q2D_FORTFACGOOD&quot;);
+    AdjustReputation(oFortFaction,oElkFaction,100);
+    AdjustReputation(oElkFaction,oFortFaction,100);
+    object oFort = GetFirstFactionMember(oFortFaction,FALSE);
+    while(GetIsObjectValid(oFort))
+    {
+//        SpeakString(&quot;Fort&quot;);
+        AssignCommand(oFort,ClearAllActions());
+        AssignCommand(oFort,ClearPersonalReputation(oElkFaction,oFort));
+        oFort = GetNextFactionMember(oFortFaction,FALSE);
+    }
+    object oElk = GetFirstFactionMember(oElkFaction,FALSE);
+    while(GetIsObjectValid(oElk))
+    {
+//        SpeakString(&quot;Elk&quot;);
+        AssignCommand(oElk,ClearAllActions());
+        AssignCommand(oElk,ClearPersonalReputation(oFortFaction,oElk));
+        AssignCommand(oElk,ClearPersonalReputation(oPC,oElk));
+        if (GetTag(GetArea(oElk)) == &quot;M3Q2MAP&quot;)
+        {
+//            SpeakString(&quot;Dead&quot;);
+            DelayCommand(1.0,DestroyObject(oElk));
+        }
+        oElk = GetNextFactionMember(oElkFaction,FALSE);
+    }
+}
+
+// * checks to see if the object has a time crystal
+int HasTimeCrystal(object oPC)
+{
+    return DoesPlayerHave(oPC, &quot;M3Q2FTIME_CRY&quot;);
+}
+
+
+
+// * Player has Ultarg seeds
+int HasUtargSeedsOrNotebook(object oPC)
+{
+    return DoesPlayerHave(oPC, &quot;M3Q2ULTARGSEED&quot;);
+}
+
+void GivePlayerSapphiraStuff(object oPC)
+{
+    if (GetIsObjectValid(GetItemPossessedBy(oPC,&quot;M3Q2FTIME_CRY&quot;))==FALSE)
+    {
+        CreateItemOnObject(&quot;M3Q2FTIME_CRY&quot;, oPC);
+    }
+    if (GetIsObjectValid(GetItemPossessedBy(oPC,&quot;M3Q2ULTARGSEED&quot;))==FALSE)
+    {
+        CreateItemOnObject(&quot;M3Q2ULTARGSEED&quot;, oPC);
+    }
+    if (GetIsObjectValid(GetItemPossessedBy(oPC,&quot;M3Q2F_BOOK_1&quot;))==FALSE)
+    {
+        CreateItemOnObject(&quot;M3Q2F_BOOK_1&quot;, oPC);
+    }
+
+}
+
+// * returns true if the player has the Ultarg seeds
+int HaveUltargSeeds(object oPC)
+{
+    return DoesPlayerHave(oPC, &quot;M3Q2ULTARGSEED&quot;);
+}
+
+// * gives nValue in gems to oPC
+void GiveValueInGems(object oPC, int nValue)
+{
+    if (nValue &lt;= 1000)
+    {
+        CreateItemOnObject(&quot;NW_IT_GEM010&quot;, oPC, Random(7) + 1);
+    }
+    else
+    if (nValue &gt; 1000 &amp;&amp; nValue &lt; 3000)
+    {
+        CreateItemOnObject(&quot;NW_IT_GEM005&quot;, oPC, Random(4) + 1);
+    }
+    else
+    if (nValue &gt;= 3000 &amp;&amp; nValue &lt; 7000)
+    {
+        CreateItemOnObject(&quot;NW_IT_GEM006&quot;, oPC, Random(4) + 1);
+    }
+    else
+    {
+        CreateItemOnObject(&quot;NW_IT_GEM005&quot;, oPC, Random(7) + 1);
+    }
+}
+
+
+void CheckGlobeInUse(object oArea)
+{
+  object oPC = GetFirstObjectInArea(oArea);
+  int nNumOfPC = 0;
+  while (GetIsObjectValid(oPC) == TRUE)
+  {
+      if (GetObjectType(oPC) == OBJECT_TYPE_CREATURE &amp;&amp; GetIsPC(oPC) == TRUE)
+      {
+        nNumOfPC ++;
+      }
+      oPC = GetNextObjectInArea(oArea);
+
+  }
+  // * there is always one player in the area (the guy who is leaving)
+  if (nNumOfPC &lt;= 1)
+  {
+    SetLocalInt(GetModule(), &quot;NW_G_GLOBE_IN_USE&quot;,0);
+  }
+}
+
+//::///////////////////////////////////////////////
+//:: ChangeSGWeather
+//:: Copyright (c) 2001 Bioware Corp.
+//:://////////////////////////////////////////////
+/*
+    Changes the weather in the snowglobe if the dwarves
+    are hostile.  Updated every time the globe is entered.
+*/
+//:://////////////////////////////////////////////
+//:: Created By:    Cori
+//:: Created On:    March 7, 2002
+//:://////////////////////////////////////////////
+
+void ChangeSGWeather()
+{
+    object oArea = GetArea(GetObjectByTag(&quot;M3Q3C&quot;));
+
+    if (GetLocalInt(GetModule(),&quot;NW_G_M3Q01PLOTGLOBEONPEDESTAL&quot;) == 1)
+    {
+        // * If dwarves angry, no weather
+        SetWeather(oArea, WEATHER_CLEAR);
+
+    }
+    else if (GetLocalInt(GetModule(),&quot;NW_G_M3Q01PLOTGLOBEONPEDESTAL&quot;) == 10)
+    {
+        // * If dryads angry, snow
+        SetWeather(oArea, WEATHER_SNOW);
+
+    }
+}
+
+//::///////////////////////////////////////////////
+//:: RefreshReputation
+//:: Copyright (c) 2001 Bioware Corp.
+//:://////////////////////////////////////////////
+/*
+    Refreshes the dryad/dwarf reputations.  Updated
+    everytime the globe is entered.
+*/
+//:://////////////////////////////////////////////
+//:: Created By:                 Brent
+//:: Created On:                 January 2002
+//:://////////////////////////////////////////////
+void RefreshReputation()
+{
+    object oDryadFaction = GetObjectByTag(&quot;M3Q3CSnowDryad&quot;);
+    object oDwarfFaction = GetObjectByTag(&quot;M3Q3CSnowDwarf&quot;);
+    object oArwylFaction = GetObjectByTag(&quot;M3Q3C04_ARWYL&quot;);
+    object oHoddFaction = GetObjectByTag(&quot;M3Q3C07_HODD&quot;);
+
+
+
+
+
+
+    if (GetLocalInt(GetModule(),&quot;NW_G_M3Q01PLOTGLOBEONPEDESTAL&quot;) == 10)
+    {
+        // * Make Dryads Angry, Dwarves Friendly
+        AdjustReputation(GetPCSpeaker(), oDryadFaction, -100);
+//        SetIsTemporaryEnemy(GetPCSpeaker(), oDryadFaction);
+        AdjustReputation(GetPCSpeaker(), oArwylFaction, -100);
+//        SetIsTemporaryEnemy(GetPCSpeaker(), oArwylFaction);
+
+        AdjustReputation(GetPCSpeaker(), oDwarfFaction, 100);
+//        SetIsTemporaryFriend(GetPCSpeaker(), oDwarfFaction);
+        AdjustReputation(GetPCSpeaker(), oHoddFaction, 100);
+//        SetIsTemporaryFriend(GetPCSpeaker(), oHoddFaction);
+    }
+    else if (GetLocalInt(GetModule(),&quot;NW_G_M3Q01PLOTGLOBEONPEDESTAL&quot;) == 1)
+    {
+        // * Make Dryads Friendly, Dwarves angry
+        AdjustReputation(GetPCSpeaker(), oDryadFaction, 100);
+//        SetIsTemporaryFriend(GetPCSpeaker(), oDryadFaction);
+        AdjustReputation(GetPCSpeaker(), oArwylFaction, 100);
+//        SetIsTemporaryFriend(GetPCSpeaker(), oArwylFaction);
+
+        AdjustReputation(GetPCSpeaker(), oDwarfFaction, -100);
+//        SetIsTemporaryEnemy(GetPCSpeaker(), oDwarfFaction);
+        AdjustReputation(GetPCSpeaker(), oHoddFaction, -100);
+//        SetIsTemporaryEnemy(GetPCSpeaker(), oHoddFaction);
+    }
+
+}
+
+//::///////////////////////////////////////////////
+//:: DecrementLocksOnDoor
+//:: Copyright (c) 2001 Bioware Corp.
+//:://////////////////////////////////////////////
+/*
+    Decrements the number of locks on door M3Q2F25
+    When no locks remains the player can open the door
+*/
+//:://////////////////////////////////////////////
+//:: Created By: Brent
+//:: Created On: January 2002
+//:://////////////////////////////////////////////
+
+void DecrementLocksOnDoor()
+{
+    SetLocalInt(GetArea(OBJECT_SELF),&quot;M3Q2FLOCKSREMAINING&quot;, GetLocalInt(GetArea(OBJECT_SELF),&quot;M3Q2FLOCKSREMAINING&quot;) - 1);
+    if(GetLocalInt(GetArea(OBJECT_SELF),&quot;M3Q2FLOCKSREMAINING&quot;)==2)
+    {
+        AddJournalQuestEntry(&quot;M3Q2F_DOOROF3&quot;,10,GetLastUsedBy());
+    }
+    else if(GetLocalInt(GetArea(OBJECT_SELF),&quot;M3Q2FLOCKSREMAINING&quot;)==1)
+    {
+        AddJournalQuestEntry(&quot;M3Q2F_DOOROF3&quot;,20,GetLastUsedBy());
+    }
+    if(GetLocalInt(GetArea(OBJECT_SELF),&quot;M3Q2FLOCKSREMAINING&quot;)==0)
+    {
+        AddJournalQuestEntry(&quot;M3Q2F_DOOROF3&quot;,30,GetLastUsedBy());
+    }
+
+    effect eVis = EffectVisualEffect(VFX_IMP_RESTORATION);
+    ApplyEffectToObject(DURATION_TYPE_INSTANT, eVis, OBJECT_SELF);
+    ActionSpeakStringByStrRef(52981);
+    object oDoor1 = GetObjectByTag(&quot;M3Q2F24MAGICDOOR&quot;,1);
+    object oDoor2 = GetObjectByTag(&quot;M3Q2F24MAGICDOOR&quot;,2);
+/*    if (GetArea(oDoor1) == GetObjectByTag(&quot;M3Q2G&quot;) &amp;&amp; GetArea(OBJECT_SELF) == GetObjectByTag(&quot;M3Q2G&quot;))
+    {
+        SetLocalInt(GetArea(oDoor2),&quot;M3Q2FLOCKSREMAINING&quot;, GetLocalInt(GetArea(oDoor2),&quot;M3Q2FLOCKSREMAINING&quot;) - 1);
+    }*/
+
+
+}
+
+
+//::///////////////////////////////////////////////
+//:: PlayerWearsTranslationAmulet(oPC)
+//:: Copyright (c) 2001 Bioware Corp.
+//:://////////////////////////////////////////////
+/*
+   Returns true if the oPC is wearing a translation
+   amulet
+*/
+//:://////////////////////////////////////////////
+//:: Created By: Brent
+//:: Created On: January 2002
+//:://////////////////////////////////////////////
+int PlayerWearsTranslationAmulet(object oPC)
+{
+    object oItem = GetItemInSlot(INVENTORY_SLOT_NECK, oPC);
+    if (GetIsObjectValid(oItem) == TRUE)
+    {
+        return GetTag(oItem) == &quot;M3Q2GTRANAM&quot;;
+    }
+    return FALSE;
+}
+
+
+// *
+// *
+// *
+
+int PlayerHasLokarsRing(object oPC)
+{
+    return DoesPlayerHave(oPC, &quot;M3Q2G08RING&quot;);
+}
+void GivePlayerLokarRing(object oPC)
+{
+    CreateItemOnObject(&quot;M3Q2G08RING&quot;, oPC);
+}
+
+//::///////////////////////////////////////////////
+//:: CreateGolem
+//:: Copyright (c) 2001 Bioware Corp.
+//:://////////////////////////////////////////////
+/*
+
+*/
+//:://////////////////////////////////////////////
+//:: Created By: Brent
+//:: Created On: January 2002
+//:://////////////////////////////////////////////
+void CreateGolem(int nGolem, int nVulnerable)
+{
+
+    string sWayPointName = &quot;M3Q2FGOLEMSPWN&quot; + IntToString(nGolem);
+    // * stores the last vulnerable state of the golem
+    // * checks here,if we are trying to build the same type of golem
+    // * then there is no point.
+    int nOldVulnerable = GetLocalInt(GetModule(),&quot;NW_L_M3Q2_GOLEM&quot; + IntToString(nGolem)  + &quot;_LASTVULNERABLE&quot;);
+
+//    SpeakString(&quot;nGolem = &quot; + IntToString(nGolem));
+//    SpeakString(&quot;nVulnerable = &quot; + IntToString(nVulnerable));
+//    SpeakString(&quot;nOld = &quot; + IntToString(nOldVulnerable));
+
+
+    // * First time, always create the golem (0 state)
+    if ((nVulnerable != nOldVulnerable) || (nVulnerable == 0))
+    {
+
+        object oWayPoint = GetObjectByTag(sWayPointName);
+        if (GetIsObjectValid(oWayPoint) == TRUE)
+        {
+            object oOldGolem = GetLocalObject(GetModule(),&quot;NW_L_M3Q2_GOLEM&quot; + IntToString(nGolem));
+            if (GetIsObjectValid(oOldGolem) == TRUE)
+            {
+                // * Destroy the Old Golem
+                DestroyObject(oOldGolem);
+            }
+            SetLocalInt(GetModule(),&quot;NW_L_M3Q2_GOLEM&quot; + IntToString(nGolem)  + &quot;_LASTVULNERABLE&quot;, nVulnerable)                      ;
+            object oNewGolem  = CreateObject(OBJECT_TYPE_CREATURE, &quot;M3Q2FGolem&quot; + IntToString(nVulnerable), GetLocation(oWayPoint));
+            SetLocalObject(GetModule(),&quot;NW_L_M3Q2_GOLEM&quot; + IntToString(nGolem), oNewGolem);
+        }
+    }
+}
+
+
+//::///////////////////////////////////////////////
+//:: CountFactionMembers
+//:: Copyright (c) 2001 Bioware Corp.
+//:://////////////////////////////////////////////
+/*
+
+*/
+//:://////////////////////////////////////////////
+//:: Created By: Brent
+//:: Created On: January 2002
+//:://////////////////////////////////////////////
+
+int CountFactionMembers(object oSource)
+{
+    object oMember = GetFirstFactionMember(oSource, FALSE);
+    int nCount = 0;
+    while ((GetIsObjectValid(oMember) == TRUE)/*  &amp;&amp; (GetIsDead(oMember) == FALSE)*/)
+    {
+        oMember = GetNextFactionMember(oSource, FALSE);
+        nCount++;
+    }
+   // SpeakString(IntToString(nCount));
+    return nCount;
+}
+
+
+//::///////////////////////////////////////////////
+//:: CreateC3Ale
+//:: Copyright (c) 2001 Bioware Corp.
+//:://////////////////////////////////////////////
+/*
+    Creates a bottle of ale on the player
+*/
+//:://////////////////////////////////////////////
+//:: Created By: Brent
+//:: Created On: January 2002
+//:://////////////////////////////////////////////
+void CreateC3Ale(object oPC)
+{
+//    CreateItemOnObject(oPC,&quot;&quot;);
+    SpeakString(&quot;Make Andrew make some beer&quot;);
+}
+
+
+// * Handles Dwarf/Dryad respawning behavior
+// * random percentage of doing different things
+void RebirthBehavior(object oDwarf)
+{
+    effect eVis = EffectVisualEffect(VFX_IMP_UNSUMMON);
+    DelayCommand(0.7, ApplyEffectToObject(DURATION_TYPE_PERMANENT, eVis, oDwarf));
+//    WP_Tolowersnowglobe
+/*    int nRandom = Random(100) + 1;
+    if (nRandom &gt; 34 &amp;&amp; nRandom &lt; 67)
+    {
+        // * move to entrance
+         location lLoc = GetLocation(GetObjectByTag(&quot;WP_Insidesnowglobe&quot;));
+        AssignCommand(oDwarf, ActionMoveToLocation(lLoc));
+    }
+    else if (nRandom &gt;= 68  &amp;&amp; nRandom &lt;=100)
+    {
+        // * move to front of dragoncave
+        location lLoc = GetLocation(GetObjectByTag(&quot;WP_Tolowersnowglobe&quot;));
+        AssignCommand(oDwarf, ActionMoveToLocation(lLoc));
+    }*/
+    //* IMPLICIT ELSE: do nothing
+//    AssignCommand(oDwarf,
+}
+
+
+// *
+// *  M3Q4
+// *
+int PlayerHasHillGiantChiefHead(object oPC)
+{
+    return DoesPlayerHave(oPC, &quot;M3Q4_C03_GIANT_H&quot;);
+}
+void TakeHillGiantChiefHead(object oPC)
+{
+    TakeAndDestroy(oPC, &quot;M3Q4_C03_GIANT_H&quot;);
+}
+int PlayerHasKlauthsHead(object oPC)
+{
+    return DoesPlayerHave(oPC, &quot;M3Q4_F02_KLAUTH&quot;);
+}
+void TakeKlauthsHead(object oPC)
+{
+    TakeAndDestroy(oPC, &quot;M3Q4_F02_KLAUTH&quot;);
+}
+
+int PlayerHasGolemPassAmulet(object oPC)
+{
+return DoesPlayerHave(oPC, &quot;M3Q04_PASS&quot;);
+}
+int PlayerHasEmptyDragonSphere(object oPC)
+{
+    return DoesPlayerHave(oPC, &quot;M3Q04G_Sphere&quot;);
+
+}
+
+int PlayerHasFullOrDeadSphere(object oPC)
+{
+    return DoesPlayerHave(oPC, &quot;M3Q04G_SPHERE2&quot;) || DoesPlayerHave(oPC, &quot;M3Q04G_Sphere3&quot;);
+
+}
+
+//* Takes and destroy a &#x27;dead&#x27; sphere, if one is present
+int TakeDeadSphere(object oPC)
+{
+    object oItem = GetItemPossessedBy(oPC, &quot;M3Q04G_SPHERE2&quot;);
+    if (GetIsObjectValid(oItem) == TRUE)
+    {
+        DestroyObject(oItem);
+        return TRUE;
+    }
+    else
+    {
+        return FALSE;
+    }
+}
+//* Takes and destroy a &#x27;alive&#x27; sphere, if one is present
+int TakeAliveSphere(object oPC)
+{
+    object oItem = GetItemPossessedBy(oPC, &quot;M3Q04G_Sphere3&quot;);
+    if (GetIsObjectValid(oItem) == TRUE)
+    {
+        DestroyObject(oItem);
+        return TRUE;
+    }
+    else
+    {
+        return FALSE;
+    }
+}
+int PlayerHasAnyDragonSphere(object oPC)
+{
+    return DoesPlayerHave(oPC,&quot;M3Q04G_Sphere&quot;) ||  DoesPlayerHave(oPC,&quot;M3Q04G_SPHERE2&quot;) ||     DoesPlayerHave(oPC,&quot;M3Q04G_Sphere3&quot;);
+}
+
+int PlayerHasEggs(object oPC)
+{
+    return DoesPlayerHave(oPC,&quot;M3Q4Dragon_Eggs&quot;);
+}
+void TakeEggs(object oPC)
+{
+    TakeAndDestroy(oPC, &quot;M3Q4Dragon_Eggs&quot;);
+}
+
+void SleepingDragonAttacked()
+{
+   int i = 1;
+   object oVis = GetNearestObjectByTag(&quot;M3Q4H02_DragonCage&quot;,OBJECT_SELF, i);
+   while (GetIsObjectValid(oVis) == TRUE)
+   {
+    AssignCommand(oVis, SetIsDestroyable(TRUE));
+    DestroyObject(oVis);
+    i++;
+    oVis = GetNearestObjectByTag(&quot;M3Q4H02_DragonCage&quot;,OBJECT_SELF, i);
+   }
+    object oDragon = GetNearestObjectByTag(&quot;M3Q04H_Dragon&quot;);
+    SetLocalInt(oDragon, &quot;NW_L_AWAKE&quot;, 1);
+    AssignCommand(oDragon, DelayCommand(7.0, ChangeToStandardFaction(oDragon, STANDARD_FACTION_HOSTILE)));
+    AssignCommand(oDragon, DelayCommand(7.1, ActionAttack(GetNearestCreature(CREATURE_TYPE_PLAYER_CHAR, PLAYER_CHAR_IS_PC))));
+}
+void SleepingDragonAwoken()
+{
+   int i = 1;
+   object oVis = GetNearestObjectByTag(&quot;M3Q4H02_DragonCage&quot;,OBJECT_SELF, i);
+   while (GetIsObjectValid(oVis) == TRUE)
+   {
+    AssignCommand(oVis, SetIsDestroyable(TRUE));
+    DestroyObject(oVis);
+    i++;
+    oVis = GetNearestObjectByTag(&quot;M3Q4H02_DragonCage&quot;,OBJECT_SELF, i);
+   }
+    object oDragon = GetNearestObjectByTag(&quot;M3Q04H_Dragon&quot;);
+    SetLocalInt(oDragon, &quot;NW_L_AWAKE&quot;, 1);
+//    AssignCommand(oDragon, DelayCommand(7.0, ChangeToStandardFaction(oDragon, STANDARD_FACTION_HOSTILE)));
+//    AssignCommand(oDragon, DelayCommand(7.1, ActionAttack(GetNearestCreature(CREATURE_TYPE_PLAYER_CHAR, PLAYER_CHAR_IS_PC))));
+}
+
+// * shapeshift into Yuanti
+void BecomeYuantiAndAttack()
+{
+    effect eVis = EffectVisualEffect(VFX_IMP_POLYMORPH);
+    ApplyEffectToObject(DURATION_TYPE_PERMANENT, eVis, OBJECT_SELF);
+    object oPC = GetNearestCreature(CREATURE_TYPE_PLAYER_CHAR, PLAYER_CHAR_IS_PC);
+    ApplyEffectToObject(DURATION_TYPE_PERMANENT, EffectPolymorph(29), OBJECT_SELF);
+    SetLocalInt(OBJECT_SELF, &quot;NW_L_ICHANGED&quot;, 1);
+    SetLocalInt(GetModule(),&quot;NW_G_M3Q04PLOTYUANTI&quot;, 2)  ;
+  //  SignalEvent(GetNearestObjectByTag(&quot;M3Q04G13YUAN&quot;, OBJECT_SELF, 2), EventUserDefined(2050));
+    DelayCommand(2.0,SpeakOneLinerConversation());
+    DelayCommand(2.0,ActionAttack(oPC));
+}
+
+
+//* Haedraline locks the &#x27;appropriate&#x27; door based  upon where the player retrieved the word
+void HaedralineLocksDoor()
+{
+    string sAreaTag = GetTag(GetArea(OBJECT_SELF));
+    object oDoor= OBJECT_INVALID;
+    // * Creator Race Ruins Doors
+    if (sAreaTag == &quot;M3Q2F&quot;)
+    {
+        oDoor = GetNearestObjectByTag(&quot;M3Q2F24MAGICDOOR&quot;);
+        AssignCommand(oDoor,ActionCloseDoor(oDoor));
+        SetLocked(oDoor, TRUE);
+    }
+    else
+    // * snow globe dragon cave door
+    if (sAreaTag == &quot;M3Q3CA&quot;)
+    {
+        oDoor = GetNearestObjectByTag(&quot;M3Q3CA01_OUT&quot;);
+        AssignCommand(oDoor,ActionCloseDoor(oDoor));
+        SetLocked(oDoor, TRUE);
+    }
+    else
+    // * snow globe dragon cave door
+    if (sAreaTag == &quot;M3Q4HC&quot;)
+    {
+        oDoor = GetNearestObjectByTag(&quot;M3Q4WordDoor&quot;);
+        AssignCommand(oDoor,ActionCloseDoor(oDoor));
+        SetLocked(oDoor, TRUE);
+    }
+
+}
+void HaedralineUnlocksDoor()
+{
+    string sAreaTag = GetTag(GetArea(OBJECT_SELF));
+    object oDoor= OBJECT_INVALID;
+    // * Creator Race Ruins Doors
+    if (sAreaTag == &quot;M3Q2F&quot;)
+    {
+        oDoor = GetNearestObjectByTag(&quot;M3Q2F24MAGICDOOR&quot;);
+        AssignCommand(oDoor,ActionOpenDoor(oDoor));
+        SetLocked(oDoor, FALSE);
+    }
+    else
+    // * snow globe dragon cave door
+    if (sAreaTag == &quot;M3Q3CA&quot;)
+    {
+        oDoor = GetNearestObjectByTag(&quot;M3Q3CA01_OUT&quot;);
+        AssignCommand(oDoor,ActionOpenDoor(oDoor));
+        SetLocked(oDoor, FALSE);
+    }
+    else
+    // * snow globe dragon cave door
+    if (sAreaTag == &quot;M3Q4HC&quot;)
+    {
+        oDoor = GetNearestObjectByTag(&quot;M3Q4WordDoor&quot;);
+        AssignCommand(oDoor,ActionOpenDoor(oDoor));
+        SetLocked(oDoor, FALSE);
+    }
+
+
+}
+// *
+// * Locals On Players, Functions
+// *
+void SetPlayerAcceptedYusamQuest(object oPC)
+{
+    SetLocalInt(oPC, &quot;NW_L_M3Q05SPOKEWITHPLAYER&quot;, 10);
+}
+int GetPlayerAcceptedYusamQuest(object oPC)
+{
+    if (GetLocalInt(oPC, &quot;NW_L_M3Q05SPOKEWITHPLAYER&quot;) &gt;= 10)
+    {
+        return TRUE;
+    }
+    else
+    {
+        return FALSE;
+    }
+}
+
+void RestoreEveryone()
+{
+    object oTarget = GetFirstPC();
+    while(GetIsObjectValid(oTarget))
+    {
+        effect eBad = GetFirstEffect(oTarget);
+        //Search for negative effects
+        while(GetIsEffectValid(eBad))
+        {
+            if (GetEffectType(eBad) == EFFECT_TYPE_ABILITY_DECREASE ||
+                GetEffectType(eBad) == EFFECT_TYPE_AC_DECREASE ||
+                GetEffectType(eBad) == EFFECT_TYPE_ATTACK_DECREASE ||
+                GetEffectType(eBad) == EFFECT_TYPE_DAMAGE_DECREASE ||
+                GetEffectType(eBad) == EFFECT_TYPE_DAMAGE_IMMUNITY_DECREASE ||
+                GetEffectType(eBad) == EFFECT_TYPE_SAVING_THROW_DECREASE ||
+                GetEffectType(eBad) == EFFECT_TYPE_SPELL_RESISTANCE_DECREASE ||
+                GetEffectType(eBad) == EFFECT_TYPE_SKILL_DECREASE ||
+                GetEffectType(eBad) == EFFECT_TYPE_BLINDNESS ||
+                GetEffectType(eBad) == EFFECT_TYPE_DEAF ||
+                GetEffectType(eBad) == EFFECT_TYPE_CURSE ||
+                GetEffectType(eBad) == EFFECT_TYPE_DISEASE ||
+                GetEffectType(eBad) == EFFECT_TYPE_POISON ||
+                GetEffectType(eBad) == EFFECT_TYPE_PARALYZE ||
+                GetEffectType(eBad) == EFFECT_TYPE_NEGATIVELEVEL)
+            {
+                //Remove effect if it is negative.
+                RemoveEffect(oTarget, eBad);
+            }
+            eBad = GetNextEffect(oTarget);
+        }
+        int nHeal = GetMaxHitPoints(oTarget) - GetCurrentHitPoints(oTarget);
+        if(nHeal &gt; 0)
+        {
+            effect eHeal = EffectHeal(nHeal);
+            ApplyEffectToObject(DURATION_TYPE_INSTANT, eHeal, oTarget);
+        }
+        oTarget = GetNextPC();
+    }
+}
+
+
+void DoDoorJump(object oWay, object oPC)
+{
+    if(GetIsPC(oPC) || GetIsObjectValid(GetMaster(oPC)))
+    {
+        effect eVis = EffectVisualEffect(VFX_IMP_LIGHTNING_M);
+        ApplyEffectToObject(DURATION_TYPE_INSTANT,eVis,oPC,1.0);
+        DelayCommand(0.9,AssignCommand(oPC,ClearAllActions()));
+        DelayCommand(1.0,AssignCommand(oPC,JumpToObject(oWay)));
+    }
+}
+</code></pre>
+  </main>
+  <footer>generated by <a href="https://github.com/mrprice22/nwn-manager">nwn-manager</a></footer>
+</body>
+</html>

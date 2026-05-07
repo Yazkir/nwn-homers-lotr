@@ -1,0 +1,216 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Script j_inc_debug</title>
+  <link rel="stylesheet" href="../assets/style.css">
+</head>
+<body>
+  <header class="site-header">
+    <a class="brand" href="../index.html">Module Wiki</a>
+    <nav>
+      <a href="../index.html">Map</a>
+      <a href="../areas/index.html">Areas</a>
+      <a href="../creatures/index.html">Creature Blueprints</a>
+      <a href="../creatures/instances/index.html">Creature Instances</a>
+      <a href="../items/index.html">Items</a>
+      <a href="../stores/index.html">Stores</a>
+      <a href="../conversations/index.html">Conversations</a>
+      <a href="../factions.html">Factions</a>
+      <a href="../journal.html">Journal</a>
+    </nav>
+  </header>
+  <main>
+<h1>Script: <code>j_inc_debug</code></h1><pre class="nss-source"><code>/************************ [Debug] **********************************************
+    Filename: J_Inc_Debug
+************************* [Debug] **********************************************
+    This contains DebugActionSpeak, the debug function.
+
+    Makes it easier to uncomment debug lines.
+************************* [History] ********************************************
+    1.3 - Added
+************************* [Workings] *******************************************
+    DebugActionSpeak normally writes a timestamped log entry, and speak a silent
+    string Server Admins can hear.
+
+    To Do: Might make it more generic debug lines, where you can uncomment all
+    &quot;XX&quot; lines HERE, not in the files, so it compiles without them, and only
+    need an integer to speak one.
+
+    1.3 added:
+    - DebugActionSpeakByInt(int iInteger);
+        - Removes many strings into this file
+        - Can easily comment out all string so they are not added to compiled
+          scripts if debugging unused (This saves space on compiled files :-D )
+        - Always uncomment the right bits if not using any debugging.
+************************* [Arguments] ******************************************
+    Arguments: N/A
+************************* [Debug] *********************************************/
+
+// This will speak a cirtain integer number string (similar to a dialog reference).
+// - I (Jass) have just moved all strings I used all the time into here, so
+//   if the strings are uncommented, they will not be compiled
+// - The numbers have no reference to much really.
+// - Calls DebugActionSpeak!
+// - See J_INC_DEBUG to uncomment/recomment in
+void DebugActionSpeakByInt(int iInteger, object oInput = OBJECT_INVALID, int iInput = FALSE, string sInput = &quot;&quot;);
+
+// Speaks and stamps a debug string.
+// - See J_INC_DEBUG to uncomment/recomment the debug strings.
+// - Only used in special circumstances.
+void DebugActionSpeak(string sString);
+
+// This will speak a cirtain integer number string (similar to a dialog reference).
+// - I (Jass) have just moved all strings I used all the time into here, so
+//   if the strings are uncommented, they will not be compiled
+// - The numbers have no reference to much really.
+// - Calls DebugActionSpeak!
+// - See J_INC_DEBUG to uncomment/recomment in
+void DebugActionSpeakByInt(int iInteger, object oInput = OBJECT_INVALID, int iInput = FALSE, string sInput = &quot;&quot;)
+{
+    // TO UNCOMMENT/COMMENT:
+    // - Add/Remove in &quot;//&quot; before the next lines &quot;/*&quot;
+    // - Recompile all files
+
+    /*
+
+    string sDebug;
+    switch(iInteger)
+    {
+        // - Generic AI stuff
+        case 1: sDebug =  &quot;[DCR:Melee] Most Damaging Weapon. Target: &quot; + GetName(oInput); break;
+        case 2: sDebug =  &quot;[DCR:Melee] Most Damaging as Not Effective&quot;; break;
+        case 3: sDebug =  &quot;[DCR:Melee] Melee Code. No valid melee target/Dead. Exiting&quot;; break;
+        case 4: sDebug =  &quot;[DCR:Melee] Melee attack. [Target] &quot; + GetName(oInput) + &quot; [Feat/Attack] &quot; + IntToString(iInput); break;
+        case 5: sDebug =  &quot;[DCR:Caster] Defensive Casting Mode ON [Enemy] &quot; + GetName(oInput); break;
+        case 6: sDebug =  &quot;[DCR:Caster] Moving away from AOO&#x27;s. [Enemy] &quot; + GetName(oInput); break;
+        case 7: sDebug =  &quot;[DCR:Casting] Talent(item) [TalentID] &quot; + IntToString(iInput) + &quot; [Target] &quot; + GetName(oInput) + &quot; [Location] &quot; + sInput; break;
+        case 8: sDebug =  &quot;[DCR:Casting] Workaround for Spontaeous [SpellID] &quot; + IntToString(iInput) + &quot; [Target] &quot; + GetName(oInput); break;
+        case 9: sDebug =  &quot;[DCR:Casting] NormalSpell [ID] &quot; + IntToString(iInput) + &quot; [Target] &quot; + GetName(oInput) + &quot; [Location] &quot; + sInput; break;
+        case 10: sDebug = &quot;[DCR:Casting] TalentSpell. [ID] &quot; + IntToString(iInput) + &quot; [Target] &quot; + GetName(oInput) + &quot; [Location] &quot; + sInput; break;
+        case 11: sDebug = &quot;[DCR:Casting] SubSpecialSpell. [ID] &quot; + IntToString(iInput) + &quot; [Target] &quot; + GetName(oInput) + &quot; [Location] &quot; + sInput; break;
+        case 12: sDebug = &quot;[DCR:Casting] NormalRandomSpell. [ID] &quot; + IntToString(iInput) + &quot; [Target] &quot; + GetName(oInput) + &quot; [Location] &quot; + sInput; break;
+        case 13: sDebug = &quot;[DCR:Casting] Backup spell caught: &quot; + IntToString(iInput); break;
+        case 14: sDebug = &quot;[DCR:Feat] [ID] &quot; + IntToString(iInput) + &quot; [Enemy] &quot; + GetName(oInput); break;
+        case 15: sDebug = &quot;[DCR:Casting] Grenade [ID] &quot; + IntToString(iInput) + &quot; [Target] &quot; + GetName(oInput) + &quot; [Location] &quot; + sInput; break;
+        case 16: sDebug = &quot;[AOE Call] Moving out of/Dispeling an AOE. [Tag] &quot; + GetTag(oInput); break;
+        case 17: sDebug = &quot;[DCR:Special] Darkness + Caster. No seen enemy. Dispel/Move.&quot;; break;
+        case 18: sDebug = &quot;[DRC:Talent] Using Talent (Healing). [TalentID] &quot; + IntToString(iInput) + &quot; [Target] &quot; + GetName(oInput); break;
+        case 19: sDebug = &quot;[DCR:Healing] (Should) Healing [Target]&quot; + GetName(oInput) + &quot; [CurrentHP|Max|ID|Rank|Power] &quot; + IntToString(iInput); break;
+        case 20: sDebug = &quot;[DCR Healing] Boss Action, create Critical Wounds potion&quot;; break;
+        case 21: sDebug = &quot;[DCR:Casting] Healing self with healing kit, [Kit] &quot; + GetName(oInput); break;
+        case 22: sDebug = &quot;[DCR:Feat] Summoning my familiar&quot;; break;
+        case 23: sDebug = &quot;[DCR:Feat] Summoning my animal companion&quot;; break;
+        case 24: sDebug = &quot;[DCR:Fleeing] Stupid/Panic/Flee moving from enemies/position - We are a commoner/no morale/failed &lt; 3 int&quot;; break;
+        case 25: sDebug = &quot;[DCR:Fleeing] Fleeing to allies. [ID Array] &quot; + sInput + &quot; [Ally] &quot; + GetName(oInput); break;
+        case 26: sDebug = &quot;[DCR:GFTK] Attacking a PC who is dying/asleep! [Enemy]&quot; + GetName(oInput); break;
+        case 27: sDebug = &quot;[DCR:Moving] Archer Retreating back from the enemy [Enemy]&quot; + GetName(oInput); break;
+        case 28: sDebug = &quot;[DCR:Turning] Using Turn Undead&quot;; break;
+        case 29: sDebug = &quot;[DCR:Bard Song] Using&quot;; break;
+        case 30: sDebug = &quot;[DCR:Bard Curse Song] Using&quot;; break;
+        case 31: sDebug = &quot;[DCR:All Spells] Error! No casting (No spells, items, target Etc).&quot;; break;
+        case 32: sDebug = &quot;[DCR:All Spells] [Modifier|BaseDC|SRA] &quot; + IntToString(iInput); break;
+        case 33: sDebug = &quot;[DCR:Casting] Cheat Spell. End of Spells. [Spell] &quot; + IntToString(iInput) + &quot;[Target]&quot; + GetName(oInput); break;
+        case 34: sDebug = &quot;[DCR:All Spells] Ranged Spells. Should use closer spells/move nearer&quot;; break;
+        case 35: sDebug = &quot;[DCR:Dragon] Breath weapon &amp; attacking [Breath ID] &quot; + IntToString(iInput) + &quot; [Target] &quot; + GetName(oInput); break;
+        case 36: sDebug = &quot;[DCR:Dragon] Wing Buffet [Target] &quot; + GetName(oInput); break;
+        case 37: sDebug = &quot;[DCR:Beholder] Teleport&quot;; break;
+        case 38: sDebug = &quot;[DCR:Beholder] Rays&quot;; break;
+        case 39: sDebug = &quot;[DCR:Targeting] No valid enemies in sight, moving to allies target&#x27;s. [Target] &quot; + GetName(oInput); break;
+        case 40: sDebug = &quot;[DCR:Targeting] Override Target Seen. [Name]&quot; + GetName(oInput); break;
+        case 41: sDebug = &quot;[DCR:Targeting] No seen in LOS, Attempting to MOVE to something [Target]&quot; + GetName(oInput); break;
+        case 42: sDebug = &quot;[DCR:Skill] Using agressive skill (+Attack). [Skill] &quot; + IntToString(iInput) + &quot; [Enemy]&quot; + GetName(oInput); break;
+        case 43: sDebug = &quot;[DCR:Pre-Melee Spells] All Potions Using. [Spell ID] &quot; + IntToString(iInput); break;
+        case 44: sDebug = &quot;[DCR:Pre-Melee Spells] True Strike Emptive attack [Target] &quot; + GetName(oInput); break;
+        case 45: sDebug = &quot;[DCR:CounterSpell] Counterspelling. [Target] &quot; + GetName(oInput); break;
+        case 46: sDebug = &quot;[DRC] START [Intruder]&quot; + GetName(oInput); break;
+        case 47: sDebug = &quot;[DCR] [PREMITURE EXIT] Cannot Do Anything.&quot;; break;
+        case 48: sDebug = &quot;[DCR] [PREMITURE EXIT] Dazed move away.&quot;; break;
+        case 49: sDebug = &quot;[DCR] [PREMITURE EXIT] Fleeing or otherwise&quot;; break;
+        case 50: sDebug = &quot;[DRC] END - DELETE PAST TARGETS&quot;; break;
+        // Perception
+        case 51: sDebug = &quot;[Perception] Our Enemy Target changed areas. Stopping, moving too...and attack... [Percieved] &quot; + GetName(oInput); break;
+        case 52: sDebug = &quot;[Perception] Enemy Vanished (Same area) Retargeting/Searching [Percieved] &quot; + GetName(oInput); break;
+        case 53: sDebug = &quot;[Perception] Enemy seen, and was old enemy/cannot see current. Re-evaluating (no spell) [Percieved] &quot; + GetName(oInput); break;
+        case 54: sDebug = &quot;[Perception] Enemy Seen. Not in combat, attacking. [Percieved] &quot; + GetName(oInput); break;
+        case 55: sDebug = &quot;[Perception] Percieved Dead Friend! Moving and Searching [Percieved] &quot; + GetName(oInput); break;
+        case 56: sDebug = &quot;[Perception] Percieved Alive Fighting Friend! Moving to and attacking. [Percieved] &quot; + GetName(oInput); break;
+        // Conversation
+        case 57: sDebug = &quot;[Shout] Friend (may be PC) in combat. Attacking! [Friend] &quot; + GetName(oInput); break;
+        case 58: sDebug = &quot;[Shout] Responding to shout [Enemy] &quot; + GetName(oInput) + &quot; Who has spoken!&quot;; break;
+        // Phisical Attacked
+        case 59: sDebug = &quot;[Phisically Attacked] Attacking back. [Attacker(enemy)] &quot; + GetName(oInput); break;
+        case 60: sDebug = &quot;[Phisically Attacked] Not same area. [Attacker(enemy)] &quot; + GetName(oInput); break;
+        // Damaged
+        case 61: sDebug = &quot;[Damaged] Morale Penalty for 600 seconds [Penalty]&quot; + IntToString(iInput); break;
+        case 62: sDebug = &quot;[Damaged] Not in combat: DCR [Damager]&quot; + GetName(oInput); break;
+        case 63: sDebug = &quot;[Damaged] Not in combat: DCR. Ally hit us. [Damager(Ally?)]&quot; + GetName(oInput); break;
+        // Death
+        case 64: sDebug = &quot;[Death] Checking corpse status in &quot; + IntToString(iInput) + &quot; [Killer] &quot; + GetName(oInput) + &quot; [Times Died Now] &quot; + sInput; break;
+        // Disturbed
+        case 65: sDebug = &quot;[Disturbed] (pickpocket) Attacking Enemy [Disturber] &quot; + GetName(oInput) + &quot; [Type] &quot; + IntToString(iInput); break;
+        // Rest
+        case 66: sDebug = &quot;[Rested] Resting. [Type(should be invalid)] &quot; + IntToString(iInput); break;
+        // Spell Cast at
+        case 67: sDebug = &quot;[Spell] Caster isn&#x27;t a creature! May look for target [Caster] &quot; + GetName(oInput); break;
+        case 68: sDebug = &quot;[Spell:Enemy/Hostile] Not in combat. Attacking: [Caster] &quot; + GetName(oInput); break;
+        case 69: sDebug = &quot;[Spell] (ally). Not in combat. May Attack/Move [Caster] &quot; + GetName(oInput); break;
+        // Spell Other AI
+        // - Shouts
+        case 70: sDebug = &quot;[Shout] Reacting To Shout. [ShoutNo.] &quot; + IntToString(iInput) + &quot; [Shouter] &quot; + GetName(oInput); break;
+        // Constants
+        // - Search
+        case 71: sDebug = &quot;[Search] Resting&quot;; break;
+        case 72: sDebug = &quot;[Search] Searching, No one to attack. [Time] &quot; + sInput; break;
+        // - DCR
+        case 73: sDebug = &quot;[Call for DCR] Default AI [Pre-Set Target]&quot; + GetName(oInput); break;
+        case 74: sDebug = &quot;[Call for DCR] Custom AI [&quot; + sInput + &quot;] [Pre-Set Target]&quot; + GetName(oInput); break;
+        // Destroy self
+        case 75: sDebug = &quot;[Dead] Setting to selectable/destroyable (so we go) for Bioware corpses.&quot;; break;
+        case 76: sDebug = &quot;[Dead] Destroying self finally.&quot;; break;
+        // Waypoints
+        case 77: sDebug = &quot;[Waypoints] Returning to spawn location. [Area] &quot; + GetName(oInput); break;
+
+        default: return; break;
+    }
+    if(sDebug != &quot;&quot;)
+    {
+        DebugActionSpeak(sDebug);
+    }
+    // */
+}
+
+void DebugActionSpeak(string sString)
+{
+// You MUST uncomment this line, IF you use either of the below things
+    //string sNew = &quot;[Debug]&quot; + GetName(OBJECT_SELF) + &quot;[ObjectID]&quot; + ObjectToString(OBJECT_SELF) + &quot; [Debug] &quot; + sString;
+
+// Note, uncomment this, so that DM&#x27;s can hear the debug speaks, normally it is
+// only server admins who can hear the debug. If you are not testing, it might
+// be best to keep this uncommented.
+// Futher: - Must have debug mode set to 1
+//         - Only the server admin can seem to see this.
+    //SpeakString(sNew, TALKVOLUME_SILENT_TALK);
+
+// Note, uncomment this line to send a message to the first PC in the module.
+// - Useful for singleplayer testing
+    //SendMessageToPC(GetFirstPC(), sNew);
+
+// This writes the entry to the log, very important, if debugging
+// Futher: - If left up for a long time, logs can get very big with the AI
+//         - Use to find problems in the AI and report to me :-D (Jasperre)
+    //WriteTimestampedLogEntry(sNew);
+}
+
+// Debug: To compile this script full, uncomment all of the below.
+/*
+void main()
+{
+    DebugActionSpeak(&quot;Test&quot;);
+}
+*/
+</code></pre>
+  </main>
+  <footer>generated by <a href="https://github.com/mrprice22/nwn-manager">nwn-manager</a></footer>
+</body>
+</html>

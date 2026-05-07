@@ -1,0 +1,124 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Script j_ai_onspellcast</title>
+  <link rel="stylesheet" href="../assets/style.css">
+</head>
+<body>
+  <header class="site-header">
+    <a class="brand" href="../index.html">Module Wiki</a>
+    <nav>
+      <a href="../index.html">Map</a>
+      <a href="../areas/index.html">Areas</a>
+      <a href="../creatures/index.html">Creature Blueprints</a>
+      <a href="../creatures/instances/index.html">Creature Instances</a>
+      <a href="../items/index.html">Items</a>
+      <a href="../stores/index.html">Stores</a>
+      <a href="../conversations/index.html">Conversations</a>
+      <a href="../factions.html">Factions</a>
+      <a href="../journal.html">Journal</a>
+    </nav>
+  </header>
+  <main>
+<h1>Script: <code>j_ai_onspellcast</code></h1><pre class="nss-source"><code>// On Spell Cast At
+// -Working-
+#include &quot;j_inc_generic_ai&quot;
+
+void main()
+{
+    object oCaster = GetLastSpellCaster();
+    object oEnemy = GetLastHostileActor(oCaster);
+    if(GetIsObjectValid(oCaster) &amp;&amp; !GetIsDM(oCaster))
+    {
+        if(GetLastSpellHarmful())
+        {
+            // If we are not fighting, and the caster is in the area, determine it on them,
+            // else it is probably an AOE spell, or they have run (EG delayed fireball blast)
+            // so just determine it (to heal, attack another or anything of the sort)
+            if(!GetFactionEqual(oCaster))
+            {
+                // Hostile spell speaksting, if set.
+                string sSpell = GetLocalString(OBJECT_SELF, &quot;AI_TALK_ON_HOSTILE_SPELL_CAST_AT&quot;);
+                if(sSpell != &quot;&quot;)
+                {
+                    if(d100() &lt;= GetLocalInt(OBJECT_SELF, &quot;AI_PERCENT_TO_SHOUT_ON_HOSTILE_SPELL_CAST_AT&quot;))
+                        SpeakString(sSpell);
+                }
+                if(!GetIsFighting(FALSE))
+                {
+                    if(GetArea(oCaster) == GetArea(OBJECT_SELF))
+                    {
+                        DebugActionSpeak(&quot;Hostile Spell (Not in combat). [Caster] &quot; + GetName(oCaster));
+                        DetermineCombatRound(oCaster);// They are in this area! Attack!
+                    }
+                    else
+                    {
+                        DebugActionSpeak(&quot;Hostile Spell (Not in combat, nor same area). [Caster] &quot; + GetName(oCaster));
+                        DetermineCombatRound();// May find another hostile to attack...
+                    }
+                }
+            }
+            else // else a friend - maybe we just are round the cornor, but are hit by an AOE spell
+            {
+                if(!GetIsObjectValid(GetAttackTarget()) &amp;&amp; !GetIsFighting())
+                {
+                    if(GetIsObjectValid(oEnemy))
+                    {
+                        SpeakString(&quot;CALL_TO_ARMS&quot;, TALKVOLUME_SILENT_TALK);
+                        DebugActionSpeak(&quot;Hostile Spell (Not in combat, nor same area). Ally caster though. Attacking Hostile Actor [Caster] &quot; + GetName(oCaster) + &quot; [Actor] &quot; + GetName(oEnemy));
+                        DetermineCombatRound(oEnemy);
+                    }
+                    else
+                    {
+                        SpeakString(&quot;CALL_TO_ARMS&quot;, TALKVOLUME_SILENT_TALK);
+                        DebugActionSpeak(&quot;Hostile Spell (Not in combat, nor same area). Ally caster though. No actor [Caster] &quot; + GetName(oCaster));
+                        DetermineCombatRound();
+                    }
+                }
+            }
+        }
+        else // Else is friendly - may be that we cannot see combat or something...
+        {
+            if(!GetIsObjectValid(GetAttackTarget()) &amp;&amp; !GetIsFighting())
+            {
+                if(GetIsFriend(oCaster))
+                {
+                    if(GetIsObjectValid(oEnemy))
+                    {
+                        SpeakString(&quot;CALL_TO_ARMS&quot;, TALKVOLUME_SILENT_TALK);
+                        DebugActionSpeak(&quot;Friendly Spell (Not in combat). Attacking Hostile Enemy of caster [Caster] &quot; + GetName(oCaster) + &quot; [Actor] &quot; + GetName(oEnemy));
+                        DetermineCombatRound(oEnemy);
+                    }
+                    else
+                    {
+                        SpeakString(&quot;CALL_TO_ARMS&quot;, TALKVOLUME_SILENT_TALK);
+                        DebugActionSpeak(&quot;Friendly Spell (Not in combat). ANo hostile enemy of them though. [Caster] &quot; + GetName(oCaster));
+                        DetermineCombatRound();
+                    }
+                }
+                else if(GetIsEnemy(oCaster) &amp;&amp; !GetFactionEqual(oCaster))
+                {
+                    SpeakString(&quot;CALL_TO_ARMS&quot;, TALKVOLUME_SILENT_TALK);
+                    DebugActionSpeak(&quot;Friendly Spell (Not in combat). Hostile caster. [Caster] &quot; + GetName(oCaster));
+                    DetermineCombatRound(oCaster);
+                }
+                else
+                {
+                    SpeakString(&quot;CALL_TO_ARMS&quot;, TALKVOLUME_SILENT_TALK);
+                    DebugActionSpeak(&quot;Friendly Spell (Not in combat). Equal faction, but enemy caster (?!) [Caster] &quot; + GetName(oCaster));
+                    DetermineCombatRound();
+                }
+            }
+        }
+    }
+    if(GetSpawnInCondition(NW_FLAG_SPELL_CAST_AT_EVENT))
+    {
+        SignalEvent(OBJECT_SELF, EventUserDefined(1011));
+    }
+}
+</code></pre>
+  </main>
+  <footer>generated by <a href="https://github.com/mrprice22/nwn-manager">nwn-manager</a></footer>
+</body>
+</html>

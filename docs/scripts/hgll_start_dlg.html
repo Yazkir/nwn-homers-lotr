@@ -1,0 +1,109 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Script hgll_start_dlg</title>
+  <link rel="stylesheet" href="../assets/style.css">
+</head>
+<body>
+  <header class="site-header">
+    <a class="brand" href="../index.html">Module Wiki</a>
+    <nav>
+      <a href="../index.html">Map</a>
+      <a href="../areas/index.html">Areas</a>
+      <a href="../creatures/index.html">Creature Blueprints</a>
+      <a href="../creatures/instances/index.html">Creature Instances</a>
+      <a href="../items/index.html">Items</a>
+      <a href="../stores/index.html">Stores</a>
+      <a href="../conversations/index.html">Conversations</a>
+      <a href="../factions.html">Factions</a>
+      <a href="../journal.html">Journal</a>
+    </nav>
+  </header>
+  <main>
+<h1>Script: <code>hgll_start_dlg</code></h1><dl class="meta"><dt>Opens z-dialogs</dt><dd><a href="../conversations/hgll_dlg_leveler.html">hgll_dlg_leveler</a></dd></dl><pre class="nss-source"><code>#include &quot;zdlg_include_i&quot;
+#include &quot;hgll_func_inc&quot;
+// This script fires off the leveling conversation, if the PC meets certain requirements.
+// It goes onused of a placeable.
+void main()
+{
+    object oPC = GetLastUsedBy();
+    /////////////Check for and remove all skill and feat adding gear. This is necessary becase adding and subtracting 50 (the max bonus) to the skill will cause errors when the toal skill plus stat bonuses plus the 50 exceed the field cap of 127, and because it is impossible to distinguish between feats on the character and feats on their gear.
+    int nSkFtItemCheck = 0;
+    int iCount;
+    object oItem;
+    for(iCount = 0; iCount &lt; NUM_INVENTORY_SLOTS; iCount++)
+        {
+        oItem = GetItemInSlot(iCount, oPC);
+        if(GetItemHasItemProperty(oItem, ITEM_PROPERTY_SKILL_BONUS) || GetItemHasItemProperty(oItem, ITEM_PROPERTY_BONUS_FEAT))
+            {
+            AssignCommand(oPC, ActionUnequipItem(oItem));
+            nSkFtItemCheck = 1;
+            }
+        }
+    if (nSkFtItemCheck == 1)
+        {
+        SendMessageToPC(oPC, &quot;You were stripped of all gear with skill or feat bonuses. Please use the leveler again.&quot;);
+        return;
+        }
+    /////////////
+
+    ExportSingleCharacter(oPC);//save the character here for future Leto edits
+    ReplenishLimitedUseFeats(oPC);
+    int nCheck = GetHasXPForNextLL(oPC);
+    struct xAbility ability;
+    struct xAbility base;
+    string sXPNeeded;
+    int nCClass;
+    int nSkillPoints;
+        switch (nCheck)
+        {
+        case -2: SendMessageToPC(oPC, &quot;You are already level 60, and cannot advance any further.&quot;); break;
+        case -1: SendMessageToPC(oPC, &quot;You must be level 40 to gain legendary levels.&quot;); break;
+        case 0:
+            sXPNeeded = IntToString(GetXPNeededForNextLL(oPC));
+            DoDebug(oPC, &quot;GetXPNeededForNextLL returned &quot;+sXPNeeded);
+            SendMessageToPC(oPC, &quot;You still need &quot; + sXPNeeded + &quot; experience points before you can gain another level.&quot;);
+            break;
+        case 1:
+            if (GetCanGainLL(oPC))//covers any conditions you add other than level and experience
+                {                 //by default this always returns TRUE, you may set additional conditions
+            ////////Check Abilities and Set Local Ints to track them////////
+                ability = GetRoughAbilities(oPC);//Pull up info on base skills and stats
+                base = GetBaseAbilities(ability, oPC);//Process that data further to get base skills and base stats
+                SetBaseAbilityMarkers(base, oPC);//Set local ints for the 6 ability scores and 27 skills
+            ////////Check/Set Control Class////////
+                nCClass = GetPersistentInt(oPC, &quot;ControlClass&quot;);//We use a persistant int so it can be accessed anytime, like with PC Scrye etc. It is NOT checked during the conversation.
+                if (nCClass == 0)//not set or Barbarian is the CC
+                    {
+                    nCClass = GetControlClass(oPC);
+                    SetControlClass(oPC, nCClass);
+                    }
+            ////////Check Skill Points Gained and Set Local Int to track them////////
+                nSkillPoints = GetPersistentInt(oPC, &quot;PointsAvailable&quot;);//points saved from last LL, if any - non-LL points not tracked
+                nSkillPoints += GetSkillPointsGainedOnLevelUp(oPC);
+                SetLocalInt(oPC, &quot;PointsAvailable&quot;, nSkillPoints);
+            ////////Declare Tracking Variables////////
+                SetLocalString(oPC, &quot;LetoscriptLL&quot;, &quot;&quot;);//String to track Letoscript changes to be made
+                SetLocalString(oPC, &quot;TrackChanges&quot;, &quot;&quot;);//String to track description of changes to be made
+            ////// Start up the conversation between ourselves and////////
+                // the clicking player.  We make the conversation
+                // private since it&#x27;s really a menu selection and
+                // not a real conversation.  We also don&#x27;t want it to
+                // play a hello.
+                StartDlg( oPC, OBJECT_SELF, &quot;hgll_dlg_leveler&quot;, TRUE, FALSE );
+                }
+            else
+                {
+                //explain why the conditions other than level and experience failed
+                SendMessageToPC(oPC, &quot;You must be immortal to gain legendary levels.&quot;);
+                }
+            break;
+        }
+    DoDebug(oPC, &quot;GetHasXPForNextLL returned &quot;+IntToString(nCheck));
+}
+</code></pre>
+  </main>
+  <footer>generated by <a href="https://github.com/mrprice22/nwn-manager">nwn-manager</a></footer>
+</body>
+</html>

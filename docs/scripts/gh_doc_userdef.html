@@ -1,0 +1,154 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Script gh_doc_userdef</title>
+  <link rel="stylesheet" href="../assets/style.css">
+</head>
+<body>
+  <header class="site-header">
+    <a class="brand" href="../index.html">Module Wiki</a>
+    <nav>
+      <a href="../index.html">Map</a>
+      <a href="../areas/index.html">Areas</a>
+      <a href="../creatures/index.html">Creature Blueprints</a>
+      <a href="../creatures/instances/index.html">Creature Instances</a>
+      <a href="../items/index.html">Items</a>
+      <a href="../stores/index.html">Stores</a>
+      <a href="../conversations/index.html">Conversations</a>
+      <a href="../factions.html">Factions</a>
+      <a href="../journal.html">Journal</a>
+    </nav>
+  </header>
+  <main>
+<h1>Script: <code>gh_doc_userdef</code></h1><pre class="nss-source"><code>/*
+    Simple Poker game. 5 card draw.
+    By: Joe Leonard
+    Email: aiden_00@yahoo.com
+    Created: 10-10-02
+
+    Doc Holliday userdefined event, OnConversation.
+    This is used to respond to the players requests to discard cards.
+*/
+#include &quot;gh_poker_include&quot;
+
+void main() {
+    int nUser = GetUserDefinedEventNumber();
+
+    if(nUser == 1004) { //OnConversation.
+        int nMatch = GetListenPatternNumber();
+        object oPC = GetLastSpeaker();
+
+        //If the player who spoke, is playing, and its &quot;discard time&quot;, proceed...
+        if(GetLocalInt(oPC, &quot;IS_PLAYING_POKER&quot;) &amp;&amp; GetLocalInt(OBJECT_SELF, &quot;DISCARD_TIME&quot;)) {
+            switch(nMatch) {
+                case 3001:
+                    nMatch = 1; //Card 1
+                    break;
+                case 3002:
+                    nMatch = 2; //Card 2
+                    break;
+                case 3003:
+                    nMatch = 3; //Card 3
+                    break;
+                case 3004:
+                    nMatch = 4; //Card 4
+                    break;
+                case 3005:
+                    nMatch = 5; //Card 5
+                    break;
+                case 3006:
+                    nMatch = 6; //Card 5
+                    break;
+                case 3007:
+                    nMatch = 7; //Card 5
+                    break;
+                case 3008:
+                    nMatch = 8; //Card 5
+                    break;
+                case 3009:
+                    nMatch = 9; //Card 5
+                    break;
+                case 3010:
+                    nMatch = 10; //Card 5
+                    break;
+                default:
+                    SpeakString(&quot;I should never say this!&quot;);
+                    break;
+            }
+            if(nMatch &lt;= 5) { //Player is discarding.
+                //If 3 or more cards discarded.. dont continue.
+                if(GetLocalInt(OBJECT_SELF, &quot;PLAYER_DISCARD_1&quot;) + //Discarded cards == 1, so if the total is greater than 2, don&#x27;t continue.
+                    GetLocalInt(OBJECT_SELF, &quot;PLAYER_DISCARD_2&quot;) +
+                    GetLocalInt(OBJECT_SELF, &quot;PLAYER_DISCARD_3&quot;) +
+                    GetLocalInt(OBJECT_SELF, &quot;PLAYER_DISCARD_4&quot;) +
+                    GetLocalInt(OBJECT_SELF, &quot;PLAYER_DISCARD_5&quot;) &lt;= 2) {
+                        if(GetLocalInt(OBJECT_SELF, &quot;PLAYER_DISCARD_&quot; + IntToString(nMatch)) == FALSE) { //If the slot has not already been discarded.
+                            //Removing for added feature. SetLocalInt(OBJECT_SELF, &quot;PLAYER_CARD_&quot; + IntToString(nMatch), Deal()); //Deal a new card in that slot.
+                            SetLocalInt(OBJECT_SELF, &quot;PLAYER_DISCARD_&quot; + IntToString(nMatch), 1); //Set as discarded
+                            //When showing the players hand below, hide cards that have been marked as &quot;discarded&quot; as the
+                            //player should not see what card he recieved back, UNTIL he has discarded ALL the cards he was going to discard.
+                            SendMessageToPC(oPC, ShowHandAndScores(&quot;PLAYER&quot;)); //Output hand to player.
+                        }
+                        else { //Else that card has been discarded already.
+                            SendMessageToPC(oPC, &quot;You&#x27;ve already discarded that card!&quot;);
+                        }
+                }
+                else if(GetLocalInt(OBJECT_SELF, &quot;PLAYER_DISCARD_1&quot;) + //Discarded cards == 1, so if the total is greater than 3, don&#x27;t continue.
+                        GetLocalInt(OBJECT_SELF, &quot;PLAYER_DISCARD_2&quot;) +
+                        GetLocalInt(OBJECT_SELF, &quot;PLAYER_DISCARD_3&quot;) +
+                        GetLocalInt(OBJECT_SELF, &quot;PLAYER_DISCARD_4&quot;) +
+                        GetLocalInt(OBJECT_SELF, &quot;PLAYER_DISCARD_5&quot;) &lt;= 3) {
+                            if(GetLocalInt(OBJECT_SELF, &quot;PLAYER_DISCARD_&quot; + IntToString(nMatch)) == FALSE) { //If the slot has not already been discarded.
+                                int iCount = 0;
+                                int iCard1 = 0;
+                                int iCard2 = 0;
+                                for(iCount = 1; iCount &lt;= 5; iCount++) { //Set iCard1 and iCard2 to the two leftover cards that have not been discarded.
+                                    if(GetLocalInt(OBJECT_SELF, &quot;PLAYER_DISCARD_&quot; + IntToString(iCount)) == 0) {
+                                        if(iCard1 == 0) {
+                                            iCard1 = GetLocalInt(OBJECT_SELF, &quot;PLAYER_CARD_&quot; + IntToString(iCount));
+                                        }
+                                        else {
+                                            iCard2 = GetLocalInt(OBJECT_SELF, &quot;PLAYER_CARD_&quot; + IntToString(iCount));
+                                        }
+                                    }
+                                }
+                                SpeakString(IntToString(iCard1) + &quot;   &quot; + IntToString(iCard2));
+                                if((GetLocalInt(OBJECT_SELF, &quot;PLAYER_CARD_&quot; + IntToString(nMatch)) == iCard1 &amp;&amp;
+                                    iCard2 &gt;= 49) ||
+                                    (GetLocalInt(OBJECT_SELF, &quot;PLAYER_CARD_&quot; + IntToString(nMatch)) == iCard2 &amp;&amp;
+                                    iCard1 &gt;= 49)) { //If the card your not trying to discard is an Ace, then you can discard it.
+                                        //Removing for added feature. SetLocalInt(OBJECT_SELF, &quot;PLAYER_CARD_&quot; + IntToString(nMatch), Deal()); //Deal a new card in that slot.
+                                        SetLocalInt(OBJECT_SELF, &quot;PLAYER_DISCARD_&quot; + IntToString(nMatch), 1); //Set as discarded
+                                        SendMessageToPC(oPC, ShowHandAndScores(&quot;PLAYER&quot;)); //Output hand to player.
+                                }
+                                else { //Else, you can&#x27;t discard a fourth card unless your remaining card is an Ace.
+                                    SendMessageToPC(oPC, &quot;You can&#x27;t discard a fourth card unless your last card is an Ace.&quot;);
+                                }
+                            }
+                            else { //Else that card has been discarded already.
+                                SendMessageToPC(oPC, &quot;You&#x27;ve already discarded that card!&quot;);
+                            }
+                }
+                else { //Else player has discarded the max amount of cards.
+                    SendMessageToPC(oPC,&quot;You&#x27;ve discarded the max amount of cards possible.&quot;);
+                }
+            }
+            else if(nMatch &gt; 5) {
+                nMatch -= 5;
+                if(GetLocalInt(OBJECT_SELF, &quot;PLAYER_DISCARD_&quot; + IntToString(nMatch)) == 1) {
+                    SetLocalInt(OBJECT_SELF, &quot;PLAYER_DISCARD_&quot; + IntToString(nMatch), 0);
+                    SendMessageToPC(oPC, ShowHandAndScores(&quot;PLAYER&quot;)); //Output hand to player.
+                }
+                else {
+                    SpeakString(&quot;You can only undiscard cards you&#x27;ve perviously marked for discard!&quot;);
+                }
+            }
+        }
+    }
+}
+</code></pre>
+  </main>
+  <footer>generated by <a href="https://github.com/mrprice22/nwn-manager">nwn-manager</a></footer>
+</body>
+</html>

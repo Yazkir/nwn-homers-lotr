@@ -1,0 +1,230 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Script isitemonanvil</title>
+  <link rel="stylesheet" href="../assets/style.css">
+</head>
+<body>
+  <header class="site-header">
+    <a class="brand" href="../index.html">Module Wiki</a>
+    <nav>
+      <a href="../index.html">Map</a>
+      <a href="../areas/index.html">Areas</a>
+      <a href="../creatures/index.html">Creature Blueprints</a>
+      <a href="../creatures/instances/index.html">Creature Instances</a>
+      <a href="../items/index.html">Items</a>
+      <a href="../stores/index.html">Stores</a>
+      <a href="../conversations/index.html">Conversations</a>
+      <a href="../factions.html">Factions</a>
+      <a href="../journal.html">Journal</a>
+    </nav>
+  </header>
+  <main>
+<h1>Script: <code>isitemonanvil</code></h1><pre class="nss-source"><code>void SetTokens(object oItem)
+{
+    SetCustomToken(100, GetName(oItem));
+    int iBase = GetBaseItemType(oItem);
+    string sBase;
+    switch ( iBase )
+        {
+        case BASE_ITEM_AMULET:
+            sBase = &quot;Amulet&quot;;
+            break;
+        case BASE_ITEM_ARMOR:
+            sBase = &quot;Armor&quot;;
+            break;
+        case BASE_ITEM_ARROW:
+            sBase = &quot;Arrow&quot;;
+            break;
+        case BASE_ITEM_BASTARDSWORD:
+            sBase = &quot;Sword&quot;;
+            break;
+        case BASE_ITEM_BATTLEAXE:
+            sBase = &quot;Axe&quot;;
+            break;
+        case BASE_ITEM_BELT:
+            sBase = &quot;Belt&quot;;
+            break;
+        case BASE_ITEM_BOLT:
+            sBase = &quot;Bolt&quot;;
+            break;
+        case BASE_ITEM_BOOTS:
+            sBase = &quot;Boots&quot;;
+            break;
+        case BASE_ITEM_BRACER:
+            sBase = &quot;Bracers&quot;;
+            break;
+        case BASE_ITEM_BULLET:
+            sBase = &quot;Bullet&quot;;
+            break;
+        case BASE_ITEM_CLOAK:
+            sBase = &quot;Cloak&quot;;
+            break;
+        case BASE_ITEM_CLUB:
+            sBase = &quot;Club&quot;;
+            break;
+        case BASE_ITEM_DAGGER:
+            sBase = &quot;Dagger&quot;;
+            break;
+        case BASE_ITEM_DART:
+            sBase = &quot;Dart&quot;;
+            break;
+        case BASE_ITEM_DIREMACE:
+            sBase = &quot;Dire Mace&quot;;
+            break;
+        case BASE_ITEM_DOUBLEAXE:
+            sBase = &quot;Double Axe&quot;;
+            break;
+        case BASE_ITEM_DWARVENWARAXE:
+            sBase = &quot;War Axe&quot;;
+            break;
+        case BASE_ITEM_GLOVES:
+            sBase = &quot;Gloves&quot;;
+            break;
+        case BASE_ITEM_GREATAXE:
+            sBase = &quot;Axe&quot;;
+            break;
+        case BASE_ITEM_GREATSWORD:
+            sBase = &quot;Sword&quot;;
+            break;
+        case BASE_ITEM_HALBERD:
+            sBase = &quot;Halberd&quot;;
+            break;
+        case BASE_ITEM_HANDAXE:
+            sBase = &quot;Axe&quot;;
+            break;
+        case BASE_ITEM_HEAVYCROSSBOW:
+            sBase = &quot;Crossbow&quot;;
+            break;
+        case BASE_ITEM_HEAVYFLAIL:
+            sBase = &quot;Flail&quot;;
+            break;
+        case BASE_ITEM_HELMET:
+            sBase = &quot;Helm&quot;;
+            break;
+        case BASE_ITEM_KAMA:
+            sBase = &quot;Kama&quot;;
+            break;
+        case BASE_ITEM_KATANA:
+            sBase = &quot;Katana&quot;;
+            break;
+        case BASE_ITEM_KUKRI:
+            sBase = &quot;Kukri&quot;;
+            break;
+        case BASE_ITEM_LARGESHIELD:
+            sBase = &quot;Shield&quot;;
+            break;
+        case BASE_ITEM_LIGHTCROSSBOW:
+            sBase = &quot;Crossbow&quot;;
+            break;
+        case BASE_ITEM_LIGHTFLAIL:
+            sBase = &quot;Flail&quot;;
+            break;
+        case BASE_ITEM_LIGHTHAMMER:
+            sBase = &quot;Hammer&quot;;
+            break;
+        case BASE_ITEM_LIGHTMACE:
+            sBase = &quot;Mace&quot;;
+            break;
+        case BASE_ITEM_LONGBOW:
+            sBase = &quot;Bow&quot;;
+            break;
+        case BASE_ITEM_LONGSWORD:
+            sBase = &quot;Sword&quot;;
+            break;
+        case BASE_ITEM_MAGICSTAFF:
+            sBase = &quot;Staff&quot;;
+            break;
+        case BASE_ITEM_MORNINGSTAR:
+            sBase = &quot;Morningstar&quot;;
+            break;
+        case BASE_ITEM_QUARTERSTAFF:
+            sBase = &quot;Staff&quot;;
+            break;
+        case BASE_ITEM_RAPIER:
+            sBase = &quot;Rapier&quot;;
+            break;
+        case BASE_ITEM_RING:
+            sBase = &quot;Ring&quot;;
+            break;
+        case BASE_ITEM_SCIMITAR:
+            sBase = &quot;Scimitar&quot;;
+            break;
+        case BASE_ITEM_SCYTHE:
+            sBase = &quot;Scythe&quot;;
+            break;
+        case BASE_ITEM_SHORTBOW:
+            sBase = &quot;Bow&quot;;
+            break;
+        case BASE_ITEM_SHORTSPEAR:
+            sBase = &quot;Spear&quot;;
+            break;
+        case BASE_ITEM_SHORTSWORD:
+            sBase = &quot;Sword&quot;;
+            break;
+        case BASE_ITEM_SHURIKEN:
+            sBase = &quot;Shuriken&quot;;
+            break;
+        case BASE_ITEM_SICKLE:
+            sBase = &quot;Sickle&quot;;
+            break;
+        case BASE_ITEM_SLING:
+            sBase = &quot;Sling&quot;;
+            break;
+        case BASE_ITEM_SMALLSHIELD:
+            sBase = &quot;Shield&quot;;
+            break;
+        case BASE_ITEM_THROWINGAXE:
+            sBase = &quot;Axe&quot;;
+            break;
+        case BASE_ITEM_TOWERSHIELD:
+            sBase = &quot;Shield&quot;;
+            break;
+        case BASE_ITEM_TWOBLADEDSWORD:
+            sBase = &quot;Sword&quot;;
+            break;
+        case BASE_ITEM_WARHAMMER:
+            sBase = &quot;Hammer&quot;;
+            break;
+        case BASE_ITEM_WHIP:
+            sBase = &quot;Whip&quot;;
+            break;
+        default:
+            sBase = &quot;Item&quot;;
+            break;
+        }
+    SetCustomToken(102, sBase);
+    SetCustomToken(103, GetName(GetPCSpeaker()));
+}
+
+int StartingConditional()
+{
+    object oAnvil = GetNearestObjectByTag(&quot;pAnvilOfWonder&quot;);
+    //Look for anvil object
+    if (oAnvil != OBJECT_INVALID)
+        {
+        //Make sure an item is on the anvil
+        object oItem = GetFirstItemInInventory(oAnvil);
+        if (oItem != OBJECT_INVALID)
+            {
+            //Make sure no extra items are on the anvil
+            object oNext = GetNextItemInInventory(oAnvil);
+            if (oNext == OBJECT_INVALID)
+                {
+                //Debug
+                int iValue = GetGoldPieceValue(oItem);
+                 //Real
+                SetLocalObject(GetPCSpeaker(), &quot;MODIFY_ITEM&quot;, oItem);
+                SetTokens(oItem);
+                return TRUE;
+                }
+            }
+        }
+   return FALSE;
+}
+</code></pre>
+  </main>
+  <footer>generated by <a href="https://github.com/mrprice22/nwn-manager">nwn-manager</a></footer>
+</body>
+</html>

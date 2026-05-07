@@ -1,0 +1,569 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Script gh_poker_include</title>
+  <link rel="stylesheet" href="../assets/style.css">
+</head>
+<body>
+  <header class="site-header">
+    <a class="brand" href="../index.html">Module Wiki</a>
+    <nav>
+      <a href="../index.html">Map</a>
+      <a href="../areas/index.html">Areas</a>
+      <a href="../creatures/index.html">Creature Blueprints</a>
+      <a href="../creatures/instances/index.html">Creature Instances</a>
+      <a href="../items/index.html">Items</a>
+      <a href="../stores/index.html">Stores</a>
+      <a href="../conversations/index.html">Conversations</a>
+      <a href="../factions.html">Factions</a>
+      <a href="../journal.html">Journal</a>
+    </nav>
+  </header>
+  <main>
+<h1>Script: <code>gh_poker_include</code></h1><pre class="nss-source"><code>/*
+    Simple Poker game. 5 card draw.
+    By: Joe Leonard
+    Email: aiden_00@yahoo.com
+    Created: 10-10-02
+
+    Hands:
+    1. Royal Flush: A, K, Q, J, 10 all of the same suit.
+    2. Straight Flush: Any five card sequence in the same suit. (Ex: 7, 8, 9, 10, J and 2, 3, 4, 5, 6 of same suit).
+    3. Four of a Kind: All four cards of the same index (Ex: J, J, J, J).
+    4. Full House: Three of a kind combined with a pair (Ex: K, K, K, 10, 10).
+    5. Flush: Any five cards of the same suit, but not in sequence.
+    6. Straight: Five cards in sequence, but not in the same suit.
+    7. Three of a Kind: Three cards of the same index. (Ex: 11, 11, 11).
+    8. Two Pair: Two separate pairs (Ex: A, A, 8, 8).
+    9. Pair: Two cards of the same index. (Ex: 4, 4).
+    10. High Card
+
+    Sequence:
+    1. Place ante into pot. (Takes MINIMUM bet from PC)
+    2. Deal 5 cards.
+    3. Betting occurs. Raise / Call / Fold (Raising takes MINIMUM bet from PC)
+    4. Discard cards. 3 max, 4 if Ace is held. (PC discards by saying &#x27;discard card #&#x27; to the NPC)
+    5. Betting occurs. Raise / Call / Fold (Raising takes MINIMUM bet from PC)
+    6. Hands revealed, highest hand wins the pot. Start new game. (Pot is awarded to winner)
+
+    Misc:
+    Cards are valued as such: A, K, Q, J, 10, 9, 8, 7, 6, 5, 4, 3, 2.
+*/
+
+//Initialize functions declarations.
+void InitializeDeck();
+int Deal();
+string CardName(int iCard);
+int GetCardValue(int iCard);
+string GetSuit(int iCard);
+void SortHand(string sWho);
+string ShowHandAndScores(string sWho);
+string GetHandValue(string sWho);
+
+/* INITIALIZE DECK
+    Resets deck so all cards are &#x27;undrawn&#x27;.
+    The &#x27;Y&#x27; and &#x27;N&#x27; at the end of the value indicates whether its been drawn or
+    not. &#x27;N&#x27; = drawn, &#x27;Y&#x27; = undrawn or available to be drawn :)
+    Also resets the players and dealers hands so they have no cards.
+    Also in the value of the cards, I included the suit. H, D, C, S
+    Heart, Diamond, Club, Spade.*/
+    void InitializeDeck() { //Resets deck and hands so none are &#x27;drawn&#x27;.
+        SetLocalString(OBJECT_SELF, &quot;1&quot;, &quot;02HY&quot;); //TWOS
+        SetLocalString(OBJECT_SELF, &quot;2&quot;, &quot;02DY&quot;);
+        SetLocalString(OBJECT_SELF, &quot;3&quot;, &quot;02CY&quot;);
+        SetLocalString(OBJECT_SELF, &quot;4&quot;, &quot;02SY&quot;);
+        SetLocalString(OBJECT_SELF, &quot;5&quot;, &quot;03HY&quot;); //THREES
+        SetLocalString(OBJECT_SELF, &quot;6&quot;, &quot;03DY&quot;);
+        SetLocalString(OBJECT_SELF, &quot;7&quot;, &quot;03CY&quot;);
+        SetLocalString(OBJECT_SELF, &quot;8&quot;, &quot;03SY&quot;);
+        SetLocalString(OBJECT_SELF, &quot;9&quot;, &quot;04HY&quot;); //FOURS
+        SetLocalString(OBJECT_SELF, &quot;10&quot;, &quot;04DY&quot;);
+        SetLocalString(OBJECT_SELF, &quot;11&quot;, &quot;04CY&quot;);
+        SetLocalString(OBJECT_SELF, &quot;12&quot;, &quot;04SY&quot;);
+        SetLocalString(OBJECT_SELF, &quot;13&quot;, &quot;05HY&quot;); //FIVES
+        SetLocalString(OBJECT_SELF, &quot;14&quot;, &quot;05DY&quot;);
+        SetLocalString(OBJECT_SELF, &quot;15&quot;, &quot;05CY&quot;);
+        SetLocalString(OBJECT_SELF, &quot;16&quot;, &quot;05SY&quot;);
+        SetLocalString(OBJECT_SELF, &quot;17&quot;, &quot;06HY&quot;); //SIXES
+        SetLocalString(OBJECT_SELF, &quot;18&quot;, &quot;06DY&quot;);
+        SetLocalString(OBJECT_SELF, &quot;19&quot;, &quot;06CY&quot;);
+        SetLocalString(OBJECT_SELF, &quot;20&quot;, &quot;06SY&quot;);
+        SetLocalString(OBJECT_SELF, &quot;21&quot;, &quot;07HY&quot;); //SEVENS
+        SetLocalString(OBJECT_SELF, &quot;22&quot;, &quot;07DY&quot;);
+        SetLocalString(OBJECT_SELF, &quot;23&quot;, &quot;07CY&quot;);
+        SetLocalString(OBJECT_SELF, &quot;24&quot;, &quot;07SY&quot;);
+        SetLocalString(OBJECT_SELF, &quot;25&quot;, &quot;08HY&quot;); //EIGHTS
+        SetLocalString(OBJECT_SELF, &quot;26&quot;, &quot;08DY&quot;);
+        SetLocalString(OBJECT_SELF, &quot;27&quot;, &quot;08CY&quot;);
+        SetLocalString(OBJECT_SELF, &quot;28&quot;, &quot;08SY&quot;);
+        SetLocalString(OBJECT_SELF, &quot;29&quot;, &quot;09HY&quot;); //NINES
+        SetLocalString(OBJECT_SELF, &quot;30&quot;, &quot;09DY&quot;);
+        SetLocalString(OBJECT_SELF, &quot;31&quot;, &quot;09CY&quot;);
+        SetLocalString(OBJECT_SELF, &quot;32&quot;, &quot;09SY&quot;);
+        SetLocalString(OBJECT_SELF, &quot;33&quot;, &quot;10HY&quot;); //TENS
+        SetLocalString(OBJECT_SELF, &quot;34&quot;, &quot;10DY&quot;);
+        SetLocalString(OBJECT_SELF, &quot;35&quot;, &quot;10CY&quot;);
+        SetLocalString(OBJECT_SELF, &quot;36&quot;, &quot;10SY&quot;);
+        SetLocalString(OBJECT_SELF, &quot;37&quot;, &quot;11HY&quot;); //JACKS
+        SetLocalString(OBJECT_SELF, &quot;38&quot;, &quot;11DY&quot;);
+        SetLocalString(OBJECT_SELF, &quot;39&quot;, &quot;11CY&quot;);
+        SetLocalString(OBJECT_SELF, &quot;40&quot;, &quot;11SY&quot;);
+        SetLocalString(OBJECT_SELF, &quot;41&quot;, &quot;12HY&quot;); //QUEENS
+        SetLocalString(OBJECT_SELF, &quot;42&quot;, &quot;12DY&quot;);
+        SetLocalString(OBJECT_SELF, &quot;43&quot;, &quot;12CY&quot;);
+        SetLocalString(OBJECT_SELF, &quot;44&quot;, &quot;12SY&quot;);
+        SetLocalString(OBJECT_SELF, &quot;45&quot;, &quot;13HY&quot;); //KINGS
+        SetLocalString(OBJECT_SELF, &quot;46&quot;, &quot;13DY&quot;);
+        SetLocalString(OBJECT_SELF, &quot;47&quot;, &quot;13CY&quot;);
+        SetLocalString(OBJECT_SELF, &quot;48&quot;, &quot;13SY&quot;);
+        SetLocalString(OBJECT_SELF, &quot;49&quot;, &quot;14HY&quot;); //ACES
+        SetLocalString(OBJECT_SELF, &quot;50&quot;, &quot;14DY&quot;);
+        SetLocalString(OBJECT_SELF, &quot;51&quot;, &quot;14CY&quot;);
+        SetLocalString(OBJECT_SELF, &quot;52&quot;, &quot;14SY&quot;);
+
+
+        //Resetting Dealer and Player hands to &#x27;empty&#x27;.
+        SetLocalInt(OBJECT_SELF, &quot;PLAYER_CARD_1&quot;, 0);
+        SetLocalInt(OBJECT_SELF, &quot;PLAYER_CARD_2&quot;, 0);
+        SetLocalInt(OBJECT_SELF, &quot;PLAYER_CARD_3&quot;, 0);
+        SetLocalInt(OBJECT_SELF, &quot;PLAYER_CARD_4&quot;, 0);
+        SetLocalInt(OBJECT_SELF, &quot;PLAYER_CARD_5&quot;, 0);
+
+        SetLocalInt(OBJECT_SELF, &quot;DEALER_CARD_1&quot;, 0);
+        SetLocalInt(OBJECT_SELF, &quot;DEALER_CARD_2&quot;, 0);
+        SetLocalInt(OBJECT_SELF, &quot;DEALER_CARD_3&quot;, 0);
+        SetLocalInt(OBJECT_SELF, &quot;DEALER_CARD_4&quot;, 0);
+        SetLocalInt(OBJECT_SELF, &quot;DEALER_CARD_5&quot;, 0);
+
+        //Resetting variables used for tracking discarded cards.
+        SetLocalInt(OBJECT_SELF, &quot;PLAYER_DISCARD_1&quot;, 0);
+        SetLocalInt(OBJECT_SELF, &quot;PLAYER_DISCARD_2&quot;, 0);
+        SetLocalInt(OBJECT_SELF, &quot;PLAYER_DISCARD_3&quot;, 0);
+        SetLocalInt(OBJECT_SELF, &quot;PLAYER_DISCARD_4&quot;, 0);
+        SetLocalInt(OBJECT_SELF, &quot;PLAYER_DISCARD_5&quot;, 0);
+
+    }
+
+
+/* DEAL ONE CARD!
+    Just picks one random card from the deck, if the card is designated with a
+    &#x27;N&#x27; at the end of its value, a different card is picked until one is available.*/
+    int Deal() { //Draws random card. Suit and color do not matter in BlackJack.
+        int iCard = Random(52) + 1;
+        //Iterate through deck till we get a card that is &#x27;available&#x27;.
+        while(GetStringRight(GetLocalString(OBJECT_SELF, IntToString(iCard)), 1) == &quot;N&quot;) {
+            iCard = Random(52) + 1;
+        }
+        //Set that card to NO, so we don&#x27;t draw it again.
+        SetLocalString(OBJECT_SELF, IntToString(iCard), GetStringLeft(GetLocalString(OBJECT_SELF, IntToString(iCard)), 3) + &quot;N&quot;);
+        return iCard;
+    }
+
+
+/* GET CARD NAME
+    Just get the proper name of the card. Jack&#x27;s, Queen&#x27;s, King&#x27;s and Ace&#x27;s.*/
+    string CardName(int iCard) {
+        if(iCard &gt;= 1 &amp;&amp; iCard &lt;= 36) { //TWOS thru TENS
+            return IntToString(StringToInt(GetStringLeft(GetLocalString(OBJECT_SELF, IntToString(iCard)), 2)));
+        }
+        else if(iCard &gt;= 37 &amp;&amp; iCard &lt;= 40) { //JACKS
+            return &quot;Jack&quot;;
+        }
+        else if(iCard &gt;= 41 &amp;&amp; iCard &lt;= 44) { //QUEENS
+            return &quot;Queen&quot;;
+        }
+        else if(iCard &gt;= 45 &amp;&amp; iCard &lt;= 48) { //KINGS
+            return &quot;King&quot;;
+        }
+        else if(iCard &gt;= 49 &amp;&amp; iCard &lt;= 52) { //ACES
+            return &quot;Ace&quot;;
+        }
+        else {
+            return &quot;Empty&quot;;
+        }
+    }
+
+
+/* GET CARD VALUE
+    10 == 10, King == 13, Ace == 14.*/
+    int GetCardValue(int iCard) {
+        return StringToInt(GetStringLeft(GetLocalString(OBJECT_SELF, IntToString(iCard)), 2));
+    }
+
+
+/* GET CARD SUIT
+    Heart, Spade, Diamond, Club*/
+    string GetSuit(int iCard) {
+        string sSuit = GetSubString(GetLocalString(OBJECT_SELF, IntToString(iCard)), 2, 1);
+        if(sSuit == &quot;H&quot;) { //HEARTS
+            sSuit = &quot;Heart&quot;;
+        }
+        else if(sSuit == &quot;D&quot;) { //DIAMONDS
+            sSuit = &quot;Diamond&quot;;
+        }
+        else if(sSuit == &quot;S&quot;) { //SPADES
+            sSuit = &quot;Spade&quot;;
+        }
+        else if(sSuit == &quot;C&quot;) { //CLUBS
+            sSuit = &quot;Club&quot;;
+        }
+        return sSuit;
+    }
+
+
+/* SORT CARDS, HIGHEST TO LOWEST
+    Sort the cards according to value, A, K, Q, J, 10, 9, 8, 7, 6, 5, 4, 3, 2
+    Since cards are already in order in the deck, we need only use the card number
+    value from 1 to 52 to determine value. So its Heart Diamond Club Spade in
+    order of value according to the deck, although the suits are irrelivent in
+    this case, they will be sorted that way.*/
+    void SortHand(string sWho) {
+        int iCard1 = GetLocalInt(OBJECT_SELF, sWho + &quot;_CARD_1&quot;);
+        int iCard2 = GetLocalInt(OBJECT_SELF, sWho + &quot;_CARD_2&quot;);
+        int iCard3 = GetLocalInt(OBJECT_SELF, sWho + &quot;_CARD_3&quot;);
+        int iCard4 = GetLocalInt(OBJECT_SELF, sWho + &quot;_CARD_4&quot;);
+        int iCard5 = GetLocalInt(OBJECT_SELF, sWho + &quot;_CARD_5&quot;);
+        int iCardTemp = 0;
+        int HandSorted = FALSE;
+
+        while(HandSorted == FALSE) {
+            if(iCard1 &gt; iCard2) { //If larger, continue to next card.
+                if(iCard2 &gt; iCard3) { //If larger, continue to next card.
+                    if(iCard3 &gt; iCard4) { //If larger, continue to next card.
+                        if(iCard4 &gt; iCard5) { //If larger, continue to next card.
+                            HandSorted = TRUE; //Cards sorted, looping will stop.
+                        }
+                        else { //If not larger, swap values.
+                            iCardTemp = iCard4;
+                            iCard4 = iCard5;
+                            iCard5 = iCardTemp;
+                        }
+                    }
+                    else { //If not larger, swap values.
+                        iCardTemp = iCard3;
+                        iCard3 = iCard4;
+                        iCard4 = iCardTemp;
+                    }
+                }
+                else { //If not larger, swap values.
+                    iCardTemp = iCard2;
+                    iCard2 = iCard3;
+                    iCard3 = iCardTemp;
+                }
+            }
+            else { //If not larger, swap values.
+                iCardTemp = iCard1;
+                iCard1 = iCard2;
+                iCard2 = iCardTemp;
+            }
+        }
+        //Cards have been sorted, put them back in the hand.
+        SetLocalInt(OBJECT_SELF, sWho + &quot;_CARD_1&quot;, iCard1);
+        SetLocalInt(OBJECT_SELF, sWho + &quot;_CARD_2&quot;, iCard2);
+        SetLocalInt(OBJECT_SELF, sWho + &quot;_CARD_3&quot;, iCard3);
+        SetLocalInt(OBJECT_SELF, sWho + &quot;_CARD_4&quot;, iCard4);
+        SetLocalInt(OBJECT_SELF, sWho + &quot;_CARD_5&quot;, iCard5);
+    }
+
+
+/* SHOW PLAYER OR DEALER HANDS AND SCORES
+    Shows the cards and score of the hand */
+    string ShowHandAndScores(string sWho) {
+        string sHand = GetStringLeft(sWho, 1) + GetStringLowerCase(GetStringRight(sWho, 5)) + &quot;: &quot;;
+        if(GetLocalInt(OBJECT_SELF, &quot;DISCARD_TIME&quot;) == TRUE) { //If discard time, hide cards.
+            int iCount = 0;
+            for(iCount = 1; iCount &lt;= 5; iCount++) { //Check each card, if discarded, show as HIDDEN for now.
+                if(GetLocalInt(OBJECT_SELF, &quot;PLAYER_DISCARD_&quot; + IntToString(iCount)) == 0) {
+                    sHand = sHand + CardName(GetLocalInt(OBJECT_SELF, sWho + &quot;_CARD_&quot; + IntToString(iCount))) + &quot; of &quot; + GetSuit(GetLocalInt(OBJECT_SELF, sWho + &quot;_CARD_&quot; + IntToString(iCount))) + &quot;s, &quot;;
+                }
+                else {
+                    sHand = sHand + &quot;[&quot; + CardName(GetLocalInt(OBJECT_SELF, sWho + &quot;_CARD_&quot; + IntToString(iCount))) + &quot; of &quot; + GetSuit(GetLocalInt(OBJECT_SELF, sWho + &quot;_CARD_&quot; + IntToString(iCount))) + &quot;s], &quot;;
+                }
+            }
+            sHand = GetStringLeft(sHand, GetStringLength(sHand) - 2) + &quot;.&quot;;
+        }
+        else { //Else its not discard time, so dont hide. And also show the hand value.
+            SortHand(sWho); //Sort the cards when showing them all.
+            sHand = sHand + CardName(GetLocalInt(OBJECT_SELF, sWho + &quot;_CARD_1&quot;)) + &quot; of &quot; + GetSuit(GetLocalInt(OBJECT_SELF, sWho + &quot;_CARD_1&quot;)) + &quot;s&quot;;
+            sHand = sHand + &quot;, &quot; + CardName(GetLocalInt(OBJECT_SELF, sWho + &quot;_CARD_2&quot;)) + &quot; of &quot; + GetSuit(GetLocalInt(OBJECT_SELF, sWho + &quot;_CARD_2&quot;)) + &quot;s&quot;;
+            sHand = sHand + &quot;, &quot; + CardName(GetLocalInt(OBJECT_SELF, sWho + &quot;_CARD_3&quot;)) + &quot; of &quot; + GetSuit(GetLocalInt(OBJECT_SELF, sWho + &quot;_CARD_3&quot;)) + &quot;s&quot;;
+            sHand = sHand + &quot;, &quot; + CardName(GetLocalInt(OBJECT_SELF, sWho + &quot;_CARD_4&quot;)) + &quot; of &quot; + GetSuit(GetLocalInt(OBJECT_SELF, sWho + &quot;_CARD_4&quot;)) + &quot;s&quot;;
+            sHand = sHand + &quot;, &quot; + CardName(GetLocalInt(OBJECT_SELF, sWho + &quot;_CARD_5&quot;)) + &quot; of &quot; + GetSuit(GetLocalInt(OBJECT_SELF, sWho + &quot;_CARD_5&quot;)) + &quot;s&quot;;
+            sHand = sHand + &quot;.\n&quot; + GetHandValue(sWho);
+        }
+        return sHand;
+    }
+
+
+/* GET HAND VALUE
+    This function gets the hand value. It determines whether the person has
+    a straight flush or two pair, or whatever. There are 10 possibilities, from
+    a royal flush to a single high card. A point system is also used to
+    determine what hand wins when there is a tie in the type of hand they got.
+    Like if Player 1 got two pair, A,A,K,K,2 and Player 2 got K,K,Q,Q,4. Player
+    1 would win this hand, as his two pair are valued more. I&#x27;m going to assume
+    that a A,A,3,3,2 would lose to a Q,Q,J,J,2, as the total of the two pair
+    from the latter hand is more valuable. */
+    string GetHandValue(string sWho) {
+        int iCard1 = GetLocalInt(OBJECT_SELF, sWho + &quot;_CARD_1&quot;);
+        int iCard2 = GetLocalInt(OBJECT_SELF, sWho + &quot;_CARD_2&quot;);
+        int iCard3 = GetLocalInt(OBJECT_SELF, sWho + &quot;_CARD_3&quot;);
+        int iCard4 = GetLocalInt(OBJECT_SELF, sWho + &quot;_CARD_4&quot;);
+        int iCard5 = GetLocalInt(OBJECT_SELF, sWho + &quot;_CARD_5&quot;);
+        if(sWho == &quot;DEALER&quot;) {
+            SetLocalInt(OBJECT_SELF, &quot;DEALER_DISCARD_1&quot;, 0);
+            SetLocalInt(OBJECT_SELF, &quot;DEALER_DISCARD_2&quot;, 0);
+            SetLocalInt(OBJECT_SELF, &quot;DEALER_DISCARD_3&quot;, 0);
+            SetLocalInt(OBJECT_SELF, &quot;DEALER_DISCARD_4&quot;, 0);
+            SetLocalInt(OBJECT_SELF, &quot;DEALER_DISCARD_5&quot;, 0);
+        }
+        string sHandName = &quot;NONE&quot;;
+        int iMainPoints = 0;
+        int iFirstPoints = 0;
+        int iSecondPoints = 0;
+
+        /* ROYAL FLUSH:
+            A, K, Q, J, 10 all of the same suit.*/
+            if(sHandName == &quot;NONE&quot;) {
+                if((iCard1 &gt;= 49 &amp;&amp; iCard1 &lt;= 52) &amp;&amp; //ACE
+                    (iCard2 &gt;= 45 &amp;&amp; iCard2 &lt;= 48) &amp;&amp; //KING
+                    (iCard3 &gt;= 41 &amp;&amp; iCard3 &lt;= 44) &amp;&amp; //QUEEN
+                    (iCard4 &gt;= 37 &amp;&amp; iCard4 &lt;= 40) &amp;&amp; //JACK
+                    (iCard5 &gt;= 33 &amp;&amp; iCard5 &lt;= 36)) { //TEN
+                        if((GetSuit(iCard1) == GetSuit(iCard2)) &amp;&amp; //If all the cards are of the same suit.
+                            (GetSuit(iCard2) == GetSuit(iCard3)) &amp;&amp;
+                            (GetSuit(iCard3) == GetSuit(iCard4)) &amp;&amp;
+                            (GetSuit(iCard4) == GetSuit(iCard5))) {
+                                sHandName = &quot;Royal Flush&quot;; //Hand name is found.
+                                iMainPoints = 10;
+                        }
+                }
+            }
+
+        /* STRAIGHT FLUSH:
+            Any five card sequence in the same suit. (Ex: 7, 8, 9, 10, J and
+            2, 3, 4, 5, 6 of same suit).*/
+            if(sHandName == &quot;NONE&quot;) {
+                if((GetSuit(iCard1) == GetSuit(iCard2)) &amp;&amp; //If all the cards are of the same suit.
+                    (GetSuit(iCard2) == GetSuit(iCard3)) &amp;&amp;
+                    (GetSuit(iCard3) == GetSuit(iCard4)) &amp;&amp;
+                    (GetSuit(iCard4) == GetSuit(iCard5))) {
+                        if(((GetCardValue(iCard1) &gt; GetCardValue(iCard2)) &amp;&amp;
+                            (GetCardValue(iCard2) &gt; GetCardValue(iCard3)) &amp;&amp;
+                            (GetCardValue(iCard3) &gt; GetCardValue(iCard4)) &amp;&amp;
+                            (GetCardValue(iCard4) &gt; GetCardValue(iCard5))) &amp;&amp;
+                            (GetCardValue(iCard1) - GetCardValue(iCard5) == 4)) {
+                                sHandName = &quot;Straight Flush&quot;; //Hand name is found.
+                                iMainPoints = 9;
+                                iFirstPoints = GetCardValue(iCard1);
+                        }
+                }
+            }
+
+        /*FOUR OF A KIND:
+            All four cards of the same index (Ex: J, J, J, J).*/
+            if(sHandName == &quot;NONE&quot;) {
+                if((CardName(iCard1) == CardName(iCard2)) &amp;&amp; //If the first four cards are the same type.
+                    (CardName(iCard2) == CardName(iCard3)) &amp;&amp;
+                    (CardName(iCard3) == CardName(iCard4))) {
+                        sHandName = &quot;Four of a Kind&quot;; //Hand name is found.
+                        iMainPoints = 8;
+                        iFirstPoints = GetCardValue(iCard1);
+                        iSecondPoints = GetCardValue(iCard5);
+                        if(iCard5 &lt;= 24) {
+                            SetLocalInt(OBJECT_SELF, &quot;DEALER_DISCARD_5&quot;, iCard5); //Cards dealer is to discard.
+                        }
+                }
+                else if((CardName(iCard2) == CardName(iCard3)) &amp;&amp; //If the last four cards are the same type.
+                    (CardName(iCard3) == CardName(iCard4)) &amp;&amp;
+                    (CardName(iCard4) == CardName(iCard5))) {
+                        sHandName = &quot;Four of a Kind&quot;; //Hand name is found.
+                        iMainPoints = 8;
+                        iFirstPoints = GetCardValue(iCard2);
+                        iSecondPoints = GetCardValue(iCard1);
+                        if(iCard1 &lt;= 24) {
+                            SetLocalInt(OBJECT_SELF, &quot;DEALER_DISCARD_1&quot;, iCard1); //Cards dealer is to discard.
+                        }
+                }
+            }
+
+        /*FULL HOUSE:
+            Three of a kind combined with a pair (Ex: K, K, K, 10, 10).*/
+            if(sHandName == &quot;NONE&quot;) {
+                if((CardName(iCard1) == CardName(iCard2) &amp;&amp; //If the first three cards are the same, and the last two.
+                    CardName(iCard2) == CardName(iCard3)) &amp;&amp;
+                    CardName(iCard4) == CardName(iCard5)) {
+                        sHandName = &quot;Full House&quot;; //Hand name is found.
+                        iMainPoints = 7;
+                        iFirstPoints = GetCardValue(iCard1);
+                        iSecondPoints = GetCardValue(iCard4);
+                }
+                else if(CardName(iCard1) == CardName(iCard2) &amp;&amp; //If the first two cards are the same, and the last three.
+                    (CardName(iCard3) == CardName(iCard4) &amp;&amp;
+                    CardName(iCard4) == CardName(iCard5))) {
+                        sHandName = &quot;Full House&quot;; //Hand name is found.
+                        iMainPoints = 7;
+                        iFirstPoints = GetCardValue(iCard1);
+                        iSecondPoints = GetCardValue(iCard3);
+                }
+            }
+
+        /*FLUSH:
+            Any five cards of the same suit, but not in sequence.*/
+            if(sHandName == &quot;NONE&quot;) {
+                if(GetSuit(iCard1) == GetSuit(iCard2) &amp;&amp; //If all the cards are of the same suit.
+                    GetSuit(iCard2) == GetSuit(iCard3) &amp;&amp;
+                    GetSuit(iCard3) == GetSuit(iCard4) &amp;&amp;
+                    GetSuit(iCard4) == GetSuit(iCard5)) {
+                        sHandName = &quot;Flush&quot;; //Hand name is found.
+                        iMainPoints = 6;
+                        iFirstPoints = GetCardValue(iCard1) + GetCardValue(iCard2) + GetCardValue(iCard3) + GetCardValue(iCard4) + GetCardValue(iCard5);
+                }
+            }
+
+        /*STRAIGHT:
+            Five cards in sequence, but not in the same suit.*/
+            if(sHandName == &quot;NONE&quot;) {
+                if(((GetCardValue(iCard1) &gt; GetCardValue(iCard2)) &amp;&amp;
+                        (GetCardValue(iCard2) &gt; GetCardValue(iCard3)) &amp;&amp;
+                        (GetCardValue(iCard3) &gt; GetCardValue(iCard4)) &amp;&amp;
+                        (GetCardValue(iCard4) &gt; GetCardValue(iCard5))) &amp;&amp;
+                        (GetCardValue(iCard1) - GetCardValue(iCard5) == 4)) {
+                            sHandName = &quot;Straight&quot;; //Hand name is found.
+                            iMainPoints = 5;
+                            iFirstPoints = GetCardValue(iCard1);
+                }
+            }
+
+        /*THREE OF A KIND:
+            Three cards of the same index.*/
+            if(sHandName == &quot;NONE&quot;) {
+                if(CardName(iCard1) == CardName(iCard2) &amp;&amp; //First three cards
+                    CardName(iCard2) == CardName(iCard3)) {
+                        sHandName = &quot;Three of a Kind&quot;; //Hand name is found.
+                        iMainPoints = 4;
+                        iFirstPoints = GetCardValue(iCard1);
+                        iSecondPoints = GetCardValue(iCard4);
+                        SetLocalInt(OBJECT_SELF, &quot;DEALER_DISCARD_4&quot;, iCard4); //Cards dealer is to discard.
+                        SetLocalInt(OBJECT_SELF, &quot;DEALER_DISCARD_5&quot;, iCard5);
+                }
+                else if(CardName(iCard2) == CardName(iCard3) &amp;&amp; //Middle three cards
+                    CardName(iCard3) == CardName(iCard4)) {
+                        sHandName = &quot;Three of a Kind&quot;; //Hand name is found.
+                        iMainPoints = 4;
+                        iFirstPoints = GetCardValue(iCard2);
+                        iSecondPoints = GetCardValue(iCard1);
+                        SetLocalInt(OBJECT_SELF, &quot;DEALER_DISCARD_1&quot;, iCard1); //Cards dealer is to discard.
+                        SetLocalInt(OBJECT_SELF, &quot;DEALER_DISCARD_5&quot;, iCard5);
+                }
+                else if(CardName(iCard3) == CardName(iCard4) &amp;&amp; //Last three cards
+                    CardName(iCard4) == CardName(iCard5)) {
+                        sHandName = &quot;Three of a Kind&quot;; //Hand name is found.
+                        iMainPoints = 4;
+                        iFirstPoints = GetCardValue(iCard3);
+                        iSecondPoints = GetCardValue(iCard1);
+                        SetLocalInt(OBJECT_SELF, &quot;DEALER_DISCARD_1&quot;, iCard1); //Cards dealer is to discard.
+                        SetLocalInt(OBJECT_SELF, &quot;DEALER_DISCARD_2&quot;, iCard2);
+                }
+            }
+
+        /*TWO PAIR:
+            Two separate pairs (Ex: A, A, 8, 8).*/
+            if(sHandName == &quot;NONE&quot;) {
+                if((CardName(iCard1) == CardName(iCard2) &amp;&amp; //First four are two pair.
+                    CardName(iCard3) == CardName(iCard4))) {
+                        sHandName = &quot;Two Pair&quot;; //Hand name is found.
+                        iMainPoints = 3;
+                        iFirstPoints = GetCardValue(iCard1) + GetCardValue(iCard3);
+                        iSecondPoints = GetCardValue(iCard5);
+                        SetLocalInt(OBJECT_SELF, &quot;DEALER_DISCARD_5&quot;, iCard5); //Cards dealer is to discard.
+                }
+                else if((CardName(iCard2) == CardName(iCard3) &amp;&amp; //Last four are two pair.
+                    CardName(iCard4) == CardName(iCard5))) {
+                        sHandName = &quot;Two Pair&quot;; //Hand name is found.
+                        iMainPoints = 3;
+                        iFirstPoints = GetCardValue(iCard2) + GetCardValue(iCard4);
+                        iSecondPoints = GetCardValue(iCard1);
+                        if(iCard1 &lt;= 24) { //If dealer has 8 or greater, don&#x27;t discard.
+                            SetLocalInt(OBJECT_SELF, &quot;DEALER_DISCARD_1&quot;, iCard1); //Cards dealer is to discard.
+                        }
+                }
+                else if((CardName(iCard1) == CardName(iCard2) &amp;&amp; //First two and last two make two pair.
+                    CardName(iCard4) == CardName(iCard5))) {
+                        sHandName = &quot;Two Pair&quot;; //Hand name is found.
+                        iMainPoints = 3;
+                        iFirstPoints = GetCardValue(iCard1) + GetCardValue(iCard4);
+                        iSecondPoints = GetCardValue(iCard3);
+                        SetLocalInt(OBJECT_SELF, &quot;DEALER_DISCARD_3&quot;, iCard3); //Cards dealer is to discard.
+                }
+            }
+
+        /*PAIR:
+            Two cards of the same index.*/
+            if(sHandName == &quot;NONE&quot;) {
+                if(CardName(iCard1) == CardName(iCard2)) { //Cards 1 and 2.
+                    sHandName = &quot;One Pair&quot;; //Hand name is found.
+                    iMainPoints = 2;
+                    iFirstPoints = GetCardValue(iCard1);
+                    iSecondPoints = GetCardValue(iCard3);
+                    SetLocalInt(OBJECT_SELF, &quot;DEALER_DISCARD_3&quot;, iCard3); //Cards dealer is to discard.
+                    SetLocalInt(OBJECT_SELF, &quot;DEALER_DISCARD_4&quot;, iCard4);
+                    SetLocalInt(OBJECT_SELF, &quot;DEALER_DISCARD_5&quot;, iCard5);
+                }
+                else if(CardName(iCard2) == CardName(iCard3)) { //Cards 2 and 3.
+                    sHandName = &quot;One Pair&quot;; //Hand name is found.
+                    iMainPoints = 2;
+                    iFirstPoints = GetCardValue(iCard2);
+                    iSecondPoints = GetCardValue(iCard1);
+                    SetLocalInt(OBJECT_SELF, &quot;DEALER_DISCARD_4&quot;, iCard4); //Cards dealer is to discard.
+                    SetLocalInt(OBJECT_SELF, &quot;DEALER_DISCARD_5&quot;, iCard5);
+                }
+                else if(CardName(iCard3) == CardName(iCard4)) { //Cards 3 and 4.
+                    sHandName = &quot;One Pair&quot;; //Hand name is found.
+                    iMainPoints = 2;
+                    iFirstPoints = GetCardValue(iCard3);
+                    iSecondPoints = GetCardValue(iCard1);
+                    SetLocalInt(OBJECT_SELF, &quot;DEALER_DISCARD_2&quot;, iCard2); //Cards dealer is to discard.
+                    SetLocalInt(OBJECT_SELF, &quot;DEALER_DISCARD_5&quot;, iCard5);
+                }
+                else if(CardName(iCard4) == CardName(iCard5)) { //Cards 4 and 5.
+                    sHandName = &quot;One Pair&quot;; //Hand name is found.
+                    iMainPoints = 2;
+                    iFirstPoints = GetCardValue(iCard4);
+                    iSecondPoints = GetCardValue(iCard1);
+                    SetLocalInt(OBJECT_SELF, &quot;DEALER_DISCARD_2&quot;, iCard2); //Cards dealer is to discard.
+                    SetLocalInt(OBJECT_SELF, &quot;DEALER_DISCARD_3&quot;, iCard3);
+                }
+            }
+
+        /*HIGH CARD*/
+            if(sHandName == &quot;NONE&quot;) {
+                sHandName = &quot;High card: &quot; + CardName(iCard1);
+                iMainPoints = 1;
+                iFirstPoints = GetCardValue(iCard1);
+                if(iCard1 &gt;= 49) { //If card 1 is an Ace, then discard four cards.
+                    SetLocalInt(OBJECT_SELF, &quot;DEALER_DISCARD_2&quot;, iCard2); //Cards dealer is to discard.
+                    SetLocalInt(OBJECT_SELF, &quot;DEALER_DISCARD_3&quot;, iCard3);
+                    SetLocalInt(OBJECT_SELF, &quot;DEALER_DISCARD_4&quot;, iCard4);
+                    SetLocalInt(OBJECT_SELF, &quot;DEALER_DISCARD_5&quot;, iCard5);
+                }
+                else{
+                    SetLocalInt(OBJECT_SELF, &quot;DEALER_DISCARD_3&quot;, iCard3); //Cards dealer is to discard.
+                    SetLocalInt(OBJECT_SELF, &quot;DEALER_DISCARD_4&quot;, iCard4);
+                    SetLocalInt(OBJECT_SELF, &quot;DEALER_DISCARD_5&quot;, iCard5);
+                }
+            }
+
+        SetLocalInt(OBJECT_SELF, sWho + &quot;_SCORE_MAIN&quot;, iMainPoints);
+        SetLocalInt(OBJECT_SELF, sWho + &quot;_SCORE_FIRST&quot;, iFirstPoints);
+        SetLocalInt(OBJECT_SELF, sWho + &quot;_SCORE_SECOND&quot;, iSecondPoints);
+        return sHandName;
+    }
+
+
+</code></pre>
+  </main>
+  <footer>generated by <a href="https://github.com/mrprice22/nwn-manager">nwn-manager</a></footer>
+</body>
+</html>

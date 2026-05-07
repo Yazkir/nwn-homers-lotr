@@ -1,0 +1,1751 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Script dmfi_voice_exe</title>
+  <link rel="stylesheet" href="../assets/style.css">
+</head>
+<body>
+  <header class="site-header">
+    <a class="brand" href="../index.html">Module Wiki</a>
+    <nav>
+      <a href="../index.html">Map</a>
+      <a href="../areas/index.html">Areas</a>
+      <a href="../creatures/index.html">Creature Blueprints</a>
+      <a href="../creatures/instances/index.html">Creature Instances</a>
+      <a href="../items/index.html">Items</a>
+      <a href="../stores/index.html">Stores</a>
+      <a href="../conversations/index.html">Conversations</a>
+      <a href="../factions.html">Factions</a>
+      <a href="../journal.html">Journal</a>
+    </nav>
+  </header>
+  <main>
+<h1>Script: <code>dmfi_voice_exe</code></h1><pre class="nss-source"><code>//Smoking Function by Jason Robinson
+location GetLocationAboveAndInFrontOf(object oPC, float fDist, float fHeight)
+{
+    float fDistance = -fDist;
+    object oTarget = (oPC);
+    object oArea = GetArea(oTarget);
+    vector vPosition = GetPosition(oTarget);
+    vPosition.z += fHeight;
+    float fOrientation = GetFacing(oTarget);
+    vector vNewPos = AngleToVector(fOrientation);
+    float vZ = vPosition.z;
+    float vX = vPosition.x - fDistance * vNewPos.x;
+    float vY = vPosition.y - fDistance * vNewPos.y;
+    fOrientation = GetFacing(oTarget);
+    vX = vPosition.x - fDistance * vNewPos.x;
+    vY = vPosition.y - fDistance * vNewPos.y;
+    vNewPos = AngleToVector(fOrientation);
+    vZ = vPosition.z;
+    vNewPos = Vector(vX, vY, vZ);
+    return Location(oArea, vNewPos, fOrientation);
+}
+
+//Smoking Function by Jason Robinson
+void SmokePipe(object oActivator)
+{
+    string sEmote1 = &quot;*puffs on a pipe*&quot;;
+    string sEmote2 = &quot;*inhales from a pipe*&quot;;
+    string sEmote3 = &quot;*pulls a mouthful of smoke from a pipe*&quot;;
+    float fHeight = 1.7;
+    float fDistance = 0.1;
+    // Set height based on race and gender
+    if (GetGender(oActivator) == GENDER_MALE)
+    {
+        switch (GetRacialType(oActivator))
+        {
+            case RACIAL_TYPE_HUMAN:
+            case RACIAL_TYPE_HALFELF: fHeight = 1.7; fDistance = 0.12; break;
+            case RACIAL_TYPE_ELF: fHeight = 1.55; fDistance = 0.08; break;
+            case RACIAL_TYPE_GNOME:
+            case RACIAL_TYPE_HALFLING: fHeight = 1.15; fDistance = 0.12; break;
+            case RACIAL_TYPE_DWARF: fHeight = 1.2; fDistance = 0.12; break;
+            case RACIAL_TYPE_HALFORC: fHeight = 1.9; fDistance = 0.2; break;
+        }
+    }
+    else
+    {
+        // FEMALES
+        switch (GetRacialType(oActivator))
+        {
+            case RACIAL_TYPE_HUMAN:
+            case RACIAL_TYPE_HALFELF: fHeight = 1.6; fDistance = 0.12; break;
+            case RACIAL_TYPE_ELF: fHeight = 1.45; fDistance = 0.12; break;
+            case RACIAL_TYPE_GNOME:
+            case RACIAL_TYPE_HALFLING: fHeight = 1.1; fDistance = 0.075; break;
+            case RACIAL_TYPE_DWARF: fHeight = 1.2; fDistance = 0.1; break;
+            case RACIAL_TYPE_HALFORC: fHeight = 1.8; fDistance = 0.13; break;
+        }
+    }
+    location lAboveHead = GetLocationAboveAndInFrontOf(oActivator, fDistance, fHeight);
+    // emotes
+    switch (d3())
+    {
+        case 1: AssignCommand(oActivator, ActionSpeakString(sEmote1)); break;
+        case 2: AssignCommand(oActivator, ActionSpeakString(sEmote2)); break;
+        case 3: AssignCommand(oActivator, ActionSpeakString(sEmote3));break;
+    }
+    // glow red
+    AssignCommand(oActivator, ActionDoCommand(ApplyEffectToObject(DURATION_TYPE_TEMPORARY, EffectVisualEffect(VFX_DUR_LIGHT_RED_5), oActivator, 0.15)));
+    // wait a moment
+    AssignCommand(oActivator, ActionWait(3.0));
+    // puff of smoke above and in front of head
+    AssignCommand(oActivator, ActionDoCommand(ApplyEffectAtLocation(DURATION_TYPE_INSTANT, EffectVisualEffect(VFX_FNF_SMOKE_PUFF), lAboveHead)));
+    // if female, turn head to left
+    if ((GetGender(oActivator) == GENDER_FEMALE) &amp;&amp; (GetRacialType(oActivator) != RACIAL_TYPE_DWARF))
+        AssignCommand(oActivator, ActionPlayAnimation(ANIMATION_FIREFORGET_HEAD_TURN_LEFT, 1.0, 5.0));
+}
+
+void ParseEmote(string sEmote, object oPC)
+{
+    DeleteLocalInt(oPC, &quot;dmfi_univ_int&quot;);
+    object oRightHand = GetItemInSlot(INVENTORY_SLOT_RIGHTHAND,oPC);
+    object oLeftHand =  GetItemInSlot(INVENTORY_SLOT_LEFTHAND,oPC);
+    if (GetStringLeft(sEmote, 1) == &quot;*&quot;)
+    {
+        int iToggle;
+        string sBuffer;
+        sBuffer = GetStringRight(sEmote, GetStringLength(sEmote)-1);
+        while (!iToggle &amp;&amp; GetStringLength(sBuffer) &gt; 1)
+        {
+            if (GetStringLeft(sBuffer,1) == &quot;*&quot;)
+                iToggle = abs(iToggle - 1);
+            sBuffer = GetStringRight(sBuffer, GetStringLength(sBuffer)-1);
+        }
+        sEmote = GetStringLeft(sEmote, GetStringLength(sEmote)-GetStringLength(sBuffer));
+    }
+
+    int iSit;
+    object oArea;
+    object oChair;
+
+    //*emote* rolls
+    if (FindSubString(sEmote, &quot;Strength&quot;) != -1)
+        SetLocalInt(oPC, &quot;dmfi_univ_int&quot;, 71);
+    else if (FindSubString(sEmote, &quot;Dexterity&quot;) != -1)
+        SetLocalInt(oPC, &quot;dmfi_univ_int&quot;, 72);
+    else if (FindSubString(sEmote, &quot;Constitution&quot;) != -1)
+        SetLocalInt(oPC, &quot;dmfi_univ_int&quot;, 73);
+    else if (FindSubString(sEmote, &quot;Intelligence&quot;) != -1)
+        SetLocalInt(oPC, &quot;dmfi_univ_int&quot;, 74);
+    else if (FindSubString(sEmote, &quot;Wisdom&quot;) != -1)
+        SetLocalInt(oPC, &quot;dmfi_univ_int&quot;, 75);
+    else if (FindSubString(sEmote, &quot;Charisma&quot;) != -1)
+        SetLocalInt(oPC, &quot;dmfi_univ_int&quot;, 76);
+    else if (FindSubString(sEmote, &quot;Fortitude&quot;) != -1)
+        SetLocalInt(oPC, &quot;dmfi_univ_int&quot;, 77);
+    else if (FindSubString(sEmote, &quot;Reflex&quot;) != -1)
+        SetLocalInt(oPC, &quot;dmfi_univ_int&quot;, 78);
+    else if (FindSubString(sEmote, &quot;Will&quot;) != -1)
+        SetLocalInt(oPC, &quot;dmfi_univ_int&quot;, 79);
+    else if (FindSubString(sEmote, &quot;Animal Empathy&quot;) != -1)
+        SetLocalInt(oPC, &quot;dmfi_univ_int&quot;, 81);
+    else if (FindSubString(sEmote, &quot;Concentration&quot;) != -1)
+        SetLocalInt(oPC, &quot;dmfi_univ_int&quot;, 82);
+    else if (FindSubString(sEmote, &quot;Disable Trap&quot;) != -1)
+        SetLocalInt(oPC, &quot;dmfi_univ_int&quot;, 83);
+    else if (FindSubString(sEmote, &quot;Discipline&quot;) != -1)
+        SetLocalInt(oPC, &quot;dmfi_univ_int&quot;, 84);
+    else if (FindSubString(sEmote, &quot;Heal&quot;) != -1)
+        SetLocalInt(oPC, &quot;dmfi_univ_int&quot;, 85);
+    else if (FindSubString(sEmote, &quot;Hide&quot;) != -1)
+        SetLocalInt(oPC, &quot;dmfi_univ_int&quot;, 86);
+    else if (FindSubString(sEmote, &quot;Listen&quot;) != -1)
+        SetLocalInt(oPC, &quot;dmfi_univ_int&quot;, 87);
+    else if (FindSubString(sEmote, &quot;Lore&quot;) != -1)
+        SetLocalInt(oPC, &quot;dmfi_univ_int&quot;, 88);
+    else if (FindSubString(sEmote, &quot;Move Silently&quot;) != -1)
+        SetLocalInt(oPC, &quot;dmfi_univ_int&quot;, 89);
+    else if (FindSubString(sEmote, &quot;Open Lock&quot;) != -1)
+        SetLocalInt(oPC, &quot;dmfi_univ_int&quot;, 80);
+    else if (FindSubString(sEmote, &quot;Parry&quot;) != -1)
+        SetLocalInt(oPC, &quot;dmfi_univ_int&quot;, 91);
+    else if (FindSubString(sEmote, &quot;Perform&quot;) != -1)
+        SetLocalInt(oPC, &quot;dmfi_univ_int&quot;, 92);
+    else if (FindSubString(sEmote, &quot;Persuade&quot;) != -1)
+        SetLocalInt(oPC, &quot;dmfi_univ_int&quot;, 93);
+    else if (FindSubString(sEmote, &quot;Pickpocket&quot;) != -1 ||
+             FindSubString(sEmote, &quot;Pick Pocket&quot;) != -1)
+        SetLocalInt(oPC, &quot;dmfi_univ_int&quot;, 94);
+    else if (FindSubString(sEmote, &quot;Search&quot;) != -1)
+        SetLocalInt(oPC, &quot;dmfi_univ_int&quot;, 95);
+    else if (FindSubString(sEmote, &quot;Set Trap&quot;) != -1)
+        SetLocalInt(oPC, &quot;dmfi_univ_int&quot;, 96);
+    else if (FindSubString(sEmote, &quot;Spellcraft&quot;) != -1)
+        SetLocalInt(oPC, &quot;dmfi_univ_int&quot;, 97);
+    else if (FindSubString(sEmote, &quot;Spot&quot;) != -1)
+        SetLocalInt(oPC, &quot;dmfi_univ_int&quot;, 98);
+    else if (FindSubString(sEmote, &quot;Taunt&quot;) != -1)
+        SetLocalInt(oPC, &quot;dmfi_univ_int&quot;, 99);
+    else if (FindSubString(sEmote, &quot;Use Magic Device&quot;) != -1)
+        SetLocalInt(oPC, &quot;dmfi_univ_int&quot;, 90);
+
+    if (GetLocalInt(oPC, &quot;dmfi_univ_int&quot;))
+    {
+        SetLocalString(oPC, &quot;dmfi_univ_conv&quot;, &quot;pc_dicebag&quot;);
+        ExecuteScript(&quot;dmfi_execute&quot;, oPC);
+        return;
+    }
+
+    //*emote*
+    if (FindSubString(GetStringLowerCase(sEmote), &quot;*bow&quot;) != -1 ||
+        FindSubString(GetStringLowerCase(sEmote), &quot; bow&quot;) != -1 ||
+        FindSubString(GetStringLowerCase(sEmote), &quot;curtsey&quot;) != -1)
+        AssignCommand(oPC, PlayAnimation(ANIMATION_FIREFORGET_BOW, 1.0));
+    else if (FindSubString(GetStringLowerCase(sEmote), &quot;drink&quot;) != -1 ||
+             FindSubString(GetStringLowerCase(sEmote), &quot;sips&quot;) != -1)
+            AssignCommand(oPC, PlayAnimation(ANIMATION_FIREFORGET_DRINK, 1.0));
+    else if (FindSubString(GetStringLowerCase(sEmote), &quot;drinks&quot;) != -1 &amp;&amp;
+             FindSubString(GetStringLowerCase(sEmote), &quot;sits&quot;) != -1)
+             {
+                AssignCommand(oPC, ActionPlayAnimation( ANIMATION_LOOPING_SIT_CROSS, 1.0, 99999.0f));
+                DelayCommand(1.0f, AssignCommand(oPC, PlayAnimation( ANIMATION_FIREFORGET_DRINK, 1.0)));
+                DelayCommand(3.0f, AssignCommand(oPC, PlayAnimation( ANIMATION_LOOPING_SIT_CROSS, 1.0, 99999.0)));
+             }
+    else if (FindSubString(GetStringLowerCase(sEmote), &quot;reads&quot;) != -1 &amp;&amp;
+             FindSubString(GetStringLowerCase(sEmote), &quot;sits&quot;) != -1)
+             {
+                AssignCommand(oPC, ActionPlayAnimation( ANIMATION_LOOPING_SIT_CROSS, 1.0, 99999.0f));
+                DelayCommand(1.0f, AssignCommand(oPC, PlayAnimation( ANIMATION_FIREFORGET_READ, 1.0)));
+                DelayCommand(3.0f, AssignCommand(oPC, PlayAnimation( ANIMATION_LOOPING_SIT_CROSS, 1.0, 99999.0)));
+             }
+    else if (FindSubString(GetStringLowerCase(sEmote), &quot;greet&quot;)!= -1 ||
+             FindSubString(GetStringLowerCase(sEmote), &quot;wave&quot;) != -1)
+        AssignCommand(oPC, PlayAnimation(ANIMATION_FIREFORGET_GREETING, 1.0));
+    else if (FindSubString(GetStringLowerCase(sEmote), &quot;yawn&quot;)!= -1 ||
+             FindSubString(GetStringLowerCase(sEmote), &quot;stretch&quot;) != -1 ||
+             FindSubString(GetStringLowerCase(sEmote), &quot;bored&quot;) != -1)
+        AssignCommand(oPC, PlayAnimation(ANIMATION_FIREFORGET_PAUSE_BORED, 1.0));
+    else if (FindSubString(GetStringLowerCase(sEmote), &quot;scratch&quot;)!= -1)
+    {
+        AssignCommand(oPC,ActionUnequipItem(oRightHand));
+        AssignCommand(oPC,ActionUnequipItem(oLeftHand));
+        AssignCommand(oPC, PlayAnimation(ANIMATION_FIREFORGET_PAUSE_SCRATCH_HEAD, 1.0));
+    }
+    else if (FindSubString(GetStringLowerCase(sEmote), &quot;*reads&quot;)!= -1 ||
+             FindSubString(GetStringLowerCase(sEmote), &quot; reads&quot;)!= -1)
+        AssignCommand(oPC, PlayAnimation(ANIMATION_FIREFORGET_READ, 1.0));
+    else if (FindSubString(GetStringLowerCase(sEmote), &quot;salute&quot;)!= -1)
+    {
+        AssignCommand(oPC,ActionUnequipItem(oRightHand));
+        AssignCommand(oPC,ActionUnequipItem(oLeftHand));
+        AssignCommand(oPC, PlayAnimation(ANIMATION_FIREFORGET_SALUTE, 1.0));
+    }
+    else if (FindSubString(GetStringLowerCase(sEmote), &quot;steal&quot;)!= -1 ||
+             FindSubString(GetStringLowerCase(sEmote), &quot;swipe&quot;) != -1)
+        AssignCommand(oPC, PlayAnimation(ANIMATION_FIREFORGET_STEAL, 1.0));
+    else if (FindSubString(GetStringLowerCase(sEmote), &quot;taunt&quot;)!= -1 ||
+             FindSubString(GetStringLowerCase(sEmote), &quot;mock&quot;) != -1)
+    {
+        PlayVoiceChat(VOICE_CHAT_TAUNT, oPC);
+        AssignCommand(oPC, PlayAnimation(ANIMATION_FIREFORGET_TAUNT, 1.0));
+    }
+    else if (FindSubString(GetStringLowerCase(sEmote), &quot;smokes&quot;) != -1)
+    {
+        SmokePipe(oPC);
+    }
+    else if (FindSubString(GetStringLowerCase(sEmote), &quot;cheer&quot;)!= -1)
+    {
+        PlayVoiceChat(VOICE_CHAT_CHEER, oPC);
+        AssignCommand(oPC, PlayAnimation(ANIMATION_FIREFORGET_VICTORY1, 1.0));
+    }
+    else if (FindSubString(GetStringLowerCase(sEmote), &quot;hooray&quot;)!= -1)
+    {
+        PlayVoiceChat(VOICE_CHAT_CHEER, oPC);
+        AssignCommand(oPC, PlayAnimation(ANIMATION_FIREFORGET_VICTORY2, 1.0));
+    }
+    else if (FindSubString(GetStringLowerCase(sEmote), &quot;celebrate&quot;)!= -1)
+    {
+        PlayVoiceChat(VOICE_CHAT_CHEER, oPC);
+        AssignCommand(oPC, PlayAnimation(ANIMATION_FIREFORGET_VICTORY3, 1.0));
+    }
+    else if (FindSubString(GetStringLowerCase(sEmote), &quot;giggle&quot;)!= -1 &amp;&amp; GetGender(oPC) == GENDER_FEMALE)
+        AssignCommand(oPC, PlaySound(&quot;vs_fshaldrf_haha&quot;));
+    else if (FindSubString(GetStringLowerCase(sEmote), &quot;flop&quot;)!= -1 ||
+             FindSubString(GetStringLowerCase(sEmote), &quot;prone&quot;)!= -1)
+        AssignCommand(oPC, ActionPlayAnimation(ANIMATION_LOOPING_DEAD_FRONT, 1.0, 99999.0));
+    else if (FindSubString(GetStringLowerCase(sEmote), &quot;bends&quot;)!= -1 ||
+             FindSubString(GetStringLowerCase(sEmote), &quot;stoop&quot;)!= -1)
+        AssignCommand(oPC, ActionPlayAnimation(ANIMATION_LOOPING_GET_LOW, 1.0, 99999.0));
+    else if (FindSubString(GetStringLowerCase(sEmote), &quot;fiddle&quot;)!= -1)
+        AssignCommand(oPC, ActionPlayAnimation(ANIMATION_LOOPING_GET_MID, 1.0, 5.0));
+    else if (FindSubString(GetStringLowerCase(sEmote), &quot;nod&quot;)!= -1 ||
+             FindSubString(GetStringLowerCase(sEmote), &quot;agree&quot;)!= -1)
+        AssignCommand(oPC, ActionPlayAnimation(ANIMATION_LOOPING_LISTEN, 1.0, 4.0));
+    else if (FindSubString(GetStringLowerCase(sEmote), &quot;peers&quot;)!= -1 ||
+             FindSubString(GetStringLowerCase(sEmote), &quot;scans&quot;)!= -1 ||
+             FindSubString(GetStringLowerCase(sEmote), &quot;search&quot;)!= -1)
+        AssignCommand(oPC,ActionPlayAnimation(ANIMATION_LOOPING_LOOK_FAR, 1.0, 99999.0));
+    else if (FindSubString(GetStringLowerCase(sEmote), &quot;*pray&quot;)!= -1 ||
+             FindSubString(GetStringLowerCase(sEmote), &quot; pray&quot;)!= -1 ||
+             FindSubString(GetStringLowerCase(sEmote), &quot;meditate&quot;)!= -1)
+    {
+        AssignCommand(oPC,ActionUnequipItem(oRightHand));
+        AssignCommand(oPC,ActionUnequipItem(oLeftHand));
+        AssignCommand(oPC,ActionPlayAnimation(ANIMATION_LOOPING_MEDITATE, 1.0, 99999.0));
+    }
+    else if (FindSubString(GetStringLowerCase(sEmote), &quot;drunk&quot;)!= -1 ||
+             FindSubString(GetStringLowerCase(sEmote), &quot;woozy&quot;)!= -1)
+        AssignCommand(oPC, ActionPlayAnimation(ANIMATION_LOOPING_PAUSE_DRUNK, 1.0, 99999.0));
+    else if (FindSubString(GetStringLowerCase(sEmote), &quot;tired&quot;)!= -1 ||
+             FindSubString(GetStringLowerCase(sEmote), &quot;fatigue&quot;)!= -1 ||
+             FindSubString(GetStringLowerCase(sEmote), &quot;exhausted&quot;)!= -1)
+    {
+        PlayVoiceChat(VOICE_CHAT_REST, oPC);
+        AssignCommand(oPC, ActionPlayAnimation(ANIMATION_LOOPING_PAUSE_TIRED, 1.0, 3.0));
+    }
+    else if (FindSubString(GetStringLowerCase(sEmote), &quot;fidget&quot;)!= -1 ||
+             FindSubString(GetStringLowerCase(sEmote), &quot;shifts&quot;)!= -1)
+        AssignCommand(oPC, ActionPlayAnimation(ANIMATION_LOOPING_PAUSE2, 1.0, 99999.0));
+    else if (FindSubString(GetStringLowerCase(sEmote), &quot;sits&quot;)!= -1 &amp;&amp;
+             (FindSubString(GetStringLowerCase(sEmote), &quot;floor&quot;)!= -1 ||
+             FindSubString(GetStringLowerCase(sEmote), &quot;ground&quot;)!= -1))
+        AssignCommand(oPC, ActionPlayAnimation(ANIMATION_LOOPING_SIT_CROSS, 1.0, 99999.0));
+    else if (FindSubString(GetStringLowerCase(sEmote), &quot;demand&quot;)!= -1 ||
+             FindSubString(GetStringLowerCase(sEmote), &quot;threaten&quot;)!= -1)
+        AssignCommand(oPC, ActionPlayAnimation(ANIMATION_LOOPING_TALK_FORCEFUL, 1.0, 99999.0));
+    else if (FindSubString(GetStringLowerCase(sEmote), &quot;laugh&quot;)!= -1 ||
+            FindSubString(GetStringLowerCase(sEmote), &quot;chuckle&quot;)!= -1)
+    {
+        PlayVoiceChat(VOICE_CHAT_LAUGH, oPC);
+        AssignCommand(oPC, ActionPlayAnimation(ANIMATION_LOOPING_TALK_LAUGHING, 1.0, 2.0));
+    }
+    else if (FindSubString(GetStringLowerCase(sEmote), &quot;begs&quot;)!= -1 ||
+             FindSubString(GetStringLowerCase(sEmote), &quot;plead&quot;)!= -1)
+        AssignCommand(oPC, ActionPlayAnimation(ANIMATION_LOOPING_TALK_PLEADING, 1.0, 99999.0));
+    else if (FindSubString(GetStringLowerCase(sEmote), &quot;worship&quot;)!= -1)
+        AssignCommand(oPC, ActionPlayAnimation(ANIMATION_LOOPING_WORSHIP, 1.0, 99999.0));
+    else if (FindSubString(GetStringLowerCase(sEmote), &quot;snore&quot;)!= -1 ||
+             FindSubString(GetStringLowerCase(sEmote), &quot;*nap&quot;)!= -1 ||
+             FindSubString(GetStringLowerCase(sEmote), &quot; nap&quot;)!= -1)
+        ApplyEffectToObject(DURATION_TYPE_INSTANT, EffectVisualEffect(VFX_IMP_SLEEP), oPC);
+    else if (FindSubString(GetStringLowerCase(sEmote), &quot;*sings&quot;)!= -1 ||
+             FindSubString(GetStringLowerCase(sEmote), &quot; sings&quot;)!= -1 ||
+             FindSubString(GetStringLowerCase(sEmote), &quot;hums&quot;)!= -1 ||
+             FindSubString(GetStringLowerCase(sEmote), &quot;whistles&quot;)!= -1)
+        ApplyEffectToObject(DURATION_TYPE_TEMPORARY, EffectVisualEffect(VFX_DUR_BARD_SONG), oPC, 6.0f);
+    else if (FindSubString(GetStringLowerCase(sEmote), &quot;talks&quot;)!= -1 ||
+             FindSubString(GetStringLowerCase(sEmote), &quot;chats&quot;)!= -1)
+        AssignCommand(oPC, ActionPlayAnimation(ANIMATION_LOOPING_TALK_NORMAL, 1.0, 99999.0));
+    else if (FindSubString(GetStringLowerCase(sEmote), &quot;shakes head&quot;)!= -1)
+    {
+        AssignCommand(oPC, PlayAnimation(ANIMATION_FIREFORGET_HEAD_TURN_LEFT, 1.0, 0.25f));
+        DelayCommand(0.15f, AssignCommand(oPC, PlayAnimation(ANIMATION_FIREFORGET_HEAD_TURN_RIGHT, 1.0, 0.25f)));
+        DelayCommand(0.40f, AssignCommand(oPC, PlayAnimation(ANIMATION_FIREFORGET_HEAD_TURN_LEFT, 1.0, 0.25f)));
+        DelayCommand(0.65f, AssignCommand(oPC, PlayAnimation(ANIMATION_FIREFORGET_HEAD_TURN_RIGHT, 1.0, 0.25f)));
+    }
+}
+
+string ConvertLeetspeak(string sLetter)
+{
+    string sTranslate = sLetter;
+    if (GetStringLength(sLetter) &gt; 1)
+        sLetter = GetStringLeft(sLetter, 1);
+    if (GetStringLowerCase(sLetter) == &quot;a&quot;) sTranslate = &quot;4&quot;;
+    if (GetStringLowerCase(sLetter) == &quot;b&quot;) sTranslate = &quot;8&quot;;
+    if (GetStringLowerCase(sLetter) == &quot;c&quot;) sTranslate = &quot;(&quot;;
+    if (GetStringLowerCase(sLetter) == &quot;d&quot;) sTranslate = &quot;|)&quot;;
+    if (GetStringLowerCase(sLetter) == &quot;e&quot;) sTranslate = &quot;3&quot;;
+    if (GetStringLowerCase(sLetter) == &quot;f&quot;) sTranslate = &quot;F&quot;;
+    if (GetStringLowerCase(sLetter) == &quot;g&quot;) sTranslate = &quot;9&quot;;
+    if (GetStringLowerCase(sLetter) == &quot;h&quot;) sTranslate = &quot;H&quot;;
+    if (GetStringLowerCase(sLetter) == &quot;i&quot;) sTranslate = &quot;!&quot;;
+    if (GetStringLowerCase(sLetter) == &quot;j&quot;) sTranslate = &quot;J&quot;;
+    if (GetStringLowerCase(sLetter) == &quot;k&quot;) sTranslate = &quot;|&lt;&quot;;
+    if (GetStringLowerCase(sLetter) == &quot;l&quot;) sTranslate = &quot;1&quot;;
+    if (GetStringLowerCase(sLetter) == &quot;m&quot;) sTranslate = &quot;/\/\&quot;;
+    if (GetStringLowerCase(sLetter) == &quot;n&quot;) sTranslate = &quot;|\|&quot;;
+    if (GetStringLowerCase(sLetter) == &quot;o&quot;) sTranslate = &quot;0&quot;;
+    if (GetStringLowerCase(sLetter) == &quot;p&quot;) sTranslate = &quot;p&quot;;
+    if (GetStringLowerCase(sLetter) == &quot;q&quot;) sTranslate = &quot;Q&quot;;
+    if (GetStringLowerCase(sLetter) == &quot;r&quot;) sTranslate = &quot;R&quot;;
+    if (GetStringLowerCase(sLetter) == &quot;s&quot;) sTranslate = &quot;5&quot;;
+    if (GetStringLowerCase(sLetter) == &quot;t&quot;) sTranslate = &quot;7&quot;;
+    if (GetStringLowerCase(sLetter) == &quot;u&quot;) sTranslate = &quot;U&quot;;
+    if (GetStringLowerCase(sLetter) == &quot;v&quot;) sTranslate = &quot;\/&quot;;
+    if (GetStringLowerCase(sLetter) == &quot;w&quot;) sTranslate = &quot;\/\/&quot;;
+    if (GetStringLowerCase(sLetter) == &quot;x&quot;) sTranslate = &quot;X&quot;;
+    if (GetStringLowerCase(sLetter) == &quot;y&quot;) sTranslate = &quot;Y&quot;;
+    if (GetStringLowerCase(sLetter) == &quot;z&quot;) sTranslate = &quot;2&quot;;
+    if (GetStringLength(sTranslate) == 1 &amp;&amp; GetStringUpperCase(sLetter) == sLetter)
+        sTranslate = GetStringUpperCase(sTranslate);
+    return sTranslate;
+}//end ConvertLeetspeak
+
+string ProcessLeetspeak(string sPhrase)
+{
+    string sOutput;
+    int iToggle;
+    while (GetStringLength(sPhrase) &gt; 1)
+    {
+        if (GetStringLeft(sPhrase,1) == &quot;*&quot;)
+            iToggle = abs(iToggle - 1);
+        if (iToggle)
+            sOutput = sOutput + GetStringLeft(sPhrase,1);
+        else
+            sOutput = sOutput + ConvertLeetspeak(GetStringLeft(sPhrase, 1));
+        sPhrase = GetStringRight(sPhrase, GetStringLength(sPhrase)-1);
+    }
+    return sOutput;
+}
+
+string ConvertInfernal(string sLetter)
+{
+    string sTranslate = sLetter;
+    if (GetStringLength(sLetter) &gt; 1)
+        sLetter = GetStringLeft(sLetter, 1);
+    if (GetStringLowerCase(sLetter) == &quot;a&quot;) sTranslate = &quot;o&quot;;
+    if (GetStringLowerCase(sLetter) == &quot;b&quot;) sTranslate = &quot;c&quot;;
+    if (GetStringLowerCase(sLetter) == &quot;c&quot;) sTranslate = &quot;r&quot;;
+    if (GetStringLowerCase(sLetter) == &quot;d&quot;) sTranslate = &quot;j&quot;;
+    if (GetStringLowerCase(sLetter) == &quot;e&quot;) sTranslate = &quot;a&quot;;
+    if (GetStringLowerCase(sLetter) == &quot;f&quot;) sTranslate = &quot;v&quot;;
+    if (GetStringLowerCase(sLetter) == &quot;g&quot;) sTranslate = &quot;k&quot;;
+    if (GetStringLowerCase(sLetter) == &quot;h&quot;) sTranslate = &quot;r&quot;;
+    if (GetStringLowerCase(sLetter) == &quot;i&quot;) sTranslate = &quot;y&quot;;
+    if (GetStringLowerCase(sLetter) == &quot;j&quot;) sTranslate = &quot;z&quot;;
+    if (GetStringLowerCase(sLetter) == &quot;k&quot;) sTranslate = &quot;g&quot;;
+    if (GetStringLowerCase(sLetter) == &quot;l&quot;) sTranslate = &quot;m&quot;;
+    if (GetStringLowerCase(sLetter) == &quot;m&quot;) sTranslate = &quot;z&quot;;
+    if (GetStringLowerCase(sLetter) == &quot;n&quot;) sTranslate = &quot;r&quot;;
+    if (GetStringLowerCase(sLetter) == &quot;o&quot;) sTranslate = &quot;y&quot;;
+    if (GetStringLowerCase(sLetter) == &quot;p&quot;) sTranslate = &quot;k&quot;;
+    if (GetStringLowerCase(sLetter) == &quot;q&quot;) sTranslate = &quot;r&quot;;
+    if (GetStringLowerCase(sLetter) == &quot;r&quot;) sTranslate = &quot;n&quot;;
+    if (GetStringLowerCase(sLetter) == &quot;s&quot;) sTranslate = &quot;k&quot;;
+    if (GetStringLowerCase(sLetter) == &quot;t&quot;) sTranslate = &quot;d&quot;;
+    if (GetStringLowerCase(sLetter) == &quot;u&quot;) sTranslate = &quot;&#x27;&quot;;
+    if (GetStringLowerCase(sLetter) == &quot;v&quot;) sTranslate = &quot;r&quot;;
+    if (GetStringLowerCase(sLetter) == &quot;w&quot;) sTranslate = &quot;&#x27;&quot;;
+    if (GetStringLowerCase(sLetter) == &quot;x&quot;) sTranslate = &quot;k&quot;;
+    if (GetStringLowerCase(sLetter) == &quot;y&quot;) sTranslate = &quot;i&quot;;
+    if (GetStringLowerCase(sLetter) == &quot;z&quot;) sTranslate = &quot;g&quot;;
+    if (GetStringLength(sTranslate) == 1 &amp;&amp; GetStringUpperCase(sLetter) == sLetter)
+        sTranslate = GetStringUpperCase(sTranslate);
+    return sTranslate;
+}//end ConvertInfernal
+
+string ProcessInfernal(string sPhrase)
+{
+    string sOutput;
+    int iToggle;
+    while (GetStringLength(sPhrase) &gt; 1)
+    {
+        if (GetStringLeft(sPhrase,1) == &quot;*&quot;)
+            iToggle = abs(iToggle - 1);
+        if (iToggle)
+            sOutput = sOutput + GetStringLeft(sPhrase,1);
+        else
+            sOutput = sOutput + ConvertInfernal(GetStringLeft(sPhrase, 1));
+        sPhrase = GetStringRight(sPhrase, GetStringLength(sPhrase)-1);
+    }
+    return sOutput;
+}
+
+string ConvertAbyssal(string sLetter)
+{
+    string sTranslate = sLetter;
+    if (GetStringLength(sLetter) &gt; 1)
+        sLetter = GetStringLeft(sLetter, 1);
+    if (sLetter == &quot;a&quot;) sTranslate =  &quot;oo&quot;;
+    if (sLetter == &quot;A&quot;) sTranslate =  &quot;OO&quot;;
+    if (GetStringLowerCase(sLetter) == &quot;b&quot;) sTranslate = &quot;n&quot;;
+    if (GetStringLowerCase(sLetter) == &quot;c&quot;) sTranslate = &quot;m&quot;;
+    if (GetStringLowerCase(sLetter) == &quot;d&quot;) sTranslate = &quot;g&quot;;
+    if (GetStringLowerCase(sLetter) == &quot;e&quot;) sTranslate = &quot;a&quot;;
+    if (GetStringLowerCase(sLetter) == &quot;f&quot;) sTranslate = &quot;k&quot;;
+    if (GetStringLowerCase(sLetter) == &quot;g&quot;) sTranslate = &quot;s&quot;;
+    if (GetStringLowerCase(sLetter) == &quot;h&quot;) sTranslate = &quot;d&quot;;
+    if (sLetter == &quot;i&quot;) sTranslate =  &quot;oo&quot;;
+    if (sLetter == &quot;I&quot;) sTranslate =  &quot;OO&quot;;
+    if (GetStringLowerCase(sLetter) == &quot;j&quot;) sTranslate = &quot;h&quot;;
+    if (GetStringLowerCase(sLetter) == &quot;k&quot;) sTranslate = &quot;b&quot;;
+    if (GetStringLowerCase(sLetter) == &quot;l&quot;) sTranslate = &quot;l&quot;;
+    if (GetStringLowerCase(sLetter) == &quot;m&quot;) sTranslate = &quot;p&quot;;
+    if (GetStringLowerCase(sLetter) == &quot;n&quot;) sTranslate = &quot;t&quot;;
+    if (GetStringLowerCase(sLetter) == &quot;o&quot;) sTranslate = &quot;e&quot;;
+    if (GetStringLowerCase(sLetter) == &quot;p&quot;) sTranslate = &quot;b&quot;;
+    if (sLetter == &quot;q&quot;) sTranslate =  &quot;ch&quot;;
+    if (sLetter == &quot;Q&quot;) sTranslate =  &quot;Ch&quot;;
+    if (GetStringLowerCase(sLetter) == &quot;r&quot;) sTranslate = &quot;n&quot;;
+    if (GetStringLowerCase(sLetter) == &quot;s&quot;) sTranslate = &quot;m&quot;;
+    if (GetStringLowerCase(sLetter) == &quot;t&quot;) sTranslate = &quot;g&quot;;
+    if (sLetter == &quot;u&quot;) sTranslate =  &quot;ae&quot;;
+    if (sLetter == &quot;U&quot;) sTranslate =  &quot;Ae&quot;;
+    if (sLetter == &quot;v&quot;) sTranslate =  &quot;ts&quot;;
+    if (sLetter == &quot;V&quot;) sTranslate =  &quot;Ts&quot;;
+    if (GetStringLowerCase(sLetter) == &quot;w&quot;) sTranslate = &quot;b&quot;;
+    if (sLetter == &quot;x&quot;) sTranslate =  &quot;bb&quot;;
+    if (sLetter == &quot;X&quot;) sTranslate =  &quot;Bb&quot;;
+    if (sLetter == &quot;y&quot;) sTranslate =  &quot;ee&quot;;
+    if (sLetter == &quot;Y&quot;) sTranslate =  &quot;Ee&quot;;
+    if (GetStringLowerCase(sLetter) == &quot;z&quot;) sTranslate = &quot;t&quot;;
+    if (GetStringLength(sTranslate) == 1 &amp;&amp; GetStringUpperCase(sLetter) == sLetter)
+        sTranslate = GetStringUpperCase(sTranslate);
+    return sTranslate;
+}//end ConvertAbyssal
+
+string ProcessAbyssal(string sPhrase)
+{
+    string sOutput;
+    int iToggle;
+    while (GetStringLength(sPhrase) &gt; 1)
+    {
+        if (GetStringLeft(sPhrase,1) == &quot;*&quot;)
+            iToggle = abs(iToggle - 1);
+        if (iToggle)
+            sOutput = sOutput + GetStringLeft(sPhrase,1);
+        else
+            sOutput = sOutput + ConvertAbyssal(GetStringLeft(sPhrase, 1));
+        sPhrase = GetStringRight(sPhrase, GetStringLength(sPhrase)-1);
+    }
+    return sOutput;
+}
+
+string ConvertCelestial(string sLetter)
+{
+    string sTranslate = sLetter;
+    if (GetStringLength(sLetter) &gt; 1)
+        sLetter = GetStringLeft(sLetter, 1);
+    if (GetStringLowerCase(sLetter) == &quot;a&quot;) sTranslate = &quot;a&quot;;
+    if (GetStringLowerCase(sLetter) == &quot;b&quot;) sTranslate = &quot;p&quot;;
+    if (GetStringLowerCase(sLetter) == &quot;c&quot;) sTranslate = &quot;v&quot;;
+    if (GetStringLowerCase(sLetter) == &quot;d&quot;) sTranslate = &quot;t&quot;;
+    if (sLetter == &quot;e&quot;) sTranslate =  &quot;el&quot;;
+    if (sLetter == &quot;E&quot;) sTranslate =  &quot;El&quot;;
+    if (GetStringLowerCase(sLetter) == &quot;f&quot;) sTranslate = &quot;b&quot;;
+    if (GetStringLowerCase(sLetter) == &quot;g&quot;) sTranslate = &quot;w&quot;;
+    if (GetStringLowerCase(sLetter) == &quot;h&quot;) sTranslate = &quot;r&quot;;
+    if (GetStringLowerCase(sLetter) == &quot;i&quot;) sTranslate = &quot;i&quot;;
+    if (GetStringLowerCase(sLetter) == &quot;j&quot;) sTranslate = &quot;m&quot;;
+    if (GetStringLowerCase(sLetter) == &quot;k&quot;) sTranslate = &quot;x&quot;;
+    if (GetStringLowerCase(sLetter) == &quot;l&quot;) sTranslate = &quot;h&quot;;
+    if (GetStringLowerCase(sLetter) == &quot;m&quot;) sTranslate = &quot;s&quot;;
+    if (GetStringLowerCase(sLetter) == &quot;n&quot;) sTranslate = &quot;c&quot;;
+    if (GetStringLowerCase(sLetter) == &quot;o&quot;) sTranslate = &quot;u&quot;;
+    if (GetStringLowerCase(sLetter) == &quot;p&quot;) sTranslate = &quot;q&quot;;
+    if (GetStringLowerCase(sLetter) == &quot;q&quot;) sTranslate = &quot;d&quot;;
+    if (GetStringLowerCase(sLetter) == &quot;r&quot;) sTranslate = &quot;n&quot;;
+    if (GetStringLowerCase(sLetter) == &quot;s&quot;) sTranslate = &quot;l&quot;;
+    if (GetStringLowerCase(sLetter) == &quot;t&quot;) sTranslate = &quot;y&quot;;
+    if (GetStringLowerCase(sLetter) == &quot;u&quot;) sTranslate = &quot;o&quot;;
+    if (GetStringLowerCase(sLetter) == &quot;v&quot;) sTranslate = &quot;j&quot;;
+    if (GetStringLowerCase(sLetter) == &quot;w&quot;) sTranslate = &quot;f&quot;;
+    if (GetStringLowerCase(sLetter) == &quot;x&quot;) sTranslate = &quot;g&quot;;
+    if (GetStringLowerCase(sLetter) == &quot;y&quot;) sTranslate = &quot;z&quot;;
+    if (GetStringLowerCase(sLetter) == &quot;z&quot;) sTranslate = &quot;k&quot;;
+    if (GetStringLength(sTranslate) == 1 &amp;&amp; GetStringUpperCase(sLetter) == sLetter)
+        sTranslate = GetStringUpperCase(sTranslate);
+    return sTranslate;
+}//end ConvertCelestial
+
+string ProcessCelestial(string sPhrase)
+{
+    string sOutput;
+    int iToggle;
+    while (GetStringLength(sPhrase) &gt; 1)
+    {
+        if (GetStringLeft(sPhrase,1) == &quot;*&quot;)
+            iToggle = abs(iToggle - 1);
+        if (iToggle)
+            sOutput = sOutput + GetStringLeft(sPhrase,1);
+        else
+            sOutput = sOutput + ConvertCelestial(GetStringLeft(sPhrase, 1));
+        sPhrase = GetStringRight(sPhrase, GetStringLength(sPhrase)-1);
+    }
+    return sOutput;
+}
+
+string ConvertGoblin(string sLetter)
+{
+    string sTranslate = sLetter;
+    if (GetStringLength(sLetter) &gt; 1)
+        sLetter = GetStringLeft(sLetter, 1);
+    if (GetStringLowerCase(sLetter) == &quot;a&quot;) sTranslate = &quot;u&quot;;
+    if (GetStringLowerCase(sLetter) == &quot;b&quot;) sTranslate = &quot;p&quot;;
+    if (GetStringLowerCase(sLetter) == &quot;c&quot;) sTranslate = &quot;&quot;;
+    if (GetStringLowerCase(sLetter) == &quot;d&quot;) sTranslate = &quot;t&quot;;
+    if (GetStringLowerCase(sLetter) == &quot;e&quot;) sTranslate = &quot;&#x27;&quot;;
+    if (GetStringLowerCase(sLetter) == &quot;f&quot;) sTranslate = &quot;v&quot;;
+    if (GetStringLowerCase(sLetter) == &quot;g&quot;) sTranslate = &quot;k&quot;;
+    if (GetStringLowerCase(sLetter) == &quot;h&quot;) sTranslate = &quot;r&quot;;
+    if (GetStringLowerCase(sLetter) == &quot;i&quot;) sTranslate = &quot;o&quot;;
+    if (GetStringLowerCase(sLetter) == &quot;j&quot;) sTranslate = &quot;z&quot;;
+    if (GetStringLowerCase(sLetter) == &quot;k&quot;) sTranslate = &quot;g&quot;;
+    if (GetStringLowerCase(sLetter) == &quot;l&quot;) sTranslate = &quot;m&quot;;
+    if (GetStringLowerCase(sLetter) == &quot;m&quot;) sTranslate = &quot;s&quot;;
+    if (GetStringLowerCase(sLetter) == &quot;n&quot;) sTranslate = &quot;&quot;;
+    if (GetStringLowerCase(sLetter) == &quot;o&quot;) sTranslate = &quot;u&quot;;
+    if (GetStringLowerCase(sLetter) == &quot;p&quot;) sTranslate = &quot;b&quot;;
+    if (GetStringLowerCase(sLetter) == &quot;q&quot;) sTranslate = &quot;&quot;;
+    if (GetStringLowerCase(sLetter) == &quot;r&quot;) sTranslate = &quot;n&quot;;
+    if (GetStringLowerCase(sLetter) == &quot;s&quot;) sTranslate = &quot;k&quot;;
+    if (GetStringLowerCase(sLetter) == &quot;t&quot;) sTranslate = &quot;d&quot;;
+    if (GetStringLowerCase(sLetter) == &quot;u&quot;) sTranslate = &quot;u&quot;;
+    if (GetStringLowerCase(sLetter) == &quot;v&quot;) sTranslate = &quot;&quot;;
+    if (GetStringLowerCase(sLetter) == &quot;w&quot;) sTranslate = &quot;&#x27;&quot;;
+    if (GetStringLowerCase(sLetter) == &quot;x&quot;) sTranslate = &quot;&quot;;
+    if (GetStringLowerCase(sLetter) == &quot;y&quot;) sTranslate = &quot;o&quot;;
+    if (GetStringLowerCase(sLetter) == &quot;z&quot;) sTranslate = &quot;w&quot;;
+
+    if (GetStringLength(sTranslate) == 1 &amp;&amp; GetStringUpperCase(sLetter) == sLetter)
+        sTranslate = GetStringUpperCase(sTranslate);
+
+    return sTranslate;
+}//end ConvertGoblin
+
+string ProcessGoblin(string sPhrase)
+{
+    string sOutput;
+    int iToggle;
+    while (GetStringLength(sPhrase) &gt; 1)
+    {
+        if (GetStringLeft(sPhrase,1) == &quot;*&quot;)
+            iToggle = abs(iToggle - 1);
+        if (iToggle)
+            sOutput = sOutput + GetStringLeft(sPhrase,1);
+        else
+            sOutput = sOutput + ConvertGoblin(GetStringLeft(sPhrase, 1));
+        sPhrase = GetStringRight(sPhrase, GetStringLength(sPhrase)-1);
+    }
+    return sOutput;
+}
+
+string ConvertDraconic(string sLetter)
+{
+    string sTranslate = sLetter;
+    if (GetStringLength(sLetter) &gt; 1)
+        sLetter = GetStringLeft(sLetter, 1);
+    if (GetStringLowerCase(sLetter) == &quot;a&quot;) sTranslate = &quot;e&quot;;
+    if (sLetter == &quot;A&quot;) sTranslate = &quot;E&quot;;
+    if (sLetter == &quot;b&quot;) return &quot;po&quot;;
+    if (sLetter == &quot;B&quot;) return &quot;Po&quot;;
+    if (sLetter == &quot;c&quot;) return &quot;st&quot;;
+    if (sLetter == &quot;C&quot;) return &quot;St&quot;;
+    if (sLetter == &quot;d&quot;) return &quot;ty&quot;;
+    if (sLetter == &quot;D&quot;) return &quot;Ty&quot;;
+    if (GetStringLowerCase(sLetter) == &quot;e&quot;) sTranslate = &quot;i&quot;;
+    if (GetStringLowerCase(sLetter) == &quot;f&quot;) sTranslate = &quot;w&quot;;
+    if (GetStringLowerCase(sLetter) == &quot;g&quot;) sTranslate = &quot;k&quot;;
+    if (sLetter == &quot;h&quot;) return &quot;ni&quot;;
+    if (sLetter == &quot;H&quot;) return &quot;Ni&quot;;
+    if (sLetter == &quot;i&quot;) return &quot;un&quot;;
+    if (sLetter == &quot;I&quot;) return &quot;Un&quot;;
+    if (sLetter == &quot;j&quot;) return &quot;vi&quot;;
+    if (sLetter == &quot;J&quot;) return &quot;Vi&quot;;
+    if (sLetter == &quot;k&quot;) return &quot;go&quot;;
+    if (sLetter == &quot;K&quot;) return &quot;Go&quot;;
+    if (sLetter == &quot;l&quot;) return &quot;ch&quot;;
+    if (sLetter == &quot;L&quot;) return &quot;Ch&quot;;
+    if (sLetter == &quot;m&quot;) return &quot;li&quot;;
+    if (sLetter == &quot;M&quot;) return &quot;Li&quot;;
+    if (sLetter == &quot;n&quot;) return &quot;ra&quot;;
+    if (sLetter == &quot;N&quot;) return &quot;Ra&quot;;
+    if (GetStringLowerCase(sLetter) == &quot;o&quot;) sTranslate = &quot;y&quot;;
+    if (sLetter == &quot;p&quot;) return &quot;ba&quot;;
+    if (sLetter == &quot;P&quot;) return &quot;Ba&quot;;
+    if (GetStringLowerCase(sLetter) == &quot;q&quot;) sTranslate = &quot;x&quot;;
+    if (sLetter == &quot;r&quot;) return &quot;hu&quot;;
+    if (sLetter == &quot;R&quot;) return &quot;Hu&quot;;
+    if (sLetter == &quot;s&quot;) return &quot;my&quot;;
+    if (sLetter == &quot;S&quot;) return &quot;My&quot;;
+    if (sLetter == &quot;t&quot;) return &quot;dr&quot;;
+    if (sLetter == &quot;T&quot;) return &quot;Dr&quot;;
+    if (sLetter == &quot;u&quot;) return &quot;on&quot;;
+    if (sLetter == &quot;U&quot;) return &quot;On&quot;;
+    if (sLetter == &quot;v&quot;) return &quot;fi&quot;;
+    if (sLetter == &quot;V&quot;) return &quot;Fi&quot;;
+    if (sLetter == &quot;w&quot;) return &quot;zi&quot;;
+    if (sLetter == &quot;W&quot;) return &quot;Zi&quot;;
+    if (sLetter == &quot;x&quot;) return &quot;qu&quot;;
+    if (sLetter == &quot;X&quot;) return &quot;Qu&quot;;
+    if (sLetter == &quot;y&quot;) return &quot;an&quot;;
+    if (sLetter == &quot;Y&quot;) return &quot;An&quot;;
+    if (sLetter == &quot;z&quot;) return &quot;ji&quot;;
+    if (sLetter == &quot;Z&quot;) return &quot;Ji&quot;;
+
+    if (GetStringLength(sTranslate) == 1 &amp;&amp; GetStringUpperCase(sLetter) == sLetter)
+        sTranslate = GetStringUpperCase(sTranslate);
+
+    return sTranslate;
+}//end ConvertDraconic
+
+string ProcessDraconic(string sPhrase)
+{
+    string sOutput;
+    int iToggle;
+    while (GetStringLength(sPhrase) &gt; 1)
+    {
+        if (GetStringLeft(sPhrase,1) == &quot;*&quot;)
+            iToggle = abs(iToggle - 1);
+        if (iToggle)
+            sOutput = sOutput + GetStringLeft(sPhrase,1);
+        else
+            sOutput = sOutput + ConvertDraconic(GetStringLeft(sPhrase, 1));
+        sPhrase = GetStringRight(sPhrase, GetStringLength(sPhrase)-1);
+    }
+    return sOutput;
+}
+
+string ConvertDwarf(string sLetter)
+{
+    string sTranslate = sLetter;
+    if (GetStringLength(sLetter) &gt; 1)
+        sLetter = GetStringLeft(sLetter, 1);
+    if (sLetter == &quot;a&quot;) return &quot;az&quot;;
+    if (sLetter == &quot;A&quot;) return &quot;Az&quot;;
+    if (sLetter == &quot;b&quot;) return &quot;po&quot;;
+    if (sLetter == &quot;B&quot;) return &quot;Po&quot;;
+    if (sLetter == &quot;c&quot;) return &quot;zi&quot;;
+    if (sLetter == &quot;C&quot;) return &quot;Zi&quot;;
+    if (GetStringLowerCase(sLetter) == &quot;d&quot;) sTranslate = &quot;t&quot;;
+    if (GetStringLowerCase(sLetter) == &quot;e&quot;) sTranslate = &quot;a&quot;;
+    if (sLetter == &quot;f&quot;) return &quot;wa&quot;;
+    if (sLetter == &quot;F&quot;) return &quot;Wa&quot;;
+    if (GetStringLowerCase(sLetter) == &quot;g&quot;) sTranslate = &quot;k&quot;;
+    if (GetStringLowerCase(sLetter) == &quot;h&quot;) sTranslate = &quot;&#x27;&quot;;
+    if (GetStringLowerCase(sLetter) == &quot;i&quot;) sTranslate = &quot;a&quot;;
+    if (sLetter == &quot;j&quot;) return &quot;dr&quot;;
+    if (sLetter == &quot;J&quot;) return &quot;Dr&quot;;
+    if (GetStringLowerCase(sLetter) == &quot;k&quot;) sTranslate = &quot;g&quot;;
+    if (GetStringLowerCase(sLetter) == &quot;l&quot;) sTranslate = &quot;n&quot;;
+    if (GetStringLowerCase(sLetter) == &quot;m&quot;) sTranslate = &quot;l&quot;;
+    if (GetStringLowerCase(sLetter) == &quot;n&quot;) sTranslate = &quot;r&quot;;
+    if (sLetter == &quot;o&quot;) return &quot;ur&quot;;
+    if (sLetter == &quot;O&quot;) return &quot;Ur&quot;;
+    if (sLetter == &quot;p&quot;) return &quot;rh&quot;;
+    if (sLetter == &quot;P&quot;) return &quot;Rh&quot;;
+    if (GetStringLowerCase(sLetter) == &quot;q&quot;) sTranslate = &quot;k&quot;;
+    if (GetStringLowerCase(sLetter) == &quot;r&quot;) sTranslate = &quot;h&quot;;
+    if (sLetter == &quot;s&quot;) return &quot;th&quot;;
+    if (sLetter == &quot;S&quot;) return &quot;Th&quot;;
+    if (GetStringLowerCase(sLetter) == &quot;t&quot;) sTranslate = &quot;k&quot;;
+    if (GetStringLowerCase(sLetter) == &quot;u&quot;) sTranslate = &quot;&#x27;&quot;;
+    if (GetStringLowerCase(sLetter) == &quot;v&quot;) sTranslate = &quot;g&quot;;
+    if (sLetter == &quot;w&quot;) return &quot;zh&quot;;
+    if (sLetter == &quot;W&quot;) return &quot;Zh&quot;;
+    if (GetStringLowerCase(sLetter) == &quot;x&quot;) sTranslate = &quot;q&quot;;
+    if (GetStringLowerCase(sLetter) == &quot;y&quot;) sTranslate = &quot;o&quot;;
+    if (GetStringLowerCase(sLetter) == &quot;z&quot;) sTranslate = &quot;j&quot;;
+    if (GetStringLength(sTranslate) == 1 &amp;&amp; GetStringUpperCase(sLetter) == sLetter)
+        sTranslate = GetStringUpperCase(sTranslate);
+    return sTranslate;
+}//end ConvertDwarf
+
+string ProcessDwarf(string sPhrase)
+{
+    string sOutput;
+    int iToggle;
+    while (GetStringLength(sPhrase) &gt; 1)
+    {
+        if (GetStringLeft(sPhrase,1) == &quot;*&quot;)
+            iToggle = abs(iToggle - 1);
+        if (iToggle)
+            sOutput = sOutput + GetStringLeft(sPhrase,1);
+        else
+            sOutput = sOutput + ConvertDwarf(GetStringLeft(sPhrase, 1));
+        sPhrase = GetStringRight(sPhrase, GetStringLength(sPhrase)-1);
+    }
+    return sOutput;
+}
+
+string ConvertElven(string sLetter)
+{
+    string sTranslate = sLetter;
+    if (GetStringLength(sLetter) &gt; 1)
+        sLetter = GetStringLeft(sLetter, 1);
+    if (sLetter == &quot;a&quot;) return &quot;il&quot;;
+    if (sLetter == &quot;A&quot;) return &quot;Il&quot;;
+    if (GetStringLowerCase(sLetter) == &quot;b&quot;) sTranslate = &quot;f&quot;;
+    if (sLetter == &quot;c&quot;) return &quot;ny&quot;;
+    if (sLetter == &quot;C&quot;) return &quot;Ny&quot;;
+    if (GetStringLowerCase(sLetter) == &quot;d&quot;) sTranslate = &quot;w&quot;;
+    if (GetStringLowerCase(sLetter) == &quot;e&quot;) sTranslate = &quot;a&quot;;
+    if (GetStringLowerCase(sLetter) == &quot;f&quot;) sTranslate = &quot;o&quot;;
+    if (GetStringLowerCase(sLetter) == &quot;g&quot;) sTranslate = &quot;v&quot;;
+    if (sLetter == &quot;h&quot;) return &quot;ir&quot;;
+    if (sLetter == &quot;H&quot;) return &quot;Ir&quot;;
+    if (GetStringLowerCase(sLetter) == &quot;i&quot;) sTranslate = &quot;e&quot;;
+    if (sLetter == &quot;j&quot;) return &quot;qu&quot;;
+    if (sLetter == &quot;J&quot;) return &quot;Qu&quot;;
+    if (GetStringLowerCase(sLetter) == &quot;k&quot;) sTranslate = &quot;n&quot;;
+    if (GetStringLowerCase(sLetter) == &quot;l&quot;) sTranslate = &quot;c&quot;;
+    if (GetStringLowerCase(sLetter) == &quot;m&quot;) sTranslate = &quot;s&quot;;
+    if (GetStringLowerCase(sLetter) == &quot;n&quot;) sTranslate = &quot;l&quot;;
+    if (GetStringLowerCase(sLetter) == &quot;o&quot;) sTranslate = &quot;e&quot;;
+    if (sLetter == &quot;p&quot;) return &quot;ty&quot;;
+    if (sLetter == &quot;P&quot;) return &quot;Ty&quot;;
+    if (GetStringLowerCase(sLetter) == &quot;q&quot;) sTranslate = &quot;h&quot;;
+    if (GetStringLowerCase(sLetter) == &quot;r&quot;) sTranslate = &quot;m&quot;;
+    if (sLetter == &quot;s&quot;) return &quot;la&quot;;
+    if (sLetter == &quot;S&quot;) return &quot;La&quot;;
+    if (sLetter == &quot;t&quot;) return &quot;an&quot;;
+    if (sLetter == &quot;T&quot;) return &quot;An&quot;;
+    if (GetStringLowerCase(sLetter) == &quot;u&quot;) sTranslate = &quot;y&quot;;
+    if (sLetter == &quot;v&quot;) return &quot;el&quot;;
+    if (sLetter == &quot;V&quot;) return &quot;El&quot;;
+    if (sLetter == &quot;w&quot;) return &quot;am&quot;;
+    if (sLetter == &quot;W&quot;) return &quot;Am&quot;;
+    if (GetStringLowerCase(sLetter) == &quot;x&quot;) sTranslate = &quot;&#x27;&quot;;
+    if (GetStringLowerCase(sLetter) == &quot;y&quot;) sTranslate = &quot;a&quot;;
+    if (GetStringLowerCase(sLetter) == &quot;z&quot;) sTranslate = &quot;j&quot;;
+
+    if (GetStringLength(sTranslate) == 1 &amp;&amp; GetStringUpperCase(sLetter) == sLetter)
+        sTranslate = GetStringUpperCase(sTranslate);
+
+    return sTranslate;
+}
+
+string ProcessElven(string sPhrase)
+{
+    string sOutput;
+    int iToggle;
+    while (GetStringLength(sPhrase) &gt; 1)
+    {
+        if (GetStringLeft(sPhrase,1) == &quot;*&quot;)
+            iToggle = abs(iToggle - 1);
+        if (iToggle)
+            sOutput = sOutput + GetStringLeft(sPhrase,1);
+        else
+            sOutput = sOutput + ConvertElven(GetStringLeft(sPhrase, 1));
+        sPhrase = GetStringRight(sPhrase, GetStringLength(sPhrase)-1);
+    }
+    return sOutput;
+}
+
+string ConvertGnome(string sLetter)
+{
+    string sTranslate = sLetter;
+    if (GetStringLength(sLetter) &gt; 1)
+        sLetter = GetStringLeft(sLetter, 1);
+//cipher based on English -&gt; Al Baed
+    if (GetStringLowerCase(sLetter) == &quot;a&quot;) sTranslate = &quot;y&quot;;
+    if (GetStringLowerCase(sLetter) == &quot;b&quot;) sTranslate = &quot;p&quot;;
+    if (GetStringLowerCase(sLetter) == &quot;c&quot;) sTranslate = &quot;l&quot;;
+    if (GetStringLowerCase(sLetter) == &quot;d&quot;) sTranslate = &quot;t&quot;;
+    if (GetStringLowerCase(sLetter) == &quot;e&quot;) sTranslate = &quot;a&quot;;
+    if (GetStringLowerCase(sLetter) == &quot;f&quot;) sTranslate = &quot;v&quot;;
+    if (GetStringLowerCase(sLetter) == &quot;g&quot;) sTranslate = &quot;k&quot;;
+    if (GetStringLowerCase(sLetter) == &quot;h&quot;) sTranslate = &quot;r&quot;;
+    if (GetStringLowerCase(sLetter) == &quot;i&quot;) sTranslate = &quot;e&quot;;
+    if (GetStringLowerCase(sLetter) == &quot;j&quot;) sTranslate = &quot;z&quot;;
+    if (GetStringLowerCase(sLetter) == &quot;k&quot;) sTranslate = &quot;g&quot;;
+    if (GetStringLowerCase(sLetter) == &quot;l&quot;) sTranslate = &quot;m&quot;;
+    if (GetStringLowerCase(sLetter) == &quot;m&quot;) sTranslate = &quot;s&quot;;
+    if (GetStringLowerCase(sLetter) == &quot;n&quot;) sTranslate = &quot;h&quot;;
+    if (GetStringLowerCase(sLetter) == &quot;o&quot;) sTranslate = &quot;u&quot;;
+    if (GetStringLowerCase(sLetter) == &quot;p&quot;) sTranslate = &quot;b&quot;;
+    if (GetStringLowerCase(sLetter) == &quot;q&quot;) sTranslate = &quot;x&quot;;
+    if (GetStringLowerCase(sLetter) == &quot;r&quot;) sTranslate = &quot;n&quot;;
+    if (GetStringLowerCase(sLetter) == &quot;s&quot;) sTranslate = &quot;c&quot;;
+    if (GetStringLowerCase(sLetter) == &quot;t&quot;) sTranslate = &quot;d&quot;;
+    if (GetStringLowerCase(sLetter) == &quot;u&quot;) sTranslate = &quot;i&quot;;
+    if (GetStringLowerCase(sLetter) == &quot;v&quot;) sTranslate = &quot;j&quot;;
+    if (GetStringLowerCase(sLetter) == &quot;w&quot;) sTranslate = &quot;f&quot;;
+    if (GetStringLowerCase(sLetter) == &quot;x&quot;) sTranslate = &quot;q&quot;;
+    if (GetStringLowerCase(sLetter) == &quot;y&quot;) sTranslate = &quot;o&quot;;
+    if (GetStringLowerCase(sLetter) == &quot;z&quot;) sTranslate = &quot;w&quot;;
+    if (GetStringLength(sTranslate) == 1 &amp;&amp; GetStringUpperCase(sLetter) == sLetter)
+        sTranslate = GetStringUpperCase(sTranslate);
+    return sTranslate;
+}
+
+string ProcessGnome(string sPhrase)
+{
+    string sOutput;
+    int iToggle;
+    while (GetStringLength(sPhrase) &gt; 1)
+    {
+        if (GetStringLeft(sPhrase,1) == &quot;*&quot;)
+            iToggle = abs(iToggle - 1);
+        if (iToggle)
+            sOutput = sOutput + GetStringLeft(sPhrase,1);
+        else
+            sOutput = sOutput + ConvertGnome(GetStringLeft(sPhrase, 1));
+        sPhrase = GetStringRight(sPhrase, GetStringLength(sPhrase)-1);
+    }
+    return sOutput;
+}
+
+string ConvertHalfling(string sLetter)
+{
+    string sTranslate = sLetter;
+    if (GetStringLength(sLetter) &gt; 1)
+        sLetter = GetStringLeft(sLetter, 1);
+//cipher based on Al Baed -&gt; English
+    if (GetStringLowerCase(sLetter) == &quot;a&quot;) sTranslate = &quot;e&quot;;
+    if (GetStringLowerCase(sLetter) == &quot;b&quot;) sTranslate = &quot;p&quot;;
+    if (GetStringLowerCase(sLetter) == &quot;c&quot;) sTranslate = &quot;s&quot;;
+    if (GetStringLowerCase(sLetter) == &quot;d&quot;) sTranslate = &quot;t&quot;;
+    if (GetStringLowerCase(sLetter) == &quot;e&quot;) sTranslate = &quot;i&quot;;
+    if (GetStringLowerCase(sLetter) == &quot;f&quot;) sTranslate = &quot;w&quot;;
+    if (GetStringLowerCase(sLetter) == &quot;g&quot;) sTranslate = &quot;k&quot;;
+    if (GetStringLowerCase(sLetter) == &quot;h&quot;) sTranslate = &quot;n&quot;;
+    if (GetStringLowerCase(sLetter) == &quot;i&quot;) sTranslate = &quot;u&quot;;
+    if (GetStringLowerCase(sLetter) == &quot;j&quot;) sTranslate = &quot;v&quot;;
+    if (GetStringLowerCase(sLetter) == &quot;k&quot;) sTranslate = &quot;g&quot;;
+    if (GetStringLowerCase(sLetter) == &quot;l&quot;) sTranslate = &quot;c&quot;;
+    if (GetStringLowerCase(sLetter) == &quot;m&quot;) sTranslate = &quot;l&quot;;
+    if (GetStringLowerCase(sLetter) == &quot;n&quot;) sTranslate = &quot;r&quot;;
+    if (GetStringLowerCase(sLetter) == &quot;o&quot;) sTranslate = &quot;y&quot;;
+    if (GetStringLowerCase(sLetter) == &quot;p&quot;) sTranslate = &quot;b&quot;;
+    if (GetStringLowerCase(sLetter) == &quot;q&quot;) sTranslate = &quot;x&quot;;
+    if (GetStringLowerCase(sLetter) == &quot;r&quot;) sTranslate = &quot;h&quot;;
+    if (GetStringLowerCase(sLetter) == &quot;s&quot;) sTranslate = &quot;m&quot;;
+    if (GetStringLowerCase(sLetter) == &quot;t&quot;) sTranslate = &quot;d&quot;;
+    if (GetStringLowerCase(sLetter) == &quot;u&quot;) sTranslate = &quot;o&quot;;
+    if (GetStringLowerCase(sLetter) == &quot;v&quot;) sTranslate = &quot;f&quot;;
+    if (GetStringLowerCase(sLetter) == &quot;w&quot;) sTranslate = &quot;z&quot;;
+    if (GetStringLowerCase(sLetter) == &quot;x&quot;) sTranslate = &quot;q&quot;;
+    if (GetStringLowerCase(sLetter) == &quot;y&quot;) sTranslate = &quot;a&quot;;
+    if (GetStringLowerCase(sLetter) == &quot;z&quot;) sTranslate = &quot;j&quot;;
+    if (GetStringLength(sTranslate) == 1 &amp;&amp; GetStringUpperCase(sLetter) == sLetter)
+        sTranslate = GetStringUpperCase(sTranslate);
+    return sTranslate;
+}
+
+string ProcessHalfling(string sPhrase)
+{
+    string sOutput;
+    int iToggle;
+    while (GetStringLength(sPhrase) &gt; 1)
+    {
+        if (GetStringLeft(sPhrase,1) == &quot;*&quot;)
+            iToggle = abs(iToggle - 1);
+        if (iToggle)
+            sOutput = sOutput + GetStringLeft(sPhrase,1);
+        else
+            sOutput = sOutput + ConvertHalfling(GetStringLeft(sPhrase, 1));
+        sPhrase = GetStringRight(sPhrase, GetStringLength(sPhrase)-1);
+    }
+    return sOutput;
+}
+
+string ConvertOrc(string sLetter)
+{
+    string sTranslate = sLetter;
+    if (GetStringLength(sLetter) &gt; 1)
+        sLetter = GetStringLeft(sLetter, 1);
+    if (sLetter == &quot;a&quot;) sTranslate = &quot;ha&quot;;
+    if (sLetter == &quot;A&quot;) sTranslate = &quot;Ha&quot;;
+    if (GetStringLowerCase(sLetter) == &quot;b&quot;) sTranslate = &quot;p&quot;;
+    if (GetStringLowerCase(sLetter) == &quot;c&quot;) sTranslate = &quot;z&quot;;
+    if (GetStringLowerCase(sLetter) == &quot;d&quot;) sTranslate = &quot;t&quot;;
+    if (GetStringLowerCase(sLetter) == &quot;e&quot;) sTranslate = &quot;o&quot;;
+    if (GetStringLowerCase(sLetter) == &quot;f&quot;) sTranslate = &quot;&quot;;
+    if (GetStringLowerCase(sLetter) == &quot;g&quot;) sTranslate = &quot;k&quot;;
+    if (GetStringLowerCase(sLetter) == &quot;h&quot;) sTranslate = &quot;r&quot;;
+    if (GetStringLowerCase(sLetter) == &quot;i&quot;) sTranslate = &quot;a&quot;;
+    if (GetStringLowerCase(sLetter) == &quot;j&quot;) sTranslate = &quot;m&quot;;
+    if (GetStringLowerCase(sLetter) == &quot;k&quot;) sTranslate = &quot;g&quot;;
+    if (GetStringLowerCase(sLetter) == &quot;l&quot;) sTranslate = &quot;h&quot;;
+    if (GetStringLowerCase(sLetter) == &quot;m&quot;) sTranslate = &quot;r&quot;;
+    if (GetStringLowerCase(sLetter) == &quot;n&quot;) sTranslate = &quot;k&quot;;
+    if (GetStringLowerCase(sLetter) == &quot;o&quot;) sTranslate = &quot;u&quot;;
+    if (GetStringLowerCase(sLetter) == &quot;p&quot;) sTranslate = &quot;b&quot;;
+    if (GetStringLowerCase(sLetter) == &quot;q&quot;) sTranslate = &quot;k&quot;;
+    if (GetStringLowerCase(sLetter) == &quot;r&quot;) sTranslate = &quot;h&quot;;
+    if (GetStringLowerCase(sLetter) == &quot;s&quot;) sTranslate = &quot;g&quot;;
+    if (GetStringLowerCase(sLetter) == &quot;t&quot;) sTranslate = &quot;n&quot;;
+    if (GetStringLowerCase(sLetter) == &quot;u&quot;) sTranslate = &quot;&quot;;
+    if (GetStringLowerCase(sLetter) == &quot;v&quot;) sTranslate = &quot;g&quot;;
+    if (GetStringLowerCase(sLetter) == &quot;w&quot;) sTranslate = &quot;r&quot;;
+    if (GetStringLowerCase(sLetter) == &quot;x&quot;) sTranslate = &quot;r&quot;;
+    if (GetStringLowerCase(sLetter) == &quot;y&quot;) sTranslate = &quot;&#x27;&quot;;
+    if (GetStringLowerCase(sLetter) == &quot;z&quot;) sTranslate = &quot;m&quot;;
+    if (GetStringLength(sTranslate) == 1 &amp;&amp; GetStringUpperCase(sLetter) == sLetter)
+        sTranslate = GetStringUpperCase(sTranslate);
+    return sTranslate;
+}
+
+string ProcessOrc(string sPhrase)
+{
+    string sOutput;
+    int iToggle;
+    while (GetStringLength(sPhrase) &gt; 1)
+    {
+        if (GetStringLeft(sPhrase,1) == &quot;*&quot;)
+            iToggle = abs(iToggle - 1);
+        if (iToggle)
+            sOutput = sOutput + GetStringLeft(sPhrase,1);
+        else
+            sOutput = sOutput + ConvertOrc(GetStringLeft(sPhrase, 1));
+        sPhrase = GetStringRight(sPhrase, GetStringLength(sPhrase)-1);
+    }
+    return sOutput;
+}
+
+string ConvertAnimal(string sLetter)
+{
+    string sTranslate = sLetter;
+    if (GetStringLength(sLetter) &gt; 1)
+        sLetter = GetStringLeft(sLetter, 1);
+    if (GetStringLowerCase(sLetter) == &quot;a&quot;) return &quot;&#x27;&quot;;
+    if (GetStringLowerCase(sLetter) == &quot;b&quot;) return &quot;&#x27;&quot;;
+    if (GetStringLowerCase(sLetter) == &quot;c&quot;) return &quot;&#x27;&quot;;
+    if (GetStringLowerCase(sLetter) == &quot;d&quot;) return &quot;&#x27;&quot;;
+    if (GetStringLowerCase(sLetter) == &quot;e&quot;) return &quot;&#x27;&quot;;
+    if (GetStringLowerCase(sLetter) == &quot;f&quot;) return &quot;&#x27;&quot;;
+    if (GetStringLowerCase(sLetter) == &quot;g&quot;) return &quot;&#x27;&quot;;
+    if (GetStringLowerCase(sLetter) == &quot;h&quot;) return &quot;&#x27;&quot;;
+    if (GetStringLowerCase(sLetter) == &quot;i&quot;) return &quot;&#x27;&quot;;
+    if (GetStringLowerCase(sLetter) == &quot;j&quot;) return &quot;&#x27;&quot;;
+    if (GetStringLowerCase(sLetter) == &quot;k&quot;) return &quot;&#x27;&quot;;
+    if (GetStringLowerCase(sLetter) == &quot;l&quot;) return &quot;&#x27;&quot;;
+    if (GetStringLowerCase(sLetter) == &quot;m&quot;) return &quot;&#x27;&quot;;
+    if (GetStringLowerCase(sLetter) == &quot;n&quot;) return &quot;&#x27;&quot;;
+    if (GetStringLowerCase(sLetter) == &quot;o&quot;) return &quot;&#x27;&quot;;
+    if (GetStringLowerCase(sLetter) == &quot;p&quot;) return &quot;&#x27;&quot;;
+    if (GetStringLowerCase(sLetter) == &quot;q&quot;) return &quot;&#x27;&quot;;
+    if (GetStringLowerCase(sLetter) == &quot;r&quot;) return &quot;&#x27;&quot;;
+    if (GetStringLowerCase(sLetter) == &quot;s&quot;) return &quot;&#x27;&quot;;
+    if (GetStringLowerCase(sLetter) == &quot;t&quot;) return &quot;&#x27;&quot;;
+    if (GetStringLowerCase(sLetter) == &quot;u&quot;) return &quot;&#x27;&quot;;
+    if (GetStringLowerCase(sLetter) == &quot;v&quot;) return &quot;&#x27;&quot;;
+    if (GetStringLowerCase(sLetter) == &quot;w&quot;) return &quot;&#x27;&quot;;
+    if (GetStringLowerCase(sLetter) == &quot;x&quot;) return &quot;&#x27;&quot;;
+    if (GetStringLowerCase(sLetter) == &quot;y&quot;) return &quot;&#x27;&quot;;
+    if (GetStringLowerCase(sLetter) == &quot;z&quot;) return &quot;&#x27;&quot;;
+    if (GetStringLength(sTranslate) == 1 &amp;&amp; GetStringUpperCase(sLetter) == sLetter)
+        sTranslate = GetStringUpperCase(sTranslate);
+    return sTranslate;
+}
+
+string ProcessAnimal(string sPhrase)
+{
+    string sOutput;
+    int iToggle;
+    while (GetStringLength(sPhrase) &gt; 1)
+    {
+        if (GetStringLeft(sPhrase,1) == &quot;*&quot;)
+            iToggle = abs(iToggle - 1);
+        if (iToggle)
+            sOutput = sOutput + GetStringLeft(sPhrase,1);
+        else
+            sOutput = sOutput + ConvertAnimal(GetStringLeft(sPhrase, 1));
+        sPhrase = GetStringRight(sPhrase, GetStringLength(sPhrase)-1);
+    }
+    return sOutput;
+}
+
+string ProcessCant(string sLetter)
+{
+    if (GetStringLength(sLetter) &gt; 1)
+        sLetter = GetStringLeft(sLetter, 1);
+
+    if (sLetter == &quot;a&quot; || sLetter == &quot;A&quot;) return &quot;*shields eyes*&quot;;
+    if (sLetter == &quot;b&quot; || sLetter == &quot;B&quot;) return &quot;*blusters*&quot;;
+    if (sLetter == &quot;c&quot; || sLetter == &quot;C&quot;) return &quot;*coughs*&quot;;
+    if (sLetter == &quot;d&quot; || sLetter == &quot;D&quot;) return &quot;*furrows brow*&quot;;
+    if (sLetter == &quot;e&quot; || sLetter == &quot;E&quot;) return &quot;*examines ground*&quot;;
+    if (sLetter == &quot;f&quot; || sLetter == &quot;F&quot;) return &quot;*frowns*&quot;;
+    if (sLetter == &quot;g&quot; || sLetter == &quot;G&quot;) return &quot;*glances up*&quot;;
+    if (sLetter == &quot;h&quot; || sLetter == &quot;H&quot;) return &quot;*looks thoughtful*&quot;;
+    if (sLetter == &quot;i&quot; || sLetter == &quot;I&quot;) return &quot;*looks bored*&quot;;
+    if (sLetter == &quot;j&quot; || sLetter == &quot;J&quot;) return &quot;*rubs chin*&quot;;
+    if (sLetter == &quot;k&quot; || sLetter == &quot;K&quot;) return &quot;*scratches ear*&quot;;
+    if (sLetter == &quot;l&quot; || sLetter == &quot;L&quot;) return &quot;*looks around*&quot;;
+    if (sLetter == &quot;m&quot; || sLetter == &quot;M&quot;) return &quot;*mmm hmm*&quot;;
+    if (sLetter == &quot;n&quot; || sLetter == &quot;N&quot;) return &quot;*nods*&quot;;
+    if (sLetter == &quot;o&quot; || sLetter == &quot;O&quot;) return &quot;*grins*&quot;;
+    if (sLetter == &quot;p&quot; || sLetter == &quot;P&quot;) return &quot;*smiles*&quot;;
+    if (sLetter == &quot;q&quot; || sLetter == &quot;Q&quot;) return &quot;*shivers*&quot;;
+    if (sLetter == &quot;r&quot; || sLetter == &quot;R&quot;) return &quot;*rolls eyes*&quot;;
+    if (sLetter == &quot;s&quot; || sLetter == &quot;S&quot;) return &quot;*scratches nose*&quot;;
+    if (sLetter == &quot;t&quot; || sLetter == &quot;T&quot;) return &quot;*turns a bit*&quot;;
+    if (sLetter == &quot;u&quot; || sLetter == &quot;U&quot;) return &quot;*glances idly*&quot;;
+    if (sLetter == &quot;v&quot; || sLetter == &quot;V&quot;) return &quot;*runs hand through hair*&quot;;
+    if (sLetter == &quot;w&quot; || sLetter == &quot;W&quot;) return &quot;*waves*&quot;;
+    if (sLetter == &quot;x&quot; || sLetter == &quot;X&quot;) return &quot;*stretches*&quot;;
+    if (sLetter == &quot;y&quot; || sLetter == &quot;Y&quot;) return &quot;*yawns*&quot;;
+    if (sLetter == &quot;z&quot; || sLetter == &quot;Z&quot;) return &quot;*shrugs*&quot;;
+
+    return &quot;*nods*&quot;;
+}
+
+string TranslateCommonToLanguage(int iLang, string sText)
+{
+    switch(iLang)
+    {
+        case 1: //Elven
+        return ProcessElven(sText); break;
+        case 2: //Gnome
+        return ProcessGnome(sText); break;
+        case 3: //Halfling
+        return ProcessHalfling(sText); break;
+        case 4: //Dwarf Note: Race 4 is normally Half Elf and Race 0 is normally Dwarf. This is changed.
+        return ProcessDwarf(sText); break;
+        case 5: //Orc
+        return ProcessOrc(sText); break;
+        case 6: //Goblin
+        return ProcessGoblin(sText); break;
+        case 7: //Draconic
+        return ProcessDraconic(sText); break;
+        case 8: //Animal
+        return ProcessAnimal(sText); break;
+        case 9: //Thieves Cant
+        return ProcessCant(sText); break;
+        case 10: //Celestial
+        return ProcessCelestial(sText); break;
+        case 11: //Abyssal
+        return ProcessAbyssal(sText); break;
+        case 12: //Infernal
+        return ProcessInfernal(sText); break;
+        case 99: //1337
+        return ProcessLeetspeak(sText); break;
+        default: break;
+    }
+    return &quot;&quot;;
+}
+
+int GetDefaultRacialLanguage(object oPC, int iRename)
+{
+    switch(GetRacialType(oPC))
+    {
+        case RACIAL_TYPE_DWARF: if (iRename) SetLocalString(oPC, &quot;hls_MyLanguageName&quot;, &quot;Dwarven&quot;); return 4; break;
+        case RACIAL_TYPE_ELF:
+        case RACIAL_TYPE_HALFELF: if (iRename) SetLocalString(oPC, &quot;hls_MyLanguageName&quot;, &quot;Elven&quot;); return 1; break;
+        case RACIAL_TYPE_GNOME: if (iRename) SetLocalString(oPC, &quot;hls_MyLanguageName&quot;, &quot;Gnome&quot;); return 2; break;
+        case RACIAL_TYPE_HALFLING: if (iRename) SetLocalString(oPC, &quot;hls_MyLanguageName&quot;, &quot;Halfling&quot;); return 3; break;
+        case RACIAL_TYPE_HUMANOID_ORC:
+        case RACIAL_TYPE_HALFORC: if (iRename) SetLocalString(oPC, &quot;hls_MyLanguageName&quot;, &quot;Orc&quot;); return 5; break;
+        case RACIAL_TYPE_HUMANOID_GOBLINOID: if (iRename) SetLocalString(oPC, &quot;hls_MyLanguageName&quot;, &quot;Goblin&quot;); return 6; break;
+        case RACIAL_TYPE_HUMANOID_REPTILIAN:
+        case RACIAL_TYPE_DRAGON: if (iRename) SetLocalString(oPC, &quot;hls_MyLanguageName&quot;, &quot;Draconic&quot;); return 7; break;
+        default: if (GetLevelByClass(CLASS_TYPE_RANGER, oPC) || GetLevelByClass(CLASS_TYPE_DRUID, oPC))
+                 {
+                    if (iRename) SetLocalString(oPC, &quot;hls_MyLanguageName&quot;, &quot;Animal&quot;);
+                    return 8;
+                 }
+                 if (GetLevelByClass(CLASS_TYPE_ROGUE, oPC))
+                 {
+                    if (iRename) SetLocalString(oPC, &quot;hls_MyLanguageName&quot;, &quot;Thieves&#x27; Cant&quot;);
+                    return 9;
+                 }
+                 break;
+    }
+    return 0;
+}
+
+int GetDefaultClassLanguage(object oPC)
+{
+    if (GetLevelByClass(CLASS_TYPE_RANGER, oPC) || GetLevelByClass(CLASS_TYPE_DRUID, oPC))
+        return 8;
+    if (GetLevelByClass(CLASS_TYPE_ROGUE, oPC))
+        return 9;
+    return 0;
+}
+
+int GetIsAlphanumeric(string sCharacter)
+{
+    if (GetStringLowerCase(sCharacter) == &quot;a&quot; ||
+        GetStringLowerCase(sCharacter) == &quot;b&quot; ||
+        GetStringLowerCase(sCharacter) == &quot;c&quot; ||
+        GetStringLowerCase(sCharacter) == &quot;d&quot; ||
+        GetStringLowerCase(sCharacter) == &quot;e&quot; ||
+        GetStringLowerCase(sCharacter) == &quot;f&quot; ||
+        GetStringLowerCase(sCharacter) == &quot;g&quot; ||
+        GetStringLowerCase(sCharacter) == &quot;h&quot; ||
+        GetStringLowerCase(sCharacter) == &quot;i&quot; ||
+        GetStringLowerCase(sCharacter) == &quot;j&quot; ||
+        GetStringLowerCase(sCharacter) == &quot;k&quot; ||
+        GetStringLowerCase(sCharacter) == &quot;l&quot; ||
+        GetStringLowerCase(sCharacter) == &quot;m&quot; ||
+        GetStringLowerCase(sCharacter) == &quot;n&quot; ||
+        GetStringLowerCase(sCharacter) == &quot;o&quot; ||
+        GetStringLowerCase(sCharacter) == &quot;p&quot; ||
+        GetStringLowerCase(sCharacter) == &quot;q&quot; ||
+        GetStringLowerCase(sCharacter) == &quot;r&quot; ||
+        GetStringLowerCase(sCharacter) == &quot;s&quot; ||
+        GetStringLowerCase(sCharacter) == &quot;t&quot; ||
+        GetStringLowerCase(sCharacter) == &quot;u&quot; ||
+        GetStringLowerCase(sCharacter) == &quot;v&quot; ||
+        GetStringLowerCase(sCharacter) == &quot;w&quot; ||
+        GetStringLowerCase(sCharacter) == &quot;x&quot; ||
+        GetStringLowerCase(sCharacter) == &quot;y&quot; ||
+        GetStringLowerCase(sCharacter) == &quot;z&quot; ||
+        sCharacter == &quot;1&quot; ||
+        sCharacter == &quot;2&quot; ||
+        sCharacter == &quot;3&quot; ||
+        sCharacter == &quot;4&quot; ||
+        sCharacter == &quot;5&quot; ||
+        sCharacter == &quot;6&quot; ||
+        sCharacter == &quot;7&quot; ||
+        sCharacter == &quot;8&quot; ||
+        sCharacter == &quot;9&quot; ||
+        sCharacter == &quot;0&quot;)
+        return TRUE;
+
+    return FALSE;
+}
+
+void ParseCommand(object oNPC, object oPC, string sCom)
+{
+    if (GetStringLowerCase(GetStringLeft(sCom, 4)) == &quot;.set&quot;)
+    {
+        sCom = GetStringRight(sCom, GetStringLength(sCom) - 4);
+        while (sCom != &quot;&quot;)
+        {
+            if (GetStringLeft(sCom, 1) == &quot; &quot; ||
+                GetStringLeft(sCom, 1) == &quot;[&quot; ||
+                GetStringLeft(sCom, 1) == &quot;.&quot; ||
+                GetStringLeft(sCom, 1) == &quot;:&quot; ||
+                GetStringLeft(sCom, 1) == &quot;;&quot; ||
+                GetStringLeft(sCom, 1) == &quot;*&quot; ||
+                GetIsAlphanumeric(GetStringLeft(sCom, 1)))
+                sCom = GetStringRight(sCom, GetStringLength(sCom) - 1);
+            else
+            {
+                SetLocalObject(GetModule(), &quot;hls_NPCControl&quot; + GetStringLeft(sCom, 1), oNPC);
+                FloatingTextStringOnCreature(&quot;The Control character for &quot; + GetName(oNPC) + &quot; is &quot; + GetStringLeft(sCom, 1), oPC, FALSE);
+                return;
+            }
+        }
+        FloatingTextStringOnCreature(&quot;Your Control Character is not valid. Perhaps you are using a reserved character.&quot;, oPC, FALSE);
+    }
+    else if (GetStringLowerCase(GetStringLeft(sCom, 4)) == &quot;.buf&quot;)
+    {
+        if (FindSubString(GetStringLowerCase(sCom), &quot;barkskin&quot;) != -1)
+        {
+            ApplyEffectToObject(DURATION_TYPE_TEMPORARY, EffectACIncrease(3, AC_NATURAL_BONUS), oNPC, 3600.0f);
+            ApplyEffectToObject(DURATION_TYPE_TEMPORARY, EffectVisualEffect(VFX_DUR_PROT_BARKSKIN), oNPC, 3600.0f);
+        }
+        else if (FindSubString(GetStringLowerCase(sCom), &quot;elements&quot;) != -1)
+        {
+            ApplyEffectToObject(DURATION_TYPE_TEMPORARY, EffectDamageResistance(DAMAGE_TYPE_COLD, 20, 40), oNPC, 3600.0f);
+            ApplyEffectToObject(DURATION_TYPE_TEMPORARY, EffectDamageResistance(DAMAGE_TYPE_FIRE, 20, 40), oNPC, 3600.0f);
+            ApplyEffectToObject(DURATION_TYPE_TEMPORARY, EffectDamageResistance(DAMAGE_TYPE_ACID, 20, 40), oNPC, 3600.0f);
+            ApplyEffectToObject(DURATION_TYPE_TEMPORARY, EffectDamageResistance(DAMAGE_TYPE_SONIC, 20, 40), oNPC, 3600.0f);
+            ApplyEffectToObject(DURATION_TYPE_TEMPORARY, EffectDamageResistance(DAMAGE_TYPE_ELECTRICAL, 20, 40), oNPC, 3600.0f);
+            ApplyEffectToObject(DURATION_TYPE_TEMPORARY, EffectVisualEffect(VFX_DUR_PROTECTION_ELEMENTS), oNPC, 3600.0f);
+        }
+        else if (FindSubString(GetStringLowerCase(sCom), &quot;haste&quot;) != -1)
+        {
+            ApplyEffectToObject(DURATION_TYPE_TEMPORARY, EffectHaste(), oNPC, 3600.0f);
+        }
+        else if (FindSubString(GetStringLowerCase(sCom), &quot;invis&quot;) != -1)
+        {
+            ApplyEffectToObject(DURATION_TYPE_TEMPORARY, EffectInvisibility(INVISIBILITY_TYPE_NORMAL), oNPC, 3600.0f);
+        }
+        else if (FindSubString(GetStringLowerCase(sCom), &quot;unplot&quot;) != -1)
+        {
+            SetPlotFlag(oNPC, FALSE);
+            FloatingTextStringOnCreature(&quot;The target is set to non-Plot.&quot;, oPC, FALSE);
+        }
+        else if (FindSubString(GetStringLowerCase(sCom), &quot;plot&quot;) != -1)
+        {
+            SetPlotFlag(oNPC, TRUE);
+            FloatingTextStringOnCreature(&quot;The target is set to Plot.&quot;, oPC, FALSE);
+        }
+        else if (FindSubString(GetStringLowerCase(sCom), &quot;stoneskin&quot;) != -1)
+        {
+            ApplyEffectToObject(DURATION_TYPE_TEMPORARY, EffectDamageReduction(10, DAMAGE_POWER_PLUS_THREE, 100), oNPC, 3600.0f);
+            ApplyEffectToObject(DURATION_TYPE_TEMPORARY, EffectVisualEffect(VFX_DUR_PROT_GREATER_STONESKIN), oNPC, 3600.0f);
+        }
+        else if (FindSubString(GetStringLowerCase(sCom), &quot;trues&quot;) != -1)
+        {
+            ApplyEffectToObject(DURATION_TYPE_TEMPORARY, EffectTrueSeeing(), oNPC, 3600.0f);
+        }
+    }
+    else if (GetStringLowerCase(GetStringLeft(sCom, 4)) == &quot;.dam&quot;)
+    {
+        sCom = GetStringRight(sCom, GetStringLength(sCom) - 4);
+        //Parses the characters until there is a space.
+        while (GetStringLeft(sCom, 1) != &quot; &quot; &amp;&amp; sCom != &quot;&quot;)
+        {
+            sCom = GetStringRight(sCom, GetStringLength(sCom) - 1);
+        }
+        if (sCom != &quot;&quot; &amp;&amp; GetStringLeft(sCom, 1) == &quot; &quot;)
+        {
+            sCom = GetStringRight(sCom, GetStringLength(sCom) - 1);
+            int iCom = StringToInt(sCom);
+            ApplyEffectToObject(DURATION_TYPE_INSTANT, EffectDamage(iCom, DAMAGE_TYPE_MAGICAL, DAMAGE_POWER_NORMAL), oNPC);
+            ApplyEffectToObject(DURATION_TYPE_INSTANT, EffectVisualEffect(VFX_COM_BLOOD_LRG_RED), oNPC);
+            FloatingTextStringOnCreature(GetName(oNPC) + &quot; has taken &quot; + sCom + &quot; damage.&quot;, oPC, FALSE);
+            return;
+        }
+        return;
+    }
+    else if (GetStringLowerCase(GetStringLeft(sCom, 4)) == &quot;.dis&quot;)
+    {
+        DestroyObject(oNPC);
+        FloatingTextStringOnCreature(GetName(oNPC) + &quot; dismissed&quot;, oPC, FALSE);
+    }
+    else if (GetStringLowerCase(GetStringLeft(sCom, 4)) == &quot;.dmtoollock&quot;)
+    {
+        SetLocalInt(GetModule(), &quot;dmfi_DMToolLock&quot;, abs(GetLocalInt(GetModule(), &quot;dmfi_DMToolLock&quot;) -1));
+    }
+    else if (GetStringLowerCase(GetStringLeft(sCom, 4)) == &quot;.fac&quot;)
+    {
+        if (FindSubString(GetStringLowerCase(sCom), &quot;hostile&quot;) != -1)
+        {
+            ChangeToStandardFaction(oNPC, STANDARD_FACTION_HOSTILE);
+            FloatingTextStringOnCreature(&quot;Faction set to hostile&quot;, oPC, FALSE);
+        }
+        else if (FindSubString(GetStringLowerCase(sCom), &quot;commoner&quot;) != -1)
+        {
+            ChangeToStandardFaction(oNPC, STANDARD_FACTION_COMMONER);
+            FloatingTextStringOnCreature(&quot;Faction set to commoner&quot;, oPC, FALSE);
+        }
+        else if (FindSubString(GetStringLowerCase(sCom), &quot;defender&quot;) != -1)
+        {
+            ChangeToStandardFaction(oNPC, STANDARD_FACTION_DEFENDER);
+            FloatingTextStringOnCreature(&quot;Faction set to defender&quot;, oPC, FALSE);
+        }
+        else if (FindSubString(GetStringLowerCase(sCom), &quot;merchant&quot;) != -1)
+        {
+            ChangeToStandardFaction(oNPC, STANDARD_FACTION_MERCHANT);
+            FloatingTextStringOnCreature(&quot;Faction set to merchant&quot;, oPC, FALSE);
+        }
+    }
+    else if (GetStringLowerCase(GetStringLeft(sCom, 4)) == &quot;.fle&quot;)
+    {
+        AssignCommand(oNPC, ClearAllActions(TRUE));
+        AssignCommand(oNPC, ActionMoveAwayFromObject(oPC, TRUE));
+    }
+    else if (GetStringLowerCase(GetStringLeft(sCom, 4)) == &quot;.fly&quot;)
+    {
+        ApplyEffectToObject(DURATION_TYPE_INSTANT, EffectDisappear(), oNPC);
+    }
+    else if (GetStringLowerCase(GetStringLeft(sCom, 4)) == &quot;.fol&quot;)
+    {
+        sCom = GetStringRight(sCom, GetStringLength(sCom) - 4);
+        //Parses the characters until there is a space.
+        while (GetStringLeft(sCom, 1) != &quot; &quot; &amp;&amp; sCom != &quot;&quot;)
+        {
+            sCom = GetStringRight(sCom, GetStringLength(sCom) - 1);
+        }
+        if (sCom != &quot;&quot; &amp;&amp; GetStringLeft(sCom, 1) == &quot; &quot;)
+        {
+            sCom = GetStringRight(sCom, GetStringLength(sCom) - 1);
+            int iCom = StringToInt(sCom);
+            FloatingTextStringOnCreature(GetName(oNPC) + &quot; will follow you for &quot;+sCom+&quot; seconds.&quot;, oPC, FALSE);
+            AssignCommand(oNPC, ClearAllActions(TRUE));
+            AssignCommand(oNPC, ActionForceMoveToObject(oPC, TRUE, 2.0f, IntToFloat(iCom)));
+            DelayCommand(IntToFloat(iCom), FloatingTextStringOnCreature(GetName(oNPC) + &quot; has stopped following you.&quot;, oPC, FALSE));
+            return;
+        }
+        return;
+    }
+    else if (GetStringLowerCase(GetStringLeft(sCom, 4)) == &quot;.fre&quot;)
+    {
+        FloatingTextStringOnCreature(GetName(oNPC) + &quot; frozen&quot;, oPC, FALSE);
+        SetCommandable(TRUE, oNPC);
+        AssignCommand(oNPC, ClearAllActions(TRUE));
+        DelayCommand(0.5f, SetCommandable(FALSE, oNPC));
+        return;
+    }
+    else if (GetStringLowerCase(GetStringLeft(sCom, 4)) == &quot;.get&quot;)
+    {
+        sCom = GetStringRight(sCom, GetStringLength(sCom) - 4);
+        while (sCom != &quot;&quot;)
+        {
+            if (GetStringLeft(sCom, 1) == &quot; &quot; ||
+                GetStringLeft(sCom, 1) == &quot;[&quot; ||
+                GetStringLeft(sCom, 1) == &quot;.&quot; ||
+                GetStringLeft(sCom, 1) == &quot;:&quot; ||
+                GetStringLeft(sCom, 1) == &quot;;&quot; ||
+                GetStringLeft(sCom, 1) == &quot;*&quot; ||
+                GetIsAlphanumeric(GetStringLeft(sCom, 1)))
+                sCom = GetStringRight(sCom, GetStringLength(sCom) - 1);
+            else
+            {
+                AssignCommand(oNPC, ClearAllActions());
+                AssignCommand(oNPC, ActionJumpToLocation(GetLocation(oPC)));
+                return;
+            }
+        }
+        FloatingTextStringOnCreature(&quot;Your Control Character is not valid. Perhaps you are using a reserved character.&quot;, oPC, FALSE);
+    }
+    else if (GetStringLowerCase(GetStringLeft(sCom, 4)) == &quot;.got&quot;)
+    {
+        sCom = GetStringRight(sCom, GetStringLength(sCom) - 4);
+        while (sCom != &quot;&quot;)
+        {
+            if (GetStringLeft(sCom, 1) == &quot; &quot; ||
+                GetStringLeft(sCom, 1) == &quot;[&quot; ||
+                GetStringLeft(sCom, 1) == &quot;.&quot; ||
+                GetStringLeft(sCom, 1) == &quot;:&quot; ||
+                GetStringLeft(sCom, 1) == &quot;;&quot; ||
+                GetStringLeft(sCom, 1) == &quot;*&quot; ||
+                GetIsAlphanumeric(GetStringLeft(sCom, 1)))
+                sCom = GetStringRight(sCom, GetStringLength(sCom) - 1);
+            else
+            {
+                AssignCommand(oPC, ClearAllActions());
+                AssignCommand(oPC, ActionJumpToLocation(GetLocation(oNPC)));
+                return;
+            }
+        }
+        FloatingTextStringOnCreature(&quot;Your Control Character is not valid. Perhaps you are using a reserved character.&quot;, oPC, FALSE);
+    }
+    else if (GetStringLowerCase(GetStringLeft(sCom, 4)) == &quot;.hea&quot;)
+    {
+        sCom = GetStringRight(sCom, GetStringLength(sCom) - 4);
+        //Parses the characters until there is a space.
+        while (GetStringLeft(sCom, 1) != &quot; &quot; &amp;&amp; sCom != &quot;&quot;)
+        {
+            sCom = GetStringRight(sCom, GetStringLength(sCom) - 1);
+        }
+        if (sCom != &quot;&quot; &amp;&amp; GetStringLeft(sCom, 1) == &quot; &quot;)
+        {
+            sCom = GetStringRight(sCom, GetStringLength(sCom) - 1);
+            int iCom = StringToInt(sCom);
+            ApplyEffectToObject(DURATION_TYPE_INSTANT, EffectHeal(iCom), oNPC);
+            ApplyEffectToObject(DURATION_TYPE_INSTANT, EffectVisualEffect(VFX_IMP_HEALING_M), oNPC);
+            FloatingTextStringOnCreature(GetName(oNPC) + &quot; has healed &quot; + sCom + &quot; hp.&quot;, oPC, FALSE);
+            return;
+        }
+        return;
+    }
+    else if (GetStringLowerCase(GetStringLeft(sCom, 4)) == &quot;.ite&quot;)
+    {
+        sCom = GetStringRight(sCom, GetStringLength(sCom) - 4);
+        //Parses the characters until there is a space.
+        while (GetStringLeft(sCom, 1) != &quot; &quot; &amp;&amp; sCom != &quot;&quot;)
+        {
+            sCom = GetStringRight(sCom, GetStringLength(sCom) - 1);
+        }
+        if (sCom != &quot;&quot; &amp;&amp; GetStringLeft(sCom, 1) == &quot; &quot;)
+        {
+            sCom = GetStringRight(sCom, GetStringLength(sCom) - 1);
+            CreateItemOnObject(sCom, oNPC, 1);
+            return;
+        }
+        return;
+    }
+    else if (GetStringLowerCase(GetStringLeft(sCom, 4)) == &quot;.lan&quot;) //sets the language of the target
+    {
+        if (FindSubString(GetStringLowerCase(sCom), &quot;elven&quot;) != -1 ||
+            FindSubString(GetStringLowerCase(sCom), &quot;elf&quot;) != -1)
+        {
+            SetLocalInt(oNPC, &quot;hls_MyLanguage&quot;, 1);
+            SetLocalString(oNPC, &quot;hls_MyLanguageName&quot;, &quot;Elven&quot;);
+            FloatingTextStringOnCreature(&quot;Language set to Elven&quot;, oPC, FALSE);
+        }
+        else if (FindSubString(GetStringLowerCase(sCom), &quot;gnom&quot;) != -1)
+        {
+            SetLocalInt(oNPC, &quot;hls_MyLanguage&quot;, 2);
+            SetLocalString(oNPC, &quot;hls_MyLanguageName&quot;, &quot;Gnome&quot;);
+            FloatingTextStringOnCreature(&quot;Language set to Gnome&quot;, oPC, FALSE);
+        }
+        else if (FindSubString(GetStringLowerCase(sCom), &quot;halfling&quot;) != -1)
+        {
+            SetLocalInt(oNPC, &quot;hls_MyLanguage&quot;, 3);
+            SetLocalString(oNPC, &quot;hls_MyLanguageName&quot;, &quot;Halfling&quot;);
+            FloatingTextStringOnCreature(&quot;Language set to Halfling&quot;, oPC, FALSE);
+        }
+        else if (FindSubString(GetStringLowerCase(sCom), &quot;dwar&quot;) != -1)
+        {
+            SetLocalInt(oNPC, &quot;hls_MyLanguage&quot;, 4);
+            SetLocalString(oNPC, &quot;hls_MyLanguageName&quot;, &quot;Dwarven&quot;);
+            FloatingTextStringOnCreature(&quot;Language set to Dwarven&quot;, oPC, FALSE);
+        }
+        else if (FindSubString(GetStringLowerCase(sCom), &quot;orc&quot;) != -1)
+        {
+            SetLocalInt(oNPC, &quot;hls_MyLanguage&quot;, 5);
+            SetLocalString(oNPC, &quot;hls_MyLanguageName&quot;, &quot;Orc&quot;);
+            FloatingTextStringOnCreature(&quot;Language set to Orc&quot;, oPC, FALSE);
+        }
+        else if (FindSubString(GetStringLowerCase(sCom), &quot;goblin&quot;) != -1)
+        {
+            SetLocalInt(oNPC, &quot;hls_MyLanguage&quot;, 6);
+            SetLocalString(oNPC, &quot;hls_MyLanguageName&quot;, &quot;Goblin&quot;);
+            FloatingTextStringOnCreature(&quot;Language set to Goblin&quot;, oPC, FALSE);
+        }
+        else if (FindSubString(GetStringLowerCase(sCom), &quot;draconic&quot;) != -1)
+        {
+            SetLocalInt(oNPC, &quot;hls_MyLanguage&quot;, 7);
+            SetLocalString(oNPC, &quot;hls_MyLanguageName&quot;, &quot;Draconic&quot;);
+            FloatingTextStringOnCreature(&quot;Language set to Draconic&quot;, oPC, FALSE);
+        }
+        else if (FindSubString(GetStringLowerCase(sCom), &quot;animal&quot;) != -1)
+        {
+            SetLocalInt(oNPC, &quot;hls_MyLanguage&quot;, 8);
+            SetLocalString(oNPC, &quot;hls_MyLanguageName&quot;, &quot;Animal&quot;);
+            FloatingTextStringOnCreature(&quot;Language set to Animal&quot;, oPC, FALSE);
+        }
+        else if (FindSubString(GetStringLowerCase(sCom), &quot;cant&quot;) != -1)
+        {
+            SetLocalInt(oNPC, &quot;hls_MyLanguage&quot;, 9);
+            SetLocalString(oNPC, &quot;hls_MyLanguageName&quot;, &quot;Thieves&#x27; Cant&quot;);
+            FloatingTextStringOnCreature(&quot;Language set to Thieves&#x27; Cant&quot;, oPC, FALSE);
+        }
+        else if (FindSubString(GetStringLowerCase(sCom), &quot;celestial&quot;) != -1)
+        {
+            SetLocalInt(oNPC, &quot;hls_MyLanguage&quot;, 10);
+            SetLocalString(oNPC, &quot;hls_MyLanguageName&quot;, &quot;Celestial&quot;);
+            FloatingTextStringOnCreature(&quot;Language set to Celestial&quot;, oPC, FALSE);
+        }
+        else if (FindSubString(GetStringLowerCase(sCom), &quot;abyssal&quot;) != -1)
+        {
+            SetLocalInt(oNPC, &quot;hls_MyLanguage&quot;, 11);
+            SetLocalString(oNPC, &quot;hls_MyLanguageName&quot;, &quot;Abyssal&quot;);
+            FloatingTextStringOnCreature(&quot;Language set to Abyssal&quot;, oPC, FALSE);
+        }
+        else if (FindSubString(GetStringLowerCase(sCom), &quot;infernal&quot;) != -1)
+        {
+            SetLocalInt(oNPC, &quot;hls_MyLanguage&quot;, 12);
+            SetLocalString(oNPC, &quot;hls_MyLanguageName&quot;, &quot;Infernal&quot;);
+            FloatingTextStringOnCreature(&quot;Language set to Infernal&quot;, oPC, FALSE);
+        }
+        return;
+    }
+    else if (GetStringLowerCase(GetStringLeft(sCom, 4)) == &quot;.mut&quot;)
+    {
+        FloatingTextStringOnCreature(GetName(oNPC) + &quot; muted&quot;, oPC, FALSE);
+        SetLocalInt(oNPC, &quot;dmfi_Mute&quot;, 1);
+        return;
+    }
+    else if (GetStringLowerCase(GetStringLeft(sCom, 4)) == &quot;.npc&quot;)
+    {
+        sCom = GetStringRight(sCom, GetStringLength(sCom) - 4);
+        //Parses the characters until there is a space.
+        while (GetStringLeft(sCom, 1) != &quot; &quot; &amp;&amp; sCom != &quot;&quot;)
+        {
+            sCom = GetStringRight(sCom, GetStringLength(sCom) - 1);
+        }
+        if (sCom != &quot;&quot; &amp;&amp; GetStringLeft(sCom, 1) == &quot; &quot;)
+        {
+            sCom = GetStringRight(sCom, GetStringLength(sCom) - 1);
+            CreateObject(OBJECT_TYPE_CREATURE, sCom, GetLocation(oNPC));
+            return;
+        }
+        return;
+    }
+    else if (GetStringLowerCase(GetStringLeft(sCom, 4)) == &quot;.pla&quot;)
+    {
+        sCom = GetStringRight(sCom, GetStringLength(sCom) - 4);
+        //Parses the characters until there is a space.
+        while (GetStringLeft(sCom, 1) != &quot; &quot; &amp;&amp; sCom != &quot;&quot;)
+        {
+            sCom = GetStringRight(sCom, GetStringLength(sCom) - 1);
+        }
+        if (sCom != &quot;&quot; &amp;&amp; GetStringLeft(sCom, 1) == &quot; &quot;)
+        {
+            sCom = GetStringRight(sCom, GetStringLength(sCom) - 1);
+            CreateObject(OBJECT_TYPE_PLACEABLE, sCom, GetLocation(oNPC));
+            return;
+        }
+        return;
+    }
+    else if (GetStringLowerCase(GetStringLeft(sCom, 4)) == &quot;.rem&quot;)
+    {
+        effect eRemove = GetFirstEffect(oNPC);
+        while (GetIsEffectValid(eRemove))
+        {
+            RemoveEffect(oNPC, eRemove);
+            eRemove = GetNextEffect(oNPC);
+        }
+        return;
+    }
+    else if (GetStringLowerCase(GetStringLeft(sCom, 4)) == &quot;.say&quot;)
+    {
+        sCom = GetStringRight(sCom, GetStringLength(sCom) - 5);
+        int iCom = StringToInt(sCom);
+        if (GetLocalString(GetModule(), &quot;hls206&quot; + IntToString(iCom)) != &quot;&quot;)
+        {
+            AssignCommand(oNPC, SpeakString(GetLocalString(GetModule(), &quot;hls206&quot; + IntToString(iCom))));
+        }
+    }
+    else if (GetStringLowerCase(GetStringLeft(sCom, 4)) == &quot;.unf&quot;)
+    {
+        FloatingTextStringOnCreature(GetName(oNPC) + &quot; unfrozen&quot;, oPC, FALSE);
+        SetCommandable(TRUE, oNPC);
+    }
+    else if (GetStringLowerCase(GetStringLeft(sCom, 4)) == &quot;.unm&quot;)
+    {
+        FloatingTextStringOnCreature(GetName(oNPC) + &quot; un-muted&quot;, oPC, FALSE);
+        DeleteLocalInt(oNPC, &quot;dmfi_Mute&quot;);
+    }
+}
+
+void TranslateToLanguage(string sSaid, object oShouter)
+{
+    //Gets the current language that the character is speaking
+    int iTranslate;
+    if (GetLocalInt(oShouter, &quot;hls_MyLanguage&quot;))
+        iTranslate = GetLocalInt(oShouter, &quot;hls_MyLanguage&quot;);
+    else
+        iTranslate = GetDefaultRacialLanguage(oShouter, 1);
+    if (!iTranslate) return;
+    //Defines language name
+    string sLanguageName = GetLocalString(oShouter, &quot;hls_MyLanguageName&quot;);
+
+    sSaid = GetStringRight(sSaid, GetStringLength(sSaid)-1);
+    //Thieves&#x27; Cant character limit of 25
+    if (iTranslate == 9 &amp;&amp; GetStringLength(sSaid) &gt; 25)
+        sSaid = GetStringLeft(sSaid, 25);
+    string sSpeak = TranslateCommonToLanguage(iTranslate, sSaid);
+    if (GetStringRight(sSaid, 1) == &quot;]&quot;)
+        sSaid = GetStringLeft(sSaid, GetStringLength(sSaid)-1);
+    AssignCommand(oShouter, SpeakString(sSpeak));
+    //This is the complicated language widget
+    object oEavesdrop = GetFirstPC();
+    while (GetIsObjectValid(oEavesdrop))
+    {
+        if (GetArea(oEavesdrop) == GetArea(oShouter))
+        {
+            if (GetDistanceBetween(oEavesdrop, oShouter) &lt; 20.0f)
+            {
+                //Translate and Send or do Lore check
+                if (GetIsObjectValid(GetItemPossessedBy(oEavesdrop, &quot;hlslang_&quot; + IntToString(iTranslate))) ||
+                    GetIsObjectValid(GetItemPossessedBy(oEavesdrop, &quot;babelfish&quot;)) ||
+                    iTranslate == GetDefaultRacialLanguage(oEavesdrop, 0) ||
+                    iTranslate == GetDefaultClassLanguage(oEavesdrop))
+                        SendMessageToPC(oEavesdrop, GetName(oShouter) + &quot; says in &quot; + sLanguageName + &quot;: &quot; + sSaid);
+                else
+                {
+                    if (d20() + GetSkillRank(SKILL_LORE, oEavesdrop) &gt; 20 &amp;&amp; iTranslate != 9)
+                        SendMessageToPC(oEavesdrop, GetName(oShouter) + &quot; is speaking in &quot; + sLanguageName);
+                }
+            }
+        }
+        oEavesdrop = GetNextPC();
+    }
+    PrintString(&quot;&lt;Conv&gt;&quot;+GetName(GetArea(oShouter))+ &quot; &quot; + GetName(oShouter) + &quot; says in &quot; + sLanguageName + &quot;: &quot; + sSaid + &quot; &lt;/Conv&gt;&quot;);
+}
+
+
+void main()
+{
+    int nMatch = GetListenPatternNumber();
+    object oShouter = GetLastSpeaker();
+    if (GetIsDM(oShouter))
+        SetLocalInt(GetModule(), &quot;dmfi_Admin&quot; + GetPCPublicCDKey(oShouter), 1);
+    object oIntruder;
+    object oTarget = GetLocalObject(oShouter, &quot;dmfi_VoiceTarget&quot;);
+    object oMaster = OBJECT_INVALID;
+    if (GetIsObjectValid(oTarget))
+        oMaster = oShouter;
+    int iPhrase = GetLocalInt(oShouter, &quot;hls_EditPhrase&quot;);
+
+    if (nMatch == 20600 &amp;&amp; GetIsObjectValid(oShouter) &amp;&amp; GetIsPC(oShouter))
+    {
+        string sSaid = GetMatchedSubstring(0);
+        if (sSaid == GetLocalString(GetModule(), &quot;hls_voicebuffer&quot;))
+            return; //(this prevents duplicate phrases from going into the log)
+        else
+            SetLocalString(GetModule(), &quot;hls_voicebuffer&quot;, sSaid);
+
+        if (GetTag(OBJECT_SELF) == &quot;dmfi_setting&quot; &amp;&amp; GetLocalString(oShouter, &quot;EffectSetting&quot;) != &quot;&quot;)
+        {
+            string sPhrase = GetLocalString(oShouter, &quot;EffectSetting&quot;);
+            SetLocalFloat(oShouter, sPhrase, StringToFloat(sSaid));
+            DeleteLocalString(oShouter, &quot;EffectSetting&quot;);
+            DelayCommand(0.5, ActionSpeakString(&quot;The setting &quot; + sPhrase + &quot; has been changed to &quot; + FloatToString(GetLocalFloat(oShouter, sPhrase))));
+            DelayCommand(1.5, DestroyObject(OBJECT_SELF));
+        }
+        if (iPhrase)
+        {
+            SetLocalString(GetModule(), &quot;hls&quot; + IntToString(iPhrase), sSaid);
+            DeleteLocalInt(oShouter, &quot;hls_EditPhrase&quot;);
+            FloatingTextStringOnCreature(&quot;Phrase &quot; + IntToString(iPhrase) + &quot; has been recorded&quot;, oShouter, FALSE);
+            return;
+        }
+        else if (GetStringLeft(sSaid, 1) == &quot;[&quot;)
+        {
+            TranslateToLanguage(sSaid, oShouter);
+            return;
+        }
+        else if (GetStringLeft(sSaid, 1) == &quot;*&quot; &amp;&amp; !GetLocalInt(oShouter, &quot;hls_emotemute&quot;))
+        {
+            ParseEmote(sSaid, oShouter);
+            return;
+        }
+        else if (GetStringLeft(sSaid, 1) == &quot;:&quot;)
+        {
+            //This &quot;throws&quot; your voice to an object and properly dumps it into the log
+            if (GetIsObjectValid(oTarget))
+            {
+                sSaid = GetStringRight(sSaid, GetStringLength(sSaid)-1);
+                if (GetStringLeft(sSaid, 1) == &quot;[&quot;)
+                    TranslateToLanguage(sSaid, oTarget);
+                else if (GetStringLeft(sSaid, 1) == &quot;*&quot;)
+                    ParseEmote(sSaid, oTarget);
+                else
+                {
+                    AssignCommand(oTarget, SpeakString(sSaid));
+                    PrintString(&quot;&lt;Conv&gt;&quot;+GetName(GetArea(oTarget))+ &quot; &quot; + GetName(oTarget) + &quot;: &quot; + sSaid + &quot; &lt;/Conv&gt;&quot;);
+                }
+            }
+            return;
+        }
+        else if (GetStringLeft(sSaid, 1) == &quot;;&quot; &amp;&amp;
+        (GetIsObjectValid(GetAssociate(ASSOCIATE_TYPE_ANIMALCOMPANION, oShouter)) ||
+        GetIsObjectValid(GetAssociate(ASSOCIATE_TYPE_FAMILIAR, oShouter)) ||
+        GetIsObjectValid(GetAssociate(ASSOCIATE_TYPE_HENCHMAN, oShouter)) ||
+        GetIsObjectValid(GetAssociate(ASSOCIATE_TYPE_SUMMONED, oShouter))))
+        {
+            object oSummon;
+            if (GetIsObjectValid(GetAssociate(ASSOCIATE_TYPE_ANIMALCOMPANION, oShouter)))
+                oSummon = GetAssociate(ASSOCIATE_TYPE_ANIMALCOMPANION, oShouter);
+            else if (GetIsObjectValid(GetAssociate(ASSOCIATE_TYPE_FAMILIAR, oShouter)))
+                oSummon = GetAssociate(ASSOCIATE_TYPE_FAMILIAR, oShouter);
+            else if (GetIsObjectValid(GetAssociate(ASSOCIATE_TYPE_HENCHMAN, oShouter)))
+                oSummon = GetAssociate(ASSOCIATE_TYPE_HENCHMAN, oShouter);
+            else if (GetIsObjectValid(GetAssociate(ASSOCIATE_TYPE_SUMMONED, oShouter)))
+                oSummon = GetAssociate(ASSOCIATE_TYPE_SUMMONED, oShouter);
+            if (GetIsObjectValid(oSummon))
+            {
+                sSaid = GetStringRight(sSaid, GetStringLength(sSaid)-1);
+                if (GetStringLeft(sSaid, 1) == &quot;[&quot;)
+                    TranslateToLanguage(sSaid, oSummon);
+                else if (GetStringLeft(sSaid, 1) == &quot;*&quot;)
+                    ParseEmote(sSaid, oSummon);
+                else
+                {
+                    AssignCommand(oSummon, SpeakString(sSaid));
+                    PrintString(&quot;&lt;Conv&gt;&quot;+GetName(GetArea(oSummon))+ &quot; &quot; + GetName(oSummon) + &quot;: &quot; + sSaid + &quot; &lt;/Conv&gt;&quot;);
+                }
+            }
+            return;
+        }
+        else if (GetIsObjectValid(GetLocalObject(GetModule(), &quot;hls_NPCControl&quot; + GetStringLeft(sSaid, 1))) &amp;&amp; GetLocalInt(GetModule(), &quot;dmfi_Admin&quot; + GetPCPublicCDKey(oShouter)))
+        {
+            object oControl = GetLocalObject(GetModule(), &quot;hls_NPCControl&quot; + GetStringLeft(sSaid, 1));
+            sSaid = GetStringRight(sSaid, GetStringLength(sSaid)-1);
+            if (GetStringLeft(sSaid, 1) == &quot;[&quot;)
+                TranslateToLanguage(sSaid, oControl);
+            else if (GetStringLeft(sSaid, 1) == &quot;*&quot;)
+                ParseEmote(sSaid, oControl);
+            else if (GetStringLeft(sSaid, 1) == &quot;.&quot;)
+                ParseCommand(oControl, oShouter, sSaid);
+            else
+            {
+                //This &quot;throws&quot; your voice to an object and properly dumps it into the log
+                AssignCommand(oControl, SpeakString(sSaid));
+                PrintString(&quot;&lt;Conv&gt;&quot;+GetName(GetArea(oControl))+ &quot; &quot; + GetName(oControl) + &quot;: &quot; + sSaid + &quot; &lt;/Conv&gt;&quot;);
+            }
+            return;
+        }
+        else if (GetStringLeft(sSaid, 1) == &quot;.&quot; &amp;&amp; GetIsObjectValid(oMaster))
+        {
+            ParseCommand(oTarget, oMaster, sSaid);
+            return;
+        }
+        else
+        {
+            //This records the phrase into the log
+            PrintString(&quot;&lt;Conv&gt;&quot;+GetName(GetArea(oShouter))+ &quot; &quot; + GetName(oShouter) + &quot;: &quot; + sSaid + &quot; &lt;/Conv&gt;&quot;);
+
+            if (GetLocalInt(GetModule(), &quot;dmfi_DMSpy&quot;))
+            {
+                object oTempPC = GetFirstPC();
+                while(GetIsObjectValid(oTempPC))
+                {
+                    if (GetIsDM(oTempPC))
+                        SendMessageToPC(oTempPC, &quot;(&quot; + GetName(GetArea(oShouter)) + &quot;) &quot; + GetName(oShouter) + &quot;: &quot; + sSaid);
+                    oTempPC = GetNextPC();
+                }
+            }
+        }
+    }
+}
+</code></pre>
+  </main>
+  <footer>generated by <a href="https://github.com/mrprice22/nwn-manager">nwn-manager</a></footer>
+</body>
+</html>

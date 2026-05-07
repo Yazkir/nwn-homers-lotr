@@ -1,0 +1,278 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Script dmbc10</title>
+  <link rel="stylesheet" href="../assets/style.css">
+</head>
+<body>
+  <header class="site-header">
+    <a class="brand" href="../index.html">Module Wiki</a>
+    <nav>
+      <a href="../index.html">Map</a>
+      <a href="../areas/index.html">Areas</a>
+      <a href="../creatures/index.html">Creature Blueprints</a>
+      <a href="../creatures/instances/index.html">Creature Instances</a>
+      <a href="../items/index.html">Items</a>
+      <a href="../stores/index.html">Stores</a>
+      <a href="../conversations/index.html">Conversations</a>
+      <a href="../factions.html">Factions</a>
+      <a href="../journal.html">Journal</a>
+    </nav>
+  </header>
+  <main>
+<h1>Script: <code>dmbc10</code></h1><pre class="nss-source"><code>string XP2LVL(int nPCXP)
+{
+string sFinalLVL;
+
+if (nPCXP &lt; 1000)
+{
+sFinalLVL = &quot;1&quot;;
+return sFinalLVL;
+}
+if (nPCXP &lt; 3000)
+{
+sFinalLVL = &quot;2&quot;;
+return sFinalLVL;
+}
+if (nPCXP &lt; 6000)
+{
+sFinalLVL = &quot;3&quot;;
+return sFinalLVL;
+}
+if (nPCXP &lt; 10000)
+{
+sFinalLVL = &quot;4&quot;;
+return sFinalLVL;
+}
+if (nPCXP &lt; 15000)
+{
+sFinalLVL = &quot;5&quot;;
+return sFinalLVL;
+}
+if (nPCXP &lt; 21000)
+{
+sFinalLVL = &quot;6&quot;;
+return sFinalLVL;
+}
+if (nPCXP &lt; 28000)
+{
+sFinalLVL = &quot;7&quot;;
+return sFinalLVL;
+}
+if (nPCXP &lt; 36000)
+{
+sFinalLVL = &quot;8&quot;;
+return sFinalLVL;
+}
+if (nPCXP &lt; 45000)
+{
+sFinalLVL = &quot;9&quot;;
+return sFinalLVL;
+}
+if (nPCXP &lt; 55000)
+{
+sFinalLVL = &quot;10&quot;;
+return sFinalLVL;
+}
+if (nPCXP &lt; 66000)
+{
+sFinalLVL = &quot;11&quot;;
+return sFinalLVL;
+}
+if (nPCXP &lt; 78000)
+{
+sFinalLVL = &quot;12&quot;;
+return sFinalLVL;
+}
+if (nPCXP &lt; 91000)
+{
+sFinalLVL = &quot;13&quot;;
+return sFinalLVL;
+}
+if (nPCXP &lt; 105000)
+{
+sFinalLVL = &quot;14&quot;;
+return sFinalLVL;
+}
+if (nPCXP &lt; 120000)
+{
+sFinalLVL = &quot;15&quot;;
+return sFinalLVL;
+}
+if (nPCXP &lt; 136000)
+{
+sFinalLVL = &quot;16&quot;;
+return sFinalLVL;
+}
+if (nPCXP &lt; 153000)
+{
+sFinalLVL = &quot;17&quot;;
+return sFinalLVL;
+}
+if (nPCXP &lt; 171000)
+{
+sFinalLVL = &quot;18&quot;;
+return sFinalLVL;
+}
+if (nPCXP &lt; 190000)
+{
+sFinalLVL = &quot;19&quot;;
+return sFinalLVL;
+}
+if (nPCXP &lt; 210000)
+{
+sFinalLVL = &quot;20&quot;;
+return sFinalLVL;
+}
+if (nPCXP &lt; 231000)
+{
+sFinalLVL = &quot;21&quot;;
+return sFinalLVL;
+}
+if (nPCXP &lt; 253000)
+{
+sFinalLVL = &quot;22&quot;;
+return sFinalLVL;
+}
+if (nPCXP &lt; 276000)
+{
+sFinalLVL = &quot;23&quot;;
+return sFinalLVL;
+}
+if (nPCXP &lt; 300000)
+{
+sFinalLVL = &quot;24&quot;;
+return sFinalLVL;
+}
+if (nPCXP &lt; 325000)
+{
+sFinalLVL = &quot;25&quot;;
+return sFinalLVL;
+}
+if (nPCXP &lt; 351000)
+{
+sFinalLVL = &quot;26&quot;;
+return sFinalLVL;
+}
+if (nPCXP &lt; 378000)
+{
+sFinalLVL = &quot;27&quot;;
+return sFinalLVL;
+}
+if (nPCXP &lt; 406000)
+{
+sFinalLVL = &quot;28&quot;;
+return sFinalLVL;
+}
+if (nPCXP &lt; 435000)
+{
+sFinalLVL = &quot;29&quot;;
+return sFinalLVL;
+}
+if (nPCXP &lt; 465000)
+{
+sFinalLVL = &quot;30&quot;;
+return sFinalLVL;
+}
+if (nPCXP &lt; 496000)
+{
+sFinalLVL = &quot;31&quot;;
+return sFinalLVL;
+}
+if (nPCXP &lt; 528000)
+{
+sFinalLVL = &quot;32&quot;;
+return sFinalLVL;
+}
+if (nPCXP &lt; 561000)
+{
+sFinalLVL = &quot;33&quot;;
+return sFinalLVL;
+}
+if (nPCXP &lt; 595000)
+{
+sFinalLVL = &quot;34&quot;;
+return sFinalLVL;
+}
+if (nPCXP &lt; 630000)
+{
+sFinalLVL = &quot;35&quot;;
+return sFinalLVL;
+}
+if (nPCXP &lt; 666000)
+{
+sFinalLVL = &quot;36&quot;;
+return sFinalLVL;
+}
+if (nPCXP &lt; 703000)
+{
+sFinalLVL = &quot;37&quot;;
+return sFinalLVL;
+}
+if (nPCXP &lt; 741000)
+{
+sFinalLVL = &quot;38&quot;;
+return sFinalLVL;
+}
+if (nPCXP &lt; 780000)
+{
+sFinalLVL = &quot;39&quot;;
+return sFinalLVL;
+}
+
+sFinalLVL = &quot;40&quot;;
+return sFinalLVL;
+}
+
+
+
+
+
+void main()
+{
+
+object oDMPCboard = GetObjectByTag(&quot;DMCBboard&quot;);
+object oPC2Check;
+string PCName2Search = GetLocalString(oDMPCboard, &quot;PC2check10&quot;);
+
+
+int nXPOfFM;
+string sNameOfFM;
+int nAlignmentFM;
+string sLVLOfFM;
+string sAlignmentFM;
+string sStringToSpeak;
+string CurrentPCName;
+
+
+//find the player
+oPC2Check = GetFirstPC();
+while ((GetIsObjectValid (oPC2Check)) == TRUE)
+{
+CurrentPCName = GetPCPlayerName(oPC2Check);
+if (CurrentPCName == PCName2Search)
+{
+// make illegal and kick
+ApplyEffectToObject (DURATION_TYPE_INSTANT, EffectAbilityDecrease(ABILITY_STRENGTH, 60), oPC2Check);
+ApplyEffectToObject (DURATION_TYPE_INSTANT, EffectAbilityDecrease(ABILITY_CHARISMA, 60), oPC2Check);
+ApplyEffectToObject (DURATION_TYPE_INSTANT, EffectAbilityDecrease(ABILITY_CONSTITUTION, 60), oPC2Check);
+ApplyEffectToObject (DURATION_TYPE_INSTANT, EffectAbilityDecrease(ABILITY_INTELLIGENCE, 60), oPC2Check);
+ApplyEffectToObject (DURATION_TYPE_INSTANT, EffectAbilityDecrease(ABILITY_WISDOM, 60), oPC2Check);
+SendMessageToPC (oPC2Check, &quot;Your character has been blocked by a DM.&quot;);
+BootPC(oPC2Check);
+}
+oPC2Check = GetNextPC();
+}
+
+
+
+ActionSpeakString(&quot;Player character blocked.&quot;, TALKVOLUME_TALK);
+
+
+}
+</code></pre>
+  </main>
+  <footer>generated by <a href="https://github.com/mrprice22/nwn-manager">nwn-manager</a></footer>
+</body>
+</html>

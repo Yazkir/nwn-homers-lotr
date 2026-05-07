@@ -1,0 +1,463 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Script hgll_dlg_leveler</title>
+  <link rel="stylesheet" href="../assets/style.css">
+</head>
+<body>
+  <header class="site-header">
+    <a class="brand" href="../index.html">Module Wiki</a>
+    <nav>
+      <a href="../index.html">Map</a>
+      <a href="../areas/index.html">Areas</a>
+      <a href="../creatures/index.html">Creature Blueprints</a>
+      <a href="../creatures/instances/index.html">Creature Instances</a>
+      <a href="../items/index.html">Items</a>
+      <a href="../stores/index.html">Stores</a>
+      <a href="../conversations/index.html">Conversations</a>
+      <a href="../factions.html">Factions</a>
+      <a href="../journal.html">Journal</a>
+    </nav>
+  </header>
+  <main>
+<h1>Script: <code>hgll_dlg_leveler</code></h1><pre class="nss-source"><code>#include &quot;zdlg_include_i&quot;
+#include &quot;hgll_func_inc&quot;
+const string FIRST_PAGE = &quot;skills_select&quot;;
+const string SECOND_PAGE = &quot;skills_confirm&quot;;
+const string THIRD_PAGE = &quot;feat_select&quot;;
+const string FOURTH_PAGE = &quot;feat_confirm&quot;;
+const string FIFTH_PAGE = &quot;stat_select&quot;;
+const string SIXTH_PAGE = &quot;stat_confirm&quot;;
+const string SEVENTH_PAGE = &quot;final_confirm&quot;;
+
+void Init()
+{
+    string page = GetDlgPageString();
+    int nSkill;
+    int nFeat;
+    int nCount = 0;
+    int nCount2 = 0;
+    string sCrossClass;
+    object oPC = GetPcDlgSpeaker();
+    if( page == &quot;&quot; )
+        {
+        if( GetElementCount(FIRST_PAGE, oPC) == 0 )
+            {
+            for(nSkill = 0; nSkill &lt; 27; nSkill++) //loop through the skill constants
+                {
+                if (GetIsSkillAvailable(oPC, nSkill)) //if the PC can take the skill, it is displayed
+                    {
+                    if (GetCostOfSkill(GetControlClass(oPC), nSkill) == 2)
+                        {
+                        sCrossClass = &quot; [Cross-Class]&quot;;
+                        }
+                    else
+                        {
+                        sCrossClass = &quot;&quot;;
+                        }
+                    AddStringElement(GetNameOfSkill(nSkill) + sCrossClass, FIRST_PAGE, oPC );
+                    ReplaceIntElement(nCount, nSkill, FIRST_PAGE, oPC); //store the skill int with the skill
+                    DoDebug(oPC, &quot;Response Number: &quot; + IntToString(nCount) + &quot;, Skill Number: &quot; + IntToString(nSkill) + &quot;.&quot;);
+                    nCount ++;
+                    }
+                }
+            AddStringElement (&quot;I cannot or do not wish to select any more skills at this time.&quot;, FIRST_PAGE, oPC );
+            }
+        if( GetElementCount(SECOND_PAGE, oPC) == 0 )
+            {
+            AddStringElement(&quot;Yes.&quot;, SECOND_PAGE, oPC );
+            AddStringElement(&quot;No. I want to start over.&quot;, SECOND_PAGE, oPC );
+            }
+        if( GetElementCount(THIRD_PAGE, oPC) == 0 )
+            {
+            if (GetGainsFeatOnLevelUp(oPC))
+                {
+                DelayCommand(0.2, ExecuteScript(&quot;hgll_featlist_01&quot;, oPC));//these scripts break up the below feat loop into 11 parts to avoid TMI errors
+                DelayCommand(0.4, ExecuteScript(&quot;hgll_featlist_02&quot;, oPC));
+                DelayCommand(0.6, ExecuteScript(&quot;hgll_featlist_03&quot;, oPC));
+                DelayCommand(0.8, ExecuteScript(&quot;hgll_featlist_04&quot;, oPC));
+                DelayCommand(1.0, ExecuteScript(&quot;hgll_featlist_05&quot;, oPC));
+                DelayCommand(1.2, ExecuteScript(&quot;hgll_featlist_06&quot;, oPC));
+                DelayCommand(1.4, ExecuteScript(&quot;hgll_featlist_07&quot;, oPC));
+                DelayCommand(1.6, ExecuteScript(&quot;hgll_featlist_08&quot;, oPC));
+                DelayCommand(1.8, ExecuteScript(&quot;hgll_featlist_09&quot;, oPC));
+                DelayCommand(2.0, ExecuteScript(&quot;hgll_featlist_10&quot;, oPC));
+                DelayCommand(2.2, ExecuteScript(&quot;hgll_featlist_11&quot;, oPC));
+                /*
+                for(nFeat = 0; nFeat &lt; 1072; nFeat++)//loop through the feat constants
+                    {
+                    if (GetIsFeatAvailable(nFeat, oPC))//if the PC can take the feat, it is displayed
+                        {
+                        AddStringElement(GetNameOfFeat(nFeat), THIRD_PAGE, oPC );
+                        ReplaceIntElement(nCount2, nFeat, THIRD_PAGE, oPC);//store the skill int with the skill
+                        DoDebug(oPC, &quot;Response Number: &quot; + IntToString(nCount2) + &quot;, Feat Number: &quot; + IntToString(nFeat) + &quot;.&quot;);
+                        nCount2 ++;
+                        }
+                    }
+                */
+                }
+            }
+        if( GetElementCount(FOURTH_PAGE, oPC) == 0)
+            {
+            AddStringElement(&quot;Yes.&quot;, FOURTH_PAGE, oPC );
+            AddStringElement(&quot;No. I want to start over.&quot;, FOURTH_PAGE, oPC );
+            }
+        if( GetElementCount(FIFTH_PAGE, oPC ) == 0)
+            {
+            AddStringElement(&quot;Strength&quot;, FIFTH_PAGE, oPC );
+            ReplaceIntElement(0, ABILITY_STRENGTH, FIFTH_PAGE, oPC);
+            AddStringElement(&quot;Dexterity&quot;, FIFTH_PAGE, oPC );
+            ReplaceIntElement(1, ABILITY_DEXTERITY, FIFTH_PAGE, oPC);
+            AddStringElement(&quot;Constitution&quot;, FIFTH_PAGE, oPC );
+            ReplaceIntElement(2, ABILITY_CONSTITUTION, FIFTH_PAGE, oPC);
+            AddStringElement(&quot;Intelligence&quot;, FIFTH_PAGE, oPC );
+            ReplaceIntElement(3, ABILITY_INTELLIGENCE, FIFTH_PAGE, oPC);
+            AddStringElement(&quot;Wisdom&quot;, FIFTH_PAGE, oPC );
+            ReplaceIntElement(4, ABILITY_WISDOM, FIFTH_PAGE, oPC);
+            AddStringElement(&quot;Charisma&quot;, FIFTH_PAGE, oPC );
+            ReplaceIntElement(5, ABILITY_CHARISMA, FIFTH_PAGE, oPC);
+            }
+        if( GetElementCount(SIXTH_PAGE, oPC) == 0)
+            {
+            AddStringElement(&quot;Yes.&quot;, SIXTH_PAGE, oPC );
+            AddStringElement(&quot;No. I want to start over.&quot;, SIXTH_PAGE, oPC );
+            }
+        if( GetElementCount(SEVENTH_PAGE, oPC ) == 0)
+            {
+            AddStringElement(&quot;Yes.&quot;, SEVENTH_PAGE, oPC );
+            AddStringElement(&quot;No. I want to start over.&quot;, SEVENTH_PAGE, oPC );
+            }
+        }
+}
+
+void CleanUp()
+{
+    // Delete the list we create in Init()
+    object oPC = GetPcDlgSpeaker();
+    DeleteList( FIRST_PAGE, oPC );
+    DeleteList( SECOND_PAGE, oPC );
+    DeleteList( THIRD_PAGE, oPC );
+    DeleteList( FOURTH_PAGE, oPC );
+    DeleteList( FIFTH_PAGE, oPC );
+    DeleteList( SIXTH_PAGE, oPC );
+    DeleteList( SEVENTH_PAGE, oPC );
+    DeleteBaseAbilityMarkers(oPC);
+}
+
+void PageInit()
+{
+    string page = GetDlgPageString();
+    object oPC= GetPcDlgSpeaker();
+
+    if( page == &quot;&quot; || page == &quot;skill&quot;)
+        {
+        // Then just give the first prompt.
+        SetDlgPrompt(&quot;Please select a skill to add a point to.&quot; +
+                     &quot; You have &quot; + IntToString(GetLocalInt(oPC, &quot;PointsAvailable&quot;)) +
+                     &quot; points remaining to spend.&quot;);
+        SetDlgResponseList( FIRST_PAGE, oPC );
+        }
+    else if( page == &quot;skillresponse&quot; )
+        {
+        SetDlgPrompt(&quot;You selected &quot; + GetLocalString(oPC, &quot;LastResponse&quot;) +
+                     &quot;. Is that the skill you want?&quot;);
+        SetDlgResponseList( SECOND_PAGE, oPC );
+        }
+    else if( page == &quot;feat&quot; )
+        {
+        SetDlgPrompt(&quot;Please select the feat you would like to gain this level.&quot;);
+        SetDlgResponseList( THIRD_PAGE, oPC );
+        }
+    else if( page == &quot;featresponse&quot; )
+        {
+        SetDlgPrompt(&quot;You selected &quot; + GetLocalString(oPC, &quot;LastResponse&quot;) +
+                     &quot;. Is that the feat you want?&quot;);
+        SetDlgResponseList( FOURTH_PAGE, oPC );
+        }
+    else if( page == &quot;stat&quot; )
+        {
+        SetDlgPrompt( &quot;Please select the stat you would like to gain this level.&quot;);
+        SetDlgResponseList( FIFTH_PAGE, oPC );
+        }
+    else if( page == &quot;statresponse&quot; )
+        {
+        SetDlgPrompt( &quot;You selected &quot; + GetLocalString(oPC, &quot;LastResponse&quot;) +
+                      &quot;. Is that the stat you want?&quot;);
+        SetDlgResponseList( SIXTH_PAGE, oPC );
+        }
+    else if( page == &quot;finish&quot; )
+        {
+        SetDlgPrompt( &quot;You will gain the maximum number of hitpoints automatically, as well as any saving throw bonuses. You have selected &quot; +
+                      GetLocalString(oPC, &quot;TrackChanges&quot;) +
+                      &quot;are these the selections you want?&quot;);
+        SetDlgResponseList( SEVENTH_PAGE, oPC );
+        }
+}
+
+void HandleSelection()
+{
+    string page = GetDlgPageString();
+    object oPC= GetPcDlgSpeaker();
+    int nElements;
+    int selection = GetDlgSelection();
+    int nSkill;
+    int nFeat;
+    int nStat;
+    int nHP;
+    int nLootable;
+    string sName;
+    string sLeto;
+    string sTrack;
+    string sChange;
+    string sCrossClass;
+    int nChange;
+    int nTInt;
+    int nSLRSkill;
+    int nSLRCount;
+    int nPointsAvailable;
+    int nLevel;
+    if( page == &quot;&quot; || page == &quot;skill&quot;)
+        {
+        nElements = GetElementCount(FIRST_PAGE, oPC);
+        if (selection == (nElements -1))//last element - they can&#x27;t (or don&#x27;t want to) select any more skills
+            {
+            if (GetGainsFeatOnLevelUp(oPC))//if not, and they get a feat, go to the feat page
+                {
+                SetDlgPageString( &quot;feat&quot; );
+                }
+            else if (GetGainsStatOnLevelUp(oPC))//if no skill points left, and no feat is received this level, and they get a stat, go to the stat page
+                {
+                SpeakString( &quot;You did not recieve a feat this level.&quot;, TALKVOLUME_TALK );
+                SetDlgPageString( &quot;stat&quot; );
+                }
+            else //if no skill points left, and no feat or stat is received this level, go to the final page
+                {
+                SpeakString( &quot;You did not recieve a feat or a stat point this level.&quot;, TALKVOLUME_TALK );
+                SetDlgPageString( &quot;finish&quot; );
+                }
+            }
+        else //they selected a skill
+            {
+            nSkill = GetIntElement( selection, FIRST_PAGE, oPC );
+            //add to last selection string and int
+            sName = GetNameOfSkill(nSkill);
+            DoDebug(oPC, &quot;Skill selected: &quot; + sName);
+            SetLocalString(oPC, &quot;LastResponse&quot;, sName);
+            SetLocalInt(oPC, &quot;LastResponseInt&quot;, nSkill);
+            SetLocalInt(oPC, &quot;SkillIndex&quot;, selection);
+            SetDlgPageString( &quot;skillresponse&quot; );
+            }
+        }
+    else if ( page == &quot;skillresponse&quot; )
+        {
+        switch( selection )
+            {
+            case 0: // Yes
+                // add to leto and tracking strings
+                sLeto = GetLocalString(oPC, &quot;LetoscriptLL&quot;);//String to track Letoscript changes to be made
+                sTrack = GetLocalString(oPC, &quot;TrackChanges&quot;);//String to track description of changes to be made
+                sChange = GetLocalString(oPC, &quot;LastResponse&quot;) + &quot;, &quot;;
+                nChange = GetLocalInt(oPC, &quot;LastResponseInt&quot;);
+                DoDebug(oPC, &quot;LastResponseInt: &quot; + IntToString(nChange));
+                HGLL_AddSkillPoint(oPC, nChange);
+                sLeto += AddSkillPoint(nChange);
+                SetLocalString(oPC, &quot;LetoscriptLL&quot;, sLeto);
+                sTrack += sChange;
+                SetLocalString(oPC, &quot;TrackChanges&quot;, sTrack);
+                // add 1 to the skill&#x27;s tracking int
+                nTInt = GetLocalInt(oPC, GetNameOfTrackingInt(nChange));
+                nTInt++;
+                SetLocalInt(oPC, GetNameOfTrackingInt(nChange), nTInt);
+                DoDebug(oPC, GetNameOfTrackingInt(nChange) + IntToString(nTInt));
+                DoDebug(oPC, &quot;TInt Set: &quot; + GetNameOfTrackingInt(nChange) + IntToString(GetLocalInt(oPC, GetNameOfTrackingInt(nChange))));
+                // subtract cost of skill from points available
+                nPointsAvailable = GetLocalInt(oPC, &quot;PointsAvailable&quot;);
+                nPointsAvailable = nPointsAvailable - (GetCostOfSkill(GetControlClass(oPC), nChange));
+                SetLocalInt(oPC, &quot;PointsAvailable&quot;, nPointsAvailable);
+                // if they have maxed out the skill or don&#x27;t have points left for it remove it from the list
+                DeleteList(FIRST_PAGE, oPC);
+                if( GetElementCount(FIRST_PAGE, oPC) == 0 )
+                    {
+                    for(nSLRSkill = 0; nSLRSkill &lt; 27; nSLRSkill++) //loop through the skill constants
+                        {
+                        if (GetIsSkillAvailable(oPC, nSLRSkill)) //if the PC can take the skill, it is displayed
+                            {
+                            if (GetCostOfSkill(GetControlClass(oPC), nSLRSkill) == 2)
+                                {
+                                sCrossClass = &quot; [Cross-Class]&quot;;
+                                }
+                            else
+                                {
+                                sCrossClass = &quot;&quot;;
+                                }
+                            AddStringElement(GetNameOfSkill(nSLRSkill) + sCrossClass, FIRST_PAGE, oPC );
+                            ReplaceIntElement(nSLRCount, nSLRSkill, FIRST_PAGE, oPC); //store the skill int with the skill
+                            DoDebug(oPC, &quot;Response Number: &quot; + IntToString(nSLRCount) + &quot;, Skill Number: &quot; + IntToString(nSLRSkill) + &quot;.&quot;);
+                            nSLRCount ++;
+                            }
+                        }
+                    AddStringElement (&quot;I cannot or do not wish to select any more skills at this time.&quot;, FIRST_PAGE, oPC );
+                    }
+                // if they have skill points left, go back to start page
+                if (nPointsAvailable &gt; 0)
+                    {
+                    SetDlgPageString( &quot;skill&quot; );
+                    }
+                else if (GetGainsFeatOnLevelUp(oPC))//if not, and they get a feat, go to the feat page
+                    {
+                    SetDlgPageString( &quot;feat&quot; );
+                    }
+                else if (GetGainsStatOnLevelUp(oPC))//if no skill points left, and no feat is received this level, and they get a stat, go to the stat page
+                    {
+                    SpeakString( &quot;You did not recieve a feat this level.&quot;, TALKVOLUME_TALK );
+                    SetDlgPageString( &quot;stat&quot; );
+                    }
+                else //if no skill points left, and no feat or stat is received this level, go to the final page
+                    {
+                    SpeakString( &quot;You did not recieve a feat or a stat point this level.&quot;, TALKVOLUME_TALK );
+                    SetDlgPageString( &quot;finish&quot; );
+                    }
+                break;
+            case 1: // No
+                EndDlg();
+                break;
+            }
+        }
+    else if ( page == &quot;feat&quot; )
+        {
+        nFeat = GetIntElement( selection, THIRD_PAGE, oPC );
+        //add to last selection string and int
+        sName = GetNameOfFeat(nFeat);
+        SetLocalString(oPC, &quot;LastResponse&quot;, sName);
+        SetLocalInt(oPC, &quot;LastResponseInt&quot;, nFeat);
+        SetDlgPageString( &quot;featresponse&quot; );
+        }
+    else if ( page == &quot;featresponse&quot; )
+        {
+        switch( selection )
+            {
+            case 0: // Yes
+                // add to leto and tracking strings
+                sLeto = GetLocalString(oPC, &quot;LetoscriptLL&quot;);//String to track Letoscript changes to be made
+                sTrack = GetLocalString(oPC, &quot;TrackChanges&quot;);//String to track description of changes to be made
+                sChange = GetLocalString(oPC, &quot;LastResponse&quot;) + &quot;, &quot;;
+                nChange = GetLocalInt(oPC, &quot;LastResponseInt&quot;);
+                HGLL_AddFeat(oPC, nChange);
+                sLeto += AddFeat(nChange);
+                SetLocalString(oPC, &quot;LetoscriptLL&quot;, sLeto);
+                sTrack += sChange;
+                SetLocalString(oPC, &quot;TrackChanges&quot;, sTrack);
+                if (GetGainsStatOnLevelUp(oPC))
+                    {
+                    SetDlgPageString( &quot;stat&quot; );
+                    }
+                else
+                    {
+                    SpeakString( &quot;You did not recieve a stat point this level.&quot;, TALKVOLUME_TALK );
+                    SetDlgPageString( &quot;finish&quot; );
+                    }
+                break;
+            case 1: // No
+                EndDlg();
+                break;
+            }
+        }
+    else if ( page == &quot;stat&quot; )
+        {
+        nStat = GetIntElement( selection, FIFTH_PAGE, oPC );
+        //add to last selection string and int
+        sName = GetNameOfAbility(nStat);
+        SetLocalString(oPC, &quot;LastResponse&quot;, sName);
+        SetLocalInt(oPC, &quot;LastResponseInt&quot;, nStat);
+        DoDebug(oPC, &quot;Stat Int: &quot; + IntToString(nStat));
+        SetDlgPageString( &quot;statresponse&quot; );
+        }
+    else if ( page == &quot;statresponse&quot; )
+        {
+        switch( selection )
+            {
+            case 0: // Yes
+                // add to leto and tracking strings
+                sLeto = GetLocalString(oPC, &quot;LetoscriptLL&quot;);//String to track Letoscript changes to be made
+                sTrack = GetLocalString(oPC, &quot;TrackChanges&quot;);//String to track description of changes to be made
+                sChange = GetLocalString(oPC, &quot;LastResponse&quot;) + &quot;, &quot;;
+                nChange = GetLocalInt(oPC, &quot;LastResponseInt&quot;);
+                HGLL_AddStatPoint(oPC, nChange);
+                sLeto += AddStatPoint(nChange);
+                DoDebug(oPC, &quot;Leto String: &quot; + sLeto);
+                SetLocalString(oPC, &quot;LetoscriptLL&quot;, sLeto);
+                sTrack += sChange;
+                SetLocalString(oPC, &quot;TrackChanges&quot;, sTrack);
+                SetDlgPageString( &quot;finish&quot; );
+                break;
+            case 1: // No
+                EndDlg();
+                break;
+            }
+        }
+    else if ( page == &quot;finish&quot; )
+        {
+        switch( selection )
+            {
+            case 0: // Yes
+                 sLeto = GetLocalString(oPC, &quot;LetoscriptLL&quot;);//String to track Letoscript changes to be made (now unused; see hgll_leto_inc port notes)
+                 nHP = GetHitPointsGainedOnLevelUp(oPC);//calcualate hit point gain
+                 nLevel = HGLL_GetDocumentedLevel(oPC);
+                 HGLL_AddHitPoints(oPC, nHP, nLevel);
+                 if (GetGainsSavesOnLevelUp(oPC))
+                    {
+                    HGLL_ModifySaves(oPC);
+                    }
+                 nLootable = HGLL_GetDocumentedLevel(oPC);//track the PC&#x27;s HGLL level
+                 if (nLootable &lt; 41)
+                    {
+                    HGLL_SetDocumentedLevel(oPC, 41);
+                    }
+                 else
+                    {
+                    nLootable++;
+                    HGLL_SetDocumentedLevel(oPC, nLootable);
+                    }
+                 //SubtractXPForNextLL(oPC);
+                 nPointsAvailable = GetLocalInt(oPC, &quot;PointsAvailable&quot;);//check to see if any skill points left over
+                 SetPersistentInt(oPC, &quot;PointsAvailable&quot;, nPointsAvailable);//if so, store them for use for next level
+                 HGLL_FlushChanges(oPC);
+                 EndDlg();
+                 break;
+            case 1: // No
+                EndDlg();
+                break;
+            }
+        }
+}
+
+void main()
+{
+    int iEvent = GetDlgEventType();
+    switch( iEvent )
+        {
+        case DLG_INIT:
+            Init();
+            break;
+        case DLG_PAGE_INIT:
+            PageInit();
+            break;
+        case DLG_SELECTION:
+            HandleSelection();
+            break;
+        case DLG_ABORT:
+            SpeakString( &quot;Legendary leveler conversation ended.&quot;, TALKVOLUME_TALK );
+            CleanUp();
+            break;
+        case DLG_END:
+            SpeakString( &quot;Legendary leveler conversation ended.&quot;, TALKVOLUME_TALK );
+            CleanUp();
+            break;
+        }
+}
+</code></pre>
+  </main>
+  <footer>generated by <a href="https://github.com/mrprice22/nwn-manager">nwn-manager</a></footer>
+</body>
+</html>

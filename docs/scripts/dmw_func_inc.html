@@ -1,0 +1,973 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Script dmw_func_inc</title>
+  <link rel="stylesheet" href="../assets/style.css">
+</head>
+<body>
+  <header class="site-header">
+    <a class="brand" href="../index.html">Module Wiki</a>
+    <nav>
+      <a href="../index.html">Map</a>
+      <a href="../areas/index.html">Areas</a>
+      <a href="../creatures/index.html">Creature Blueprints</a>
+      <a href="../creatures/instances/index.html">Creature Instances</a>
+      <a href="../items/index.html">Items</a>
+      <a href="../stores/index.html">Stores</a>
+      <a href="../conversations/index.html">Conversations</a>
+      <a href="../factions.html">Factions</a>
+      <a href="../journal.html">Journal</a>
+    </nav>
+  </header>
+  <main>
+<h1>Script: <code>dmw_func_inc</code></h1><pre class="nss-source"><code>#include &quot;dmw_proto_inc&quot;
+//::///////////////////////////////////////////////
+//:: File: dmw_func_inc
+//::
+//:: Useful functions for the DM&#x27;s Helper
+//:://////////////////////////////////////////////
+
+void dmwand_AbilityCheck(int nAbility, int nSecret = TRUE)
+{
+   int nRoll=d20();
+   int nRank=GetAbilityModifier (nAbility, oMyTarget);
+   int nResult=nRoll+nRank;
+   string sRoll=IntToString(nRoll);
+   string sRank=IntToString(nRank);
+   string sResult=IntToString(nResult);
+   string sAbility;
+
+   switch(nAbility)
+   {
+      case ABILITY_CHARISMA:
+         sAbility = &quot;Charisma&quot;; break;
+      case ABILITY_CONSTITUTION:
+         sAbility = &quot;Constitution&quot;; break;
+      case ABILITY_DEXTERITY:
+         sAbility = &quot;Dexterity&quot;; break;
+      case ABILITY_INTELLIGENCE:
+         sAbility = &quot;Intelligence&quot;; break;
+      case ABILITY_STRENGTH:
+         sAbility = &quot;Strength&quot;; break;
+      case ABILITY_WISDOM:
+         sAbility = &quot;Wisdom&quot;; break;
+   }
+
+   SendMessageToPC(oMySpeaker, GetName(oMyTarget)+&quot;&#x27;s &quot;+sAbility+&quot; Check, Roll: &quot;+sRoll+&quot; Modifier: &quot;+sRank+&quot; = &quot;+sResult);
+
+   if (!nSecret)
+   {
+      AssignCommand( oMyTarget, SpeakString(sAbility+&quot; Check, Roll: &quot;+sRoll+&quot; Modifier: &quot;+sRank+&quot; = &quot;+sResult));
+   }
+}
+
+void dmwand_AdvanceTime(int nHours)
+{
+   int nCurrentHour = GetTimeHour();
+   int nCurrentMinute = GetTimeMinute();
+   int nCurrentSecond = GetTimeSecond();
+   int nCurrentMilli = GetTimeMillisecond();
+
+   nCurrentHour += nHours;
+   SetTime(nCurrentHour, nCurrentMinute, nCurrentSecond, nCurrentMilli);
+   dmwand_BuildConversation(&quot;TimeOfDay&quot;, &quot;&quot;);
+}
+
+string dmwand_Alignment(object oEntity)
+{
+   string sReturnString;
+
+   switch (GetAlignmentLawChaos(oEntity))
+   {
+      case ALIGNMENT_LAWFUL:   sReturnString = &quot;Lawful &quot;; break;
+      case ALIGNMENT_NEUTRAL: sReturnString = &quot;Neutral &quot;; break;
+      case ALIGNMENT_CHAOTIC:   sReturnString = &quot;Chaotic &quot;;  break;
+   }
+
+   switch (GetAlignmentGoodEvil(oEntity))
+   {
+      case ALIGNMENT_GOOD:   sReturnString = sReturnString + &quot;Good&quot;; break;
+      case ALIGNMENT_NEUTRAL: sReturnString = sReturnString +  &quot;Neutral&quot;; break;
+      case ALIGNMENT_EVIL:   sReturnString = sReturnString +  &quot;Evil&quot;;  break;
+   }
+
+   if (sReturnString == &quot;Neutral Neutral&quot;){sReturnString = &quot;True Neutral&quot;;}
+
+   return sReturnString;
+}
+
+string dmwand_ClassLevel(object oEntity)
+{
+   string sReturnString;
+   string sClass;
+   string sClassOne;
+   string sClassTwo;
+   string sClassThree;
+   int nLevelOne;
+   int nLevelTwo;
+   int nLevelThree;
+   int iIndex;
+
+   // Loop through all three classes and pull out info
+   for(iIndex == 1;iIndex &lt; 4;iIndex++)
+   {
+      switch (GetClassByPosition(iIndex,oEntity))
+      {
+         case CLASS_TYPE_ABERRATION: sClass =&quot;Aberration&quot;;break;
+         case CLASS_TYPE_ANIMAL:     sClass =&quot;Animal&quot;; break;
+         case CLASS_TYPE_BARBARIAN:  sClass =&quot;Barbarian&quot;;break;
+         case CLASS_TYPE_BARD:         sClass =&quot;Bard&quot;; break;
+         case CLASS_TYPE_BEAST:        sClass =&quot;Beast&quot;; break;
+         case CLASS_TYPE_CLERIC:       sClass =&quot;Cleric&quot;; break;
+         case CLASS_TYPE_COMMONER:     sClass =&quot;Commoner&quot;;break;
+         case CLASS_TYPE_CONSTRUCT:    sClass =&quot;Construct&quot;; break;
+         case CLASS_TYPE_DRAGON:       sClass =&quot;Dragon&quot;; break;
+         case CLASS_TYPE_DRUID:        sClass =&quot;Druid&quot;;break;
+         case CLASS_TYPE_ELEMENTAL:    sClass =&quot;Elemental&quot;; break;
+         case CLASS_TYPE_FEY:          sClass =&quot;Fey&quot;;break;
+         case CLASS_TYPE_FIGHTER:      sClass =&quot;Fighter&quot;;  break;
+         case CLASS_TYPE_GIANT:        sClass =&quot;Giant&quot;;  break;
+         case CLASS_TYPE_HUMANOID:     sClass =&quot;Humanoid&quot;; break;
+         case CLASS_TYPE_INVALID:      sClass =&quot;&quot;;break;
+         case CLASS_TYPE_MAGICAL_BEAST:sClass =&quot;Magical Beast&quot;; break;
+         case CLASS_TYPE_MONK:         sClass =&quot;Monk&quot;;   break;
+         case CLASS_TYPE_OUTSIDER:     sClass =&quot;Outsider&quot;; break;
+         case CLASS_TYPE_MONSTROUS:    sClass =&quot;Monstrous&quot;; break;
+         case CLASS_TYPE_PALADIN:      sClass =&quot;Paladin&quot;;break;
+         case CLASS_TYPE_RANGER:       sClass =&quot;Ranger&quot;;break;
+         case CLASS_TYPE_ROGUE:        sClass =&quot;Rogue&quot;;break;
+         case CLASS_TYPE_SHAPECHANGER: sClass =&quot;Shapechanger&quot;;break;
+         case CLASS_TYPE_SORCERER:     sClass =&quot;Sorcerer&quot;;break;
+         case CLASS_TYPE_UNDEAD:       sClass =&quot;Undead&quot;;break;
+         case CLASS_TYPE_VERMIN:       sClass =&quot;Vermin&quot;; break;
+         case CLASS_TYPE_WIZARD:       sClass =&quot;Wizard&quot;; break;
+      }
+
+      // Now depending on which iteration we just went through
+      // assign it to the proper class
+      switch (iIndex)
+      {
+         case 1: sClassOne =   sClass;  break;
+         case 2: sClassTwo =   sClass;  break;
+         case 3: sClassThree = sClass;  break;
+      }
+   };
+
+   // Now get all three class levels.  Wil be 0 if does class pos
+   //does not exists
+   nLevelOne =   GetLevelByPosition(1,oEntity);
+   nLevelTwo =   GetLevelByPosition(2,oEntity);
+   nLevelThree = GetLevelByPosition(3,oEntity);
+
+   //Start building return string
+   sReturnString = sClassOne + &quot;(&quot; + IntToString(nLevelOne) + &quot;)&quot; ;
+
+   //If second class exists append to return string
+   if(nLevelTwo &gt; 0)
+   {
+      sReturnString =sReturnString + &quot;/&quot; + sClassTwo + &quot;(&quot; + IntToString(nLevelTwo) + &quot;)&quot;;
+   }
+
+   //If third class exists append to return string
+   if(nLevelThree &gt; 0)
+   {
+      sReturnString =sReturnString + &quot;/&quot; + sClassThree + &quot;(&quot; + IntToString(nLevelThree) + &quot;)&quot;;
+   }
+
+   return sReturnString;
+}
+
+void dmwand_DestroyItem()
+{
+   object oItem = GetLocalObject(oMySpeaker, &quot;dmw_item&quot;);
+
+   if(GetIsObjectValid(oItem))
+   {
+      DestroyObject(oItem);
+   }
+   dmwand_BuildConversation(&quot;ListInventory&quot;, &quot;&quot;);
+}
+
+void dmwand_DestroyNearbyTarget()
+{
+   effect eDestroy = EffectVisualEffect(VFX_IMP_SUNSTRIKE);
+
+   object oMyTest = GetFirstObjectInShape(SHAPE_CUBE, 0.6, lMyLoc, FALSE, OBJECT_TYPE_ALL);
+   while(GetIsObjectValid(oMyTest) &amp;&amp; GetIsPC(oMyTest))
+   {
+      object oMyTest = GetNextObjectInShape(SHAPE_CUBE, 0.6, lMyLoc, FALSE, OBJECT_TYPE_ALL);
+   }
+
+   if(GetIsObjectValid(oMyTest) &amp;&amp; (! GetIsPC(oMyTest)))
+   {
+      DestroyObject(oMyTest);
+      ApplyEffectAtLocation(DURATION_TYPE_INSTANT, eDestroy, lMyLoc);
+   }
+   dmwand_BuildConversation(&quot;Start&quot;, &quot;&quot;);
+}
+
+void dmwand_DestroyTarget()
+{
+   effect eDestroy = EffectVisualEffect(VFX_IMP_SUNSTRIKE);
+
+   DestroyObject(oMyTarget);
+   ApplyEffectAtLocation(DURATION_TYPE_INSTANT, eDestroy, lMyLoc);
+   dmwand_BuildConversation(&quot;Start&quot;, &quot;&quot;);
+}
+
+void dmwand_ExportChars()
+{
+   ExportAllCharacters();
+}
+
+void dmwand_FollowMe()
+{
+   AssignCommand ( oMyTarget, ActionForceFollowObject( oMySpeaker));
+}
+
+void dmwand_FollowTarget()
+{
+      AssignCommand ( oMySpeaker, ActionForceFollowObject(oMyTarget));
+}
+
+string dmwand_Gender(object oEntity)
+{
+   switch (GetGender(oEntity))
+   {
+      case GENDER_MALE:   return &quot;Male&quot;; break;
+      case GENDER_FEMALE: return &quot;Female&quot;; break;
+      case GENDER_BOTH:   return &quot;Both&quot;;  break;
+      case GENDER_NONE:   return &quot;None&quot;;  break;
+      case GENDER_OTHER:  return &quot;Other&quot;;  break;
+   }
+
+   return &quot;Wierdo&quot;;
+}
+
+void dmwand_IdentifyItem()
+{
+   object oItem = GetLocalObject(oMySpeaker, &quot;dmw_item&quot;);
+
+   if(GetIsObjectValid(oItem))
+   {
+      SetIdentified(oItem, (GetIdentified(oItem)?FALSE:TRUE));
+   }
+   dmwand_BuildConversation(&quot;ItemListConv&quot;, &quot;&quot;);
+}
+
+string dmwand_Inventory(object oEntity)
+{
+
+   string sBaseType;
+   string sReturnString;
+
+   object oItem = GetFirstItemInInventory(oEntity);
+
+   while(oItem != OBJECT_INVALID)
+   {
+      sReturnString = sReturnString + &quot;\n&quot; + dmwand_ItemInfo(oItem, 0);
+      oItem = GetNextItemInInventory(oEntity);
+   };
+
+   sReturnString = sReturnString + &quot;\nEquipped:\n&quot;;
+   if(GetIsObjectValid(GetItemInSlot(INVENTORY_SLOT_ARMS, oMyTarget))){ sReturnString = sReturnString + &quot;Arms: &quot; + dmwand_ItemInfo(GetItemInSlot(INVENTORY_SLOT_ARMS, oMyTarget),0) + &quot;\n&quot;; }
+   if(GetIsObjectValid(GetItemInSlot(INVENTORY_SLOT_BELT, oMyTarget))){ sReturnString = sReturnString + &quot;Belt: &quot; + dmwand_ItemInfo(GetItemInSlot(INVENTORY_SLOT_BELT, oMyTarget),0) + &quot;\n&quot;; }
+   if(GetIsObjectValid(GetItemInSlot(INVENTORY_SLOT_BOOTS, oMyTarget))){ sReturnString = sReturnString + &quot;Boots: &quot; + dmwand_ItemInfo(GetItemInSlot(INVENTORY_SLOT_BOOTS, oMyTarget),0) + &quot;\n&quot;; }
+   if(GetIsObjectValid(GetItemInSlot(INVENTORY_SLOT_CHEST, oMyTarget))){ sReturnString = sReturnString + &quot;Chest: &quot; + dmwand_ItemInfo(GetItemInSlot(INVENTORY_SLOT_CHEST, oMyTarget),0) + &quot;\n&quot;; }
+   if(GetIsObjectValid(GetItemInSlot(INVENTORY_SLOT_CLOAK, oMyTarget))){ sReturnString = sReturnString + &quot;Cloak: &quot; + dmwand_ItemInfo(GetItemInSlot(INVENTORY_SLOT_CLOAK, oMyTarget),0) + &quot;\n&quot;; }
+   if(GetIsObjectValid(GetItemInSlot(INVENTORY_SLOT_HEAD, oMyTarget))){ sReturnString = sReturnString + &quot;Head&quot; + dmwand_ItemInfo(GetItemInSlot(INVENTORY_SLOT_HEAD, oMyTarget),0) + &quot;\n&quot;; }
+   if(GetIsObjectValid(GetItemInSlot(INVENTORY_SLOT_LEFTHAND, oMyTarget))){ sReturnString = sReturnString + &quot;Left Hand: &quot; + dmwand_ItemInfo(GetItemInSlot(INVENTORY_SLOT_LEFTHAND, oMyTarget),0) + &quot;\n&quot;; }
+   if(GetIsObjectValid(GetItemInSlot(INVENTORY_SLOT_LEFTRING, oMyTarget))){ sReturnString = sReturnString + &quot;Left Ring: &quot; + dmwand_ItemInfo(GetItemInSlot(INVENTORY_SLOT_LEFTRING, oMyTarget),0) + &quot;\n&quot;; }
+   if(GetIsObjectValid(GetItemInSlot(INVENTORY_SLOT_NECK, oMyTarget))){ sReturnString = sReturnString + &quot;Neck: &quot; + dmwand_ItemInfo(GetItemInSlot(INVENTORY_SLOT_NECK, oMyTarget),0) + &quot;\n&quot;; }
+   if(GetIsObjectValid(GetItemInSlot(INVENTORY_SLOT_RIGHTHAND, oMyTarget))){ sReturnString = sReturnString + &quot;Right Hand: &quot; + dmwand_ItemInfo(GetItemInSlot(INVENTORY_SLOT_RIGHTHAND, oMyTarget),0) + &quot;\n&quot;; }
+   if(GetIsObjectValid(GetItemInSlot(INVENTORY_SLOT_RIGHTRING, oMyTarget))){ sReturnString = sReturnString + &quot;Right Ring: &quot; + dmwand_ItemInfo(GetItemInSlot(INVENTORY_SLOT_RIGHTRING, oMyTarget),0) + &quot;\n&quot;; }
+   if(GetIsObjectValid(GetItemInSlot(INVENTORY_SLOT_ARROWS, oMyTarget))){ sReturnString = sReturnString + &quot;Arrows: &quot; + dmwand_ItemInfo(GetItemInSlot(INVENTORY_SLOT_ARROWS, oMyTarget),0) + &quot;\n&quot;; }
+   if(GetIsObjectValid(GetItemInSlot(INVENTORY_SLOT_BOLTS, oMyTarget))){ sReturnString = sReturnString + &quot;Bolts: &quot; + dmwand_ItemInfo(GetItemInSlot(INVENTORY_SLOT_BOLTS, oMyTarget),0) + &quot;\n&quot;; }
+   if(GetIsObjectValid(GetItemInSlot(INVENTORY_SLOT_BULLETS, oMyTarget))){ sReturnString = sReturnString + &quot;Bullets&quot; + dmwand_ItemInfo(GetItemInSlot(INVENTORY_SLOT_BULLETS, oMyTarget),0) + &quot;\n&quot;; }
+   if(GetIsObjectValid(GetItemInSlot(INVENTORY_SLOT_CARMOUR, oMyTarget))){ sReturnString = sReturnString + &quot;Creature Armor: &quot; + dmwand_ItemInfo(GetItemInSlot(INVENTORY_SLOT_CARMOUR, oMyTarget),0) + &quot;\n&quot;; }
+   if(GetIsObjectValid(GetItemInSlot(INVENTORY_SLOT_CWEAPON_B, oMyTarget))){ sReturnString = sReturnString + &quot;Creature Bite: &quot; + dmwand_ItemInfo(GetItemInSlot(INVENTORY_SLOT_CWEAPON_B, oMyTarget),0) + &quot;\n&quot;; }
+   if(GetIsObjectValid(GetItemInSlot(INVENTORY_SLOT_CWEAPON_L, oMyTarget))){ sReturnString = sReturnString + &quot;Creature Left: &quot; + dmwand_ItemInfo(GetItemInSlot(INVENTORY_SLOT_CWEAPON_L, oMyTarget),0) + &quot;\n&quot;; }
+   if(GetIsObjectValid(GetItemInSlot(INVENTORY_SLOT_CWEAPON_R, oMyTarget))){ sReturnString = sReturnString + &quot;Creature Right: &quot; + dmwand_ItemInfo(GetItemInSlot(INVENTORY_SLOT_CWEAPON_R, oMyTarget),0) + &quot;\n&quot;; }
+
+   return sReturnString;
+}
+
+string dmwand_ItemInfo(object oItem, int nLongForm = 0)
+{
+   string sReturnString = &quot;&quot;;
+   string sBaseType = &quot;&quot;;
+   string sStacked = &quot;&quot;;
+   string sIdentified = &quot;&quot;;
+   string sGPValue = &quot;&quot;;
+   string sACValue = &quot;&quot;;
+   string sProperties = &quot;&quot;;
+
+   switch(GetBaseItemType(oItem))
+   {
+      case BASE_ITEM_AMULET: sBaseType =&quot;Amulet&quot;;break;
+      case BASE_ITEM_ARMOR: sBaseType =&quot;Armor&quot;;break;
+      case BASE_ITEM_ARROW: sBaseType =&quot;Arrow&quot;;break;
+      case BASE_ITEM_BASTARDSWORD: sBaseType =&quot;Bastard Sword&quot;;break;
+      case BASE_ITEM_BATTLEAXE: sBaseType =&quot;Battle Axe&quot;;break;
+      case BASE_ITEM_BELT: sBaseType =&quot;Belt&quot;;break;
+      case BASE_ITEM_BOLT : sBaseType =&quot;Bolt&quot;;break;
+      case BASE_ITEM_BOOK: sBaseType =&quot;Book&quot;;break;
+      case BASE_ITEM_BOOTS: sBaseType =&quot;Boots&quot;;break;
+      case BASE_ITEM_BRACER: sBaseType =&quot;Bracer&quot;;break;
+      case BASE_ITEM_BULLET: sBaseType =&quot;Bullet&quot;;break;
+      case BASE_ITEM_CBLUDGWEAPON: sBaseType =&quot;Bludgeoning Weap.&quot;;break;
+      case BASE_ITEM_CLOAK: sBaseType =&quot;Cloak&quot;;break;
+      case BASE_ITEM_CLUB: sBaseType =&quot;Club&quot;;break;
+      case BASE_ITEM_CPIERCWEAPON: sBaseType =&quot;Pierceing Weap.&quot;;break;
+      case BASE_ITEM_CREATUREITEM: sBaseType =&quot;Creature Item&quot;;break;
+      case BASE_ITEM_CSLASHWEAPON: sBaseType =&quot;Slash Weap.&quot;;break;
+      case BASE_ITEM_CSLSHPRCWEAP: sBaseType =&quot;Slash/Pierce Weap.&quot;;break;
+      case BASE_ITEM_DAGGER: sBaseType =&quot;Dagger&quot;;break;
+      case BASE_ITEM_DART: sBaseType =&quot;Dart&quot;;break;
+      case BASE_ITEM_DIREMACE: sBaseType =&quot;Mace&quot;;break;
+      case BASE_ITEM_DOUBLEAXE: sBaseType =&quot;Double Axe&quot;;break;
+      case BASE_ITEM_GEM: sBaseType =&quot;Gem&quot;;break;
+      case BASE_ITEM_GLOVES: sBaseType =&quot;Gloves&quot;;break;
+      case BASE_ITEM_GOLD: sBaseType =&quot;Gold&quot;;break;
+      case BASE_ITEM_GREATAXE: sBaseType =&quot;Great Axe&quot;;break;
+      case BASE_ITEM_GREATSWORD: sBaseType =&quot;Great Sword&quot;;break;
+      case BASE_ITEM_HALBERD: sBaseType =&quot;Halberd&quot;;break;
+      case BASE_ITEM_HANDAXE: sBaseType =&quot;Hand Axe&quot;;break;
+      case BASE_ITEM_HEALERSKIT: sBaseType =&quot;Healers Kit&quot;;break;
+      case BASE_ITEM_HEAVYCROSSBOW: sBaseType =&quot;Heavy Xbow&quot;;break;
+      case BASE_ITEM_HEAVYFLAIL: sBaseType =&quot;Heavy Flail&quot;;break;
+      case BASE_ITEM_HELMET: sBaseType =&quot;Helmet&quot;;break;
+      case BASE_ITEM_INVALID: sBaseType =&quot;&quot;;break;
+      case BASE_ITEM_KAMA: sBaseType =&quot;Kama&quot;;break;
+      case BASE_ITEM_KATANA: sBaseType =&quot;Katana&quot;;break;
+      case BASE_ITEM_KEY: sBaseType =&quot;Key&quot;;break;
+      case BASE_ITEM_KUKRI: sBaseType =&quot;Kukri&quot;;break;
+      case BASE_ITEM_LARGEBOX: sBaseType =&quot;Large Box&quot;;break;
+      case BASE_ITEM_LARGESHIELD: sBaseType =&quot;Large Shield&quot;;break;
+      case BASE_ITEM_LIGHTCROSSBOW: sBaseType =&quot;Light Xbow&quot;;break;
+      case BASE_ITEM_LIGHTFLAIL: sBaseType =&quot;Light Flail&quot;;break;
+      case BASE_ITEM_LIGHTHAMMER: sBaseType =&quot;Light Hammer&quot;;break;
+      case BASE_ITEM_LIGHTMACE: sBaseType =&quot;Light Mace&quot;;break;
+      case BASE_ITEM_LONGBOW: sBaseType =&quot;Long Bow&quot;;break;
+      case BASE_ITEM_LONGSWORD: sBaseType =&quot;Long Sword&quot;;break;
+      case BASE_ITEM_MAGICROD: sBaseType =&quot;Magic Rod&quot;;break;
+      case BASE_ITEM_MAGICSTAFF: sBaseType =&quot;Magic Staff&quot;;break;
+      case BASE_ITEM_MAGICWAND: sBaseType =&quot;Magic Wand&quot;;break;
+      case BASE_ITEM_MISCLARGE: sBaseType =&quot;Misc. Large&quot;;break;
+      case BASE_ITEM_MISCMEDIUM: sBaseType =&quot;Misc. Medium&quot;;break;
+      case BASE_ITEM_MISCSMALL: sBaseType =&quot;Misc. Small&quot;;break;
+      case BASE_ITEM_MISCTALL: sBaseType =&quot;Misc. Small&quot;;break;
+      case BASE_ITEM_MISCTHIN: sBaseType =&quot;Misc. Thin&quot;;break;
+      case BASE_ITEM_MISCWIDE: sBaseType =&quot;Misc. Wide&quot;;break;
+      case BASE_ITEM_MORNINGSTAR: sBaseType =&quot;Morningstar&quot;;break;
+      case BASE_ITEM_POTIONS: sBaseType =&quot;Potion&quot;;break;
+      case BASE_ITEM_QUARTERSTAFF: sBaseType =&quot;Quarterstaff&quot;;break;
+      case BASE_ITEM_RAPIER: sBaseType =&quot;Rapier&quot;;break;
+      case BASE_ITEM_RING: sBaseType =&quot;Ring&quot;;break;
+      case BASE_ITEM_SCIMITAR: sBaseType =&quot;Scimitar&quot;;break;
+      case BASE_ITEM_SCROLL: sBaseType =&quot;Scroll&quot;;break;
+      case BASE_ITEM_SCYTHE: sBaseType =&quot;Scythe&quot;;break;
+      case BASE_ITEM_SHORTBOW: sBaseType =&quot;Shortbow&quot;;break;
+      case BASE_ITEM_SHORTSPEAR: sBaseType =&quot;Short Spear&quot;;break;
+      case BASE_ITEM_SHORTSWORD: sBaseType =&quot;Short Sword&quot;;break;
+      case BASE_ITEM_SHURIKEN: sBaseType =&quot;Shuriken&quot;;break;
+      case BASE_ITEM_SICKLE: sBaseType =&quot;Sickle&quot;;break;
+      case BASE_ITEM_SLING: sBaseType =&quot;Sling&quot;;break;
+      case BASE_ITEM_SMALLSHIELD: sBaseType =&quot;Small Shield&quot;;break;
+      case BASE_ITEM_SPELLSCROLL: sBaseType =&quot;Spell Scroll&quot;;break;
+      case BASE_ITEM_THIEVESTOOLS: sBaseType =&quot;Thieves Tools&quot;;break;
+      case BASE_ITEM_THROWINGAXE: sBaseType =&quot;Throwing Axe&quot;;break;
+      case BASE_ITEM_TORCH: sBaseType =&quot;Torch&quot;;break;
+      case BASE_ITEM_TOWERSHIELD: sBaseType =&quot;Tower Shield&quot;;break;
+      case BASE_ITEM_TRAPKIT: sBaseType =&quot;Trap Kit&quot;;break;
+      case BASE_ITEM_TWOBLADEDSWORD: sBaseType =&quot;2 Bladed Sword&quot;;break;
+      case BASE_ITEM_WARHAMMER: sBaseType =&quot;Warhammer&quot;;break;
+   }
+
+   if (sBaseType != &quot;Gold&quot;)
+   {
+      // If more than one item (stacked)
+      if (GetNumStackedItems(oItem) &gt; 1 )
+      {
+         sStacked = &quot;(&quot; + IntToString(GetNumStackedItems(oItem)) + &quot;) &quot;;
+      }
+      else
+      {
+         // Build remainder of output string
+         sStacked = &quot;&quot;;
+      }
+   }
+
+   if(nLongForm)
+   {
+      sIdentified = &quot;Identified: &quot; + ((GetIdentified(oItem))?&quot;Yes&quot;:&quot;No&quot;);
+      sGPValue = &quot;Gold Piece Value: &quot; + IntToString(GetGoldPieceValue(oItem));
+      int nACValue = GetItemACValue(oItem);
+      if(nACValue) { sACValue = &quot;AC: &quot; + IntToString(nACValue); }
+
+      if(GetItemHasItemProperty(oItem, ITEM_PROPERTY_ABILITY_BONUS)) { sProperties = sProperties + &quot;Ability Bonus\n&quot;; }
+      if(GetItemHasItemProperty(oItem, ITEM_PROPERTY_AC_BONUS)) { sProperties = sProperties + &quot;AC Bonus\n&quot;; }
+      if(GetItemHasItemProperty(oItem, ITEM_PROPERTY_AC_BONUS_VS_ALIGNMENT_GROUP)) { sProperties = sProperties + &quot;AC Bonus vs. Alignment Group\n&quot;; }
+      if(GetItemHasItemProperty(oItem, ITEM_PROPERTY_AC_BONUS_VS_DAMAGE_TYPE)) { sProperties = sProperties + &quot;AC Bonus vs. Damage Type\n&quot;; }
+      if(GetItemHasItemProperty(oItem, ITEM_PROPERTY_AC_BONUS_VS_RACIAL_GROUP)) { sProperties = sProperties + &quot;AC Bonus vs. Racial Group\n&quot;; }
+      if(GetItemHasItemProperty(oItem, ITEM_PROPERTY_AC_BONUS_VS_SPECIFIC_ALIGNMENT)) { sProperties = sProperties + &quot;AC Bonus vs. Alignment\n&quot;; }
+      if(GetItemHasItemProperty(oItem, ITEM_PROPERTY_ATTACK_BONUS)) { sProperties = sProperties + &quot;Attack Bonus\n&quot;; }
+      if(GetItemHasItemProperty(oItem, ITEM_PROPERTY_ATTACK_BONUS_VS_ALIGNMENT_GROUP)) { sProperties = sProperties + &quot;Attack Bonus vs. Alignment Group\n&quot;; }
+      if(GetItemHasItemProperty(oItem, ITEM_PROPERTY_ATTACK_BONUS_VS_RACIAL_GROUP)) { sProperties = sProperties + &quot;Attack Bonusvs. Racial Group\n&quot;; }
+      if(GetItemHasItemProperty(oItem, ITEM_PROPERTY_ATTACK_BONUS_VS_SPECIFIC_ALIGNMENT)) { sProperties = sProperties + &quot;Attack Bonus vs. Alignment\n&quot;; }
+      if(GetItemHasItemProperty(oItem, ITEM_PROPERTY_BASE_ITEM_WEIGHT_REDUCTION)) { sProperties = sProperties + &quot;Weight Reduction\n&quot;; }
+      if(GetItemHasItemProperty(oItem, ITEM_PROPERTY_BONUS_FEAT)) { sProperties = sProperties + &quot;Bonus Feat\n&quot;; }
+      if(GetItemHasItemProperty(oItem, ITEM_PROPERTY_BONUS_SPELL_SLOT_OF_LEVEL_N)) { sProperties = sProperties + &quot;Bonus Spell Slot\n&quot;; }
+      if(GetItemHasItemProperty(oItem, ITEM_PROPERTY_BOOMERANG)) { sProperties = sProperties + &quot;Boomerang\n&quot;; }
+      if(GetItemHasItemProperty(oItem, ITEM_PROPERTY_CAST_SPELL)) { sProperties = sProperties + &quot;Cast Spell\n&quot;; }
+      if(GetItemHasItemProperty(oItem, ITEM_PROPERTY_DAMAGE_BONUS)) { sProperties = sProperties + &quot;Damage Bonus\n&quot;; }
+      if(GetItemHasItemProperty(oItem, ITEM_PROPERTY_DAMAGE_BONUS_VS_ALIGNMENT_GROUP)) { sProperties = sProperties + &quot;Damage Bonus vs. Alignment Group\n&quot;; }
+      if(GetItemHasItemProperty(oItem, ITEM_PROPERTY_DAMAGE_BONUS_VS_RACIAL_GROUP)) { sProperties = sProperties + &quot;Damage Bonus vs. Racial Group\n&quot;; }
+      if(GetItemHasItemProperty(oItem, ITEM_PROPERTY_DAMAGE_BONUS_VS_SPECIFIC_ALIGNMENT)) { sProperties = sProperties + &quot;Damage Bonus vs. Alignment\n&quot;; }
+      if(GetItemHasItemProperty(oItem, ITEM_PROPERTY_DAMAGE_REDUCTION)) { sProperties = sProperties + &quot;Damage Reduction\n&quot;; }
+      if(GetItemHasItemProperty(oItem, ITEM_PROPERTY_DAMAGE_RESISTANCE)) { sProperties = sProperties + &quot;Damage Resistance\n&quot;; }
+      if(GetItemHasItemProperty(oItem, ITEM_PROPERTY_DAMAGE_VULNERABILITY)) { sProperties = sProperties + &quot;Damage Vulnerability\n&quot;; }
+      if(GetItemHasItemProperty(oItem, ITEM_PROPERTY_DANCING)) { sProperties = sProperties + &quot;Dancing\n&quot;; }
+      if(GetItemHasItemProperty(oItem, ITEM_PROPERTY_DARKVISION)) { sProperties = sProperties + &quot;Darkvision\n&quot;; }
+      if(GetItemHasItemProperty(oItem, ITEM_PROPERTY_DECREASED_ABILITY_SCORE)) { sProperties = sProperties + &quot;Decreased Ability\n&quot;; }
+      if(GetItemHasItemProperty(oItem, ITEM_PROPERTY_DECREASED_AC)) { sProperties = sProperties + &quot;Decreased AC\n&quot;; }
+      if(GetItemHasItemProperty(oItem, ITEM_PROPERTY_DECREASED_ATTACK_MODIFIER)) { sProperties = sProperties + &quot;Decreased Attack Modifier\n&quot;; }
+      if(GetItemHasItemProperty(oItem, ITEM_PROPERTY_DECREASED_DAMAGE)) { sProperties = sProperties + &quot;Decreased Damage\n&quot;; }
+      if(GetItemHasItemProperty(oItem, ITEM_PROPERTY_DECREASED_ENHANCEMENT_MODIFIER)) { sProperties = sProperties + &quot;Decreased Enhancement Modifier\n&quot;; }
+      if(GetItemHasItemProperty(oItem, ITEM_PROPERTY_DECREASED_SAVING_THROWS)) { sProperties = sProperties + &quot;Decreased Saving Throws\n&quot;; }
+      if(GetItemHasItemProperty(oItem, ITEM_PROPERTY_DECREASED_SAVING_THROWS_SPECIFIC)) { sProperties = sProperties + &quot;Decreased Specific Saving Throw\n&quot;; }
+      if(GetItemHasItemProperty(oItem, ITEM_PROPERTY_DECREASED_SKILL_MODIFIER)) { sProperties = sProperties + &quot;Decreased Skill Modifier\n&quot;; }
+      if(GetItemHasItemProperty(oItem, ITEM_PROPERTY_DOUBLE_STACK)) { sProperties = sProperties + &quot;Double Stack\n&quot;; }
+      if(GetItemHasItemProperty(oItem, ITEM_PROPERTY_ENHANCED_CONTAINER_BONUS_SLOTS)) { sProperties = sProperties + &quot;Enhanced Container Bonus Slots\n&quot;; }
+      if(GetItemHasItemProperty(oItem, ITEM_PROPERTY_ENHANCED_CONTAINER_REDUCED_WEIGHT)) { sProperties = sProperties + &quot;Enhanced Container Reduced Weight\n&quot;; }
+      if(GetItemHasItemProperty(oItem, ITEM_PROPERTY_ENHANCEMENT_BONUS)) { sProperties = sProperties + &quot;Enhancement Bonus\n&quot;; }
+      if(GetItemHasItemProperty(oItem, ITEM_PROPERTY_ENHANCEMENT_BONUS_VS_ALIGNMENT_GROUP)) { sProperties = sProperties + &quot;Enhancement Bonus vs. Alignment Group\n&quot;; }
+      if(GetItemHasItemProperty(oItem, ITEM_PROPERTY_ENHANCEMENT_BONUS_VS_RACIAL_GROUP)) { sProperties = sProperties + &quot;Enhancement Bonus vs. Racial Group\n&quot;; }
+      if(GetItemHasItemProperty(oItem, ITEM_PROPERTY_ENHANCEMENT_BONUS_VS_SPECIFIC_ALIGNEMENT)) { sProperties = sProperties + &quot;Enhancement Bonus vs. Alignment\n&quot;; }
+      if(GetItemHasItemProperty(oItem, ITEM_PROPERTY_EXTRA_MELEE_DAMAGE_TYPE)) { sProperties = sProperties + &quot;Extra Melee Damage Type\n&quot;; }
+      if(GetItemHasItemProperty(oItem, ITEM_PROPERTY_EXTRA_RANGED_DAMAGE_TYPE)) { sProperties = sProperties + &quot;Extra Ranged Damage Type\n&quot;; }
+      if(GetItemHasItemProperty(oItem, ITEM_PROPERTY_FREEDOM_OF_MOVEMENT)) { sProperties = sProperties + &quot;Freedom of Movement\n&quot;; }
+      if(GetItemHasItemProperty(oItem, ITEM_PROPERTY_HASTE)) { sProperties = sProperties + &quot;Haste\n&quot;; }
+      if(GetItemHasItemProperty(oItem, ITEM_PROPERTY_HOLY_AVENGER)) { sProperties = sProperties + &quot;Holy Avenger\n&quot;; }
+      if(GetItemHasItemProperty(oItem, ITEM_PROPERTY_IMMUNITY_DAMAGE_TYPE)) { sProperties = sProperties + &quot;Immunity Damage Type\n&quot;; }
+      if(GetItemHasItemProperty(oItem, ITEM_PROPERTY_IMMUNITY_MISCELLANEOUS)) { sProperties = sProperties + &quot;Immunity Miscellaneous\n&quot;; }
+      if(GetItemHasItemProperty(oItem, ITEM_PROPERTY_IMMUNITY_SPECIFIC_SPELL)) { sProperties = sProperties + &quot;Immunity Specific Spell\n&quot;; }
+      if(GetItemHasItemProperty(oItem, ITEM_PROPERTY_IMMUNITY_SPELL_SCHOOL)) { sProperties = sProperties + &quot;Immunity Spell School\n&quot;; }
+      if(GetItemHasItemProperty(oItem, ITEM_PROPERTY_IMMUNITY_SPELLS_BY_LEVEL)) { sProperties = sProperties + &quot;Immunity Spell Level\n&quot;; }
+      if(GetItemHasItemProperty(oItem, ITEM_PROPERTY_IMPROVED_EVASION)) { sProperties = sProperties + &quot;Improved Evasion\n&quot;; }
+      if(GetItemHasItemProperty(oItem, ITEM_PROPERTY_KEEN)) { sProperties = sProperties + &quot;Keen\n&quot;; }
+      if(GetItemHasItemProperty(oItem, ITEM_PROPERTY_LIGHT)) { sProperties = sProperties + &quot;Light\n&quot;; }
+      if(GetItemHasItemProperty(oItem, ITEM_PROPERTY_MASSIVE_CRITICALS)) { sProperties = sProperties + &quot;Massive Criticals\n&quot;; }
+      if(GetItemHasItemProperty(oItem, ITEM_PROPERTY_MIGHTY)) { sProperties = sProperties + &quot;Mighty\n&quot;; }
+      if(GetItemHasItemProperty(oItem, ITEM_PROPERTY_MIND_BLANK)) { sProperties = sProperties + &quot;Mind Blank\n&quot;; }
+      if(GetItemHasItemProperty(oItem, ITEM_PROPERTY_MONSTER_DAMAGE)) { sProperties = sProperties + &quot;Monster Damage\n&quot;; }
+      if(GetItemHasItemProperty(oItem, ITEM_PROPERTY_NO_DAMAGE)) { sProperties = sProperties + &quot;No Damage\n&quot;; }
+      if(GetItemHasItemProperty(oItem, ITEM_PROPERTY_ON_HIT_PROPERTIES)) { sProperties = sProperties + &quot;On Hit\n&quot;; }
+      if(GetItemHasItemProperty(oItem, ITEM_PROPERTY_ON_MONSTER_HIT)) { sProperties = sProperties + &quot;On Monster Hit\n&quot;; }
+      if(GetItemHasItemProperty(oItem, ITEM_PROPERTY_POISON)) { sProperties = sProperties + &quot;Poison\n&quot;; }
+      if(GetItemHasItemProperty(oItem, ITEM_PROPERTY_REGENERATION)) { sProperties = sProperties + &quot;Regeneration\n&quot;; }
+      if(GetItemHasItemProperty(oItem, ITEM_PROPERTY_REGENERATION_VAMPIRIC)) { sProperties = sProperties + &quot;Vampiric Regeneration\n&quot;; }
+      if(GetItemHasItemProperty(oItem, ITEM_PROPERTY_SAVING_THROW_BONUS)) { sProperties = sProperties + &quot;Saving Throw Bonus\n&quot;; }
+      if(GetItemHasItemProperty(oItem, ITEM_PROPERTY_SAVING_THROW_BONUS_SPECIFIC)) { sProperties = sProperties + &quot;Specific Saving Throw Bonus\n&quot;; }
+      if(GetItemHasItemProperty(oItem, ITEM_PROPERTY_SKILL_BONUS)) { sProperties = sProperties + &quot;Skill Bonus\n&quot;; }
+      if(GetItemHasItemProperty(oItem, ITEM_PROPERTY_SPELL_RESISTANCE)) { sProperties = sProperties + &quot;Spell Resistance\n&quot;; }
+      if(GetItemHasItemProperty(oItem, ITEM_PROPERTY_THIEVES_TOOLS)) { sProperties = sProperties + &quot;Thieves Tools\n&quot;; }
+      if(GetItemHasItemProperty(oItem, ITEM_PROPERTY_TRAP)) { sProperties = sProperties + &quot;Trap\n&quot;; }
+      if(GetItemHasItemProperty(oItem, ITEM_PROPERTY_TRUE_SEEING)) { sProperties = sProperties + &quot;True Seeing\n&quot;; }
+      if(GetItemHasItemProperty(oItem, ITEM_PROPERTY_TURN_RESISTANCE)) { sProperties = sProperties + &quot;Turn Resistance\n&quot;; }
+      if(GetItemHasItemProperty(oItem, ITEM_PROPERTY_UNLIMITED_AMMUNITION)) { sProperties = sProperties + &quot;Unlimited Ammo\n&quot;; }
+      if(GetItemHasItemProperty(oItem, ITEM_PROPERTY_USE_LIMITATION_ALIGNMENT_GROUP)) { sProperties = sProperties + &quot;Alignment Group Use Limitation\n&quot;; }
+      if(GetItemHasItemProperty(oItem, ITEM_PROPERTY_USE_LIMITATION_CLASS)) { sProperties = sProperties + &quot;Class Use Limitation\n&quot;; }
+      if(GetItemHasItemProperty(oItem, ITEM_PROPERTY_USE_LIMITATION_RACIAL_TYPE)) { sProperties = sProperties + &quot;Racial Use Limitation\n&quot;; }
+      if(GetItemHasItemProperty(oItem, ITEM_PROPERTY_USE_LIMITATION_SPECIFIC_ALIGNMENT)) { sProperties = sProperties + &quot;Alignment Use Limitation\n&quot;; }
+      if(GetItemHasItemProperty(oItem, ITEM_PROPERTY_USE_LIMITATION_TILESET)) { sProperties = sProperties + &quot;Tileset Use Limitation\n&quot;; }
+      if(GetItemHasItemProperty(oItem, ITEM_PROPERTY_VORPAL)) { sProperties = sProperties + &quot;Vorpal\n&quot;; }
+      if(GetItemHasItemProperty(oItem, ITEM_PROPERTY_WOUNDING)) { sProperties = sProperties + &quot;Wounding\n&quot;; }
+      if(sProperties != &quot;&quot;) { sProperties = &quot;Properties:\n&quot; + sProperties; }
+
+      sReturnString = sStacked + GetName(oItem) + &quot;\n&quot; +
+                      &quot;-------------------------------------------\n&quot; +
+                      sBaseType + &quot;\n&quot; +
+                      sIdentified + &quot;\n&quot; +
+                      ((nACValue)?sACValue + &quot;\n&quot;:&quot;&quot;) +
+                      sProperties;
+   }
+   else
+   {
+      sReturnString = sStacked + GetName(oItem) + &quot; (&quot; + sBaseType + &quot;)&quot;;
+   }
+   return sReturnString;
+}
+
+void dmwand_JoinParty()
+{
+   AssignCommand(oMySpeaker, AddToParty( oMySpeaker, GetFactionLeader(oMyTarget)));
+}
+
+void dmwand_JumpPlayerHere()
+{
+   location lJumpLoc = GetLocation(oMySpeaker);
+   AssignCommand(oMyTarget, ActionJumpToLocation(lJumpLoc));
+}
+
+void dmwand_JumpToPlayer()
+{
+   location lJumpLoc = GetLocation(oMyTarget);
+   AssignCommand(oMySpeaker, ActionJumpToLocation(lJumpLoc));
+}
+
+void dmwand_KickPC()
+{
+   // Create a lightning strike, thunder, scorch mark, and random small
+   // lightnings at target&#x27;s location
+   AssignCommand( oMySpeaker, ApplyEffectAtLocation ( DURATION_TYPE_INSTANT, EffectVisualEffect(VFX_IMP_LIGHTNING_M), lMyLoc));
+   AssignCommand ( oMySpeaker, PlaySound (&quot;as_wt_thundercl3&quot;));
+   object oScorch = CreateObject ( OBJECT_TYPE_PLACEABLE, &quot;plc_weathmark&quot;, lMyLoc, FALSE);
+   object oTargetArea = GetArea(oMySpeaker);
+   int nXPos, nYPos, nCount;
+   for(nCount = 0; nCount &lt; 5; nCount++)
+   {
+      nXPos = Random(10) - 5;
+      nYPos = Random(10) - 5;
+
+      vector vNewVector = GetPositionFromLocation(lMyLoc);
+      vNewVector.x += nXPos;
+      vNewVector.y += nYPos;
+
+      location lNewLoc = Location(oTargetArea, vNewVector, 0.0);
+      AssignCommand( oMySpeaker, ApplyEffectAtLocation ( DURATION_TYPE_INSTANT, EffectVisualEffect(VFX_IMP_LIGHTNING_S), lNewLoc));
+   }
+   DelayCommand ( 20.0, DestroyObject ( oScorch));
+
+   // Kick the target out of the game
+   BootPC(oMyTarget);
+}
+
+void dmwand_KillAndReplace()
+{
+   SetPlotFlag(oMyTarget, FALSE);
+   AssignCommand(oMyTarget, SetIsDestroyable(FALSE, FALSE));
+   AssignCommand(oMyTarget, ApplyEffectToObject(DURATION_TYPE_INSTANT, EffectDeath(), oMyTarget));
+}
+
+void dmwand_LeaveParty()
+{
+   RemoveFromParty(oMySpeaker);
+}
+
+void dmwand_MapArea()
+{
+   object omyarea = GetArea(oMySpeaker);
+   ExploreAreaForPlayer(omyarea, oMyTarget);
+}
+
+void dmwand_ModOneRep(string sPlayer)
+{
+   string sAmt = GetLocalString(oMySpeaker, &quot;dmw_repamt&quot;);
+   int nAmt = StringToInt(sAmt);
+   object oPlayer = GetLocalObject(oMySpeaker, &quot;dmw_playercache&quot; + sPlayer);
+
+   AdjustReputation(oPlayer, oMyTarget, nAmt);
+   AdjustReputation(oMyTarget, oPlayer, nAmt);
+}
+
+void dmwand_ModRep(string sAmt)
+{
+   SetLocalString(oMySpeaker, &quot;dmw_repamt&quot;, sAmt);
+   string sAllOrOne = GetLocalString(oMySpeaker, &quot;dmw_repargs&quot;);
+   if(TestStringAgainstPattern(sAllOrOne, &quot;one&quot;))
+   {
+      dmwand_BuildConversation(&quot;ListPlayers&quot;, &quot;func_ModOneRep&quot;);
+      return;
+   }
+   int nAmt = StringToInt(sAmt);
+
+   object oPlayer = GetFirstPC();
+   while(GetIsObjectValid(oPlayer))
+   {
+      AdjustReputation(oPlayer, oMyTarget, nAmt);
+      AdjustReputation(oMyTarget, oPlayer, nAmt);
+      oPlayer = GetNextPC();
+   }
+}
+
+void dmwand_PlayerListConv(string sParams)
+{
+   int nPlayer = StringToInt(sParams);
+   int nCache;
+   int nCount;
+
+   object oPlayer = GetLocalObject(oMySpeaker, &quot;dmw_playercache&quot; + IntToString(nPlayer));
+   oMyTarget = oPlayer;
+   SetLocalObject(oMySpeaker, &quot;dmwandtarget&quot;, oMyTarget);
+
+   //Go back to the first conversation level
+   dmwand_BuildConversation(&quot;Start&quot;, &quot;&quot;);
+}
+
+string dmwand_Race(object oEntity)
+{
+   switch (GetRacialType(oEntity))
+   {
+      case RACIAL_TYPE_ALL:   return &quot;All&quot;; break;
+      case RACIAL_TYPE_ANIMAL:   return &quot;Animal&quot;; break;
+      case RACIAL_TYPE_BEAST:   return &quot;Beast&quot;; break;
+      case RACIAL_TYPE_CONSTRUCT:   return &quot;Construct&quot;; break;
+      case RACIAL_TYPE_DRAGON:   return &quot;Dragon&quot;; break;
+      case RACIAL_TYPE_DWARF:   return &quot;Dwarf&quot;; break;
+      case RACIAL_TYPE_ELEMENTAL:   return &quot;Elemental&quot;; break;
+      case RACIAL_TYPE_ELF:   return &quot;Elf&quot;; break;
+      case RACIAL_TYPE_FEY:   return &quot;Fey&quot;; break;
+      case RACIAL_TYPE_GIANT:   return &quot;Giant&quot;; break;
+      case RACIAL_TYPE_GNOME:   return &quot;Gnome&quot;; break;
+      case RACIAL_TYPE_HALFELF:   return &quot;Half Elf&quot;; break;
+      case RACIAL_TYPE_HALFLING:   return &quot;Halfling&quot;; break;
+      case RACIAL_TYPE_HALFORC:   return &quot;Half Orc&quot;; break;
+      case RACIAL_TYPE_HUMAN:   return &quot;Human&quot;; break;
+      case RACIAL_TYPE_HUMANOID_GOBLINOID:   return &quot;Goblinoid&quot;; break;
+      case RACIAL_TYPE_HUMANOID_MONSTROUS:   return &quot;Monstrous&quot;; break;
+      case RACIAL_TYPE_HUMANOID_ORC:   return &quot;Orc&quot;; break;
+      case RACIAL_TYPE_HUMANOID_REPTILIAN:   return &quot;Reptillian&quot;; break;
+      case RACIAL_TYPE_INVALID:   return &quot;Unknown&quot;; break;
+      case RACIAL_TYPE_MAGICAL_BEAST:   return &quot;Magical Beast&quot;; break;
+      case RACIAL_TYPE_OUTSIDER:   return &quot;Outsider&quot;; break;
+      case RACIAL_TYPE_SHAPECHANGER:   return &quot;Shapechanger&quot;; break;
+      case RACIAL_TYPE_UNDEAD:   return &quot;Undead&quot;; break;
+      case RACIAL_TYPE_VERMIN:   return &quot;Vermin&quot;; break;
+   }
+
+   return &quot;Unknown&quot;;
+}
+
+void dmwand_ReloadModule()
+{
+   string sModuleName = GetModuleName();
+//   SendMessageToPC(oMySpeaker,&quot;CRASHES MODULE-DISABLED&quot;);
+   StartNewModule(sModuleName);
+}
+
+void dmwand_ResumeDefault()
+{
+   if(GetIsPC(oMyTarget))
+   {
+      AssignCommand ( oMyTarget, ClearAllActions());
+   }
+   else
+   {
+      ExecuteScript ( &quot;nw_c2_default9&quot;, oMyTarget);
+   }
+}
+
+void dmwand_ShiftAlignment(string sAlign, int nShift)
+{
+   if(TestStringAgainstPattern(sAlign, &quot;law__&quot;))
+   {
+      AdjustAlignment (oMyTarget, ALIGNMENT_LAWFUL, nShift);
+      return;
+   }
+   if(TestStringAgainstPattern(sAlign, &quot;chaos&quot;))
+   {
+      AdjustAlignment (oMyTarget, ALIGNMENT_CHAOTIC, nShift);
+      return;
+   }
+   if(TestStringAgainstPattern(sAlign, &quot;good_&quot;))
+   {
+      AdjustAlignment (oMyTarget, ALIGNMENT_GOOD, nShift);
+      return;
+   }
+   if(TestStringAgainstPattern(sAlign, &quot;evil_&quot;))
+   {
+      AdjustAlignment (oMyTarget, ALIGNMENT_EVIL, nShift);
+      return;
+   }
+}
+
+void dmwand_ShowAllAttribs()
+{
+   string sSTR = IntToString(GetAbilityScore(oMyTarget,ABILITY_STRENGTH));
+   string sINT = IntToString(GetAbilityScore(oMyTarget,ABILITY_INTELLIGENCE));
+   string sDEX = IntToString(GetAbilityScore(oMyTarget,ABILITY_DEXTERITY));
+   string sWIS = IntToString(GetAbilityScore(oMyTarget,ABILITY_WISDOM));
+   string sCON = IntToString(GetAbilityScore(oMyTarget,ABILITY_CONSTITUTION));
+   string sCHA = IntToString(GetAbilityScore(oMyTarget,ABILITY_CHARISMA));
+   string sReport = &quot;\n-------------------------------------------&quot; +
+                    &quot;\nReported: &quot; + IntToString(GetTimeHour()) + &quot;:&quot; + IntToString(GetTimeMinute()) +
+                    &quot;\nPlayer Name: &quot; + GetPCPlayerName(oMyTarget) +
+                    &quot;PubCDKey: &quot; + GetPCPublicCDKey(oMyTarget) +
+                    &quot;\nChar Name:   &quot; + GetName(oMyTarget) +
+                    &quot;\n-------------------------------------------&quot; +
+                    &quot;\nRace:    &quot; + dmwand_Race(oMyTarget) +
+                    &quot;\nClass:    &quot; + dmwand_ClassLevel(oMyTarget) +
+                    &quot;\nXP:     &quot; + IntToString(GetXP(oMyTarget)) +
+                    &quot;\nGender: &quot; + dmwand_Gender(oMyTarget) +
+                    &quot;\nAign:    &quot; + dmwand_Alignment(oMyTarget) +
+                    &quot;\nDiety:  &quot; + GetDeity(oMyTarget) +
+                    &quot;\n&quot; +
+                    &quot;\nSTR:  &quot; + sSTR +
+                    &quot;\nINT:   &quot; + sINT +
+                    &quot;\nWIS:  &quot; + sWIS +
+                    &quot;\nDEX:  &quot; + sDEX +
+                    &quot;\nCON: &quot; + sCON +
+                    &quot;\nCHA:  &quot; + sCHA +
+                    &quot;\n&quot; +
+                    &quot;\nHPs:  &quot; + IntToString(GetCurrentHitPoints(oMyTarget)) +
+                    &quot; of &quot; + IntToString(GetMaxHitPoints(oMyTarget)) +
+                    &quot;\nAC:  &quot; + IntToString(GetAC(oMyTarget)) +
+                    &quot;\n\nGold:  &quot; + IntToString(GetGold(oMyTarget)) +
+                    &quot;\nInventory:\n  &quot; + dmwand_Inventory(oMyTarget) +
+                    &quot;\n-------------------------------------------&quot;;
+
+   SetLocalString(oMySpeaker, &quot;dmw_dialog0&quot;, sReport);
+}
+
+void dmwand_ShowBasicAttribs()
+{
+   string sSTR = IntToString(GetAbilityScore(oMyTarget,ABILITY_STRENGTH));
+   string sINT = IntToString(GetAbilityScore(oMyTarget,ABILITY_INTELLIGENCE));
+   string sDEX = IntToString(GetAbilityScore(oMyTarget,ABILITY_DEXTERITY));
+   string sWIS = IntToString(GetAbilityScore(oMyTarget,ABILITY_WISDOM));
+   string sCON = IntToString(GetAbilityScore(oMyTarget,ABILITY_CONSTITUTION));
+   string sCHA = IntToString(GetAbilityScore(oMyTarget,ABILITY_CHARISMA));
+   string sReport = &quot;\n-------------------------------------------&quot; +
+                    &quot;\nPlayer Name: &quot; + GetPCPlayerName(oMyTarget) +
+                    &quot;\nChar Name:   &quot; + GetName(oMyTarget) +
+                    &quot;\n-------------------------------------------&quot; +
+                    &quot;\nRace:    &quot; + dmwand_Race(oMyTarget) +
+                    &quot;\nClass:    &quot; + dmwand_ClassLevel(oMyTarget) +
+                    &quot;\nXP:     &quot; + IntToString(GetXP(oMyTarget)) +
+                    &quot;\nGender: &quot; + dmwand_Gender(oMyTarget) +
+                    &quot;\nAign:    &quot; + dmwand_Alignment(oMyTarget) +
+                    &quot;\nDiety:  &quot; + GetDeity(oMyTarget) +
+                    &quot;\n&quot; +
+                    &quot;\nSTR:  &quot; + sSTR +
+                    &quot;\nINT:   &quot; + sINT +
+                    &quot;\nWIS:  &quot; + sWIS +
+                    &quot;\nDEX:  &quot; + sDEX +
+                    &quot;\nCON: &quot; + sCON +
+                    &quot;\nCHA:  &quot; + sCHA +
+                    &quot;\n&quot; +
+                    &quot;\nHPs:  &quot; + IntToString(GetCurrentHitPoints(oMyTarget)) +
+                    &quot; of &quot; + IntToString(GetMaxHitPoints(oMyTarget)) +
+                    &quot;\nAC:  &quot; + IntToString(GetAC(oMyTarget)) +
+                    &quot;\n\nGold:  &quot; + IntToString(GetGold(oMyTarget)) +
+                    &quot;\n-------------------------------------------&quot;;
+   SetLocalString(oMySpeaker, &quot;dmw_dialog0&quot;, sReport);
+}
+
+void dmwand_ShowInventory()
+{
+   string sReport = &quot;\n-------------------------------------------&quot; +
+                    &quot;\nPlayer Name: &quot; + GetPCPlayerName(oMyTarget) +
+                    &quot;\nChar Name:   &quot; + GetName(oMyTarget) +
+                    &quot;\n-------------------------------------------&quot; +
+                    &quot;\nInventory:\n  &quot; + dmwand_Inventory(oMyTarget) +
+                    &quot;\n-------------------------------------------&quot;;
+   SetLocalString(oMySpeaker, &quot;dmw_dialog0&quot;, sReport);
+}
+
+void dmwand_SkillCheck(int nSkill, int nSecret = TRUE)
+{
+   int nRoll=d20();
+   int nRank=GetSkillRank (nSkill, oMyTarget);
+   int nResult=nRoll+nRank;
+   string sRoll=IntToString(nRoll);
+   string sRank=IntToString(nRank);
+   string sResult=IntToString(nResult);
+   string sSkill;
+
+   switch(nSkill)
+   {
+      case SKILL_ANIMAL_EMPATHY:
+         sSkill = &quot;Animal Empathy&quot;; break;
+      case SKILL_CONCENTRATION:
+         sSkill = &quot;Concentration&quot;; break;
+      case SKILL_DISABLE_TRAP:
+         sSkill = &quot;Disable Trap&quot;; break;
+      case SKILL_DISCIPLINE:
+         sSkill = &quot;Discipline&quot;; break;
+      case SKILL_HEAL:
+         sSkill = &quot;Heal&quot;; break;
+      case SKILL_HIDE:
+         sSkill = &quot;Hide&quot;; break;
+      case SKILL_LISTEN:
+         sSkill = &quot;Listen&quot;; break;
+      case SKILL_LORE:
+         sSkill = &quot;Lore&quot;; break;
+      case SKILL_MOVE_SILENTLY:
+         sSkill = &quot;Move Silently&quot;; break;
+      case SKILL_OPEN_LOCK:
+         sSkill = &quot;Open Lock&quot;; break;
+      case SKILL_PARRY:
+         sSkill = &quot;Parry&quot;; break;
+      case SKILL_PERFORM:
+         sSkill = &quot;Perform&quot;; break;
+      case SKILL_PERSUADE:
+         sSkill = &quot;Persuade&quot;; break;
+      case SKILL_PICK_POCKET:
+         sSkill = &quot;Pick Pocket&quot;; break;
+      case SKILL_SEARCH:
+         sSkill = &quot;Search&quot;; break;
+      case SKILL_SET_TRAP:
+         sSkill = &quot;Set Trap&quot;; break;
+      case SKILL_SPELLCRAFT:
+         sSkill = &quot;Spellcraft&quot;; break;
+      case SKILL_SPOT:
+         sSkill = &quot;Spot&quot;; break;
+      case SKILL_TAUNT:
+         sSkill = &quot;Taunt&quot;; break;
+      case SKILL_USE_MAGIC_DEVICE:
+         sSkill = &quot;Use Magic Device&quot;; break;
+   }
+   SendMessageToPC(oMySpeaker, GetName(oMyTarget)+&quot;&#x27;s &quot;+sSkill+&quot; Check, Roll: &quot;+sRoll+&quot; Modifier: &quot;+sRank+&quot; = &quot;+sResult);
+
+   if (!nSecret)
+   {
+      AssignCommand( oMyTarget, SpeakString(sSkill+&quot; Check, Roll: &quot;+sRoll+&quot; Modifier: &quot;+sRank+&quot; = &quot;+sResult));
+   }
+}
+
+void dmwand_SwapDayNight(int nDay)
+{
+   int nCurrentHour;
+   int nCurrentMinute = GetTimeMinute();
+   int nCurrentSecond = GetTimeSecond();
+   int nCurrentMilli = GetTimeMillisecond();
+
+   nCurrentHour = ((nDay == 1)?7:19);
+
+   SetTime(nCurrentHour, nCurrentMinute, nCurrentSecond, nCurrentMilli);
+   dmwand_BuildConversation(&quot;TimeOfDay&quot;, &quot;&quot;);
+}
+
+void dmwand_TakeAll()
+{
+   dmwand_TakeAllEquipped();
+   dmwand_TakeAllUnequipped();
+}
+
+void dmwand_TakeAllEquipped()
+{
+   dmwand_takeoneitem(GetItemInSlot(INVENTORY_SLOT_ARMS, oMyTarget));
+   dmwand_takeoneitem(GetItemInSlot(INVENTORY_SLOT_ARROWS, oMyTarget));
+   dmwand_takeoneitem(GetItemInSlot(INVENTORY_SLOT_BELT, oMyTarget));
+   dmwand_takeoneitem(GetItemInSlot(INVENTORY_SLOT_BOLTS, oMyTarget));
+   dmwand_takeoneitem(GetItemInSlot(INVENTORY_SLOT_BOOTS, oMyTarget));
+   dmwand_takeoneitem(GetItemInSlot(INVENTORY_SLOT_BULLETS, oMyTarget));
+   dmwand_takeoneitem(GetItemInSlot(INVENTORY_SLOT_CHEST, oMyTarget));
+   dmwand_takeoneitem(GetItemInSlot(INVENTORY_SLOT_CLOAK, oMyTarget));
+   dmwand_takeoneitem(GetItemInSlot(INVENTORY_SLOT_HEAD, oMyTarget));
+   dmwand_takeoneitem(GetItemInSlot(INVENTORY_SLOT_LEFTHAND, oMyTarget));
+   dmwand_takeoneitem(GetItemInSlot(INVENTORY_SLOT_LEFTRING, oMyTarget));
+   dmwand_takeoneitem(GetItemInSlot(INVENTORY_SLOT_NECK, oMyTarget));
+   dmwand_takeoneitem(GetItemInSlot(INVENTORY_SLOT_RIGHTHAND, oMyTarget));
+   dmwand_takeoneitem(GetItemInSlot(INVENTORY_SLOT_RIGHTRING, oMyTarget));
+}
+
+void dmwand_TakeAllUnequipped()
+{
+   object oEquip = GetFirstItemInInventory(oMyTarget);
+   while(GetIsObjectValid(oEquip))
+   {
+      dmwand_takeoneitem(oEquip);
+      oEquip = GetNextItemInInventory(oMyTarget);
+   }
+}
+
+void dmwand_TakeItem()
+{
+   object oItem = GetLocalObject(oMySpeaker, &quot;dmw_item&quot;);
+
+   dmwand_takeoneitem(oItem);
+   dmwand_BuildConversation(&quot;ListInventory&quot;, &quot;&quot;);
+}
+
+void dmwand_takeoneitem(object oEquip)
+{
+   if (GetIsObjectValid(oEquip) != 0)
+   {
+      AssignCommand(oMySpeaker, ActionTakeItem(oEquip, oMyTarget));
+   }
+}
+
+void dmwand_Toad()
+{
+   effect ePenguin = EffectPolymorph(POLYMORPH_TYPE_PENGUIN);
+   effect eParalyze = EffectParalyze();
+   SendMessageToPC(oMySpeaker, &quot;Penguin?  Don&#x27;t you mean toad?&quot;);
+
+   AssignCommand(oMyTarget, ApplyEffectToObject(DURATION_TYPE_PERMANENT, ePenguin, oMyTarget));
+   AssignCommand(oMyTarget, ApplyEffectToObject(DURATION_TYPE_PERMANENT, eParalyze, oMyTarget));
+   SetLocalInt(oMyTarget, &quot;toaded&quot;, 1);
+}
+
+void dmwand_TurnNearOff()
+{
+   object oMyTest = GetFirstObjectInShape(SHAPE_CUBE, 0.6, lMyLoc, FALSE, OBJECT_TYPE_ALL);
+   while(GetIsObjectValid(oMyTest) &amp;&amp; GetIsPC(oMyTest))
+   {
+      object oMyTest = GetNextObjectInShape(SHAPE_CUBE, 0.6, lMyLoc, FALSE, OBJECT_TYPE_ALL);
+   }
+
+   if(GetIsObjectValid(oMyTest) &amp;&amp; (! GetIsPC(oMyTest)))
+   {
+      dmwand_TurnOff(oMyTest);
+   }
+}
+
+void dmwand_TurnNearOn()
+{
+   object oMyTest = GetFirstObjectInShape(SHAPE_CUBE, 0.6, lMyLoc, FALSE, OBJECT_TYPE_ALL);
+   while(GetIsObjectValid(oMyTest) &amp;&amp; GetIsPC(oMyTest))
+   {
+      object oMyTest = GetNextObjectInShape(SHAPE_CUBE, 0.6, lMyLoc, FALSE, OBJECT_TYPE_ALL);
+   }
+
+   if(GetIsObjectValid(oMyTest) &amp;&amp; (! GetIsPC(oMyTest)))
+   {
+      dmwand_TurnOn(oMyTest);
+   }
+}
+
+void dmwand_TurnOff(object oMyPlaceable)
+{
+   AssignCommand(oMyPlaceable, PlayAnimation(ANIMATION_PLACEABLE_DEACTIVATE));
+   DelayCommand(0.4,SetPlaceableIllumination(oMyPlaceable, FALSE));
+   DelayCommand(0.5,RecomputeStaticLighting(GetArea(oMyPlaceable)));
+}
+
+void dmwand_TurnOn(object oMyPlaceable)
+{
+   AssignCommand(oMyPlaceable, PlayAnimation(ANIMATION_PLACEABLE_ACTIVATE));
+   DelayCommand(0.4,SetPlaceableIllumination(oMyPlaceable, TRUE));
+   DelayCommand(0.5,RecomputeStaticLighting(GetArea(oMyPlaceable)));
+}
+
+void dmwand_TurnTargetOff()
+{
+   dmwand_TurnOff(oMyTarget);
+}
+
+void dmwand_TurnTargetOn()
+{
+   dmwand_TurnOn(oMyTarget);
+}
+
+void dmwand_Untoad()
+{
+   effect eMyEffect = GetFirstEffect(oMyTarget);
+   while(GetIsEffectValid(eMyEffect))
+   {
+      if(GetEffectType(eMyEffect) == EFFECT_TYPE_POLYMORPH ||
+         GetEffectType(eMyEffect) == EFFECT_TYPE_PARALYZE)
+      {
+         RemoveEffect(oMyTarget, eMyEffect);
+      }
+      eMyEffect = GetNextEffect(oMyTarget);
+   }
+}
+</code></pre>
+  </main>
+  <footer>generated by <a href="https://github.com/mrprice22/nwn-manager">nwn-manager</a></footer>
+</body>
+</html>

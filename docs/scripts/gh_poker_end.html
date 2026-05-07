@@ -1,0 +1,105 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Script gh_poker_end</title>
+  <link rel="stylesheet" href="../assets/style.css">
+</head>
+<body>
+  <header class="site-header">
+    <a class="brand" href="../index.html">Module Wiki</a>
+    <nav>
+      <a href="../index.html">Map</a>
+      <a href="../areas/index.html">Areas</a>
+      <a href="../creatures/index.html">Creature Blueprints</a>
+      <a href="../creatures/instances/index.html">Creature Instances</a>
+      <a href="../items/index.html">Items</a>
+      <a href="../stores/index.html">Stores</a>
+      <a href="../conversations/index.html">Conversations</a>
+      <a href="../factions.html">Factions</a>
+      <a href="../journal.html">Journal</a>
+    </nav>
+  </header>
+  <main>
+<h1>Script: <code>gh_poker_end</code></h1><pre class="nss-source"><code>/*
+    Simple Poker game. 5 card draw.
+    By: Joe Leonard
+    Email: aiden_00@yahoo.com
+    Created: 10-10-02
+
+    This code is the end of the poker game. It determines a winner by comparing
+    the scores of the hands as updated by the call to &#x27;ShowHandAndScores()&#x27;.
+    It shows both the players hand, and dealers hand at this point. The pot is
+    awarded to the PC if he wins.
+*/
+#include &quot;gh_poker_include&quot;
+
+void main()
+{
+    object oPC = GetPCSpeaker();
+
+    //Update cards to player and dealer.
+    SendMessageToPC(oPC, &quot;The pot is: &quot; + IntToString(GetLocalInt(OBJECT_SELF, &quot;MONEY_POT&quot;)));
+    SendMessageToPC(oPC, ShowHandAndScores(&quot;PLAYER&quot;));
+    SendMessageToPC(oPC, ShowHandAndScores(&quot;DEALER&quot;));
+
+    //Find a winner!
+    if(GetLocalInt(OBJECT_SELF, &quot;PLAYER_SCORE_MAIN&quot;) &gt; GetLocalInt(OBJECT_SELF, &quot;DEALER_SCORE_MAIN&quot;)) {
+        //Player wins. Main score is higher than dealer main score.
+        SendMessageToPC(oPC, &quot;Winner: Player!&quot;);
+        SpeakString(&quot;My, my, you win sir, fine game.&quot;);
+        GiveGoldToCreature(oPC, GetLocalInt(OBJECT_SELF, &quot;MONEY_POT&quot;));
+    }
+    else if(GetLocalInt(OBJECT_SELF, &quot;DEALER_SCORE_MAIN&quot;) &gt; GetLocalInt(OBJECT_SELF, &quot;PLAYER_SCORE_MAIN&quot;)) {
+        //Dealer wins. Main score is higher than player main score.
+        SendMessageToPC(oPC, &quot;Winner: Dealer!&quot;);
+        SpeakString(&quot;I do believe I win. How fortuitous.&quot;);
+    }
+    else if(GetLocalInt(OBJECT_SELF, &quot;DEALER_SCORE_MAIN&quot;) == GetLocalInt(OBJECT_SELF, &quot;PLAYER_SCORE_MAIN&quot;)) {
+        //Tie. Main scores are tied, proceed to check first scores.
+        if(GetLocalInt(OBJECT_SELF, &quot;PLAYER_SCORE_FIRST&quot;) &gt; GetLocalInt(OBJECT_SELF, &quot;DEALER_SCORE_FIRST&quot;)) {
+            //Player wins. First score is higher than dealer main score.
+            SendMessageToPC(oPC, &quot;Winner: Player!&quot;);
+            SpeakString(&quot;How strange, you win. My congratulations.&quot;);
+            GiveGoldToCreature(oPC, GetLocalInt(OBJECT_SELF, &quot;MONEY_POT&quot;));
+        }
+        else if(GetLocalInt(OBJECT_SELF, &quot;DEALER_SCORE_FIRST&quot;) &gt; GetLocalInt(OBJECT_SELF, &quot;PLAYER_SCORE_FIRST&quot;)) {
+            //Dealer wins. First score is higher than player main score.
+            SendMessageToPC(oPC, &quot;Winner: Dealer!&quot;);
+            SpeakString(&quot;You came close my friend, but I do believe the game is mine.&quot;);
+        }
+        else if(GetLocalInt(OBJECT_SELF, &quot;DEALER_SCORE_FIRST&quot;) == GetLocalInt(OBJECT_SELF, &quot;PLAYER_SCORE_FIRST&quot;)) {
+            //Tie. First scores are tied, proceed to check second scores.
+            if(GetLocalInt(OBJECT_SELF, &quot;PLAYER_SCORE_SECOND&quot;) &gt; GetLocalInt(OBJECT_SELF, &quot;DEALER_SCORE_SECOND&quot;)) {
+                //Player wins. Second score is higher than dealer main score.
+                SendMessageToPC(oPC, &quot;Winner: Player!&quot;);
+                SpeakString(&quot;A close one, you win.&quot;);
+                GiveGoldToCreature(oPC, GetLocalInt(OBJECT_SELF, &quot;MONEY_POT&quot;));
+            }
+            else if(GetLocalInt(OBJECT_SELF, &quot;DEALER_SCORE_SECOND&quot;) &gt; GetLocalInt(OBJECT_SELF, &quot;PLAYER_SCORE_SECOND&quot;)) {
+                //Dealer wins. Second score is higher than player main score.
+                SendMessageToPC(oPC, &quot;Winner: Dealer!&quot;);
+                SpeakString(&quot;A close one, but my skill prevails.&quot;);
+            }
+            else if(GetLocalInt(OBJECT_SELF, &quot;DEALER_SCORE_SECOND&quot;) == GetLocalInt(OBJECT_SELF, &quot;PLAYER_SCORE_SECOND&quot;)) {
+                //Tie. Main, First and Second scores all tied. Game is a tie!
+                SendMessageToPC(oPC, &quot;TIE!&quot;);
+                SpeakString(&quot;A tie? My, my, we shall have to play again my friend.&quot;);
+            }
+        }
+    }
+
+    //Reset the pot.
+    SetLocalInt(OBJECT_SELF, &quot;MONEY_POT&quot;, 0);
+
+    //Set player as NOT &quot;PLAYING&quot;.
+    SetLocalInt(oPC, &quot;IS_PLAYING_POKER&quot;, FALSE);
+}
+
+
+
+</code></pre>
+  </main>
+  <footer>generated by <a href="https://github.com/mrprice22/nwn-manager">nwn-manager</a></footer>
+</body>
+</html>

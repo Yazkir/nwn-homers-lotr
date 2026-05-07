@@ -1,0 +1,187 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Script nw_s0_timestop</title>
+  <link rel="stylesheet" href="../assets/style.css">
+</head>
+<body>
+  <header class="site-header">
+    <a class="brand" href="../index.html">Module Wiki</a>
+    <nav>
+      <a href="../index.html">Map</a>
+      <a href="../areas/index.html">Areas</a>
+      <a href="../creatures/index.html">Creature Blueprints</a>
+      <a href="../creatures/instances/index.html">Creature Instances</a>
+      <a href="../items/index.html">Items</a>
+      <a href="../stores/index.html">Stores</a>
+      <a href="../conversations/index.html">Conversations</a>
+      <a href="../factions.html">Factions</a>
+      <a href="../journal.html">Journal</a>
+    </nav>
+  </header>
+  <main>
+<h1>Script: <code>nw_s0_timestop</code></h1><pre class="nss-source"><code>//::///////////////////////////////////////////////
+//:: Time Stop
+//:: NW_S0_TimeStop.nss
+//:: Copyright (c) 2001 Bioware Corp.
+//:://////////////////////////////////////////////
+/*
+    All persons in the Area are frozen in time
+    except the caster.
+*/
+//:://////////////////////////////////////////////
+//:: Created By: Preston Watamaniuk
+//:: Created On: Jan 7, 2002
+//:://////////////////////////////////////////////
+
+// Place the following variable on an area to disable timestop in that area.
+// NAME : TIMESTOP_DISABLED  TYPE : Int  VALUE : 1
+
+// If set to zero, the duration will default to 1 + 1d4 rounds. Otherwise, the
+// duration will be the number of seconds the variable is changed to.
+const int TIME_STOP_OVERRIDE_DURATION = 0;
+// ex. const int TIME_STOP_OVERRIDE_DURATION = 9; Timestop lasts 9 seconds.
+
+// Number of seconds before Timestop can be recast after being cast. Countdown
+//messages are sent based on this time. Set to 0.0 if you dont want there to
+//be any cooldown
+const float TIME_STOP_COOLDOWN_TIME = 120.0;
+
+//If set to 1, Timestop will not be usable\
+const int TIME_STOP_DISABLE = 1;
+
+#include &quot;x2_inc_spellhook&quot;
+
+int DetermineDuration()
+{
+    int nDuration = 1 + d4(1);
+    float fDuration = RoundsToSeconds(nDuration);
+    int nSeconds = FloatToInt(fDuration);
+    if (TIME_STOP_OVERRIDE_DURATION != 0) nSeconds = TIME_STOP_OVERRIDE_DURATION;
+    return nSeconds;
+}
+
+void TimeStopDelay(object oCaster)
+{
+    float Delay1 = TIME_STOP_COOLDOWN_TIME * 0.25;
+    string Message1 = IntToString(FloatToInt(Delay1));
+    float Delay2 = TIME_STOP_COOLDOWN_TIME * 0.50;
+    string Message2 = IntToString(FloatToInt(Delay2));
+    float Delay3 = TIME_STOP_COOLDOWN_TIME * 0.75;
+    string Message3 = IntToString(FloatToInt(Delay3));
+    SetLocalInt(oCaster, &quot;TIMESTOP_DELAY&quot;, 1);
+    DelayCommand(Delay1, FloatingTextStringOnCreature(&quot;Time Stop Recastable In &quot; + Message3 + &quot; seconds&quot;, oCaster, FALSE));
+    DelayCommand(Delay2, FloatingTextStringOnCreature(&quot;Time Stop Recastable In &quot; + Message2 + &quot; seconds&quot;, oCaster, FALSE));
+    DelayCommand(Delay3, FloatingTextStringOnCreature(&quot;Time Stop Recastable In &quot; + Message1 + &quot; seconds&quot;, oCaster, FALSE));
+    DelayCommand(TIME_STOP_COOLDOWN_TIME, FloatingTextStringOnCreature(&quot;Time Stop Ready&quot;, oCaster, FALSE));
+    DelayCommand(TIME_STOP_COOLDOWN_TIME, DeleteLocalInt(oCaster, &quot;TIMESTOP_DELAY&quot;));
+}
+void Timestop(object oCaster)
+{
+    object oArea = GetArea(oCaster);
+
+    effect eParalyze = EffectCutsceneParalyze();
+    int nDuration = DetermineDuration();
+    float fDuration = IntToFloat(nDuration);
+    object oTarget = GetFirstObjectInArea(oArea);
+
+    while (GetIsObjectValid(oTarget))    {
+        if (GetIsPC(oTarget) == TRUE || GetObjectType(oTarget) == OBJECT_TYPE_CREATURE)        {
+            if (GetIsDM(oTarget) == FALSE)            {
+                if (oTarget != oCaster)            {
+                FloatingTextStringOnCreature(&quot;Time Stopped&quot;, oTarget, FALSE);
+                AssignCommand(oTarget, ApplyEffectToObject(DURATION_TYPE_TEMPORARY, eParalyze, oTarget, fDuration));            }            }         }
+
+                oTarget = GetNextObjectInArea(oArea);     }
+}
+
+void TimestopCheck(object oCaster, int nDuration)
+{
+    if (nDuration == 0) return;
+
+    nDuration = nDuration - 1;
+    float fDuration = IntToFloat(nDuration);
+    object oArea = GetArea(oCaster);
+    location lCaster = GetLocation(oCaster);
+
+    effect eParalyze = EffectCutsceneParalyze();
+    object oTarget = GetFirstObjectInArea(oArea);
+
+    while (GetIsObjectValid(oTarget))    {
+        if (GetIsPC(oTarget) == TRUE || GetObjectType(oTarget) == OBJECT_TYPE_CREATURE)        {
+            if (GetIsDM(oTarget) == FALSE)            {
+                if (oTarget != oCaster)            {
+
+                effect eEffect = GetFirstEffect(oTarget);
+                while (GetIsEffectValid(eEffect))            {
+                    if (GetEffectType(eEffect) == EFFECT_TYPE_CUTSCENE_PARALYZE)               {
+                        SetLocalInt(oTarget, &quot;TIME_STOPPED&quot;, 1);                }
+                eEffect = GetNextEffect(oTarget);            }
+
+            if (GetLocalInt(oTarget, &quot;TIME_STOPPED&quot;) == 0)            {
+                FloatingTextStringOnCreature(&quot;Time Stopped&quot;, oTarget, FALSE);
+                AssignCommand(oTarget, ApplyEffectToObject(DURATION_TYPE_TEMPORARY, eParalyze, oTarget, fDuration));            }
+
+            DeleteLocalInt(oTarget, &quot;TIME_STOPPED&quot;);            }            }        }
+
+     oTarget = GetNextObjectInArea(oArea);    }
+
+    DelayCommand(1.0, TimestopCheck(oCaster, nDuration));
+}
+
+void main()
+{
+
+/*
+  Spellcast Hook Code
+  Added 2003-06-20 by Georg
+  If you want to make changes to all spells,
+  check x2_inc_spellhook.nss to find out more
+
+*/
+    if (!X2PreSpellCastCode())
+    {
+    // If code within the PreSpellCastHook (i.e. UMD) reports FALSE, do not run this spell
+        return;
+    }
+
+// End of Spell Cast Hook
+   string sName = GetName(OBJECT_SELF);
+   if (TIME_STOP_DISABLE == 1) {
+        FloatingTextStringOnCreature(&quot;This spell does not work on this server&quot;, OBJECT_SELF, FALSE);
+        return; }
+
+
+   if (GetLocalInt(GetArea(OBJECT_SELF), &quot;TIMESTOP_DISABLED&quot;) == 1 &amp;&amp; GetName(OBJECT_SELF) != &quot;Archmage Jezebeth&quot;)   {
+        FloatingTextStringOnCreature(&quot;Time Stop is not permitted in this area&quot;, OBJECT_SELF, FALSE);
+        return;   }
+
+   if (GetLocalInt(OBJECT_SELF, &quot;TIMESTOP_DELAY&quot;) == 1)   {
+        FloatingTextStringOnCreature(&quot;Timestop is not castable yet&quot;, OBJECT_SELF, FALSE);
+        return;   }
+
+    if (TIME_STOP_COOLDOWN_TIME != 0.0) {
+        string Message = IntToString(FloatToInt(TIME_STOP_COOLDOWN_TIME));
+        FloatingTextStringOnCreature(&quot;Time Stop Recastable In &quot; + Message + &quot; seconds&quot;, OBJECT_SELF, FALSE);
+        DelayCommand(0.6, TimeStopDelay(OBJECT_SELF)); }
+
+    //Declare major variables
+    location lTarget = GetSpellTargetLocation();
+    effect eVis = EffectVisualEffect(VFX_FNF_TIME_STOP);
+    int nDuration = DetermineDuration();
+
+    //Fire cast spell at event for the specified target
+    SignalEvent(OBJECT_SELF, EventSpellCastAt(OBJECT_SELF, SPELL_TIME_STOP, FALSE));
+
+    ApplyEffectAtLocation(DURATION_TYPE_INSTANT, eVis, lTarget);
+    Timestop(OBJECT_SELF);
+    DelayCommand(1.0, TimestopCheck(OBJECT_SELF, nDuration));
+
+}
+
+</code></pre>
+  </main>
+  <footer>generated by <a href="https://github.com/mrprice22/nwn-manager">nwn-manager</a></footer>
+</body>
+</html>

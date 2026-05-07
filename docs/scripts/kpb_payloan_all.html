@@ -1,0 +1,190 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Script kpb_payloan_all</title>
+  <link rel="stylesheet" href="../assets/style.css">
+</head>
+<body>
+  <header class="site-header">
+    <a class="brand" href="../index.html">Module Wiki</a>
+    <nav>
+      <a href="../index.html">Map</a>
+      <a href="../areas/index.html">Areas</a>
+      <a href="../creatures/index.html">Creature Blueprints</a>
+      <a href="../creatures/instances/index.html">Creature Instances</a>
+      <a href="../items/index.html">Items</a>
+      <a href="../stores/index.html">Stores</a>
+      <a href="../conversations/index.html">Conversations</a>
+      <a href="../factions.html">Factions</a>
+      <a href="../journal.html">Journal</a>
+    </nav>
+  </header>
+  <main>
+<h1>Script: <code>kpb_payloan_all</code></h1><pre class="nss-source"><code>////////////////////////////////////////////
+//  Kittrell&#x27;s Persistent Banking System  //
+//  Designed by: Brian J. Kittrell        //
+//                                        //
+//  This script does the following:       //
+//                                        //
+//  kpb_payloan_all - This script allows  //
+//  players to pay off a loan completely. //
+////////////////////////////////////////////
+#include &quot;kpb_dateinc&quot;
+void main()
+{
+object oPC = GetPCSpeaker();
+int nBalance = GetCampaignInt(&quot;kpb_bank&quot;, &quot;KPB_LOAN_AMT&quot;, oPC);
+int nGold = GetGold(oPC);
+
+int nYear = GetCampaignInt(&quot;kpb_bank&quot;, &quot;KPB_LOAN_YEAR&quot;, oPC);
+int nMonth = GetCampaignInt(&quot;kpb_bank&quot;, &quot;KPB_LOAN_MONTH&quot;, oPC);
+int nDay = GetCampaignInt(&quot;kpb_bank&quot;, &quot;KPB_LOAN_DAY&quot;, oPC);
+
+int iMonth = GetCalendarMonth();
+int iDay = GetCalendarDay();
+int iYear = GetCalendarYear();
+
+int nOldCredit = GetCampaignInt(&quot;kpb_bank&quot;, &quot;KPB_CREDIT_AMT&quot;, oPC);
+int nImprovedCredit = GetCampaignInt(&quot;kpb_bank&quot;, &quot;KPB_CREDIT_RATE&quot;, oPC);
+
+string sCurrentDate = GetCurrentDate();
+string sLoanDate = GetDateString(nDay, nMonth, nYear);
+int nTotalDays = GetDateDifference(sLoanDate, sCurrentDate, &quot;days&quot;);
+int nInterest = GetCampaignInt(&quot;kpb_bank&quot;, &quot;KPB_CREDIT_RATE&quot;, oPC);
+int nNewInterest = ((nInterest * nBalance)/100);
+int nNewBalanceA = (nBalance + nNewInterest);
+int nNewBalanceB = (nBalance + (nNewInterest * 2));
+int nNewBalanceC = (nBalance + (nNewInterest * 3));
+int nNewBalanceD = (nBalance + (nNewInterest * 4));
+int nNewBalanceE = (nBalance + (nNewInterest * 5));
+int nNewBalanceF = (nBalance + (nNewInterest * 8));
+
+  if (nTotalDays == 0)
+  {
+    if (nGold &gt;= nBalance)
+  {
+  SpeakString(&quot;Very well.  Your account didn&#x27;t acquire any interest.&quot;, TALKVOLUME_TALK);
+  TakeGoldFromCreature(nBalance, oPC, TRUE);
+  SetCampaignInt(&quot;kpb_bank&quot;, &quot;KPB_LOAN_AMT&quot;, 0, oPC);
+  }
+    if (nGold &lt; nBalance)
+  {
+  SpeakString(&quot;Sorry, you do not have enough gold to pay on this loan.&quot;, TALKVOLUME_TALK);
+  }
+  }
+
+
+  if (nTotalDays &gt;= 1 &amp;&amp; nTotalDays &lt;= 7)
+  {
+    if (nGold &gt;= nNewBalanceA)
+  {
+  int nNewBalance = (nBalance + nNewInterest);
+  TakeGoldFromCreature(nNewBalance, oPC, TRUE);
+  SpeakString(&quot;You have paid &quot; + IntToString(nNewBalance) + &quot; gold.  You now owe nothing to the bank.&quot;, TALKVOLUME_TALK);
+    if (nTotalDays &gt;= 5)
+    {
+    SetCampaignInt(&quot;kpb_bank&quot;, &quot;KPB_CREDIT_AMT&quot;, nImprovedCredit, oPC);
+    }
+  SetCampaignInt(&quot;kpb_bank&quot;, &quot;KPB_LOAN_AMT&quot;, 0, oPC);
+  }
+    if (nGold &lt; nNewBalanceA)
+  {
+  SpeakString(&quot;Sorry, you do not have enough gold to pay on this loan.&quot;, TALKVOLUME_TALK);
+  }
+  }
+
+
+  if (nTotalDays &gt;= 8 &amp;&amp; nTotalDays &lt;= 14)
+  {
+    if (nGold &gt;= nNewBalanceB)
+  {
+  int nNewBalance = (nBalance + (nNewInterest * 2));
+  TakeGoldFromCreature(nNewBalance, oPC, TRUE);
+  SpeakString(&quot;You have paid &quot; + IntToString(nNewBalance) + &quot; gold.  You now owe nothing to the bank.&quot;, TALKVOLUME_TALK);
+  int nNewCredit = nOldCredit - nImprovedCredit;
+  SetCampaignInt(&quot;kpb_bank&quot;, &quot;KPB_CREDIT_AMT&quot;, nNewCredit, oPC);
+  SetCampaignInt(&quot;kpb_bank&quot;, &quot;KPB_LOAN_AMT&quot;, 0, oPC);
+  }
+      if (nGold &lt; nNewBalanceB)
+  {
+  SpeakString(&quot;Sorry, you do not have enough gold to pay on this loan.&quot;, TALKVOLUME_TALK);
+  }
+  }
+
+  if (nTotalDays &gt;= 15 &amp;&amp; nTotalDays &lt;= 21)
+  {
+      if (nGold &gt;= nNewBalanceC)
+  {
+  int nNewBalance = (nBalance + (nNewInterest * 3));
+  TakeGoldFromCreature(nNewBalance, oPC, TRUE);
+  SpeakString(&quot;You have paid &quot; + IntToString(nNewBalance) + &quot; gold.  You now owe nothing to the bank.&quot;, TALKVOLUME_TALK);
+  int nNewCredit = nOldCredit - (nImprovedCredit * 2);
+  SetCampaignInt(&quot;kpb_bank&quot;, &quot;KPB_CREDIT_AMT&quot;, nNewCredit, oPC);
+  SetCampaignInt(&quot;kpb_bank&quot;, &quot;KPB_LOAN_AMT&quot;, 0, oPC);
+  }
+      if (nGold &lt; nNewBalanceC)
+  {
+  SpeakString(&quot;Sorry, you do not have enough gold to pay on this loan.&quot;, TALKVOLUME_TALK);
+  }
+  }
+
+
+  if (nTotalDays &gt;= 22 &amp;&amp; nTotalDays &lt;= 28)
+  {
+    if (nGold &gt;= nNewBalanceD)
+  {
+  int nNewBalance = (nBalance + (nNewInterest * 4));
+  TakeGoldFromCreature(nNewBalance, oPC, TRUE);
+  SpeakString(&quot;You have paid &quot; + IntToString(nNewBalance) + &quot; gold.  You now owe nothing to the bank.&quot;, TALKVOLUME_TALK);
+  int nNewCredit = nOldCredit - (nImprovedCredit * 3);
+  SetCampaignInt(&quot;kpb_bank&quot;, &quot;KPB_CREDIT_AMT&quot;, nNewCredit, oPC);
+  SetCampaignInt(&quot;kpb_bank&quot;, &quot;KPB_LOAN_AMT&quot;, 0, oPC);
+  }
+    if (nGold &lt; nNewBalanceD)
+  {
+  SpeakString(&quot;Sorry, you do not have enough gold to pay on this loan.&quot;, TALKVOLUME_TALK);
+  }
+  }
+
+
+  if (nTotalDays &gt;= 29 &amp;&amp; nTotalDays &lt;= 36)
+  {
+  if (nGold &gt;= nNewBalanceE)
+  {
+  int nNewBalance = (nBalance + (nNewInterest * 5));
+  TakeGoldFromCreature(nNewBalance, oPC, TRUE);
+  SpeakString(&quot;You have paid &quot; + IntToString(nNewBalance) + &quot; gold.  You now owe nothing to the bank.&quot;, TALKVOLUME_TALK);
+  int nNewCredit = nOldCredit - (nImprovedCredit * 4);
+  SetCampaignInt(&quot;kpb_bank&quot;, &quot;KPB_CREDIT_AMT&quot;, nNewCredit, oPC);
+  SetCampaignInt(&quot;kpb_bank&quot;, &quot;KPB_LOAN_AMT&quot;, 0, oPC);
+  }
+        if (nGold &lt; nNewBalanceE)
+  {
+  SpeakString(&quot;Sorry, you do not have enough gold to pay on this loan.&quot;, TALKVOLUME_TALK);
+  }
+  }
+
+
+  if (nTotalDays &gt; 37)
+  {
+    if (nGold &gt;= nNewBalanceF)
+  {
+  int nNewBalance = (nBalance + (nNewInterest * 8));
+  TakeGoldFromCreature(nNewBalance, oPC, TRUE);
+  SpeakString(&quot;You have paid &quot; + IntToString(nNewBalance) + &quot; gold.  You now owe nothing to the bank.&quot;, TALKVOLUME_TALK);
+  int nNewCredit = nOldCredit - (nImprovedCredit * 6);
+  SetCampaignInt(&quot;kpb_bank&quot;, &quot;KPB_CREDIT_AMT&quot;, nNewCredit, oPC);
+  SetCampaignInt(&quot;kpb_bank&quot;, &quot;KPB_LOAN_AMT&quot;, 0, oPC);
+  }
+    if (nGold &lt; nNewBalanceF)
+  {
+  SpeakString(&quot;Sorry, you do not have enough gold to pay on this loan.&quot;, TALKVOLUME_TALK);
+  }
+  }
+}
+</code></pre>
+  </main>
+  <footer>generated by <a href="https://github.com/mrprice22/nwn-manager">nwn-manager</a></footer>
+</body>
+</html>
