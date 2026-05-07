@@ -32,7 +32,7 @@ int PersState_FeatId(int i)
         case  0: return FEAT_STUNNING_FIST;
         case  1: return FEAT_SMITE_EVIL;
         case  2: return FEAT_SMITE_GOOD;
-        case  3: return FEAT_BARDIC_MUSIC;
+        case  3: return 411;   // FEAT_BARDIC_MUSIC (not in stock nwscript)
         case  4: return FEAT_WILD_SHAPE;
         case  5: return FEAT_TURN_UNDEAD;
         case  6: return FEAT_KI_DAMAGE;
@@ -136,16 +136,12 @@ void PersState_Restore(object oPC)
 
     // HP last. Skip when the snapshot was never taken or the saved
     // value is <= 0 (death — let the deathamulet handle it).
+    // Direct NWNX HP set bypasses DR/resistance and is exact regardless
+    // of where the engine's post-login heal has landed by now.
     if (NWNX_Object_GetInt(oPC, PERS_HP_VALID) == 1)
     {
         int nSaved = NWNX_Object_GetInt(oPC, PERS_HP);
-        if (nSaved > 0)
-        {
-            int nDelta = GetCurrentHitPoints(oPC) - nSaved;
-            if (nDelta > 0)
-                ApplyEffectToObject(DURATION_TYPE_INSTANT,
-                    EffectDamage(nDelta, DAMAGE_TYPE_BLUDGEONING, DAMAGE_POWER_PLUS_TWENTY),
-                    oPC);
-        }
+        if (nSaved > 0 && nSaved < GetCurrentHitPoints(oPC))
+            NWNX_Object_SetCurrentHitPoints(oPC, nSaved);
     }
 }

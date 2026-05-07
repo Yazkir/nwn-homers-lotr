@@ -37,7 +37,9 @@ void main()
      CreateItemOnObject( "deathamulet" , oPC);
     SetLocalLocation(GetModule(),""+GetName(oPC)+" Death",GetLocation(oPC));
 
-
+    // Snapshot the BIC right now so a logout-on-death (before the next
+    // pc_export_inc auto-save tick) still ships with the amulet present.
+    ExportSingleCharacter(oPC);
 
 
 

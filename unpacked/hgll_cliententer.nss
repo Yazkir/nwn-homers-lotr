@@ -8,28 +8,30 @@
 
 #include "pers_state_inc"
 
+// Death amulet check + persistent state restore. Delayed so the engine's
+// own post-login passes (inventory hydration, spellbook sync, "fresh PC"
+// HP/spell resets) have settled before we read or override state.
+void HgllPostEnter(object oPC)
+{
+    object oItem = GetFirstItemInInventory(oPC);
+    while (GetIsObjectValid(oItem))
+    {
+        if (GetTag(oItem) == "deathamulet")
+        {
+            ApplyEffectToObject(DURATION_TYPE_INSTANT, EffectDeath(FALSE, FALSE), oPC);
+            return;
+        }
+        oItem = GetNextItemInInventory(oPC);
+    }
+
+    PersState_Restore(oPC);
+}
+
 void main()
 {
     object oPC = GetEnteringObject();
     SetLocalString(oPC, "LetoScript", "");
     SetLocalString(oPC, "LetoscriptLL", "");
 
-    object oDeathAmulet = GetFirstItemInInventory(oPC);
-    effect eDeath = EffectDeath(FALSE, FALSE);
-    int bDead = FALSE;
-    while (GetIsObjectValid(oDeathAmulet))
-    {
-        if (GetTag(oDeathAmulet) == "deathamulet")
-        {
-            ApplyEffectToObject(DURATION_TYPE_INSTANT, eDeath, oPC);
-            bDead = TRUE;
-            break;
-        }
-        oDeathAmulet = GetNextItemInInventory(oPC);
-    }
-
-    // Restore HP / spell slots / feat uses captured at logout. Delay
-    // so the engine's own client-enter "rested" reset has settled.
-    // Skip when the deathamulet path already killed them this tick.
-    if (!bDead) DelayCommand(0.5, PersState_Restore(oPC));
+    DelayCommand(3.0, HgllPostEnter(oPC));
 }

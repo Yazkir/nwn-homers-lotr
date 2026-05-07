@@ -12,6 +12,10 @@ void main()
 {
     object PC = GetExitingObject();
     PersState_Snapshot(PC);
+    // Force BIC write so the amulet (if any) and any other inventory /
+    // BIC-resident state from this session survive a logout that beats
+    // the next pc_export_inc auto-save tick.
+    ExportSingleCharacter(PC);
     SetLocalString(PC, "LetoScript", "");
     SetLocalString(PC, "LetoscriptLL", "");
 }
