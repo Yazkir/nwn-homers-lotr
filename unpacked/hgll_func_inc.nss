@@ -278,7 +278,10 @@ int GetGainsSavesOnLevelUp(object oPC)
 
 void SetControlClass(object oPC, int nClass)
 {
-SetPersistentInt(oPC, "ControlClass", nClass);
+// NWNX:EE replacement for the dead NWNX2/APS GetPersistentInt path. APS's
+// GetPersistentInt returns the sentinel -2147483647 when no ODBC plugin
+// fulfils the query, which corrupts PointsAvailable on first LL.
+NWNX_Object_SetInt(oPC, "hgll_control_class", nClass, TRUE);
 DoDebug(oPC, "Control Class: " + IntToString(nClass));
 }
 

@@ -50,14 +50,14 @@ void main()
                 base = GetBaseAbilities(ability, oPC);//Process that data further to get base skills and base stats
                 SetBaseAbilityMarkers(base, oPC);//Set local ints for the 6 ability scores and 27 skills
             ////////Check/Set Control Class////////
-                nCClass = GetPersistentInt(oPC, "ControlClass");//We use a persistant int so it can be accessed anytime, like with PC Scrye etc. It is NOT checked during the conversation.
+                nCClass = NWNX_Object_GetInt(oPC, "hgll_control_class");//We use a persistant int so it can be accessed anytime, like with PC Scrye etc. It is NOT checked during the conversation.
                 if (nCClass == 0)//not set or Barbarian is the CC
                     {
                     nCClass = GetControlClass(oPC);
                     SetControlClass(oPC, nCClass);
                     }
             ////////Check Skill Points Gained and Set Local Int to track them////////
-                nSkillPoints = GetPersistentInt(oPC, "PointsAvailable");//points saved from last LL, if any - non-LL points not tracked
+                nSkillPoints = NWNX_Object_GetInt(oPC, "hgll_points_avail");//points saved from last LL, if any - non-LL points not tracked
                 nSkillPoints += GetSkillPointsGainedOnLevelUp(oPC);
                 SetLocalInt(oPC, "PointsAvailable", nSkillPoints);
             ////////Declare Tracking Variables////////
