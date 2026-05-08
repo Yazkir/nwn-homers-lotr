@@ -1,5 +1,15 @@
 int DMW_START_CUSTOM_TOKEN = 8000;
 
+// CEP custom item-properties; not in stock nwscript.nss. See
+// dmw_func_inc for the same workaround. Engine resolves the int against
+// itempropdef.2da at runtime.
+const int ITEM_PROPERTY_BOOMERANG                     = 84;
+const int ITEM_PROPERTY_DANCING                       = 85;
+const int ITEM_PROPERTY_DOUBLE_STACK                  = 86;
+const int ITEM_PROPERTY_ENHANCED_CONTAINER_BONUS_SLOTS = 87;
+const int ITEM_PROPERTY_VORPAL                        = 88;
+const int ITEM_PROPERTY_WOUNDING                      = 89;
+
 //Retrieve targetting information
 object oMySpeaker = GetLastSpeaker();
 object oMyTarget = GetLocalObject(oMySpeaker, "dmfi_univ_target");
@@ -950,7 +960,9 @@ string dmwand_Race(object oEntity)
       case RACIAL_TYPE_HUMANOID_MONSTROUS:   return "Monstrous"; break;
       case RACIAL_TYPE_HUMANOID_ORC:   return "Orc"; break;
       case RACIAL_TYPE_HUMANOID_REPTILIAN:   return "Reptillian"; break;
-      case RACIAL_TYPE_INVALID:   return "Unknown"; break;
+      // RACIAL_TYPE_INVALID would duplicate RACIAL_TYPE_ALL's case value (both
+      // resolve to 28 in nwscript.nss); the trailing "Unknown" return below
+      // covers that path.
       case RACIAL_TYPE_MAGICAL_BEAST:   return "Magical Beast"; break;
       case RACIAL_TYPE_OUTSIDER:   return "Outsider"; break;
       case RACIAL_TYPE_SHAPECHANGER:   return "Shapechanger"; break;

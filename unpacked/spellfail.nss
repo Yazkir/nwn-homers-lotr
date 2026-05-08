@@ -1,4 +1,4 @@
-#incude "x2_inc_switches"
+#include "x2_inc_switches"
 
 void main()
 {

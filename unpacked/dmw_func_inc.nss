@@ -5,6 +5,17 @@
 //:: Useful functions for the DM's Helper
 //:://////////////////////////////////////////////
 
+// CEP custom item-properties; not in stock nwscript.nss. Defined here so
+// the property-summary loop below compiles. Engine resolves the int
+// against itempropdef.2da at runtime; if the index doesn't exist there,
+// GetItemHasItemProperty just returns FALSE for every check.
+const int ITEM_PROPERTY_BOOMERANG                     = 84;
+const int ITEM_PROPERTY_DANCING                       = 85;
+const int ITEM_PROPERTY_DOUBLE_STACK                  = 86;
+const int ITEM_PROPERTY_ENHANCED_CONTAINER_BONUS_SLOTS = 87;
+const int ITEM_PROPERTY_VORPAL                        = 88;
+const int ITEM_PROPERTY_WOUNDING                      = 89;
+
 void dmwand_AbilityCheck(int nAbility, int nSecret = TRUE)
 {
    int nRoll=d20();
@@ -606,7 +617,9 @@ string dmwand_Race(object oEntity)
       case RACIAL_TYPE_HUMANOID_MONSTROUS:   return "Monstrous"; break;
       case RACIAL_TYPE_HUMANOID_ORC:   return "Orc"; break;
       case RACIAL_TYPE_HUMANOID_REPTILIAN:   return "Reptillian"; break;
-      case RACIAL_TYPE_INVALID:   return "Unknown"; break;
+      // RACIAL_TYPE_INVALID would duplicate RACIAL_TYPE_ALL's case value (both
+      // resolve to 28 in nwscript.nss); the trailing "Unknown" return below
+      // covers that path.
       case RACIAL_TYPE_MAGICAL_BEAST:   return "Magical Beast"; break;
       case RACIAL_TYPE_OUTSIDER:   return "Outsider"; break;
       case RACIAL_TYPE_SHAPECHANGER:   return "Shapechanger"; break;

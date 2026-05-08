@@ -37,6 +37,11 @@
 #include "x2_inc_switches"
 #include "x2_inc_restsys"
 #include "se_respawn_inc"
+
+// Sir Elric's Simple Creature Respawns delay before flagging placed mobs
+// as "originals". Was previously a constant from a removed include.
+const float MOD_LOAD_DELAY = 5.0;
+
 void main()
 {
 // -----------------------------------------------------------------------------

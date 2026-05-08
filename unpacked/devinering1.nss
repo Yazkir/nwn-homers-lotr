@@ -38,6 +38,7 @@ void ApplyPenalty(object oDead)
 
 void main()
 {
+object oPC = GetPCSpeaker();
 object theWaypoint = GetWaypointByTag("secondchance");
 location rivendelia = GetLocation(theWaypoint);
 AssignCommand(oPC, JumpToLocation(rivendelia));

@@ -39,305 +39,305 @@ effect eInt = EffectAbilityDecrease(ABILITY_INTELLIGENCE,2);
 switch (d100())
 {
                 case 0:
-                    DelayCommand(5.0f, AssignCommand(oMaster,ActionSpeakString("<c þ >Mmm, thats the cronic, I gots to get effed up.")));
+                    DelayCommand(5.0f, AssignCommand(oMaster,ActionSpeakString("<c ï¿½ >Mmm, thats the cronic, I gots to get effed up.")));
                     break;
                 case 1:
-                    DelayCommand(5.0f, AssignCommand(oMaster,ActionSpeakString("<c þ >I'm a dope fiend baby, I dunno why, all I wanna do is get high.")));
+                    DelayCommand(5.0f, AssignCommand(oMaster,ActionSpeakString("<c ï¿½ >I'm a dope fiend baby, I dunno why, all I wanna do is get high.")));
                     break;
                 case 2:
-                    DelayCommand(5.0f, AssignCommand(oMaster,ActionSpeakString("<c þ >Now I'm sleeping on the sidewalk and I know why, yaaay, because I got high, because I got high, because I got hiiiigh.")));
+                    DelayCommand(5.0f, AssignCommand(oMaster,ActionSpeakString("<c ï¿½ >Now I'm sleeping on the sidewalk and I know why, yaaay, because I got high, because I got high, because I got hiiiigh.")));
                     break;
                 case 3:
-                    DelayCommand(5.0f, AssignCommand(oMaster,ActionSpeakString("<c þ >A-E-I-O-U, and sometimes W.")));
+                    DelayCommand(5.0f, AssignCommand(oMaster,ActionSpeakString("<c ï¿½ >A-E-I-O-U, and sometimes W.")));
                     break;
                 case 4:
-                    DelayCommand(5.0f, AssignCommand(oMaster,ActionSpeakString("<c þ >What? No. We can't stop here. This is bat country.")));
+                    DelayCommand(5.0f, AssignCommand(oMaster,ActionSpeakString("<c ï¿½ >What? No. We can't stop here. This is bat country.")));
                     break;
                 case 5:
-                    DelayCommand(5.0f, AssignCommand(oMaster,ActionSpeakString("<c þ >Hmm, I wonder if Heaven has got a ghetto.")));
+                    DelayCommand(5.0f, AssignCommand(oMaster,ActionSpeakString("<c ï¿½ >Hmm, I wonder if Heaven has got a ghetto.")));
                     break;
                 case 6:
-                    DelayCommand(5.0f, AssignCommand(oMaster,ActionSpeakString("<c þ >Billie Jean is not my lover, she's a girl who claims that IIIII am the one... but the kid is not my son...dum chika dow wow")));
+                    DelayCommand(5.0f, AssignCommand(oMaster,ActionSpeakString("<c ï¿½ >Billie Jean is not my lover, she's a girl who claims that IIIII am the one... but the kid is not my son...dum chika dow wow")));
                     break;
                 case 7:
-                    DelayCommand(5.0f, AssignCommand(oMaster,ActionSpeakString("<c þ >I like big butts and I cannot lie.")));
+                    DelayCommand(5.0f, AssignCommand(oMaster,ActionSpeakString("<c ï¿½ >I like big butts and I cannot lie.")));
                     break;
                 case 8:
-                    DelayCommand(5.0f, AssignCommand(oMaster,ActionSpeakString("<c þ >My milkshake brings all the boys to the yard.")));
+                    DelayCommand(5.0f, AssignCommand(oMaster,ActionSpeakString("<c ï¿½ >My milkshake brings all the boys to the yard.")));
                     break;
                 case 9:
-                    DelayCommand(5.0f, AssignCommand(oMaster,ActionSpeakString("<c þ >Do you wonder what its like, living in a permanent imagination, sleeping to escape reality, but you like it like that.")));
+                    DelayCommand(5.0f, AssignCommand(oMaster,ActionSpeakString("<c ï¿½ >Do you wonder what its like, living in a permanent imagination, sleeping to escape reality, but you like it like that.")));
                     break;
                 case 10:
-                    DelayCommand(5.0f, AssignCommand(oMaster,ActionSpeakString("<c þ >We're just two lost souls, swimmming in a fish bowl.")));
+                    DelayCommand(5.0f, AssignCommand(oMaster,ActionSpeakString("<c ï¿½ >We're just two lost souls, swimmming in a fish bowl.")));
                     break;
                 case 11:
-                    DelayCommand(5.0f, AssignCommand(oMaster,ActionSpeakString("<c þ >If you don't eat yer meat, you can't have any pudding. How can you have any pudding if you don't eat your meat?")));
+                    DelayCommand(5.0f, AssignCommand(oMaster,ActionSpeakString("<c ï¿½ >If you don't eat yer meat, you can't have any pudding. How can you have any pudding if you don't eat your meat?")));
                     break;
                 case 12:
-                    DelayCommand(5.0f, AssignCommand(oMaster,ActionSpeakString("<c þ >There is no pain, you are receding. A distant ship’s smoke on the horizon. You are only coming through in waves. Your lips move but I can’t hear what you’re sayin’. When I was a child I had a fever. My hands felt just like two balloons. Now I got that feeling once again. I can’t explain, you would not understand. This is not how I am. I have become comfortably numb.")));
+                    DelayCommand(5.0f, AssignCommand(oMaster,ActionSpeakString("<c ï¿½ >There is no pain, you are receding. A distant shipï¿½s smoke on the horizon. You are only coming through in waves. Your lips move but I canï¿½t hear what youï¿½re sayinï¿½. When I was a child I had a fever. My hands felt just like two balloons. Now I got that feeling once again. I canï¿½t explain, you would not understand. This is not how I am. I have become comfortably numb.")));
                     break;
                 case 13:
-                    DelayCommand(5.0f, AssignCommand(oMaster,ActionSpeakString("<c þ >Your head is humming and it won't go, in case you don't know, The piper's calling you to join him, Dear lady, can you hear the wind blow, and did you know Your stairway lies on the whispering wind.")));
+                    DelayCommand(5.0f, AssignCommand(oMaster,ActionSpeakString("<c ï¿½ >Your head is humming and it won't go, in case you don't know, The piper's calling you to join him, Dear lady, can you hear the wind blow, and did you know Your stairway lies on the whispering wind.")));
                     break;
                 case 14:
-                    DelayCommand(5.0f, AssignCommand(oMaster,ActionSpeakString("<c þ >Tangerine, Tangerine, Living reflection from a dream; I was her love, she was my queen, And now a thousand years between.")));
+                    DelayCommand(5.0f, AssignCommand(oMaster,ActionSpeakString("<c ï¿½ >Tangerine, Tangerine, Living reflection from a dream; I was her love, she was my queen, And now a thousand years between.")));
                     break;
                 case 15:
-                    DelayCommand(5.0f, AssignCommand(oMaster,ActionSpeakString("<c þ >Lucy, is an artist. Lucy paints pictures of Barbara Streisand.")));
+                    DelayCommand(5.0f, AssignCommand(oMaster,ActionSpeakString("<c ï¿½ >Lucy, is an artist. Lucy paints pictures of Barbara Streisand.")));
                     break;
                 case 16:
-                    DelayCommand(5.0f, AssignCommand(oMaster,ActionSpeakString("<c þ >We've gotta get out of here. I think I'm getting the fear man.")));
+                    DelayCommand(5.0f, AssignCommand(oMaster,ActionSpeakString("<c ï¿½ >We've gotta get out of here. I think I'm getting the fear man.")));
                     break;
                 case 17:
-                    DelayCommand(5.0f, AssignCommand(oMaster,ActionSpeakString("<c þ >As your attorney, I advise you to take a hit out of the little brown flask in my shaving kit.")));
+                    DelayCommand(5.0f, AssignCommand(oMaster,ActionSpeakString("<c ï¿½ >As your attorney, I advise you to take a hit out of the little brown flask in my shaving kit.")));
                     break;
                 case 18:
-                    DelayCommand(5.0f, AssignCommand(oMaster,ActionSpeakString("<c þ >We were just walking down this trail and I swear there was this noise " Rawgh!!! " and it starting moving again.. I almosted crap'd myself. No joke.....")));
+                    DelayCommand(5.0f, AssignCommand(oMaster,ActionSpeakString("<c ï¿½ >We were just walking down this trail and I swear there was this noise 'Rawgh!!!' and it starting moving again.. I almosted crapped myself. No joke.....")));
                     break;
                 case 19:
-                    DelayCommand(5.0f, AssignCommand(oMaster,ActionSpeakString("<c þ >You've gone all sideways, man.")));
+                    DelayCommand(5.0f, AssignCommand(oMaster,ActionSpeakString("<c ï¿½ >You've gone all sideways, man.")));
                     break;
                 case 20:
-                    DelayCommand(5.0f, AssignCommand(oMaster,ActionSpeakString("<c þ >Did I say two fingers? Better make that three.")));
+                    DelayCommand(5.0f, AssignCommand(oMaster,ActionSpeakString("<c ï¿½ >Did I say two fingers? Better make that three.")));
                     break;
                 case 21:
-                    DelayCommand(5.0f, AssignCommand(oMaster,ActionSpeakString("<c þ >I'm the backwards man, the backwards man, I can run back as fast as you can.")));
+                    DelayCommand(5.0f, AssignCommand(oMaster,ActionSpeakString("<c ï¿½ >I'm the backwards man, the backwards man, I can run back as fast as you can.")));
                     break;
                 case 22:
-                    DelayCommand(5.0f, AssignCommand(oMaster,ActionSpeakString("<c þ >I'm a sophisticated sex robot sent back through time, to change the future for one lucky lady. ")));
+                    DelayCommand(5.0f, AssignCommand(oMaster,ActionSpeakString("<c ï¿½ >I'm a sophisticated sex robot sent back through time, to change the future for one lucky lady. ")));
                     break;
                 case 23:
-                    DelayCommand(5.0f, AssignCommand(oMaster,ActionSpeakString("<c þ >He was my C.O. in NAM. CIA listed him as M.I.A. but the V.A. ID'd him and so we put out an APB.")));
+                    DelayCommand(5.0f, AssignCommand(oMaster,ActionSpeakString("<c ï¿½ >He was my C.O. in NAM. CIA listed him as M.I.A. but the V.A. ID'd him and so we put out an APB.")));
                     break;
                 case 24:
-                    DelayCommand(5.0f, AssignCommand(oMaster,ActionSpeakString("<c þ >Let me tell you something, bandejo. You pull any of your crazy stuff with us, you flash a piece out on the lanes, I'll take it away from you, stick it up your a** and pull the f*****g trigger 'til it goes 'click.' ")));
+                    DelayCommand(5.0f, AssignCommand(oMaster,ActionSpeakString("<c ï¿½ >Let me tell you something, bandejo. You pull any of your crazy stuff with us, you flash a piece out on the lanes, I'll take it away from you, stick it up your a** and pull the f*****g trigger 'til it goes 'click.' ")));
                     break;
                 case 25:
-                    DelayCommand(5.0f, AssignCommand(oMaster,ActionSpeakString("<c þ >What's a... pederast, Walter?")));
+                    DelayCommand(5.0f, AssignCommand(oMaster,ActionSpeakString("<c ï¿½ >What's a... pederast, Walter?")));
                     break;
                 case 26:
-                    DelayCommand(5.0f, AssignCommand(oMaster,ActionSpeakString("<c þ >Jackie Treehorn treats objects like women, man.")));
+                    DelayCommand(5.0f, AssignCommand(oMaster,ActionSpeakString("<c ï¿½ >Jackie Treehorn treats objects like women, man.")));
                     break;
                 case 27:
-                    DelayCommand(5.0f, AssignCommand(oMaster,ActionSpeakString("<c þ >Ah - deh sah-sez-fren-forcher, and dah scar-her-cushons, wit dah matsen-seck-way-Core-Ver ")));
+                    DelayCommand(5.0f, AssignCommand(oMaster,ActionSpeakString("<c ï¿½ >Ah - deh sah-sez-fren-forcher, and dah scar-her-cushons, wit dah matsen-seck-way-Core-Ver ")));
                     break;
                 case 28:
-                    DelayCommand(5.0f, AssignCommand(oMaster,ActionSpeakString("<c þ >I'm a mog: half man, half dog. I'm my own best friend!")));
+                    DelayCommand(5.0f, AssignCommand(oMaster,ActionSpeakString("<c ï¿½ >I'm a mog: half man, half dog. I'm my own best friend!")));
                     break;
                 case 29:
-                    DelayCommand(5.0f, AssignCommand(oMaster,ActionSpeakString("<c þ ># 9, # 9, # 9, # 9.....")));
+                    DelayCommand(5.0f, AssignCommand(oMaster,ActionSpeakString("<c ï¿½ ># 9, # 9, # 9, # 9.....")));
                     break;
                 case 30:
-                    DelayCommand(5.0f, AssignCommand(oMaster,ActionSpeakString("<c þ >Well hello Mister Fancypants. Well, I've got news for you pal, you ain't leadin' but two things: Jack and shit... and Jack just left town.")));
+                    DelayCommand(5.0f, AssignCommand(oMaster,ActionSpeakString("<c ï¿½ >Well hello Mister Fancypants. Well, I've got news for you pal, you ain't leadin' but two things: Jack and shit... and Jack just left town.")));
                     break;
                 case 31:
-                    DelayCommand(5.0f, AssignCommand(oMaster,ActionSpeakString("<c þ >Gimme some sugar, baby.")));
+                    DelayCommand(5.0f, AssignCommand(oMaster,ActionSpeakString("<c ï¿½ >Gimme some sugar, baby.")));
                     break;
                 case 32:
-                    DelayCommand(5.0f, AssignCommand(oMaster,ActionSpeakString("<c þ >It was a space ship. And there was these things, these killer clowns, and they shot popcorn at us! We barely got away!")));
+                    DelayCommand(5.0f, AssignCommand(oMaster,ActionSpeakString("<c ï¿½ >It was a space ship. And there was these things, these killer clowns, and they shot popcorn at us! We barely got away!")));
                     break;
                 case 33:
-                    DelayCommand(5.0f, AssignCommand(oMaster,ActionSpeakString("<c þ >And I like Vicki and she likes me back. And she showed me her boobies and I like them too.")));
+                    DelayCommand(5.0f, AssignCommand(oMaster,ActionSpeakString("<c ï¿½ >And I like Vicki and she likes me back. And she showed me her boobies and I like them too.")));
                     break;
                 case 34:
-                    DelayCommand(5.0f, AssignCommand(oMaster,ActionSpeakString("<c þ >Oh, but you can't expect to wield supreme executive power just because some watery tart threw a sword at you.")));
+                    DelayCommand(5.0f, AssignCommand(oMaster,ActionSpeakString("<c ï¿½ >Oh, but you can't expect to wield supreme executive power just because some watery tart threw a sword at you.")));
                     break;
                 case 35:
-                    DelayCommand(5.0f, AssignCommand(oMaster,ActionSpeakString("<c þ >Are you suggesting coconuts migrate?")));
+                    DelayCommand(5.0f, AssignCommand(oMaster,ActionSpeakString("<c ï¿½ >Are you suggesting coconuts migrate?")));
                     break;
                 case 36:
-                    DelayCommand(5.0f, AssignCommand(oMaster,ActionSpeakString("<c þ >Yes, shrubberies are my trade. I am a shrubber. My name is Roger the Shrubber. I arrange, design, and sell shrubberies.")));
+                    DelayCommand(5.0f, AssignCommand(oMaster,ActionSpeakString("<c ï¿½ >Yes, shrubberies are my trade. I am a shrubber. My name is Roger the Shrubber. I arrange, design, and sell shrubberies.")));
                     break;
                 case 37:
-                    DelayCommand(5.0f, AssignCommand(oMaster,ActionSpeakString("<c þ >All I've ever wanted was an honest week's pay for an honest day's work.")));
+                    DelayCommand(5.0f, AssignCommand(oMaster,ActionSpeakString("<c ï¿½ >All I've ever wanted was an honest week's pay for an honest day's work.")));
                     break;
                 case 38:
-                    DelayCommand(5.0f, AssignCommand(oMaster,ActionSpeakString("<c þ >You know what the trouble about real life is? There's no danger music")));
+                    DelayCommand(5.0f, AssignCommand(oMaster,ActionSpeakString("<c ï¿½ >You know what the trouble about real life is? There's no danger music")));
                     break;
                 case 39:
-                    DelayCommand(5.0f, AssignCommand(oMaster,ActionSpeakString("<c þ >I was born a poor black child, ate grit and catfish fo breakfast.")));
+                    DelayCommand(5.0f, AssignCommand(oMaster,ActionSpeakString("<c ï¿½ >I was born a poor black child, ate grit and catfish fo breakfast.")));
                     break;
                 case 40:
-                    DelayCommand(5.0f, AssignCommand(oMaster,ActionSpeakString("<c þ >I'm picking out a Thermos for you. Not an ordinary Thermos for you. But the extra best Thermos that you can buy, with vinyl and stripes and a cup built right in. ")));
+                    DelayCommand(5.0f, AssignCommand(oMaster,ActionSpeakString("<c ï¿½ >I'm picking out a Thermos for you. Not an ordinary Thermos for you. But the extra best Thermos that you can buy, with vinyl and stripes and a cup built right in. ")));
                     break;
                 case 41:
-                    DelayCommand(5.0f, AssignCommand(oMaster,ActionSpeakString("<c þ >Is that a ten-gallon hat, or are you just enjoying the show?")));
+                    DelayCommand(5.0f, AssignCommand(oMaster,ActionSpeakString("<c ï¿½ >Is that a ten-gallon hat, or are you just enjoying the show?")));
                     break;
                 case 42:
-                    DelayCommand(5.0f, AssignCommand(oMaster,ActionSpeakString("<c þ >Time is never wasted when your wasted all the time.")));
+                    DelayCommand(5.0f, AssignCommand(oMaster,ActionSpeakString("<c ï¿½ >Time is never wasted when your wasted all the time.")));
                     break;
                 case 43:
-                    DelayCommand(5.0f, AssignCommand(oMaster,ActionSpeakString("<c þ >You can turn your back on a person, but, never turn your back on a drug. Especially when it's waving a razor-sharp hunting knife in your eye.")));
+                    DelayCommand(5.0f, AssignCommand(oMaster,ActionSpeakString("<c ï¿½ >You can turn your back on a person, but, never turn your back on a drug. Especially when it's waving a razor-sharp hunting knife in your eye.")));
                     break;
                 case 44:
-                    DelayCommand(5.0f, AssignCommand(oMaster,ActionSpeakString("<c þ >Your mother was a Hamster and your father smelt of elderberries!")));
+                    DelayCommand(5.0f, AssignCommand(oMaster,ActionSpeakString("<c ï¿½ >Your mother was a Hamster and your father smelt of elderberries!")));
                     break;
                 case 45:
-                    DelayCommand(5.0f, AssignCommand(oMaster,ActionSpeakString("<c þ >Good evening Sir, my name is Steve. I come from a rough area. I used to be addicted to crack but now I am off it and trying to stay clean. That is why I am selling magazine subscriptions.")));
+                    DelayCommand(5.0f, AssignCommand(oMaster,ActionSpeakString("<c ï¿½ >Good evening Sir, my name is Steve. I come from a rough area. I used to be addicted to crack but now I am off it and trying to stay clean. That is why I am selling magazine subscriptions.")));
                     break;
                 case 46:
-                    DelayCommand(5.0f, AssignCommand(oMaster,ActionSpeakString("<c þ >He asked me to forcibly insert the Life Line exercise card into my anus.")));
+                    DelayCommand(5.0f, AssignCommand(oMaster,ActionSpeakString("<c ï¿½ >He asked me to forcibly insert the Life Line exercise card into my anus.")));
                     break;
                 case 47:
-                    DelayCommand(5.0f, AssignCommand(oMaster,ActionSpeakString("<c þ >Canadians are always dreaming up a lotta ways to ruin our lives. The metric system, for the love of God! Celsius! Neil Young!")));
+                    DelayCommand(5.0f, AssignCommand(oMaster,ActionSpeakString("<c ï¿½ >Canadians are always dreaming up a lotta ways to ruin our lives. The metric system, for the love of God! Celsius! Neil Young!")));
                     break;
                 case 48:
-                    DelayCommand(5.0f, AssignCommand(oMaster,ActionSpeakString("<c þ >Yes, that's right, I saw the Terrance and Phillip movie. Now who wants to touch me? ")));
+                    DelayCommand(5.0f, AssignCommand(oMaster,ActionSpeakString("<c ï¿½ >Yes, that's right, I saw the Terrance and Phillip movie. Now who wants to touch me? ")));
                     break;
                 case 49:
-                    DelayCommand(5.0f, AssignCommand(oMaster,ActionSpeakString("<c þ >We accidentally replaced your heart with a baked potato. You have about three seconds to live.")));
+                    DelayCommand(5.0f, AssignCommand(oMaster,ActionSpeakString("<c ï¿½ >We accidentally replaced your heart with a baked potato. You have about three seconds to live.")));
                     break;
                 case 50:
-                    DelayCommand(5.0f, AssignCommand(oMaster,ActionSpeakString("<c þ >Phew! I haven't felt that good since Archie Gemmill scored against Holland in 1978!")));
+                    DelayCommand(5.0f, AssignCommand(oMaster,ActionSpeakString("<c ï¿½ >Phew! I haven't felt that good since Archie Gemmill scored against Holland in 1978!")));
                     break;
                 case 51:
-                    DelayCommand(5.0f, AssignCommand(oMaster,ActionSpeakString("<c þ >You can get a good look at a T-bone steak by sticking your head up a butcher's ass, but wouldn't you rather to take his word for it?")));
+                    DelayCommand(5.0f, AssignCommand(oMaster,ActionSpeakString("<c ï¿½ >You can get a good look at a T-bone steak by sticking your head up a butcher's ass, but wouldn't you rather to take his word for it?")));
                     break;
                 case 52:
-                    DelayCommand(5.0f, AssignCommand(oMaster,ActionSpeakString("<c þ >You kids better pray to the god of skinny punks this wind doesn't pick up, cuz if it does I'm gonna sail over there and shove an oar up your ass.")));
+                    DelayCommand(5.0f, AssignCommand(oMaster,ActionSpeakString("<c ï¿½ >You kids better pray to the god of skinny punks this wind doesn't pick up, cuz if it does I'm gonna sail over there and shove an oar up your ass.")));
                     break;
                 case 53:
-                    DelayCommand(5.0f, AssignCommand(oMaster,ActionSpeakString("<c þ >Do you know where the weight room is? I'll check it out.")));
+                    DelayCommand(5.0f, AssignCommand(oMaster,ActionSpeakString("<c ï¿½ >Do you know where the weight room is? I'll check it out.")));
                     DelayCommand(5.0f, AssignCommand(oMaster, ActionPlayAnimation(ANIMATION_LOOPING_TALK_FORCEFUL)));
                     break;
                 case 54:
-                    DelayCommand(5.0f, AssignCommand(oMaster,ActionSpeakString("<c þ >I've seen monkey-shyt fights at the zoo that are more organized than this. ")));
+                    DelayCommand(5.0f, AssignCommand(oMaster,ActionSpeakString("<c ï¿½ >I've seen monkey-shyt fights at the zoo that are more organized than this. ")));
                     break;
                 case 55:
-                    DelayCommand(5.0f, AssignCommand(oMaster,ActionSpeakString("<c þ >Girls only want boyfriends who have great skills. You know, like nunchuck skills, bowhunting skills, computer hacking skills...")));
+                    DelayCommand(5.0f, AssignCommand(oMaster,ActionSpeakString("<c ï¿½ >Girls only want boyfriends who have great skills. You know, like nunchuck skills, bowhunting skills, computer hacking skills...")));
                     break;
                 case 56:
-                    DelayCommand(5.0f, AssignCommand(oMaster,ActionSpeakString("<c þ >This famous linguist once said that of all the phrases in the english language, of all the endless combonations of words in all of history, that cellar door is the most beautiful.")));
+                    DelayCommand(5.0f, AssignCommand(oMaster,ActionSpeakString("<c ï¿½ >This famous linguist once said that of all the phrases in the english language, of all the endless combonations of words in all of history, that cellar door is the most beautiful.")));
                     break;
                 case 57:
-                    DelayCommand(5.0f, AssignCommand(oMaster,ActionSpeakString("<c þ >Excuse me, is your refrigerator running? Because if it is, it probably runs like you, very homosexually.")));
+                    DelayCommand(5.0f, AssignCommand(oMaster,ActionSpeakString("<c ï¿½ >Excuse me, is your refrigerator running? Because if it is, it probably runs like you, very homosexually.")));
                     break;
                 case 58:
-                    DelayCommand(5.0f, AssignCommand(oMaster,ActionSpeakString("<c þ >I never knew anyone who went crazy before, except for my invisible friend, Col. Schwartz.")));
+                    DelayCommand(5.0f, AssignCommand(oMaster,ActionSpeakString("<c ï¿½ >I never knew anyone who went crazy before, except for my invisible friend, Col. Schwartz.")));
                     break;
                 case 59:
-                    DelayCommand(5.0f, AssignCommand(oMaster,ActionSpeakString("<c þ >Damn the toilet. It's made slaves of you all. It just sits there consuming other people's feces while contributing nothing of its own to society. ")));
+                    DelayCommand(5.0f, AssignCommand(oMaster,ActionSpeakString("<c ï¿½ >Damn the toilet. It's made slaves of you all. It just sits there consuming other people's feces while contributing nothing of its own to society. ")));
                     break;
                 case 60:
-                    DelayCommand(5.0f, AssignCommand(oMaster,ActionSpeakString("<c þ >No, you idiot. That's not baby powder, that's paprika. Ahhhhhh. Take that.")));
+                    DelayCommand(5.0f, AssignCommand(oMaster,ActionSpeakString("<c ï¿½ >No, you idiot. That's not baby powder, that's paprika. Ahhhhhh. Take that.")));
                     break;
                 case 61:
-                    DelayCommand(5.0f, AssignCommand(oMaster,ActionSpeakString("<c þ >If I'm a child, you know what that makes you? A child molester, and I'll be damned if I stand here and get lectured by pervert.")));
+                    DelayCommand(5.0f, AssignCommand(oMaster,ActionSpeakString("<c ï¿½ >If I'm a child, you know what that makes you? A child molester, and I'll be damned if I stand here and get lectured by pervert.")));
                     break;
                 case 62:
-                    DelayCommand(5.0f, AssignCommand(oMaster,ActionSpeakString("<c þ >HA! That's so funny I forgot to laugh! Excluding that first 'ha'.")));
+                    DelayCommand(5.0f, AssignCommand(oMaster,ActionSpeakString("<c ï¿½ >HA! That's so funny I forgot to laugh! Excluding that first 'ha'.")));
                     break;
                 case 63:
-                    DelayCommand(5.0f, AssignCommand(oMaster,ActionSpeakString("<c þ >Hello, China? I have something you may want. But it's gonna cost ya. That's right. All the tea.")));
+                    DelayCommand(5.0f, AssignCommand(oMaster,ActionSpeakString("<c ï¿½ >Hello, China? I have something you may want. But it's gonna cost ya. That's right. All the tea.")));
                     break;
                 case 64:
-                    DelayCommand(5.0f, AssignCommand(oMaster,ActionSpeakString("<c þ >Lost in oblivion. Dark and silent and complete. I found freedom. Losing all hope was freedom.")));
+                    DelayCommand(5.0f, AssignCommand(oMaster,ActionSpeakString("<c ï¿½ >Lost in oblivion. Dark and silent and complete. I found freedom. Losing all hope was freedom.")));
                     break;
                 case 65:
-                    DelayCommand(5.0f, AssignCommand(oMaster,ActionSpeakString("<c þ > # 9, #9, # 9, # 9.....")));
+                    DelayCommand(5.0f, AssignCommand(oMaster,ActionSpeakString("<c ï¿½ > # 9, #9, # 9, # 9.....")));
                     break;
                 case 66:
-                    DelayCommand(5.0f, AssignCommand(oMaster,ActionSpeakString("<c þ >I dont think you trust in my, self righteous suicide. I cry when angels deserve to DIEEEEE!")));
+                    DelayCommand(5.0f, AssignCommand(oMaster,ActionSpeakString("<c ï¿½ >I dont think you trust in my, self righteous suicide. I cry when angels deserve to DIEEEEE!")));
                     break;
                 case 67:
-                    DelayCommand(5.0f, AssignCommand(oMaster,ActionSpeakString("<c þ >Bright and early for the daily races, going nowhere. The tears are filing up their glasses, no expression.")));
+                    DelayCommand(5.0f, AssignCommand(oMaster,ActionSpeakString("<c ï¿½ >Bright and early for the daily races, going nowhere. The tears are filing up their glasses, no expression.")));
                     break;
                 case 68:
-                    DelayCommand(5.0f, AssignCommand(oMaster,ActionSpeakString("<c þ >You can have my isolation, You can have the hate that it brings, You can have my absence of faith, You can have my everything ")));
+                    DelayCommand(5.0f, AssignCommand(oMaster,ActionSpeakString("<c ï¿½ >You can have my isolation, You can have the hate that it brings, You can have my absence of faith, You can have my everything ")));
                     break;
                 case 69:
-                    DelayCommand(5.0f, AssignCommand(oMaster,ActionSpeakString("<c þ >I'm tearing away. Pieces are falling, I cant seem to make them stay.  You run away. Fasters and faster, you cant seem to get away.... BREAK!")));
+                    DelayCommand(5.0f, AssignCommand(oMaster,ActionSpeakString("<c ï¿½ >I'm tearing away. Pieces are falling, I cant seem to make them stay.  You run away. Fasters and faster, you cant seem to get away.... BREAK!")));
                     break;
                 case 70:
-                    DelayCommand(5.0f, AssignCommand(oMaster,ActionSpeakString("<c þ >Gripping the wheel, his knuckles went white with desire! The wheels of his Mustang exploding on the highway like a slug from a .45. True death: 400 horsepower of maximum performance piercing the night... This is, black sunshine.")));
+                    DelayCommand(5.0f, AssignCommand(oMaster,ActionSpeakString("<c ï¿½ >Gripping the wheel, his knuckles went white with desire! The wheels of his Mustang exploding on the highway like a slug from a .45. True death: 400 horsepower of maximum performance piercing the night... This is, black sunshine.")));
                     break;
                 case 71:
-                    DelayCommand(5.0f, AssignCommand(oMaster,ActionSpeakString("<c þ >My mouth was a crib and it was growing lies I didn't know what love was on that day my heart's a tiny bloodclot I picked at it it never heals it never goes away.")));
+                    DelayCommand(5.0f, AssignCommand(oMaster,ActionSpeakString("<c ï¿½ >My mouth was a crib and it was growing lies I didn't know what love was on that day my heart's a tiny bloodclot I picked at it it never heals it never goes away.")));
                     break;
                 case 72:
-                    DelayCommand(5.0f, AssignCommand(oMaster,ActionSpeakString("<c þ >We were out on a date in my daddy's car, we hadn't driven very far.  There in the road, straight ahead, a car was stalled, the engine was dead.  I couldnt stop, so I swerved to right. I'll never forget the sound that night, the screaming tires, the busting glass.  The painful scream that IIIII heard last.")));
+                    DelayCommand(5.0f, AssignCommand(oMaster,ActionSpeakString("<c ï¿½ >We were out on a date in my daddy's car, we hadn't driven very far.  There in the road, straight ahead, a car was stalled, the engine was dead.  I couldnt stop, so I swerved to right. I'll never forget the sound that night, the screaming tires, the busting glass.  The painful scream that IIIII heard last.")));
                     break;
                 case 73:
-                    DelayCommand(5.0f, AssignCommand(oMaster,ActionSpeakString("<c þ >It's Bone-N-Biggy, Biggy!! It's Bone-N-Biggy, Biggy!! It's Bone-N-Biggy, Biggy!! ")));
+                    DelayCommand(5.0f, AssignCommand(oMaster,ActionSpeakString("<c ï¿½ >It's Bone-N-Biggy, Biggy!! It's Bone-N-Biggy, Biggy!! It's Bone-N-Biggy, Biggy!! ")));
                     break;
                 case 74:
-                    DelayCommand(5.0f, AssignCommand(oMaster,ActionSpeakString("<c þ >No one knows what it's like, To be the bad man, To be the sad man, Behind blue eyes, No one knows what it's like, To be hated, To be fated, To telling only lies, But my dreams, They aren't as empty, As my conscience seems to be, I have hours, only lonely, My love is vengeance,That's never free. ")));
+                    DelayCommand(5.0f, AssignCommand(oMaster,ActionSpeakString("<c ï¿½ >No one knows what it's like, To be the bad man, To be the sad man, Behind blue eyes, No one knows what it's like, To be hated, To be fated, To telling only lies, But my dreams, They aren't as empty, As my conscience seems to be, I have hours, only lonely, My love is vengeance,That's never free. ")));
                     break;
                 case 75:
-                    DelayCommand(5.0f, AssignCommand(oMaster,ActionSpeakString("<c þ >Gimme that funk, that sweeet, that nasty, that gushy stuff.")));
+                    DelayCommand(5.0f, AssignCommand(oMaster,ActionSpeakString("<c ï¿½ >Gimme that funk, that sweeet, that nasty, that gushy stuff.")));
                     break;
                 case 76:
-                    DelayCommand(5.0f, AssignCommand(oMaster,ActionSpeakString("<c þ >Breathe it in and breath it out and pass it on,it's almost out. We're so creative,so much more, we're high above but on the floor. It's not an habit,it's cool,I feel alive. If you don't have it you're on the other side.")));
+                    DelayCommand(5.0f, AssignCommand(oMaster,ActionSpeakString("<c ï¿½ >Breathe it in and breath it out and pass it on,it's almost out. We're so creative,so much more, we're high above but on the floor. It's not an habit,it's cool,I feel alive. If you don't have it you're on the other side.")));
                     break;
                 case 77:
-                    DelayCommand(5.0f, AssignCommand(oMaster,ActionSpeakString("<c þ >DU...DU HAST... DU HAST MICH.. DU HAST MICH GEFRAGT... DU HAST MICH GEFRAGT... UND ICH HAB NICHTS GESAGT!!")));
+                    DelayCommand(5.0f, AssignCommand(oMaster,ActionSpeakString("<c ï¿½ >DU...DU HAST... DU HAST MICH.. DU HAST MICH GEFRAGT... DU HAST MICH GEFRAGT... UND ICH HAB NICHTS GESAGT!!")));
                     break;
                 case 78:
-                    DelayCommand(5.0f, AssignCommand(oMaster,ActionSpeakString("<c þ >Do you know what it's like to fall in the mud and get kicked... in the head... with an iron boot? Of course you don't, no one does. It never happens. It's a dumb question... skip it.")));
+                    DelayCommand(5.0f, AssignCommand(oMaster,ActionSpeakString("<c ï¿½ >Do you know what it's like to fall in the mud and get kicked... in the head... with an iron boot? Of course you don't, no one does. It never happens. It's a dumb question... skip it.")));
                     break;
                 case 79:
-                    DelayCommand(5.0f, AssignCommand(oMaster,ActionSpeakString("<c þ >You stay away from that ficus. That is a jiz-free ficus.")));
+                    DelayCommand(5.0f, AssignCommand(oMaster,ActionSpeakString("<c ï¿½ >You stay away from that ficus. That is a jiz-free ficus.")));
                     break;
                 case 80:
-                    DelayCommand(5.0f, AssignCommand(oMaster,ActionSpeakString("<c þ >Sexually transmitted disease? Hello no!! Not me!... ")));
+                    DelayCommand(5.0f, AssignCommand(oMaster,ActionSpeakString("<c ï¿½ >Sexually transmitted disease? Hello no!! Not me!... ")));
                     break;
                 case 81:
-                    DelayCommand(5.0f, AssignCommand(oMaster,ActionSpeakString("<c þ >...Well, I have been feeling a burning sensation when I go the latrine?")));
+                    DelayCommand(5.0f, AssignCommand(oMaster,ActionSpeakString("<c ï¿½ >...Well, I have been feeling a burning sensation when I go the latrine?")));
                     break;
                 case 82:
-                    DelayCommand(5.0f, AssignCommand(oMaster,ActionSpeakString("<c þ >No wonder Santa's so jolly, he knows where all the bad girls live.")));
+                    DelayCommand(5.0f, AssignCommand(oMaster,ActionSpeakString("<c ï¿½ >No wonder Santa's so jolly, he knows where all the bad girls live.")));
                     break;
                 case 83:
-                    DelayCommand(5.0f, AssignCommand(oMaster,ActionSpeakString("<c þ >I wonder why the #2 pencil is still #2.")));
+                    DelayCommand(5.0f, AssignCommand(oMaster,ActionSpeakString("<c ï¿½ >I wonder why the #2 pencil is still #2.")));
                     break;
                 case 84:
-                    DelayCommand(5.0f, AssignCommand(oMaster,ActionSpeakString("<c þ >It's beer o'clock, and I'm buying.")));
+                    DelayCommand(5.0f, AssignCommand(oMaster,ActionSpeakString("<c ï¿½ >It's beer o'clock, and I'm buying.")));
                     break;
                 case 85:
-                    DelayCommand(5.0f, AssignCommand(oMaster,ActionSpeakString("<c þ >Five-foot-nine? I didn't know they stacked shit that high.")));
+                    DelayCommand(5.0f, AssignCommand(oMaster,ActionSpeakString("<c ï¿½ >Five-foot-nine? I didn't know they stacked shit that high.")));
                     break;
                 case 86:
-                    DelayCommand(5.0f, AssignCommand(oMaster,ActionSpeakString("<c þ >Noinch, Noinch, Noinch, Schmokin Weed, Schmokin' Weed, Doin' Coke, Drinkin' Beers...")));
+                    DelayCommand(5.0f, AssignCommand(oMaster,ActionSpeakString("<c ï¿½ >Noinch, Noinch, Noinch, Schmokin Weed, Schmokin' Weed, Doin' Coke, Drinkin' Beers...")));
                     break;
                 case 87:
-                    DelayCommand(5.0f, AssignCommand(oMaster,ActionSpeakString("<c þ > #9, # 9, # 9, # 9... ")));
+                    DelayCommand(5.0f, AssignCommand(oMaster,ActionSpeakString("<c ï¿½ > #9, # 9, # 9, # 9... ")));
                     break;
                 case 88:
-                    DelayCommand(5.0f, AssignCommand(oMaster,ActionSpeakString("<c þ >I'm just trying to make a smudge on the collective unconscious. ")));
+                    DelayCommand(5.0f, AssignCommand(oMaster,ActionSpeakString("<c ï¿½ >I'm just trying to make a smudge on the collective unconscious. ")));
                     break;
                 case 89:
-                    DelayCommand(5.0f, AssignCommand(oMaster,ActionSpeakString("<c þ >Every day I get up and look through the Forbes list of the richest people in America. If I'm not there, I go to work.")));
+                    DelayCommand(5.0f, AssignCommand(oMaster,ActionSpeakString("<c ï¿½ >Every day I get up and look through the Forbes list of the richest people in America. If I'm not there, I go to work.")));
                     break;
                 case 90:
-                    DelayCommand(5.0f, AssignCommand(oMaster,ActionSpeakString("<c þ >I like simple pleasures, like Half Dwarfs in black pumps and a matching mini-skirt .")));
+                    DelayCommand(5.0f, AssignCommand(oMaster,ActionSpeakString("<c ï¿½ >I like simple pleasures, like Half Dwarfs in black pumps and a matching mini-skirt .")));
                     break;
                 case 91:     /////where i gave up
-                    DelayCommand(5.0f, AssignCommand(oMaster,ActionSpeakString("<c þ >I like simple pleasures, like butter in my ass, lollipops in my mouth. That's just me. That's just something that I enjoy. ")));
+                    DelayCommand(5.0f, AssignCommand(oMaster,ActionSpeakString("<c ï¿½ >I like simple pleasures, like butter in my ass, lollipops in my mouth. That's just me. That's just something that I enjoy. ")));
                     break;
                 case 92:
-                    DelayCommand(5.0f, AssignCommand(oMaster,ActionSpeakString("<c þ >It's beer o'clock, and I'm buying. ")));
+                    DelayCommand(5.0f, AssignCommand(oMaster,ActionSpeakString("<c ï¿½ >It's beer o'clock, and I'm buying. ")));
                     break;
                 case 93:
-                    DelayCommand(5.0f, AssignCommand(oMaster,ActionSpeakString("<c þ >I'm the backwards man, the backwards man, I can run back as fast as you can.")));
+                    DelayCommand(5.0f, AssignCommand(oMaster,ActionSpeakString("<c ï¿½ >I'm the backwards man, the backwards man, I can run back as fast as you can.")));
                     break;
                 case 94:
-                    DelayCommand(5.0f, AssignCommand(oMaster,ActionSpeakString("<c þ >Hail to the king.")));
+                    DelayCommand(5.0f, AssignCommand(oMaster,ActionSpeakString("<c ï¿½ >Hail to the king.")));
                     break;
                 case 95:
-                    DelayCommand(5.0f, AssignCommand(oMaster,ActionSpeakString("<c þ >That's just pillow talk, baby")));
+                    DelayCommand(5.0f, AssignCommand(oMaster,ActionSpeakString("<c ï¿½ >That's just pillow talk, baby")));
                     break;
                 case 96:
-                    DelayCommand(5.0f, AssignCommand(oMaster,ActionSpeakString("<c þ >You wanta go get some Cantonese Bar B-Q? ")));
+                    DelayCommand(5.0f, AssignCommand(oMaster,ActionSpeakString("<c ï¿½ >You wanta go get some Cantonese Bar B-Q? ")));
                     break;
                 case 97:
-                    DelayCommand(5.0f, AssignCommand(oMaster,ActionSpeakString("<c þ >I never knew anyone who went crazy before, except for my invisible friend, Col. Schwartz.")));
+                    DelayCommand(5.0f, AssignCommand(oMaster,ActionSpeakString("<c ï¿½ >I never knew anyone who went crazy before, except for my invisible friend, Col. Schwartz.")));
                     break;
                  case 98:
-                    DelayCommand(5.0f, AssignCommand(oMaster,ActionSpeakString("<c þ >What's a... pederast, Walter?")));
+                    DelayCommand(5.0f, AssignCommand(oMaster,ActionSpeakString("<c ï¿½ >What's a... pederast, Walter?")));
                     break;
                 case 99:
-                    DelayCommand(5.0f, AssignCommand(oMaster,ActionSpeakString("<c þ >Are you suggesting coconuts migrate?")));
+                    DelayCommand(5.0f, AssignCommand(oMaster,ActionSpeakString("<c ï¿½ >Are you suggesting coconuts migrate?")));
                     break;
                 }
 

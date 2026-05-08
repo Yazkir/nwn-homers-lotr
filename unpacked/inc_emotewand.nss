@@ -20,6 +20,61 @@ void Animation_Dance(object oPC);
 void PolyMorph(object oPC,int iMorpTo);
 void CollorModLoad(string sTagg);
 void CollorModEnter(string sTag);
+void GodMode(object oPC, int iDuration);
+void Appear_Dissappear(object oPC);
+////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
+// Apply god-mode (full immunity) to oPC for iDuration seconds. Reimplements
+// the missing function the emote-wand dialogues invoke.
+void GodMode(object oPC, int iDuration)
+{
+    effect eImmunity = EffectDamageImmunityIncrease(DAMAGE_TYPE_BLUDGEONING, 100);
+    eImmunity = EffectLinkEffects(eImmunity, EffectDamageImmunityIncrease(DAMAGE_TYPE_PIERCING, 100));
+    eImmunity = EffectLinkEffects(eImmunity, EffectDamageImmunityIncrease(DAMAGE_TYPE_SLASHING, 100));
+    eImmunity = EffectLinkEffects(eImmunity, EffectDamageImmunityIncrease(DAMAGE_TYPE_MAGICAL, 100));
+    eImmunity = EffectLinkEffects(eImmunity, EffectDamageImmunityIncrease(DAMAGE_TYPE_FIRE, 100));
+    eImmunity = EffectLinkEffects(eImmunity, EffectDamageImmunityIncrease(DAMAGE_TYPE_COLD, 100));
+    eImmunity = EffectLinkEffects(eImmunity, EffectDamageImmunityIncrease(DAMAGE_TYPE_ELECTRICAL, 100));
+    eImmunity = EffectLinkEffects(eImmunity, EffectDamageImmunityIncrease(DAMAGE_TYPE_ACID, 100));
+    eImmunity = EffectLinkEffects(eImmunity, EffectDamageImmunityIncrease(DAMAGE_TYPE_NEGATIVE, 100));
+    eImmunity = EffectLinkEffects(eImmunity, EffectDamageImmunityIncrease(DAMAGE_TYPE_POSITIVE, 100));
+    eImmunity = EffectLinkEffects(eImmunity, EffectDamageImmunityIncrease(DAMAGE_TYPE_DIVINE, 100));
+    eImmunity = ExtraordinaryEffect(eImmunity);
+    ApplyEffectToObject(DURATION_TYPE_TEMPORARY, eImmunity, oPC, IntToFloat(iDuration));
+}
+
+// Toggle visibility on oPC. Reimplements the missing function used by
+// invisibility/visibility wand actions.
+void Appear_Dissappear(object oPC)
+{
+    int nState = GetLocalInt(oPC, "EW_APPEAR_HIDDEN");
+    if (nState)
+    {
+        effect e = GetFirstEffect(oPC);
+        while (GetIsEffectValid(e))
+        {
+            int t = GetEffectType(e);
+            if (GetEffectCreator(e) == oPC &&
+                (t == EFFECT_TYPE_INVISIBILITY ||
+                 t == EFFECT_TYPE_CONCEALMENT ||
+                 t == EFFECT_TYPE_SANCTUARY))
+                RemoveEffect(oPC, e);
+            e = GetNextEffect(oPC);
+        }
+        DeleteLocalInt(oPC, "EW_APPEAR_HIDDEN");
+    }
+    else
+    {
+        // Greater-invisibility variant: doesn't break when the PC attacks.
+        effect eInvis = EffectInvisibility(INVISIBILITY_TYPE_DARKNESS);
+        eInvis = EffectLinkEffects(eInvis, EffectConcealment(50, MISS_CHANCE_TYPE_VS_ALL));
+        eInvis = EffectLinkEffects(eInvis, EffectSanctuary(100));
+        eInvis = ExtraordinaryEffect(eInvis);
+        ApplyEffectToObject(DURATION_TYPE_PERMANENT, eInvis, oPC);
+        SetLocalInt(oPC, "EW_APPEAR_HIDDEN", 1);
+    }
+}
+
 ////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
 void Teleport(object oTarget,string sTargetWP,int iBeam)
@@ -147,10 +202,10 @@ int iRoll = d6();
 string sName = GetName(oPC);
 string sRoll = IntToString(iRoll);
 AssignCommand(oPC, ActionPlayAnimation(ANIMATION_LOOPING_GET_MID,3.0,3.0));
-DelayCommand(2.0,AssignCommand(oPC, SpeakString(sName+"<cööö> Rolled a<c   > [<cê>D6<c   >]<cööö> and gets a: <c   >[<cî>"+sRoll+"<c   >]")));
+DelayCommand(2.0,AssignCommand(oPC, SpeakString(sName+"<cï¿½ï¿½ï¿½> Rolled a<c   > [<cï¿½>D6<c   >]<cï¿½ï¿½ï¿½> and gets a: <c   >[<cï¿½>"+sRoll+"<c   >]")));
 if(iRoll == 6)
 {
-DelayCommand(3.5,AssignCommand(oPC, SpeakString("<cî>WoW nice Roll")));
+DelayCommand(3.5,AssignCommand(oPC, SpeakString("<cï¿½>WoW nice Roll")));
 DelayCommand(3.5,AssignCommand(oPC,ActionPlayAnimation(ANIMATION_FIREFORGET_VICTORY1,1.0,0.0)));
 DelayCommand(3.5,PlayVoiceChat(VOICE_CHAT_CHEER,oPC));
 }
@@ -161,10 +216,10 @@ int iRoll = d8();
 string sName = GetName(oPC);
 string sRoll = IntToString(iRoll);
 AssignCommand(oPC, ActionPlayAnimation(ANIMATION_LOOPING_GET_MID,3.0,3.0));
-DelayCommand(2.0,AssignCommand(oPC, SpeakString(sName+"<cööö> Rolled a<c   > [<cê>D8<c   >]<cööö> and gets a: <c   >[<cî>"+sRoll+"<c   >]")));
+DelayCommand(2.0,AssignCommand(oPC, SpeakString(sName+"<cï¿½ï¿½ï¿½> Rolled a<c   > [<cï¿½>D8<c   >]<cï¿½ï¿½ï¿½> and gets a: <c   >[<cï¿½>"+sRoll+"<c   >]")));
 if(iRoll == 8)
 {
-DelayCommand(3.5,AssignCommand(oPC, SpeakString("<cî>WOW NICE ROLL!!!")));
+DelayCommand(3.5,AssignCommand(oPC, SpeakString("<cï¿½>WOW NICE ROLL!!!")));
 DelayCommand(3.5,AssignCommand(oPC,ActionPlayAnimation(ANIMATION_FIREFORGET_VICTORY1,1.0,0.0)));
 DelayCommand(3.5,PlayVoiceChat(VOICE_CHAT_CHEER,oPC));
 }
@@ -175,10 +230,10 @@ int iRoll = d10();
 string sName = GetName(oPC);
 string sRoll = IntToString(iRoll);
 AssignCommand(oPC, ActionPlayAnimation(ANIMATION_LOOPING_GET_MID,3.0,3.0));
-DelayCommand(2.0,AssignCommand(oPC, SpeakString(sName+"<cööö> Rolled a<c   > [<cê>D10<c   >]<cööö> and gets a: <c   >[<cî>"+sRoll+"<c   >]")));
+DelayCommand(2.0,AssignCommand(oPC, SpeakString(sName+"<cï¿½ï¿½ï¿½> Rolled a<c   > [<cï¿½>D10<c   >]<cï¿½ï¿½ï¿½> and gets a: <c   >[<cï¿½>"+sRoll+"<c   >]")));
 if(iRoll == 10)
 {
-DelayCommand(3.5,AssignCommand(oPC, SpeakString("<cî>WoW nice Roll")));
+DelayCommand(3.5,AssignCommand(oPC, SpeakString("<cï¿½>WoW nice Roll")));
 DelayCommand(3.5,AssignCommand(oPC,ActionPlayAnimation(ANIMATION_FIREFORGET_VICTORY1,1.0,0.0)));
 DelayCommand(3.5,PlayVoiceChat(VOICE_CHAT_CHEER,oPC));
 }
@@ -189,10 +244,10 @@ int iRoll = d12();
 string sName = GetName(oPC);
 string sRoll = IntToString(iRoll);
 AssignCommand(oPC, ActionPlayAnimation(ANIMATION_LOOPING_GET_MID,3.0,3.0));
-DelayCommand(2.0,AssignCommand(oPC, SpeakString(sName+"<cööö> Rolled a<c   > [<cê>D12<c   >]<cööö> and gets a: <c   >[<cî>"+sRoll+"<c   >]")));
+DelayCommand(2.0,AssignCommand(oPC, SpeakString(sName+"<cï¿½ï¿½ï¿½> Rolled a<c   > [<cï¿½>D12<c   >]<cï¿½ï¿½ï¿½> and gets a: <c   >[<cï¿½>"+sRoll+"<c   >]")));
 if(iRoll == 12)
 {
-DelayCommand(3.5,AssignCommand(oPC, SpeakString("<cî>WoW nice Roll")));
+DelayCommand(3.5,AssignCommand(oPC, SpeakString("<cï¿½>WoW nice Roll")));
 DelayCommand(3.5,AssignCommand(oPC,ActionPlayAnimation(ANIMATION_FIREFORGET_VICTORY1,1.0,0.0)));
 DelayCommand(3.5,PlayVoiceChat(VOICE_CHAT_CHEER,oPC));
 }
@@ -203,10 +258,10 @@ int iRoll = d6();
 string sName = GetName(oPC);
 string sRoll = IntToString(iRoll);
 AssignCommand(oPC, ActionPlayAnimation(ANIMATION_LOOPING_GET_MID,3.0,3.0));
-DelayCommand(2.0,AssignCommand(oPC, SpeakString(sName+"<cööö> Rolled a<c   > [<cê>D20<c   >]<cööö> and gets a: <c   >[<cî>"+sRoll+"<c   >]")));
+DelayCommand(2.0,AssignCommand(oPC, SpeakString(sName+"<cï¿½ï¿½ï¿½> Rolled a<c   > [<cï¿½>D20<c   >]<cï¿½ï¿½ï¿½> and gets a: <c   >[<cï¿½>"+sRoll+"<c   >]")));
 if(iRoll == 20)
 {
-DelayCommand(3.5,AssignCommand(oPC, SpeakString("<cî>WoW nice Roll")));
+DelayCommand(3.5,AssignCommand(oPC, SpeakString("<cï¿½>WoW nice Roll")));
 DelayCommand(3.5,AssignCommand(oPC,ActionPlayAnimation(ANIMATION_FIREFORGET_VICTORY1,1.0,0.0)));
 DelayCommand(3.5,PlayVoiceChat(VOICE_CHAT_CHEER,oPC));
 }
@@ -217,10 +272,10 @@ int iRoll = d100();
 string sName = GetName(oPC);
 string sRoll = IntToString(iRoll);
 AssignCommand(oPC, ActionPlayAnimation(ANIMATION_LOOPING_GET_MID,3.0,3.0));
-DelayCommand(2.0,AssignCommand(oPC, SpeakString(sName+"<cööö> Rolled a<c   > [<cê>D100<c   >]<cööö> and gets a: <c   >[<cî>"+sRoll+"<c   >]")));
+DelayCommand(2.0,AssignCommand(oPC, SpeakString(sName+"<cï¿½ï¿½ï¿½> Rolled a<c   > [<cï¿½>D100<c   >]<cï¿½ï¿½ï¿½> and gets a: <c   >[<cï¿½>"+sRoll+"<c   >]")));
 if(iRoll == 100)
 {
-DelayCommand(3.5,AssignCommand(oPC, SpeakString("<cî>WoW nice Roll")));
+DelayCommand(3.5,AssignCommand(oPC, SpeakString("<cï¿½>WoW nice Roll")));
 DelayCommand(3.5,AssignCommand(oPC,ActionPlayAnimation(ANIMATION_FIREFORGET_VICTORY1,1.0,0.0)));
 DelayCommand(3.5,PlayVoiceChat(VOICE_CHAT_CHEER,oPC));
 }

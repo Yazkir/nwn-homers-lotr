@@ -132,9 +132,9 @@ else ApplyEffectAtLocation(DURATION_TYPE_INSTANT, EffectVisualEffect(VFX_IMP_LIG
    }
 
 
-object oItem        = GetItemActivated();
-object oPC          = GetItemActivator();
-string sItemTag     = GetTag(oItem);
+oItem    = GetItemActivated();
+oPC      = GetItemActivator();
+string sItemTag = GetTag(oItem);
 
 
 
@@ -147,7 +147,7 @@ if (sItemTag == "bundlethranduil")
 if (sItemTag == "bombfuse")
         {
             ExecuteScript("bombfuse", oPC);
-            return;if (sItemTag == "bombfuse")
+            return;
         }
 }
 

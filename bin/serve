@@ -28,6 +28,11 @@ fi
 
 mkdir -p "$NWN_RUN_DIR"
 
+# Bring up the nwsync nginx container first so it's already listening when
+# the first client connects. Idempotent: a no-op if already running.
+"$PROJECT_ROOT/bin/serve-nwsync" || \
+  echo "[serve] warning: serve-nwsync failed; continuing without nwsync hosting" >&2
+
 # Stop any prior instance so the bind-mounted /nwn/run isn't fought over.
 if podman container exists "$NWN_CONTAINER_NAME" 2>/dev/null; then
   echo "[serve] stopping existing $NWN_CONTAINER_NAME"
@@ -47,11 +52,23 @@ while IFS='=' read -r k _; do
   esac
 done < <(cat "${env_files[@]}" | grep -E '^[A-Z_][A-Z0-9_]*=')
 
+# NWN_NWSYNCURL in server.env interpolates NWNSYNC_PUBLIC_URL — re-resolve it
+# here, after both env files have been sourced, and override whatever the
+# parsing loop captured (which would have been the unresolved literal).
+if [[ -n "${NWNSYNC_PUBLIC_URL:-}" ]]; then
+  env_args+=(-e "NWN_NWSYNCURL=$NWNSYNC_PUBLIC_URL")
+fi
+
 echo "[serve] image:   $NWN_IMAGE"
 echo "[serve] module:  $NWN_MODULE"
 echo "[serve] port:    ${NWN_PORT}/udp"
 echo "[serve] runtime: $NWN_RUN_DIR"
 echo "[serve] logs:    $NWN_RUN_DIR/logs/  (also: podman logs $NWN_CONTAINER_NAME)"
+if [[ -n "${NWNSYNC_PUBLIC_URL:-}" ]]; then
+  echo "[serve] nwsync:  $NWNSYNC_PUBLIC_URL  (nginx on :${NWNSYNC_PORT}/tcp)"
+else
+  echo "[serve] nwsync:  not advertised (set NWNSYNC_PUBLIC_URL in server.env.local)"
+fi
 echo
 
 exec podman run --rm --name "$NWN_CONTAINER_NAME" \
