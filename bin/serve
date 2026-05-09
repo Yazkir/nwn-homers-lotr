@@ -59,6 +59,21 @@ if [[ -n "${NWNSYNC_PUBLIC_URL:-}" ]]; then
   env_args+=(-e "NWN_NWSYNCURL=$NWNSYNC_PUBLIC_URL")
 fi
 
+# nwserver self-fetches its NWN_NWSYNCURL on startup. When that URL is the
+# server's own public DDNS hostname, the request resolves to the WAN IP and
+# bounces off the router — and most consumer routers don't NAT-hairpin, so
+# the fetch times out and nwserver aborts with "Cannot continue."
+# Pin the public hostname to 127.0.0.1 inside the container so the self-check
+# stays on loopback (nginx is bound *:8000, --network=host shares loopback).
+hairpin_args=()
+if [[ -n "${NWNSYNC_PUBLIC_URL:-}" ]]; then
+  nwsync_host="${NWNSYNC_PUBLIC_URL#*://}"
+  nwsync_host="${nwsync_host%%[:/]*}"
+  if [[ -n "$nwsync_host" ]]; then
+    hairpin_args+=(--add-host "$nwsync_host:127.0.0.1")
+  fi
+fi
+
 echo "[serve] image:   $NWN_IMAGE"
 echo "[serve] module:  $NWN_MODULE"
 echo "[serve] port:    ${NWN_PORT}/udp"
@@ -74,6 +89,7 @@ echo
 exec podman run --rm --name "$NWN_CONTAINER_NAME" \
   --userns=keep-id --user "$(id -u):$(id -g)" \
   --network=host \
+  "${hairpin_args[@]}" \
   "${env_args[@]}" \
   -v "$NWN_RUN_DIR:/nwn/run:rw,Z" \
   -v "$NWN_HOME_DIR:/nwn/home:rw,z" \
