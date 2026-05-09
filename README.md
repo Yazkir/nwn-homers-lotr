@@ -58,6 +58,78 @@ published at:
 The wiki is generated from `unpacked/` via `nwn-manager wiki` and deployed
 separately; the `wiki/` directory is gitignored.
 
+## Redemption codes
+
+Players redeem codes by typing `Code:<name>` in chat (any channel). The
+handler is `unpacked/code_redeem.nss`, wired to `Mod_OnPlrChat`. Matching is
+case-insensitive; the chat line is suppressed so the code doesn't broadcast
+to other players.
+
+Each redemption is keyed on the player's CD key, so a code can be used at
+most once per CD key. Redemptions live in the NWN:EE campaign SQLite
+database `coderedeem` (`<server>/database/coderedeem.sqlite3`), table
+`redemptions(code, cdkey, redeemed_at)`.
+
+Players see one of:
+
+- **Unknown redemption code.** — the code name isn't defined.
+- **That code has expired (was valid until YYYY-MM-DD).** — past expiration.
+- **You have already redeemed that code.** — this CD key already used it.
+- **Code redeemed successfully!** — reward applied.
+
+### Adding a new code
+
+Edit `unpacked/code_redeem.nss` and add a case in **both** functions:
+
+```nwscript
+// Expiration (UTC date, YYYY-MM-DD; "" = unknown code).
+string GetCodeExpiration(string sCodeLower)
+{
+    if (sCodeLower == "freelegendary") return "2026-07-01";
+    if (sCodeLower == "mynewcode")     return "2026-12-31";  // ← add
+    return "";
+}
+
+// Reward.
+int ApplyCodeBenefit(string sCodeLower, object oPC)
+{
+    if (sCodeLower == "freelegendary") { SetXP(oPC, 17498600); return TRUE; }
+    if (sCodeLower == "mynewcode")     {                                    // ← add
+        CreateItemOnObject("some_item_resref", oPC, 1);
+        return TRUE;
+    }
+    return FALSE;
+}
+```
+
+Code names in the script must be **lowercase** (the handler lowercases
+incoming chat before matching). Advertise them in any case you like —
+`Code:MyNewCode`, `code:mynewcode`, etc., all work.
+
+Then `nwn-manager repack` to compile and install.
+
+### Changing or removing an expiration
+
+Edit the date string in `GetCodeExpiration()`. Comparison is `date('now') >
+expiration`, so a code with expiration `2026-07-01` stops working on
+`2026-07-02` (server time). To make a code permanent, set the expiration to
+a far-future date like `9999-12-31`.
+
+To pull a code immediately, set its expiration to a past date or remove its
+case from `GetCodeExpiration()` (returning `""` makes it report "Unknown
+redemption code.").
+
+### Resetting / inspecting redemptions
+
+Use any SQLite client against `<server>/database/coderedeem.sqlite3`:
+
+```sh
+sqlite3 coderedeem.sqlite3 'SELECT * FROM redemptions;'
+sqlite3 coderedeem.sqlite3 "DELETE FROM redemptions WHERE code='freelegendary';"
+```
+
+Deleting a row lets that CD key redeem the code again.
+
 ## Prerequisites
 
 `nasher`, `nwn_gff`, `nwn_script_comp`, and `python3` (for `wiki`) must be
