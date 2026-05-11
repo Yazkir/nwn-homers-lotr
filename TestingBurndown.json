@@ -1,6 +1,6 @@
 {
   "$schema": "TestingBurndown \u2014 manual test items for the MeaningWave Phase 1 work. Each item is a change the user needs to verify. Flip `status` to `passed` or `failed` after manual testing. New entries are appended at the bottom.",
-  "lastUpdated": "2026-05-11 placement-struct-fix-2",
+  "lastUpdated": "2026-05-11 coord-audit-with-place-helper",
   "phase": "1 \u2014 Roster, Hall, unlocks (no audio)",
   "items": [
     {
@@ -293,7 +293,7 @@
       "status": "needs-test",
       "type": "in-game",
       "steps": [
-        "Travel to Old Forest. Find Alan Watts at (60, 60).",
+        "Travel to Old Forest. Find Alan Watts at (80, 48) (relocated 2026-05-11 — original (60,60) was next to a ZEP_WATER placeable, likely in a stream; new spot is 4.2m from a GreaterGiantSpider encounter, so it's combat-adjacent but reachable).",
         "Engage. Pick 'Ask. I will answer.'",
         "Correct answers: 'There is no separate I\u2026', 'A game played in hide-and-seek\u2026', 'Because the trying is the play\u2026', 'A verb \u2014 selving.', 'By falling on purpose, with grace.'",
         "Pass branch should unlock Watts; journal 'MW: Alan Watts' completes; 'Path of Meaning' ticks up."
@@ -329,7 +329,7 @@
       "status": "needs-test",
       "type": "in-game",
       "steps": [
-        "Travel to Northern Forests of Ithilien. Find Terence McKenna at (90, 90).",
+        "Travel to Northern Forests of Ithilien. Find Terence McKenna at (94, 70) (relocated 2026-05-11 from (90,90) — original had no placeables or encounters within 20m, likely unreachable. New spot is 5.9m from a mordorithilien encounter spawn).",
         "Correct answers: 'Your operating system.', 'To remember the felt presence\u2026', 'A fractal of novelty intensifying.', '\u2026is closer to you than your own breath.', 'An organism that wants to be eaten\u2026'"
       ],
       "expectedResult": "McKenna unlocks."
@@ -379,7 +379,7 @@
       "status": "needs-test",
       "type": "in-game",
       "steps": [
-        "Travel to Gwathdor: Throne of the Lord. Find Marcus Aurelius at (40, 20).",
+        "Travel to Gwathdor: Throne of the Lord. Find Marcus Aurelius at (50, 60) (relocated 2026-05-11 from (40,20) — original was 31m from any creature, no placeables within 20m. New spot is 5.5m from GwathdorLord, inside the throne-cluster of NPCs).",
         "Correct answers: 'Your judgements, intentions, and reactions\u2026', '\u2026the way.', 'Remember that you will die.', 'The colour of its thoughts.', 'You will meet the ungrateful\u2026'"
       ],
       "expectedResult": "Aurelius unlocks."

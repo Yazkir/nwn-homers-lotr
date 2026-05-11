@@ -225,6 +225,46 @@ field presence and `__struct_id` values.
   blueprint. The .git instance carries ~70-95 fields with specific GFF
   types, and any drift (wrong type, missing field, extra toolset field)
   silently nullifies the placement.
+
+**Picking coordinates — use `bin/place-helper.py`.** Coordinates that
+look fine in `.are.json` bounds can still land in walls, on top of
+placeables, or on tiles the engine considers unreachable. Use:
+
+```
+bin/place-helper.py <area_resref>                # overview + ASCII map
+bin/place-helper.py <area_resref> <x> <y>        # clearance + reachability for one point
+bin/place-helper.py <area_resref> --suggest      # propose clear, reachable spots
+```
+
+Heuristics it uses:
+
+- **Tiered reachability anchors:**
+  1. **Placed creatures** (strongest) — provably walking around in-game,
+     within ~15m is a strong walkable signal.
+  2. **Encounter spawn points** (medium) — engine spawns creatures there,
+     so the spot itself plus a few metres around is walkable. Many of
+     this module's wilderness areas use encounters instead of placed
+     creatures, so this fallback matters.
+  3. **Waypoints** (weakest) — author put a path marker there; often but
+     not always walkable.
+- **Clearance:** placeables get an assumed footprint radius (~2.5m); a
+  candidate that sits inside another placeable's footprint will look
+  collided in-game even if both technically exist. The tool flags this.
+- **`--suggest` excludes `mw_*`** anchors so that the helper doesn't
+  recommend a spot anchored to the creature you're trying to place (a
+  circular result we hit and fixed in the tool).
+- **Placeables ≠ walkable evidence.** Be careful: `ZEP_WATER*` and other
+  scenery can sit on non-walkable tiles. A water-puddle placeable near
+  your candidate means *there's water there*, not "people walk here."
+  Triggers / waypoints / encounters have zero physical footprint but
+  stepping on them fires gameplay logic — usually fine to overlap, but
+  inspect before placing on them.
+
+When the tool can't find a clean spot the way you imagined, the answer
+is usually that the area's reachable region is smaller than the
+`Width × Height` rectangle suggests — open the area in the toolset to
+see the actual walkable surface, or pick a coordinate next to a known
+neighbor.
 - `.gic.json` — parallel comment list, one entry per instance, in the
   same order as `.git`. Don't reorder one without the other.
 
@@ -297,12 +337,20 @@ A few representative examples:
 **Symbolic name → numeric value.** Scripts use the symbolic
 `APPEARANCE_TYPE_*` constant (defined by `nwscript.nss` in the base game
 SDK). JSON blueprints store the numeric row from `appearance.2da` in
-`Appearance_Type.value`. To get the number for a constant, the easiest
-workflow is to crib it from an existing `.utc.json` whose model you
-recognise (e.g. find a UTC with `LastName` "Aribeth" and read its
-`Appearance_Type.value`), or `grep` the module for the constant's name
-and trace the surrounding context. Don't guess: a bogus row renders as
-the invisible-model fallback in-game.
+`Appearance_Type.value`. The base-game `nwscript.nss` (shipped with
+NWN:EE) is the authoritative numeric table — on a typical Steam Linux
+install it lives at
+`~/.local/share/Steam/steamapps/common/Neverwinter Nights/ovr/nwscript.nss`.
+Grep it for the constant you want:
+
+```
+grep -E 'APPEARANCE_TYPE_PENGUIN' ~/.local/share/Steam/steamapps/common/Neverwinter\ Nights/ovr/nwscript.nss
+# → int  APPEARANCE_TYPE_PENGUIN = 206;
+```
+
+A few verified examples: `BADGER = 8`, `COW = 34`, `PENGUIN = 206`,
+`BARTENDER = 234`. Don't guess: a bogus row renders as the invisible-
+model fallback in-game.
 
 When testing, prefer **cloning a working creature's `Appearance_Type`
 value verbatim** over picking a number you think is right — same lesson
