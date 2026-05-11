@@ -20,7 +20,7 @@
         "unpacked/mw_hall_enter.nss",
         "unpacked/mw_wayshrn_us.nss"
       ],
-      "status": "needs-test",
+      "status": "pass",
       "type": "compile",
       "steps": [
         "Run `nwn-manager repack`.",
@@ -36,7 +36,7 @@
         "unpacked/module.ifo.json",
         "unpacked/mw_on_rest.nss"
       ],
-      "status": "needs-test",
+      "status": "pass",
       "type": "in-game",
       "steps": [
         "Start a fresh PC with no unlocks.",
@@ -75,7 +75,7 @@
         "unpacked/mw_pet_unl.nss",
         "unpacked/mw_unlock_inc.nss"
       ],
-      "status": "needs-test",
+      "status": "fail: npc not visible/found",
       "type": "in-game",
       "steps": [
         "Talk to Peterson, pick 'Test me.'",
@@ -324,7 +324,7 @@
         "unpacked/mw_jocko_m.dlg.json",
         "unpacked/helmsdeep001.git.json"
       ],
-      "status": "needs-test",
+      "status": "fail: npc not visible/found",
       "type": "in-game",
       "steps": [
         "Travel to Helm's Deep. Find Jocko Willink at (80, 30).",
@@ -402,7 +402,7 @@
         "unpacked/mw_akira.dlg.json",
         "unpacked/mw_akira.utc.json"
       ],
-      "status": "needs-test",
+      "status": "fail: wayshrine not found in well of eru",
       "type": "in-game",
       "steps": [
         "Reach the Hall of Legends with at least 1 unlock (via Wayshrine).",
