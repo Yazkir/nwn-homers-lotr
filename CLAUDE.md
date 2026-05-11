@@ -184,16 +184,55 @@ field presence and `__struct_id` values.
   day/night colors. `ResRef` and `Tag` must be present.
 - `.git.json` — Game Instance Tracking. Lists every placed creature, door,
   encounter, placeable, sound, store, trigger, waypoint. Each instance is
-  a struct with `XPosition`, `YPosition`, `ZPosition`, `XOrientation`,
-  `YOrientation`, plus the embedded blueprint fields. Top-level
+  a struct that **mostly** mirrors the blueprint's fields but wraps them
+  with the list's canonical `__struct_id` and instance-level position
+  fields — and those position fields differ by list (see table below). Top-level
   `AreaProperties` holds music/ambient sound IDs.
+
+  **An instance struct is not the same shape as the corresponding `.utc` /
+  `.utp` blueprint.** Copying the blueprint root verbatim into a list is
+  the most common way to silently break a placement — the engine skips
+  wrong-shape entries with no error, no compile warning, no in-game
+  message. Always start from a *neighboring existing instance* in the same
+  `.git.json` list and overlay only identity/position fields.
+
+  Canonical per-list values (surveyed across the module, ≥99.9% agreement):
+
+  | List              | `__struct_id` | Position fields                                              |
+  |-------------------|---------------|--------------------------------------------------------------|
+  | `Creature List`   | `4`           | `XPosition`, `YPosition`, `ZPosition`, `XOrientation`, `YOrientation` |
+  | `Placeable List`  | `9`           | `X`, `Y`, `Z`, `Bearing` (**not** the `*Position`/`*Orientation` fields) |
+  | `Door List`       | `8`           | (verify against a sibling before placing)                    |
+  | `TriggerList`     | `1`           | (verify)                                                     |
+  | `Encounter List`  | `7`           | (verify)                                                     |
+  | `WaypointList`    | `5`           | (verify)                                                     |
+  | `SoundList`       | `6`           | (verify)                                                     |
+  | `StoreList`       | `11`          | (verify)                                                     |
+
+  Instances should also **not** carry `Comment` or `PaletteID` — those are
+  toolset/palette-only and belong in `.gic.json` (Comment) or `*palcus.itp.json`
+  (PaletteID), not in the live `.git` entry. Both fields silently break
+  creature spawns when present on a `Creature List` entry: across the
+  module's 984 working creatures, **0 carry `PaletteID`** and only 2 carry
+  `Comment`. The corresponding `.gic.json` entry for a creature is a
+  tiny struct of exactly two fields: `__struct_id: 4` and
+  `Comment: {type: cexostring, value: ""}`.
+
+  **The safest way to place a new instance:** clone (deep-copy) an
+  existing working sibling from the *same area* and overwrite only the
+  identity fields — `Tag`, `TemplateResRef`, `FirstName`/`LastName`,
+  position. Don't author the embedded struct from a `.utc/.utp`
+  blueprint. The .git instance carries ~70-95 fields with specific GFF
+  types, and any drift (wrong type, missing field, extra toolset field)
+  silently nullifies the placement.
 - `.gic.json` — parallel comment list, one entry per instance, in the
   same order as `.git`. Don't reorder one without the other.
 
 ### Creature (`<name>.utc.json`, type `UTC`)
 
 Key fields: `TemplateResRef` (matches filename), `Tag`, `FirstName`,
-`LastName`, `Appearance_Type` (model row from `appearance.2da`),
+`LastName`, `Appearance_Type` (model row from `appearance.2da` — see
+"Appearance constants catalogue" below for how to find the right value),
 `PortraitId`, ability scores (`Str`/`Dex`/`Con`/`Int`/`Wis`/`Cha`,
 all `byte`), `HitPoints` / `MaxHitPoints` / `CurrentHitPoints` (`short`),
 `ClassList` (list of `{ Class, ClassLevel }`), `FactionID`, `Race`,
@@ -223,6 +262,51 @@ the surrounding similar creatures use; both ship with NWN:EE.
 
 Common module-specific overrides: `ScriptDeath` is often `staticspawn`,
 `gpondeath`, or a per-quest script (e.g. `dolguldurshout`).
+
+#### Appearance constants catalogue
+
+`Appearance_Type` is an `int` row index into `appearance.2da` (in base
+NWN data + CEP HAKs). It controls the visible model — humanoid races,
+monsters, dragons, animals, polymorph forms, and a long tail of named
+NPC appearances (Aribeth, the Balor, etc).
+
+**The in-module catalogue:** the area named `appearancechange` ("Appearance
+Changer and Character Modifying Area") contains an NPC titled "Appearance
+Changer" (Tag `NW_COW`, conversation `sd_appear_conv`). Its dialogue offers
+~314 appearance options, each wired to a one-line action script named
+`sd_appear_<short>.nss` that calls `SetCreatureAppearanceType(oPC,
+APPEARANCE_TYPE_<NAME>)`. Browse the `sd_appear_*.nss` filenames in
+`unpacked/` to enumerate available appearances — every option visible
+from that NPC's dialogue corresponds to one of these scripts.
+
+```
+# pull the full list of constants
+grep -ohE 'APPEARANCE_TYPE_[A-Z_]+' unpacked/sd_appear_*.nss | sort -u
+```
+
+A few representative examples:
+
+| Script                        | Constant                          | Visible as            |
+|-------------------------------|-----------------------------------|-----------------------|
+| `sd_appear_pengn.nss`         | `APPEARANCE_TYPE_PENGUIN`         | Penguin (polymorph form) |
+| `sd_appear_balor.nss`         | `APPEARANCE_TYPE_BALOR`           | Balor demon           |
+| `sd_appear_aribth.nss`        | `APPEARANCE_TYPE_ARIBETH`         | Aribeth NPC           |
+| `sd_appear_bartnd.nss`        | `APPEARANCE_TYPE_BARTENDER`       | Bartender NPC         |
+| `sd_appear_badgr.nss`         | `APPEARANCE_TYPE_BADGER`          | Badger                |
+
+**Symbolic name → numeric value.** Scripts use the symbolic
+`APPEARANCE_TYPE_*` constant (defined by `nwscript.nss` in the base game
+SDK). JSON blueprints store the numeric row from `appearance.2da` in
+`Appearance_Type.value`. To get the number for a constant, the easiest
+workflow is to crib it from an existing `.utc.json` whose model you
+recognise (e.g. find a UTC with `LastName` "Aribeth" and read its
+`Appearance_Type.value`), or `grep` the module for the constant's name
+and trace the surrounding context. Don't guess: a bogus row renders as
+the invisible-model fallback in-game.
+
+When testing, prefer **cloning a working creature's `Appearance_Type`
+value verbatim** over picking a number you think is right — same lesson
+as the GIT-instance shape rule above.
 
 ### Item (`<name>.uti.json`, type `UTI`)
 
@@ -344,6 +428,33 @@ pack time; only `.nss` source belongs in git.
   `.nss`. Cyclic includes are a compile error; nasher follows include
   chains for incremental rebuilds.
 
+### Don't invent NWScript builtins
+
+NWScript has no IDE, no LSP, and no autocomplete. There is no "the
+compiler will catch typos at edit time" safety net — the only check is
+the repack-time compile pass, and a fabricated identifier in a heavily-
+included header (e.g. `mw_unlock_inc.nss`) produces one `UNDEFINED
+IDENTIFIER` error per consumer script (we hit 27 copies of one error
+from a single bad line). **Verify every engine function you call exists
+in the Lexicon (<https://nwnlexicon.com>) before using it.**
+
+Specifically, do NOT assume these exist (they don't):
+
+- `SetFormerMaster` — there is no "former master" concept; `RemoveHenchman`
+  alone is the complete dismissal.
+- `SetDialogResRef` / `SetConversation` — there is **no runtime setter
+  for a creature's `Conversation` field**. To use a different dialogue
+  on a runtime-spawned creature, either (a) author a second `.utc.json`
+  blueprint with the alternative `Conversation` resref and spawn that
+  blueprint instead, or (b) keep one blueprint and gate the alternative
+  content inside the dialogue via `StartingConditional` scripts that
+  inspect a local variable you set on the NPC after spawning.
+
+When you need an engine function you're not sure of, grep the existing
+`unpacked/*.nss` files for it — if the module's framework scripts already
+use it, it's real. If nothing references it anywhere, it's almost
+certainly not a builtin.
+
 ### Module-specific framework prefixes
 
 The module pulls in several established NWN frameworks. Treat their
@@ -400,11 +511,19 @@ campaign database files in `database/<campaign>.bdb`.
 2. Copy a similar `.utc.json` to `myorc01.utc.json`. Edit
    `TemplateResRef`, `Tag`, `FirstName`/`LastName`, ability scores,
    `ClassList`, `Appearance_Type`, `Conversation`, scripts, equipment.
-3. To place an instance in an area, append a struct to that area's
-   `<area>.git.json` `Creature List` with the embedded blueprint copy
-   plus `XPosition`/`YPosition`/`ZPosition`/`XOrientation`/`YOrientation`,
-   then add a matching empty `Comment` struct to `<area>.gic.json`'s
-   `Creature List`. (Keeping `.git` and `.gic` in sync by index matters.)
+3. To place an instance in an area, **copy a neighboring creature struct
+   already in that area's `<area>.git.json` `Creature List`** and edit
+   only the identity fields (`Tag`, `TemplateResRef`, `FirstName`, etc.)
+   and the position (`XPosition`, `YPosition`, `ZPosition`,
+   `XOrientation`, `YOrientation`). The wrapping struct must use
+   `__struct_id: 4` (creature instance). Do **not** start from the
+   `.utc.json` blueprint — its root struct id is different and the engine
+   will silently skip the placement.
+   Then add a matching empty `Comment` struct to `<area>.gic.json`'s
+   `Creature List`. Keeping `.git` and `.gic` in sync by index matters.
+   The same pattern applies to placeables (`Placeable List`,
+   `__struct_id: 9`, position fields `X`/`Y`/`Z`/`Bearing`) — placeables
+   use a different position-field shape than creatures.
 4. To make the NPC spawnable from script: leave it as a blueprint and
    spawn with `CreateObject(OBJECT_TYPE_CREATURE, "myorc01", lLoc)`.
 
@@ -474,6 +593,14 @@ add the script to `Mod_CacheNSSList` only if it's hot-path.
 
 ## Gotchas
 
+- **Wrong-shape `.git` instances fail silently.** If a struct in a
+  `Creature List` / `Placeable List` / etc. has the wrong `__struct_id`
+  (e.g. you copied the `.utc`/`.utp` blueprint root instead of an existing
+  sibling instance), or uses the wrong position-field names for its list
+  (`XPosition` on a placeable, `X` on a creature), the engine skips it
+  with no error and no log line. Symptom is "the NPC isn't there." Always
+  start a new instance by copying a neighbor in the same list. See the
+  canonical-id table in the Area section above.
 - **ResRef collisions are silent.** Two blueprints of the same type with
   the same `TemplateResRef` are an error you'll see at pack time;
   *across* types you can have e.g. an item and a creature both named

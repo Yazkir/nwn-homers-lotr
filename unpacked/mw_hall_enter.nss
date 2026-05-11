@@ -20,10 +20,11 @@ void TrySwap(string sGuide)
 
     location lLoc = GetLocation(oStatue);
     DestroyObject(oStatue);
-    object oNew = CreateObject(OBJECT_TYPE_CREATURE, sLiveTag, lLoc);
-    // Switch the Hall instance to the post-unlock dialogue.
-    if (GetIsObjectValid(oNew))
-        SetDialogResRef(oNew, "mw_" + sGuide + "_l");
+    CreateObject(OBJECT_TYPE_CREATURE, sLiveTag, lLoc);
+    // NWScript has no runtime setter for a creature's Conversation field;
+    // the Hall instance currently inherits the meet/quiz dialogue from the
+    // _w blueprint. Switching to the Hall-specific dialogue requires a
+    // separate _h blueprint with Conversation=mw_<guide>_l (MW-012/MW-025).
 }
 
 void main()

@@ -1,8 +1,26 @@
 {
   "$schema": "TestingBurndown \u2014 manual test items for the MeaningWave Phase 1 work. Each item is a change the user needs to verify. Flip `status` to `passed` or `failed` after manual testing. New entries are appended at the bottom.",
-  "lastUpdated": "2026-05-11 placement-fix",
+  "lastUpdated": "2026-05-11 placement-struct-fix-2",
   "phase": "1 \u2014 Roster, Hall, unlocks (no audio)",
   "items": [
+    {
+      "id": "MW-030",
+      "title": "Test penguin spawns in Well of Eru (creature placement smoke test)",
+      "files": [
+        "unpacked/thewelloferu.git.json",
+        "unpacked/thewelloferu.gic.json"
+      ],
+      "status": "needs-test",
+      "type": "in-game",
+      "steps": [
+        "Enter the module (spawn lands in Well of Eru at ~25,5).",
+        "Walk ~10m east to (35, 8) — should see 'Test Penguin' (a TrashFairy clone with a debug name).",
+        "If visible: the .git/.gic placement pipeline is healthy; any remaining MW NPC invisibility is per-creature, not pipeline-wide.",
+        "If invisible: there's still a structural issue with creature instances — don't proceed to other unlock tests until resolved."
+      ],
+      "expectedResult": "A creature labelled 'Test Penguin' appears at (35, 8).",
+      "notes": "Added 2026-05-11 as a fast iteration probe. Cloned from working TrashFairy instance (same TemplateResRef, only Tag/FirstName/position changed). If this works but the other mw_* creatures still don't, the issue is in their blueprints (.utc.json), not the placement."
+    },
     {
       "id": "MW-001",
       "title": "Module repacks cleanly with new scripts",
@@ -86,7 +104,7 @@
         "Open journal \u2014 `MW: Jordan Peterson` should show stage 2 (complete), `The Path of Meaning` should show stage 2."
       ],
       "expectedResult": "Pass branch fires, MW_Unlock runs, journal updates, XP and VFX awarded.",
-      "notes": "If unlock floating text appears but journal doesn't update, check that the journal tags exactly match: 'MW Jordan Peterson' and 'MW Path of Meaning' (case-sensitive). 2026-05-11: Peterson relocated from (30,80) to (24,95) in rivendellupperha.git.json — original coord landed in a dead zone between the Elrond chamber and the north chamber. New spot is ~2m from existing ms_lorien16."
+      "notes": "If unlock floating text appears but journal doesn't update, check that the journal tags exactly match: 'MW Jordan Peterson' and 'MW Path of Meaning' (case-sensitive). 2026-05-11: Peterson relocated from (30,80) to (24,95). After that still invisible — real root cause: instance had `__struct_id: 6` (copied from .utc blueprint) instead of the canonical `4` for Creature List entries. Engine silently skips wrong-struct-id instances. Now fixed; the same struct_id bug existed on all 8 mw_* creatures and all 8 mw_* placeables (wayshrine + 7 statues), now all corrected."
     },
     {
       "id": "MW-005",
@@ -192,7 +210,7 @@
         "Click it with a PC who has unlocked Peterson \u2014 should teleport to Hall of Legends."
       ],
       "expectedResult": "Wayshrine gates entry on having \u22651 unlock.",
-      "notes": "If the Wayshrine doesn't appear, the placement in thewelloferu.git.json didn't take. If clicking does nothing, the 'Useable' byte may have been overridden \u2014 re-check the placed instance. 2026-05-11: Wayshrine relocated from (10,10) to (20,12) \u2014 module entry is (25,5), so it now sits ~5m from spawn-in. Original spec said 'near (10,10)' but that corner appears not directly walkable from spawn."
+      "notes": "If the Wayshrine doesn't appear, the placement in thewelloferu.git.json didn't take. If clicking does nothing, the 'Useable' byte may have been overridden \u2014 re-check the placed instance. 2026-05-11: Wayshrine relocated from (10,10) to (20,12), and the instance struct was rebuilt. Real root cause: I had wrapped it with `__struct_id: 44` and creature-style position fields (`XPosition/YPosition/ZPosition/XOrientation/YOrientation`). The canonical placeable instance shape is `__struct_id: 9` with `X/Y/Z/Bearing`. Same fix applied to all 7 mw_stat_* statues in the Hall."
     },
     {
       "id": "MW-011",
@@ -331,7 +349,7 @@
         "Correct answers: 'Freedom.', 'Mine. Extreme ownership.', 'Good. We will adapt and continue.', 'Up. Now.', 'Do it anyway\u2026'"
       ],
       "expectedResult": "Jocko unlocks. GOOD.",
-      "notes": "Plan called for a combat trial. Phase-1 uses the shared quiz pattern; quest-style unlock captured in MW-022. 2026-05-11: Jocko relocated from (80,30) to (12,92) in helmsdeep001.git.json — original was 44m from the nearest existing NPC and likely outside walkable geometry."
+      "notes": "Plan called for a combat trial. Phase-1 uses the shared quiz pattern; quest-style unlock captured in MW-022. 2026-05-11: Jocko relocated from (80,30) to (12,92), and `__struct_id` corrected from 22 to 4 (same instance-shape bug as Peterson — see MW-004)."
     },
     {
       "id": "MW-019",
@@ -452,7 +470,8 @@
         "Click the live guide NPC (e.g. Peterson) on the pedestal.",
         "Verify the Hall greeting plays ('Welcome, friend. Stand up straight\u2026' for Peterson), not the quiz intro."
       ],
-      "expectedResult": "Hall guides give a short post-unlock greeting; quiz intro only appears in the world location (Rivendell etc.)."
+      "expectedResult": "Hall guides give a short post-unlock greeting; quiz intro only appears in the world location (Rivendell etc.).",
+      "notes": "2026-05-11: Will currently FAIL — mw_hall_enter.nss originally called SetDialogResRef() to swap the spawned NPC's dialogue, but that function doesn't exist in NWScript. Line removed to unblock compile. Hall NPCs now inherit the _w blueprint's Conversation (the meet/quiz). Proper fix: ship per-guide _h blueprints with Conversation=mw_<guide>_l, then spawn those in mw_hall_enter.nss instead of the _w blueprint. Same root cause as MW-012."
     },
     {
       "id": "MW-026",

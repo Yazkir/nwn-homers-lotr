@@ -92,7 +92,6 @@ void MW_DismissActiveGuide(object oPC)
         if (!GetIsObjectValid(oH)) break;
         if (GetStringLeft(GetTag(oH), 3) == "mw_")
         {
-            SetFormerMaster(oPC, oH);
             RemoveHenchman(oPC, oH);
             AssignCommand(oH, ClearAllActions());
             ApplyEffectToObject(DURATION_TYPE_INSTANT,
