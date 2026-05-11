@@ -29,23 +29,34 @@
 // We still wipe the legacy locals in case they&#x27;re hanging around on
 // pre-port characters.
 
+#include &quot;pers_state_inc&quot;
+
+// Death amulet check + persistent state restore. Delayed so the engine&#x27;s
+// own post-login passes (inventory hydration, spellbook sync, &quot;fresh PC&quot;
+// HP/spell resets) have settled before we read or override state.
+void HgllPostEnter(object oPC)
+{
+    object oItem = GetFirstItemInInventory(oPC);
+    while (GetIsObjectValid(oItem))
+    {
+        if (GetTag(oItem) == &quot;deathamulet&quot;)
+        {
+            ApplyEffectToObject(DURATION_TYPE_INSTANT, EffectDeath(FALSE, FALSE), oPC);
+            return;
+        }
+        oItem = GetNextItemInInventory(oPC);
+    }
+
+    PersState_Restore(oPC);
+}
+
 void main()
 {
     object oPC = GetEnteringObject();
     SetLocalString(oPC, &quot;LetoScript&quot;, &quot;&quot;);
     SetLocalString(oPC, &quot;LetoscriptLL&quot;, &quot;&quot;);
 
-    object oDeathAmulet = GetFirstItemInInventory(oPC);
-    effect eDeath = EffectDeath(FALSE, FALSE);
-    while (GetIsObjectValid(oDeathAmulet))
-    {
-        if (GetTag(oDeathAmulet) == &quot;deathamulet&quot;)
-        {
-            ApplyEffectToObject(DURATION_TYPE_INSTANT, eDeath, oPC);
-            break;
-        }
-        oDeathAmulet = GetNextItemInInventory(oPC);
-    }
+    DelayCommand(1.0, HgllPostEnter(oPC));
 }
 </code></pre>
   </main>

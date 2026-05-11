@@ -23,9 +23,9 @@
   <main>
 <h1>Conversation: <code>emotewand</code></h1>
 <dl class="meta">
-<dt>NPC lines</dt><dd>9</dd>
-<dt>PC replies</dt><dd>62</dd>
-<dt>NumWords</dt><dd>161</dd>
+<dt>NPC lines</dt><dd>10</dd>
+<dt>PC replies</dt><dd>71</dd>
+<dt>NumWords</dt><dd>241</dd>
 <dt>OnEnd</dt><dd><code>nw_walk_wp</code></dd>
 <dt>OnAbort</dt><dd><code>nw_walk_wp</code></dd>
 </dl>
@@ -71,6 +71,14 @@
 <table class="data"><thead><tr><th>Script</th><th>Slot</th><th>In module</th><th>Notes</th></tr></thead><tbody><tr><td><code>_cdkey</code></td><td>active</td><td>✓</td><td></td></tr>
 <tr><td><code>_cdkeysum1</code></td><td>active</td><td>✓</td><td></td></tr>
 <tr><td><code>_cdkeyhome</code></td><td>active</td><td>✓</td><td></td></tr>
+<tr><td><code>mw_any_unl</code></td><td>active</td><td>✓</td><td></td></tr>
+<tr><td><code>mw_chk_peterson</code></td><td>active</td><td>✓</td><td></td></tr>
+<tr><td><code>mw_chk_watts</code></td><td>active</td><td>✓</td><td></td></tr>
+<tr><td><code>mw_chk_campbell</code></td><td>active</td><td>✓</td><td></td></tr>
+<tr><td><code>mw_chk_mckenna</code></td><td>active</td><td>✓</td><td></td></tr>
+<tr><td><code>mw_chk_jocko</code></td><td>active</td><td>✓</td><td></td></tr>
+<tr><td><code>mw_chk_jung</code></td><td>active</td><td>✓</td><td></td></tr>
+<tr><td><code>mw_chk_aurelius</code></td><td>active</td><td>✓</td><td></td></tr>
 <tr><td><code>_homerdarklord</code></td><td>action</td><td>✓</td><td>teleports to: <code>darklord</code> (<a href="../areas/gwaththrone.html">Gwathdor:  Throne of the Lord</a>)</td></tr>
 <tr><td><code>_homerdunh</code></td><td>action</td><td>✓</td><td>teleports to: <code>Dunport</code> (<a href="../areas/dunharrow.html">Dimholt: Dunharrow</a>)</td></tr>
 <tr><td><code>_homerangmar</code></td><td>action</td><td>✓</td><td>teleports to: <code>lairjump</code> (<a href="../areas/area009.html">Angmar&#x27;s Lair</a>)</td></tr>
@@ -108,7 +116,14 @@
 <tr><td><code>ew_ad_gotmode</code></td><td>action</td><td>✓</td><td></td></tr>
 <tr><td><code>dmheal</code></td><td>action</td><td>✓</td><td></td></tr>
 <tr><td><code>_dmwand</code></td><td>action</td><td>✓</td><td>starts: <a href="dmwand.html">dmwand</a></td></tr>
-<tr><td><code>grant_lvl60</code></td><td>action</td><td>✓</td><td></td></tr></tbody></table>
+<tr><td><code>grant_lvl60</code></td><td>action</td><td>✓</td><td></td></tr>
+<tr><td><code>mw_sum_peterson</code></td><td>action</td><td>✓</td><td></td></tr>
+<tr><td><code>mw_sum_watts</code></td><td>action</td><td>✓</td><td></td></tr>
+<tr><td><code>mw_sum_campbell</code></td><td>action</td><td>✓</td><td></td></tr>
+<tr><td><code>mw_sum_mckenna</code></td><td>action</td><td>✓</td><td></td></tr>
+<tr><td><code>mw_sum_jocko</code></td><td>action</td><td>✓</td><td></td></tr>
+<tr><td><code>mw_sum_jung</code></td><td>action</td><td>✓</td><td></td></tr>
+<tr><td><code>mw_sum_aurelius</code></td><td>action</td><td>✓</td><td></td></tr></tbody></table>
 <h2>Starting entries</h2><ul>
 <li><a href="#e0">entry #0</a></li>
 </ul>
@@ -437,11 +452,58 @@
 <summary><span class="dlg-id">reply #0</span> <a class="dlg-anchor" href="#r0" title="jump to flat reply #0">¶</a></summary>
 <div class="dlg-text">Exit.</div>
 </details>
+<details class="dlg-tree-node reply" open>
+<summary><span class="dlg-id">reply #70</span> <small class="muted">(if <code>mw_any_unl</code>)</small> <a class="dlg-anchor" href="#r70" title="jump to flat reply #70">¶</a></summary>
+<div class="dlg-text">&lt;StartHighlight&gt;[Summon a Legend.]&lt;/Start&gt;</div>
+<div class="dlg-tree-children">
+<details class="dlg-tree-node entry" open>
+<summary><span class="dlg-id">entry #9</span> <a class="dlg-anchor" href="#e9" title="jump to flat entry #9">¶</a></summary>
+<div class="dlg-text">A familiar music whispers across your mind. Which legend will walk with you?</div>
+<div class="dlg-tree-children">
+<details class="dlg-tree-node reply" open>
+<summary><span class="dlg-id">reply #62</span> <span class="dlg-action">→ <code>mw_sum_peterson</code></span> <small class="muted">(if <code>mw_chk_peterson</code>)</small> <a class="dlg-anchor" href="#r62" title="jump to flat reply #62">¶</a></summary>
+<div class="dlg-text">Jordan Peterson — Sage of Order.</div>
+</details>
+<details class="dlg-tree-node reply" open>
+<summary><span class="dlg-id">reply #63</span> <span class="dlg-action">→ <code>mw_sum_watts</code></span> <small class="muted">(if <code>mw_chk_watts</code>)</small> <a class="dlg-anchor" href="#r63" title="jump to flat reply #63">¶</a></summary>
+<div class="dlg-text">Alan Watts — Mystic of the Tao.</div>
+</details>
+<details class="dlg-tree-node reply" open>
+<summary><span class="dlg-id">reply #64</span> <span class="dlg-action">→ <code>mw_sum_campbell</code></span> <small class="muted">(if <code>mw_chk_campbell</code>)</small> <a class="dlg-anchor" href="#r64" title="jump to flat reply #64">¶</a></summary>
+<div class="dlg-text">Joseph Campbell — the Mythkeeper.</div>
+</details>
+<details class="dlg-tree-node reply" open>
+<summary><span class="dlg-id">reply #65</span> <span class="dlg-action">→ <code>mw_sum_mckenna</code></span> <small class="muted">(if <code>mw_chk_mckenna</code>)</small> <a class="dlg-anchor" href="#r65" title="jump to flat reply #65">¶</a></summary>
+<div class="dlg-text">Terence McKenna — Bard of the Mushroom.</div>
+</details>
+<details class="dlg-tree-node reply" open>
+<summary><span class="dlg-id">reply #66</span> <span class="dlg-action">→ <code>mw_sum_jocko</code></span> <small class="muted">(if <code>mw_chk_jocko</code>)</small> <a class="dlg-anchor" href="#r66" title="jump to flat reply #66">¶</a></summary>
+<div class="dlg-text">Jocko Willink — the Iron Captain.</div>
+</details>
+<details class="dlg-tree-node reply" open>
+<summary><span class="dlg-id">reply #67</span> <span class="dlg-action">→ <code>mw_sum_jung</code></span> <small class="muted">(if <code>mw_chk_jung</code>)</small> <a class="dlg-anchor" href="#r67" title="jump to flat reply #67">¶</a></summary>
+<div class="dlg-text">Carl Jung — the Shadow-Walker.</div>
+</details>
+<details class="dlg-tree-node reply" open>
+<summary><span class="dlg-id">reply #68</span> <span class="dlg-action">→ <code>mw_sum_aurelius</code></span> <small class="muted">(if <code>mw_chk_aurelius</code>)</small> <a class="dlg-anchor" href="#r68" title="jump to flat reply #68">¶</a></summary>
+<div class="dlg-text">Marcus Aurelius — the Philosopher King.</div>
+</details>
+<details class="dlg-tree-node reply" open>
+<summary><span class="dlg-id">reply #69</span> <a class="dlg-anchor" href="#r69" title="jump to flat reply #69">¶</a></summary>
+<div class="dlg-text">(Back.)</div>
+<div class="dlg-tree-children">
+<div class="dlg-tree-ref entry-ref">↩ <a href="#e0">entry #0</a></div>
+</div>
+</details>
+</div>
+</details>
+</div>
+</details>
 </div>
 </details>
 </div>
 <h2>NPC lines (entries) — flat index</h2>
-<div class="dlg-node entry" id="e0"><div class="dlg-head"><span class="dlg-id">entry #0</span></div><div class="dlg-text"><em>(no text)</em></div><ul class="dlg-links"><li><a href="#r29">→ reply #29</a> <span class="dlg-link-preview">“&lt;StartHighlight&gt;[Admin Options]&lt;/Start&gt;”</span> <small class="muted">(if <code>_cdkey</code>)</small></li><li><a href="#r24">→ reply #24</a> <span class="dlg-link-preview">“Teleports.”</span></li><li><a href="#r23">→ reply #23</a> <span class="dlg-link-preview">“Force Rest”</span></li><li><a href="#r15">→ reply #15</a> <span class="dlg-link-preview">“Role Dice.”</span></li><li><a href="#r12">→ reply #12</a> <span class="dlg-link-preview">“&lt;StartHighlight&gt;[Summons Options.]&lt;/Start&gt;”</span> <small class="muted">(if <code>_cdkeysum1</code>)</small></li><li><a href="#r1">→ reply #1</a> <span class="dlg-link-preview">“&lt;StartHighlight&gt;[Options of the Homeless]&lt;/Start&gt;”</span> <small class="muted">(if <code>_cdkeyhome</code>)</small></li><li><a href="#r0">→ reply #0</a> <span class="dlg-link-preview">“Exit.”</span></li></ul></div>
+<div class="dlg-node entry" id="e0"><div class="dlg-head"><span class="dlg-id">entry #0</span></div><div class="dlg-text"><em>(no text)</em></div><ul class="dlg-links"><li><a href="#r29">→ reply #29</a> <span class="dlg-link-preview">“&lt;StartHighlight&gt;[Admin Options]&lt;/Start&gt;”</span> <small class="muted">(if <code>_cdkey</code>)</small></li><li><a href="#r24">→ reply #24</a> <span class="dlg-link-preview">“Teleports.”</span></li><li><a href="#r23">→ reply #23</a> <span class="dlg-link-preview">“Force Rest”</span></li><li><a href="#r15">→ reply #15</a> <span class="dlg-link-preview">“Role Dice.”</span></li><li><a href="#r12">→ reply #12</a> <span class="dlg-link-preview">“&lt;StartHighlight&gt;[Summons Options.]&lt;/Start&gt;”</span> <small class="muted">(if <code>_cdkeysum1</code>)</small></li><li><a href="#r1">→ reply #1</a> <span class="dlg-link-preview">“&lt;StartHighlight&gt;[Options of the Homeless]&lt;/Start&gt;”</span> <small class="muted">(if <code>_cdkeyhome</code>)</small></li><li><a href="#r0">→ reply #0</a> <span class="dlg-link-preview">“Exit.”</span></li><li><a href="#r70">→ reply #70</a> <span class="dlg-link-preview">“&lt;StartHighlight&gt;[Summon a Legend.]&lt;/Start&gt;”</span> <small class="muted">(if <code>mw_any_unl</code>)</small></li></ul></div>
 <div class="dlg-node entry" id="e1"><div class="dlg-head"><span class="dlg-id">entry #1</span></div><div class="dlg-text">Hello &lt;FullName&gt;.</div><ul class="dlg-links"><li><a href="#r3">→ reply #3</a> <span class="dlg-link-preview">“Teleports.”</span></li><li><a href="#r2">→ reply #2</a> <span class="dlg-link-preview">“Exit.”</span></li></ul></div>
 <div class="dlg-node entry" id="e2"><div class="dlg-head"><span class="dlg-id">entry #2</span></div><div class="dlg-text"><em>(no text)</em></div><ul class="dlg-links"><li><a href="#r11">→ reply #11</a> <span class="dlg-link-preview">“To. Castle of Homeless”</span></li><li><a href="#r10">→ reply #10</a> <span class="dlg-link-preview">“To. Balrog”</span></li><li><a href="#r9">→ reply #9</a> <span class="dlg-link-preview">“To. Weather Top”</span></li><li><a href="#r8">→ reply #8</a> <span class="dlg-link-preview">“To. Hobbiton”</span></li><li><a href="#r7">→ reply #7</a> <span class="dlg-link-preview">“To. Angmar”</span></li><li><a href="#r6">→ reply #6</a> <span class="dlg-link-preview">“To. Dunharrow”</span></li><li><a href="#r5">→ reply #5</a> <span class="dlg-link-preview">“To. The Lord of the Dark Arts”</span></li><li><a href="#r4">→ reply #4</a> <span class="dlg-link-preview">“Exit.”</span></li></ul></div>
 <div class="dlg-node entry" id="e3"><div class="dlg-head"><span class="dlg-id">entry #3</span></div><div class="dlg-text">Hello &lt;FullName&gt; Would you like to summons your Pet Rock?</div><ul class="dlg-links"><li><a href="#r14">→ reply #14</a> <span class="dlg-link-preview">“Heck yeah!!”</span></li><li><a href="#r13">→ reply #13</a> <span class="dlg-link-preview">“No thank you.”</span></li></ul></div>
@@ -450,6 +512,7 @@
 <div class="dlg-node entry" id="e6"><div class="dlg-head"><span class="dlg-id">entry #6</span></div><div class="dlg-text">Yo &lt;FullName&gt;.</div><ul class="dlg-links"><li><a href="#r60">→ reply #60</a> <span class="dlg-link-preview">“DM Options”</span></li><li><a href="#r59">→ reply #59</a> <span class="dlg-link-preview">“DM Heal”</span></li><li><a href="#r58">→ reply #58</a> <span class="dlg-link-preview">“God Mode”</span></li><li><a href="#r57">→ reply #57</a> <span class="dlg-link-preview">“Invisibility”</span></li><li><a href="#r32">→ reply #32</a> <span class="dlg-link-preview">“Teleports”</span></li><li><a href="#r31">→ reply #31</a> <span class="dlg-link-preview">“Force Rest”</span></li><li><a href="#r61">→ reply #61</a> <span class="dlg-link-preview">“Grant me level 60”</span></li><li><a href="#r30">→ reply #30</a> <span class="dlg-link-preview">“Exit”</span></li></ul></div>
 <div class="dlg-node entry" id="e7"><div class="dlg-head"><span class="dlg-id">entry #7</span></div><div class="dlg-text"><em>(no text)</em></div><ul class="dlg-links"><li><a href="#r56">→ reply #56</a> <span class="dlg-link-preview">“Back.”</span></li><li><a href="#r55">→ reply #55</a> <span class="dlg-link-preview">“To. The Control Room”</span></li><li><a href="#r54">→ reply #54</a> <span class="dlg-link-preview">“To. Angmar”</span></li><li><a href="#r53">→ reply #53</a> <span class="dlg-link-preview">“To. Mount Doom: Suarons Hall”</span></li><li><a href="#r52">→ reply #52</a> <span class="dlg-link-preview">“To. Dol Guldur”</span></li><li><a href="#r51">→ reply #51</a> <span class="dlg-link-preview">“To. Kerufall”</span></li><li><a href="#r50">→ reply #50</a> <span class="dlg-link-preview">“To. Balrog”</span></li><li><a href="#r49">→ reply #49</a> <span class="dlg-link-preview">“To. Witch King”</span></li><li><a href="#r48">→ reply #48</a> <span class="dlg-link-preview">“To. House of Homer”</span></li><li><a href="#r47">→ reply #47</a> <span class="dlg-link-preview">“To. Moria Forge”</span></li><li><a href="#r34">→ reply #34</a> <span class="dlg-link-preview">“More.”</span></li><li><a href="#r33">→ reply #33</a> <span class="dlg-link-preview">“Exit.”</span></li></ul></div>
 <div class="dlg-node entry" id="e8"><div class="dlg-head"><span class="dlg-id">entry #8</span></div><div class="dlg-text">Yo.</div><ul class="dlg-links"><li><a href="#r46">→ reply #46</a> <span class="dlg-link-preview">“To. Minas Tirith Keep.”</span></li><li><a href="#r45">→ reply #45</a> <span class="dlg-link-preview">“To. Númenor:  The Great Forge”</span></li><li><a href="#r44">→ reply #44</a> <span class="dlg-link-preview">“To. Hobbiton.”</span></li><li><a href="#r43">→ reply #43</a> <span class="dlg-link-preview">“To. Mirkwoods: Halls of Greenleaf.”</span></li><li><a href="#r42">→ reply #42</a> <span class="dlg-link-preview">“To. Weathertop.”</span></li><li><a href="#r41">→ reply #41</a> <span class="dlg-link-preview">“To. Pit Prison”</span></li><li><a href="#r40">→ reply #40</a> <span class="dlg-link-preview">“To. Dol Guldur”</span></li><li><a href="#r39">→ reply #39</a> <span class="dlg-link-preview">“To. Dimholt: Dunharrow”</span></li><li><a href="#r38">→ reply #38</a> <span class="dlg-link-preview">“To. Helm&#x27;s Deep: Keep”</span></li><li><a href="#r37">→ reply #37</a> <span class="dlg-link-preview">“To. Helm&#x27;s Deep: Cave”</span></li><li><a href="#r36">→ reply #36</a> <span class="dlg-link-preview">“To. Gwathdor: Throne of the Lord”</span></li><li><a href="#r35">→ reply #35</a> <span class="dlg-link-preview">“Exit.”</span></li></ul></div>
+<div class="dlg-node entry" id="e9"><div class="dlg-head"><span class="dlg-id">entry #9</span></div><div class="dlg-text">A familiar music whispers across your mind. Which legend will walk with you?</div><ul class="dlg-links"><li><a href="#r62">→ reply #62</a> <span class="dlg-link-preview">“Jordan Peterson — Sage of Order.”</span> <small class="muted">(if <code>mw_chk_peterson</code>)</small></li><li><a href="#r63">→ reply #63</a> <span class="dlg-link-preview">“Alan Watts — Mystic of the Tao.”</span> <small class="muted">(if <code>mw_chk_watts</code>)</small></li><li><a href="#r64">→ reply #64</a> <span class="dlg-link-preview">“Joseph Campbell — the Mythkeeper.”</span> <small class="muted">(if <code>mw_chk_campbell</code>)</small></li><li><a href="#r65">→ reply #65</a> <span class="dlg-link-preview">“Terence McKenna — Bard of the Mushroom.”</span> <small class="muted">(if <code>mw_chk_mckenna</code>)</small></li><li><a href="#r66">→ reply #66</a> <span class="dlg-link-preview">“Jocko Willink — the Iron Captain.”</span> <small class="muted">(if <code>mw_chk_jocko</code>)</small></li><li><a href="#r67">→ reply #67</a> <span class="dlg-link-preview">“Carl Jung — the Shadow-Walker.”</span> <small class="muted">(if <code>mw_chk_jung</code>)</small></li><li><a href="#r68">→ reply #68</a> <span class="dlg-link-preview">“Marcus Aurelius — the Philosopher King.”</span> <small class="muted">(if <code>mw_chk_aurelius</code>)</small></li><li><a href="#r69">→ reply #69</a> <span class="dlg-link-preview">“(Back.)”</span></li></ul></div>
 <h2>PC replies — flat index</h2>
 <div class="dlg-node reply" id="r0"><div class="dlg-head"><span class="dlg-id">reply #0</span></div><div class="dlg-text">Exit.</div></div>
 <div class="dlg-node reply" id="r1"><div class="dlg-head"><span class="dlg-id">reply #1</span></div><div class="dlg-text">&lt;StartHighlight&gt;[Options of the Homeless]&lt;/Start&gt;</div><ul class="dlg-links"><li><a href="#e1">→ entry #1</a> <span class="dlg-link-preview">“Hello &lt;FullName&gt;.”</span></li></ul></div>
@@ -513,6 +576,15 @@
 <div class="dlg-node reply" id="r59"><div class="dlg-head"><span class="dlg-id">reply #59</span> <span class="dlg-action">→ <code>dmheal</code></span></div><div class="dlg-text">DM Heal</div></div>
 <div class="dlg-node reply" id="r60"><div class="dlg-head"><span class="dlg-id">reply #60</span> <span class="dlg-action">→ <code>_dmwand</code></span></div><div class="dlg-text">DM Options</div></div>
 <div class="dlg-node reply" id="r61"><div class="dlg-head"><span class="dlg-id">reply #61</span> <span class="dlg-action">→ <code>grant_lvl60</code></span></div><div class="dlg-text">Grant me level 60</div></div>
+<div class="dlg-node reply" id="r62"><div class="dlg-head"><span class="dlg-id">reply #62</span> <span class="dlg-action">→ <code>mw_sum_peterson</code></span></div><div class="dlg-text">Jordan Peterson — Sage of Order.</div></div>
+<div class="dlg-node reply" id="r63"><div class="dlg-head"><span class="dlg-id">reply #63</span> <span class="dlg-action">→ <code>mw_sum_watts</code></span></div><div class="dlg-text">Alan Watts — Mystic of the Tao.</div></div>
+<div class="dlg-node reply" id="r64"><div class="dlg-head"><span class="dlg-id">reply #64</span> <span class="dlg-action">→ <code>mw_sum_campbell</code></span></div><div class="dlg-text">Joseph Campbell — the Mythkeeper.</div></div>
+<div class="dlg-node reply" id="r65"><div class="dlg-head"><span class="dlg-id">reply #65</span> <span class="dlg-action">→ <code>mw_sum_mckenna</code></span></div><div class="dlg-text">Terence McKenna — Bard of the Mushroom.</div></div>
+<div class="dlg-node reply" id="r66"><div class="dlg-head"><span class="dlg-id">reply #66</span> <span class="dlg-action">→ <code>mw_sum_jocko</code></span></div><div class="dlg-text">Jocko Willink — the Iron Captain.</div></div>
+<div class="dlg-node reply" id="r67"><div class="dlg-head"><span class="dlg-id">reply #67</span> <span class="dlg-action">→ <code>mw_sum_jung</code></span></div><div class="dlg-text">Carl Jung — the Shadow-Walker.</div></div>
+<div class="dlg-node reply" id="r68"><div class="dlg-head"><span class="dlg-id">reply #68</span> <span class="dlg-action">→ <code>mw_sum_aurelius</code></span></div><div class="dlg-text">Marcus Aurelius — the Philosopher King.</div></div>
+<div class="dlg-node reply" id="r69"><div class="dlg-head"><span class="dlg-id">reply #69</span></div><div class="dlg-text">(Back.)</div><ul class="dlg-links"><li><a href="#e0">→ entry #0</a></li></ul></div>
+<div class="dlg-node reply" id="r70"><div class="dlg-head"><span class="dlg-id">reply #70</span></div><div class="dlg-text">&lt;StartHighlight&gt;[Summon a Legend.]&lt;/Start&gt;</div><ul class="dlg-links"><li><a href="#e9">→ entry #9</a> <span class="dlg-link-preview">“A familiar music whispers across your mind. Which legend will walk with you?”</span></li></ul></div>
   </main>
   <footer>generated by <a href="https://github.com/mrprice22/nwn-manager">nwn-manager</a></footer>
 </body>

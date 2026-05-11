@@ -29,10 +29,16 @@
 // from the leveler dialog itself, so there&#x27;s nothing to do here.
 
 #include &quot;hgll_func_inc&quot;
+#include &quot;pers_state_inc&quot;
 
 void main()
 {
     object PC = GetExitingObject();
+    PersState_Snapshot(PC);
+    // Force BIC write so the amulet (if any) and any other inventory /
+    // BIC-resident state from this session survive a logout that beats
+    // the next pc_export_inc auto-save tick.
+    ExportSingleCharacter(PC);
     SetLocalString(PC, &quot;LetoScript&quot;, &quot;&quot;);
     SetLocalString(PC, &quot;LetoscriptLL&quot;, &quot;&quot;);
 }

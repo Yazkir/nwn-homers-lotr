@@ -23,6 +23,16 @@
   <main>
 <h1>Script: <code>dmfi_dmw_inc</code></h1><pre class="nss-source"><code>int DMW_START_CUSTOM_TOKEN = 8000;
 
+// CEP custom item-properties; not in stock nwscript.nss. See
+// dmw_func_inc for the same workaround. Engine resolves the int against
+// itempropdef.2da at runtime.
+const int ITEM_PROPERTY_BOOMERANG                     = 84;
+const int ITEM_PROPERTY_DANCING                       = 85;
+const int ITEM_PROPERTY_DOUBLE_STACK                  = 86;
+const int ITEM_PROPERTY_ENHANCED_CONTAINER_BONUS_SLOTS = 87;
+const int ITEM_PROPERTY_VORPAL                        = 88;
+const int ITEM_PROPERTY_WOUNDING                      = 89;
+
 //Retrieve targetting information
 object oMySpeaker = GetLastSpeaker();
 object oMyTarget = GetLocalObject(oMySpeaker, &quot;dmfi_univ_target&quot;);
@@ -973,7 +983,9 @@ string dmwand_Race(object oEntity)
       case RACIAL_TYPE_HUMANOID_MONSTROUS:   return &quot;Monstrous&quot;; break;
       case RACIAL_TYPE_HUMANOID_ORC:   return &quot;Orc&quot;; break;
       case RACIAL_TYPE_HUMANOID_REPTILIAN:   return &quot;Reptillian&quot;; break;
-      case RACIAL_TYPE_INVALID:   return &quot;Unknown&quot;; break;
+      // RACIAL_TYPE_INVALID would duplicate RACIAL_TYPE_ALL&#x27;s case value (both
+      // resolve to 28 in nwscript.nss); the trailing &quot;Unknown&quot; return below
+      // covers that path.
       case RACIAL_TYPE_MAGICAL_BEAST:   return &quot;Magical Beast&quot;; break;
       case RACIAL_TYPE_OUTSIDER:   return &quot;Outsider&quot;; break;
       case RACIAL_TYPE_SHAPECHANGER:   return &quot;Shapechanger&quot;; break;

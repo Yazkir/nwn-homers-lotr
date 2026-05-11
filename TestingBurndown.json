@@ -1,6 +1,6 @@
 {
   "$schema": "TestingBurndown \u2014 manual test items for the MeaningWave Phase 1 work. Each item is a change the user needs to verify. Flip `status` to `passed` or `failed` after manual testing. New entries are appended at the bottom.",
-  "lastUpdated": "2026-05-11",
+  "lastUpdated": "2026-05-11 placement-fix",
   "phase": "1 \u2014 Roster, Hall, unlocks (no audio)",
   "items": [
     {
@@ -75,7 +75,7 @@
         "unpacked/mw_pet_unl.nss",
         "unpacked/mw_unlock_inc.nss"
       ],
-      "status": "fail: npc not visible/found",
+      "status": "needs-retest",
       "type": "in-game",
       "steps": [
         "Talk to Peterson, pick 'Test me.'",
@@ -86,7 +86,7 @@
         "Open journal \u2014 `MW: Jordan Peterson` should show stage 2 (complete), `The Path of Meaning` should show stage 2."
       ],
       "expectedResult": "Pass branch fires, MW_Unlock runs, journal updates, XP and VFX awarded.",
-      "notes": "If unlock floating text appears but journal doesn't update, check that the journal tags exactly match: 'MW Jordan Peterson' and 'MW Path of Meaning' (case-sensitive)."
+      "notes": "If unlock floating text appears but journal doesn't update, check that the journal tags exactly match: 'MW Jordan Peterson' and 'MW Path of Meaning' (case-sensitive). 2026-05-11: Peterson relocated from (30,80) to (24,95) in rivendellupperha.git.json — original coord landed in a dead zone between the Elrond chamber and the north chamber. New spot is ~2m from existing ms_lorien16."
     },
     {
       "id": "MW-005",
@@ -192,7 +192,7 @@
         "Click it with a PC who has unlocked Peterson \u2014 should teleport to Hall of Legends."
       ],
       "expectedResult": "Wayshrine gates entry on having \u22651 unlock.",
-      "notes": "If the Wayshrine doesn't appear, the placement in thewelloferu.git.json didn't take. If clicking does nothing, the 'Useable' byte may have been overridden \u2014 re-check the placed instance."
+      "notes": "If the Wayshrine doesn't appear, the placement in thewelloferu.git.json didn't take. If clicking does nothing, the 'Useable' byte may have been overridden \u2014 re-check the placed instance. 2026-05-11: Wayshrine relocated from (10,10) to (20,12) \u2014 module entry is (25,5), so it now sits ~5m from spawn-in. Original spec said 'near (10,10)' but that corner appears not directly walkable from spawn."
     },
     {
       "id": "MW-011",
@@ -324,14 +324,14 @@
         "unpacked/mw_jocko_m.dlg.json",
         "unpacked/helmsdeep001.git.json"
       ],
-      "status": "fail: npc not visible/found",
+      "status": "needs-retest",
       "type": "in-game",
       "steps": [
-        "Travel to Helm's Deep. Find Jocko Willink at (80, 30).",
+        "Travel to Helm's Deep. Find Jocko Willink at (12, 92) (relocated from (80,30) which was unreachable).",
         "Correct answers: 'Freedom.', 'Mine. Extreme ownership.', 'Good. We will adapt and continue.', 'Up. Now.', 'Do it anyway\u2026'"
       ],
       "expectedResult": "Jocko unlocks. GOOD.",
-      "notes": "Plan called for a combat trial. Phase-1 uses the shared quiz pattern; quest-style unlock captured in MW-022."
+      "notes": "Plan called for a combat trial. Phase-1 uses the shared quiz pattern; quest-style unlock captured in MW-022. 2026-05-11: Jocko relocated from (80,30) to (12,92) in helmsdeep001.git.json — original was 44m from the nearest existing NPC and likely outside walkable geometry."
     },
     {
       "id": "MW-019",
@@ -402,10 +402,10 @@
         "unpacked/mw_akira.dlg.json",
         "unpacked/mw_akira.utc.json"
       ],
-      "status": "fail: wayshrine not found in well of eru",
+      "status": "needs-retest",
       "type": "in-game",
       "steps": [
-        "Reach the Hall of Legends with at least 1 unlock (via Wayshrine).",
+        "Reach the Hall of Legends with at least 1 unlock (via Wayshrine; relocated to (20,12) near module entry).",
         "Click Akira the Don near the centre.",
         "Verify the greeting plays and 3 reply options appear: 'Show me my progress.', 'Tell me about the Hall.', 'Farewell, Don.'",
         "The 'Give me the mixtape.' reply should NOT appear with <7 unlocks; the 'Thank you for the mixtape.' reply should NOT appear (no finale yet)."

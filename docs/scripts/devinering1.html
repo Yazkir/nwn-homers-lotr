@@ -61,6 +61,7 @@
 
 void main()
 {
+object oPC = GetPCSpeaker();
 object theWaypoint = GetWaypointByTag(&quot;secondchance&quot;);
 location rivendelia = GetLocation(theWaypoint);
 AssignCommand(oPC, JumpToLocation(rivendelia));

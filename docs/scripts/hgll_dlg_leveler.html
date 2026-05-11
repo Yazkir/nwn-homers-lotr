@@ -421,7 +421,7 @@ void HandleSelection()
                     }
                  //SubtractXPForNextLL(oPC);
                  nPointsAvailable = GetLocalInt(oPC, &quot;PointsAvailable&quot;);//check to see if any skill points left over
-                 SetPersistentInt(oPC, &quot;PointsAvailable&quot;, nPointsAvailable);//if so, store them for use for next level
+                 NWNX_Object_SetInt(oPC, &quot;hgll_points_avail&quot;, nPointsAvailable, TRUE);//if so, store them for use for next level
                  HGLL_FlushChanges(oPC);
                  EndDlg();
                  break;
