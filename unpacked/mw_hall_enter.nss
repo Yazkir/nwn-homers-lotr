@@ -9,10 +9,14 @@
 //:://////////////////////////////////////////////
 #include "mw_unlock_inc"
 
-void TrySwap(string sGuide)
+void TrySwap(string sGuide, object oHallArea)
 {
     string sLiveTag = "mw_" + sGuide + "_w";
-    if (GetIsObjectValid(GetObjectByTag(sLiveTag))) return;
+    object oExisting = GetObjectByTag(sLiveTag);
+    // Only skip if the guide is already present in THIS area (GetObjectByTag
+    // searches module-wide, so the world-spawn in e.g. Rivendell would
+    // otherwise prevent the Hall placement).
+    if (GetIsObjectValid(oExisting) && GetArea(oExisting) == oHallArea) return;
 
     string sStatueTag = "mw_stat_" + sGuide;
     object oStatue = GetObjectByTag(sStatueTag);
@@ -21,10 +25,6 @@ void TrySwap(string sGuide)
     location lLoc = GetLocation(oStatue);
     DestroyObject(oStatue);
     CreateObject(OBJECT_TYPE_CREATURE, sLiveTag, lLoc);
-    // NWScript has no runtime setter for a creature's Conversation field;
-    // the Hall instance currently inherits the meet/quiz dialogue from the
-    // _w blueprint. Switching to the Hall-specific dialogue requires a
-    // separate _h blueprint with Conversation=mw_<guide>_l (MW-012/MW-025).
 }
 
 void main()
@@ -32,11 +32,12 @@ void main()
     object oEntering = GetEnteringObject();
     if (!GetIsPC(oEntering)) return;
 
+    object oHallArea = GetArea(oEntering);
     int i;
     for (i = 0; i < MW_ROSTER_SIZE; i++)
     {
         string sGuide = MW_GuideAt(i);
         if (MW_IsUnlocked(oEntering, sGuide))
-            TrySwap(sGuide);
+            TrySwap(sGuide, oHallArea);
     }
 }

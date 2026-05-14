@@ -91,7 +91,7 @@
         "Text": {
           "type": "cexolocstring",
           "value": {
-            "0": "Stand up straight, with your shoulders back. You came here because something in the music drew you. Good. Now — are you willing to be tested? Or will you flinch back into chaos?"
+            "0": "Stand up straight, with your shoulders back. You came here because something in the music drew you. Good. Now \u2014 are you willing to be tested? Or will you flinch back into chaos?"
           }
         }
       },
@@ -714,6 +714,67 @@
           "type": "cexolocstring",
           "value": {
             "0": "Then sort yourself out first, and come back when you are ready."
+          }
+        }
+      },
+      {
+        "__struct_id": 9,
+        "Animation": {
+          "type": "dword",
+          "value": 0
+        },
+        "AnimLoop": {
+          "type": "byte",
+          "value": 1
+        },
+        "Comment": {
+          "type": "cexostring",
+          "value": ""
+        },
+        "Delay": {
+          "type": "dword",
+          "value": 4294967295
+        },
+        "Quest": {
+          "type": "cexostring",
+          "value": ""
+        },
+        "RepliesList": {
+          "type": "list",
+          "value": [
+            {
+              "__struct_id": 0,
+              "Active": {
+                "type": "resref",
+                "value": ""
+              },
+              "Index": {
+                "type": "dword",
+                "value": 19
+              },
+              "IsChild": {
+                "type": "byte",
+                "value": 0
+              }
+            }
+          ]
+        },
+        "Script": {
+          "type": "resref",
+          "value": ""
+        },
+        "Sound": {
+          "type": "resref",
+          "value": ""
+        },
+        "Speaker": {
+          "type": "cexostring",
+          "value": ""
+        },
+        "Text": {
+          "type": "cexolocstring",
+          "value": {
+            "0": "You have already sorted yourself out, <FullName>. You carry the right answers. There is no quiz for those who have already faced themselves."
           }
         }
       }
@@ -1524,7 +1585,7 @@
         "Text": {
           "type": "cexolocstring",
           "value": {
-            "0": "The one in my own cellar — the chaos I have refused to face."
+            "0": "The one in my own cellar \u2014 the chaos I have refused to face."
           }
         }
       },
@@ -1596,7 +1657,7 @@
         "Text": {
           "type": "cexolocstring",
           "value": {
-            "0": "True — but the order is never finished. I begin anyway."
+            "0": "True \u2014 but the order is never finished. I begin anyway."
           }
         }
       },
@@ -1668,7 +1729,7 @@
         "Text": {
           "type": "cexolocstring",
           "value": {
-            "0": "False — the world will not wait for me."
+            "0": "False \u2014 the world will not wait for me."
           }
         }
       },
@@ -1825,6 +1886,47 @@
             "0": "I will return."
           }
         }
+      },
+      {
+        "__struct_id": 19,
+        "Animation": {
+          "type": "dword",
+          "value": 0
+        },
+        "AnimLoop": {
+          "type": "byte",
+          "value": 1
+        },
+        "Comment": {
+          "type": "cexostring",
+          "value": ""
+        },
+        "Delay": {
+          "type": "dword",
+          "value": 4294967295
+        },
+        "EntriesList": {
+          "type": "list",
+          "value": []
+        },
+        "Quest": {
+          "type": "cexostring",
+          "value": ""
+        },
+        "Script": {
+          "type": "resref",
+          "value": ""
+        },
+        "Sound": {
+          "type": "resref",
+          "value": ""
+        },
+        "Text": {
+          "type": "cexolocstring",
+          "value": {
+            "0": "Thank you, sir."
+          }
+        }
       }
     ]
   },
@@ -1833,6 +1935,17 @@
     "value": [
       {
         "__struct_id": 0,
+        "Active": {
+          "type": "resref",
+          "value": "mw_chk_peterson"
+        },
+        "Index": {
+          "type": "dword",
+          "value": 9
+        }
+      },
+      {
+        "__struct_id": 1,
         "Active": {
           "type": "resref",
           "value": ""
