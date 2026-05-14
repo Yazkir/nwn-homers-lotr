@@ -22,8 +22,8 @@ nwn-manager repack   →  builds unpacked/ → dist/<name>.mod, copies into
                          the NWN modules folder
                          (script compilation happens here, errors will surface)
 
-nwn-manager wiki     →  generates a static HTML wiki under wiki/
-                         (gitignored; rebuild explicitly when you want it)
+nwn-manager wiki     →  generates a static HTML wiki under docs/
+                         (checked in; rebuild with `nwn-manager wiki` when needed)
 ```
 
 `nwn-manager` lives in the separate [nwn_manager](https://github.com/...) repo
@@ -32,10 +32,16 @@ and wraps `nasher` + `nwn_gff` + `nwn_script_comp` (from `niv/neverwinter.nim`).
 **Source of truth is `unpacked/` + git.** Don't hand-edit the `.mod`; it'll be
 overwritten next repack.
 
+**`docs/` is a human-readable reference** for existing module content: browse
+`docs/index.html` for the area map, `docs/creatures/` for creature blueprints
+(stats, appearance, scripts, equipment), `docs/areas/` for area details,
+`docs/conversations/` for dialogues, `docs/items/`, `docs/stores/`,
+`docs/factions.html`, `docs/journal.html`. Use it to look up what's currently
+in the module without having to parse the JSON directly.
+
 ### Build artifacts (gitignored, do not commit)
 
 - `dist/` — packed `.mod` output
-- `wiki/` — generated HTML wiki
 - `.nasher/` — nasher's working cache + recorded source path (`.nasher/source`)
 - `*.ncs` — compiled scripts; only `.nss` source belongs in git
 
@@ -277,15 +283,11 @@ neighbor.
 
 ### Creature (`<name>.utc.json`, type `UTC`)
 
-Key fields: `TemplateResRef` (matches filename), `Tag`, `FirstName`,
-`LastName`, `Appearance_Type` (model row from `appearance.2da` — see
-"Appearance constants catalogue" below for how to find the right value),
-`PortraitId`, ability scores (`Str`/`Dex`/`Con`/`Int`/`Wis`/`Cha`,
-all `byte`), `HitPoints` / `MaxHitPoints` / `CurrentHitPoints` (`short`),
-`ClassList` (list of `{ Class, ClassLevel }`), `FactionID`, `Race`,
-`Gender`, `GoodEvil`, `LawfulChaotic`, `Conversation` (resref of a
-`.dlg`), `Equip_ItemList`, `ItemList` (inventory), `SkillList`,
-`FeatList`, and the 13 `Script*` fields below.
+See `docs/creatures/<resref>.html` for a human-readable view of any existing
+creature's fields. Non-obvious fields when editing: `Appearance_Type` (numeric
+row — see catalogue below), `FactionID` (index into `repute.fac.json`),
+`Conversation` (resref of `.dlg`, not a tag), ability scores all `byte`,
+HP fields all `short`, `ClassList` a list of `{ Class, ClassLevel }` structs.
 
 **Standard creature event scripts.** This module mixes the NW1 default
 set (`nw_c2_default*`) with the X2/HotU set (`x2_def_*`). Use whichever
@@ -310,58 +312,22 @@ the surrounding similar creatures use; both ship with NWN:EE.
 Common module-specific overrides: `ScriptDeath` is often `staticspawn`,
 `gpondeath`, or a per-quest script (e.g. `dolguldurshout`).
 
-#### Appearance constants catalogue
+#### Appearance constants
 
-`Appearance_Type` is an `int` row index into `appearance.2da` (in base
-NWN data + CEP HAKs). It controls the visible model — humanoid races,
-monsters, dragons, animals, polymorph forms, and a long tail of named
-NPC appearances (Aribeth, the Balor, etc).
+`Appearance_Type` is a numeric row index into `appearance.2da`. **Don't guess**
+— a wrong value renders as the invisible-model fallback with no error.
 
-**The in-module catalogue:** the area named `appearancechange` ("Appearance
-Changer and Character Modifying Area") contains an NPC titled "Appearance
-Changer" (Tag `NW_COW`, conversation `sd_appear_conv`). Its dialogue offers
-~314 appearance options, each wired to a one-line action script named
-`sd_appear_<short>.nss` that calls `SetCreatureAppearanceType(oPC,
-APPEARANCE_TYPE_<NAME>)`. Browse the `sd_appear_*.nss` filenames in
-`unpacked/` to enumerate available appearances — every option visible
-from that NPC's dialogue corresponds to one of these scripts.
+Best approach: clone an existing creature's `Appearance_Type` verbatim.
+`docs/creatures/<resref>.html` shows each blueprint's appearance as a readable
+label (e.g. "Human", "Balor"). To find the numeric value for a constant name:
 
 ```
-# pull the full list of constants
-grep -ohE 'APPEARANCE_TYPE_[A-Z_]+' unpacked/sd_appear_*.nss | sort -u
+grep APPEARANCE_TYPE_BALOR ~/.local/share/Steam/steamapps/common/Neverwinter\ Nights/ovr/nwscript.nss
 ```
 
-A few representative examples:
-
-| Script                        | Constant                          | Visible as            |
-|-------------------------------|-----------------------------------|-----------------------|
-| `sd_appear_pengn.nss`         | `APPEARANCE_TYPE_PENGUIN`         | Penguin (polymorph form) |
-| `sd_appear_balor.nss`         | `APPEARANCE_TYPE_BALOR`           | Balor demon           |
-| `sd_appear_aribth.nss`        | `APPEARANCE_TYPE_ARIBETH`         | Aribeth NPC           |
-| `sd_appear_bartnd.nss`        | `APPEARANCE_TYPE_BARTENDER`       | Bartender NPC         |
-| `sd_appear_badgr.nss`         | `APPEARANCE_TYPE_BADGER`          | Badger                |
-
-**Symbolic name → numeric value.** Scripts use the symbolic
-`APPEARANCE_TYPE_*` constant (defined by `nwscript.nss` in the base game
-SDK). JSON blueprints store the numeric row from `appearance.2da` in
-`Appearance_Type.value`. The base-game `nwscript.nss` (shipped with
-NWN:EE) is the authoritative numeric table — on a typical Steam Linux
-install it lives at
-`~/.local/share/Steam/steamapps/common/Neverwinter Nights/ovr/nwscript.nss`.
-Grep it for the constant you want:
-
-```
-grep -E 'APPEARANCE_TYPE_PENGUIN' ~/.local/share/Steam/steamapps/common/Neverwinter\ Nights/ovr/nwscript.nss
-# → int  APPEARANCE_TYPE_PENGUIN = 206;
-```
-
-A few verified examples: `BADGER = 8`, `COW = 34`, `PENGUIN = 206`,
-`BARTENDER = 234`. Don't guess: a bogus row renders as the invisible-
-model fallback in-game.
-
-When testing, prefer **cloning a working creature's `Appearance_Type`
-value verbatim** over picking a number you think is right — same lesson
-as the GIT-instance shape rule above.
+Available in-module options: grep `unpacked/sd_appear_*.nss` — each file's
+`APPEARANCE_TYPE_*` constant corresponds to one choice in the in-game
+appearance changer (area `appearancechange`, NPC tag `NW_COW`).
 
 ### Item (`<name>.uti.json`, type `UTI`)
 
@@ -682,22 +648,11 @@ a waypoint whose **Tag** you set in the toolset.
 
 To place or relocate an NPC: open the area in the toolset, place the
 **`mw_spawn`** waypoint blueprint (Waypoint palette → Custom 5), then set its
-Tag to the value below. Using the `mw_spawn` blueprint (not a generic waypoint)
-gives it the correct `LocalizedName` automatically. After placing, unpack and
-repack. Alternatively, place any waypoint and hand-edit `LocalizedName` in the
-`.git.json` to `{"0": "MW Spawn: <NPC Name>"}` so it's identifiable in the DM
-client.
-
-| Waypoint Tag | Creature resref | Area (display name) | Area resref |
-|---|---|---|---|
-| `MW_SPAWN_PETERSON` | `mw_peterson_w` | Rivendell Upper Halls | `rivendellupperha` |
-| `MW_SPAWN_CAMPBELL` | `mw_campbell_w` | Balin's Tomb | `balinstomb` |
-| `MW_SPAWN_JUNG` | `mw_jung_w` | Esgaroth Crypts | `cryptsofthelosts` |
-| `MW_SPAWN_AURELIUS` | `mw_aurelius_w` | Gwathdor: Throne of the Lord | `gwaththrone` |
-| `MW_SPAWN_AKIRA` | `mw_akira` | The Hall of Legends | `hallofleg` |
-| `MW_SPAWN_JOCKO` | `mw_jocko_w` | Helm's Deep | `helmsdeep001` |
-| `MW_SPAWN_MCKENNA` | `mw_mckenna_w` | Northern Forests of Ithilien | `northernforestso` |
-| `MW_SPAWN_WATTS` | `mw_watts_w` | Old Forest | `oldforest001` |
+Tag to the value in the table in `docs/scripts/mw_spawn.html` (or read the
+header comment in `unpacked/mw_spawn.nss`). Using the `mw_spawn` blueprint
+gives it the correct `LocalizedName` automatically. Alternatively place any
+waypoint and hand-edit `LocalizedName` in the `.git.json` to
+`{"0": "MW Spawn: <NPC Name>"}` so it's identifiable in the DM client.
 
 The `_w` blueprint variants are the wandering versions placed in-world. The
 non-`_w` blueprints (e.g. `mw_peterson`) are alternates (e.g. for quests/
@@ -771,6 +726,7 @@ in-game.
 
 ## Useful references
 
+- **`docs/`** — module wiki: areas, creatures, items, conversations, factions, journal. Open `docs/index.html` locally. Use this before parsing JSON by hand.
 - NWN Lexicon — script function reference: <https://nwnlexicon.com>
 - nwn.wiki — file format docs (GFF, ARE, UTC, etc): <https://nwn.wiki>
 - `niv/neverwinter.nim` — the underlying CLI tools, including
