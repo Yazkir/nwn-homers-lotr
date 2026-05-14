@@ -218,6 +218,13 @@ field presence and `__struct_id` values.
   tiny struct of exactly two fields: `__struct_id: 4` and
   `Comment: {type: cexostring, value: ""}`.
 
+  **GIC `__struct_id` must always be the constant `4` for creatures (never
+  the list index).** If you programmatically append GIC entries using a loop
+  counter as the struct_id you get wrong IDs (0, 1, 2, …) which cause the
+  NWN toolset to crash with an access violation when opening the area.
+  Always hardcode `__struct_id: 4` for every creature GIC entry regardless
+  of position.
+
   **The safest way to place a new instance:** clone (deep-copy) an
   existing working sibling from the *same area* and overwrite only the
   identity fields — `Tag`, `TemplateResRef`, `FirstName`/`LastName`,
