@@ -646,6 +646,31 @@ the resref of an `.nss` script (no extension). The script must compile.
 If you're adding the *first* implementation of a hitherto-unused hook,
 add the script to `Mod_CacheNSSList` only if it's hot-path.
 
+## Meaningwave NPCs
+
+Eight philosopher/thinker NPCs that spawn via script at module load. The spawn
+logic is in `mw_spawn.nss`, called from `onmoduleload.nss`. Each NPC spawns at
+a waypoint whose **Tag** you set in the toolset.
+
+To place or relocate an NPC: open the area in the toolset, place a generic
+waypoint, set its Tag to the value below, save, unpack, repack.
+
+| Waypoint Tag | Creature resref | Area (display name) | Area resref |
+|---|---|---|---|
+| `MW_SPAWN_PETERSON` | `mw_peterson_w` | Rivendell Upper Halls | `rivendellupperha` |
+| `MW_SPAWN_CAMPBELL` | `mw_campbell_w` | Balin's Tomb | `balinstomb` |
+| `MW_SPAWN_JUNG` | `mw_jung_w` | Esgaroth Crypts | `cryptsofthelosts` |
+| `MW_SPAWN_AURELIUS` | `mw_aurelius_w` | Gwathdor: Throne of the Lord | `gwaththrone` |
+| `MW_SPAWN_AKIRA` | `mw_akira` | The Hall of Legends | `hallofleg` |
+| `MW_SPAWN_JOCKO` | `mw_jocko_w` | Helm's Deep | `helmsdeep001` |
+| `MW_SPAWN_MCKENNA` | `mw_mckenna_w` | Northern Forests of Ithilien | `northernforestso` |
+| `MW_SPAWN_WATTS` | `mw_watts_w` | Old Forest | `oldforest001` |
+
+The `_w` blueprint variants are the wandering versions placed in-world. The
+non-`_w` blueprints (e.g. `mw_peterson`) are alternates (e.g. for quests/
+dialogues). To add a new Meaningwave NPC: create the `.utc.json` blueprint,
+add a `SpawnAtWaypoint` call in `mw_spawn.nss`, and extend this table.
+
 ## Gotchas
 
 - **Wrong-shape `.git` instances fail silently.** If a struct in a

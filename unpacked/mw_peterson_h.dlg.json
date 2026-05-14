@@ -16,14 +16,6 @@
     "type": "resref",
     "value": "nw_walk_wp"
   },
-  "NumWords": {
-    "type": "dword",
-    "value": 60
-  },
-  "PreventZoomIn": {
-    "type": "byte",
-    "value": 0
-  },
   "EntryList": {
     "type": "list",
     "value": [
@@ -48,24 +40,6 @@
         "Quest": {
           "type": "cexostring",
           "value": ""
-        },
-        "Script": {
-          "type": "resref",
-          "value": ""
-        },
-        "Sound": {
-          "type": "resref",
-          "value": ""
-        },
-        "Speaker": {
-          "type": "cexostring",
-          "value": ""
-        },
-        "Text": {
-          "type": "cexolocstring",
-          "value": {
-            "0": "What is it? Speak plainly."
-          }
         },
         "RepliesList": {
           "type": "list",
@@ -116,6 +90,24 @@
               }
             }
           ]
+        },
+        "Script": {
+          "type": "resref",
+          "value": ""
+        },
+        "Sound": {
+          "type": "resref",
+          "value": ""
+        },
+        "Speaker": {
+          "type": "cexostring",
+          "value": ""
+        },
+        "Text": {
+          "type": "cexolocstring",
+          "value": {
+            "0": "What is it? Speak plainly."
+          }
         }
       },
       {
@@ -140,6 +132,10 @@
           "type": "cexostring",
           "value": ""
         },
+        "RepliesList": {
+          "type": "list",
+          "value": []
+        },
         "Script": {
           "type": "resref",
           "value": ""
@@ -157,10 +153,6 @@
           "value": {
             "0": "Pick up the heaviest weight you can bear. Then add a little more. That is how you become competent. That is how you stop suffering needlessly. Now go."
           }
-        },
-        "RepliesList": {
-          "type": "list",
-          "value": []
         }
       },
       {
@@ -185,6 +177,10 @@
           "type": "cexostring",
           "value": ""
         },
+        "RepliesList": {
+          "type": "list",
+          "value": []
+        },
         "Script": {
           "type": "resref",
           "value": ""
@@ -202,13 +198,17 @@
           "value": {
             "0": "Good. Set your house in order, then. I will be in your dreams."
           }
-        },
-        "RepliesList": {
-          "type": "list",
-          "value": []
         }
       }
     ]
+  },
+  "NumWords": {
+    "type": "dword",
+    "value": 60
+  },
+  "PreventZoomIn": {
+    "type": "byte",
+    "value": 0
   },
   "ReplyList": {
     "type": "list",

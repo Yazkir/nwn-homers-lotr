@@ -49,7 +49,227 @@
   },
   "Door List": {
     "type": "list",
-    "value": []
+    "value": [
+      {
+        "__struct_id": 8,
+        "AnimationState": {
+          "type": "byte",
+          "value": 0
+        },
+        "Appearance": {
+          "type": "dword",
+          "value": 0
+        },
+        "AutoRemoveKey": {
+          "type": "byte",
+          "value": 0
+        },
+        "Bearing": {
+          "type": "float",
+          "value": -0.0
+        },
+        "CloseLockDC": {
+          "type": "byte",
+          "value": 0
+        },
+        "Conversation": {
+          "type": "resref",
+          "value": ""
+        },
+        "CurrentHP": {
+          "type": "short",
+          "value": 80
+        },
+        "Description": {
+          "type": "cexolocstring",
+          "value": {
+            "0": "Back to the Well of Eru"
+          }
+        },
+        "DisarmDC": {
+          "type": "byte",
+          "value": 15
+        },
+        "Faction": {
+          "type": "dword",
+          "value": 1
+        },
+        "Fort": {
+          "type": "byte",
+          "value": 16
+        },
+        "GenericType_New": {
+          "type": "dword",
+          "value": 0
+        },
+        "Hardness": {
+          "type": "byte",
+          "value": 5
+        },
+        "HP": {
+          "type": "short",
+          "value": 80
+        },
+        "Interruptable": {
+          "type": "byte",
+          "value": 1
+        },
+        "KeyName": {
+          "type": "cexostring",
+          "value": ""
+        },
+        "KeyRequired": {
+          "type": "byte",
+          "value": 0
+        },
+        "LinkedTo": {
+          "type": "cexostring",
+          "value": "respawn"
+        },
+        "LinkedToFlags": {
+          "type": "byte",
+          "value": 2
+        },
+        "LoadScreenID": {
+          "type": "word",
+          "value": 0
+        },
+        "Lockable": {
+          "type": "byte",
+          "value": 0
+        },
+        "Locked": {
+          "type": "byte",
+          "value": 0
+        },
+        "LocName": {
+          "type": "cexolocstring",
+          "value": {
+            "id": 5349
+          }
+        },
+        "OnClick": {
+          "type": "resref",
+          "value": ""
+        },
+        "OnClosed": {
+          "type": "resref",
+          "value": ""
+        },
+        "OnDamaged": {
+          "type": "resref",
+          "value": ""
+        },
+        "OnDeath": {
+          "type": "resref",
+          "value": "x2_door_death"
+        },
+        "OnDisarm": {
+          "type": "resref",
+          "value": ""
+        },
+        "OnFailToOpen": {
+          "type": "resref",
+          "value": ""
+        },
+        "OnHeartbeat": {
+          "type": "resref",
+          "value": ""
+        },
+        "OnLock": {
+          "type": "resref",
+          "value": ""
+        },
+        "OnMeleeAttacked": {
+          "type": "resref",
+          "value": ""
+        },
+        "OnOpen": {
+          "type": "resref",
+          "value": ""
+        },
+        "OnSpellCastAt": {
+          "type": "resref",
+          "value": ""
+        },
+        "OnTrapTriggered": {
+          "type": "resref",
+          "value": ""
+        },
+        "OnUnlock": {
+          "type": "resref",
+          "value": ""
+        },
+        "OnUserDefined": {
+          "type": "resref",
+          "value": ""
+        },
+        "OpenLockDC": {
+          "type": "byte",
+          "value": 18
+        },
+        "Plot": {
+          "type": "byte",
+          "value": 1
+        },
+        "PortraitId": {
+          "type": "word",
+          "value": 0
+        },
+        "Ref": {
+          "type": "byte",
+          "value": 0
+        },
+        "Tag": {
+          "type": "cexostring",
+          "value": "CorridorExit"
+        },
+        "TemplateResRef": {
+          "type": "resref",
+          "value": "nw_door_ttr_11"
+        },
+        "TrapDetectable": {
+          "type": "byte",
+          "value": 1
+        },
+        "TrapDetectDC": {
+          "type": "byte",
+          "value": 0
+        },
+        "TrapDisarmable": {
+          "type": "byte",
+          "value": 1
+        },
+        "TrapFlag": {
+          "type": "byte",
+          "value": 0
+        },
+        "TrapOneShot": {
+          "type": "byte",
+          "value": 1
+        },
+        "TrapType": {
+          "type": "byte",
+          "value": 0
+        },
+        "Will": {
+          "type": "byte",
+          "value": 0
+        },
+        "X": {
+          "type": "float",
+          "value": 10.0
+        },
+        "Y": {
+          "type": "float",
+          "value": 17.67
+        },
+        "Z": {
+          "type": "float",
+          "value": -0.01
+        }
+      }
+    ]
   },
   "Encounter List": {
     "type": "list",
@@ -63,6 +283,7 @@
     "type": "list",
     "value": [
       {
+        "__struct_id": 9,
         "AnimationState": {
           "type": "byte",
           "value": 0
@@ -74,6 +295,10 @@
         "AutoRemoveKey": {
           "type": "byte",
           "value": 0
+        },
+        "Bearing": {
+          "type": "float",
+          "value": 1.5708
         },
         "BodyBag": {
           "type": "byte",
@@ -146,6 +371,10 @@
           "value": {
             "0": "Pedestal of Peterson"
           }
+        },
+        "OnClick": {
+          "type": "resref",
+          "value": ""
         },
         "OnClosed": {
           "type": "resref",
@@ -267,29 +496,21 @@
           "type": "byte",
           "value": 0
         },
-        "__struct_id": 9,
-        "Bearing": {
-          "type": "float",
-          "value": 0.0
-        },
         "X": {
           "type": "float",
-          "value": 3.0
+          "value": 5.5879
         },
         "Y": {
           "type": "float",
-          "value": 12.0
+          "value": 10.2904
         },
         "Z": {
           "type": "float",
-          "value": 0.0
-        },
-        "OnClick": {
-          "type": "resref",
-          "value": ""
+          "value": -0.0
         }
       },
       {
+        "__struct_id": 9,
         "AnimationState": {
           "type": "byte",
           "value": 0
@@ -301,6 +522,10 @@
         "AutoRemoveKey": {
           "type": "byte",
           "value": 0
+        },
+        "Bearing": {
+          "type": "float",
+          "value": 1.7181
         },
         "BodyBag": {
           "type": "byte",
@@ -373,6 +598,10 @@
           "value": {
             "0": "Pedestal of Watts"
           }
+        },
+        "OnClick": {
+          "type": "resref",
+          "value": ""
         },
         "OnClosed": {
           "type": "resref",
@@ -494,29 +723,21 @@
           "type": "byte",
           "value": 0
         },
-        "__struct_id": 9,
-        "Bearing": {
-          "type": "float",
-          "value": 0.0
-        },
         "X": {
           "type": "float",
-          "value": 8.0
+          "value": 5.8442
         },
         "Y": {
           "type": "float",
-          "value": 14.0
+          "value": 12.6562
         },
         "Z": {
           "type": "float",
-          "value": 0.0
-        },
-        "OnClick": {
-          "type": "resref",
-          "value": ""
+          "value": -0.0
         }
       },
       {
+        "__struct_id": 9,
         "AnimationState": {
           "type": "byte",
           "value": 0
@@ -528,6 +749,10 @@
         "AutoRemoveKey": {
           "type": "byte",
           "value": 0
+        },
+        "Bearing": {
+          "type": "float",
+          "value": -1.3008
         },
         "BodyBag": {
           "type": "byte",
@@ -600,6 +825,10 @@
           "value": {
             "0": "Pedestal of Campbell"
           }
+        },
+        "OnClick": {
+          "type": "resref",
+          "value": ""
         },
         "OnClosed": {
           "type": "resref",
@@ -721,29 +950,21 @@
           "type": "byte",
           "value": 0
         },
-        "__struct_id": 9,
-        "Bearing": {
-          "type": "float",
-          "value": 0.0
-        },
         "X": {
           "type": "float",
-          "value": 13.0
+          "value": 14.134
         },
         "Y": {
           "type": "float",
-          "value": 12.0
+          "value": 15.3104
         },
         "Z": {
           "type": "float",
-          "value": 0.0
-        },
-        "OnClick": {
-          "type": "resref",
-          "value": ""
+          "value": -0.0
         }
       },
       {
+        "__struct_id": 9,
         "AnimationState": {
           "type": "byte",
           "value": 0
@@ -755,6 +976,10 @@
         "AutoRemoveKey": {
           "type": "byte",
           "value": 0
+        },
+        "Bearing": {
+          "type": "float",
+          "value": -1.5463
         },
         "BodyBag": {
           "type": "byte",
@@ -827,6 +1052,10 @@
           "value": {
             "0": "Pedestal of Mckenna"
           }
+        },
+        "OnClick": {
+          "type": "resref",
+          "value": ""
         },
         "OnClosed": {
           "type": "resref",
@@ -948,29 +1177,21 @@
           "type": "byte",
           "value": 0
         },
-        "__struct_id": 9,
-        "Bearing": {
-          "type": "float",
-          "value": 0.0
-        },
         "X": {
           "type": "float",
-          "value": 15.0
+          "value": 14.3154
         },
         "Y": {
           "type": "float",
-          "value": 8.0
+          "value": 11.377
         },
         "Z": {
           "type": "float",
-          "value": 0.0
-        },
-        "OnClick": {
-          "type": "resref",
-          "value": ""
+          "value": -0.0
         }
       },
       {
+        "__struct_id": 9,
         "AnimationState": {
           "type": "byte",
           "value": 0
@@ -982,6 +1203,10 @@
         "AutoRemoveKey": {
           "type": "byte",
           "value": 0
+        },
+        "Bearing": {
+          "type": "float",
+          "value": -1.4481
         },
         "BodyBag": {
           "type": "byte",
@@ -1054,6 +1279,10 @@
           "value": {
             "0": "Pedestal of Jocko"
           }
+        },
+        "OnClick": {
+          "type": "resref",
+          "value": ""
         },
         "OnClosed": {
           "type": "resref",
@@ -1175,29 +1404,21 @@
           "type": "byte",
           "value": 0
         },
-        "__struct_id": 9,
-        "Bearing": {
-          "type": "float",
-          "value": 0.0
-        },
         "X": {
           "type": "float",
-          "value": 13.0
+          "value": 14.321
         },
         "Y": {
           "type": "float",
-          "value": 4.0
+          "value": 8.0818
         },
         "Z": {
           "type": "float",
-          "value": 0.0
-        },
-        "OnClick": {
-          "type": "resref",
-          "value": ""
+          "value": -0.0
         }
       },
       {
+        "__struct_id": 9,
         "AnimationState": {
           "type": "byte",
           "value": 0
@@ -1209,6 +1430,10 @@
         "AutoRemoveKey": {
           "type": "byte",
           "value": 0
+        },
+        "Bearing": {
+          "type": "float",
+          "value": 1.8162
         },
         "BodyBag": {
           "type": "byte",
@@ -1281,6 +1506,10 @@
           "value": {
             "0": "Pedestal of Jung"
           }
+        },
+        "OnClick": {
+          "type": "resref",
+          "value": ""
         },
         "OnClosed": {
           "type": "resref",
@@ -1402,29 +1631,21 @@
           "type": "byte",
           "value": 0
         },
-        "__struct_id": 9,
-        "Bearing": {
-          "type": "float",
-          "value": 0.0
-        },
         "X": {
           "type": "float",
-          "value": 8.0
+          "value": 5.7419
         },
         "Y": {
           "type": "float",
-          "value": 2.0
+          "value": 7.5434
         },
         "Z": {
           "type": "float",
-          "value": 0.0
-        },
-        "OnClick": {
-          "type": "resref",
-          "value": ""
+          "value": -0.0
         }
       },
       {
+        "__struct_id": 9,
         "AnimationState": {
           "type": "byte",
           "value": 0
@@ -1436,6 +1657,10 @@
         "AutoRemoveKey": {
           "type": "byte",
           "value": 0
+        },
+        "Bearing": {
+          "type": "float",
+          "value": 1.129
         },
         "BodyBag": {
           "type": "byte",
@@ -1508,6 +1733,10 @@
           "value": {
             "0": "Pedestal of Aurelius"
           }
+        },
+        "OnClick": {
+          "type": "resref",
+          "value": ""
         },
         "OnClosed": {
           "type": "resref",
@@ -1629,26 +1858,17 @@
           "type": "byte",
           "value": 0
         },
-        "__struct_id": 9,
-        "Bearing": {
-          "type": "float",
-          "value": 0.0
-        },
         "X": {
           "type": "float",
-          "value": 3.0
+          "value": 5.9874
         },
         "Y": {
           "type": "float",
-          "value": 4.0
+          "value": 15.8197
         },
         "Z": {
           "type": "float",
-          "value": 0.0
-        },
-        "OnClick": {
-          "type": "resref",
-          "value": ""
+          "value": -0.0
         }
       }
     ]
@@ -1669,10 +1889,10 @@
     "type": "list",
     "value": [
       {
-        "__struct_id": 0,
+        "__struct_id": 5,
         "Appearance": {
-          "type": "dword",
-          "value": 0
+          "type": "byte",
+          "value": 1
         },
         "Description": {
           "type": "cexolocstring",
@@ -1710,23 +1930,84 @@
         },
         "XOrientation": {
           "type": "float",
+          "value": 0.0245
+        },
+        "XPosition": {
+          "type": "float",
+          "value": 9.9983
+        },
+        "YOrientation": {
+          "type": "float",
+          "value": -0.9997
+        },
+        "YPosition": {
+          "type": "float",
+          "value": 16.3782
+        },
+        "ZPosition": {
+          "type": "float",
+          "value": -0.0
+        }
+      },
+      {
+        "__struct_id": 5,
+        "Appearance": {
+          "type": "byte",
+          "value": 3
+        },
+        "Description": {
+          "type": "cexolocstring",
+          "value": {}
+        },
+        "HasMapNote": {
+          "type": "byte",
+          "value": 0
+        },
+        "LinkedTo": {
+          "type": "cexostring",
+          "value": ""
+        },
+        "LocalizedName": {
+          "type": "cexolocstring",
+          "value": {
+            "id": 14817
+          }
+        },
+        "MapNote": {
+          "type": "cexolocstring",
+          "value": {}
+        },
+        "MapNoteEnabled": {
+          "type": "byte",
+          "value": 1
+        },
+        "Tag": {
+          "type": "cexostring",
+          "value": "MW_SPAWN_AKIRA"
+        },
+        "TemplateResRef": {
+          "type": "resref",
+          "value": "nw_waypoint001"
+        },
+        "XOrientation": {
+          "type": "float",
           "value": 0.0
+        },
+        "XPosition": {
+          "type": "float",
+          "value": 10.0543
         },
         "YOrientation": {
           "type": "float",
           "value": 1.0
         },
-        "XPosition": {
-          "type": "float",
-          "value": 8.0
-        },
         "YPosition": {
           "type": "float",
-          "value": 6.0
+          "value": 4.5991
         },
         "ZPosition": {
           "type": "float",
-          "value": 0.0
+          "value": 0.12
         }
       }
     ]

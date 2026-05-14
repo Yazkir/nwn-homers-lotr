@@ -61,13 +61,9 @@
     "value": [
       {
         "__struct_id": 0,
-        "PropertyName": {
-          "type": "word",
-          "value": 1
-        },
-        "Subtype": {
-          "type": "word",
-          "value": 0
+        "ChanceAppear": {
+          "type": "byte",
+          "value": 100
         },
         "CostTable": {
           "type": "byte",
@@ -85,28 +81,28 @@
           "type": "byte",
           "value": 0
         },
-        "ChanceAppear": {
-          "type": "byte",
-          "value": 100
-        },
-        "UsesPerDay": {
-          "type": "byte",
-          "value": 0
-        },
-        "Useable": {
-          "type": "byte",
-          "value": 1
-        }
-      },
-      {
-        "__struct_id": 0,
         "PropertyName": {
           "type": "word",
           "value": 1
         },
         "Subtype": {
           "type": "word",
+          "value": 0
+        },
+        "Useable": {
+          "type": "byte",
           "value": 1
+        },
+        "UsesPerDay": {
+          "type": "byte",
+          "value": 0
+        }
+      },
+      {
+        "__struct_id": 0,
+        "ChanceAppear": {
+          "type": "byte",
+          "value": 100
         },
         "CostTable": {
           "type": "byte",
@@ -124,28 +120,28 @@
           "type": "byte",
           "value": 0
         },
-        "ChanceAppear": {
-          "type": "byte",
-          "value": 100
-        },
-        "UsesPerDay": {
-          "type": "byte",
-          "value": 0
-        },
-        "Useable": {
-          "type": "byte",
-          "value": 1
-        }
-      },
-      {
-        "__struct_id": 0,
         "PropertyName": {
           "type": "word",
           "value": 1
         },
         "Subtype": {
           "type": "word",
-          "value": 2
+          "value": 1
+        },
+        "Useable": {
+          "type": "byte",
+          "value": 1
+        },
+        "UsesPerDay": {
+          "type": "byte",
+          "value": 0
+        }
+      },
+      {
+        "__struct_id": 0,
+        "ChanceAppear": {
+          "type": "byte",
+          "value": 100
         },
         "CostTable": {
           "type": "byte",
@@ -163,28 +159,28 @@
           "type": "byte",
           "value": 0
         },
-        "ChanceAppear": {
-          "type": "byte",
-          "value": 100
-        },
-        "UsesPerDay": {
-          "type": "byte",
-          "value": 0
-        },
-        "Useable": {
-          "type": "byte",
-          "value": 1
-        }
-      },
-      {
-        "__struct_id": 0,
         "PropertyName": {
           "type": "word",
           "value": 1
         },
         "Subtype": {
           "type": "word",
-          "value": 3
+          "value": 2
+        },
+        "Useable": {
+          "type": "byte",
+          "value": 1
+        },
+        "UsesPerDay": {
+          "type": "byte",
+          "value": 0
+        }
+      },
+      {
+        "__struct_id": 0,
+        "ChanceAppear": {
+          "type": "byte",
+          "value": 100
         },
         "CostTable": {
           "type": "byte",
@@ -202,21 +198,45 @@
           "type": "byte",
           "value": 0
         },
-        "ChanceAppear": {
-          "type": "byte",
-          "value": 100
+        "PropertyName": {
+          "type": "word",
+          "value": 1
         },
-        "UsesPerDay": {
-          "type": "byte",
-          "value": 0
+        "Subtype": {
+          "type": "word",
+          "value": 3
         },
         "Useable": {
           "type": "byte",
           "value": 1
+        },
+        "UsesPerDay": {
+          "type": "byte",
+          "value": 0
         }
       },
       {
         "__struct_id": 0,
+        "ChanceAppear": {
+          "type": "byte",
+          "value": 100
+        },
+        "CostTable": {
+          "type": "byte",
+          "value": 3
+        },
+        "CostValue": {
+          "type": "word",
+          "value": 2
+        },
+        "Param1": {
+          "type": "byte",
+          "value": 255
+        },
+        "Param1Value": {
+          "type": "byte",
+          "value": 0
+        },
         "PropertyName": {
           "type": "word",
           "value": 1
@@ -225,6 +245,21 @@
           "type": "word",
           "value": 4
         },
+        "Useable": {
+          "type": "byte",
+          "value": 1
+        },
+        "UsesPerDay": {
+          "type": "byte",
+          "value": 0
+        }
+      },
+      {
+        "__struct_id": 0,
+        "ChanceAppear": {
+          "type": "byte",
+          "value": 100
+        },
         "CostTable": {
           "type": "byte",
           "value": 3
@@ -241,21 +276,6 @@
           "type": "byte",
           "value": 0
         },
-        "ChanceAppear": {
-          "type": "byte",
-          "value": 100
-        },
-        "UsesPerDay": {
-          "type": "byte",
-          "value": 0
-        },
-        "Useable": {
-          "type": "byte",
-          "value": 1
-        }
-      },
-      {
-        "__struct_id": 0,
         "PropertyName": {
           "type": "word",
           "value": 1
@@ -264,33 +284,13 @@
           "type": "word",
           "value": 5
         },
-        "CostTable": {
+        "Useable": {
           "type": "byte",
-          "value": 3
-        },
-        "CostValue": {
-          "type": "word",
-          "value": 2
-        },
-        "Param1": {
-          "type": "byte",
-          "value": 255
-        },
-        "Param1Value": {
-          "type": "byte",
-          "value": 0
-        },
-        "ChanceAppear": {
-          "type": "byte",
-          "value": 100
+          "value": 1
         },
         "UsesPerDay": {
           "type": "byte",
           "value": 0
-        },
-        "Useable": {
-          "type": "byte",
-          "value": 1
         }
       }
     ]
