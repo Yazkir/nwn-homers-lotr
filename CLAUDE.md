@@ -137,7 +137,7 @@ event hook, HAK list, custom TLK reference, entry point, etc.
 | Field             | Script             | Notes                                |
 |-------------------|--------------------|--------------------------------------|
 | `Mod_OnHeartbeat` | `bleeding`         | Custom bleed-out / death-at-negative |
-| `Mod_OnModLoad`   | `pc_export_inc`    | PC autosave init                     |
+| `Mod_OnModLoad`   | `onmoduleload`     | PC autosave init + MW NPC spawn      |
 | `Mod_OnClientEntr`| `hgll_cliententer` | Letoscript apply on enter (HGLL)     |
 | `Mod_OnClientLeav`| `hgll_client_exit` |                                      |
 | `Mod_OnAcquirItem`| `acquireditem_tag` | Hooks into Bedlamson Dynamic Merchants |
@@ -465,7 +465,35 @@ reputations (`FactionID1`, `FactionID2`, `FactionRep` 0–100).
 These are the toolset's custom-blueprint palettes, one per category
 (creature/door/encounter/item/placeable/sound/store/trigger/waypoint).
 Editing them affects only the in-toolset categorization, never gameplay.
-Safe to ignore unless you specifically want to tidy the palette tree.
+
+**Every new blueprint you create must be added to the matching
+`*palcus.itp.json` or it will be invisible in the toolset and DM client
+palette.** Scripts that `CreateObject` from a resref work without a palette
+entry, but a DM trying to manually place or inspect the blueprint from the
+palette won't find it.
+
+- **Creature entries** need `RESREF`, `NAME` (or `STRREF` for a TLK ref),
+  `CR` (float), and `FACTION` (cexostring like `"Commoner"` or `"Hostile"`).
+- **Waypoint entries** need only `RESREF` and `NAME` (cexostring display label).
+- Add to an existing category with similar content — categories are identified
+  by their `ID` (byte) + `STRREF` (TLK ref for the label); creating a new
+  category requires a new TLK entry, so prefer re-using an existing one.
+- MW creatures live in **category index 11** (`creaturepalcus.itp.json`,
+  ID=116) alongside other module-custom creatures.
+- The `mw_spawn` waypoint blueprint lives in **category index 4**
+  (`waypointpalcus.itp.json`, ID=4).
+
+**`LocalizedName` on placed instances controls what the DM client displays.**
+When you place a waypoint from a stock blueprint like `nw_waypoint001`, the
+instance inherits the TLK name (`{"id": 14817}` → "Waypoint"). To give it a
+meaningful label, set `LocalizedName` to an explicit inline string in the
+`.git.json` entry:
+
+```json
+"LocalizedName": { "type": "cexolocstring", "value": { "0": "MW Spawn: Jordan Peterson" } }
+```
+
+All `MW_SPAWN_*` waypoints already have this set.
 
 ## NWScript (`*.nss`)
 
@@ -652,8 +680,13 @@ Eight philosopher/thinker NPCs that spawn via script at module load. The spawn
 logic is in `mw_spawn.nss`, called from `onmoduleload.nss`. Each NPC spawns at
 a waypoint whose **Tag** you set in the toolset.
 
-To place or relocate an NPC: open the area in the toolset, place a generic
-waypoint, set its Tag to the value below, save, unpack, repack.
+To place or relocate an NPC: open the area in the toolset, place the
+**`mw_spawn`** waypoint blueprint (Waypoint palette → Custom 5), then set its
+Tag to the value below. Using the `mw_spawn` blueprint (not a generic waypoint)
+gives it the correct `LocalizedName` automatically. After placing, unpack and
+repack. Alternatively, place any waypoint and hand-edit `LocalizedName` in the
+`.git.json` to `{"0": "MW Spawn: <NPC Name>"}` so it's identifiable in the DM
+client.
 
 | Waypoint Tag | Creature resref | Area (display name) | Area resref |
 |---|---|---|---|
@@ -668,8 +701,14 @@ waypoint, set its Tag to the value below, save, unpack, repack.
 
 The `_w` blueprint variants are the wandering versions placed in-world. The
 non-`_w` blueprints (e.g. `mw_peterson`) are alternates (e.g. for quests/
-dialogues). To add a new Meaningwave NPC: create the `.utc.json` blueprint,
-add a `SpawnAtWaypoint` call in `mw_spawn.nss`, and extend this table.
+dialogues). To add a new Meaningwave NPC:
+1. Create the `.utc.json` blueprint.
+2. Add a `SpawnAtWaypoint` call in `mw_spawn.nss`.
+3. Add the `_w` blueprint to `creaturepalcus.itp.json` category 11 (so it
+   appears in the DM palette).
+4. Place an `mw_spawn` waypoint in the target area (from Waypoint palette →
+   Custom 5) with the correct `Tag`.
+5. Extend this table.
 
 ## Gotchas
 
