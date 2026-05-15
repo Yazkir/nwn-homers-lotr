@@ -1,0 +1,370 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>MeaningWave: A Guide to the Guides</title>
+  <link rel="stylesheet" href="../assets/style.css">
+  <style>
+    .toc {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      padding: 1em 1.4em;
+      margin: 1.2em 0 1.8em;
+      display: inline-block;
+      min-width: 280px;
+    }
+    .toc h2 {
+      font-size: 1em;
+      margin: 0 0 0.5em;
+      border: none;
+      padding: 0;
+      color: var(--muted);
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+    }
+    .toc ol { margin: 0; padding-left: 1.3em; }
+    .toc li { margin: 0.2em 0; }
+    .toc a { color: var(--link); }
+
+    .legend-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 0.8em;
+      margin: 1em 0 1.5em;
+    }
+    .legend-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      padding: 0.75em 1em;
+    }
+    .legend-card .lc-name { font-size: 1.05em; color: var(--accent); margin: 0 0 0.15em; }
+    .legend-card .lc-arch { font-size: 0.88em; color: var(--muted); font-style: italic; margin: 0 0 0.35em; }
+    .legend-card .lc-meta { font-size: 0.88em; }
+    .legend-card .lc-meta span { display: inline-block; margin-right: 1em; }
+    .legend-card a.lc-link { font-size: 0.82em; color: var(--link); }
+
+    blockquote {
+      background: rgba(107,58,28,0.05);
+      border-left: 4px solid var(--accent-soft);
+      margin: 1em 0;
+      padding: 0.6em 1.1em;
+      border-radius: 0 4px 4px 0;
+    }
+    blockquote p { margin: 0.3em 0; }
+
+    .hop-path { background: var(--card); border: 1px solid var(--border); border-radius: 4px; padding: 0.6em 1em 0.6em 1.5em; margin: 0.6em 0 1em; }
+    .hop-path li { margin: 0.25em 0; }
+
+    .reward-box {
+      background: rgba(200,165,119,0.12);
+      border: 1px solid var(--accent-soft);
+      border-radius: 4px;
+      padding: 0.7em 1.1em;
+      margin: 1em 0;
+    }
+
+    h2, h3 { scroll-margin-top: 1.5em; }
+  </style>
+</head>
+<body>
+  <header class="site-header">
+    <a class="brand" href="../index.html">Module Wiki</a>
+    <nav>
+      <a href="../index.html">Map</a>
+      <a href="../areas/index.html">Areas</a>
+      <a href="../creatures/index.html">Creature Blueprints</a>
+      <a href="../creatures/instances/index.html">Creature Instances</a>
+      <a href="../items/index.html">Items</a>
+      <a href="../stores/index.html">Stores</a>
+      <a href="../conversations/index.html">Conversations</a>
+      <a href="../factions.html">Factions</a>
+      <a href="../journal.html">Journal</a>
+      <div class="nav-dropdown"><span class="nav-dropdown-label">Guides &#9660;</span><div class="nav-dropdown-menu">
+        <a href="../manual/MeaningWave.html">MeaningWave: A Guide to the Guides</a>
+        <a href="../manual/Quest Ideas.html">Middle-earth Quest Compendium</a>
+      </div></div>
+    </nav>
+  </header>
+  <main>
+
+<h1>MeaningWave: A Guide to the Guides</h1>
+
+<p>Seven legends have been pulled across worlds into Middle-earth by Akira the Don's mixtape.
+Find them, prove yourself worthy, and they will walk with you in dream and in deed.</p>
+
+<p>This guide lists where each legend stands, the shortest route from the Well of Eru to find
+them, and how each is unlocked. Once you have unlocked at least one, the
+<strong>Wayshrine of the Wave</strong> in the Well of Eru opens the door to the Hall of Legends —
+Akira's hub.</p>
+
+<blockquote>
+  <p><strong>How unlocking works.</strong> Each guide poses a five-question quiz. Answer at least
+  four correctly and the guide will recognise you. Once unlocked they appear in the
+  rest-time / emote-wand menu under <em>"[Summon a Legend.]"</em> — pick them to bring them
+  along as a henchman for the journey.</p>
+  <p><strong>Tip.</strong> Resting (or activating the emote wand item) opens the legacy emote menu.
+  A new option, "[Summon a Legend.]", appears at the bottom once you have at least one guide.
+  Only the legends you have unlocked appear in the submenu.</p>
+</blockquote>
+
+<nav class="toc" aria-label="Page contents">
+  <h2>Contents</h2>
+  <ol>
+    <li><a href="#roster">The Roster</a></li>
+    <li><a href="#peterson">Jordan Peterson — Sage of Order</a></li>
+    <li><a href="#watts">Alan Watts — Mystic of the Tao</a></li>
+    <li><a href="#campbell">Joseph Campbell — The Mythkeeper</a></li>
+    <li><a href="#mckenna">Terence McKenna — Bard of the Mushroom</a></li>
+    <li><a href="#jocko">Jocko Willink — The Iron Captain</a></li>
+    <li><a href="#jung">Carl Jung — The Shadow-Walker</a></li>
+    <li><a href="#aurelius">Marcus Aurelius — The Philosopher King</a></li>
+    <li><a href="#hall">The Hall of Legends</a></li>
+  </ol>
+</nav>
+
+<h2 id="roster">The Roster</h2>
+
+<div class="legend-grid">
+  <div class="legend-card">
+    <p class="lc-name">Jordan Peterson</p>
+    <p class="lc-arch">Sage of Order</p>
+    <div class="lc-meta">
+      <span>&#128205; <a href="../areas/rivendellupperha.html">Rivendell Upper Halls</a></span>
+      <span>&#128246; 2 hops</span>
+    </div>
+    <a class="lc-link" href="#peterson">&#8595; details</a>
+  </div>
+  <div class="legend-card">
+    <p class="lc-name">Alan Watts</p>
+    <p class="lc-arch">Mystic of the Tao</p>
+    <div class="lc-meta">
+      <span>&#128205; <a href="../areas/oldforest001.html">Old Forest</a></span>
+      <span>&#128246; 4 hops</span>
+    </div>
+    <a class="lc-link" href="#watts">&#8595; details</a>
+  </div>
+  <div class="legend-card">
+    <p class="lc-name">Joseph Campbell</p>
+    <p class="lc-arch">The Mythkeeper</p>
+    <div class="lc-meta">
+      <span>&#128205; <a href="../areas/balinstomb.html">Balin's Tomb, Moria</a></span>
+      <span>&#128246; 6 hops</span>
+    </div>
+    <a class="lc-link" href="#campbell">&#8595; details</a>
+  </div>
+  <div class="legend-card">
+    <p class="lc-name">Terence McKenna</p>
+    <p class="lc-arch">Bard of the Mushroom</p>
+    <div class="lc-meta">
+      <span>&#128205; <a href="../areas/northernforestso.html">Northern Forests of Ithilien</a></span>
+      <span>&#128246; 4 hops</span>
+    </div>
+    <a class="lc-link" href="#mckenna">&#8595; details</a>
+  </div>
+  <div class="legend-card">
+    <p class="lc-name">Jocko Willink</p>
+    <p class="lc-arch">The Iron Captain</p>
+    <div class="lc-meta">
+      <span>&#128205; <a href="../areas/helmsdeep001.html">Helm's Deep</a></span>
+      <span>&#128246; 1 hop</span>
+    </div>
+    <a class="lc-link" href="#jocko">&#8595; details</a>
+  </div>
+  <div class="legend-card">
+    <p class="lc-name">Carl Jung</p>
+    <p class="lc-arch">The Shadow-Walker</p>
+    <div class="lc-meta">
+      <span>&#128205; <a href="../areas/cryptsofthelosts.html">Esgaroth Crypts</a></span>
+      <span>&#128246; 2 hops</span>
+    </div>
+    <a class="lc-link" href="#jung">&#8595; details</a>
+  </div>
+  <div class="legend-card">
+    <p class="lc-name">Marcus Aurelius</p>
+    <p class="lc-arch">The Philosopher King</p>
+    <div class="lc-meta">
+      <span>&#128205; <a href="../areas/gwaththrone.html">Gwathdor: Throne of the Lord</a></span>
+      <span>&#128246; 9 hops</span>
+    </div>
+    <a class="lc-link" href="#aurelius">&#8595; details</a>
+  </div>
+  <div class="legend-card">
+    <p class="lc-name">&#9733; Akira the Don</p>
+    <p class="lc-arch">Curator <span class="muted">(hub — not summonable)</span></p>
+    <div class="lc-meta">
+      <span>&#128205; <a href="../areas/hallofleg.html">Hall of Legends</a></span>
+      <span>&#128246; 1 hop (Wayshrine)</span>
+    </div>
+    <a class="lc-link" href="#hall">&#8595; details</a>
+  </div>
+</div>
+
+<table>
+  <thead>
+    <tr><th>#</th><th>Name</th><th>Archetype</th><th>Region</th><th>Hops from Well of Eru</th></tr>
+  </thead>
+  <tbody>
+    <tr><td>1</td><td><strong>Jordan Peterson</strong></td><td>Sage of Order</td><td><a href="../areas/rivendellupperha.html">Rivendell Upper Halls</a></td><td>2</td></tr>
+    <tr><td>2</td><td><strong>Alan Watts</strong></td><td>Mystic of the Tao</td><td><a href="../areas/oldforest001.html">Old Forest</a></td><td>4</td></tr>
+    <tr><td>3</td><td><strong>Joseph Campbell</strong></td><td>The Mythkeeper</td><td><a href="../areas/balinstomb.html">Balin's Tomb (Moria)</a></td><td>6</td></tr>
+    <tr><td>4</td><td><strong>Terence McKenna</strong></td><td>Bard of the Mushroom</td><td><a href="../areas/northernforestso.html">Northern Forests of Ithilien</a></td><td>4</td></tr>
+    <tr><td>5</td><td><strong>Jocko Willink</strong></td><td>The Iron Captain</td><td><a href="../areas/helmsdeep001.html">Helm's Deep</a></td><td>1</td></tr>
+    <tr><td>6</td><td><strong>Carl Jung</strong></td><td>The Shadow-Walker</td><td><a href="../areas/cryptsofthelosts.html">Esgaroth Crypts</a></td><td>2</td></tr>
+    <tr><td>7</td><td><strong>Marcus Aurelius</strong></td><td>The Philosopher King</td><td><a href="../areas/gwaththrone.html">Gwathdor: Throne of the Lord</a></td><td>9</td></tr>
+    <tr><td>&#9733;</td><td><strong>Akira the Don</strong> <em class="muted">(hub, not summonable)</em></td><td>Curator</td><td><a href="../areas/hallofleg.html">Hall of Legends</a></td><td>1 (Wayshrine, after first unlock)</td></tr>
+  </tbody>
+</table>
+
+<hr>
+
+<h2 id="peterson">1. Jordan Peterson — Sage of Order</h2>
+<dl class="kv">
+  <dt>Location</dt>
+  <dd><a href="../areas/rivendellupperha.html">Rivendell Upper Halls</a>, near coordinates <code>(30, 80)</code> — opposite side of the chamber from Elrond.</dd>
+  <dt>Quiz themes</dt>
+  <dd>Responsibility, hierarchy, meaning, slaying the dragon you would rather ignore, and setting your house in order. Pass 4 of 5.</dd>
+</dl>
+<h3>Path from Well of Eru <span class="muted">(2 hops)</span></h3>
+<ol class="hop-path">
+  <li><strong>Well of Eru → <a href="../areas/rivendell.html">Rivendell</a></strong>: talk to the <strong>Guardian of Light</strong> and choose Rivendell.</li>
+  <li><strong>Rivendell → <a href="../areas/rivendellupperha.html">Rivendell Upper Halls</a></strong>: use the <code>rivendell2upper</code> door.</li>
+</ol>
+
+<hr>
+
+<h2 id="watts">2. Alan Watts — Mystic of the Tao</h2>
+<dl class="kv">
+  <dt>Location</dt>
+  <dd><a href="../areas/oldforest001.html">Old Forest</a> (the deeper inner area, not the Withywindle approach), near <code>(60, 60)</code>.</dd>
+  <dt>Quiz themes</dt>
+  <dd>Ego, flow, the universe at play, and how to let go. Pass 4 of 5.</dd>
+</dl>
+<h3>Path from Well of Eru <span class="muted">(4 hops)</span></h3>
+<ol class="hop-path">
+  <li><strong>Well of Eru → Bree</strong>: use the door (the main Bree gate).</li>
+  <li><strong>Bree → Old Forest: Withywindle Path</strong>: step on the <code>bree2brandy</code> trigger.</li>
+  <li><strong>Withywindle Path → Old Forest (Tom Bombadil's house)</strong>: <code>withy2tom</code> trigger.</li>
+  <li><strong>Tom's → <a href="../areas/oldforest001.html">Old Forest (inner)</a></strong>: <code>tom2oldforest</code> trigger.</li>
+</ol>
+
+<hr>
+
+<h2 id="campbell">3. Joseph Campbell — The Mythkeeper</h2>
+<dl class="kv">
+  <dt>Location</dt>
+  <dd><a href="../areas/balinstomb.html">Balin's Tomb</a>, Moria, near <code>(12, 12)</code>.</dd>
+  <dt>Quiz themes</dt>
+  <dd>The monomyth — Call to Adventure, threshold guardians, descent and rebirth, bliss, and the returned boon. Pass 4 of 5.</dd>
+</dl>
+<h3>Path from Well of Eru <span class="muted">(6 hops)</span></h3>
+<ol class="hop-path">
+  <li><strong>Well of Eru → Lothlorien: Main</strong>: Guardian of Light, choose Lothlorien.</li>
+  <li><strong>Lothlorien Main → Lothlorien North</strong>: <code>Lorien2LorienNorth</code> trigger.</li>
+  <li><strong>Lothlorien North → Sîr Ninglor</strong>: <code>lorien2silver</code> trigger.</li>
+  <li><strong>Sîr Ninglor → Durin's Bridge</strong>: <code>silver2moria</code> trigger.</li>
+  <li><strong>Durin's Bridge → Chamber of Records Walkway</strong>: <code>durin2chr</code> door.</li>
+  <li><strong>Chamber of Records → <a href="../areas/balinstomb.html">Balin's Tomb</a></strong>: <code>chr2balin</code> door.</li>
+</ol>
+<p class="muted">Long trek. The dwarven crypts will likely fight back.</p>
+
+<hr>
+
+<h2 id="mckenna">4. Terence McKenna — Bard of the Mushroom</h2>
+<dl class="kv">
+  <dt>Location</dt>
+  <dd><a href="../areas/northernforestso.html">Northern Forests of Ithilien</a>, near <code>(90, 90)</code>.</dd>
+  <dt>Quiz themes</dt>
+  <dd>Culture as operating system, the felt presence of immediate experience, the timewave, the Other, and language as organism. Pass 4 of 5.</dd>
+</dl>
+<h3>Path from Well of Eru <span class="muted">(4 hops)</span></h3>
+<ol class="hop-path">
+  <li><strong>Well of Eru → Morannon (The Black Gate)</strong>: talk to the <strong>Guardian of Darkness</strong> and choose Morannon.</li>
+  <li><strong>Morannon → Dagorlad</strong>: <code>blackgate2dagorlad</code> trigger.</li>
+  <li><strong>Dagorlad → Dead Marshes</strong>: <code>Dagorlad2DeadMarshes</code> trigger.</li>
+  <li><strong>Dead Marshes → <a href="../areas/northernforestso.html">Northern Forests of Ithilien</a></strong>: <code>deadmarshes2ithnorth</code> trigger.</li>
+</ol>
+<p class="muted">The detour through Mordor's edge is no joke; come well levelled.</p>
+
+<hr>
+
+<h2 id="jocko">5. Jocko Willink — The Iron Captain</h2>
+<dl class="kv">
+  <dt>Location</dt>
+  <dd><a href="../areas/helmsdeep001.html">Helm's Deep</a>, near <code>(80, 30)</code>.</dd>
+  <dt>Quiz themes</dt>
+  <dd>Discipline, extreme ownership, "Good.", waking up, and doing what you do not feel like doing. Pass 4 of 5.</dd>
+</dl>
+<h3>Path from Well of Eru <span class="muted">(1 hop)</span></h3>
+<ol class="hop-path">
+  <li><strong>Well of Eru → <a href="../areas/helmsdeep001.html">Helm's Deep</a></strong>: Guardian of Light, choose Helm's Deep.</li>
+</ol>
+<p class="muted">The shortest journey of the seven. Get after it.</p>
+
+<hr>
+
+<h2 id="jung">6. Carl Jung — The Shadow-Walker</h2>
+<dl class="kv">
+  <dt>Location</dt>
+  <dd><a href="../areas/cryptsofthelosts.html">Esgaroth Crypts</a>, near <code>(25, 25)</code>.</dd>
+  <dt>Quiz themes</dt>
+  <dd>The shadow, individuation, the collective unconscious, and the persona. Pass 4 of 5.</dd>
+</dl>
+<h3>Path from Well of Eru <span class="muted">(2 hops)</span></h3>
+<ol class="hop-path">
+  <li><strong>Well of Eru → Esgaroth (Lake Town)</strong>: Guardian of Darkness, choose Esgaroth.</li>
+  <li><strong>Esgaroth → <a href="../areas/cryptsofthelosts.html">Esgaroth Crypts</a></strong>: <code>laketowncryptsenter</code> door.</li>
+</ol>
+
+<hr>
+
+<h2 id="aurelius">7. Marcus Aurelius — The Philosopher King</h2>
+<dl class="kv">
+  <dt>Location</dt>
+  <dd><a href="../areas/gwaththrone.html">Gwathdor: Throne of the Lord</a>, near <code>(40, 20)</code>.</dd>
+  <dt>Quiz themes</dt>
+  <dd>What is in your power, the obstacle as the way, <em>memento mori</em>, the soul dyed by its thoughts, and how to begin each day. Pass 4 of 5.</dd>
+</dl>
+<h3>Path from Well of Eru <span class="muted">(9 hops)</span></h3>
+<ol class="hop-path">
+  <li><strong>Well of Eru → Edoras</strong>: Guardian of Light, choose Edoras.</li>
+  <li><strong>Edoras → Path To Helm's Deep</strong>: <code>edoras2helm</code> trigger.</li>
+  <li><strong>Path → Hidden Port</strong>: <code>path2hiddenport</code> trigger.</li>
+  <li><strong>Hidden Port → <a href="../areas/gwathdoroutskirt.html">Gwathdor: Outskirts</a></strong>: talk to <strong>Laxus the Ship Captain</strong>.</li>
+  <li><strong>Outskirts → <a href="../areas/gwathdorcave.html">Gwathdor: Cave</a></strong>: <code>GwathDoorEntrance</code> door.</li>
+  <li><strong>Cave → East Deeps</strong> (trigger).</li>
+  <li><strong>East Deeps → West Deeps</strong> (trigger).</li>
+  <li><strong>West Deeps → <a href="../areas/gwathtomb.html">Tomb</a></strong> (trigger).</li>
+  <li><strong>Tomb → <a href="../areas/gwaththrone.html">Throne of the Lord</a></strong> (trigger).</li>
+</ol>
+<p class="muted">The longest of the seven. Stoic discipline indeed.</p>
+
+<hr>
+
+<h2 id="hall">The Hall of Legends</h2>
+<dl class="kv">
+  <dt>Location</dt>
+  <dd><a href="../areas/hallofleg.html">The Hall of Legends</a> — a hub area reached only via the Wayshrine.</dd>
+  <dt>Unlock</dt>
+  <dd>Unlock any one of the seven legends first.</dd>
+</dl>
+<h3>Path from Well of Eru <span class="muted">(1 hop)</span></h3>
+<ol class="hop-path">
+  <li><strong>Well of Eru → <a href="../areas/hallofleg.html">The Hall of Legends</a></strong>: touch the <strong>Wayshrine of the Wave</strong>, the black obelisk near <code>(10, 10)</code> in the Well of Eru.</li>
+</ol>
+<p>Inside the Hall, <strong>Akira the Don</strong> stands at the centre, surrounded by seven pedestals.
+Each pedestal that still holds a stone statue is a legend you have yet to unlock; pedestals
+whose statue you have already earned now show the live figure, who will greet you with a
+short post-unlock benediction.</p>
+<div class="reward-box">
+  <strong>Final reward — Akira's Mixtape.</strong> When all seven legends are yours, return to
+  the Hall and ask Akira for the mixtape. He will press into your hand a black slab called
+  <strong>Akira's Mixtape</strong> — an amulet that grants +2 to all six ability scores and
+  closes the Path of Meaning quest.
+</div>
+
+  </main>
+  <footer>generated by <a href="https://github.com/mrprice22/nwn-manager">nwn-manager</a></footer>
+</body>
+</html>
