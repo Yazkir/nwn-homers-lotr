@@ -40,6 +40,8 @@ wiped on the next wiki rebuild. To add or update wiki content permanently:
   edit HTML files in `docs.manual/`. The wiki generator copies `docs.manual/`
   into `docs/manual/` as part of each rebuild. Use paths relative to their
   post-copy location (`../assets/style.css`, `../index.html`, etc.).
+  **Do not add a `<header>` nav bar** — `nwn-manager wiki` injects the site
+  header automatically. Start the `<body>` directly with `<main>`.
 - **Generated content changes** (area pages, creature pages, conversation
   pages, the index map, etc.) → modify the wiki generation script in the
   separate `GIT/nwn_manager` repo and re-run `nwn-manager wiki`.
