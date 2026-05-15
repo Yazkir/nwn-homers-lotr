@@ -23,8 +23,8 @@
   <main>
 <h1>Conversation: <code>mw_campbell_m</code></h1>
 <dl class="meta">
-<dt>NPC lines</dt><dd>9</dd>
-<dt>PC replies</dt><dd>19</dd>
+<dt>NPC lines</dt><dd>10</dd>
+<dt>PC replies</dt><dd>20</dd>
 <dt>NumWords</dt><dd>200</dd>
 <dt>OnEnd</dt><dd><code></code></dd>
 <dt>OnAbort</dt><dd><code></code></dd>
@@ -36,13 +36,25 @@
 <table class="data"><thead><tr><th>Script</th><th>Slot</th><th>In module</th><th>Notes</th></tr></thead><tbody><tr><td><code>mw_cam_unl</code></td><td>action</td><td>✓</td><td></td></tr>
 <tr><td><code>mw_cam_reset</code></td><td>action</td><td>✓</td><td></td></tr>
 <tr><td><code>mw_cam_inc</code></td><td>action</td><td>✓</td><td></td></tr>
-<tr><td><code>mw_cam_pass</code></td><td>active</td><td>✓</td><td></td></tr></tbody></table>
+<tr><td><code>mw_cam_pass</code></td><td>active</td><td>✓</td><td></td></tr>
+<tr><td><code>mw_chk_campbell</code></td><td>active</td><td>✓</td><td></td></tr></tbody></table>
 <h2>Starting entries</h2><ul>
+<li><a href="#e9">entry #9</a> <small class="muted">(if <code>mw_chk_campbell</code>)</small> — You have already heard the call and answered it, &lt;FullName&gt;. Your bliss is alrea…</li>
 <li><a href="#e0">entry #0</a> — Hello, traveller. Every hero&#x27;s tale is yours, and every name you read is your ow…</li>
 </ul>
 <h2>Conversation flow</h2>
 <p class="muted">Each starting entry is expanded recursively. Repeated nodes (cycles, shared continuations) appear inline as <code>↩ link</code> backrefs to the first occurrence.</p>
 <div class="dlg-tree">
+<details class="dlg-tree-node entry" open>
+<summary><span class="dlg-id">entry #9</span> <small class="muted">(if <code>mw_chk_campbell</code>)</small> <a class="dlg-anchor" href="#e9" title="jump to flat entry #9">¶</a></summary>
+<div class="dlg-text">You have already heard the call and answered it, &lt;FullName&gt;. Your bliss is already leading you forward. The threshold is behind you — walk on.</div>
+<div class="dlg-tree-children">
+<details class="dlg-tree-node reply" open>
+<summary><span class="dlg-id">reply #19</span> <a class="dlg-anchor" href="#r19" title="jump to flat reply #19">¶</a></summary>
+<div class="dlg-text">Thank you.</div>
+</details>
+</div>
+</details>
 <details class="dlg-tree-node entry" open>
 <summary><span class="dlg-id">entry #0</span> <a class="dlg-anchor" href="#e0" title="jump to flat entry #0">¶</a></summary>
 <div class="dlg-text">Hello, traveller. Every hero&#x27;s tale is yours, and every name you read is your own. Will you let me test what you remember of the path?</div>
@@ -209,7 +221,10 @@
 <summary><span class="dlg-id">reply #1</span> <a class="dlg-anchor" href="#r1" title="jump to flat reply #1">¶</a></summary>
 <div class="dlg-text">Not today.</div>
 <div class="dlg-tree-children">
-<div class="dlg-tree-broken">⚠ entry #11 (out of range)</div>
+<details class="dlg-tree-node entry" open>
+<summary><span class="dlg-id">entry #8</span> <a class="dlg-anchor" href="#e8" title="jump to flat entry #8">¶</a></summary>
+<div class="dlg-text">Then walk on.</div>
+</details>
 </div>
 </details>
 </div>
@@ -225,9 +240,10 @@
 <div class="dlg-node entry" id="e6"><div class="dlg-head"><span class="dlg-id">entry #6</span> <span class="dlg-action">→ <code>mw_cam_unl</code></span></div><div class="dlg-text">You walk the path. Follow your bliss — and when you dream, I will be your companion at the threshold.</div><ul class="dlg-links"><li><a href="#r17">→ reply #17</a> <span class="dlg-link-preview">“Thank you.”</span></li></ul></div>
 <div class="dlg-node entry" id="e7"><div class="dlg-head"><span class="dlg-id">entry #7</span></div><div class="dlg-text">You have not yet heard the call. Listen. The world is full of calls.</div><ul class="dlg-links"><li><a href="#r18">→ reply #18</a> <span class="dlg-link-preview">“I will return.”</span></li></ul></div>
 <div class="dlg-node entry" id="e8"><div class="dlg-head"><span class="dlg-id">entry #8</span></div><div class="dlg-text">Then walk on.</div></div>
+<div class="dlg-node entry" id="e9"><div class="dlg-head"><span class="dlg-id">entry #9</span></div><div class="dlg-text">You have already heard the call and answered it, &lt;FullName&gt;. Your bliss is already leading you forward. The threshold is behind you — walk on.</div><ul class="dlg-links"><li><a href="#r19">→ reply #19</a> <span class="dlg-link-preview">“Thank you.”</span></li></ul></div>
 <h2>PC replies — flat index</h2>
 <div class="dlg-node reply" id="r0"><div class="dlg-head"><span class="dlg-id">reply #0</span> <span class="dlg-action">→ <code>mw_cam_reset</code></span></div><div class="dlg-text">Ask. I will answer.</div><ul class="dlg-links"><li><a href="#e1">→ entry #1</a> <span class="dlg-link-preview">“What is the first stage of any hero&#x27;s tale?”</span></li></ul></div>
-<div class="dlg-node reply" id="r1"><div class="dlg-head"><span class="dlg-id">reply #1</span></div><div class="dlg-text">Not today.</div><ul class="dlg-links"><li><a href="#e11">→ entry #11</a></li></ul></div>
+<div class="dlg-node reply" id="r1"><div class="dlg-head"><span class="dlg-id">reply #1</span></div><div class="dlg-text">Not today.</div><ul class="dlg-links"><li><a href="#e8">→ entry #8</a> <span class="dlg-link-preview">“Then walk on.”</span></li></ul></div>
 <div class="dlg-node reply" id="r2"><div class="dlg-head"><span class="dlg-id">reply #2</span></div><div class="dlg-text">Victory.</div><ul class="dlg-links"><li><a href="#e2">→ entry #2</a> <span class="dlg-link-preview">“What is the role of the threshold guardian?”</span></li></ul></div>
 <div class="dlg-node reply" id="r3"><div class="dlg-head"><span class="dlg-id">reply #3</span> <span class="dlg-action">→ <code>mw_cam_inc</code></span></div><div class="dlg-text">The Call to Adventure.</div><ul class="dlg-links"><li><a href="#e2">→ entry #2</a> <span class="dlg-link-preview">“What is the role of the threshold guardian?”</span></li></ul></div>
 <div class="dlg-node reply" id="r4"><div class="dlg-head"><span class="dlg-id">reply #4</span></div><div class="dlg-text">Death.</div><ul class="dlg-links"><li><a href="#e2">→ entry #2</a> <span class="dlg-link-preview">“What is the role of the threshold guardian?”</span></li></ul></div>
@@ -245,6 +261,7 @@
 <div class="dlg-node reply" id="r16"><div class="dlg-head"><span class="dlg-id">reply #16</span></div><div class="dlg-text">Conquest.</div><ul class="dlg-links"><li><a href="#e6">→ entry #6</a> <span class="dlg-link-preview">“You walk the path. Follow your bliss — and when you dream, I will be your compan…”</span> <small class="muted">(if <code>mw_cam_pass</code>)</small></li><li><a href="#e7">→ entry #7</a> <span class="dlg-link-preview">“You have not yet heard the call. Listen. The world is full of calls.”</span></li></ul></div>
 <div class="dlg-node reply" id="r17"><div class="dlg-head"><span class="dlg-id">reply #17</span></div><div class="dlg-text">Thank you.</div></div>
 <div class="dlg-node reply" id="r18"><div class="dlg-head"><span class="dlg-id">reply #18</span></div><div class="dlg-text">I will return.</div></div>
+<div class="dlg-node reply" id="r19"><div class="dlg-head"><span class="dlg-id">reply #19</span></div><div class="dlg-text">Thank you.</div></div>
   </main>
   <footer>generated by <a href="https://github.com/mrprice22/nwn-manager">nwn-manager</a></footer>
 </body>
