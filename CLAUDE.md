@@ -727,6 +727,8 @@ in-game.
 ## Useful references
 
 - **`docs/`** — module wiki: areas, creatures, items, conversations, factions, journal. Open `docs/index.html` locally. Use this before parsing JSON by hand.
+- **`MeaningWave.md`** — developer notes for the Meaningwave system: blueprint resrefs, waypoint tags, spawn script locations, how to add a new guide NPC, and how to regenerate path documentation. Player-facing guide is at `docs/manual/MeaningWave.html`.
+- **`Quest Ideas.md`** — implementation reference for all planned quests: per-quest scripting notes, NWScript patterns, module compatibility audit (what areas/NPCs exist, what needs authoring), and design notes. Player-facing compendium is at `docs/manual/Quest Ideas.html`.
 - NWN Lexicon — script function reference: <https://nwnlexicon.com>
 - nwn.wiki — file format docs (GFF, ARE, UTC, etc): <https://nwn.wiki>
 - `niv/neverwinter.nim` — the underlying CLI tools, including
