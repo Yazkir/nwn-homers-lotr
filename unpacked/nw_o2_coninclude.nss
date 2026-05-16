@@ -45,7 +45,7 @@
     int RANGE_5_MAX = 16;
 
     int RANGE_6_MIN = 17;
-    int RANGE_6_MAX = 100;
+    int RANGE_6_MAX = 9999;
 
     // * NUMBER OF ITEMS APPEARING
     int NUMBER_LOW_ONE   = 100; int NUMBER_MED_ONE    = 60; int NUMBER_HIGH_ONE   = 40;  int NUMBER_BOSS_ONE = 100;
