@@ -103,7 +103,58 @@
         },
         "ClassLevel": {
           "type": "short",
-          "value": 60
+          "value": 30
+        },
+        "MemorizedList0": {
+          "type": "list",
+          "value": []
+        },
+        "MemorizedList1": {
+          "type": "list",
+          "value": []
+        },
+        "MemorizedList2": {
+          "type": "list",
+          "value": []
+        },
+        "MemorizedList3": {
+          "type": "list",
+          "value": []
+        },
+        "MemorizedList4": {
+          "type": "list",
+          "value": []
+        },
+        "MemorizedList5": {
+          "type": "list",
+          "value": []
+        },
+        "MemorizedList6": {
+          "type": "list",
+          "value": []
+        },
+        "MemorizedList7": {
+          "type": "list",
+          "value": []
+        },
+        "MemorizedList8": {
+          "type": "list",
+          "value": []
+        },
+        "MemorizedList9": {
+          "type": "list",
+          "value": []
+        }
+      },
+      {
+        "__struct_id": 2,
+        "Class": {
+          "type": "int",
+          "value": 5
+        },
+        "ClassLevel": {
+          "type": "short",
+          "value": 30
         },
         "MemorizedList0": {
           "type": "list",
@@ -170,7 +221,7 @@
   },
   "Con": {
     "type": "byte",
-    "value": 14
+    "value": 16
   },
   "Conversation": {
     "type": "resref",
@@ -200,7 +251,7 @@
   },
   "Dex": {
     "type": "byte",
-    "value": 14
+    "value": 20
   },
   "Disarmable": {
     "type": "byte",
@@ -213,7 +264,14 @@
         "__struct_id": 2,
         "EquippedRes": {
           "type": "resref",
-          "value": "cloth007"
+          "value": "mw_jocko_cloth"
+        }
+      },
+      {
+        "__struct_id": 8,
+        "EquippedRes": {
+          "type": "resref",
+          "value": "mw_jocko_bracers"
         }
       }
     ]
@@ -229,217 +287,154 @@
         "__struct_id": 1,
         "Feat": {
           "type": "word",
-          "value": 857
+          "value": 21
         }
       },
       {
         "__struct_id": 1,
         "Feat": {
           "type": "word",
-          "value": 858
+          "value": 8
         }
       },
       {
         "__struct_id": 1,
         "Feat": {
           "type": "word",
-          "value": 859
+          "value": 39
         }
       },
       {
         "__struct_id": 1,
         "Feat": {
           "type": "word",
-          "value": 944
+          "value": 28
         }
       },
       {
         "__struct_id": 1,
         "Feat": {
           "type": "word",
-          "value": 7
+          "value": 6
         }
       },
       {
         "__struct_id": 1,
         "Feat": {
           "type": "word",
-          "value": 946
+          "value": 14
         }
       },
       {
         "__struct_id": 1,
         "Feat": {
           "type": "word",
-          "value": 11
+          "value": 22
         }
       },
       {
         "__struct_id": 1,
         "Feat": {
           "type": "word",
-          "value": 618
+          "value": 24
         }
       },
       {
         "__struct_id": 1,
         "Feat": {
           "type": "word",
-          "value": 875
+          "value": 40
         }
       },
       {
         "__struct_id": 1,
         "Feat": {
           "type": "word",
-          "value": 877
+          "value": 100
         }
       },
       {
         "__struct_id": 1,
         "Feat": {
           "type": "word",
-          "value": 990
+          "value": 138
         }
       },
       {
         "__struct_id": 1,
         "Feat": {
           "type": "word",
-          "value": 878
+          "value": 62
         }
       },
       {
         "__struct_id": 1,
         "Feat": {
           "type": "word",
-          "value": 876
+          "value": 207
         }
       },
       {
         "__struct_id": 1,
         "Feat": {
           "type": "word",
-          "value": 874
+          "value": 213
         }
       },
       {
         "__struct_id": 1,
         "Feat": {
           "type": "word",
-          "value": 976
+          "value": 260
         }
       },
       {
         "__struct_id": 1,
         "Feat": {
           "type": "word",
-          "value": 12
+          "value": 297
         }
       },
       {
         "__struct_id": 1,
         "Feat": {
           "type": "word",
-          "value": 794
+          "value": 966
         }
       },
       {
         "__struct_id": 1,
         "Feat": {
           "type": "word",
-          "value": 795
+          "value": 971
         }
       },
       {
         "__struct_id": 1,
         "Feat": {
           "type": "word",
-          "value": 796
+          "value": 630
         }
       },
       {
         "__struct_id": 1,
         "Feat": {
           "type": "word",
-          "value": 800
+          "value": 668
         }
       },
       {
         "__struct_id": 1,
         "Feat": {
           "type": "word",
-          "value": 401
+          "value": 720
         }
       },
       {
         "__struct_id": 1,
         "Feat": {
           "type": "word",
-          "value": 696
-        }
-      },
-      {
-        "__struct_id": 1,
-        "Feat": {
-          "type": "word",
-          "value": 25
-        }
-      },
-      {
-        "__struct_id": 1,
-        "Feat": {
-          "type": "word",
-          "value": 258
-        }
-      },
-      {
-        "__struct_id": 1,
-        "Feat": {
-          "type": "word",
-          "value": 29
-        }
-      },
-      {
-        "__struct_id": 1,
-        "Feat": {
-          "type": "word",
-          "value": 945
-        }
-      },
-      {
-        "__struct_id": 1,
-        "Feat": {
-          "type": "word",
-          "value": 33
-        }
-      },
-      {
-        "__struct_id": 1,
-        "Feat": {
-          "type": "word",
-          "value": 36
-        }
-      },
-      {
-        "__struct_id": 1,
-        "Feat": {
-          "type": "word",
-          "value": 37
-        }
-      },
-      {
-        "__struct_id": 1,
-        "Feat": {
-          "type": "word",
-          "value": 303
-        }
-      },
-      {
-        "__struct_id": 1,
-        "Feat": {
-          "type": "word",
-          "value": 51
+          "value": 506
         }
       }
     ]
@@ -502,7 +497,7 @@
   },
   "NaturalAC": {
     "type": "byte",
-    "value": 0
+    "value": 15
   },
   "NoPermDeath": {
     "type": "byte",
@@ -784,7 +779,7 @@
   },
   "SoundSetFile": {
     "type": "word",
-    "value": 0
+    "value": 43
   },
   "SpecAbilityList": {
     "type": "list",
@@ -796,7 +791,7 @@
   },
   "Str": {
     "type": "byte",
-    "value": 10
+    "value": 20
   },
   "Subrace": {
     "type": "cexostring",
@@ -832,6 +827,6 @@
   },
   "Wis": {
     "type": "byte",
-    "value": 14
+    "value": 20
   }
 }

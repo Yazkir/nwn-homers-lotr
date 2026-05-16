@@ -6,7 +6,7 @@
   },
   "BaseItem": {
     "type": "int",
-    "value": 58
+    "value": 51
   },
   "Charges": {
     "type": "byte",
@@ -18,7 +18,7 @@
   },
   "Cost": {
     "type": "dword",
-    "value": 977926
+    "value": 0
   },
   "Cursed": {
     "type": "byte",
@@ -38,29 +38,29 @@
   },
   "Identified": {
     "type": "byte",
-    "value": 0
+    "value": 1
   },
   "LocalizedName": {
     "type": "cexolocstring",
     "value": {
-      "0": "Spear of the Rohirim General"
+      "0": "Rapier of the Present Moment"
     }
   },
   "ModelPart1": {
     "type": "byte",
-    "value": 241
+    "value": 1
   },
   "ModelPart2": {
     "type": "byte",
-    "value": 24
+    "value": 1
   },
   "ModelPart3": {
     "type": "byte",
-    "value": 251
+    "value": 1
   },
   "PaletteID": {
     "type": "byte",
-    "value": 51
+    "value": 36
   },
   "Plot": {
     "type": "byte",
@@ -98,68 +98,6 @@
         "Subtype": {
           "type": "word",
           "value": 0
-        }
-      },
-      {
-        "__struct_id": 0,
-        "ChanceAppear": {
-          "type": "byte",
-          "value": 100
-        },
-        "CostTable": {
-          "type": "byte",
-          "value": 4
-        },
-        "CostValue": {
-          "type": "word",
-          "value": 11
-        },
-        "Param1": {
-          "type": "byte",
-          "value": 255
-        },
-        "Param1Value": {
-          "type": "byte",
-          "value": 0
-        },
-        "PropertyName": {
-          "type": "word",
-          "value": 16
-        },
-        "Subtype": {
-          "type": "word",
-          "value": 0
-        }
-      },
-      {
-        "__struct_id": 0,
-        "ChanceAppear": {
-          "type": "byte",
-          "value": 100
-        },
-        "CostTable": {
-          "type": "byte",
-          "value": 4
-        },
-        "CostValue": {
-          "type": "word",
-          "value": 11
-        },
-        "Param1": {
-          "type": "byte",
-          "value": 255
-        },
-        "Param1Value": {
-          "type": "byte",
-          "value": 0
-        },
-        "PropertyName": {
-          "type": "word",
-          "value": 16
-        },
-        "Subtype": {
-          "type": "word",
-          "value": 1
         }
       },
       {
@@ -223,37 +161,6 @@
           "type": "word",
           "value": 0
         }
-      },
-      {
-        "__struct_id": 0,
-        "ChanceAppear": {
-          "type": "byte",
-          "value": 100
-        },
-        "CostTable": {
-          "type": "byte",
-          "value": 26
-        },
-        "CostValue": {
-          "type": "word",
-          "value": 4
-        },
-        "Param1": {
-          "type": "byte",
-          "value": 255
-        },
-        "Param1Value": {
-          "type": "byte",
-          "value": 0
-        },
-        "PropertyName": {
-          "type": "word",
-          "value": 82
-        },
-        "Subtype": {
-          "type": "word",
-          "value": 93
-        }
       }
     ]
   },
@@ -267,10 +174,10 @@
   },
   "Tag": {
     "type": "cexostring",
-    "value": "SpearoftheRohirimGeneralrgr"
+    "value": "mw_watts_rapier"
   },
   "TemplateResRef": {
     "type": "resref",
-    "value": "spearoftherohiri"
+    "value": "mw_watts_rapier"
   }
 }
