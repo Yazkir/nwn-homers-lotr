@@ -9,6 +9,12 @@
   start a new instance by copying a neighbor in the same list. See the
   canonical-id table in [CLAUDE-blueprints.md](CLAUDE-blueprints.md).
 
+- **ResRefs are limited to 16 characters.** The NWN engine (and nasher) enforce
+  a hard 16-character limit on all resource names — filenames without extension,
+  `TemplateResRef`, `Tag` (when used as a resref), and `Conversation` fields.
+  Exceeding it causes a pack-time error. Name new blueprints with this in mind;
+  abbreviate rather than truncate: e.g. `mw_aurel_armor` not `mw_aurelius_armor`.
+
 - **ResRef collisions are silent.** Two blueprints of the same type with
   the same `TemplateResRef` are an error you'll see at pack time;
   *across* types you can have e.g. an item and a creature both named

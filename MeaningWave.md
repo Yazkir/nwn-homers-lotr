@@ -5,16 +5,19 @@ This file covers implementation details, script locations, and maintenance tasks
 
 ## Quick reference
 
-| NPC | Blueprint resref | Waypoint tag | Area resref |
-|-----|-----------------|--------------|-------------|
-| Jordan Peterson | `mw_peterson_w` | `MW_SPAWN_PETERSON` | `rivendellupperha` |
-| Alan Watts | `mw_watts_w` | `MW_SPAWN_WATTS` | `oldforest001` |
-| Joseph Campbell | `mw_campbell_w` | `MW_SPAWN_CAMPBELL` | `balinstomb` |
-| Terence McKenna | `mw_mckenna_w` | `MW_SPAWN_MCKENNA` | `northernforestso` |
-| Jocko Willink | `mw_jocko_w` | `MW_SPAWN_JOCKO` | `helmsdeep001` |
-| Carl Jung | `mw_jung_w` | `MW_SPAWN_JUNG` | `cryptsofthelosts` |
-| Marcus Aurelius | `mw_aurelius_w` | `MW_SPAWN_AURELIUS` | `gwaththrone` |
-| Akira the Don | `mw_akira` | — | `hallofleg` |
+| NPC | Blueprint resref | Waypoint tag | Area resref | Reward items |
+|-----|-----------------|--------------|-------------|--------------|
+| Jordan Peterson | `mw_peterson_w` | `MW_SPAWN_PETERSON` | `rivendellupperha` | `mw_peter_robes`, `mw_peter_staff` |
+| Alan Watts | `mw_watts_w` | `MW_SPAWN_WATTS` | `oldforest001` | — |
+| Joseph Campbell | `mw_campbell_w` | `MW_SPAWN_CAMPBELL` | `balinstomb` | `mw_camp_robes`, `mw_camp_staff` |
+| Terence McKenna | `mw_mckenna_w` | `MW_SPAWN_MCKENNA` | `northernforestso` | — |
+| Jocko Willink | `mw_jocko_w` | `MW_SPAWN_JOCKO` | `helmsdeep001` | — |
+| Carl Jung | `mw_jung_w` | `MW_SPAWN_JUNG` | `cryptsofthelosts` | — |
+| Marcus Aurelius | `mw_aurelius_w` | `MW_SPAWN_AURELIUS` | `gwaththrone` | `mw_aurel_armor`, `mw_aurel_sword` |
+| Akira the Don | `mw_akira` | — | `hallofleg` | — |
+
+> **16-char limit:** All NWN ResRefs (filenames, `TemplateResRef`, `Conversation`) must be ≤ 16 chars.
+> Item resrefs use abbreviated names (`mw_aurel_`, `mw_camp_`, `mw_peter_`) for this reason.
 
 ## Key scripts
 

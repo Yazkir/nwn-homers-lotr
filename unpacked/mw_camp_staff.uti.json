@@ -6,7 +6,7 @@
   },
   "BaseItem": {
     "type": "int",
-    "value": 1
+    "value": 50
   },
   "Charges": {
     "type": "byte",
@@ -43,24 +43,24 @@
   "LocalizedName": {
     "type": "cexolocstring",
     "value": {
-      "0": "Sword of Meditations"
+      "0": "Staff of the Hero's Journey"
     }
   },
   "ModelPart1": {
     "type": "byte",
-    "value": 172
+    "value": 1
   },
   "ModelPart2": {
     "type": "byte",
-    "value": 92
+    "value": 1
   },
   "ModelPart3": {
     "type": "byte",
-    "value": 181
+    "value": 1
   },
   "PaletteID": {
     "type": "byte",
-    "value": 36
+    "value": 49
   },
   "Plot": {
     "type": "byte",
@@ -130,37 +130,6 @@
           "type": "word",
           "value": 0
         }
-      },
-      {
-        "__struct_id": 0,
-        "ChanceAppear": {
-          "type": "byte",
-          "value": 100
-        },
-        "CostTable": {
-          "type": "byte",
-          "value": 4
-        },
-        "CostValue": {
-          "type": "word",
-          "value": 11
-        },
-        "Param1": {
-          "type": "byte",
-          "value": 255
-        },
-        "Param1Value": {
-          "type": "byte",
-          "value": 0
-        },
-        "PropertyName": {
-          "type": "word",
-          "value": 74
-        },
-        "Subtype": {
-          "type": "word",
-          "value": 0
-        }
       }
     ]
   },
@@ -174,10 +143,10 @@
   },
   "Tag": {
     "type": "cexostring",
-    "value": "mw_aurelius_sword"
+    "value": "mw_camp_staff"
   },
   "TemplateResRef": {
     "type": "resref",
-    "value": "mw_aurelius_sword"
+    "value": "mw_camp_staff"
   }
 }
