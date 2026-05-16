@@ -4596,8 +4596,6 @@ int nDetermineClassToUse(object oCharacter)
     int nState3 = FloatToInt((IntToFloat(GetLevelByClass(nClass3, oCharacter)) / fTotal) * 100) + nState2;
 
     int nUseClass = d100();
-    PrintString(GetName(oCharacter) + " D100: " + IntToString(nUseClass));
-
 
     dbSpeak("Before comparison : " + IntToString(nClass1));
     if(nUseClass <= nState1)
