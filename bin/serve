@@ -48,7 +48,7 @@ env_args=()
 while IFS='=' read -r k _; do
   case "$k" in
     NWN_IMAGE|NWN_CONTAINER_NAME|NWN_RUN_DIR|NWN_HOME_DIR) continue ;;
-    NWN_*|NWNX_*) env_args+=(-e "$k=${!k}") ;;
+    TZ|NWN_*|NWNX_*) env_args+=(-e "$k=${!k}") ;;
   esac
 done < <(cat "${env_files[@]}" | grep -E '^[A-Z_][A-Z0-9_]*=')
 
