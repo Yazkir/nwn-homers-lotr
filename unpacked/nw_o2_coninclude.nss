@@ -1107,10 +1107,10 @@ int GetNumberOfItems(int nTreasureType)
             switch ( nRandom )
             {
                 // Potion options have changed. FB.
-                case 1: case 2: case 3: case 4: case 5: case 6: case 7: sPotion = "potionclw"; break;
-                case 8: case 9: case 10: case 11: case 12: sPotion = "potioncmw";  break;
-                case 13: case 14: sPotion = "potioncsw";  break;
-                case 15: case 16: case 17: case 18: sPotion = "potionctw"; break;
+                case 1: case 2: case 3: case 4: case 5: case 6: case 7: sPotion = "nw_it_mpotion001"; break;
+                case 8: case 9: case 10: case 11: case 12: sPotion = "nw_it_mpotion002";  break;
+                case 13: case 14: sPotion = "nw_it_mpotion003";  break;
+                case 15: case 16: case 17: case 18: sPotion = "nw_it_mpotion001"; break;
             }
           }
           else
@@ -1118,7 +1118,7 @@ int GetNumberOfItems(int nTreasureType)
             if ( d2() == 1 )
               sPotion = "nw_it_mpotion009";
             else
-              sPotion = "potionctw";
+              sPotion = "nw_it_mpotion001";
           }
         }
         else if (GetRange(2, nHD))
@@ -1128,10 +1128,10 @@ int GetNumberOfItems(int nTreasureType)
             int nRandom = Random( 20 ) + 1;
             switch ( nRandom )
             {
-              case 1: case 2: case 3: case 4: case 5: case 6: sPotion = "potionclw"; break;
-              case 7: case 8: case 9: case 10: case 11: case 12: sPotion = "potioncmw";  break;
-              case 13: case 14: case 15: case 16: case 17: sPotion = "potioncsw";  break;
-              case 18: case 19: case 20: sPotion = "potionccw";  break;
+              case 1: case 2: case 3: case 4: case 5: case 6: sPotion = "nw_it_mpotion001"; break;
+              case 7: case 8: case 9: case 10: case 11: case 12: sPotion = "nw_it_mpotion002";  break;
+              case 13: case 14: case 15: case 16: case 17: sPotion = "nw_it_mpotion003";  break;
+              case 18: case 19: case 20: sPotion = "nw_it_mpotion004";  break;
             }
           }
           else
@@ -1154,7 +1154,7 @@ int GetNumberOfItems(int nTreasureType)
               case 13: sPotion = "nw_it_mpotion019";  break;
               case 14: sPotion = "nw_it_mpotion004";  break;
               case 15: sPotion = "nw_it_mpotion006";  break;
-              case 16: sPotion = "potionctw"; break;
+              case 16: sPotion = "nw_it_mpotion001"; break;
             }
           }
         }
@@ -1162,7 +1162,7 @@ int GetNumberOfItems(int nTreasureType)
         {
           if ( d8() > 1 )
           {
-            sPotion = "potionccw";
+            sPotion = "nw_it_mpotion004";
           }
           else
           {
@@ -1191,7 +1191,7 @@ int GetNumberOfItems(int nTreasureType)
         {
           if ( d8() > 1 )
           {
-            sPotion = "potionccw";
+            sPotion = "nw_it_mpotion004";
           }
           else
           {
@@ -1220,7 +1220,7 @@ int GetNumberOfItems(int nTreasureType)
         {
           if ( d6() > 1 )
           {
-            sPotion = "potionccw";
+            sPotion = "nw_it_mpotion004";
           }
           else
           {
@@ -4588,18 +4588,15 @@ int nDetermineClassToUse(object oCharacter)
     int nState1 = FloatToInt((IntToFloat(GetLevelByClass(nClass1, oCharacter)) / fTotal) * 100);
     dbSpeak("Level 1 Class Level = " + IntToString(GetLevelByClass(nClass1,oCharacter)));
 
-    PrintString("GENERIC SCRIPT DEBUG STRING ********** " +  GetTag(oCharacter) + "Class 1 " + IntToString(nState1));
     dbSpeak("State 1 " + IntToString(nState1));
     int nClass2 = GetClassByPosition(2, oCharacter);
     int nState2 = FloatToInt((IntToFloat(GetLevelByClass(nClass2, oCharacter)) / fTotal) * 100) + nState1;
-    PrintString("GENERIC SCRIPT DEBUG STRING ********** " + GetTag(oCharacter) + "Class 2 " + IntToString(nState2));
 
     int nClass3 = GetClassByPosition(3, oCharacter);
     int nState3 = FloatToInt((IntToFloat(GetLevelByClass(nClass3, oCharacter)) / fTotal) * 100) + nState2;
-    PrintString("GENERIC SCRIPT DEBUG STRING ********** " + GetTag(oCharacter) + "Class 3 " + IntToString(nState3));
 
     int nUseClass = d100();
-    PrintString("GENERIC SCRIPT DEBUG STRING ********** " + "D100 Roll " +IntToString(nUseClass));
+    PrintString(GetName(oCharacter) + " D100: " + IntToString(nUseClass));
 
 
     dbSpeak("Before comparison : " + IntToString(nClass1));
