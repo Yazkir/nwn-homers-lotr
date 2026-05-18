@@ -2,7 +2,8 @@
 //:: mw_wayshrn_us — Wayshrine OnUsed: teleport unlocked PCs into the Hall.
 //::
 //:: Players who have not yet unlocked a single guide get a gentle message
-//:: and are not teleported.
+//:: and are not teleported. Players who arrive while the Hall is occupied
+//:: by another seeker are also turned away.
 //:://////////////////////////////////////////////
 #include "mw_unlock_inc"
 
@@ -28,6 +29,15 @@ void main()
         return;
     }
 
+    if (GetLocalInt(GetModule(), "MW_HALL_OCCUPIED"))
+    {
+        FloatingTextStringOnCreature(
+            "The Hall of Legends is occupied. Return when the seeker within has departed.",
+            oPC, FALSE);
+        return;
+    }
+
+    SetLocalInt(GetModule(), "MW_HALL_OCCUPIED", 1);
     ApplyEffectToObject(DURATION_TYPE_INSTANT,
         EffectVisualEffect(VFX_IMP_UNSUMMON), oPC);
     AssignCommand(oPC, ClearAllActions());
