@@ -7,7 +7,7 @@
       "__struct_id": 100,
       "AmbientSndDay": {
         "type": "int",
-        "value": 72
+        "value": 66
       },
       "AmbientSndDayVol": {
         "type": "int",
@@ -15,7 +15,7 @@
       },
       "AmbientSndNight": {
         "type": "int",
-        "value": 72
+        "value": 66
       },
       "AmbientSndNitVol": {
         "type": "int",
@@ -27,19 +27,19 @@
       },
       "MusicBattle": {
         "type": "int",
-        "value": 48
+        "value": 41
       },
       "MusicDay": {
         "type": "int",
-        "value": 78
+        "value": 50
       },
       "MusicDelay": {
         "type": "int",
-        "value": 89000
+        "value": 90000
       },
       "MusicNight": {
         "type": "int",
-        "value": 78
+        "value": 50
       }
     }
   },
@@ -66,7 +66,7 @@
         },
         "Bearing": {
           "type": "float",
-          "value": -0.0
+          "value": 3.1416
         },
         "CloseLockDC": {
           "type": "byte",
@@ -78,17 +78,15 @@
         },
         "CurrentHP": {
           "type": "short",
-          "value": 80
+          "value": 60
         },
         "Description": {
           "type": "cexolocstring",
-          "value": {
-            "0": "Back to the Well of Eru"
-          }
+          "value": {}
         },
         "DisarmDC": {
           "type": "byte",
-          "value": 15
+          "value": 28
         },
         "Faction": {
           "type": "dword",
@@ -96,19 +94,19 @@
         },
         "Fort": {
           "type": "byte",
-          "value": 16
+          "value": 28
         },
         "GenericType_New": {
           "type": "dword",
-          "value": 0
+          "value": 14
         },
         "Hardness": {
           "type": "byte",
-          "value": 5
+          "value": 15
         },
         "HP": {
           "type": "short",
-          "value": 80
+          "value": 60
         },
         "Interruptable": {
           "type": "byte",
@@ -162,7 +160,7 @@
         },
         "OnDeath": {
           "type": "resref",
-          "value": "x2_door_death"
+          "value": ""
         },
         "OnDisarm": {
           "type": "resref",
@@ -206,11 +204,11 @@
         },
         "OpenLockDC": {
           "type": "byte",
-          "value": 18
+          "value": 28
         },
         "Plot": {
           "type": "byte",
-          "value": 1
+          "value": 0
         },
         "PortraitId": {
           "type": "word",
@@ -222,11 +220,11 @@
         },
         "Tag": {
           "type": "cexostring",
-          "value": "CorridorExit"
+          "value": "x3_door_stn002"
         },
         "TemplateResRef": {
           "type": "resref",
-          "value": "nw_door_ttr_11"
+          "value": "x3_door_stn002"
         },
         "TrapDetectable": {
           "type": "byte",
@@ -250,7 +248,7 @@
         },
         "TrapType": {
           "type": "byte",
-          "value": 0
+          "value": 2
         },
         "Will": {
           "type": "byte",
@@ -258,15 +256,15 @@
         },
         "X": {
           "type": "float",
-          "value": 10.0
+          "value": 25.0
         },
         "Y": {
           "type": "float",
-          "value": 17.67
+          "value": 3.95
         },
         "Z": {
           "type": "float",
-          "value": -0.01
+          "value": -1.6
         }
       }
     ]
@@ -290,7 +288,7 @@
         },
         "Appearance": {
           "type": "dword",
-          "value": 418
+          "value": 183
         },
         "AutoRemoveKey": {
           "type": "byte",
@@ -298,7 +296,7 @@
         },
         "Bearing": {
           "type": "float",
-          "value": 1.5708
+          "value": 0.0
         },
         "BodyBag": {
           "type": "byte",
@@ -319,7 +317,7 @@
         "Description": {
           "type": "cexolocstring",
           "value": {
-            "0": "Jordan Peterson — A philosopher of order, meaning, and personal responsibility. He wanders the upper halls of Rivendell, where elven wisdom meets the weight of the world. Seek him there and prove yourself worthy."
+            "id": 14742
           }
         },
         "DisarmDC": {
@@ -369,7 +367,7 @@
         "LocName": {
           "type": "cexolocstring",
           "value": {
-            "0": "Jordan Peterson"
+            "id": 14741
           }
         },
         "OnClick": {
@@ -386,7 +384,7 @@
         },
         "OnDeath": {
           "type": "resref",
-          "value": "x2_o2_dead"
+          "value": ""
         },
         "OnDisarm": {
           "type": "resref",
@@ -442,7 +440,7 @@
         },
         "PortraitId": {
           "type": "word",
-          "value": 901
+          "value": 0
         },
         "Ref": {
           "type": "byte",
@@ -450,15 +448,15 @@
         },
         "Static": {
           "type": "byte",
-          "value": 0
+          "value": 1
         },
         "Tag": {
           "type": "cexostring",
-          "value": "mw_stat_peterson"
+          "value": "Throne - Good"
         },
         "TemplateResRef": {
           "type": "resref",
-          "value": "plc_statue_h001"
+          "value": "plc_thronegood"
         },
         "TrapDetectable": {
           "type": "byte",
@@ -498,11 +496,11 @@
         },
         "X": {
           "type": "float",
-          "value": 5.5879
+          "value": 25.0671
         },
         "Y": {
           "type": "float",
-          "value": 10.2904
+          "value": 88.1946
         },
         "Z": {
           "type": "float",
@@ -517,7 +515,7 @@
         },
         "Appearance": {
           "type": "dword",
-          "value": 418
+          "value": 372
         },
         "AutoRemoveKey": {
           "type": "byte",
@@ -525,7 +523,7 @@
         },
         "Bearing": {
           "type": "float",
-          "value": 1.7181
+          "value": -0.0
         },
         "BodyBag": {
           "type": "byte",
@@ -541,17 +539,17 @@
         },
         "CurrentHP": {
           "type": "short",
-          "value": 15
+          "value": 10
         },
         "Description": {
           "type": "cexolocstring",
           "value": {
-            "0": "Alan Watts — A sage of Eastern philosophy and the nature of consciousness. He drifts through the Old Forest, where the ancient trees remember what mortals have forgotten. Find him among those living shadows."
+            "id": 110889
           }
         },
         "DisarmDC": {
           "type": "byte",
-          "value": 15
+          "value": 0
         },
         "Faction": {
           "type": "dword",
@@ -559,7 +557,7 @@
         },
         "Fort": {
           "type": "byte",
-          "value": 16
+          "value": 5
         },
         "Hardness": {
           "type": "byte",
@@ -571,7 +569,7 @@
         },
         "HP": {
           "type": "short",
-          "value": 15
+          "value": 10
         },
         "Interruptable": {
           "type": "byte",
@@ -587,7 +585,7 @@
         },
         "Lockable": {
           "type": "byte",
-          "value": 0
+          "value": 1
         },
         "Locked": {
           "type": "byte",
@@ -596,7 +594,7 @@
         "LocName": {
           "type": "cexolocstring",
           "value": {
-            "0": "Alan Watts"
+            "id": 5740
           }
         },
         "OnClick": {
@@ -613,7 +611,7 @@
         },
         "OnDeath": {
           "type": "resref",
-          "value": "x2_o2_dead"
+          "value": ""
         },
         "OnDisarm": {
           "type": "resref",
@@ -661,7 +659,7 @@
         },
         "OpenLockDC": {
           "type": "byte",
-          "value": 18
+          "value": 0
         },
         "Plot": {
           "type": "byte",
@@ -669,7 +667,7 @@
         },
         "PortraitId": {
           "type": "word",
-          "value": 901
+          "value": 836
         },
         "Ref": {
           "type": "byte",
@@ -677,15 +675,15 @@
         },
         "Static": {
           "type": "byte",
-          "value": 0
+          "value": 1
         },
         "Tag": {
           "type": "cexostring",
-          "value": "mw_stat_watts"
+          "value": "nw_plc_dwarftabl"
         },
         "TemplateResRef": {
           "type": "resref",
-          "value": "plc_statue_h001"
+          "value": "nw_plc_dwarftabl"
         },
         "TrapDetectable": {
           "type": "byte",
@@ -725,11 +723,11 @@
         },
         "X": {
           "type": "float",
-          "value": 5.8442
+          "value": 25.1384
         },
         "Y": {
           "type": "float",
-          "value": 12.6562
+          "value": 84.1932
         },
         "Z": {
           "type": "float",
@@ -744,7 +742,7 @@
         },
         "Appearance": {
           "type": "dword",
-          "value": 418
+          "value": 91
         },
         "AutoRemoveKey": {
           "type": "byte",
@@ -752,7 +750,7 @@
         },
         "Bearing": {
           "type": "float",
-          "value": -1.3008
+          "value": 0.0
         },
         "BodyBag": {
           "type": "byte",
@@ -773,7 +771,8 @@
         "Description": {
           "type": "cexolocstring",
           "value": {
-            "0": "Joseph Campbell — A scholar of myth, archetype, and the hero's journey. He dwells in Balin's Tomb within Moria, where stories of sacrifice are carved in stone. Descend into that darkness to face him."
+            "0": "Terence McKenna\n\nAn explorer of the mind's furthest boundaries and the strangeness of existence. He moves through the Northern Forests of Ithilien, where strange things grow and stranger things are heard\n\nVenture north and listen.",
+            "id": 14732
           }
         },
         "DisarmDC": {
@@ -802,7 +801,7 @@
         },
         "Interruptable": {
           "type": "byte",
-          "value": 1
+          "value": 0
         },
         "KeyName": {
           "type": "cexostring",
@@ -823,7 +822,8 @@
         "LocName": {
           "type": "cexolocstring",
           "value": {
-            "0": "Joseph Campbell"
+            "0": "Terence McKenna",
+            "id": 14536
           }
         },
         "OnClick": {
@@ -840,7 +840,7 @@
         },
         "OnDeath": {
           "type": "resref",
-          "value": "x2_o2_dead"
+          "value": ""
         },
         "OnDisarm": {
           "type": "resref",
@@ -892,238 +892,11 @@
         },
         "Plot": {
           "type": "byte",
-          "value": 0
+          "value": 1
         },
         "PortraitId": {
           "type": "word",
-          "value": 901
-        },
-        "Ref": {
-          "type": "byte",
-          "value": 0
-        },
-        "Static": {
-          "type": "byte",
-          "value": 0
-        },
-        "Tag": {
-          "type": "cexostring",
-          "value": "mw_stat_campbell"
-        },
-        "TemplateResRef": {
-          "type": "resref",
-          "value": "plc_statue_h001"
-        },
-        "TrapDetectable": {
-          "type": "byte",
-          "value": 1
-        },
-        "TrapDetectDC": {
-          "type": "byte",
-          "value": 0
-        },
-        "TrapDisarmable": {
-          "type": "byte",
-          "value": 1
-        },
-        "TrapFlag": {
-          "type": "byte",
-          "value": 0
-        },
-        "TrapOneShot": {
-          "type": "byte",
-          "value": 1
-        },
-        "TrapType": {
-          "type": "byte",
-          "value": 0
-        },
-        "Type": {
-          "type": "byte",
-          "value": 0
-        },
-        "Useable": {
-          "type": "byte",
-          "value": 0
-        },
-        "Will": {
-          "type": "byte",
-          "value": 0
-        },
-        "X": {
-          "type": "float",
-          "value": 14.134
-        },
-        "Y": {
-          "type": "float",
-          "value": 15.3104
-        },
-        "Z": {
-          "type": "float",
-          "value": -0.0
-        }
-      },
-      {
-        "__struct_id": 9,
-        "AnimationState": {
-          "type": "byte",
-          "value": 0
-        },
-        "Appearance": {
-          "type": "dword",
-          "value": 418
-        },
-        "AutoRemoveKey": {
-          "type": "byte",
-          "value": 0
-        },
-        "Bearing": {
-          "type": "float",
-          "value": -1.5463
-        },
-        "BodyBag": {
-          "type": "byte",
-          "value": 0
-        },
-        "CloseLockDC": {
-          "type": "byte",
-          "value": 0
-        },
-        "Conversation": {
-          "type": "resref",
-          "value": ""
-        },
-        "CurrentHP": {
-          "type": "short",
-          "value": 15
-        },
-        "Description": {
-          "type": "cexolocstring",
-          "value": {
-            "0": "Terence McKenna — An explorer of the mind's furthest boundaries and the strangeness of existence. He moves through the Northern Forests of Ithilien, where strange things grow and stranger things are heard. Venture north and listen."
-          }
-        },
-        "DisarmDC": {
-          "type": "byte",
-          "value": 15
-        },
-        "Faction": {
-          "type": "dword",
-          "value": 1
-        },
-        "Fort": {
-          "type": "byte",
-          "value": 16
-        },
-        "Hardness": {
-          "type": "byte",
-          "value": 5
-        },
-        "HasInventory": {
-          "type": "byte",
-          "value": 0
-        },
-        "HP": {
-          "type": "short",
-          "value": 15
-        },
-        "Interruptable": {
-          "type": "byte",
-          "value": 1
-        },
-        "KeyName": {
-          "type": "cexostring",
-          "value": ""
-        },
-        "KeyRequired": {
-          "type": "byte",
-          "value": 0
-        },
-        "Lockable": {
-          "type": "byte",
-          "value": 0
-        },
-        "Locked": {
-          "type": "byte",
-          "value": 0
-        },
-        "LocName": {
-          "type": "cexolocstring",
-          "value": {
-            "0": "Terence McKenna"
-          }
-        },
-        "OnClick": {
-          "type": "resref",
-          "value": ""
-        },
-        "OnClosed": {
-          "type": "resref",
-          "value": ""
-        },
-        "OnDamaged": {
-          "type": "resref",
-          "value": ""
-        },
-        "OnDeath": {
-          "type": "resref",
-          "value": "x2_o2_dead"
-        },
-        "OnDisarm": {
-          "type": "resref",
-          "value": ""
-        },
-        "OnHeartbeat": {
-          "type": "resref",
-          "value": ""
-        },
-        "OnInvDisturbed": {
-          "type": "resref",
-          "value": ""
-        },
-        "OnLock": {
-          "type": "resref",
-          "value": ""
-        },
-        "OnMeleeAttacked": {
-          "type": "resref",
-          "value": ""
-        },
-        "OnOpen": {
-          "type": "resref",
-          "value": ""
-        },
-        "OnSpellCastAt": {
-          "type": "resref",
-          "value": ""
-        },
-        "OnTrapTriggered": {
-          "type": "resref",
-          "value": ""
-        },
-        "OnUnlock": {
-          "type": "resref",
-          "value": ""
-        },
-        "OnUsed": {
-          "type": "resref",
-          "value": ""
-        },
-        "OnUserDefined": {
-          "type": "resref",
-          "value": ""
-        },
-        "OpenLockDC": {
-          "type": "byte",
-          "value": 18
-        },
-        "Plot": {
-          "type": "byte",
-          "value": 0
-        },
-        "PortraitId": {
-          "type": "word",
-          "value": 901
+          "value": 449
         },
         "Ref": {
           "type": "byte",
@@ -1139,7 +912,7 @@
         },
         "TemplateResRef": {
           "type": "resref",
-          "value": "plc_statue_h001"
+          "value": "plc_statue1"
         },
         "TrapDetectable": {
           "type": "byte",
@@ -1171,7 +944,7 @@
         },
         "Useable": {
           "type": "byte",
-          "value": 0
+          "value": 1
         },
         "Will": {
           "type": "byte",
@@ -1179,11 +952,11 @@
         },
         "X": {
           "type": "float",
-          "value": 14.3154
+          "value": 5.2033
         },
         "Y": {
           "type": "float",
-          "value": 11.377
+          "value": 34.5993
         },
         "Z": {
           "type": "float",
@@ -1198,7 +971,7 @@
         },
         "Appearance": {
           "type": "dword",
-          "value": 418
+          "value": 91
         },
         "AutoRemoveKey": {
           "type": "byte",
@@ -1206,7 +979,7 @@
         },
         "Bearing": {
           "type": "float",
-          "value": -1.4481
+          "value": -0.0
         },
         "BodyBag": {
           "type": "byte",
@@ -1227,7 +1000,8 @@
         "Description": {
           "type": "cexolocstring",
           "value": {
-            "0": "Jocko Willink — A warrior of extreme discipline and radical ownership. He holds the line at Helm's Deep, where every man stands or falls by their own choices. Prove your discipline there."
+            "0": "Joseph Campbell\n\nA scholar of myth, archetype, and the hero's journey. He dwells in Balin's Tomb within Moria, where stories of sacrifice are carved in stone. \nDescend into that darkness to face him.",
+            "id": 14732
           }
         },
         "DisarmDC": {
@@ -1256,7 +1030,7 @@
         },
         "Interruptable": {
           "type": "byte",
-          "value": 1
+          "value": 0
         },
         "KeyName": {
           "type": "cexostring",
@@ -1277,7 +1051,8 @@
         "LocName": {
           "type": "cexolocstring",
           "value": {
-            "0": "Jocko Willink"
+            "0": "Joseph Campbell",
+            "id": 14536
           }
         },
         "OnClick": {
@@ -1294,7 +1069,7 @@
         },
         "OnDeath": {
           "type": "resref",
-          "value": "x2_o2_dead"
+          "value": ""
         },
         "OnDisarm": {
           "type": "resref",
@@ -1346,11 +1121,11 @@
         },
         "Plot": {
           "type": "byte",
-          "value": 0
+          "value": 1
         },
         "PortraitId": {
           "type": "word",
-          "value": 901
+          "value": 449
         },
         "Ref": {
           "type": "byte",
@@ -1362,11 +1137,11 @@
         },
         "Tag": {
           "type": "cexostring",
-          "value": "mw_stat_jocko"
+          "value": "mw_stat_campbell"
         },
         "TemplateResRef": {
           "type": "resref",
-          "value": "plc_statue_h001"
+          "value": "plc_statue1"
         },
         "TrapDetectable": {
           "type": "byte",
@@ -1398,7 +1173,7 @@
         },
         "Useable": {
           "type": "byte",
-          "value": 0
+          "value": 1
         },
         "Will": {
           "type": "byte",
@@ -1406,11 +1181,11 @@
         },
         "X": {
           "type": "float",
-          "value": 14.321
+          "value": 5.0716
         },
         "Y": {
           "type": "float",
-          "value": 8.0818
+          "value": 65.3393
         },
         "Z": {
           "type": "float",
@@ -1425,7 +1200,7 @@
         },
         "Appearance": {
           "type": "dword",
-          "value": 418
+          "value": 91
         },
         "AutoRemoveKey": {
           "type": "byte",
@@ -1433,7 +1208,7 @@
         },
         "Bearing": {
           "type": "float",
-          "value": 1.8162
+          "value": -0.0
         },
         "BodyBag": {
           "type": "byte",
@@ -1454,7 +1229,8 @@
         "Description": {
           "type": "cexolocstring",
           "value": {
-            "0": "Carl Jung — A cartographer of the unconscious and the shadow self. He broods in the Crypts of Esgaroth, where the darkness within is as real as the darkness without. Confront him in that deep place."
+            "0": "Marcus Aurelius\n\nRoman Emperor and Stoic philosopher, who ruled an empire and kept his soul. He meditates in Gwathdor at the Throne of the Lord, where power and virtue meet their final test.\n\nSeek him at that throne.",
+            "id": 14732
           }
         },
         "DisarmDC": {
@@ -1483,7 +1259,7 @@
         },
         "Interruptable": {
           "type": "byte",
-          "value": 1
+          "value": 0
         },
         "KeyName": {
           "type": "cexostring",
@@ -1504,7 +1280,8 @@
         "LocName": {
           "type": "cexolocstring",
           "value": {
-            "0": "Carl Jung"
+            "0": "Marcus Aurelius",
+            "id": 14536
           }
         },
         "OnClick": {
@@ -1521,7 +1298,7 @@
         },
         "OnDeath": {
           "type": "resref",
-          "value": "x2_o2_dead"
+          "value": ""
         },
         "OnDisarm": {
           "type": "resref",
@@ -1573,238 +1350,11 @@
         },
         "Plot": {
           "type": "byte",
-          "value": 0
+          "value": 1
         },
         "PortraitId": {
           "type": "word",
-          "value": 901
-        },
-        "Ref": {
-          "type": "byte",
-          "value": 0
-        },
-        "Static": {
-          "type": "byte",
-          "value": 0
-        },
-        "Tag": {
-          "type": "cexostring",
-          "value": "mw_stat_jung"
-        },
-        "TemplateResRef": {
-          "type": "resref",
-          "value": "plc_statue_h001"
-        },
-        "TrapDetectable": {
-          "type": "byte",
-          "value": 1
-        },
-        "TrapDetectDC": {
-          "type": "byte",
-          "value": 0
-        },
-        "TrapDisarmable": {
-          "type": "byte",
-          "value": 1
-        },
-        "TrapFlag": {
-          "type": "byte",
-          "value": 0
-        },
-        "TrapOneShot": {
-          "type": "byte",
-          "value": 1
-        },
-        "TrapType": {
-          "type": "byte",
-          "value": 0
-        },
-        "Type": {
-          "type": "byte",
-          "value": 0
-        },
-        "Useable": {
-          "type": "byte",
-          "value": 0
-        },
-        "Will": {
-          "type": "byte",
-          "value": 0
-        },
-        "X": {
-          "type": "float",
-          "value": 5.7419
-        },
-        "Y": {
-          "type": "float",
-          "value": 7.5434
-        },
-        "Z": {
-          "type": "float",
-          "value": -0.0
-        }
-      },
-      {
-        "__struct_id": 9,
-        "AnimationState": {
-          "type": "byte",
-          "value": 0
-        },
-        "Appearance": {
-          "type": "dword",
-          "value": 418
-        },
-        "AutoRemoveKey": {
-          "type": "byte",
-          "value": 0
-        },
-        "Bearing": {
-          "type": "float",
-          "value": 1.129
-        },
-        "BodyBag": {
-          "type": "byte",
-          "value": 0
-        },
-        "CloseLockDC": {
-          "type": "byte",
-          "value": 0
-        },
-        "Conversation": {
-          "type": "resref",
-          "value": ""
-        },
-        "CurrentHP": {
-          "type": "short",
-          "value": 15
-        },
-        "Description": {
-          "type": "cexolocstring",
-          "value": {
-            "0": "Marcus Aurelius — Roman Emperor and Stoic philosopher, who ruled an empire and kept his soul. He meditates in Gwathdor at the Throne of the Lord, where power and virtue meet their final test. Seek him at that throne."
-          }
-        },
-        "DisarmDC": {
-          "type": "byte",
-          "value": 15
-        },
-        "Faction": {
-          "type": "dword",
-          "value": 1
-        },
-        "Fort": {
-          "type": "byte",
-          "value": 16
-        },
-        "Hardness": {
-          "type": "byte",
-          "value": 5
-        },
-        "HasInventory": {
-          "type": "byte",
-          "value": 0
-        },
-        "HP": {
-          "type": "short",
-          "value": 15
-        },
-        "Interruptable": {
-          "type": "byte",
-          "value": 1
-        },
-        "KeyName": {
-          "type": "cexostring",
-          "value": ""
-        },
-        "KeyRequired": {
-          "type": "byte",
-          "value": 0
-        },
-        "Lockable": {
-          "type": "byte",
-          "value": 0
-        },
-        "Locked": {
-          "type": "byte",
-          "value": 0
-        },
-        "LocName": {
-          "type": "cexolocstring",
-          "value": {
-            "0": "Marcus Aurelius"
-          }
-        },
-        "OnClick": {
-          "type": "resref",
-          "value": ""
-        },
-        "OnClosed": {
-          "type": "resref",
-          "value": ""
-        },
-        "OnDamaged": {
-          "type": "resref",
-          "value": ""
-        },
-        "OnDeath": {
-          "type": "resref",
-          "value": "x2_o2_dead"
-        },
-        "OnDisarm": {
-          "type": "resref",
-          "value": ""
-        },
-        "OnHeartbeat": {
-          "type": "resref",
-          "value": ""
-        },
-        "OnInvDisturbed": {
-          "type": "resref",
-          "value": ""
-        },
-        "OnLock": {
-          "type": "resref",
-          "value": ""
-        },
-        "OnMeleeAttacked": {
-          "type": "resref",
-          "value": ""
-        },
-        "OnOpen": {
-          "type": "resref",
-          "value": ""
-        },
-        "OnSpellCastAt": {
-          "type": "resref",
-          "value": ""
-        },
-        "OnTrapTriggered": {
-          "type": "resref",
-          "value": ""
-        },
-        "OnUnlock": {
-          "type": "resref",
-          "value": ""
-        },
-        "OnUsed": {
-          "type": "resref",
-          "value": ""
-        },
-        "OnUserDefined": {
-          "type": "resref",
-          "value": ""
-        },
-        "OpenLockDC": {
-          "type": "byte",
-          "value": 18
-        },
-        "Plot": {
-          "type": "byte",
-          "value": 0
-        },
-        "PortraitId": {
-          "type": "word",
-          "value": 901
+          "value": 449
         },
         "Ref": {
           "type": "byte",
@@ -1820,7 +1370,7 @@
         },
         "TemplateResRef": {
           "type": "resref",
-          "value": "plc_statue_h001"
+          "value": "plc_statue1"
         },
         "TrapDetectable": {
           "type": "byte",
@@ -1852,7 +1402,7 @@
         },
         "Useable": {
           "type": "byte",
-          "value": 0
+          "value": 1
         },
         "Will": {
           "type": "byte",
@@ -1860,11 +1410,927 @@
         },
         "X": {
           "type": "float",
-          "value": 5.9874
+          "value": 44.9774
         },
         "Y": {
           "type": "float",
-          "value": 15.8197
+          "value": 65.263
+        },
+        "Z": {
+          "type": "float",
+          "value": -0.0
+        }
+      },
+      {
+        "__struct_id": 9,
+        "AnimationState": {
+          "type": "byte",
+          "value": 0
+        },
+        "Appearance": {
+          "type": "dword",
+          "value": 91
+        },
+        "AutoRemoveKey": {
+          "type": "byte",
+          "value": 0
+        },
+        "Bearing": {
+          "type": "float",
+          "value": -0.0
+        },
+        "BodyBag": {
+          "type": "byte",
+          "value": 0
+        },
+        "CloseLockDC": {
+          "type": "byte",
+          "value": 0
+        },
+        "Conversation": {
+          "type": "resref",
+          "value": ""
+        },
+        "CurrentHP": {
+          "type": "short",
+          "value": 15
+        },
+        "Description": {
+          "type": "cexolocstring",
+          "value": {
+            "0": "Jordan Peterson\n\nA philosopher of order, meaning, and personal responsibility. He wanders the upper halls of Rivendell, where elven wisdom meets the weight of the world.\n\nSeek him there and prove yourself worthy.",
+            "id": 14732
+          }
+        },
+        "DisarmDC": {
+          "type": "byte",
+          "value": 15
+        },
+        "Faction": {
+          "type": "dword",
+          "value": 1
+        },
+        "Fort": {
+          "type": "byte",
+          "value": 16
+        },
+        "Hardness": {
+          "type": "byte",
+          "value": 5
+        },
+        "HasInventory": {
+          "type": "byte",
+          "value": 0
+        },
+        "HP": {
+          "type": "short",
+          "value": 15
+        },
+        "Interruptable": {
+          "type": "byte",
+          "value": 0
+        },
+        "KeyName": {
+          "type": "cexostring",
+          "value": ""
+        },
+        "KeyRequired": {
+          "type": "byte",
+          "value": 0
+        },
+        "Lockable": {
+          "type": "byte",
+          "value": 0
+        },
+        "Locked": {
+          "type": "byte",
+          "value": 0
+        },
+        "LocName": {
+          "type": "cexolocstring",
+          "value": {
+            "0": "Jordon Peterson",
+            "id": 14536
+          }
+        },
+        "OnClick": {
+          "type": "resref",
+          "value": ""
+        },
+        "OnClosed": {
+          "type": "resref",
+          "value": ""
+        },
+        "OnDamaged": {
+          "type": "resref",
+          "value": ""
+        },
+        "OnDeath": {
+          "type": "resref",
+          "value": ""
+        },
+        "OnDisarm": {
+          "type": "resref",
+          "value": ""
+        },
+        "OnHeartbeat": {
+          "type": "resref",
+          "value": ""
+        },
+        "OnInvDisturbed": {
+          "type": "resref",
+          "value": ""
+        },
+        "OnLock": {
+          "type": "resref",
+          "value": ""
+        },
+        "OnMeleeAttacked": {
+          "type": "resref",
+          "value": ""
+        },
+        "OnOpen": {
+          "type": "resref",
+          "value": ""
+        },
+        "OnSpellCastAt": {
+          "type": "resref",
+          "value": ""
+        },
+        "OnTrapTriggered": {
+          "type": "resref",
+          "value": ""
+        },
+        "OnUnlock": {
+          "type": "resref",
+          "value": ""
+        },
+        "OnUsed": {
+          "type": "resref",
+          "value": ""
+        },
+        "OnUserDefined": {
+          "type": "resref",
+          "value": ""
+        },
+        "OpenLockDC": {
+          "type": "byte",
+          "value": 18
+        },
+        "Plot": {
+          "type": "byte",
+          "value": 1
+        },
+        "PortraitId": {
+          "type": "word",
+          "value": 449
+        },
+        "Ref": {
+          "type": "byte",
+          "value": 0
+        },
+        "Static": {
+          "type": "byte",
+          "value": 0
+        },
+        "Tag": {
+          "type": "cexostring",
+          "value": "mw_stat_peterson"
+        },
+        "TemplateResRef": {
+          "type": "resref",
+          "value": "plc_statue1"
+        },
+        "TrapDetectable": {
+          "type": "byte",
+          "value": 1
+        },
+        "TrapDetectDC": {
+          "type": "byte",
+          "value": 0
+        },
+        "TrapDisarmable": {
+          "type": "byte",
+          "value": 1
+        },
+        "TrapFlag": {
+          "type": "byte",
+          "value": 0
+        },
+        "TrapOneShot": {
+          "type": "byte",
+          "value": 1
+        },
+        "TrapType": {
+          "type": "byte",
+          "value": 0
+        },
+        "Type": {
+          "type": "byte",
+          "value": 0
+        },
+        "Useable": {
+          "type": "byte",
+          "value": 1
+        },
+        "Will": {
+          "type": "byte",
+          "value": 0
+        },
+        "X": {
+          "type": "float",
+          "value": 44.8788
+        },
+        "Y": {
+          "type": "float",
+          "value": 35.1245
+        },
+        "Z": {
+          "type": "float",
+          "value": -0.0
+        }
+      },
+      {
+        "__struct_id": 9,
+        "AnimationState": {
+          "type": "byte",
+          "value": 0
+        },
+        "Appearance": {
+          "type": "dword",
+          "value": 91
+        },
+        "AutoRemoveKey": {
+          "type": "byte",
+          "value": 0
+        },
+        "Bearing": {
+          "type": "float",
+          "value": 3.117
+        },
+        "BodyBag": {
+          "type": "byte",
+          "value": 0
+        },
+        "CloseLockDC": {
+          "type": "byte",
+          "value": 0
+        },
+        "Conversation": {
+          "type": "resref",
+          "value": ""
+        },
+        "CurrentHP": {
+          "type": "short",
+          "value": 15
+        },
+        "Description": {
+          "type": "cexolocstring",
+          "value": {
+            "0": "Alan Watts\n\nA sage of Eastern philosophy and the nature of consciousness. He drifts through the Old Forest, where the ancient trees remember what mortals have forgotten.\n\nFind him among those living shadows.",
+            "id": 14732
+          }
+        },
+        "DisarmDC": {
+          "type": "byte",
+          "value": 15
+        },
+        "Faction": {
+          "type": "dword",
+          "value": 1
+        },
+        "Fort": {
+          "type": "byte",
+          "value": 16
+        },
+        "Hardness": {
+          "type": "byte",
+          "value": 5
+        },
+        "HasInventory": {
+          "type": "byte",
+          "value": 0
+        },
+        "HP": {
+          "type": "short",
+          "value": 15
+        },
+        "Interruptable": {
+          "type": "byte",
+          "value": 0
+        },
+        "KeyName": {
+          "type": "cexostring",
+          "value": ""
+        },
+        "KeyRequired": {
+          "type": "byte",
+          "value": 0
+        },
+        "Lockable": {
+          "type": "byte",
+          "value": 0
+        },
+        "Locked": {
+          "type": "byte",
+          "value": 0
+        },
+        "LocName": {
+          "type": "cexolocstring",
+          "value": {
+            "0": "Alan Watts",
+            "id": 14536
+          }
+        },
+        "OnClick": {
+          "type": "resref",
+          "value": ""
+        },
+        "OnClosed": {
+          "type": "resref",
+          "value": ""
+        },
+        "OnDamaged": {
+          "type": "resref",
+          "value": ""
+        },
+        "OnDeath": {
+          "type": "resref",
+          "value": ""
+        },
+        "OnDisarm": {
+          "type": "resref",
+          "value": ""
+        },
+        "OnHeartbeat": {
+          "type": "resref",
+          "value": ""
+        },
+        "OnInvDisturbed": {
+          "type": "resref",
+          "value": ""
+        },
+        "OnLock": {
+          "type": "resref",
+          "value": ""
+        },
+        "OnMeleeAttacked": {
+          "type": "resref",
+          "value": ""
+        },
+        "OnOpen": {
+          "type": "resref",
+          "value": ""
+        },
+        "OnSpellCastAt": {
+          "type": "resref",
+          "value": ""
+        },
+        "OnTrapTriggered": {
+          "type": "resref",
+          "value": ""
+        },
+        "OnUnlock": {
+          "type": "resref",
+          "value": ""
+        },
+        "OnUsed": {
+          "type": "resref",
+          "value": ""
+        },
+        "OnUserDefined": {
+          "type": "resref",
+          "value": ""
+        },
+        "OpenLockDC": {
+          "type": "byte",
+          "value": 18
+        },
+        "Plot": {
+          "type": "byte",
+          "value": 1
+        },
+        "PortraitId": {
+          "type": "word",
+          "value": 449
+        },
+        "Ref": {
+          "type": "byte",
+          "value": 0
+        },
+        "Static": {
+          "type": "byte",
+          "value": 0
+        },
+        "Tag": {
+          "type": "cexostring",
+          "value": "mw_stat_watts"
+        },
+        "TemplateResRef": {
+          "type": "resref",
+          "value": "plc_statue1"
+        },
+        "TrapDetectable": {
+          "type": "byte",
+          "value": 1
+        },
+        "TrapDetectDC": {
+          "type": "byte",
+          "value": 0
+        },
+        "TrapDisarmable": {
+          "type": "byte",
+          "value": 1
+        },
+        "TrapFlag": {
+          "type": "byte",
+          "value": 0
+        },
+        "TrapOneShot": {
+          "type": "byte",
+          "value": 1
+        },
+        "TrapType": {
+          "type": "byte",
+          "value": 0
+        },
+        "Type": {
+          "type": "byte",
+          "value": 0
+        },
+        "Useable": {
+          "type": "byte",
+          "value": 1
+        },
+        "Will": {
+          "type": "byte",
+          "value": 0
+        },
+        "X": {
+          "type": "float",
+          "value": 45.0939
+        },
+        "Y": {
+          "type": "float",
+          "value": 14.9289
+        },
+        "Z": {
+          "type": "float",
+          "value": -0.0
+        }
+      },
+      {
+        "__struct_id": 9,
+        "AnimationState": {
+          "type": "byte",
+          "value": 0
+        },
+        "Appearance": {
+          "type": "dword",
+          "value": 91
+        },
+        "AutoRemoveKey": {
+          "type": "byte",
+          "value": 0
+        },
+        "Bearing": {
+          "type": "float",
+          "value": 3.117
+        },
+        "BodyBag": {
+          "type": "byte",
+          "value": 0
+        },
+        "CloseLockDC": {
+          "type": "byte",
+          "value": 0
+        },
+        "Conversation": {
+          "type": "resref",
+          "value": ""
+        },
+        "CurrentHP": {
+          "type": "short",
+          "value": 15
+        },
+        "Description": {
+          "type": "cexolocstring",
+          "value": {
+            "0": "Jocko Willink\n\nA warrior of extreme discipline and radical ownership. He holds the line at Helm's Deep, where every man stands or falls by their own choices.\n\nProve your discipline there.",
+            "id": 14732
+          }
+        },
+        "DisarmDC": {
+          "type": "byte",
+          "value": 15
+        },
+        "Faction": {
+          "type": "dword",
+          "value": 1
+        },
+        "Fort": {
+          "type": "byte",
+          "value": 16
+        },
+        "Hardness": {
+          "type": "byte",
+          "value": 5
+        },
+        "HasInventory": {
+          "type": "byte",
+          "value": 0
+        },
+        "HP": {
+          "type": "short",
+          "value": 15
+        },
+        "Interruptable": {
+          "type": "byte",
+          "value": 0
+        },
+        "KeyName": {
+          "type": "cexostring",
+          "value": ""
+        },
+        "KeyRequired": {
+          "type": "byte",
+          "value": 0
+        },
+        "Lockable": {
+          "type": "byte",
+          "value": 0
+        },
+        "Locked": {
+          "type": "byte",
+          "value": 0
+        },
+        "LocName": {
+          "type": "cexolocstring",
+          "value": {
+            "0": "Jocko Wilink",
+            "id": 14536
+          }
+        },
+        "OnClick": {
+          "type": "resref",
+          "value": ""
+        },
+        "OnClosed": {
+          "type": "resref",
+          "value": ""
+        },
+        "OnDamaged": {
+          "type": "resref",
+          "value": ""
+        },
+        "OnDeath": {
+          "type": "resref",
+          "value": ""
+        },
+        "OnDisarm": {
+          "type": "resref",
+          "value": ""
+        },
+        "OnHeartbeat": {
+          "type": "resref",
+          "value": ""
+        },
+        "OnInvDisturbed": {
+          "type": "resref",
+          "value": ""
+        },
+        "OnLock": {
+          "type": "resref",
+          "value": ""
+        },
+        "OnMeleeAttacked": {
+          "type": "resref",
+          "value": ""
+        },
+        "OnOpen": {
+          "type": "resref",
+          "value": ""
+        },
+        "OnSpellCastAt": {
+          "type": "resref",
+          "value": ""
+        },
+        "OnTrapTriggered": {
+          "type": "resref",
+          "value": ""
+        },
+        "OnUnlock": {
+          "type": "resref",
+          "value": ""
+        },
+        "OnUsed": {
+          "type": "resref",
+          "value": ""
+        },
+        "OnUserDefined": {
+          "type": "resref",
+          "value": ""
+        },
+        "OpenLockDC": {
+          "type": "byte",
+          "value": 18
+        },
+        "Plot": {
+          "type": "byte",
+          "value": 1
+        },
+        "PortraitId": {
+          "type": "word",
+          "value": 449
+        },
+        "Ref": {
+          "type": "byte",
+          "value": 0
+        },
+        "Static": {
+          "type": "byte",
+          "value": 0
+        },
+        "Tag": {
+          "type": "cexostring",
+          "value": "mw_stat_jocko"
+        },
+        "TemplateResRef": {
+          "type": "resref",
+          "value": "plc_statue1"
+        },
+        "TrapDetectable": {
+          "type": "byte",
+          "value": 1
+        },
+        "TrapDetectDC": {
+          "type": "byte",
+          "value": 0
+        },
+        "TrapDisarmable": {
+          "type": "byte",
+          "value": 1
+        },
+        "TrapFlag": {
+          "type": "byte",
+          "value": 0
+        },
+        "TrapOneShot": {
+          "type": "byte",
+          "value": 1
+        },
+        "TrapType": {
+          "type": "byte",
+          "value": 0
+        },
+        "Type": {
+          "type": "byte",
+          "value": 0
+        },
+        "Useable": {
+          "type": "byte",
+          "value": 1
+        },
+        "Will": {
+          "type": "byte",
+          "value": 0
+        },
+        "X": {
+          "type": "float",
+          "value": 5.0134
+        },
+        "Y": {
+          "type": "float",
+          "value": 14.6914
+        },
+        "Z": {
+          "type": "float",
+          "value": -0.0
+        }
+      },
+      {
+        "__struct_id": 9,
+        "AnimationState": {
+          "type": "byte",
+          "value": 0
+        },
+        "Appearance": {
+          "type": "dword",
+          "value": 91
+        },
+        "AutoRemoveKey": {
+          "type": "byte",
+          "value": 0
+        },
+        "Bearing": {
+          "type": "float",
+          "value": 3.117
+        },
+        "BodyBag": {
+          "type": "byte",
+          "value": 0
+        },
+        "CloseLockDC": {
+          "type": "byte",
+          "value": 0
+        },
+        "Conversation": {
+          "type": "resref",
+          "value": ""
+        },
+        "CurrentHP": {
+          "type": "short",
+          "value": 15
+        },
+        "Description": {
+          "type": "cexolocstring",
+          "value": {
+            "0": "Carl Jung\n\nA cartographer of the unconscious and the shadow self. He broods in the Crypts of Esgaroth, where the darkness within is as real as the darkness without.\n\nConfront him in that deep place.",
+            "id": 14732
+          }
+        },
+        "DisarmDC": {
+          "type": "byte",
+          "value": 15
+        },
+        "Faction": {
+          "type": "dword",
+          "value": 1
+        },
+        "Fort": {
+          "type": "byte",
+          "value": 16
+        },
+        "Hardness": {
+          "type": "byte",
+          "value": 5
+        },
+        "HasInventory": {
+          "type": "byte",
+          "value": 0
+        },
+        "HP": {
+          "type": "short",
+          "value": 15
+        },
+        "Interruptable": {
+          "type": "byte",
+          "value": 0
+        },
+        "KeyName": {
+          "type": "cexostring",
+          "value": ""
+        },
+        "KeyRequired": {
+          "type": "byte",
+          "value": 0
+        },
+        "Lockable": {
+          "type": "byte",
+          "value": 0
+        },
+        "Locked": {
+          "type": "byte",
+          "value": 0
+        },
+        "LocName": {
+          "type": "cexolocstring",
+          "value": {
+            "0": "Carl Jung",
+            "id": 14536
+          }
+        },
+        "OnClick": {
+          "type": "resref",
+          "value": ""
+        },
+        "OnClosed": {
+          "type": "resref",
+          "value": ""
+        },
+        "OnDamaged": {
+          "type": "resref",
+          "value": ""
+        },
+        "OnDeath": {
+          "type": "resref",
+          "value": ""
+        },
+        "OnDisarm": {
+          "type": "resref",
+          "value": ""
+        },
+        "OnHeartbeat": {
+          "type": "resref",
+          "value": ""
+        },
+        "OnInvDisturbed": {
+          "type": "resref",
+          "value": ""
+        },
+        "OnLock": {
+          "type": "resref",
+          "value": ""
+        },
+        "OnMeleeAttacked": {
+          "type": "resref",
+          "value": ""
+        },
+        "OnOpen": {
+          "type": "resref",
+          "value": ""
+        },
+        "OnSpellCastAt": {
+          "type": "resref",
+          "value": ""
+        },
+        "OnTrapTriggered": {
+          "type": "resref",
+          "value": ""
+        },
+        "OnUnlock": {
+          "type": "resref",
+          "value": ""
+        },
+        "OnUsed": {
+          "type": "resref",
+          "value": ""
+        },
+        "OnUserDefined": {
+          "type": "resref",
+          "value": ""
+        },
+        "OpenLockDC": {
+          "type": "byte",
+          "value": 18
+        },
+        "Plot": {
+          "type": "byte",
+          "value": 1
+        },
+        "PortraitId": {
+          "type": "word",
+          "value": 449
+        },
+        "Ref": {
+          "type": "byte",
+          "value": 0
+        },
+        "Static": {
+          "type": "byte",
+          "value": 0
+        },
+        "Tag": {
+          "type": "cexostring",
+          "value": "mw_stat_jung"
+        },
+        "TemplateResRef": {
+          "type": "resref",
+          "value": "plc_statue1"
+        },
+        "TrapDetectable": {
+          "type": "byte",
+          "value": 1
+        },
+        "TrapDetectDC": {
+          "type": "byte",
+          "value": 0
+        },
+        "TrapDisarmable": {
+          "type": "byte",
+          "value": 1
+        },
+        "TrapFlag": {
+          "type": "byte",
+          "value": 0
+        },
+        "TrapOneShot": {
+          "type": "byte",
+          "value": 1
+        },
+        "TrapType": {
+          "type": "byte",
+          "value": 0
+        },
+        "Type": {
+          "type": "byte",
+          "value": 0
+        },
+        "Useable": {
+          "type": "byte",
+          "value": 1
+        },
+        "Will": {
+          "type": "byte",
+          "value": 0
+        },
+        "X": {
+          "type": "float",
+          "value": 5.0245
+        },
+        "Y": {
+          "type": "float",
+          "value": 44.9669
         },
         "Z": {
           "type": "float",
@@ -1909,68 +2375,8 @@
         "LocalizedName": {
           "type": "cexolocstring",
           "value": {
-            "0": "Hall arrival"
-          }
-        },
-        "MapNote": {
-          "type": "cexolocstring",
-          "value": {}
-        },
-        "MapNoteEnabled": {
-          "type": "byte",
-          "value": 0
-        },
-        "Tag": {
-          "type": "cexostring",
-          "value": "wp_mw_hall_in"
-        },
-        "TemplateResRef": {
-          "type": "resref",
-          "value": "nw_waypoint001"
-        },
-        "XOrientation": {
-          "type": "float",
-          "value": 0.0245
-        },
-        "XPosition": {
-          "type": "float",
-          "value": 9.9983
-        },
-        "YOrientation": {
-          "type": "float",
-          "value": -0.9997
-        },
-        "YPosition": {
-          "type": "float",
-          "value": 16.3782
-        },
-        "ZPosition": {
-          "type": "float",
-          "value": -0.0
-        }
-      },
-      {
-        "__struct_id": 5,
-        "Appearance": {
-          "type": "byte",
-          "value": 3
-        },
-        "Description": {
-          "type": "cexolocstring",
-          "value": {}
-        },
-        "HasMapNote": {
-          "type": "byte",
-          "value": 0
-        },
-        "LinkedTo": {
-          "type": "cexostring",
-          "value": ""
-        },
-        "LocalizedName": {
-          "type": "cexolocstring",
-          "value": {
-            "0": "MW Spawn: Akira the Don"
+            "0": "wp_mw_hall_in",
+            "id": 14817
           }
         },
         "MapNote": {
@@ -1983,7 +2389,7 @@
         },
         "Tag": {
           "type": "cexostring",
-          "value": "MW_SPAWN_AKIRA"
+          "value": "wp_mw_hall_in"
         },
         "TemplateResRef": {
           "type": "resref",
@@ -1995,7 +2401,7 @@
         },
         "XPosition": {
           "type": "float",
-          "value": 10.0543
+          "value": 24.9916
         },
         "YOrientation": {
           "type": "float",
@@ -2003,11 +2409,74 @@
         },
         "YPosition": {
           "type": "float",
-          "value": 4.5991
+          "value": 8.4637
         },
         "ZPosition": {
           "type": "float",
-          "value": 0.12
+          "value": 0.0
+        }
+      },
+      {
+        "__struct_id": 5,
+        "Appearance": {
+          "type": "byte",
+          "value": 3
+        },
+        "Description": {
+          "type": "cexolocstring",
+          "value": {
+            "0": ""
+          }
+        },
+        "HasMapNote": {
+          "type": "byte",
+          "value": 0
+        },
+        "LinkedTo": {
+          "type": "cexostring",
+          "value": ""
+        },
+        "LocalizedName": {
+          "type": "cexolocstring",
+          "value": {
+            "0": "MW_SPAWN_AKIRA"
+          }
+        },
+        "MapNote": {
+          "type": "cexolocstring",
+          "value": {}
+        },
+        "MapNoteEnabled": {
+          "type": "byte",
+          "value": 0
+        },
+        "Tag": {
+          "type": "cexostring",
+          "value": "MW_SPAWN_AKIRA"
+        },
+        "TemplateResRef": {
+          "type": "resref",
+          "value": "mw_spawn"
+        },
+        "XOrientation": {
+          "type": "float",
+          "value": -0.0245
+        },
+        "XPosition": {
+          "type": "float",
+          "value": 24.9341
+        },
+        "YOrientation": {
+          "type": "float",
+          "value": -0.9997
+        },
+        "YPosition": {
+          "type": "float",
+          "value": 86.7015
+        },
+        "ZPosition": {
+          "type": "float",
+          "value": -0.0
         }
       }
     ]

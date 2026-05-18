@@ -2,7 +2,7 @@
   "__data_type": "UTW ",
   "Appearance": {
     "type": "byte",
-    "value": 2
+    "value": 3
   },
   "Comment": {
     "type": "cexostring",
@@ -10,7 +10,9 @@
   },
   "Description": {
     "type": "cexolocstring",
-    "value": {}
+    "value": {
+      "0": ""
+    }
   },
   "HasMapNote": {
     "type": "byte",
@@ -33,6 +35,10 @@
   "MapNoteEnabled": {
     "type": "byte",
     "value": 0
+  },
+  "PaletteID": {
+    "type": "byte",
+    "value": 5
   },
   "Tag": {
     "type": "cexostring",
