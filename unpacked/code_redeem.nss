@@ -14,7 +14,7 @@ const string CODE_PREFIX = "code:";
 string GetCodeExpiration(string sCodeLower)
 {
     if (sCodeLower == "freelegendary") return "2026-07-01";
-    if (sCodeLower == "defect20250516") return "2026-05-25";
+    if (sCodeLower == "defect20260516") return "2026-05-25";
     return "";
 }
 
@@ -26,7 +26,7 @@ int ApplyCodeBenefit(string sCodeLower, object oPC)
         SetXP(oPC, 17498600);
         return TRUE;
     }
-    if (sCodeLower == "defect20250516")
+    if (sCodeLower == "defect20260516")
     {
         GiveXPToCreature(oPC, 25000);
         return TRUE;
