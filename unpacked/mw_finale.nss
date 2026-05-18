@@ -18,5 +18,5 @@ void main()
     FloatingTextStringOnCreature(
         "Akira passes you the mixtape. The path of meaning is walked.",
         oPC, FALSE);
-    GiveXPToCreature(oPC, 5000);
+    GiveXPToCreature(oPC, 50000);
 }
