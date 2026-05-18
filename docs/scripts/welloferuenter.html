@@ -31,6 +31,14 @@
 //     * Loot from a randomly selected evil-side city (Guardian of Darkness list)
 //     * Two random bonus items drawn from the full 200k-500k custom item pool
 
+// Creates an item and immediately identifies it.
+object CreateIDItem(string sResRef, object oTarget, int nStackSize = 1)
+{
+    object oItem = CreateItemOnObject(sResRef, oTarget, nStackSize);
+    SetIdentified(oItem, TRUE);
+    return oItem;
+}
+
 // --- bonus item pool: 147 custom items priced 200k-500k GP ---
 string GetBonusItemResref(int n)
 {
@@ -195,44 +203,44 @@ void SpawnGoodCityLoot(object oChest, int nCity)
         case 0: // Gondor
             // Gondorian Bowman (8) vs Epic Gondorian Guardsman (2)
             if (Random(2) == 0)
-                CreateItemOnObject(&quot;boltoftheblackel&quot;, oChest, 40);
+                CreateIDItem(&quot;boltoftheblackel&quot;, oChest, 40);
             else {
-                CreateItemOnObject(&quot;nw_it_mpotion009&quot;, oChest);
-                CreateItemOnObject(&quot;nw_it_mpotion016&quot;, oChest);
+                CreateIDItem(&quot;nw_it_mpotion009&quot;, oChest);
+                CreateIDItem(&quot;nw_it_mpotion016&quot;, oChest);
             }
             break;
 
         case 1: // Helms Deep
             // Helm&#x27;s Deep Elite Guard (6) vs Defender of the Deep (6)
             if (Random(2) == 0) {
-                CreateItemOnObject(&quot;nw_it_mpotion003&quot;, oChest, 2);
-                CreateItemOnObject(&quot;nw_it_mpotion009&quot;, oChest, 2);
+                CreateIDItem(&quot;nw_it_mpotion003&quot;, oChest, 2);
+                CreateIDItem(&quot;nw_it_mpotion009&quot;, oChest, 2);
             } else
-                CreateItemOnObject(&quot;012&quot;, oChest);      // Helm of the Defender
+                CreateIDItem(&quot;012&quot;, oChest);      // Helm of the Defender
             break;
 
         case 2: // Rivendell
             // Forest Guardian of Rivendell (6)
-            CreateItemOnObject(&quot;eyesoftheforest&quot;, oChest);
-            CreateItemOnObject(&quot;nw_it_mbelt021&quot;,  oChest);
+            CreateIDItem(&quot;eyesoftheforest&quot;, oChest);
+            CreateIDItem(&quot;nw_it_mbelt021&quot;,  oChest);
             break;
 
         case 3: // Lothlorien
             // Galadhrim Arcane Archer (12) vs Galadhrim Shield Guardian (11)
             if (Random(2) == 0)
-                CreateItemOnObject(&quot;wammar029&quot;, oChest, 50);    // Cold Arrows
+                CreateIDItem(&quot;wammar029&quot;, oChest, 50);    // Cold Arrows
             else {
-                CreateItemOnObject(&quot;nw_it_mpotion016&quot;, oChest);
-                CreateItemOnObject(&quot;nw_it_mpotion005&quot;, oChest);
+                CreateIDItem(&quot;nw_it_mpotion016&quot;, oChest);
+                CreateIDItem(&quot;nw_it_mpotion005&quot;, oChest);
             }
             break;
 
         case 4: // Edoras
             // Ridermark Guardian (8)
-            CreateItemOnObject(&quot;nw_it_mpotion012&quot;, oChest);
-            CreateItemOnObject(&quot;nw_it_mpotion015&quot;, oChest);
-            CreateItemOnObject(&quot;nw_it_mpotion009&quot;, oChest);
-            CreateItemOnObject(&quot;nw_it_mpotion016&quot;, oChest);
+            CreateIDItem(&quot;nw_it_mpotion012&quot;, oChest);
+            CreateIDItem(&quot;nw_it_mpotion015&quot;, oChest);
+            CreateIDItem(&quot;nw_it_mpotion009&quot;, oChest);
+            CreateIDItem(&quot;nw_it_mpotion016&quot;, oChest);
             break;
     }
 }
@@ -244,29 +252,29 @@ void SpawnEvilCityLoot(object oChest, int nCity)
     {
         case 0: // Morannan / Black Gate
             // Archer of Mordor (12)
-            CreateItemOnObject(&quot;wammar055&quot;, oChest, 50);        // Mordor Slayers
+            CreateIDItem(&quot;wammar055&quot;, oChest, 50);        // Mordor Slayers
             break;
 
         case 1: // Isengard
             // Dunlending Shock Trooper (5)
-            CreateItemOnObject(&quot;nw_it_mpotion004&quot;, oChest);
-            CreateItemOnObject(&quot;nw_it_mpotion003&quot;, oChest);
-            CreateItemOnObject(&quot;nw_it_mpotion014&quot;, oChest);
-            CreateItemOnObject(&quot;gauntletsofdexte&quot;, oChest);     // Gauntlets of Dex +6
+            CreateIDItem(&quot;nw_it_mpotion004&quot;, oChest);
+            CreateIDItem(&quot;nw_it_mpotion003&quot;, oChest);
+            CreateIDItem(&quot;nw_it_mpotion014&quot;, oChest);
+            CreateIDItem(&quot;gauntletsofdexte&quot;, oChest);     // Gauntlets of Dex +6
             break;
 
         case 2: // Cirith Ungol
             // Mordor Orc Snaker (4) vs Mordor Slaughterer (3)
-            CreateItemOnObject(&quot;nw_it_mpotion015&quot;, oChest);
-            CreateItemOnObject(&quot;nw_it_mpotion003&quot;, oChest);
+            CreateIDItem(&quot;nw_it_mpotion015&quot;, oChest);
+            CreateIDItem(&quot;nw_it_mpotion003&quot;, oChest);
             if (Random(2) == 0)
-                CreateItemOnObject(&quot;mordoraxe&quot;, oChest);
+                CreateIDItem(&quot;mordoraxe&quot;, oChest);
             break;
 
         case 3: // Carn Dum
             // Black Numenorean Militia (6)
-            CreateItemOnObject(&quot;nw_it_mpotion009&quot;, oChest);
-            CreateItemOnObject(&quot;nw_it_mpotion013&quot;, oChest);
+            CreateIDItem(&quot;nw_it_mpotion009&quot;, oChest);
+            CreateIDItem(&quot;nw_it_mpotion013&quot;, oChest);
             break;
     }
 }
@@ -294,8 +302,8 @@ void StockDonationsChest()
 
     string sItem1 = GetBonusItemResref(nPick1);
     string sItem2 = GetBonusItemResref(nPick2);
-    if (sItem1 != &quot;&quot;) CreateItemOnObject(sItem1, oChest);
-    if (sItem2 != &quot;&quot;) CreateItemOnObject(sItem2, oChest);
+    if (sItem1 != &quot;&quot;) CreateIDItem(sItem1, oChest);
+    if (sItem2 != &quot;&quot;) CreateIDItem(sItem2, oChest);
 }
 
 void main()
@@ -318,6 +326,6 @@ void main()
 }
 </code></pre>
   </main>
-  <footer>generated by <a href="https://github.com/mrprice22/nwn-manager">nwn-manager</a> &mdash; last updated May 17, 2026 11:00</footer>
+  <footer>generated by <a href="https://github.com/mrprice22/nwn-manager">nwn-manager</a> &mdash; last updated May 18, 2026 15:13</footer>
 </body>
 </html>
