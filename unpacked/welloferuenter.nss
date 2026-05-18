@@ -5,6 +5,14 @@
 //     * Loot from a randomly selected evil-side city (Guardian of Darkness list)
 //     * Two random bonus items drawn from the full 200k-500k custom item pool
 
+// Creates an item and immediately identifies it.
+object CreateIDItem(string sResRef, object oTarget, int nStackSize = 1)
+{
+    object oItem = CreateItemOnObject(sResRef, oTarget, nStackSize);
+    SetIdentified(oItem, TRUE);
+    return oItem;
+}
+
 // --- bonus item pool: 147 custom items priced 200k-500k GP ---
 string GetBonusItemResref(int n)
 {
@@ -169,44 +177,44 @@ void SpawnGoodCityLoot(object oChest, int nCity)
         case 0: // Gondor
             // Gondorian Bowman (8) vs Epic Gondorian Guardsman (2)
             if (Random(2) == 0)
-                CreateItemOnObject("boltoftheblackel", oChest, 40);
+                CreateIDItem("boltoftheblackel", oChest, 40);
             else {
-                CreateItemOnObject("nw_it_mpotion009", oChest);
-                CreateItemOnObject("nw_it_mpotion016", oChest);
+                CreateIDItem("nw_it_mpotion009", oChest);
+                CreateIDItem("nw_it_mpotion016", oChest);
             }
             break;
 
         case 1: // Helms Deep
             // Helm's Deep Elite Guard (6) vs Defender of the Deep (6)
             if (Random(2) == 0) {
-                CreateItemOnObject("nw_it_mpotion003", oChest, 2);
-                CreateItemOnObject("nw_it_mpotion009", oChest, 2);
+                CreateIDItem("nw_it_mpotion003", oChest, 2);
+                CreateIDItem("nw_it_mpotion009", oChest, 2);
             } else
-                CreateItemOnObject("012", oChest);      // Helm of the Defender
+                CreateIDItem("012", oChest);      // Helm of the Defender
             break;
 
         case 2: // Rivendell
             // Forest Guardian of Rivendell (6)
-            CreateItemOnObject("eyesoftheforest", oChest);
-            CreateItemOnObject("nw_it_mbelt021",  oChest);
+            CreateIDItem("eyesoftheforest", oChest);
+            CreateIDItem("nw_it_mbelt021",  oChest);
             break;
 
         case 3: // Lothlorien
             // Galadhrim Arcane Archer (12) vs Galadhrim Shield Guardian (11)
             if (Random(2) == 0)
-                CreateItemOnObject("wammar029", oChest, 50);    // Cold Arrows
+                CreateIDItem("wammar029", oChest, 50);    // Cold Arrows
             else {
-                CreateItemOnObject("nw_it_mpotion016", oChest);
-                CreateItemOnObject("nw_it_mpotion005", oChest);
+                CreateIDItem("nw_it_mpotion016", oChest);
+                CreateIDItem("nw_it_mpotion005", oChest);
             }
             break;
 
         case 4: // Edoras
             // Ridermark Guardian (8)
-            CreateItemOnObject("nw_it_mpotion012", oChest);
-            CreateItemOnObject("nw_it_mpotion015", oChest);
-            CreateItemOnObject("nw_it_mpotion009", oChest);
-            CreateItemOnObject("nw_it_mpotion016", oChest);
+            CreateIDItem("nw_it_mpotion012", oChest);
+            CreateIDItem("nw_it_mpotion015", oChest);
+            CreateIDItem("nw_it_mpotion009", oChest);
+            CreateIDItem("nw_it_mpotion016", oChest);
             break;
     }
 }
@@ -218,29 +226,29 @@ void SpawnEvilCityLoot(object oChest, int nCity)
     {
         case 0: // Morannan / Black Gate
             // Archer of Mordor (12)
-            CreateItemOnObject("wammar055", oChest, 50);        // Mordor Slayers
+            CreateIDItem("wammar055", oChest, 50);        // Mordor Slayers
             break;
 
         case 1: // Isengard
             // Dunlending Shock Trooper (5)
-            CreateItemOnObject("nw_it_mpotion004", oChest);
-            CreateItemOnObject("nw_it_mpotion003", oChest);
-            CreateItemOnObject("nw_it_mpotion014", oChest);
-            CreateItemOnObject("gauntletsofdexte", oChest);     // Gauntlets of Dex +6
+            CreateIDItem("nw_it_mpotion004", oChest);
+            CreateIDItem("nw_it_mpotion003", oChest);
+            CreateIDItem("nw_it_mpotion014", oChest);
+            CreateIDItem("gauntletsofdexte", oChest);     // Gauntlets of Dex +6
             break;
 
         case 2: // Cirith Ungol
             // Mordor Orc Snaker (4) vs Mordor Slaughterer (3)
-            CreateItemOnObject("nw_it_mpotion015", oChest);
-            CreateItemOnObject("nw_it_mpotion003", oChest);
+            CreateIDItem("nw_it_mpotion015", oChest);
+            CreateIDItem("nw_it_mpotion003", oChest);
             if (Random(2) == 0)
-                CreateItemOnObject("mordoraxe", oChest);
+                CreateIDItem("mordoraxe", oChest);
             break;
 
         case 3: // Carn Dum
             // Black Numenorean Militia (6)
-            CreateItemOnObject("nw_it_mpotion009", oChest);
-            CreateItemOnObject("nw_it_mpotion013", oChest);
+            CreateIDItem("nw_it_mpotion009", oChest);
+            CreateIDItem("nw_it_mpotion013", oChest);
             break;
     }
 }
@@ -268,8 +276,8 @@ void StockDonationsChest()
 
     string sItem1 = GetBonusItemResref(nPick1);
     string sItem2 = GetBonusItemResref(nPick2);
-    if (sItem1 != "") CreateItemOnObject(sItem1, oChest);
-    if (sItem2 != "") CreateItemOnObject(sItem2, oChest);
+    if (sItem1 != "") CreateIDItem(sItem1, oChest);
+    if (sItem2 != "") CreateIDItem(sItem2, oChest);
 }
 
 void main()
