@@ -8,10 +8,20 @@ void main()
     object oPC = GetPCSpeaker();
 
     if (GetCampaignInt(MW_DB, "mixtape_consumed", oPC)) return;
-    SetCampaignInt(MW_DB, "mixtape_consumed", 1, oPC);
 
+    // Anti-exploit: verify item is still in inventory before committing anything.
+    // Dropping the ring mid-conversation then clicking Consume would otherwise
+    // grant stats without consuming the item.
     object oItem = GetItemPossessedBy(oPC, "mw_mixtape");
-    if (GetIsObjectValid(oItem)) DestroyObject(oItem);
+    if (!GetIsObjectValid(oItem))
+    {
+        FloatingTextStringOnCreature(
+            "The Mixtape must be in your possession to be consumed.", oPC, FALSE);
+        return;
+    }
+
+    SetCampaignInt(MW_DB, "mixtape_consumed", 1, oPC);
+    DestroyObject(oItem);
 
     HGLL_AddStatPoint(oPC, ABILITY_STRENGTH);
     HGLL_AddStatPoint(oPC, ABILITY_DEXTERITY);

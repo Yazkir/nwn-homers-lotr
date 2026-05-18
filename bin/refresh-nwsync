@@ -73,3 +73,15 @@ if [[ -f "$NWNSYNC_REPO/latest" ]]; then
     echo "[nwsync] (set NWNSYNC_PUBLIC_URL in server.env.local to advertise to clients)"
   fi
 fi
+
+# The rm -rf above broke any live nginx bind mount (old inode). Restart the
+# container so it gets a fresh mount pointing at the new directory.
+NWNSYNC_CONTAINER="${NWNSYNC_CONTAINER:-nwnsync-nginx}"
+if podman container exists "$NWNSYNC_CONTAINER" 2>/dev/null; then
+  state=$(podman inspect -f '{{.State.Status}}' "$NWNSYNC_CONTAINER" 2>/dev/null || echo missing)
+  if [[ $state == running ]]; then
+    echo "[nwsync] restarting $NWNSYNC_CONTAINER to pick up new repo directory..."
+    podman stop -t 4 "$NWNSYNC_CONTAINER" >/dev/null 2>&1 || true
+    "$PROJECT_ROOT/bin/serve-nwsync"
+  fi
+fi
