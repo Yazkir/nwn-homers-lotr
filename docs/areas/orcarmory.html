@@ -18,7 +18,7 @@
       <a href="../conversations/index.html">Conversations</a>
       <a href="../factions.html">Factions</a>
       <a href="../journal.html">Journal</a>
-      <a href="../activity.html">Activity</a>
+      
       <div class="nav-dropdown"><span class="nav-dropdown-label">Documents &#9660;</span><div class="nav-dropdown-menu"><a href="../manual/LevelingGuide.html">Leveling Guide — Homer&#x27;s LOTR</a>
 <a href="../manual/MeaningWave.html">MeaningWave: A Guide to the Guides</a>
 <a href="../manual/Quest Ideas.html">Middle-earth Quest Compendium</a></div></div>
@@ -27,8 +27,6 @@
   <main>
 <h1>Orc Armory</h1>
 <dl class="meta"><dt>ResRef</dt><dd>orcarmory</dd><dt>Tag</dt><dd>OrcArmory</dd><dt>Tileset</dt><dd>Castle Interior, Illuminated <small class="muted">(tde01)</small></dd><dt>Size</dt><dd>19×16 tiles</dd><dt>OnEnter</dt><dd></dd><dt>OnExit</dt><dd>cleanup</dd><dt>OnHeartbeat</dt><dd></dd><dt>OnUserDefined</dt><dd></dd></dl>
-<h2>Path from <span style="color:#3ff23f"> &quot;Well of Eru&quot;</span></h2>
-<p><strong>2 hops</strong></p><ol><li><a href="thewelloferu.html"><span style="color:#3ff23f"> &quot;Well of Eru&quot;</span></a> &rarr; <a href="cirithungol.html">Cirith Ungol</a> <em class="muted">[Welcome ! Tell me where you wish to be sent.]</em></li><li><a href="cirithungol.html">Cirith Ungol</a> &rarr; <a href="orcarmory.html">Orc Armory</a> <em class="muted">[use the &#8220;cirith2oamor&#8221; door]</em></li></ol>
 <h2>Outgoing transitions</h2>
 <table class="data"><thead><tr><th>Kind</th><th>Label</th><th>Destination</th><th>Waypoint tag</th></tr></thead><tbody><tr><td>door</td><td>orcarm2cirith2</td><td><a href="cirithungol.html">Cirith Ungol</a></td><td><code>cirith2orcarmor</code></td></tr>
 <tr><td>door</td><td>oorcarm2cirith</td><td><a href="cirithungol.html">Cirith Ungol</a></td><td><code>cirith2oamor</code></td></tr></tbody></table>
@@ -36,16 +34,16 @@
 <table class="data"><thead><tr><th>Kind</th><th>From</th><th>Label</th></tr></thead><tbody><tr><td>door</td><td><a href="cirithungol.html">Cirith Ungol</a></td><td>cirith2oamor</td></tr>
 <tr><td>door</td><td><a href="cirithungol.html">Cirith Ungol</a></td><td>cirith2orcarmor</td></tr></tbody></table>
 <h2>NPCs</h2>
-<table class="data"><thead><tr><th>Name</th><th>Blueprint</th><th>ResRef</th><th>Race</th><th>Class</th><th>HP</th><th>CR</th><th>Faction</th><th>Conversation</th></tr></thead><tbody><tr><td><a href="../creatures/instances/orcarmory-000.html">Old Man</a></td><td><code>nw_oldman</code></td><td>nw_oldman</td><td>Human</td><td>Commoner 1</td><td>2</td><td>0.25</td><td>Commoner</td><td></td></tr>
-<tr><td><a href="../creatures/instances/orcarmory-001.html">Old Woman</a></td><td><code>nw_oldwoman</code></td><td>nw_oldwoman</td><td>Human</td><td>Commoner 1</td><td>2</td><td>0.25</td><td>Commoner</td><td></td></tr>
-<tr><td><a href="../creatures/instances/orcarmory-002.html">Prostitute</a></td><td><code>nw_hooker01</code></td><td>nw_hooker01</td><td>Human</td><td>Commoner 1</td><td>3</td><td>0.25</td><td>Commoner</td><td></td></tr>
-<tr><td><a href="../creatures/instances/orcarmory-003.html">Prostitute</a></td><td><code>nw_hooker01</code></td><td>nw_hooker01</td><td>Human</td><td>Commoner 1</td><td>3</td><td>0.25</td><td>Commoner</td><td></td></tr>
-<tr><td><a href="../creatures/instances/orcarmory-004.html">Prostitute</a></td><td><code>nw_hooker02</code></td><td>nw_hooker02</td><td>Human</td><td>Commoner 1</td><td>3</td><td>0.25</td><td>Commoner</td><td></td></tr>
-<tr><td><a href="../creatures/instances/orcarmory-005.html">Beggar</a></td><td><code>nw_beggmale</code></td><td>nw_beggmale</td><td>Human</td><td>Commoner 1</td><td>3</td><td>0.25</td><td>Commoner</td><td></td></tr>
-<tr><td><a href="../creatures/instances/orcarmory-006.html">Beggar</a></td><td><code>nw_beggmale</code></td><td>nw_beggmale</td><td>Human</td><td>Commoner 1</td><td>3</td><td>0.25</td><td>Commoner</td><td></td></tr>
-<tr><td><a href="../creatures/instances/orcarmory-007.html">Beggar</a></td><td><code>nw_beggmale</code></td><td>nw_beggmale</td><td>Human</td><td>Commoner 1</td><td>3</td><td>0.25</td><td>Commoner</td><td></td></tr>
-<tr><td><a href="../creatures/instances/orcarmory-008.html">Boy</a></td><td><code>nw_malekid01</code></td><td>nw_malekid01</td><td>Human</td><td>Commoner 1</td><td>2</td><td>0.25</td><td>Commoner</td><td></td></tr>
-<tr><td><a href="../creatures/instances/orcarmory-009.html">Girl</a></td><td><code>nw_femalekid01</code></td><td>nw_femalekid01</td><td>Human</td><td>Commoner 1</td><td>2</td><td>0.25</td><td>Commoner</td><td></td></tr>
+<table class="data"><thead><tr><th>Name</th><th>Blueprint</th><th>ResRef</th><th>Race</th><th>Class</th><th>HP</th><th>CR</th><th>Faction</th><th>Conversation</th></tr></thead><tbody><tr><td><a href="../creatures/instances/orcarmory-000.html">[TLK#12670]</a></td><td><code>nw_oldman</code></td><td>nw_oldman</td><td>Human</td><td>Commoner 1</td><td>2</td><td>0.25</td><td>Commoner</td><td></td></tr>
+<tr><td><a href="../creatures/instances/orcarmory-001.html">[TLK#12672]</a></td><td><code>nw_oldwoman</code></td><td>nw_oldwoman</td><td>Human</td><td>Commoner 1</td><td>2</td><td>0.25</td><td>Commoner</td><td></td></tr>
+<tr><td><a href="../creatures/instances/orcarmory-002.html">[TLK#12614]</a></td><td><code>nw_hooker01</code></td><td>nw_hooker01</td><td>Human</td><td>Commoner 1</td><td>3</td><td>0.25</td><td>Commoner</td><td></td></tr>
+<tr><td><a href="../creatures/instances/orcarmory-003.html">[TLK#12614]</a></td><td><code>nw_hooker01</code></td><td>nw_hooker01</td><td>Human</td><td>Commoner 1</td><td>3</td><td>0.25</td><td>Commoner</td><td></td></tr>
+<tr><td><a href="../creatures/instances/orcarmory-004.html">[TLK#12614]</a></td><td><code>nw_hooker02</code></td><td>nw_hooker02</td><td>Human</td><td>Commoner 1</td><td>3</td><td>0.25</td><td>Commoner</td><td></td></tr>
+<tr><td><a href="../creatures/instances/orcarmory-005.html">[TLK#12393]</a></td><td><code>nw_beggmale</code></td><td>nw_beggmale</td><td>Human</td><td>Commoner 1</td><td>3</td><td>0.25</td><td>Commoner</td><td></td></tr>
+<tr><td><a href="../creatures/instances/orcarmory-006.html">[TLK#12393]</a></td><td><code>nw_beggmale</code></td><td>nw_beggmale</td><td>Human</td><td>Commoner 1</td><td>3</td><td>0.25</td><td>Commoner</td><td></td></tr>
+<tr><td><a href="../creatures/instances/orcarmory-007.html">[TLK#12393]</a></td><td><code>nw_beggmale</code></td><td>nw_beggmale</td><td>Human</td><td>Commoner 1</td><td>3</td><td>0.25</td><td>Commoner</td><td></td></tr>
+<tr><td><a href="../creatures/instances/orcarmory-008.html">[TLK#12634]</a></td><td><code>nw_malekid01</code></td><td>nw_malekid01</td><td>Human</td><td>Commoner 1</td><td>2</td><td>0.25</td><td>Commoner</td><td></td></tr>
+<tr><td><a href="../creatures/instances/orcarmory-009.html">[TLK#12525]</a></td><td><code>nw_femalekid01</code></td><td>nw_femalekid01</td><td>Human</td><td>Commoner 1</td><td>2</td><td>0.25</td><td>Commoner</td><td></td></tr>
 <tr><td><a href="../creatures/instances/orcarmory-010.html">Garbag Gulon</a></td><td><a href="../creatures/garbag.html">Garbag Gulon</a></td><td>garbag</td><td>Half-Orc</td><td>Barbarian 10/Fighter 20/Weapon Master 20</td><td>375</td><td>179.0</td><td>Evil</td><td><a href="../conversations/garbagconv.html">garbagconv</a></td></tr>
 <tr><td><a href="../creatures/instances/orcarmory-011.html">Mordor Hewer</a></td><td><a href="../creatures/urukai019.html">Mordor Hewer</a></td><td>urukai019</td><td>Half-Orc</td><td>Fighter 20/Assassin 20</td><td>2140</td><td>191.0</td><td>Evil</td><td></td></tr>
 <tr><td><a href="../creatures/instances/orcarmory-012.html">Mordor Hewer</a></td><td><a href="../creatures/urukai019.html">Mordor Hewer</a></td><td>urukai019</td><td>Half-Orc</td><td>Fighter 20/Assassin 20</td><td>2140</td><td>191.0</td><td>Evil</td><td></td></tr>
@@ -83,6 +81,6 @@
 <tr><td><code>MordorHewer001</code></td><td>waypoint031</td></tr>
 <tr><td><code>MordorHewer002</code></td><td>waypoint031</td></tr></tbody></table>
   </main>
-  <footer>generated by <a href="https://github.com/mrprice22/nwn-manager">nwn-manager</a> &mdash; last updated May 18, 2026 19:49</footer>
+  <footer>generated by <a href="https://github.com/mrprice22/nwn-manager">nwn-manager</a> &mdash; last updated May 18, 2026 20:23</footer>
 </body>
 </html>
