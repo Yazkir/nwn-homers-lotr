@@ -130,6 +130,59 @@ sqlite3 coderedeem.sqlite3 "DELETE FROM redemptions WHERE code='freelegendary';"
 
 Deleting a row lets that CD key redeem the code again.
 
+## Four-class multiclassing
+
+NWN:EE patch 8193.35 added engine support for up to 8 classes. This module
+enables a cap of **4 classes** via a server-side `ruleset.2da` override — no
+hak changes needed, because `ruleset.2da` is resolved from the server override
+folder before any hak and is not distributed to clients via nwsync.
+
+### Current state
+
+- `~/.local/share/Neverwinter Nights/override/ruleset.2da` — `MULTICLASS_LIMIT`
+  set to `4` (base game ships `3`)
+- 11 scripts updated in `unpacked/` to handle a 4th class position:
+  `pers_state_inc.nss`, `hgll_featreq_inc.nss`, `bdm_include.nss`,
+  `x0_i0_spells.nss`, `my_charfuncs.nss`, `dmfi_dmw_inc.nss`,
+  `dmw_func_inc.nss`, `j_inc_generic_ai.nss`, `nw_i0_generic.nss`,
+  `nw_o2_coninclude.nss`, `sd_filter_inc.nss`
+
+### Rebuild from scratch (new machine / fresh NWN install)
+
+1. Extract the base `ruleset.2da` from the NWN data files:
+   ```sh
+   mkdir -p /tmp/nwn_2da
+   NWN="$HOME/.local/share/Steam/steamapps/common/Neverwinter Nights"
+   ~/.nimble/bin/nwn_resman_extract --root "$NWN" \
+     --userdirectory "$HOME/.local/share/Neverwinter Nights" \
+     -p "ruleset" -d /tmp/nwn_2da
+   ```
+2. Edit the extracted file — find the `MULTICLASS_LIMIT` row and change `3` to `4`:
+   ```
+   519  MULTICLASS_LIMIT                                 4
+   ```
+3. Copy it into the server override folder:
+   ```sh
+   cp /tmp/nwn_2da/ruleset.2da \
+     "$HOME/.local/share/Neverwinter Nights/override/ruleset.2da"
+   ```
+4. Repack and restart the server — no nwsync refresh needed (override changes
+   are not distributed to clients).
+
+### Rolling back to 3 classes
+
+- **Override only (quickest):** Delete or replace the override file:
+  ```sh
+  rm "$HOME/.local/share/Neverwinter Nights/override/ruleset.2da"
+  ```
+  Then restart the server. The base-game `ruleset.2da` (MULTICLASS_LIMIT = 3)
+  takes effect automatically.
+
+- **Scripts too:** The 11 script changes are backward-compatible for 1–3 class
+  characters (the extra loop iterations hit `CLASS_TYPE_INVALID` and short-
+  circuit). You only need to revert the scripts if you want byte-for-byte
+  parity with the original; `git revert` the commit that introduced them.
+
 ## Prerequisites
 
 `nasher`, `nwn_gff`, `nwn_script_comp`, and `python3` (for `wiki`) must be

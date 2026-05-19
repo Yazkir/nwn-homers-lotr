@@ -4595,6 +4595,9 @@ int nDetermineClassToUse(object oCharacter)
     int nClass3 = GetClassByPosition(3, oCharacter);
     int nState3 = FloatToInt((IntToFloat(GetLevelByClass(nClass3, oCharacter)) / fTotal) * 100) + nState2;
 
+    int nClass4 = GetClassByPosition(4, oCharacter);
+    int nState4 = FloatToInt((IntToFloat(GetLevelByClass(nClass4, oCharacter)) / fTotal) * 100) + nState3;
+
     int nUseClass = d100();
 
     dbSpeak("Before comparison : " + IntToString(nClass1));
@@ -4606,9 +4609,13 @@ int nDetermineClassToUse(object oCharacter)
     {
         nClass = nClass2;
     }
-    else
+    else if(nUseClass > nState2 && nUseClass <= nState3)
     {
         nClass = nClass3;
+    }
+    else
+    {
+        nClass = (nClass4 != CLASS_TYPE_INVALID) ? nClass4 : nClass1;
     }
     dbSpeak("Class from determineClass " + IntToString(nClass));
     return nClass;
