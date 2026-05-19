@@ -139,8 +139,12 @@ folder before any hak and is not distributed to clients via nwsync.
 
 ### Current state
 
-- `~/.local/share/Neverwinter Nights/override/ruleset.2da` — `MULTICLASS_LIMIT`
-  set to `4` (base game ships `3`)
+- `lotr_rules.hak` — custom hak containing `ruleset.2da` with `MULTICLASS_LIMIT 4`.
+  Listed first in `Mod_HakList` (highest hak priority) so it wins over any
+  `ruleset.2da` shipped by CEP. nwsync distributes it to clients automatically
+  on connect — no manual client-side steps needed.
+- `~/.local/share/Neverwinter Nights/override/ruleset.2da` — same file in the
+  server override folder, so the server itself also sees `MULTICLASS_LIMIT 4`.
 - 11 scripts updated in `unpacked/` to handle a 4th class position:
   `pers_state_inc.nss`, `hgll_featreq_inc.nss`, `bdm_include.nss`,
   `x0_i0_spells.nss`, `my_charfuncs.nss`, `dmfi_dmw_inc.nss`,
@@ -161,27 +165,32 @@ folder before any hak and is not distributed to clients via nwsync.
    ```
    519  MULTICLASS_LIMIT                                 4
    ```
-3. Copy it into the server override folder:
+3. Build the hak and install it:
+   ```sh
+   mkdir -p /tmp/lotr_rules_hak
+   cp /tmp/nwn_2da/ruleset.2da /tmp/lotr_rules_hak/
+   ~/.nimble/bin/nwn_erf -c -f /tmp/lotr_rules.hak -e HAK \
+     /tmp/lotr_rules_hak/ruleset.2da
+   cp /tmp/lotr_rules.hak \
+     "$HOME/.local/share/Neverwinter Nights/hak/lotr_rules.hak"
+   ```
+4. Copy the 2da into the server override folder too (server-side enforcement):
    ```sh
    cp /tmp/nwn_2da/ruleset.2da \
      "$HOME/.local/share/Neverwinter Nights/override/ruleset.2da"
    ```
-4. Repack and restart the server — no nwsync refresh needed (override changes
-   are not distributed to clients).
+5. Repack the module and run the nwsync refresh so clients receive the new hak.
 
 ### Rolling back to 3 classes
 
-- **Override only (quickest):** Delete or replace the override file:
-  ```sh
-  rm "$HOME/.local/share/Neverwinter Nights/override/ruleset.2da"
-  ```
-  Then restart the server. The base-game `ruleset.2da` (MULTICLASS_LIMIT = 3)
-  takes effect automatically.
-
-- **Scripts too:** The 11 script changes are backward-compatible for 1–3 class
-  characters (the extra loop iterations hit `CLASS_TYPE_INVALID` and short-
-  circuit). You only need to revert the scripts if you want byte-for-byte
-  parity with the original; `git revert` the commit that introduced them.
+1. Remove the hak from `Mod_HakList` in `unpacked/module.ifo.json` (delete the
+   `lotr_rules` entry).
+2. Delete the server override: `rm ~/.local/share/Neverwinter Nights/override/ruleset.2da`
+3. Repack and refresh nwsync. Clients will drop the hak on next connect.
+4. **Scripts:** The 11 script changes are backward-compatible for 1–3 class
+   characters (the extra loop iterations hit `CLASS_TYPE_INVALID` and
+   short-circuit). Reverting them is optional; `git revert` the relevant commit
+   if you want exact parity with the original.
 
 ## Prerequisites
 
