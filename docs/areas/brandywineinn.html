@@ -18,7 +18,7 @@
       <a href="../conversations/index.html">Conversations</a>
       <a href="../factions.html">Factions</a>
       <a href="../journal.html">Journal</a>
-      
+      <a href="../activity.html">Activity</a>
       <div class="nav-dropdown"><span class="nav-dropdown-label">Documents &#9660;</span><div class="nav-dropdown-menu"><a href="../manual/LevelingGuide.html">Leveling Guide — Homer&#x27;s LOTR</a>
 <a href="../manual/MeaningWave.html">MeaningWave: A Guide to the Guides</a>
 <a href="../manual/Quest Ideas.html">Middle-earth Quest Compendium</a></div></div>
@@ -27,6 +27,8 @@
   <main>
 <h1>Brandywine Inn</h1>
 <dl class="meta"><dt>ResRef</dt><dd>brandywineinn</dd><dt>Tag</dt><dd>BrandywineInn</dd><dt>Tileset</dt><dd>Crypt <small class="muted">(tin01)</small></dd><dt>Size</dt><dd>8×8 tiles</dd><dt>OnEnter</dt><dd></dd><dt>OnExit</dt><dd>cleanup</dd><dt>OnHeartbeat</dt><dd></dd><dt>OnUserDefined</dt><dd></dd></dl>
+<h2>Path from <span style="color:#3ff23f"> &quot;Well of Eru&quot;</span></h2>
+<p><strong>7 hops</strong></p><ol><li><a href="thewelloferu.html"><span style="color:#3ff23f"> &quot;Well of Eru&quot;</span></a> &rarr; <a href="bree.html">Bree</a> <em class="muted">[use the &#8220;x2_doorhard2&#8221; door]</em></li><li><a href="bree.html">Bree</a> &rarr; <a href="area012.html">Old Forest:  Withywindle Path</a> <em class="muted">[step on the &#8220;bree2brandy&#8221; trigger]</em></li><li><a href="area012.html">Old Forest:  Withywindle Path</a> &rarr; <a href="alterwald.html">Old Forest</a> <em class="muted">[step on the &#8220;withy2tom&#8221; trigger]</em></li><li><a href="alterwald.html">Old Forest</a> &rarr; <a href="oldforest001.html">Old Forest</a> <em class="muted">[step on the &#8220;tom2oldforest&#8221; trigger]</em></li><li><a href="oldforest001.html">Old Forest</a> &rarr; <a href="buckland.html">Buckland</a> <em class="muted">[step on the &#8220;oldforest2buckland&#8221; trigger]</em></li><li><a href="buckland.html">Buckland</a> &rarr; <a href="brandywinebridge.html">Brandywine Bridge</a> <em class="muted">[step on the &#8220;buckland2brandy&#8221; trigger]</em></li><li><a href="brandywinebridge.html">Brandywine Bridge</a> &rarr; <a href="brandywineinn.html">Brandywine Inn</a> <em class="muted">[use the &#8220;bridge2brandy&#8221; door]</em></li></ol>
 <h2>Outgoing transitions</h2>
 <table class="data"><thead><tr><th>Kind</th><th>Label</th><th>Destination</th><th>Waypoint tag</th></tr></thead><tbody><tr><td>door</td><td>brandy12brandy2</td><td><a href="brandywinesecflo.html">Brandywine Inn : Second Floor</a></td><td><code>brandyinn2to1</code></td></tr>
 <tr><td>door</td><td>Brandy2bridge</td><td><a href="brandywinebridge.html">Brandywine Bridge</a></td><td><code>bridge2brandy</code></td></tr></tbody></table>
@@ -36,7 +38,7 @@
 <h2>NPCs</h2>
 <table class="data"><thead><tr><th>Name</th><th>Blueprint</th><th>ResRef</th><th>Race</th><th>Class</th><th>HP</th><th>CR</th><th>Faction</th><th>Conversation</th></tr></thead><tbody><tr><td><a href="../creatures/instances/brandywineinn-000.html">Perry Blimeaf</a></td><td><a href="../creatures/perry.html">Perry Blimeaf</a></td><td>perry</td><td>Halfling</td><td>Rogue 5/Barbarian 5</td><td>72</td><td>7.0</td><td>Merchant</td><td><a href="../conversations/store002.html">store002</a></td></tr>
 <tr><td><a href="../creatures/instances/brandywineinn-001.html">Part Willey</a></td><td><a href="../creatures/part.html">Part Willey</a></td><td>part</td><td>Human</td><td>Fighter 3/Barbarian 6</td><td>78</td><td>7.0</td><td>Merchant</td><td><a href="../conversations/brandywine1.html">brandywine1</a></td></tr>
-<tr><td><a href="../creatures/instances/brandywineinn-002.html">[TLK#12374]</a></td><td><code>nw_bartender</code></td><td>nw_bartender</td><td>Human</td><td>Commoner 1</td><td>3</td><td>0.25</td><td>Commoner</td><td></td></tr>
+<tr><td><a href="../creatures/instances/brandywineinn-002.html">Bartender</a></td><td><code>nw_bartender</code></td><td>nw_bartender</td><td>Human</td><td>Commoner 1</td><td>3</td><td>0.25</td><td>Commoner</td><td></td></tr>
 <tr><td><a href="../creatures/instances/brandywineinn-003.html">Waitress</a></td><td><a href="../creatures/waitress.html">Waitress</a></td><td>waitress</td><td>Human</td><td>Fighter 1</td><td>11</td><td>0.5</td><td>Commoner</td><td></td></tr>
 <tr><td><a href="../creatures/instances/brandywineinn-004.html">Waitress</a></td><td><a href="../creatures/waitress.html">Waitress</a></td><td>waitress</td><td>Human</td><td>Fighter 1</td><td>11</td><td>0.5</td><td>Commoner</td><td></td></tr>
 <tr><td><a href="../creatures/instances/brandywineinn-005.html">Waitress</a></td><td><a href="../creatures/waitress.html">Waitress</a></td><td>waitress</td><td>Human</td><td>Fighter 1</td><td>11</td><td>0.5</td><td>Commoner</td><td></td></tr>
@@ -48,6 +50,6 @@
 <table class="data"><thead><tr><th>Conversation</th><th>ResRef</th><th>Triggered via</th><th>Teleports to</th></tr></thead><tbody><tr><td><a href="../conversations/brandywine1.html">Hey there stranger somethin&#x27; I can get ya?</a></td><td><code>brandywine1</code></td><td>NPC <a href="../creatures/instances/brandywineinn-001.html">Part Willey</a></td><td>—</td></tr>
 <tr><td><a href="../conversations/store002.html">Welcome to my shop. Would you like to see my wares?</a></td><td><code>store002</code></td><td>NPC <a href="../creatures/instances/brandywineinn-000.html">Perry Blimeaf</a></td><td>—</td></tr></tbody></table>
   </main>
-  <footer>generated by <a href="https://github.com/mrprice22/nwn-manager">nwn-manager</a> &mdash; last updated May 18, 2026 20:23</footer>
+  <footer>generated by <a href="https://github.com/mrprice22/nwn-manager">nwn-manager</a> &mdash; last updated May 18, 2026 20:32</footer>
 </body>
 </html>
