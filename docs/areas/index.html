@@ -284,10 +284,8 @@
 <tr><td><a href="thewold.html">Wold North</a></td><td>thewold</td><td>Rural Winter</td><td>15×15</td><td>0</td><td>5</td><td>0</td><td>1</td></tr>
 <tr><td><a href="woldsouth.html">Wold South</a></td><td>woldsouth</td><td>Rural Winter</td><td>15×15</td><td>0</td><td>6</td><td>0</td><td>0</td></tr></tbody></table><h2 id="possibly-inaccessible">Areas with possibly broken routes</h2><p class="warn-fallback-note">&#9888; The areas below have at least one incoming transition resolved via a waypoint-tag fallback — the script references a short tag (e.g. <code>foo</code>) while the actual waypoint is tagged <code>WP_foo</code>. That route may not work in-game and could indicate a typo in a waypoint tag or script. Other routes into these areas may still work normally.</p><table class="data"><thead><tr><th>Name</th><th>ResRef</th><th>Tileset</th><th>Size</th><th>NPCs</th><th>Encounters</th><th>Stores</th><th>Containers</th></tr></thead><tbody><tr><td><a href="heavensscorn.html">Númenor:  Bay of Andúnië</a></td><td>heavensscorn</td><td>Rural Winter</td><td>8×20</td><td>0</td><td>10</td><td>0</td><td>0</td></tr></tbody></table><h2 id="no-path">No known path from <span style="color:#3ff23f"> &quot;Well of Eru&quot;</span></h2><p class="warn-fallback-note">&#9888; The areas below have no known route from <span style="color:#3ff23f"> &quot;Well of Eru&quot;</span> via door, trigger, or conversation teleport. They may be accessible by other means (login spawn, admin, DM warp), or their transitions may not yet be indexed.</p><table class="data"><thead><tr><th>Name</th><th>ResRef</th><th>Tileset</th><th>Size</th><th>NPCs</th><th>Encounters</th><th>Stores</th><th>Containers</th></tr></thead><tbody><tr><td><a href="shirebilbohouse.html">Bilbo&#x27;s House</a></td><td>shirebilbohouse</td><td>Crypt</td><td>6×6</td><td>1</td><td>0</td><td>0</td><td>0</td></tr>
 <tr><td><a href="darkstarguildhou.html">Dark Star Guild House</a></td><td>darkstarguildhou</td><td>tid01</td><td>8×8</td><td>0</td><td>0</td><td>0</td><td>0</td></tr>
-<tr><td><a href="dmeventarea.html">Empty Field - DM Space</a></td><td>dmeventarea</td><td>Rural Winter</td><td>15×15</td><td>0</td><td>0</td><td>0</td><td>0</td></tr>
 <tr><td><a href="fornostrangerway.html">Fornost (Ranger Waystation)</a></td><td>fornostrangerway</td><td>Crypt</td><td>4×4</td><td>0</td><td>0</td><td>0</td><td>0</td></tr>
 <tr><td><a href="area004.html">Fornost (West)</a></td><td>area004</td><td>Snow</td><td>13×13</td><td>0</td><td>5</td><td>0</td><td>0</td></tr>
-<tr><td><a href="houseofdispai001.html"><span style="color:#ff7d7d">House of Homer</span></a></td><td>houseofdispai001</td><td>Castle Interior 1</td><td>7×8</td><td>4</td><td>0</td><td>0</td><td>0</td></tr>
 <tr><td><a href="nazgulguildhouse.html">House of Nazgûl</a></td><td>nazgulguildhouse</td><td>City Interior</td><td>16×16</td><td>9</td><td>0</td><td>0</td><td>0</td></tr>
 <tr><td><a href="area003.html">Mirkwood: Crypt Chamber</a></td><td>area003</td><td>Beholder Caves</td><td>9×9</td><td>0</td><td>1</td><td>0</td><td>0</td></tr>
 <tr><td><a href="area002.html">Mirkwood: Crypt Lower</a></td><td>area002</td><td>Castle Interior, Illuminated</td><td>13×13</td><td>0</td><td>3</td><td>0</td><td>0</td></tr>
@@ -304,8 +302,65 @@
 <tr><td><a href="tombofzoravor.html">Tomb of Zoravor and Panavor</a></td><td>tombofzoravor</td><td>Castle Interior 1</td><td>8×6</td><td>0</td><td>0</td><td>0</td><td>0</td></tr>
 <tr><td><a href="gravesofthelostk.html">Tombs of the Lost Souls</a></td><td>gravesofthelostk</td><td>Rural Winter</td><td>18×6</td><td>0</td><td>0</td><td>0</td><td>0</td></tr>
 <tr><td><a href="area021.html">Valinor: Gates of Valinor</a></td><td>area021</td><td>tti01</td><td>8×8</td><td>0</td><td>0</td><td>0</td><td>0</td></tr>
-<tr><td><a href="area022.html">Valinor: Realm of the spirits</a></td><td>area022</td><td>Frozen Wastes</td><td>8×8</td><td>1</td><td>0</td><td>0</td><td>0</td></tr></tbody></table>
+<tr><td><a href="area022.html">Valinor: Realm of the spirits</a></td><td>area022</td><td>Frozen Wastes</td><td>8×8</td><td>1</td><td>0</td><td>0</td><td>0</td></tr></tbody></table><h2 id="unresolved-transitions">Unresolved transition targets</h2><p class="warn-fallback-note">&#9888; The tags below are referenced by door or trigger <code>LinkedTo</code> fields but do not exist as a waypoint, door, or trigger tag in any area. Each likely indicates a missing waypoint, a typo, or unfinished content.</p><table class="data"><thead><tr><th>Target tag</th><th>From area</th><th>Kind</th><th>Label</th></tr></thead><tbody><tr><td><code>2ndFloorA</code></td><td><a href="castlehomelessgr.html">Castle Homeless (Ground Floor)</a></td><td>door</td><td>Floor_2ndA</td></tr>
+<tr><td><code>2ndFloorB</code></td><td><a href="castlehomelessgr.html">Castle Homeless (Ground Floor)</a></td><td>door</td><td>Floor_2ndB</td></tr>
+<tr><td><code>BaradWiztowerInsideDoor</code></td><td><a href="baraddur.html">Barad-Dûr: City</a></td><td>door</td><td>BaradWiztowerOutsideDoor</td></tr>
+<tr><td><code>breecave2spiders</code></td><td><a href="oldbackroad.html">Old Road</a></td><td>door</td><td>spiders2breecave</td></tr>
+<tr><td><code>crypt2lower</code></td><td><a href="area002.html">Mirkwood: Crypt Lower</a></td><td>door</td><td>lower2crypt</td></tr>
+<tr><td><code>DagBPtemp</code></td><td><a href="area010.html">Temple of Nazgul</a></td><td>door</td><td>battleplaintemple</td></tr>
+<tr><td><code>darkstarexit</code></td><td><a href="carndumcity.html">Carn Dum: City</a></td><td>door</td><td>DarkStarGuildHouse</td></tr>
+<tr><td><code>deadmen2dunharrow</code></td><td><a href="dunharrow.html">Dimholt: Dunharrow</a></td><td>door</td><td>dunharrow2deadman</td></tr>
+<tr><td><code>DispairPort</code></td><td><a href="oldforest001.html">Old Forest</a></td><td>door</td><td>DispairDoor</td></tr>
+<tr><td><code>Dolskin2kham</code></td><td><a href="area031.html">Dol Guldur:  Tower Of Black Magic  Nazgul Quaters</a></td><td>door</td><td>doln2dold</td></tr>
+<tr><td><code>escapefromplane</code></td><td><a href="planeoftherender.html">Plane of the Render</a></td><td>trigger</td><td>planeescape2island</td></tr>
+<tr><td><code>Exitdarkstarguildhouse</code></td><td><a href="darkstarguildhou.html">Dark Star Guild House</a></td><td>trigger</td><td>2loneyloneygate</td></tr>
+<tr><td><code>forgedoor</code></td><td><a href="area006.html">Esgaroth (Lake Town)</a></td><td>door</td><td>Laketownforgedoor</td></tr>
+<tr><td><code>fornost2rangerinside</code></td><td><a href="fornostrangerway.html">Fornost (Ranger Waystation)</a></td><td>door</td><td>fornostguard2fornost</td></tr>
+<tr><td><code>HelmsDeepDownBL</code></td><td><a href="helmsdeep001.html">Helm&#x27;s Deep</a></td><td>door</td><td>HelmsDeepDownTL</td></tr>
+<tr><td><code>HelmsDeepDownBR</code></td><td><a href="helmsdeep001.html">Helm&#x27;s Deep</a></td><td>door</td><td>HelmsDeepDownTR</td></tr>
+<tr><td><code>henneth2valeofhenneth</code></td><td><a href="hennethannun.html">Vale of Henneth Annun</a></td><td>door</td><td>valeofhenneth2henneth</td></tr>
+<tr><td><code>Hobbiton2BilbosHouse</code></td><td><a href="shirebilbohouse.html">Bilbo&#x27;s House</a></td><td>door</td><td>BilbosHouse2Hobbiton</td></tr>
+<tr><td><code>Incolddarkcave</code></td><td><a href="gondorwestb.html">Great North Road</a></td><td>door</td><td>Cavefrostds</td></tr>
+<tr><td><code>lakebank</code></td><td><a href="area006.html">Esgaroth (Lake Town)</a></td><td>door</td><td>lakebank2</td></tr>
+<tr><td><code>misty2gobtown</code></td><td><a href="goblintownmainha.html">Goblin Town: Main Hall</a></td><td>door</td><td>gobtwon2misty</td></tr>
+<tr><td><code>Modredin</code></td><td><a href="bree.html">Bree</a></td><td>door</td><td>Modred</td></tr>
+<tr><td><code>MSindoor</code></td><td><a href="area006.html">Esgaroth (Lake Town)</a></td><td>door</td><td>laketown2lakeguards</td></tr>
+<tr><td><code>NW_FoF1</code></td><td><a href="area004.html">Fornost (West)</a></td><td>trigger</td><td>fornost2forest</td></tr>
+<tr><td><code>OsgilMM1</code></td><td><a href="nazgulguildhouse.html">House of Nazgûl</a></td><td>door</td><td>nazgulenter</td></tr>
+<tr><td><code>Portlvl2crytps21</code></td><td><a href="gondorcrypts.html">Minas Tirith: Crypts</a></td><td>door</td><td>GondorCtyptsPort2</td></tr>
+<tr><td><code>Portmoria1a</code></td><td><a href="morialevel1cente.html">Moria Level 1 (Center)</a></td><td>door</td><td>Portcullismoria2a</td></tr>
+<tr><td><code>Portmoria1b</code></td><td><a href="morialevel1cente.html">Moria Level 1 (Center)</a></td><td>door</td><td>Portcullismoria2b</td></tr>
+<tr><td><code>PotLuckOut</code></td><td><a href="bree.html">Bree</a></td><td>door</td><td>PotLuckIn</td></tr>
+<tr><td><code>RoG2upperloth</code></td><td><a href="lorienhightreele.html">Lothlorien: Tree Level</a></td><td>door</td><td>upperloth2RoG</td></tr>
+<tr><td><code>RoG2upperloth</code></td><td><a href="lothlorien.html">Lothlorien: Main</a></td><td>door</td><td>lormain2galdh</td></tr>
+<tr><td><code>stew2rivendell</code></td><td><a href="thevalleyofriven.html">The Valley of Rivendell</a></td><td>door</td><td>rivedell2stew</td></tr>
+<tr><td><code>StoneHomer</code></td><td><a href="thelonelymountai.html">Lonely Mountain: Gate</a></td><td>door</td><td>Homerhouse1</td></tr>
+<tr><td><code>TomHouseExit</code></td><td><a href="alterwald.html">Old Forest</a></td><td>door</td><td>Toms_Haustuer</td></tr>
+<tr><td><code>VALINORWAYPOINT</code></td><td><a href="area021.html">Valinor: Gates of Valinor</a></td><td>trigger</td><td>Valinor1</td></tr>
+<tr><td><code>VALINORWAYPOINT</code></td><td><a href="area021.html">Valinor: Gates of Valinor</a></td><td>trigger</td><td>Valinor2</td></tr>
+<tr><td><code>whills2amonsul</code></td><td><a href="weatherhills.html">Weather Hills</a></td><td>trigger</td><td>weatherhills2amonsul</td></tr>
+<tr><td><code>WP_amonsul2greateastroadb</code></td><td><a href="greateastroadb.html">Great East Road</a></td><td>trigger</td><td>greateastb2amonsul</td></tr>
+<tr><td><code>WP_AreaTransLorienLow</code></td><td><a href="lorienhightreele.html">Lothlorien: Tree Level</a></td><td>trigger</td><td>AreaTransLorienHigh</td></tr>
+<tr><td><code>WP_barad2eredduath</code></td><td><a href="roadtobaraddur.html">Road to Barad-Dûr</a></td><td>trigger</td><td>barad2eredduathb</td></tr>
+<tr><td><code>WP_bree2midge</code></td><td><a href="midgewaterswamp.html">Midgewater Swamp</a></td><td>trigger</td><td>midge2bree</td></tr>
+<tr><td><code>WP_eredc2a</code></td><td><a href="eredduathroada.html">Ered Duath Road: A</a></td><td>trigger</td><td>ereda2c</td></tr>
+<tr><td><code>WP_eredc2harada</code></td><td><a href="harad.html">Northern Harad</a></td><td>trigger</td><td>harada2eredc</td></tr>
+<tr><td><code>WP_fornoste2fornostw</code></td><td><a href="area004.html">Fornost (West)</a></td><td>trigger</td><td>fornostw2fornoste</td></tr>
+<tr><td><code>WP_fornoste2northdowns</code></td><td><a href="thenorthdowns001.html">The North Downs</a></td><td>trigger</td><td>northdowns2fornost</td></tr>
+<tr><td><code>WP_gates2pel</code></td><td><a href="thepelennorfield.html">The Pelennor Fields</a></td><td>trigger</td><td>pel2minas</td></tr>
+<tr><td><code>WP_gondor2wold</code></td><td><a href="woldsouth.html">Wold South</a></td><td>trigger</td><td>wolds2gondorb</td></tr>
+<tr><td><code>WP_great2midge</code></td><td><a href="midgewaterswamp.html">Midgewater Swamp</a></td><td>trigger</td><td>midge2east</td></tr>
+<tr><td><code>WP_grnwayn22grnwayn</code></td><td><a href="greenwaynorth.html">Old North Road</a></td><td>trigger</td><td>grnwayn2grnway2</td></tr>
+<tr><td><code>WP_haradb2a</code></td><td><a href="harad.html">Northern Harad</a></td><td>trigger</td><td>harada2b</td></tr>
+<tr><td><code>WP_island2plane</code></td><td><a href="planeoftherender.html">Plane of the Render</a></td><td>door</td><td>plane2islandtemple</td></tr>
+<tr><td><code>WP_morianorth2moriacenter</code></td><td><a href="morialevel1cente.html">Moria Level 1 (Center)</a></td><td>trigger</td><td>moriacenter2morianorth</td></tr>
+<tr><td><code>WP_moriasouth2moriacenter</code></td><td><a href="morialevel1cente.html">Moria Level 1 (Center)</a></td><td>trigger</td><td>moriacenter2moriasouth</td></tr>
+<tr><td><code>WP_nindalf2ith</code></td><td><a href="northernforestso.html">Northern Forests of Ithilien</a></td><td>trigger</td><td>itherforests2nindalf</td></tr>
+<tr><td><code>WP_sixty2mirk</code></td><td><a href="mirkwoodcentral.html">Mirkwood: Central</a></td><td>trigger</td><td>mirk2sixty</td></tr>
+<tr><td><code>WP_Thar2Home</code></td><td><a href="castleexterior.html">Castle Homeless (Exterior)</a></td><td>trigger</td><td>AreaTransition</td></tr>
+<tr><td><code>WP_Weathertop1</code></td><td><a href="gravesofthelostk.html">Tombs of the Lost Souls</a></td><td>trigger</td><td>gravestoweather</td></tr>
+<tr><td><code>WP_wold2nindalf</code></td><td><a href="nindalf.html">Mindalf</a></td><td>trigger</td><td>nindalf2wold</td></tr></tbody></table>
   </main>
-  <footer>generated by <a href="https://github.com/mrprice22/nwn-manager">nwn-manager</a> &mdash; last updated May 19, 2026 11:15</footer>
+  <footer>generated by <a href="https://github.com/mrprice22/nwn-manager">nwn-manager</a> &mdash; last updated May 19, 2026 11:47</footer>
 </body>
 </html>
