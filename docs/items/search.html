@@ -1,0 +1,115 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Search Items</title>
+  <link rel="stylesheet" href="../assets/style.css">
+  <link rel="stylesheet" href="../assets/theme.css">
+  <link rel="icon" href="../assets/favicon.png">
+</head>
+<body>
+  <header class="site-header">
+    <a class="brand" href="../index.html"><img class="site-header-img" src="../assets/header.png" alt="Home"></a>
+    <nav>
+      <a href="../index.html">Map</a>
+      <a href="../areas/index.html">Areas</a>
+      <a href="../creatures/index.html">Creature Blueprints</a>
+      <a href="../creatures/instances/index.html">Creature Instances</a>
+      <a href="../items/index.html">Items</a>
+      <a href="../stores/index.html">Stores</a>
+      <a href="../conversations/index.html">Conversations</a>
+      <a href="../factions.html">Factions</a>
+      <a href="../journal.html">Journal</a>
+      <a href="../activity.html">Activity</a>
+      <div class="nav-dropdown"><span class="nav-dropdown-label">Documents &#9660;</span><div class="nav-dropdown-menu"><a href="../manual/LevelingGuide.html">Leveling Guide — Homer&#x27;s LOTR</a>
+<a href="../manual/MeaningWave.html">MeaningWave: A Guide to the Guides</a>
+<a href="../manual/Quest Ideas.html">Middle-earth Quest Compendium</a></div></div>
+    </nav>
+  </header>
+  <main>
+<h1>Search Items</h1><p>Filter items by type, property, and value. Leave fields blank to match all.</p><form id="sf" class="item-search-form"><div class="search-row"><label for="fb">Base item</label><select id="fb"><option value="">— all —</option></select><label for="fp">Property</label><select id="fp"><option value="">— all —</option></select></div><div class="search-row"><label for="fs">Subtype</label><select id="fs" disabled><option value="">— any —</option></select><label for="fv">Min value</label><input id="fv" type="number" min="0" placeholder="e.g. 10"></div><div class="search-row"><label for="fo">Sort by</label><select id="fo"><option value="name">Name</option><option value="cost">Cost</option><option value="value">Property Value</option></select><label for="fd">Order</label><select id="fd"><option value="desc">Descending</option><option value="asc">Ascending</option></select><button type="submit">Search</button></div></form><div id="sr"><p class="muted">Use the filters above and click Search.</p></div><script>(function(){
+var data=[], form=document.getElementById('sf'),
+    results=document.getElementById('sr'),
+    propSel=document.getElementById('fp'),
+    subSel=document.getElementById('fs');
+
+fetch('search-index.json').then(function(r){return r.json();}).then(function(d){
+  data=d; populateFilters();
+});
+
+function populateFilters(){
+  var bis={},props={},subs={};
+  data.forEach(function(it){
+    bis[it.base_item]=1;
+    it.properties.forEach(function(p){
+      props[p.prop]=1;
+      if(p.subtype){if(!subs[p.prop])subs[p.prop]={};subs[p.prop][p.subtype]=1;}
+    });
+  });
+  window._subs=subs;
+  var biSel=document.getElementById('fb');
+  Object.keys(bis).sort().forEach(function(b){biSel.appendChild(new Option(b,b));});
+  Object.keys(props).sort().forEach(function(p){propSel.appendChild(new Option(p,p));});
+}
+
+propSel.addEventListener('change',function(){
+  var chosen=propSel.value, sub=(window._subs||{})[chosen]||{};
+  subSel.innerHTML='<option value="">— any —</option>';
+  Object.keys(sub).sort().forEach(function(s){subSel.appendChild(new Option(s,s));});
+  subSel.disabled=!chosen||!Object.keys(sub).length;
+});
+
+form.addEventListener('submit',function(e){
+  e.preventDefault();
+  var bi=document.getElementById('fb').value,
+      prop=propSel.value, sub=subSel.value,
+      minv=parseInt(document.getElementById('fv').value,10)||0,
+      sortBy=document.getElementById('fo').value,
+      asc=document.getElementById('fd').value==='asc';
+  var propActive=prop||sub||minv>0, out=[];
+  data.forEach(function(it){
+    if(bi&&it.base_item!==bi)return;
+    var mp=it.properties.filter(function(p){
+      if(prop&&p.prop!==prop)return false;
+      if(sub&&p.subtype!==sub)return false;
+      if(minv>0&&p.value_num<minv)return false;
+      return true;
+    });
+    if(propActive&&!mp.length)return;
+    out.push({it:it,p:mp.length?mp[0]:(it.properties[0]||null)});
+  });
+  out.sort(function(a,b){
+    var v;
+    if(sortBy==='cost')v=a.it.cost-b.it.cost;
+    else if(sortBy==='value')v=(a.p?a.p.value_num:0)-(b.p?b.p.value_num:0);
+    else v=a.it.name.localeCompare(b.it.name);
+    return asc?v:-v;
+  });
+  render(out);
+});
+
+function render(rows){
+  if(!rows.length){results.innerHTML='<p class="muted">No items match.</p>';return;}
+  var html='<p><strong>'+rows.length+'</strong> result'+(rows.length!==1?'s':'')+'</p>'
+    +'<table class="data"><thead><tr>'
+    +'<th>Name</th><th>Base Item</th><th>Property</th><th>Value</th><th>Cost</th>'
+    +'</tr></thead><tbody>';
+  rows.forEach(function(r){
+    var pc=r.p?esc(r.p.prop+(r.p.subtype?': '+r.p.subtype:'')):'—';
+    var vc=r.p?esc(r.p.cost):'—';
+    html+='<tr><td><a href="'+esc(r.it.url)+'">'+esc(r.it.name)+'</a></td>'
+         +'<td>'+esc(r.it.base_item)+'</td><td>'+pc+'</td><td>'+vc+'</td>'
+         +'<td>'+(r.it.cost?r.it.cost.toLocaleString()+' gp':'—')+'</td></tr>';
+  });
+  results.innerHTML=html+'</tbody></table>';
+}
+
+function esc(s){
+  return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;')
+    .replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+}
+})();</script>
+  </main>
+  <footer>generated by <a href="https://github.com/mrprice22/nwn-manager">nwn-manager</a> &mdash; last updated May 20, 2026 13:55</footer>
+</body>
+</html>
