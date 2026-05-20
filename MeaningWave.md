@@ -5,16 +5,16 @@ This file covers implementation details, script locations, and maintenance tasks
 
 ## Quick reference
 
-| NPC | Blueprint resref | Waypoint tag | Area resref | Reward items |
-|-----|-----------------|--------------|-------------|--------------|
-| Jordan Peterson | `mw_peterson_w` | `MW_SPAWN_PETERSON` | `rivendellupperha` | `mw_peter_robes`, `mw_peter_staff` |
-| Alan Watts | `mw_watts_w` | `MW_SPAWN_WATTS` | `oldforest001` | — |
-| Joseph Campbell | `mw_campbell_w` | `MW_SPAWN_CAMPBELL` | `balinstomb` | `mw_camp_robes`, `mw_camp_staff` |
-| Terence McKenna | `mw_mckenna_w` | `MW_SPAWN_MCKENNA` | `northernforestso` | — |
-| Jocko Willink | `mw_jocko_w` | `MW_SPAWN_JOCKO` | `helmsdeep001` | — |
-| Carl Jung | `mw_jung_w` | `MW_SPAWN_JUNG` | `cryptsofthelosts` | — |
-| Marcus Aurelius | `mw_aurelius_w` | `MW_SPAWN_AURELIUS` | `gwaththrone` | `mw_aurel_armor`, `mw_aurel_sword` |
-| Akira the Don | `mw_akira` | — | `hallofleg` | — |
+| NPC | Blueprint resref | Class build | Waypoint tag | Area resref | Reward items |
+|-----|-----------------|-------------|--------------|-------------|--------------|
+| Jordan Peterson | `mw_peterson_w` | Wizard 60 | `MW_SPAWN_PETERSON` | `rivendellupperha` | `mw_peter_robes`, `mw_peter_staff` |
+| Alan Watts | `mw_watts_w` | Cleric 30 / Monk 30 | `MW_SPAWN_WATTS` | `oldforest001` | — |
+| Joseph Campbell | `mw_campbell_w` | Bard 60 | `MW_SPAWN_CAMPBELL` | `balinstomb` | `mw_camp_robes`, `mw_camp_staff` |
+| Terence McKenna | `mw_mckenna_w` | Druid 60 | `MW_SPAWN_MCKENNA` | `northernforestso` | — |
+| Jocko Willink | `mw_jocko_w` | Fighter 30 / Monk 30 | `MW_SPAWN_JOCKO` | `helmsdeep001` | — |
+| Carl Jung | `mw_jung_w` | Fighter 20 / Rogue 20 / Shadowdancer 20 | `MW_SPAWN_JUNG` | `cryptsofthelosts` | — |
+| Marcus Aurelius | `mw_aurelius_w` | Paladin 60 | `MW_SPAWN_AURELIUS` | `gwaththrone` | `mw_aurel_armor`, `mw_aurel_sword` |
+| Akira the Don | `mw_akira` | — | — | `hallofleg` | — |
 
 > **16-char limit:** All NWN ResRefs (filenames, `TemplateResRef`, `Conversation`) must be ≤ 16 chars.
 > Item resrefs use abbreviated names (`mw_aurel_`, `mw_camp_`, `mw_peter_`) for this reason.
@@ -27,8 +27,35 @@ This file covers implementation details, script locations, and maintenance tasks
   conditionals and by the emote-wand summon logic.
 - **`emotewand.dlg`** — contains the "[Summon a Legend.]" branch; conditionals gate each
   option on the matching unlock flag.
-- **Dialogue resrefs** — each NPC has a `mw_<name>.dlg.json` with the five-question quiz tree
-  and post-unlock content.
+- **Dialogue resrefs** — each NPC has a `mw_<name>_h.dlg.json` (henchman) for the post-summon
+  dialogue. The five-question quiz lives in `mw_<name>_l` / `mw_<name>_m`.
+
+## Combat styles
+
+Each summoned guide understands a "Let's talk tactics." dialogue option (shown only
+when the NPC is currently your henchman) that switches their combat behaviour.
+
+Style is stored as `LocalInt(oNPC, "MW_STYLE")` = 0/1/2.
+Scripts `mw_style_0.nss`, `mw_style_1.nss`, `mw_style_2.nss` set the value from dialogue.
+`mw_is_hench.nss` is the Active conditional that gates the tactics reply.
+
+| NPC | Script | Style 0 (default) | Style 1 | Style 2 |
+|-----|--------|-------------------|---------|---------|
+| Peterson (Wiz) | `mw_arc_er` | **Calculated** — Epic Warding first, then nuke | **Aggressive** — Hellball/Ruin/Dragon Knight immediately | — |
+| Watts (Clr/Mnk) | `mw_watts_er` | **Enlightened** — heal party <50% HP, self-buff, then fight | **Guardian** — pure support; heal party <70% HP, buff when healthy | **Zen Strike** — Divine Power + Quivering Palm in melee |
+| Campbell (Brd) | `mw_sup_er` | **Balanced** — heal <25% HP, else standard AI | **Combat** — offensive spells, emergency heal <15% | **Healer** — heal <50% HP, Haste on master |
+| McKenna (Drd) | `mw_sup_er` | **Balanced** | **Combat** | **Healer** |
+| Jocko (Ftr/Mnk) | `mw_jocko_er` | **Get After It** — Stunning Fist every round + standard AI | **Extreme Ownership** — attacks enemies targeting the master | — |
+| Aurelius (Pal) | `mw_aurel_er` | **Guardian** — heal master <50% HP | **Offensive** — self-heal if critical, attack master's attackers | — |
+| Jung (Ftr/Rog/SD) | `mw_jung_er` | **Shadow** — hide (HIPS), attack master's attacker for sneak | **Warrior** — standard AI | — |
+
+**Notes:**
+- Epic spell `ActionUseFeat` silently no-ops once the daily slot is expended; regular memorized
+  spells (now populated in all caster blueprints) are handled by `x2_def_endcombat` fallback.
+- Guardian (Watts) returns early without falling to `x2_def_endcombat` — she will not attack.
+- Healer (Campbell/McKenna) also returns early — pure support mode.
+- Jung's Shadow mode calls `SetActionMode(OBJECT_SELF, ACTION_MODE_STEALTH, 1)` mid-combat;
+  Hide in Plain Sight (granted by Shadowdancer 1) lets this succeed while observed.
 
 ## Adding a new Meaningwave NPC
 

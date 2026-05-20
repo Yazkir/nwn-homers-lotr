@@ -1,10 +1,10 @@
 //::///////////////////////////////////////////////
-//:: mw_hall_enter — Hall of Legends OnEnter handler.
+//:: mw_hall_enter -- Hall of Legends OnEnter handler.
 //::
 //:: When a PC enters, for each guide the PC has unlocked: if the live
 //:: NPC isn't yet spawned, destroy the placeholder statue and spawn the
 //:: world-form creature at the statue's location. The swap is permanent
-//:: server-side (next PC sees the live guide) — acceptable for a public
+//:: server-side (next PC sees the live guide) -- acceptable for a public
 //:: hub area.
 //::
 //:: Failsafe: if another PC is already present (missed gate, reconnect after

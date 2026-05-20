@@ -1,4 +1,4 @@
-// mw_spawn_inc.nss — include for per-area Meaningwave NPC spawning.
+// mw_spawn_inc.nss -- include for per-area Meaningwave NPC spawning.
 // Spawn the named MW guide at its waypoint if not already present anywhere in
 // the module. Safe to call from area OnEnter; the tag-existence check prevents
 // double-spawning across multiple PC entries.

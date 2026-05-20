@@ -1,5 +1,5 @@
 //::///////////////////////////////////////////////
-//:: mw_hench_hb — shared heartbeat for MeaningWave guide henchmen.
+//:: mw_hench_hb -- shared heartbeat for MeaningWave guide henchmen.
 //:: Delegates to nw_ch_ac1 for standard associate AI, then adds
 //:: master-follow / despawn-on-master-lost (same model as hench_demon_hb).
 //:://////////////////////////////////////////////

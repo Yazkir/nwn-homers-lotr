@@ -1,4 +1,4 @@
-// mw_finale_chk — dialogue conditional: PC has all 7 guides and hasn't already collected the mixtape.
+// mw_finale_chk -- dialogue conditional: PC has all 7 guides and hasn't already collected the mixtape.
 #include "mw_unlock_inc"
 int StartingConditional()
 {

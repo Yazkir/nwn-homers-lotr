@@ -111,27 +111,138 @@
         },
         "MemorizedList1": {
           "type": "list",
-          "value": []
+          "value": [
+            {
+              "__struct_id": 3,
+              "Spell": {
+                "type": "word",
+                "value": 32
+              },
+              "SpellFlags": {
+                "type": "byte",
+                "value": 1
+              },
+              "SpellMetaMagic": {
+                "type": "byte",
+                "value": 0
+              }
+            }
+          ]
         },
         "MemorizedList2": {
           "type": "list",
-          "value": []
+          "value": [
+            {
+              "__struct_id": 3,
+              "Spell": {
+                "type": "word",
+                "value": 34
+              },
+              "SpellFlags": {
+                "type": "byte",
+                "value": 1
+              },
+              "SpellMetaMagic": {
+                "type": "byte",
+                "value": 0
+              }
+            }
+          ]
         },
         "MemorizedList3": {
           "type": "list",
-          "value": []
+          "value": [
+            {
+              "__struct_id": 3,
+              "Spell": {
+                "type": "word",
+                "value": 78
+              },
+              "SpellFlags": {
+                "type": "byte",
+                "value": 1
+              },
+              "SpellMetaMagic": {
+                "type": "byte",
+                "value": 0
+              }
+            },
+            {
+              "__struct_id": 3,
+              "Spell": {
+                "type": "word",
+                "value": 35
+              },
+              "SpellFlags": {
+                "type": "byte",
+                "value": 1
+              },
+              "SpellMetaMagic": {
+                "type": "byte",
+                "value": 0
+              }
+            }
+          ]
         },
         "MemorizedList4": {
           "type": "list",
-          "value": []
+          "value": [
+            {
+              "__struct_id": 3,
+              "Spell": {
+                "type": "word",
+                "value": 31
+              },
+              "SpellFlags": {
+                "type": "byte",
+                "value": 1
+              },
+              "SpellMetaMagic": {
+                "type": "byte",
+                "value": 0
+              }
+            }
+          ]
         },
         "MemorizedList5": {
           "type": "list",
-          "value": []
+          "value": [
+            {
+              "__struct_id": 3,
+              "Spell": {
+                "type": "word",
+                "value": 45
+              },
+              "SpellFlags": {
+                "type": "byte",
+                "value": 1
+              },
+              "SpellMetaMagic": {
+                "type": "byte",
+                "value": 0
+              }
+            }
+          ]
         },
         "MemorizedList6": {
           "type": "list",
-          "value": []
+          "value": [
+            {
+              "__struct_id": 3,
+              "Spell": {
+                "type": "word",
+                "value": 445
+              },
+              "SpellFlags": {
+                "type": "byte",
+                "value": 1
+              },
+              "SpellMetaMagic": {
+                "type": "byte",
+                "value": 0
+              }
+            }
+          ]
         },
         "MemorizedList7": {
           "type": "list",
@@ -448,6 +559,41 @@
           "type": "word",
           "value": 51
         }
+      },
+      {
+        "__struct_id": 0,
+        "Feat": {
+          "type": "word",
+          "value": 184
+        }
+      },
+      {
+        "__struct_id": 0,
+        "Feat": {
+          "type": "word",
+          "value": 600
+        }
+      },
+      {
+        "__struct_id": 0,
+        "Feat": {
+          "type": "word",
+          "value": 423
+        }
+      },
+      {
+        "__struct_id": 0,
+        "Feat": {
+          "type": "word",
+          "value": 424
+        }
+      },
+      {
+        "__struct_id": 0,
+        "Feat": {
+          "type": "word",
+          "value": 871
+        }
       }
     ]
   },
@@ -565,7 +711,7 @@
   },
   "ScriptEndRound": {
     "type": "resref",
-    "value": "x2_def_endcombat"
+    "value": "mw_sup_er"
   },
   "ScriptHeartbeat": {
     "type": "resref",
@@ -679,7 +825,7 @@
         "__struct_id": 0,
         "Rank": {
           "type": "byte",
-          "value": 0
+          "value": 63
         }
       },
       {
@@ -756,7 +902,7 @@
         "__struct_id": 0,
         "Rank": {
           "type": "byte",
-          "value": 63
+          "value": 0
         }
       },
       {

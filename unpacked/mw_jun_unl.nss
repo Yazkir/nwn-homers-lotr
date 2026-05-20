@@ -1,4 +1,4 @@
-// mw_jun_unl — pass-entry action: unlock Carl Jung.
+// mw_jun_unl -- pass-entry action: unlock Carl Jung.
 #include "mw_unlock_inc"
 void main()
 {

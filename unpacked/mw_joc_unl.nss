@@ -1,4 +1,4 @@
-// mw_joc_unl — pass-entry action: unlock Jocko Willink.
+// mw_joc_unl -- pass-entry action: unlock Jocko Willink.
 #include "mw_unlock_inc"
 void main()
 {

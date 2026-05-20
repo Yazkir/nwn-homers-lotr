@@ -1,4 +1,4 @@
-// mw_wat_unl — pass-entry action: unlock Alan Watts.
+// mw_wat_unl -- pass-entry action: unlock Alan Watts.
 #include "mw_unlock_inc"
 void main()
 {

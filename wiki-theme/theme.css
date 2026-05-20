@@ -24,9 +24,11 @@ header.site-header {
   border-bottom: 3px solid var(--accent);
 }
 
-/* Make the header image a bit taller for a banner feel */
+/* Full-width banner: image scales to span the entire header width */
 header.site-header .brand img.site-header-img {
-  height: 200px;
+  width: 100%;
+  height: auto;
+  display: block;
 }
 
 /* ── Tables ───────────────────────────────────────────────────────────── */

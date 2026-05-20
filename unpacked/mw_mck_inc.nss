@@ -1,4 +1,4 @@
-// mw_mck_inc — increment Terence McKenna's quiz score on a correct answer.
+// mw_mck_inc -- increment Terence McKenna's quiz score on a correct answer.
 void main()
 {
     object oPC = GetPCSpeaker();

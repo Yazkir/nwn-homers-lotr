@@ -1,5 +1,5 @@
 //::///////////////////////////////////////////////
-//:: mw_hall_exit — Hall of Legends OnExit handler.
+//:: mw_hall_exit -- Hall of Legends OnExit handler.
 //::
 //:: When the last PC leaves: clear the occupancy lock and restore any
 //:: swapped guide statues so the hall is fresh for the next visitor.
@@ -9,7 +9,7 @@
 void RestoreStatue(string sGuide, object oHallArea)
 {
     string sLiveTag = "mw_" + sGuide + "_w";
-    // Iterate all instances — the world-spawn in e.g. Rivendell shares the tag,
+    // Iterate all instances -- the world-spawn in e.g. Rivendell shares the tag,
     // so we must match by area rather than stopping at the first hit.
     int nIdx = 0;
     object oNPC = GetObjectByTag(sLiveTag, nIdx);
@@ -43,7 +43,7 @@ void main()
         oPC = GetNextPC();
     }
 
-    // Last PC has left — clear the lock and restore all swapped statues.
+    // Last PC has left -- clear the lock and restore all swapped statues.
     SetLocalInt(GetModule(), "MW_HALL_OCCUPIED", 0);
     int i;
     for (i = 0; i < MW_ROSTER_SIZE; i++)

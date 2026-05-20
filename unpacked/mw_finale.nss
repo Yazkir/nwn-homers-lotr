@@ -1,5 +1,5 @@
 //::///////////////////////////////////////////////
-//:: mw_finale — Akira reply action: grant the Mixtape and close the meta-quest.
+//:: mw_finale -- Akira reply action: grant the Mixtape and close the meta-quest.
 //:://////////////////////////////////////////////
 #include "mw_unlock_inc"
 

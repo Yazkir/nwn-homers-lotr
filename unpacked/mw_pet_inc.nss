@@ -1,4 +1,4 @@
-// mw_pet_inc — increment Peterson quiz score on a correct answer.
+// mw_pet_inc -- increment Peterson quiz score on a correct answer.
 void main()
 {
     object oPC = GetPCSpeaker();

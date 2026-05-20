@@ -1,4 +1,4 @@
-// mw_aur_unl — pass-entry action: unlock Marcus Aurelius.
+// mw_aur_unl -- pass-entry action: unlock Marcus Aurelius.
 #include "mw_unlock_inc"
 void main()
 {

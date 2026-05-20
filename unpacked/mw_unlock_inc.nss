@@ -1,5 +1,5 @@
 //::///////////////////////////////////////////////
-//:: mw_unlock_inc — MeaningWave guide roster, persistence, and summoning.
+//:: mw_unlock_inc -- MeaningWave guide roster, persistence, and summoning.
 //::
 //:: Per-PC unlock flags live in the "meaningwave" campaign DB (scoped per
 //:: player by passing oPC to GetCampaignInt/SetCampaignInt). Roster is

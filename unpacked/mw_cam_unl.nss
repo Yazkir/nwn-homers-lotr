@@ -1,4 +1,4 @@
-// mw_cam_unl — pass-entry action: unlock Joseph Campbell.
+// mw_cam_unl -- pass-entry action: unlock Joseph Campbell.
 #include "mw_unlock_inc"
 void main()
 {

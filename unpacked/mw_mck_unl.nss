@@ -1,4 +1,4 @@
-// mw_mck_unl — pass-entry action: unlock Terence McKenna.
+// mw_mck_unl -- pass-entry action: unlock Terence McKenna.
 #include "mw_unlock_inc"
 void main()
 {

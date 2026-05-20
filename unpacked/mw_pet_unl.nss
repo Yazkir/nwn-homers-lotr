@@ -1,4 +1,4 @@
-// mw_pet_unl — pass-entry action: grant Peterson as a guide.
+// mw_pet_unl -- pass-entry action: grant Peterson as a guide.
 #include "mw_unlock_inc"
 void main()
 {

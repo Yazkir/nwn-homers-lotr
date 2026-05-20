@@ -1,5 +1,5 @@
 //::///////////////////////////////////////////////
-//:: mw_wayshrn_us — Wayshrine OnUsed: teleport unlocked PCs into the Hall.
+//:: mw_wayshrn_us -- Wayshrine OnUsed: teleport unlocked PCs into the Hall.
 //::
 //:: Players who have not yet unlocked a single guide get a gentle message
 //:: and are not teleported. Players who arrive while the Hall is occupied
