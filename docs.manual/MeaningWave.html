@@ -5,14 +5,32 @@
   <title>MeaningWave: A Guide to the Guides</title>
   <link rel="stylesheet" href="../assets/style.css">
   <style>
+    .mw-layout {
+      display: flex;
+      gap: 2.5em;
+      align-items: flex-start;
+    }
+    .mw-toc-pane {
+      flex: 0 0 220px;
+      position: sticky;
+      top: 1.5em;
+      max-height: calc(100vh - 3em);
+      overflow-y: auto;
+    }
+    .mw-content {
+      flex: 1;
+      min-width: 0;
+    }
+    @media (max-width: 700px) {
+      .mw-layout { flex-direction: column; }
+      .mw-toc-pane { position: static; max-height: none; flex: none; width: 100%; }
+    }
+
     .toc {
       background: var(--card);
       border: 1px solid var(--border);
       border-radius: 4px;
-      padding: 1em 1.4em;
-      margin: 1.2em 0 1.8em;
-      display: inline-block;
-      min-width: 280px;
+      padding: 1em 1.2em;
     }
     .toc h2 {
       font-size: 1em;
@@ -89,6 +107,25 @@
 </head>
 <body>
   <main>
+  <div class="mw-layout">
+  <aside class="mw-toc-pane">
+    <nav class="toc" aria-label="Page contents">
+      <h2>Contents</h2>
+      <ol>
+        <li><a href="#roster">The Roster</a></li>
+        <li><a href="#peterson">Jordan Peterson — Sage of Order</a></li>
+        <li><a href="#watts">Alan Watts — Mystic of the Tao</a></li>
+        <li><a href="#campbell">Joseph Campbell — The Mythkeeper</a></li>
+        <li><a href="#mckenna">Terence McKenna — Bard of the Mushroom</a></li>
+        <li><a href="#jocko">Jocko Willink — The Iron Captain</a></li>
+        <li><a href="#jung">Carl Jung — The Shadow-Walker</a></li>
+        <li><a href="#aurelius">Marcus Aurelius — The Philosopher King</a></li>
+        <li><a href="#hall">The Hall of Legends</a></li>
+        <li><a href="#tactics">Combat Styles</a></li>
+      </ol>
+    </nav>
+  </aside>
+  <div class="mw-content">
 
 <h1>MeaningWave: A Guide to the Guides</h1>
 
@@ -116,22 +153,6 @@ Akira's hub.</p>
   A new option, "[Summon a Legend.]", appears at the bottom once you have at least one guide.
   Only the legends you have unlocked appear in the submenu.</p>
 </blockquote>
-
-<nav class="toc" aria-label="Page contents">
-  <h2>Contents</h2>
-  <ol>
-    <li><a href="#roster">The Roster</a></li>
-    <li><a href="#peterson">Jordan Peterson — Sage of Order</a></li>
-    <li><a href="#watts">Alan Watts — Mystic of the Tao</a></li>
-    <li><a href="#campbell">Joseph Campbell — The Mythkeeper</a></li>
-    <li><a href="#mckenna">Terence McKenna — Bard of the Mushroom</a></li>
-    <li><a href="#jocko">Jocko Willink — The Iron Captain</a></li>
-    <li><a href="#jung">Carl Jung — The Shadow-Walker</a></li>
-    <li><a href="#aurelius">Marcus Aurelius — The Philosopher King</a></li>
-    <li><a href="#hall">The Hall of Legends</a></li>
-    <li><a href="#tactics">Combat Styles</a></li>
-  </ol>
-</nav>
 
 <h2 id="roster">The Roster</h2>
 
@@ -491,6 +512,8 @@ are dismissed.</p>
 
 <p class="muted"><em>Tip: Set Peterson to Aggressive going into a boss fight — he will open with an epic nuke. Swap Watts to Guardian if you are taking heavy damage and need a dedicated healer. Jung in Shadow mode is most effective when you are tanking: his sneak attacks land consistently against foes already focused on you. Jocko in Extreme Ownership keeps heat off you in a crowd — put him on it and let him handle the pile-on.</em></p>
 
+  </div><!-- .mw-content -->
+  </div><!-- .mw-layout -->
   </main>
 </body>
 </html>
