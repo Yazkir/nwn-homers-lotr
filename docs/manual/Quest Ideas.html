@@ -29,6 +29,102 @@
   <main>
 
   <main>
+  <style>
+    .mw-layout {
+      display: flex;
+      gap: 2.5em;
+      align-items: flex-start;
+    }
+    .mw-toc-pane {
+      flex: 0 0 220px;
+      position: sticky;
+      top: 1.5em;
+      max-height: calc(100vh - 3em);
+      overflow-y: auto;
+    }
+    .mw-content {
+      flex: 1;
+      min-width: 0;
+    }
+    @media (max-width: 700px) {
+      .mw-layout { flex-direction: column; }
+      .mw-toc-pane { position: static; max-height: none; flex: none; width: 100%; }
+    }
+
+    .qb { display: inline-block; font-family: "SFMono-Regular", Consolas, monospace; font-size: 0.75em; padding: 0.1em 0.5em; border-radius: 3px; vertical-align: middle; margin-right: 0.4em; }
+    .qb-daily    { background: #d4edda; color: #155724; }
+    .qb-weekly   { background: #cce5ff; color: #004085; }
+    .qb-oneoff   { background: #fff3cd; color: #856404; }
+    .qb-seasonal { background: #f3e8ff; color: #5a2b78; }
+
+    .toc { background: var(--card); border: 1px solid var(--border); border-radius: 4px; padding: 1em 1.2em; }
+    .toc h2 { font-size: 0.9em; margin: 0 0 0.5em; border: none; padding: 0; color: var(--muted); letter-spacing: 0.04em; text-transform: uppercase; }
+    .toc ol { margin: 0; padding-left: 1.3em; }
+    .toc li { margin: 0.2em 0; }
+    .toc ol ol { margin-top: 0.2em; font-size: 0.93em; color: var(--muted); }
+    .toc a { color: var(--link); }
+
+    .quest-legend { background: var(--card); border: 1px solid var(--border); border-radius: 4px; padding: 0.5em 1em; margin: 0 0 1.5em; font-size: 0.88em; }
+    .quest-legend span { margin-right: 1.2em; }
+
+    .quest-card { background: var(--card); border: 1px solid var(--border); border-left: 4px solid var(--accent-soft); border-radius: 0 4px 4px 0; padding: 0.75em 1em; margin: 0.7em 0; }
+    .quest-card-head { display: flex; align-items: baseline; gap: 0.5em; flex-wrap: wrap; margin-bottom: 0.3em; }
+    .quest-card-head strong { font-size: 1.05em; color: var(--accent); }
+    .quest-card-head .lvl { font-size: 0.85em; color: var(--muted); margin-left: auto; white-space: nowrap; }
+    .quest-desc { margin: 0.2em 0 0.4em; }
+    .quest-reward { font-size: 0.9em; color: var(--muted); }
+    .quest-reward strong { color: var(--fg); }
+
+    .class-section { scroll-margin-top: 1.5em; }
+    .class-cap { background: rgba(107,58,28,0.06); border: 1px solid var(--accent-soft); border-radius: 4px; padding: 0.5em 0.9em; margin: 0.5em 0 1.2em; font-size: 0.93em; }
+
+    h2, h3 { scroll-margin-top: 1.5em; }
+    h3.faction { margin-top: 1.4em; color: var(--accent); border-bottom: 1px dashed var(--border); padding-bottom: 0.15em; }
+
+    .callout { background: rgba(200,165,119,0.1); border: 1px solid var(--accent-soft); border-radius: 4px; padding: 0.5em 0.9em; margin: 0.8em 0; font-size: 0.9em; }
+  </style>
+  <div class="mw-layout">
+  <aside class="mw-toc-pane">
+    <nav class="toc" aria-label="Contents">
+      <h2>Contents</h2>
+      <ol>
+        <li><a href="#faction">Faction Quests: Good vs Evil</a>
+          <ol>
+            <li><a href="#good-faction">Good Factions</a></li>
+            <li><a href="#evil-faction">Evil Factions</a></li>
+          </ol>
+        </li>
+        <li><a href="#class">Class Questlines (Levels 1–60)</a>
+          <ol>
+            <li><a href="#fighter">Fighter — The Unbroken Shield</a></li>
+            <li><a href="#wizard">Wizard — The Colour of Power</a></li>
+            <li><a href="#rogue">Rogue — The Long Shadow</a></li>
+            <li><a href="#druid">Druid — The Breathing of the World</a></li>
+            <li><a href="#ranger">Ranger — The Uncrowned Path</a></li>
+            <li><a href="#cleric">Cleric — Flame of Anor</a></li>
+            <li><a href="#paladin">Paladin — Oath-Sworn to the West</a></li>
+            <li><a href="#bard">Bard — Tales That Live Forever</a></li>
+            <li><a href="#monk">Monk — The Empty Hand of the West</a></li>
+            <li><a href="#sorcerer">Sorcerer — Blood of the Elder Days</a></li>
+          </ol>
+        </li>
+        <li><a href="#location">Location-Specific Quests</a>
+          <ol>
+            <li><a href="#loc-misty">The Misty Mountains</a></li>
+            <li><a href="#loc-fangorn">Fangorn Forest</a></li>
+            <li><a href="#loc-mirkwood">Mirkwood</a></li>
+            <li><a href="#loc-moria">Moria (Khazad-dûm)</a></li>
+            <li><a href="#loc-havens">The Grey Havens</a></li>
+            <li><a href="#loc-mordor">Mount Doom / Mordor</a></li>
+          </ol>
+        </li>
+        <li><a href="#wildcard">Wildcard Quests</a></li>
+        <li><a href="#new">New Quests (Module-Grounded)</a></li>
+        <li><a href="#prestige">Prestige-Class Quests</a></li>
+      </ol>
+    </nav>
+  </aside>
+  <div class="mw-content">
 
 <h1>Middle-earth Quest Ideas <span style="font-size:0.55em; color:var(--muted); font-weight:normal; vertical-align:middle;">(Draft — Not Implemented)</span></h1>
 
@@ -39,45 +135,6 @@
 <p>Draft quest proposals for <em>Homer's Legendary LotR</em> spanning all level ranges, factions,
 classes, and locations. If implemented, these would range from quick daily tasks to multi-chapter
 class questlines rewarding unique capstone items at level 60.</p>
-
-<nav class="toc" aria-label="Contents">
-  <h2>Contents</h2>
-  <ol>
-    <li><a href="#faction">Faction Quests: Good vs Evil</a>
-      <ol>
-        <li><a href="#good-faction">Good Factions</a></li>
-        <li><a href="#evil-faction">Evil Factions</a></li>
-      </ol>
-    </li>
-    <li><a href="#class">Class Questlines (Levels 1–60)</a>
-      <ol>
-        <li><a href="#fighter">Fighter — The Unbroken Shield</a></li>
-        <li><a href="#wizard">Wizard — The Colour of Power</a></li>
-        <li><a href="#rogue">Rogue — The Long Shadow</a></li>
-        <li><a href="#druid">Druid — The Breathing of the World</a></li>
-        <li><a href="#ranger">Ranger — The Uncrowned Path</a></li>
-        <li><a href="#cleric">Cleric — Flame of Anor</a></li>
-        <li><a href="#paladin">Paladin — Oath-Sworn to the West</a></li>
-        <li><a href="#bard">Bard — Tales That Live Forever</a></li>
-        <li><a href="#monk">Monk — The Empty Hand of the West</a></li>
-        <li><a href="#sorcerer">Sorcerer — Blood of the Elder Days</a></li>
-      </ol>
-    </li>
-    <li><a href="#location">Location-Specific Quests</a>
-      <ol>
-        <li><a href="#loc-misty">The Misty Mountains</a></li>
-        <li><a href="#loc-fangorn">Fangorn Forest</a></li>
-        <li><a href="#loc-mirkwood">Mirkwood</a></li>
-        <li><a href="#loc-moria">Moria (Khazad-dûm)</a></li>
-        <li><a href="#loc-havens">The Grey Havens</a></li>
-        <li><a href="#loc-mordor">Mount Doom / Mordor</a></li>
-      </ol>
-    </li>
-    <li><a href="#wildcard">Wildcard Quests</a></li>
-    <li><a href="#new">New Quests (Module-Grounded)</a></li>
-    <li><a href="#prestige">Prestige-Class Quests</a></li>
-  </ol>
-</nav>
 
 <div class="quest-legend">
   <strong>Quest types:</strong>
@@ -571,9 +628,11 @@ Goblin-town, and the Haradrim.</p>
   </tbody>
 </table>
 
+  </div><!-- .mw-content -->
+  </div><!-- .mw-layout -->
   </main>
 
   </main>
-  <footer>generated by <a href="https://github.com/mrprice22/nwn-manager">nwn-manager</a> &mdash; last updated May 20, 2026 10:45</footer>
+  <footer>generated by <a href="https://github.com/mrprice22/nwn-manager">nwn-manager</a> &mdash; last updated May 20, 2026 11:00</footer>
 </body>
 </html>
