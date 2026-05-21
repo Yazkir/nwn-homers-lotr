@@ -278,6 +278,24 @@ void ZEP_RemoveItemVariables(object oItem) {
 
 // Sets up everything for oPC to start crafting on oItem
 void ZEP_StartCraft(object oPC, object oItem) {
+    // If another session is already active, clean it up before starting a new
+    // one. The dialogue has multiple "start" nodes (armor, helmet, weapon,
+    // shield, robe) each calling ZEP_StartCraft. Without this guard:
+    //   • The old ZEP_CR_ITEM (a different equipped item) retains TEMPITEM
+    //     and gets quarantined by ZEP_PurifyAllItems on the next area entry.
+    //   • The old backup in the work container becomes an unreferenced orphan.
+    // Fix: clear TEMPITEM from the old item and destroy its orphaned backup
+    // before we overwrite the ZEP_CR_* locals with the new session's data.
+    if (GetLocalInt(oPC, "ZEP_CR_STARTED")) {
+        object oOldItem = GetLocalObject(oPC, "ZEP_CR_ITEM");
+        if (GetIsObjectValid(oOldItem) && oOldItem != oItem) {
+            ZEP_RemoveItemVariables(oOldItem);
+            DeleteLocalInt(oOldItem, "ZEP_CR_TEMPITEM");
+        }
+        object oOldBackup = GetLocalObject(oPC, "ZEP_CR_BACKUP");
+        if (GetIsObjectValid(oOldBackup)) DestroyObject(oOldBackup);
+    }
+
     // Immobilize player while crafting
     effect eImmob = EffectCutsceneImmobilize();
     eImmob = ExtraordinaryEffect(eImmob);
