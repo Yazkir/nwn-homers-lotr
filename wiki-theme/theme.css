@@ -71,7 +71,8 @@ tr:hover td {
 .map-wrap svg .area-node:hover rect {
   fill: #2c2618;
 }
-.map-wrap svg .area-node text {
+.map-wrap svg .area-node text,
+.map-wrap svg .area-label {
   fill: var(--fg);
 }
 .map-wrap svg .external-node rect {
@@ -87,7 +88,8 @@ tr:hover td {
 .map-wrap svg .convo-node:hover polygon {
   fill: #221430;
 }
-.map-wrap svg .convo-node text {
+.map-wrap svg .convo-node text,
+.map-wrap svg .convo-label {
   fill: #c090f0;
 }
 
