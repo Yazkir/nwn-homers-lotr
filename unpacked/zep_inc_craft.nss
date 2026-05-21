@@ -878,6 +878,11 @@ void ZEP_RemakeItem(object oPC, int nMode) {
             }
         }
         nCurrApp = StringToInt(sID);
+        // Appearance 0 for any armor part means "no model" (looks naked). If
+        // the preread fallback produced an empty sID (e.g. CEP-only 2DA with no
+        // ACBONUS column), StringToInt returns 0; clamp to 1 so the character
+        // always shows a real model rather than a bare body.
+        if (sID == "" && nCurrApp == 0) nCurrApp = 1;
 
         oNew = CopyItemAndModify(oItem, ITEM_APPR_TYPE_ARMOR_MODEL, nPart, nCurrApp, TRUE);
         nSlot = INVENTORY_SLOT_CHEST;
