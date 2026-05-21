@@ -1,0 +1,29 @@
+TODO — Homer's LOTR module
+==========================
+
+[BUG] Dol Guldur ramp door transition loop (dolguldurcity)
+-----------------------------------------------------------
+Reported by player: "The door transition in Dol Guldur is facing the wrong way,
+so you end up on the ramp in the middle, where you can't progress forward."
+
+Confirmed. Both doors `Dol62Dol7` and `Dol72Dol6` exist in the same area
+(dolguldurcity.git.json, "Dol Guldur City"). They sit ~10 units apart on a ramp
+(Y:45.08 and Y:54.92, Z:-0.34) and link to each other, creating a loop:
+
+  Dol62Dol7  (bearing π/2, east)   LinkedTo: Dol72Dol6  → same area
+  Dol72Dol6  (bearing -π/2, west)  LinkedTo: Dol62Dol7  → same area
+
+Going through either door just bounces you to the other door 10 units away.
+No forward progress is possible.
+
+Root cause: the names suggest a two-area transition — Dol62Dol7 = "Dol 6 → Dol 7",
+Dol72Dol6 = "Dol 7 → Dol 6". Dol62Dol7 belongs in dolguldurcity ("Dol 6") and
+Dol72Dol6 should be in a separate "Dol 7" area that either no longer exists or
+was never created.
+
+Fix options:
+  A) If "Dol 7" was a separate area that was removed: delete Dol72Dol6 from
+     dolguldurcity.git.json and either remove Dol62Dol7 or re-link it to the
+     correct destination area.
+  B) If the ramp is meant to be a plain walkable passage (no area transition):
+     delete both doors and let the player walk through freely.
