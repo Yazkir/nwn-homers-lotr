@@ -136,6 +136,7 @@ const int    ZEP_CR_TOKENBASE = 20000;
 
 const int    ZEP_CR_HELMET = 8888;
 const int    ZEP_CR_SHIELD = 8889;
+const int    ZEP_CR_CLOAK  = 8890;
 
 //Note from Loki: Above constants were all from
 //the original script.  Have simply been renamed to
@@ -403,7 +404,7 @@ void ZEP_AttemptCraft(object oPC) {
         return;
     }
     // check if all dyes are present and set the skill to be used
-    if (GetBaseItemType(oItem)==BASE_ITEM_ARMOR || GetBaseItemType(oItem)==BASE_ITEM_HELMET) {
+    if (GetBaseItemType(oItem)==BASE_ITEM_ARMOR || GetBaseItemType(oItem)==BASE_ITEM_HELMET || GetBaseItemType(oItem)==BASE_ITEM_CLOAK) {
         if (!nNPC) {
           if (!(ZEP_ColorCheck(oPC, oItem, oBackup, ITEM_APPR_TYPE_ARMOR_COLOR, ITEM_APPR_ARMOR_COLOR_CLOTH1)
            && ZEP_ColorCheck(oPC, oItem, oBackup, ITEM_APPR_TYPE_ARMOR_COLOR, ITEM_APPR_ARMOR_COLOR_CLOTH2)
@@ -473,6 +474,8 @@ void ZEP_StopCraft(object oPC, int nExecute) {
         AssignCommand(oPC, ActionEquipItem(oItem, INVENTORY_SLOT_CHEST));
     } else if (GetBaseItemType(oItem)==BASE_ITEM_HELMET) {
         AssignCommand(oPC, ActionEquipItem(oItem, INVENTORY_SLOT_HEAD));
+    } else if (GetBaseItemType(oItem)==BASE_ITEM_CLOAK) {
+        AssignCommand(oPC, ActionEquipItem(oItem, INVENTORY_SLOT_CLOAK));
     } else {
         AssignCommand(oPC, ActionEquipItem(oItem, INVENTORY_SLOT_RIGHTHAND));
     }
@@ -577,6 +580,12 @@ void ZEP_SetPart(object oPC, int nPart, int nStrRef) {
         fFacing += 60.0;
         fDistance = 3.0;
         fPitch = 65.0;
+    } else if (nPart==ZEP_CR_CLOAK) {
+        // Cloak hangs on the back — rotate camera 180° to look from behind.
+        fFacing -= 180.0;
+        if (fFacing < 0.0) fFacing += 360.0;
+        fDistance = 3.5;
+        fPitch = 65.0;
     } else {
         fFacing -= 60.0;
         fDistance = 3.0;
@@ -588,7 +597,10 @@ void ZEP_SetPart(object oPC, int nPart, int nStrRef) {
 
     int nCost = GetLocalInt(oPC, "ZEP_CR_COST");
     int nDC   = GetLocalInt(oPC, "ZEP_CR_DC");
-    SetCustomToken(ZEP_CR_TOKENBASE, GetStringByStrRef(nStrRef));
+    if (nPart == ZEP_CR_CLOAK)
+        SetCustomToken(ZEP_CR_TOKENBASE, "Cloak");
+    else
+        SetCustomToken(ZEP_CR_TOKENBASE, GetStringByStrRef(nStrRef));
     SetCustomToken(ZEP_CR_TOKENBASE+1, IntToString(nCost));
     SetCustomToken(ZEP_CR_TOKENBASE+2, IntToString(nDC));
     ZEP_SetColorToken(nPart, GetItemAppearance(oItem, ITEM_APPR_TYPE_ARMOR_COLOR, nPart));
@@ -962,6 +974,29 @@ void ZEP_RemakeItem(object oPC, int nMode) {
 
             nSlot = INVENTORY_SLOT_LEFTHAND;
 
+    } else if (nPart == ZEP_CR_CLOAK) {
+        // Handle Cloak appearance change.
+        // Appearance 0 = hidden (no model visible) — always included as a
+        // valid cycling target so the player can toggle the cloak off.
+        // Cycle wraps: ... → nMax → 0(hidden) → 1 → ... → nMax → 0 → ...
+        nCurrApp = GetItemAppearance(oItem, ITEM_APPR_TYPE_SIMPLE_MODEL, 0);
+        int nMax = StringToInt(Get2DAString("baseitems", "MaxRange", BASE_ITEM_CLOAK));
+        if (nMax < 1) nMax = 20; // safety: malformed 2DA
+
+        do {
+            if (nMode == ZEP_CR_PART_NEXT)
+                nCurrApp = (nCurrApp >= nMax) ? 0 : nCurrApp + 1;
+            else
+                nCurrApp = (nCurrApp <= 0) ? nMax : nCurrApp - 1;
+            oNew = CopyItemAndModify(oItem, ITEM_APPR_TYPE_SIMPLE_MODEL, 0, nCurrApp, TRUE);
+        } while (!GetIsObjectValid(oNew) && nCurrApp != 0);
+        // Appearance 0 always valid; if the loop stopped there, oNew may
+        // still be OBJECT_INVALID from the last loop body — try once explicitly.
+        if (nCurrApp == 0 && !GetIsObjectValid(oNew))
+            oNew = CopyItemAndModify(oItem, ITEM_APPR_TYPE_SIMPLE_MODEL, 0, 0, TRUE);
+
+        nSlot = INVENTORY_SLOT_CLOAK;
+
     } else {
         // Handle Weapon change
         nCurrApp = GetItemAppearance(oItem, ITEM_APPR_TYPE_WEAPON_MODEL, nPart);
@@ -1303,6 +1338,7 @@ void ZEP_PurifyAllItems(object oPC, int nIsEntering=FALSE,int nDeleteTempVars=FA
   ZEP_PurifyItem(GetItemInSlot(INVENTORY_SLOT_HEAD, oPC),oPC,nIsEntering);
   ZEP_PurifyItem(GetItemInSlot(INVENTORY_SLOT_RIGHTHAND, oPC),oPC,nIsEntering);
   ZEP_PurifyItem(GetItemInSlot(INVENTORY_SLOT_LEFTHAND, oPC),oPC,nIsEntering);
+  ZEP_PurifyItem(GetItemInSlot(INVENTORY_SLOT_CLOAK, oPC),oPC,nIsEntering);
   object oItem = GetFirstItemInInventory(oPC);
   while (GetIsObjectValid(oItem))
       {
