@@ -468,6 +468,8 @@ void ZEP_StopCraft(object oPC, int nExecute) {
     DeleteLocalInt(oPC, "ZEP_CR_CHANGED");
     DeleteLocalObject(oPC, "ZEP_CR_ITEM");
     DeleteLocalObject(oPC, "ZEP_CR_BACKUP");
+    object oNPC = GetLocalObject(oPC, "ZEP_CR_NPC");
+    if (GetIsObjectValid(oNPC)) DeleteLocalObject(oNPC, "ZEP_CR_PC");
     DeleteLocalObject(oPC, "ZEP_CR_NPC");
     DeleteLocalObject(oPC, "ZEP_CR_PLACEABLE");
 
@@ -826,6 +828,7 @@ string ZEP_PreReadArmorPartList(int nPart) {
 void ZEP_RemakeItem(object oPC, int nMode) {
     SetLocalInt(oPC, "ZEP_CR_CHANGED", TRUE);
     object oItem = GetLocalObject(oPC, "ZEP_CR_ITEM");
+    if (!GetIsObjectValid(oItem)) return;
     int nPart    = GetLocalInt(oPC, "ZEP_CR_PART");
     int nCurrApp, nSlot, nCost, nDC;
     string sPreRead;
@@ -837,6 +840,7 @@ void ZEP_RemakeItem(object oPC, int nMode) {
 
         if (nPart == ITEM_APPR_ARMOR_MODEL_TORSO) {
             string sAC = Get2DAString("parts_chest", "ACBONUS", nCurrApp);
+            if (sAC == "") sAC = "0"; // CEP appearance beyond parts_chest.2da range — fall back to cloth tier
             // Fetch the stringlist that holds the ID's for this part
             sPreRead = GetLocalString(GetModule(), "ZEP_IDPreReadAC_"+GetStringLeft(sAC,1));
             if (sPreRead=="") // list didn't exist yet, so generate it
@@ -858,10 +862,20 @@ void ZEP_RemakeItem(object oPC, int nMode) {
         sID = GetSubString(sPreRead, n+GetStringLength(sCurrApp)+2, 5);
         n = FindSubString(sID, ":");
         sID = GetStringLeft(sID, n);
-        if (sID=="" && nPart == ITEM_APPR_ARMOR_MODEL_TORSO) {
-            sID = GetSubString(sPreRead, 1, 5);
+        if (sID=="") {
+            // Not found in preread list (CEP appearance out of 2DA range).
+            // Torso preread has no leading 0, so start at offset 1.
+            // Non-torso preread is always :0:X:Y:... — start at offset 3 to skip
+            // appearance 0 (invisible part) and land on the first real appearance.
+            int nOff = (nPart == ITEM_APPR_ARMOR_MODEL_TORSO) ? 1 : 3;
+            sID = GetSubString(sPreRead, nOff, 5);
             n = FindSubString(sID, ":");
             sID = GetStringLeft(sID, n);
+            if (sID == "") { // safety: degenerate preread — fall back to position 1
+                sID = GetSubString(sPreRead, 1, 5);
+                n = FindSubString(sID, ":");
+                sID = GetStringLeft(sID, n);
+            }
         }
         nCurrApp = StringToInt(sID);
 
@@ -1180,24 +1194,24 @@ int nReturn;
 switch (nPart)
     {
     case ITEM_APPR_ARMOR_MODEL_RFOOT:
-    case ITEM_APPR_ARMOR_MODEL_LFOOT: nReturn=ZEP_MAX_PARTS_FOOT;
+    case ITEM_APPR_ARMOR_MODEL_LFOOT: nReturn=ZEP_MAX_PARTS_FOOT; break;
     case ITEM_APPR_ARMOR_MODEL_RSHIN:
-    case ITEM_APPR_ARMOR_MODEL_LSHIN: nReturn=ZEP_MAX_PARTS_SHIN;
+    case ITEM_APPR_ARMOR_MODEL_LSHIN: nReturn=ZEP_MAX_PARTS_SHIN; break;
     case ITEM_APPR_ARMOR_MODEL_LTHIGH:
-    case ITEM_APPR_ARMOR_MODEL_RTHIGH: nReturn=ZEP_MAX_PARTS_THIGH;
-    case ITEM_APPR_ARMOR_MODEL_PELVIS: nReturn=ZEP_MAX_PARTS_PELVIS;
-    case ITEM_APPR_ARMOR_MODEL_TORSO: nReturn=ZEP_MAX_PARTS_TORSO;
-    case ITEM_APPR_ARMOR_MODEL_BELT: nReturn=ZEP_MAX_PARTS_BELT;
-    case ITEM_APPR_ARMOR_MODEL_NECK: nReturn=ZEP_MAX_PARTS_NECK;
+    case ITEM_APPR_ARMOR_MODEL_RTHIGH: nReturn=ZEP_MAX_PARTS_THIGH; break;
+    case ITEM_APPR_ARMOR_MODEL_PELVIS: nReturn=ZEP_MAX_PARTS_PELVIS; break;
+    case ITEM_APPR_ARMOR_MODEL_TORSO: nReturn=ZEP_MAX_PARTS_TORSO; break;
+    case ITEM_APPR_ARMOR_MODEL_BELT: nReturn=ZEP_MAX_PARTS_BELT; break;
+    case ITEM_APPR_ARMOR_MODEL_NECK: nReturn=ZEP_MAX_PARTS_NECK; break;
     case ITEM_APPR_ARMOR_MODEL_RFOREARM:
-    case ITEM_APPR_ARMOR_MODEL_LFOREARM: nReturn=ZEP_MAX_PARTS_FOREARM;
+    case ITEM_APPR_ARMOR_MODEL_LFOREARM: nReturn=ZEP_MAX_PARTS_FOREARM; break;
     case ITEM_APPR_ARMOR_MODEL_RBICEP:
-    case ITEM_APPR_ARMOR_MODEL_LBICEP: nReturn=ZEP_MAX_PARTS_BICEP;
+    case ITEM_APPR_ARMOR_MODEL_LBICEP: nReturn=ZEP_MAX_PARTS_BICEP; break;
     case ITEM_APPR_ARMOR_MODEL_RSHOULDER:
-    case ITEM_APPR_ARMOR_MODEL_LSHOULDER: nReturn=ZEP_MAX_PARTS_SHOULDER;
+    case ITEM_APPR_ARMOR_MODEL_LSHOULDER: nReturn=ZEP_MAX_PARTS_SHOULDER; break;
     case ITEM_APPR_ARMOR_MODEL_RHAND:
-    case ITEM_APPR_ARMOR_MODEL_LHAND: nReturn=ZEP_MAX_PARTS_HAND;
-    case ITEM_APPR_ARMOR_MODEL_ROBE: nReturn=ZEP_MAX_PARTS_ROBE;
+    case ITEM_APPR_ARMOR_MODEL_LHAND: nReturn=ZEP_MAX_PARTS_HAND; break;
+    case ITEM_APPR_ARMOR_MODEL_ROBE: nReturn=ZEP_MAX_PARTS_ROBE; break;
     }
 return nReturn;
 }
@@ -1230,8 +1244,13 @@ void ZEP_PurifyItem(object oItem, object oPC, int nIsEntering)
       //slightly shorter message.
 
       if (nIsEntering)
-          sDupeReport="Crafting Duplicate '"+GetName(oItem)+"' Detected on entering player: "+GetName(oPC)+".  Item Destroyed.";
-      else sDupeReport="Crafting Duplicate '"+GetName(oItem)+"' Detected on player: "+GetName(oPC)+".  Item Destroyed.";
+          sDupeReport="Crafting Duplicate '"+GetName(oItem)+"' Detected on entering player: "+GetName(oPC)+".  Item Quarantined.";
+      else sDupeReport="Crafting Duplicate '"+GetName(oItem)+"' Detected on player: "+GetName(oPC)+".  Item Quarantined.";
+      // Save to campaign DB so it survives reboots; open ZEP_CR_QUARANTINE chest in House of Homer to retrieve.
+      int nQCount = GetCampaignInt("craftdb", "quarantine_count");
+      StoreCampaignObject("craftdb", "quarantine_"+IntToString(nQCount), oItem);
+      SetCampaignString("craftdb", "quarantine_"+IntToString(nQCount)+"_info", sDupeReport);
+      SetCampaignInt("craftdb", "quarantine_count", nQCount + 1);
       DestroyObject(oItem);
       WriteTimestampedLogEntry(sDupeReport);
       SendMessageToAllDMs(sDupeReport);
