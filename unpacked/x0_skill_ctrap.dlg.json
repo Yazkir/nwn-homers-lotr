@@ -78,7 +78,7 @@
               "__struct_id": 2,
               "Active": {
                 "type": "resref",
-                "value": ""
+                "value": "zep_cr_canca"
               },
               "Index": {
                 "type": "dword",
@@ -138,7 +138,7 @@
               "__struct_id": 0,
               "Active": {
                 "type": "resref",
-                "value": ""
+                "value": "zep_cr_cancl"
               },
               "Index": {
                 "type": "dword",
@@ -158,6 +158,51 @@
               "Index": {
                 "type": "dword",
                 "value": 1
+              },
+              "IsChild": {
+                "type": "byte",
+                "value": 0
+              }
+            },
+            {
+              "__struct_id": 7,
+              "Active": {
+                "type": "resref",
+                "value": "zep_cr_canch_n"
+              },
+              "Index": {
+                "type": "dword",
+                "value": 75
+              },
+              "IsChild": {
+                "type": "byte",
+                "value": 0
+              }
+            },
+            {
+              "__struct_id": 8,
+              "Active": {
+                "type": "resref",
+                "value": "zep_cr_cancs_n"
+              },
+              "Index": {
+                "type": "dword",
+                "value": 76
+              },
+              "IsChild": {
+                "type": "byte",
+                "value": 0
+              }
+            },
+            {
+              "__struct_id": 9,
+              "Active": {
+                "type": "resref",
+                "value": "zep_cr_cancl_n"
+              },
+              "Index": {
+                "type": "dword",
+                "value": 77
               },
               "IsChild": {
                 "type": "byte",
@@ -6369,6 +6414,132 @@
           "type": "cexolocstring",
           "value": {
             "0": "<StartAction>Craft Cloak:</Start> Change cloak appearance or hide it."
+          }
+        }
+      },
+      {
+        "__struct_id": 75,
+        "Animation": {
+          "type": "dword",
+          "value": 0
+        },
+        "AnimLoop": {
+          "type": "byte",
+          "value": 1
+        },
+        "Comment": {
+          "type": "cexostring",
+          "value": ""
+        },
+        "Delay": {
+          "type": "dword",
+          "value": 4294967295
+        },
+        "EntriesList": {
+          "type": "list",
+          "value": []
+        },
+        "Quest": {
+          "type": "cexostring",
+          "value": ""
+        },
+        "Script": {
+          "type": "resref",
+          "value": ""
+        },
+        "Sound": {
+          "type": "resref",
+          "value": ""
+        },
+        "Text": {
+          "type": "cexolocstring",
+          "value": {
+            "0": "<StartAction>Craft Helmet:</Start> <StartCheck>Not Possible</Start> -  <CUSTOM20006>",
+            "id": -1
+          }
+        }
+      },
+      {
+        "__struct_id": 76,
+        "Animation": {
+          "type": "dword",
+          "value": 0
+        },
+        "AnimLoop": {
+          "type": "byte",
+          "value": 1
+        },
+        "Comment": {
+          "type": "cexostring",
+          "value": ""
+        },
+        "Delay": {
+          "type": "dword",
+          "value": 4294967295
+        },
+        "EntriesList": {
+          "type": "list",
+          "value": []
+        },
+        "Quest": {
+          "type": "cexostring",
+          "value": ""
+        },
+        "Script": {
+          "type": "resref",
+          "value": ""
+        },
+        "Sound": {
+          "type": "resref",
+          "value": ""
+        },
+        "Text": {
+          "type": "cexolocstring",
+          "value": {
+            "0": "<StartAction>Craft Shield:</Start> <StartCheck>Not Possible</Start> -  <CUSTOM20007>",
+            "id": -1
+          }
+        }
+      },
+      {
+        "__struct_id": 77,
+        "Animation": {
+          "type": "dword",
+          "value": 0
+        },
+        "AnimLoop": {
+          "type": "byte",
+          "value": 1
+        },
+        "Comment": {
+          "type": "cexostring",
+          "value": ""
+        },
+        "Delay": {
+          "type": "dword",
+          "value": 4294967295
+        },
+        "EntriesList": {
+          "type": "list",
+          "value": []
+        },
+        "Quest": {
+          "type": "cexostring",
+          "value": ""
+        },
+        "Script": {
+          "type": "resref",
+          "value": ""
+        },
+        "Sound": {
+          "type": "resref",
+          "value": ""
+        },
+        "Text": {
+          "type": "cexolocstring",
+          "value": {
+            "0": "<StartAction>Craft Cloak:</Start> <StartCheck>Not Possible</Start> -  <CUSTOM20008>",
+            "id": -1
           }
         }
       }
