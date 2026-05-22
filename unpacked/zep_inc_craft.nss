@@ -1003,13 +1003,20 @@ void ZEP_RemakeItem(object oPC, int nMode) {
         int nBaseType = GetBaseItemType(oItem);
         int nMin = StringToInt(Get2DAString("baseitems", "MinRange", nBaseType)) /10;
         int nMax = StringToInt(Get2DAString("baseitems", "MaxRange", nBaseType)) /10;
-
+        // Guard against degenerate 2DA row (empty column → StringToInt returns 0).
+        // Without this, nMin=nMax=0 makes the do-while spin forever on model 0
+        // (always invalid) since the wrap condition ++nCurrApp>0 always fires and
+        // resets nCurrApp back to 0.
+        if (nMin < 1) nMin = 1;
+        if (nMax < nMin) nMax = 9; // fall back to vanilla single-digit weapon range
 
         //Once again, Do/While loop added to accomodate the fact that
         //CEP models are not all contiguous with each other.  This
         //allows the code to rapidly skip over gaps in the weapon
         //models to the next valid index.
 
+        int nTries = 0;
+        int nRange = nMax - nMin + 1;
         do {
             if (nMode == ZEP_CR_PART_NEXT) {
                 if (++nCurrApp>nMax) nCurrApp = nMin;
@@ -1017,7 +1024,7 @@ void ZEP_RemakeItem(object oPC, int nMode) {
                 if (--nCurrApp<nMin) nCurrApp = nMax;
             }
             oNew = CopyItemAndModify(oItem, ITEM_APPR_TYPE_WEAPON_MODEL, nPart, nCurrApp, TRUE);
-            } while (!GetIsObjectValid(oNew));
+            } while (!GetIsObjectValid(oNew) && ++nTries < nRange);
 
         nSlot = INVENTORY_SLOT_RIGHTHAND;
     }
@@ -1061,6 +1068,7 @@ void ZEP_RemakeItem(object oPC, int nMode) {
 void ZEP_RecolorItem(object oPC, int nMode) {
     SetLocalInt(oPC, "ZEP_CR_CHANGED", TRUE);
     object oItem = GetLocalObject(oPC, "ZEP_CR_ITEM");
+    if (!GetIsObjectValid(oItem)) return;
     int nPart    = GetLocalInt(oPC, "ZEP_CR_PART");
     int nCurrApp, nSlot, nCost, nDC;
     object oNew;
