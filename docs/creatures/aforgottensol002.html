@@ -54,16 +54,29 @@
 <h2>Combat</h2>
 <table class="data"><tr><th>HP</th><td>1000</td><th>AC</th><td>79 <small class="muted">(10 base + +25 Dex + +44 natural (NaturalAC))</small></td><th>BAB</th><td>+50</td></tr><tr><th>Fort</th><td>+0</td><th>Ref</th><td>+25</td><th>Will</th><td>+5</td></tr></table>
 <p class="muted">Saves shown = stored bonus + ability mod; class-table progression and feat bonuses (Great Fortitude, etc.) are applied at runtime.</p>
+<h3>Equipment combat properties (combined)</h3><table class="data"><tbody><tr><th>AC Bonus (Dodge)</th><td>+10</td></tr>
+<tr><th>Damage Resistance: Acid</th><td>10</td></tr>
+<tr><th>Damage Resistance: Bludgeoning</th><td>25/-</td></tr>
+<tr><th>Damage Resistance: Cold</th><td>25/-</td></tr>
+<tr><th>Damage Resistance: Fire</th><td>15/-</td></tr>
+<tr><th>Damage Resistance: Magical</th><td>15/-</td></tr>
+<tr><th>Damage Resistance: Negative</th><td>25/-</td></tr>
+<tr><th>Damage Resistance: Piercing</th><td>25/-</td></tr>
+<tr><th>Damage Resistance: Slashing</th><td>25/-</td></tr>
+<tr><th>Damage Immunity</th><td>Positive</td></tr>
+<tr><th>Misc Immunity</th><td>Critical Hits, Death Magic, Disease, Level/Ability Drain, Mind-Affecting Spells, Paralysis, Poison, Sneak Attack</td></tr>
+<tr><th>Haste</th><td>Yes</td></tr>
+<tr><th>True Seeing</th><td>Yes</td></tr></tbody></table><p class="muted">Dodge AC stacks (cap +20); all other same-type bonuses do not — only the highest is shown. Damage resistance: highest per type. Regeneration stacks without limit.</p>
 <h3>Weapons</h3><table class="data"><thead><tr><th>Slot</th><th>Item</th><th>Base</th><th>Type</th><th>Attack schedule</th><th>Damage</th><th>Crit</th></tr></thead><tbody><tr><td>Right hand</td><td><a href="../items/dunharrowpike.html">Dunharrow pike</a></td><td>Halberd</td><td>Melee</td><td>+85/+80/+75/+70</td><td>1d10+35 (36–45) + Damage Bonus <span class="nwn-dmg nwn-dmg-negative" style="color:#999999">Negative</span> 9, Massive Criticals 7</td><td>20/x3</td></tr>
 <tr><td>Creature weapon (R)</td><td><a href="../items/devstatingclaw.html">Devstating Claw</a></td><td>Creature Slash Piercing Weapon</td><td>Melee</td><td>+90/+85/+80/+75</td><td>—</td><td>20/x2</td></tr>
 <tr><td>Creature weapon (L)</td><td><a href="../items/devstatingclaw.html">Devstating Claw</a></td><td>Creature Slash Piercing Weapon</td><td>Melee</td><td>+90/+85/+80/+75</td><td>—</td><td>20/x2</td></tr>
 <tr><td>Creature weapon (bite)</td><td><a href="../items/devstatingclaw.html">Devstating Claw</a></td><td>Creature Slash Piercing Weapon</td><td>Melee</td><td>+90/+85/+80/+75</td><td>—</td><td>20/x2</td></tr></tbody></table>
 <h2>Equipment</h2>
-<table class="data"><thead><tr><th>Slot</th><th>Item</th></tr></thead><tbody><tr><td>Right hand</td><td><a href="../items/dunharrowpike.html">Dunharrow pike</a></td></tr>
-<tr><td>Creature weapon (R)</td><td><a href="../items/devstatingclaw.html">Devstating Claw</a></td></tr>
-<tr><td>Creature weapon (L)</td><td><a href="../items/devstatingclaw.html">Devstating Claw</a></td></tr>
-<tr><td>Creature weapon (bite)</td><td><a href="../items/devstatingclaw.html">Devstating Claw</a></td></tr>
-<tr><td>Creature hide</td><td><a href="../items/it_creitemunh001.html">Dunharrow Undead Properties</a></td></tr></tbody></table>
+<table class="data"><thead><tr><th>Slot</th><th>Item</th><th>Lootable</th></tr></thead><tbody><tr><td>Right hand</td><td><a href="../items/dunharrowpike.html">Dunharrow pike</a></td><td>No</td></tr>
+<tr><td>Creature weapon (R)</td><td><a href="../items/devstatingclaw.html">Devstating Claw</a></td><td>No</td></tr>
+<tr><td>Creature weapon (L)</td><td><a href="../items/devstatingclaw.html">Devstating Claw</a></td><td>No</td></tr>
+<tr><td>Creature weapon (bite)</td><td><a href="../items/devstatingclaw.html">Devstating Claw</a></td><td>No</td></tr>
+<tr><td>Creature hide</td><td><a href="../items/it_creitemunh001.html">Dunharrow Undead Properties</a></td><td>No</td></tr></tbody></table>
 <h2>Feats <small class="muted">(14)</small></h2><ul class="featlist"><li>Armor Proficiency (heavy)</li><li>Armor Proficiency (light)</li><li>Armor Proficiency (medium)</li><li>Armor Skin</li><li>Epic Prowess</li><li>Epic Toughness I</li><li>Epic Toughness II</li><li>Epic Toughness IV</li><li>Epic Toughness V</li><li>Epic Toughness VI</li><li>Shield Proficiency</li><li>Weapon Proficiency (creature)</li><li>Weapon Proficiency (martial)</li><li>Weapon Proficiency (simple)</li></ul>
 <h2>Skills</h2><table class="data"><thead><tr><th>Skill</th><th>Ranks</th></tr></thead><tbody><tr><td>Discipline</td><td>80</td></tr>
 <tr><td>Listen</td><td>9</td></tr>
@@ -89,6 +102,6 @@
 <h2>Instances <small class="muted">(2)</small></h2><table class="data"><thead><tr><th>Name</th><th>Area</th><th>Faction</th><th>Notes</th></tr></thead><tbody><tr><td><a href="instances/forgottenking-000.html">A Mangled Corpse</a></td><td><a href="../areas/forgottenking.html">Dimholt: The Forgotten King</a></td><td>Hostile</td><td>—</td></tr>
 <tr><td><a href="instances/forgottenking-001.html">A Mangled Corpse</a></td><td><a href="../areas/forgottenking.html">Dimholt: The Forgotten King</a></td><td>Hostile</td><td>—</td></tr></tbody></table>
   </main>
-  <footer>generated by <a href="https://github.com/mrprice22/nwn-manager">nwn-manager</a> &mdash; last updated May 21, 2026 20:24</footer>
+  <footer>generated by <a href="https://github.com/mrprice22/nwn-manager">nwn-manager</a> &mdash; last updated May 21, 2026 23:22</footer>
 </body>
 </html>

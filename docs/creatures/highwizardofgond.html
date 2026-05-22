@@ -53,14 +53,36 @@
 <table class="data"><tr><th>HP</th><td>7700</td><th>AC</th><td>82 <small class="muted">(10 base + +5 Dex + +55 natural (NaturalAC) + +12 armor enchant)</small></td><th>BAB</th><td>+95</td></tr><tr><th>Fort</th><td>+10</td><th>Ref</th><td>+16</td><th>Will</th><td>+22</td></tr></table>
 <p class="muted">AC extras: +12 AC Bonus</p>
 <p class="muted">Saves shown = stored bonus + ability mod; class-table progression and feat bonuses (Great Fortitude, etc.) are applied at runtime.</p>
+<h3>Equipment combat properties (combined)</h3><table class="data"><tbody><tr><th>AC Bonus (Dodge)</th><td>+20 (capped from +22)</td></tr>
+<tr><th>Skill: Concentration</th><td>+10</td></tr>
+<tr><th>Skill: Spellcraft</th><td>+10</td></tr>
+<tr><th>Damage Resistance: Acid</th><td>30/-</td></tr>
+<tr><th>Damage Resistance: Bludgeoning</th><td>6</td></tr>
+<tr><th>Damage Resistance: Cold</th><td>30/-</td></tr>
+<tr><th>Damage Resistance: Divine</th><td>30/-</td></tr>
+<tr><th>Damage Resistance: Electrical</th><td>30/-</td></tr>
+<tr><th>Damage Resistance: Fire</th><td>30/-</td></tr>
+<tr><th>Damage Resistance: Magical</th><td>10/-</td></tr>
+<tr><th>Damage Resistance: Negative</th><td>30/-</td></tr>
+<tr><th>Damage Resistance: Piercing</th><td>6</td></tr>
+<tr><th>Damage Resistance: Positive</th><td>30/-</td></tr>
+<tr><th>Damage Resistance: Slashing</th><td>6</td></tr>
+<tr><th>Damage Resistance: Sonic</th><td>30/-</td></tr>
+<tr><th>Damage Immunity</th><td>Bludgeoning, Piercing, Slashing</td></tr>
+<tr><th>Misc Immunity</th><td>Critical Hits, Death Magic, Disease, Fear, Level/Ability Drain, Mind-Affecting Spells, Paralysis, Poison, Sneak Attack</td></tr>
+<tr><th>Regeneration</th><td>+10 HP/round</td></tr>
+<tr><th>Regen: Vampiric</th><td>+2 HP/hit</td></tr>
+<tr><th>Haste</th><td>Yes</td></tr>
+<tr><th>Freedom of Movement</th><td>Yes</td></tr>
+<tr><th>True Seeing</th><td>Yes</td></tr></tbody></table><p class="muted">Dodge AC stacks (cap +20); all other same-type bonuses do not — only the highest is shown. Damage resistance: highest per type. Regeneration stacks without limit.</p>
 <h3>Weapons</h3><table class="data"><thead><tr><th>Slot</th><th>Item</th><th>Base</th><th>Type</th><th>Attack schedule</th><th>Damage</th><th>Crit</th></tr></thead><tbody><tr><td>Right hand</td><td><a href="../items/bastardoftheh001.html">Bastard of the Hobbit {EPIC}</a></td><td>Short Sword</td><td>Melee</td><td>+168/+163/+158/+153</td><td>1d6+35 (36–41) + Damage Bonus <span class="nwn-dmg nwn-dmg-divine" style="color:#ffff01">Divine</span> 9, Damage Bonus <span class="nwn-dmg nwn-dmg-magical" style="color:#cc77ff">Magical</span> 28, Damage Bonus Piercing 30, Damage Bonus <span class="nwn-dmg nwn-dmg-positive" style="color:#ffffff">Positive</span> 30, Massive Criticals 30, On Hit Cast Spell Paralyzing Touch (Demilich) Caster Level 39</td><td>19-20/x2</td></tr></tbody></table>
 <h2>Equipment</h2>
-<table class="data"><thead><tr><th>Slot</th><th>Item</th></tr></thead><tbody><tr><td>Chest</td><td><a href="../items/mcloth006.html">Robe of the High Wizard</a></td></tr>
-<tr><td>Arms</td><td><a href="../items/greatermagefist.html">Greater Magefist</a></td></tr>
-<tr><td>Right hand</td><td><a href="../items/bastardoftheh001.html">Bastard of the Hobbit {EPIC}</a></td></tr>
-<tr><td>Left ring</td><td><a href="../items/044.html">Arrow of the Orc Defender</a></td></tr>
-<tr><td>Bolts</td><td><a href="../items/nw_wambo001.html">nw_wambo001</a></td></tr>
-<tr><td>Creature hide</td><td><a href="../items/npcbuffgear012.html">Skin of High Wiz</a></td></tr></tbody></table>
+<table class="data"><thead><tr><th>Slot</th><th>Item</th><th>Lootable</th></tr></thead><tbody><tr><td>Chest</td><td><a href="../items/mcloth006.html">Robe of the High Wizard</a></td><td>Yes</td></tr>
+<tr><td>Arms</td><td><a href="../items/greatermagefist.html">Greater Magefist</a></td><td>Yes</td></tr>
+<tr><td>Right hand</td><td><a href="../items/bastardoftheh001.html">Bastard of the Hobbit {EPIC}</a></td><td>No</td></tr>
+<tr><td>Left ring</td><td><a href="../items/044.html">Arrow of the Orc Defender</a></td><td>No</td></tr>
+<tr><td>Bolts</td><td><a href="../items/nw_wambo001.html">nw_wambo001</a></td><td>No</td></tr>
+<tr><td>Creature hide</td><td><a href="../items/npcbuffgear012.html">Skin of High Wiz</a></td><td>No</td></tr></tbody></table>
 <h2>Inventory <small class="muted">(10)</small></h2>
 <table class="data"><thead><tr><th>Item</th><th>ResRef</th></tr></thead><tbody><tr><td><a href="../items/trinketofthewiza.html">Trinket of the High Wizard</a></td><td>trinketofthewiza</td></tr>
 <tr><td><a href="../items/staffofwizardy.html">Staff of Wizardy</a></td><td>staffofwizardy</td></tr>
@@ -106,6 +128,6 @@
 <tr><td>ScriptOnBlocked</td><td>x2_def_onblocked</td></tr></tbody></table>
 <h2>Instances <small class="muted">(1)</small></h2><table class="data"><thead><tr><th>Name</th><th>Area</th><th>Faction</th><th>Notes</th></tr></thead><tbody><tr><td><a href="instances/towerofthehighwi-000.html">High Wizard of Gondor</a></td><td><a href="../areas/towerofthehighwi.html">Tower of the High Wizard: The High Wizard&#x27;s Chamber</a></td><td>Good</td><td>—</td></tr></tbody></table>
   </main>
-  <footer>generated by <a href="https://github.com/mrprice22/nwn-manager">nwn-manager</a> &mdash; last updated May 21, 2026 20:24</footer>
+  <footer>generated by <a href="https://github.com/mrprice22/nwn-manager">nwn-manager</a> &mdash; last updated May 21, 2026 23:22</footer>
 </body>
 </html>

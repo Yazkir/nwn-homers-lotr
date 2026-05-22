@@ -35,7 +35,7 @@
     </nav>
   </header>
   <main>
-<h1>Search Items</h1><p>All conditions must be satisfied simultaneously. Leave fields blank to skip.</p><form id="sf" class="item-search-form"><div class="search-row"><label for="fb">Base item</label><select id="fb"><option value="">— all —</option></select><label for="fo">Sort by</label><select id="fo"><option value="name">Name</option><option value="cost">Cost</option><option value="value">Property Value</option></select><select id="fd"><option value="desc">Descending</option><option value="asc">Ascending</option></select><button type="submit">Search</button></div><div class="prop-rows"><div class="prop-row"><label>Property 1</label><select id="fp1" class="prop-sel"><option value="">— any —</option></select><select id="fs1" class="subtype-sel" disabled><option value="">— any —</option></select><input id="fv1" type="number" min="0" placeholder="min value"></div><div class="prop-row"><label>Property 2</label><select id="fp2" class="prop-sel"><option value="">— any —</option></select><select id="fs2" class="subtype-sel" disabled><option value="">— any —</option></select><input id="fv2" type="number" min="0" placeholder="min value"></div><div class="prop-row"><label>Property 3</label><select id="fp3" class="prop-sel"><option value="">— any —</option></select><select id="fs3" class="subtype-sel" disabled><option value="">— any —</option></select><input id="fv3" type="number" min="0" placeholder="min value"></div><div class="prop-row"><label>Property 4</label><select id="fp4" class="prop-sel"><option value="">— any —</option></select><select id="fs4" class="subtype-sel" disabled><option value="">— any —</option></select><input id="fv4" type="number" min="0" placeholder="min value"></div></div></form><div id="sr"><p class="muted">Use the filters above and click Search.</p></div><script>(function(){
+<h1>Search Items</h1><p>All conditions must be satisfied simultaneously. Leave fields blank to skip.</p><form id="sf" class="item-search-form"><div class="search-row"><label for="fb">Base item</label><select id="fb"><option value="">— all —</option></select><label for="fo">Sort by</label><select id="fo"><option value="name">Name</option><option value="cost">Cost</option><option value="value">Property Value</option></select><select id="fd"><option value="desc">Descending</option><option value="asc">Ascending</option></select><label class="checkbox-label" title="Include items carried by NPCs that have no Dropable=1 flag — they exist in the module but cannot be looted"><input type="checkbox" id="fnd"> Include non-droppable items</label><button type="submit">Search</button></div><div class="prop-rows"><div class="prop-row"><label>Property 1</label><select id="fp1" class="prop-sel"><option value="">— any —</option></select><select id="fs1" class="subtype-sel" disabled><option value="">— any —</option></select><input id="fv1" type="number" min="0" placeholder="min value"></div><div class="prop-row"><label>Property 2</label><select id="fp2" class="prop-sel"><option value="">— any —</option></select><select id="fs2" class="subtype-sel" disabled><option value="">— any —</option></select><input id="fv2" type="number" min="0" placeholder="min value"></div><div class="prop-row"><label>Property 3</label><select id="fp3" class="prop-sel"><option value="">— any —</option></select><select id="fs3" class="subtype-sel" disabled><option value="">— any —</option></select><input id="fv3" type="number" min="0" placeholder="min value"></div><div class="prop-row"><label>Property 4</label><select id="fp4" class="prop-sel"><option value="">— any —</option></select><select id="fs4" class="subtype-sel" disabled><option value="">— any —</option></select><input id="fv4" type="number" min="0" placeholder="min value"></div></div></form><div id="sr"><p class="muted">Use the filters above and click Search.</p></div><script>(function(){
 var N=4,data=[],form=document.getElementById('sf'),results=document.getElementById('sr');
 var propSels=[],subSels=[],minVals=[];
 for(var i=1;i<=N;i++){
@@ -80,6 +80,7 @@ form.addEventListener('submit',function(e){
   var bi=document.getElementById('fb').value;
   var sortBy=document.getElementById('fo').value;
   var asc=document.getElementById('fd').value==='asc';
+  var inclNonDrop=document.getElementById('fnd').checked;
   var conds=[];
   for(var i=0;i<N;i++){
     var prop=propSels[i].value,sub=subSels[i].value;
@@ -88,6 +89,7 @@ form.addEventListener('submit',function(e){
   }
   var out=[];
   data.forEach(function(it){
+    if(!it.accessible&&!inclNonDrop)return;
     if(bi&&it.base_item!==bi)return;
     var matched=[];
     var ok=!conds.length||conds.every(function(c){
@@ -143,7 +145,8 @@ function render(rows,showProps){
     var biCell=r.it.base_item_anchor
       ?'<a href="'+biHref+'">'+esc(r.it.base_item)+'</a>'
       :esc(r.it.base_item);
-    html+='<tr><td><a href="'+esc(r.it.url)+'">'+esc(r.it.name)+'</a></td>'
+    var dropBadge=r.it.accessible?'':' <span class="badge-no-drop" title="Carried by NPCs but not flagged as droppable \u2014 cannot be looted">no drop</span>';
+    html+='<tr><td><a href="'+esc(r.it.url)+'">'+esc(r.it.name)+'</a>'+dropBadge+'</td>'
          +'<td>'+biCell+'</td>'
          +(showProps?'<td>'+props+'</td>':'')
          +'<td>'+(r.it.cost?r.it.cost.toLocaleString()+' gp':'\u2014')+'</td></tr>';
@@ -157,6 +160,6 @@ function esc(s){
 }
 })();</script>
   </main>
-  <footer>generated by <a href="https://github.com/mrprice22/nwn-manager">nwn-manager</a> &mdash; last updated May 21, 2026 20:24</footer>
+  <footer>generated by <a href="https://github.com/mrprice22/nwn-manager">nwn-manager</a> &mdash; last updated May 21, 2026 23:22</footer>
 </body>
 </html>
