@@ -208,6 +208,36 @@
                 "type": "byte",
                 "value": 0
               }
+            },
+            {
+              "__struct_id": 10,
+              "Active": {
+                "type": "resref",
+                "value": "zep_cr_cancm"
+              },
+              "Index": {
+                "type": "dword",
+                "value": 78
+              },
+              "IsChild": {
+                "type": "byte",
+                "value": 0
+              }
+            },
+            {
+              "__struct_id": 11,
+              "Active": {
+                "type": "resref",
+                "value": "zep_cr_cancm_n"
+              },
+              "Index": {
+                "type": "dword",
+                "value": 79
+              },
+              "IsChild": {
+                "type": "byte",
+                "value": 0
+              }
             }
           ]
         },
@@ -6539,6 +6569,105 @@
           "type": "cexolocstring",
           "value": {
             "0": "<StartAction>Craft Cloak:</Start> <StartCheck>Not Possible</Start> -  <CUSTOM20008>",
+            "id": -1
+          }
+        }
+      },
+      {
+        "__struct_id": 78,
+        "Animation": {
+          "type": "dword",
+          "value": 88
+        },
+        "AnimLoop": {
+          "type": "byte",
+          "value": 1
+        },
+        "Comment": {
+          "type": "cexostring",
+          "value": ""
+        },
+        "Delay": {
+          "type": "dword",
+          "value": 4294967295
+        },
+        "EntriesList": {
+          "type": "list",
+          "value": [
+            {
+              "__struct_id": 0,
+              "Active": {
+                "type": "resref",
+                "value": ""
+              },
+              "Index": {
+                "type": "dword",
+                "value": 1
+              },
+              "IsChild": {
+                "type": "byte",
+                "value": 0
+              }
+            }
+          ]
+        },
+        "Quest": {
+          "type": "cexostring",
+          "value": ""
+        },
+        "Script": {
+          "type": "resref",
+          "value": "zep_cr_start_cm"
+        },
+        "Sound": {
+          "type": "resref",
+          "value": ""
+        },
+        "Text": {
+          "type": "cexolocstring",
+          "value": {
+            "0": "<StartAction>Craft Misc:</Start> Change held item appearance."
+          }
+        }
+      },
+      {
+        "__struct_id": 79,
+        "Animation": {
+          "type": "dword",
+          "value": 0
+        },
+        "AnimLoop": {
+          "type": "byte",
+          "value": 1
+        },
+        "Comment": {
+          "type": "cexostring",
+          "value": ""
+        },
+        "Delay": {
+          "type": "dword",
+          "value": 4294967295
+        },
+        "EntriesList": {
+          "type": "list",
+          "value": []
+        },
+        "Quest": {
+          "type": "cexostring",
+          "value": ""
+        },
+        "Script": {
+          "type": "resref",
+          "value": ""
+        },
+        "Sound": {
+          "type": "resref",
+          "value": ""
+        },
+        "Text": {
+          "type": "cexolocstring",
+          "value": {
+            "0": "<StartAction>Craft Misc:</Start> <StartCheck>Not Possible</Start> -  <CUSTOM20009>",
             "id": -1
           }
         }

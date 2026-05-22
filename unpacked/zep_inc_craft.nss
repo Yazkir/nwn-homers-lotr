@@ -137,6 +137,7 @@ const int    ZEP_CR_TOKENBASE = 20000;
 const int    ZEP_CR_HELMET = 8888;
 const int    ZEP_CR_SHIELD = 8889;
 const int    ZEP_CR_CLOAK  = 8890;
+const int    ZEP_CR_MISC   = 8891;
 
 //Note from Loki: Above constants were all from
 //the original script.  Have simply been renamed to
@@ -482,6 +483,8 @@ void ZEP_StopCraft(object oPC, int nExecute) {
         AssignCommand(oPC, ActionEquipItem(oItem, INVENTORY_SLOT_CLOAK));
     } else if (ZEP_GetIsShield(oItem)) {
         AssignCommand(oPC, ActionEquipItem(oItem, INVENTORY_SLOT_LEFTHAND));
+    } else if (GetLocalInt(oPC, "ZEP_CR_PART") == ZEP_CR_MISC) {
+        AssignCommand(oPC, ActionEquipItem(oItem, INVENTORY_SLOT_LEFTHAND));
     } else {
         AssignCommand(oPC, ActionEquipItem(oItem, INVENTORY_SLOT_RIGHTHAND));
     }
@@ -592,6 +595,10 @@ void ZEP_SetPart(object oPC, int nPart, int nStrRef) {
         if (fFacing < 0.0) fFacing += 360.0;
         fDistance = 3.5;
         fPitch = 65.0;
+    } else if (nPart==ZEP_CR_MISC) {
+        fFacing += 60.0;
+        fDistance = 3.0;
+        fPitch = 65.0;
     } else {
         fFacing -= 60.0;
         fDistance = 3.0;
@@ -605,6 +612,8 @@ void ZEP_SetPart(object oPC, int nPart, int nStrRef) {
     int nDC   = GetLocalInt(oPC, "ZEP_CR_DC");
     if (nPart == ZEP_CR_CLOAK)
         SetCustomToken(ZEP_CR_TOKENBASE, "Cloak");
+    else if (nPart == ZEP_CR_MISC)
+        SetCustomToken(ZEP_CR_TOKENBASE, "Held Item");
     else
         SetCustomToken(ZEP_CR_TOKENBASE, GetStringByStrRef(nStrRef));
     SetCustomToken(ZEP_CR_TOKENBASE+1, IntToString(nCost));
@@ -1002,6 +1011,24 @@ void ZEP_RemakeItem(object oPC, int nMode) {
             oNew = CopyItemAndModify(oItem, ITEM_APPR_TYPE_SIMPLE_MODEL, 0, 0, TRUE);
 
         nSlot = INVENTORY_SLOT_CLOAK;
+
+    } else if (nPart == ZEP_CR_MISC) {
+        // Handle misc left-hand held item (torch, holy symbol, etc.)
+        nCurrApp = GetItemAppearance(oItem, ITEM_APPR_TYPE_SIMPLE_MODEL, 0);
+        int nBaseType = GetBaseItemType(oItem);
+        int nMin = StringToInt(Get2DAString("baseitems", "MinRange", nBaseType));
+        int nMax = StringToInt(Get2DAString("baseitems", "MaxRange", nBaseType));
+        if (nMin < 1) nMin = 1;
+        if (nMax < nMin) nMax = 10;
+        do {
+            if (nMode == ZEP_CR_PART_NEXT) {
+                if (++nCurrApp > nMax) nCurrApp = nMin;
+            } else {
+                if (--nCurrApp < nMin) nCurrApp = nMax;
+            }
+            oNew = CopyItemAndModify(oItem, ITEM_APPR_TYPE_SIMPLE_MODEL, 0, nCurrApp, TRUE);
+        } while (!GetIsObjectValid(oNew));
+        nSlot = INVENTORY_SLOT_LEFTHAND;
 
     } else {
         // Handle Weapon change
