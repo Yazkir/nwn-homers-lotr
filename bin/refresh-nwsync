@@ -74,10 +74,23 @@ nwsync_args=(
 if [[ $SILENT -eq 1 ]]; then
   _nwsync_tmp=$(mktemp)
   trap 'rm -f "$_nwsync_tmp"' EXIT
-  if ! "$NWN_NWSYNC_WRITE" "${nwsync_args[@]}" >"$_nwsync_tmp" 2>&1; then
+  "$NWN_NWSYNC_WRITE" "${nwsync_args[@]}" >"$_nwsync_tmp" 2>&1 &
+  _nwsync_pid=$!
+  _spin='|/-\'
+  _si=0
+  _nwsync_start=$(date +%s)
+  while kill -0 "$_nwsync_pid" 2>/dev/null; do
+    _elapsed=$(( $(date +%s) - _nwsync_start ))
+    _ch="${_spin:$_si:1}"; _si=$(( (_si + 1) % 4 ))
+    printf "\r[nwsync] %s writing manifest...  (%ds)          " "$_ch" "$_elapsed"
+    sleep 0.3
+  done
+  if ! wait "$_nwsync_pid"; then
+    printf "\n"
     cat "$_nwsync_tmp" >&2
     exit 1
   fi
+  printf "\r[nwsync] manifest written  (%ds)          \n" "$(( $(date +%s) - _nwsync_start ))"
 else
   "$NWN_NWSYNC_WRITE" "${nwsync_args[@]}"
 fi
