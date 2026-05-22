@@ -460,6 +460,10 @@ void ZEP_StopCraft(object oPC, int nExecute) {
     // Get and equip correct  item (backup when not successfull or cancelled)
     object oItem = GetLocalObject(oPC, "ZEP_CR_ITEM");
     object oBackup = GetLocalObject(oPC, "ZEP_CR_BACKUP");
+    // Safety: if the crafting item was quarantined or otherwise lost mid-session
+    // (e.g. by the anti-dupe heartbeat), fall back to the abort path so the
+    // backup is restored rather than destroyed along with the invalid item ref.
+    if (nExecute && !GetIsObjectValid(oItem)) nExecute = FALSE;
     if (nExecute) {
         DestroyObject(oBackup);
         ZEP_RemoveItemVariables(oItem); //- cfx change
@@ -476,6 +480,8 @@ void ZEP_StopCraft(object oPC, int nExecute) {
         AssignCommand(oPC, ActionEquipItem(oItem, INVENTORY_SLOT_HEAD));
     } else if (GetBaseItemType(oItem)==BASE_ITEM_CLOAK) {
         AssignCommand(oPC, ActionEquipItem(oItem, INVENTORY_SLOT_CLOAK));
+    } else if (ZEP_GetIsShield(oItem)) {
+        AssignCommand(oPC, ActionEquipItem(oItem, INVENTORY_SLOT_LEFTHAND));
     } else {
         AssignCommand(oPC, ActionEquipItem(oItem, INVENTORY_SLOT_RIGHTHAND));
     }
@@ -1309,9 +1315,10 @@ void ZEP_PurifyItem(object oItem, object oPC, int nIsEntering)
       //If so, we note this in the log file.  Otherwise we send a
       //slightly shorter message.
 
+      string sItemName = GetName(oItem);
       if (nIsEntering)
-          sDupeReport="Crafting Duplicate '"+GetName(oItem)+"' Detected on entering player: "+GetName(oPC)+".  Item Quarantined.";
-      else sDupeReport="Crafting Duplicate '"+GetName(oItem)+"' Detected on player: "+GetName(oPC)+".  Item Quarantined.";
+          sDupeReport="Crafting Duplicate '"+sItemName+"' Detected on entering player: "+GetName(oPC)+".  Item Quarantined.";
+      else sDupeReport="Crafting Duplicate '"+sItemName+"' Detected on player: "+GetName(oPC)+".  Item Quarantined.";
       // Save to campaign DB so it survives reboots; open ZEP_CR_QUARANTINE chest in House of Homer to retrieve.
       int nQCount = GetCampaignInt("craftdb", "quarantine_count");
       StoreCampaignObject("craftdb", "quarantine_"+IntToString(nQCount), oItem);
@@ -1320,6 +1327,13 @@ void ZEP_PurifyItem(object oItem, object oPC, int nIsEntering)
       DestroyObject(oItem);
       WriteTimestampedLogEntry(sDupeReport);
       SendMessageToAllDMs(sDupeReport);
+      // Notify the player so the item disappearance isn't silent.
+      string sMsg = "[Crafting] Duplicate item detected: '" + sItemName + "' has been quarantined.";
+      if (GetLocalInt(oPC, "ZEP_CR_STARTED"))
+          sMsg += " ABORT the crafting conversation now to recover your original item from the backup.";
+      else
+          sMsg += " If this was an error, the item can be recovered from the House of Homer quarantine chest.";
+      SendMessageToPC(oPC, sMsg);
       }
 }
 

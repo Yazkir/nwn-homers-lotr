@@ -38,7 +38,7 @@
 <h1>Conversation: <code>x0_skill_ctrap</code></h1>
 <dl class="meta">
 <dt>NPC lines</dt><dd>15</dd>
-<dt>PC replies</dt><dd>75</dd>
+<dt>PC replies</dt><dd>78</dd>
 <dt>NumWords</dt><dd>335</dd>
 <dt>OnEnd</dt><dd><code></code></dd>
 <dt>OnAbort</dt><dd><code>zep_cr_stop_abrt</code></dd>
@@ -50,7 +50,11 @@
 <tr><td><code>zep_cr_canca_n</code></td><td>active</td><td>✓</td><td></td></tr>
 <tr><td><code>zep_cr_cancw</code></td><td>active</td><td>✓</td><td></td></tr>
 <tr><td><code>zep_cr_cancs</code></td><td>active</td><td>✓</td><td></td></tr>
+<tr><td><code>zep_cr_cancl</code></td><td>active</td><td>✓</td><td></td></tr>
 <tr><td><code>zep_cr_cancw_n</code></td><td>active</td><td>✓</td><td></td></tr>
+<tr><td><code>zep_cr_canch_n</code></td><td>active</td><td>✓</td><td></td></tr>
+<tr><td><code>zep_cr_cancs_n</code></td><td>active</td><td>✓</td><td></td></tr>
+<tr><td><code>zep_cr_cancl_n</code></td><td>active</td><td>✓</td><td></td></tr>
 <tr><td><code>zep_always_false</code></td><td>active</td><td>✓</td><td></td></tr>
 <tr><td><code>zep_cr_changed</code></td><td>active</td><td>✓</td><td></td></tr>
 <tr><td><code>zep_cr_stop_make</code></td><td>action</td><td>✓</td><td></td></tr>
@@ -557,7 +561,7 @@ DC: &lt;StartAction&gt;0&lt;/Start&gt;</div>
 </div>
 </details>
 <details class="dlg-tree-node reply" open>
-<summary><span class="dlg-id">reply #17</span> <span class="dlg-action">→ <code>zep_cr_dorobe</code></span> <a class="dlg-anchor" href="#r17" title="jump to flat reply #17">¶</a></summary>
+<summary><span class="dlg-id">reply #17</span> <span class="dlg-action">→ <code>zep_cr_dorobe</code></span> <small class="muted">(if <code>zep_cr_canca</code>)</small> <a class="dlg-anchor" href="#r17" title="jump to flat reply #17">¶</a></summary>
 <div class="dlg-text">&lt;StartAction&gt;Craft Robe:&lt;/Start&gt; Change robe appearance.</div>
 <div class="dlg-tree-children">
 <div class="dlg-tree-ref entry-ref">↩ <a href="#e13">entry #13</a> <span class="dlg-link-preview">“Currently adjusting”</span></div>
@@ -691,7 +695,7 @@ DC: &lt;StartAction&gt;0&lt;/Start&gt;</div>
 </div>
 </details>
 <details class="dlg-tree-node reply" open>
-<summary><span class="dlg-id">reply #74</span> <span class="dlg-action">→ <code>zep_cr_start_cl</code></span> <a class="dlg-anchor" href="#r74" title="jump to flat reply #74">¶</a></summary>
+<summary><span class="dlg-id">reply #74</span> <span class="dlg-action">→ <code>zep_cr_start_cl</code></span> <small class="muted">(if <code>zep_cr_cancl</code>)</small> <a class="dlg-anchor" href="#r74" title="jump to flat reply #74">¶</a></summary>
 <div class="dlg-text">&lt;StartAction&gt;Craft Cloak:&lt;/Start&gt; Change cloak appearance or hide it.</div>
 <div class="dlg-tree-children">
 <div class="dlg-tree-ref entry-ref">↩ <a href="#e1">entry #1</a> <span class="dlg-link-preview">“Currently adjusting”</span></div>
@@ -701,13 +705,25 @@ DC: &lt;StartAction&gt;0&lt;/Start&gt;</div>
 <summary><span class="dlg-id">reply #1</span> <small class="muted">(if <code>zep_cr_cancw_n</code>)</small> <a class="dlg-anchor" href="#r1" title="jump to flat reply #1">¶</a></summary>
 <div class="dlg-text">&lt;StartAction&gt;Craft Weapon:&lt;/Start&gt; &lt;StartCheck&gt;Not Possible&lt;/Start&gt; -  &lt;CUSTOM20005&gt;</div>
 </details>
+<details class="dlg-tree-node reply" open>
+<summary><span class="dlg-id">reply #75</span> <small class="muted">(if <code>zep_cr_canch_n</code>)</small> <a class="dlg-anchor" href="#r75" title="jump to flat reply #75">¶</a></summary>
+<div class="dlg-text">&lt;StartAction&gt;Craft Helmet:&lt;/Start&gt; &lt;StartCheck&gt;Not Possible&lt;/Start&gt; -  &lt;CUSTOM20006&gt;</div>
+</details>
+<details class="dlg-tree-node reply" open>
+<summary><span class="dlg-id">reply #76</span> <small class="muted">(if <code>zep_cr_cancs_n</code>)</small> <a class="dlg-anchor" href="#r76" title="jump to flat reply #76">¶</a></summary>
+<div class="dlg-text">&lt;StartAction&gt;Craft Shield:&lt;/Start&gt; &lt;StartCheck&gt;Not Possible&lt;/Start&gt; -  &lt;CUSTOM20007&gt;</div>
+</details>
+<details class="dlg-tree-node reply" open>
+<summary><span class="dlg-id">reply #77</span> <small class="muted">(if <code>zep_cr_cancl_n</code>)</small> <a class="dlg-anchor" href="#r77" title="jump to flat reply #77">¶</a></summary>
+<div class="dlg-text">&lt;StartAction&gt;Craft Cloak:&lt;/Start&gt; &lt;StartCheck&gt;Not Possible&lt;/Start&gt; -  &lt;CUSTOM20008&gt;</div>
+</details>
 </div>
 </details>
 </div>
 <h2>NPC lines (entries) — flat index</h2>
 <div class="dlg-node entry" id="e0"><div class="dlg-head"><span class="dlg-id">entry #0</span></div><div class="dlg-text">Craft Skills Menu.
 
-</div><ul class="dlg-links"><li><a href="#r32">→ reply #32</a> <span class="dlg-link-preview">“Craft Armor: Change armor appearance”</span> <small class="muted">(if <code>zep_cr_canca</code>)</small></li><li><a href="#r18">→ reply #18</a> <span class="dlg-link-preview">“Craft Helmet: Change helmet appearance”</span> <small class="muted">(if <code>zep_cr_canch</code>)</small></li><li><a href="#r17">→ reply #17</a> <span class="dlg-link-preview">“Craft Robe: Change robe appearance.”</span></li><li><a href="#r16">→ reply #16</a> <span class="dlg-link-preview">“Craft Armor: Not Possible -”</span> <small class="muted">(if <code>zep_cr_canca_n</code>)</small></li><li><a href="#r7">→ reply #7</a> <span class="dlg-link-preview">“Craft Weapon: Change weapon appearance.”</span> <small class="muted">(if <code>zep_cr_cancw</code>)</small></li><li><a href="#r2">→ reply #2</a> <span class="dlg-link-preview">“Craft Shield: Change shield appearance.”</span> <small class="muted">(if <code>zep_cr_cancs</code>)</small></li><li><a href="#r74">→ reply #74</a> <span class="dlg-link-preview">“Craft Cloak: Change cloak appearance or hide it.”</span></li><li><a href="#r1">→ reply #1</a> <span class="dlg-link-preview">“Craft Weapon: Not Possible -”</span> <small class="muted">(if <code>zep_cr_cancw_n</code>)</small></li></ul></div>
+</div><ul class="dlg-links"><li><a href="#r32">→ reply #32</a> <span class="dlg-link-preview">“Craft Armor: Change armor appearance”</span> <small class="muted">(if <code>zep_cr_canca</code>)</small></li><li><a href="#r18">→ reply #18</a> <span class="dlg-link-preview">“Craft Helmet: Change helmet appearance”</span> <small class="muted">(if <code>zep_cr_canch</code>)</small></li><li><a href="#r17">→ reply #17</a> <span class="dlg-link-preview">“Craft Robe: Change robe appearance.”</span> <small class="muted">(if <code>zep_cr_canca</code>)</small></li><li><a href="#r16">→ reply #16</a> <span class="dlg-link-preview">“Craft Armor: Not Possible -”</span> <small class="muted">(if <code>zep_cr_canca_n</code>)</small></li><li><a href="#r7">→ reply #7</a> <span class="dlg-link-preview">“Craft Weapon: Change weapon appearance.”</span> <small class="muted">(if <code>zep_cr_cancw</code>)</small></li><li><a href="#r2">→ reply #2</a> <span class="dlg-link-preview">“Craft Shield: Change shield appearance.”</span> <small class="muted">(if <code>zep_cr_cancs</code>)</small></li><li><a href="#r74">→ reply #74</a> <span class="dlg-link-preview">“Craft Cloak: Change cloak appearance or hide it.”</span> <small class="muted">(if <code>zep_cr_cancl</code>)</small></li><li><a href="#r1">→ reply #1</a> <span class="dlg-link-preview">“Craft Weapon: Not Possible -”</span> <small class="muted">(if <code>zep_cr_cancw_n</code>)</small></li><li><a href="#r75">→ reply #75</a> <span class="dlg-link-preview">“Craft Helmet: Not Possible -”</span> <small class="muted">(if <code>zep_cr_canch_n</code>)</small></li><li><a href="#r76">→ reply #76</a> <span class="dlg-link-preview">“Craft Shield: Not Possible -”</span> <small class="muted">(if <code>zep_cr_cancs_n</code>)</small></li><li><a href="#r77">→ reply #77</a> <span class="dlg-link-preview">“Craft Cloak: Not Possible -”</span> <small class="muted">(if <code>zep_cr_cancl_n</code>)</small></li></ul></div>
 <div class="dlg-node entry" id="e1"><div class="dlg-head"><span class="dlg-id">entry #1</span></div><div class="dlg-text">Currently adjusting &lt;StartAction&gt;&lt;CUSTOM20000&gt;&lt;/Start&gt;
 Current Cost: &lt;StartAction&gt;0&lt;/Start&gt; GP
 DC: &lt;StartAction&gt;0&lt;/Start&gt;</div><ul class="dlg-links"><li><a href="#r6">→ reply #6</a> <span class="dlg-link-preview">“Show next style”</span></li><li><a href="#r5">→ reply #5</a> <span class="dlg-link-preview">“Show previous style”</span></li><li><a href="#r4">→ reply #4</a> <span class="dlg-link-preview">“Show next color”</span> <small class="muted">(if <code>zep_always_false</code>)</small></li><li><a href="#r3">→ reply #3</a> <span class="dlg-link-preview">“Show previous color”</span> <small class="muted">(if <code>zep_always_false</code>)</small></li><li><a href="#r34">→ child</a> <span class="dlg-link-preview">“Make the changes”</span> <small class="muted">(if <code>zep_cr_changed</code>)</small></li><li><a href="#r33">→ child</a> <span class="dlg-link-preview">“Abort”</span></li></ul></div>
@@ -810,7 +826,10 @@ DC: &lt;StartAction&gt;0&lt;/Start&gt;</div><ul class="dlg-links"><li><a href="#
 <div class="dlg-node reply" id="r72"><div class="dlg-head"><span class="dlg-id">reply #72</span> <span class="dlg-action">→ <code>zep_cr_prevpart</code></span></div><div class="dlg-text">&lt;StartAction&gt;Show previous style&lt;/Start&gt;</div><ul class="dlg-links"><li><a href="#e13">→ child</a> <span class="dlg-link-preview">“Currently adjusting”</span></li></ul></div>
 <div class="dlg-node reply" id="r73"><div class="dlg-head"><span class="dlg-id">reply #73</span> <span class="dlg-action">→ <code>zep_cr_nextpart</code></span></div><div class="dlg-text">&lt;StartAction&gt;Show next style&lt;/Start&gt;</div><ul class="dlg-links"><li><a href="#e13">→ child</a> <span class="dlg-link-preview">“Currently adjusting”</span></li></ul></div>
 <div class="dlg-node reply" id="r74"><div class="dlg-head"><span class="dlg-id">reply #74</span> <span class="dlg-action">→ <code>zep_cr_start_cl</code></span></div><div class="dlg-text">&lt;StartAction&gt;Craft Cloak:&lt;/Start&gt; Change cloak appearance or hide it.</div><ul class="dlg-links"><li><a href="#e1">→ entry #1</a> <span class="dlg-link-preview">“Currently adjusting”</span></li></ul></div>
+<div class="dlg-node reply" id="r75"><div class="dlg-head"><span class="dlg-id">reply #75</span></div><div class="dlg-text">&lt;StartAction&gt;Craft Helmet:&lt;/Start&gt; &lt;StartCheck&gt;Not Possible&lt;/Start&gt; -  &lt;CUSTOM20006&gt;</div></div>
+<div class="dlg-node reply" id="r76"><div class="dlg-head"><span class="dlg-id">reply #76</span></div><div class="dlg-text">&lt;StartAction&gt;Craft Shield:&lt;/Start&gt; &lt;StartCheck&gt;Not Possible&lt;/Start&gt; -  &lt;CUSTOM20007&gt;</div></div>
+<div class="dlg-node reply" id="r77"><div class="dlg-head"><span class="dlg-id">reply #77</span></div><div class="dlg-text">&lt;StartAction&gt;Craft Cloak:&lt;/Start&gt; &lt;StartCheck&gt;Not Possible&lt;/Start&gt; -  &lt;CUSTOM20008&gt;</div></div>
   </main>
-  <footer>generated by <a href="https://github.com/mrprice22/nwn-manager">nwn-manager</a> &mdash; last updated May 21, 2026 23:37</footer>
+  <footer>generated by <a href="https://github.com/mrprice22/nwn-manager">nwn-manager</a> &mdash; last updated May 22, 2026 07:45</footer>
 </body>
 </html>
