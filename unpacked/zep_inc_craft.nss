@@ -481,7 +481,7 @@ void ZEP_StopCraft(object oPC, int nExecute) {
         AssignCommand(oPC, ActionEquipItem(oItem, INVENTORY_SLOT_HEAD));
     } else if (GetBaseItemType(oItem)==BASE_ITEM_CLOAK) {
         AssignCommand(oPC, ActionEquipItem(oItem, INVENTORY_SLOT_CLOAK));
-    } else if (ZEP_GetIsShield(oItem)) {
+    } else if (GetBaseItemType(oItem)==BASE_ITEM_SMALLSHIELD || GetBaseItemType(oItem)==BASE_ITEM_LARGESHIELD || GetBaseItemType(oItem)==BASE_ITEM_TOWERSHIELD) {
         AssignCommand(oPC, ActionEquipItem(oItem, INVENTORY_SLOT_LEFTHAND));
     } else if (GetLocalInt(oPC, "ZEP_CR_PART") == ZEP_CR_MISC) {
         AssignCommand(oPC, ActionEquipItem(oItem, INVENTORY_SLOT_LEFTHAND));
