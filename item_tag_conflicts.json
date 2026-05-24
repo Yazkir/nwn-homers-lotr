@@ -1,8 +1,8 @@
 {
-  "generated_at": "2026-05-24T10:11:35",
+  "generated_at": "2026-05-24T12:28:08",
   "module": "Legendary LotR",
-  "conflict_count": 136,
-  "summary": "136 item tag conflict(s) found across 416 item variants.",
+  "conflict_count": 217,
+  "summary": "217 item tag conflict(s) found across 614 item variants.",
   "conflicts": [
     {
       "shared_tag": "AdamantineChainmail",
@@ -389,6 +389,89 @@
       "recommendation": "Give each variant a unique tag (and consider a matching unique resref) so scripts, players, and the wiki can unambiguously identify each item."
     },
     {
+      "shared_tag": "Avenger",
+      "item_count": 2,
+      "variants": [
+        {
+          "resref": "avenger",
+          "name": "Avenger",
+          "base_item": "Greatsword",
+          "cost_gp": 6244130,
+          "wiki_url": "https://homers-lotr-wiki.jamesprice-slightlyepic.workers.dev/items/avenger.html",
+          "properties": [
+            "Damage Bonus Magical 8",
+            "Damage Bonus Negative 30",
+            "Enhancement Bonus +12",
+            "Visual Effect visualfx #6"
+          ],
+          "found_at": []
+        },
+        {
+          "resref": "avenger002",
+          "name": "Avenger",
+          "base_item": "Greatsword",
+          "cost_gp": 20808100,
+          "wiki_url": "https://homers-lotr-wiki.jamesprice-slightlyepic.workers.dev/items/avenger002.html",
+          "properties": [
+            "Attack Bonus +15",
+            "Damage Bonus Negative 9",
+            "Damage Bonus Positive 9",
+            "Damage Bonus Slashing 9",
+            "Enhancement Bonus +15",
+            "Keen",
+            "Massive Criticals 9",
+            "On Hit Properties Greater Dispelling DC 20",
+            "Visual Effect visualfx #6"
+          ],
+          "found_at": [
+            "Carried by: Heir of Haldor (Dimholt: The Forgotten King)"
+          ]
+        }
+      ],
+      "recommendation": "Give each variant a unique tag (and consider a matching unique resref) so scripts, players, and the wiki can unambiguously identify each item."
+    },
+    {
+      "shared_tag": "AxeoftheBrute",
+      "item_count": 2,
+      "variants": [
+        {
+          "resref": "axeofthebrute",
+          "name": "Axe of the Brute",
+          "base_item": "Greataxe",
+          "cost_gp": 37020,
+          "wiki_url": "https://homers-lotr-wiki.jamesprice-slightlyepic.workers.dev/items/axeofthebrute.html",
+          "properties": [
+            "Damage Bonus Fire 1",
+            "Enhancement Bonus +2",
+            "Keen"
+          ],
+          "found_at": [
+            "Sold at: cirithmerch (Orc Armory)",
+            "Carried by: Kelegost the Brute (Kallrist, Outer banks)"
+          ]
+        },
+        {
+          "resref": "axeofthebrute001",
+          "name": "Axe of the Gate",
+          "base_item": "Greataxe",
+          "cost_gp": 3057658,
+          "wiki_url": "https://homers-lotr-wiki.jamesprice-slightlyepic.workers.dev/items/axeofthebrute001.html",
+          "properties": [
+            "Attack Bonus +4",
+            "Damage Bonus Magical 1",
+            "Damage Bonus Negative 3",
+            "Damage Bonus Slashing 7",
+            "Enhancement Bonus +10",
+            "Keen"
+          ],
+          "found_at": [
+            "Carried by: Gate Axeman (Morannon - The Black Gate)"
+          ]
+        }
+      ],
+      "recommendation": "Give each variant a unique tag (and consider a matching unique resref) so scripts, players, and the wiki can unambiguously identify each item."
+    },
+    {
       "shared_tag": "AxeoftheOlogaiTroll",
       "item_count": 2,
       "variants": [
@@ -432,8 +515,31 @@
     },
     {
       "shared_tag": "BadBrains",
-      "item_count": 2,
+      "item_count": 3,
       "variants": [
+        {
+          "resref": "badbrains",
+          "name": "Bad Brains",
+          "base_item": "Whip",
+          "cost_gp": 5559326,
+          "wiki_url": "https://homers-lotr-wiki.jamesprice-slightlyepic.workers.dev/items/badbrains.html",
+          "properties": [
+            "Attack Bonus +10",
+            "Bonus Feat Disarm (Whip)",
+            "Damage Bonus Bludgeoning 7",
+            "Damage Bonus Magical 5",
+            "Damage Bonus Negative 5",
+            "Damage Bonus Piercing 7",
+            "Enhancement Bonus +6",
+            "Keen",
+            "Massive Criticals 7",
+            "On Hit Properties Disease DC 26",
+            "Visual Effect visualfx #6"
+          ],
+          "found_at": [
+            "Carried by: Dol Guldur Gate Keeper (Mirkwood: Dol Guldur)"
+          ]
+        },
         {
           "resref": "badbrains001",
           "name": "Bad Brains {EPIC}",
@@ -485,6 +591,83 @@
             "Skill Bonus Discipline +10"
           ],
           "found_at": []
+        }
+      ],
+      "recommendation": "Give each variant a unique tag (and consider a matching unique resref) so scripts, players, and the wiki can unambiguously identify each item."
+    },
+    {
+      "shared_tag": "BalrogSkin",
+      "item_count": 2,
+      "variants": [
+        {
+          "resref": "balrogskin",
+          "name": "Balrog Skin",
+          "base_item": "Armor",
+          "cost_gp": 2437412,
+          "wiki_url": "https://homers-lotr-wiki.jamesprice-slightlyepic.workers.dev/items/balrogskin.html",
+          "properties": [
+            "AC Bonus +10",
+            "Damage Resistance Cold 6",
+            "Damage Resistance Electrical 6",
+            "Damage Resistance Fire 6",
+            "Damage Resistance Sonic 6",
+            "Freedom of Movement",
+            "Haste",
+            "Skill Bonus Concentration +10",
+            "Skill Bonus Discipline +6",
+            "Skill Bonus Spot +10",
+            "Skill Bonus Taunt +10",
+            "Skill Bonus Use Magic Device +10"
+          ],
+          "found_at": [
+            "Carried by: Thragg, Gate Commander (Morannon - The Black Gate)",
+            "Carried by: The Balrog of Moria (The Abyss of Moria)",
+            "Carried by: The Balrog of Moria (Moria: The Balrog of Moria)"
+          ]
+        },
+        {
+          "resref": "crittablenpcs001",
+          "name": "Balrog Skin",
+          "base_item": "Creature Item",
+          "cost_gp": 32974023,
+          "wiki_url": "https://homers-lotr-wiki.jamesprice-slightlyepic.workers.dev/items/crittablenpcs001.html",
+          "properties": [
+            "Damage Reduction 4 15/+1",
+            "Damage Resistance Acid 10",
+            "Damage Resistance Bludgeoning 30/-",
+            "Damage Resistance Cold 6",
+            "Damage Resistance Electrical 7",
+            "Damage Resistance Fire 30/-",
+            "Damage Resistance Magical 10/-",
+            "Damage Resistance Negative 30/-",
+            "Damage Resistance Piercing 30/-",
+            "Damage Resistance Slashing 30/-",
+            "Damage Resistance Sonic 25/-",
+            "Freedom of Movement",
+            "Haste",
+            "Immunity: Damage Type Acid 20%",
+            "Immunity: Damage Type Bludgeoning 50%",
+            "Immunity: Damage Type Negative 10%",
+            "Immunity: Damage Type Piercing 25%",
+            "Immunity: Damage Type Slashing 50%",
+            "Immunity: Miscellaneous Critical Hits",
+            "Immunity: Miscellaneous Death Magic",
+            "Immunity: Miscellaneous Fear",
+            "Immunity: Miscellaneous Knockdown",
+            "Immunity: Miscellaneous Level/Ability Drain",
+            "Immunity: Miscellaneous Paralysis",
+            "Immunity: Miscellaneous Poison",
+            "Immunity: Specific Spell Circle of Doom",
+            "Immunity: Specific Spell Cure Moderate Wounds",
+            "Immunity: Specific Spell Delayed Blast Fireball",
+            "Immunity: Specific Spell Protection From Elements",
+            "Immunity: Specific Spell Resistance",
+            "Regeneration +10"
+          ],
+          "found_at": [
+            "Carried by: The Balrog of Moria (The Abyss of Moria)",
+            "Carried by: The Balrog of Moria (Moria: The Balrog of Moria)"
+          ]
         }
       ],
       "recommendation": "Give each variant a unique tag (and consider a matching unique resref) so scripts, players, and the wiki can unambiguously identify each item."
@@ -697,6 +880,319 @@
       "recommendation": "Give each variant a unique tag (and consider a matching unique resref) so scripts, players, and the wiki can unambiguously identify each item."
     },
     {
+      "shared_tag": "BeltofGreatness",
+      "item_count": 2,
+      "variants": [
+        {
+          "resref": "beltofgreatne002",
+          "name": "Belt of Greatness",
+          "base_item": "Belt",
+          "cost_gp": 1205826,
+          "wiki_url": "https://homers-lotr-wiki.jamesprice-slightlyepic.workers.dev/items/beltofgreatne002.html",
+          "properties": [
+            "Ability Bonus Charisma +4",
+            "Ability Bonus Constitution +4",
+            "Ability Bonus Dexterity +8",
+            "Ability Bonus Strength +8",
+            "Damage Resistance Acid 10/-",
+            "Damage Resistance Cold 10/-",
+            "Damage Resistance Divine 10/-",
+            "Damage Resistance Electrical 10/-",
+            "Damage Resistance Fire 10/-",
+            "Damage Resistance Negative 10/-",
+            "Damage Resistance Positive 10/-",
+            "Skill Bonus Concentration +10",
+            "Skill Bonus Spellcraft +10",
+            "Skill Bonus Spot +10"
+          ],
+          "found_at": [
+            "Carried by: The Rancid Skinner Green Mortal of Khamul (Dol Guldur:  Tower Of Black Magic Depths)"
+          ]
+        },
+        {
+          "resref": "beltofgreatness",
+          "name": "Belt of Greatness",
+          "base_item": "Belt",
+          "cost_gp": 3419911,
+          "wiki_url": "https://homers-lotr-wiki.jamesprice-slightlyepic.workers.dev/items/beltofgreatness.html",
+          "properties": [
+            "AC Bonus +5",
+            "Ability Bonus Charisma +5",
+            "Ability Bonus Constitution +5",
+            "Ability Bonus Dexterity +9",
+            "Ability Bonus Strength +9",
+            "Damage Resistance Divine 10/-",
+            "Damage Resistance Negative 10/-",
+            "Damage Resistance Positive 10/-",
+            "Haste",
+            "Skill Bonus Concentration +4",
+            "Skill Bonus Discipline +4",
+            "Skill Bonus Spellcraft +4",
+            "Skill Bonus Spot +4",
+            "Spell Resistance 28"
+          ],
+          "found_at": [
+            "Carried by: The Balrog of Moria (The Abyss of Moria)",
+            "Carried by: The Balrog of Moria (Moria: The Balrog of Moria)"
+          ]
+        }
+      ],
+      "recommendation": "Give each variant a unique tag (and consider a matching unique resref) so scripts, players, and the wiki can unambiguously identify each item."
+    },
+    {
+      "shared_tag": "BeltofPower",
+      "item_count": 2,
+      "variants": [
+        {
+          "resref": "beltofpower",
+          "name": "Belt of Power",
+          "base_item": "Belt",
+          "cost_gp": 43560,
+          "wiki_url": "https://homers-lotr-wiki.jamesprice-slightlyepic.workers.dev/items/beltofpower.html",
+          "properties": [
+            "Ability Bonus Strength +5",
+            "Base Item Weight Reduction 20% reduction",
+            "Base Item Weight Reduction 80% reduction"
+          ],
+          "found_at": []
+        },
+        {
+          "resref": "beltofpower002",
+          "name": "Belt of Power",
+          "base_item": "Belt",
+          "cost_gp": 1339560,
+          "wiki_url": "https://homers-lotr-wiki.jamesprice-slightlyepic.workers.dev/items/beltofpower002.html",
+          "properties": [
+            "Ability Bonus Strength +10",
+            "Base Item Weight Reduction 20% reduction",
+            "Base Item Weight Reduction 80% reduction"
+          ],
+          "found_at": []
+        }
+      ],
+      "recommendation": "Give each variant a unique tag (and consider a matching unique resref) so scripts, players, and the wiki can unambiguously identify each item."
+    },
+    {
+      "shared_tag": "BeltoftheTitans",
+      "item_count": 2,
+      "variants": [
+        {
+          "resref": "027",
+          "name": "Belt of the Dancer",
+          "base_item": "Belt",
+          "cost_gp": 240250,
+          "wiki_url": "https://homers-lotr-wiki.jamesprice-slightlyepic.workers.dev/items/027.html",
+          "properties": [
+            "Ability Bonus Dexterity +5",
+            "Bonus Feat Weapon Finesse",
+            "Haste",
+            "Skill Bonus Perform +15",
+            "Skill Bonus Tumble +15"
+          ],
+          "found_at": [
+            "Carried by: Jester (Helm's Deep: Keep)",
+            "Carried by: Kainna the War Dancer (Isengard (Innerrim))"
+          ]
+        },
+        {
+          "resref": "beltofthetitans",
+          "name": "Belt of the Titans",
+          "base_item": "Belt",
+          "cost_gp": 116641,
+          "wiki_url": "https://homers-lotr-wiki.jamesprice-slightlyepic.workers.dev/items/beltofthetitans.html",
+          "properties": [
+            "Ability Bonus Strength +9"
+          ],
+          "found_at": [
+            "Carried by: The Ice Queen (Ice Queen: Nest)",
+            "Carried by: Witch King Leader of The Nine (The Witch King's Throne)",
+            "Carried by: Marshall of the White Hand (Tower of Orthanc)"
+          ]
+        }
+      ],
+      "recommendation": "Give each variant a unique tag (and consider a matching unique resref) so scripts, players, and the wiki can unambiguously identify each item."
+    },
+    {
+      "shared_tag": "BladeofRoses",
+      "item_count": 4,
+      "variants": [
+        {
+          "resref": "bladeofroses",
+          "name": "Blade of Roses",
+          "base_item": "Longsword",
+          "cost_gp": 35730,
+          "wiki_url": "https://homers-lotr-wiki.jamesprice-slightlyepic.workers.dev/items/bladeofroses.html",
+          "properties": [
+            "Ability Bonus Charisma +2",
+            "Attack Bonus +2",
+            "Damage Bonus Slashing 2d10"
+          ],
+          "found_at": []
+        },
+        {
+          "resref": "ls_bladeofros002",
+          "name": "Blade of Roses +6",
+          "base_item": "Longsword",
+          "cost_gp": 1215274,
+          "wiki_url": "https://homers-lotr-wiki.jamesprice-slightlyepic.workers.dev/items/ls_bladeofros002.html",
+          "properties": [
+            "Ability Bonus Charisma +2",
+            "Attack Bonus +6",
+            "Enhancement Bonus +6",
+            "On Hit Cast Spell Tasha's Hideous Laughter Caster Level 9",
+            "On Hit Properties Confusion DC 24"
+          ],
+          "found_at": []
+        },
+        {
+          "resref": "ls_bladeofros003",
+          "name": "Blade of Roses +6",
+          "base_item": "Longsword",
+          "cost_gp": 1215274,
+          "wiki_url": "https://homers-lotr-wiki.jamesprice-slightlyepic.workers.dev/items/ls_bladeofros003.html",
+          "properties": [
+            "Ability Bonus Charisma +2",
+            "Attack Bonus +6",
+            "Enhancement Bonus +6",
+            "On Hit Cast Spell Tasha's Hideous Laughter Caster Level 9",
+            "On Hit Properties Confusion DC 24"
+          ],
+          "found_at": []
+        },
+        {
+          "resref": "ls_bladeofroses",
+          "name": "Blade of Roses +6",
+          "base_item": "Longsword",
+          "cost_gp": 1215274,
+          "wiki_url": "https://homers-lotr-wiki.jamesprice-slightlyepic.workers.dev/items/ls_bladeofroses.html",
+          "properties": [
+            "Ability Bonus Charisma +2",
+            "Attack Bonus +6",
+            "Enhancement Bonus +6",
+            "On Hit Cast Spell Tasha's Hideous Laughter Caster Level 9",
+            "On Hit Properties Confusion DC 24"
+          ],
+          "found_at": []
+        }
+      ],
+      "recommendation": "Give each variant a unique tag (and consider a matching unique resref) so scripts, players, and the wiki can unambiguously identify each item."
+    },
+    {
+      "shared_tag": "Bonebatbite",
+      "item_count": 2,
+      "variants": [
+        {
+          "resref": "bonebatbite",
+          "name": "Bonebat bite",
+          "base_item": "Creature Slash Piercing Weapon",
+          "cost_gp": 0,
+          "wiki_url": "https://homers-lotr-wiki.jamesprice-slightlyepic.workers.dev/items/bonebatbite.html",
+          "properties": [],
+          "found_at": []
+        },
+        {
+          "resref": "bonebatbite001",
+          "name": "Bonebat bite",
+          "base_item": "Creature Slash Weapon",
+          "cost_gp": 12500,
+          "wiki_url": "https://homers-lotr-wiki.jamesprice-slightlyepic.workers.dev/items/bonebatbite001.html",
+          "properties": [
+            "Monster Damage 2d6",
+            "On Hit Properties Hold DC 14"
+          ],
+          "found_at": []
+        }
+      ],
+      "recommendation": "Give each variant a unique tag (and consider a matching unique resref) so scripts, players, and the wiki can unambiguously identify each item."
+    },
+    {
+      "shared_tag": "BossRing",
+      "item_count": 2,
+      "variants": [
+        {
+          "resref": "bossring",
+          "name": "Boss Ring UNDROPABLE",
+          "base_item": "Ring",
+          "cost_gp": 70478127,
+          "wiki_url": "https://homers-lotr-wiki.jamesprice-slightlyepic.workers.dev/items/bossring.html",
+          "properties": [
+            "Freedom of Movement",
+            "Haste",
+            "Immunity: Damage Type Acid 25%",
+            "Immunity: Damage Type Bludgeoning 25%",
+            "Immunity: Damage Type Divine 25%",
+            "Immunity: Damage Type Negative 25%",
+            "Immunity: Damage Type Piercing 25%",
+            "Immunity: Damage Type Slashing 25%",
+            "Immunity: Miscellaneous Critical Hits",
+            "Immunity: Miscellaneous Death Magic",
+            "Immunity: Miscellaneous Mind-Affecting Spells",
+            "Immunity: Specific Spell Cure Moderate Wounds",
+            "Immunity: Specific Spell Delayed Blast Fireball",
+            "Immunity: Specific Spell Negative Energy Protection",
+            "Immunity: Specific Spell Prayer",
+            "Immunity: Specific Spell Prismatic Spray",
+            "Immunity: Specific Spell Protection From Elements",
+            "Immunity: Specific Spell Protection from Chaos",
+            "Regeneration +20",
+            "Skill Bonus Listen +50",
+            "Skill Bonus Spot +50"
+          ],
+          "found_at": [
+            "Carried by: Greater Black Numenorean Assassin (Angmar Dungeon)",
+            "Carried by: Denethor, Steward of Gondor (Minas Tirith: Keep)",
+            "Carried by: Jester (Helm's Deep: Keep)",
+            "Carried by: Eowyn the Shieldmaiden (Helm's Deep: Keep)",
+            "Carried by: Sauron The Abhorred (Mount Doom: Halls of Sauron )",
+            "Carried by: Numarok The Black Hand (Carn Dum: Numerok's Den)",
+            "Carried by: Barad Berserker (Barad-Dûr: City)",
+            "Carried by: Gothmog Lord of Barad-Dur (Barad-Dûr: Keep)",
+            "Carried by: Temple Mistress (Morannon - The Black Gate)",
+            "Carried by: Maggot Farmer (Bywater)",
+            "Carried by: Numanan Numerocks Second Hand (Carn Dum: City)",
+            "Carried by: The Mighty Smaug (The Ruins of Dale: Cavern)",
+            "Carried by: The Rancid Skinner Green Mortal of Khamul (Dol Guldur:  Tower Of Black Magic Depths)",
+            "Carried by: Sauron's Chosen Minion (Dol Guldur:  Tower Of Black Magic Depths)",
+            "Carried by: Sauron's Chosen Minion (Dol Guldur:  Tower Of Black Magic Main Hall)",
+            "Carried by: Elite Rohirrim Soldier (Edoras)",
+            "Carried by: Gwathdor Lord of the Dark Arts (Gwathdor:  Throne of the Lord)",
+            "Carried by: Gloin King Under the Mountain (Lonely Mountain: Main Hall)",
+            "Carried by: Boromir, Steward of Gondor (Minas Tirith: City)",
+            "Carried by: High Priest of Gondor (Minas Tirith: Temple)",
+            "Carried by: Gandalf the Gray (Hobbiton)",
+            "Carried by: Witch King Leader of The Nine (The Witch King's Throne)",
+            "Carried by: Legolas Greenleaf -  Silvan Prince of Mirkwood (Mirkwoods - Halls of Greenleafs)"
+          ]
+        },
+        {
+          "resref": "bossring001",
+          "name": "Boss Chosen UNDROPABLE",
+          "base_item": "Ring",
+          "cost_gp": 373806120,
+          "wiki_url": "https://homers-lotr-wiki.jamesprice-slightlyepic.workers.dev/items/bossring001.html",
+          "properties": [
+            "Freedom of Movement",
+            "Haste",
+            "Immunity: Damage Type Acid 75%",
+            "Immunity: Miscellaneous Critical Hits",
+            "Immunity: Miscellaneous Death Magic",
+            "Immunity: Miscellaneous Knockdown",
+            "Immunity: Miscellaneous Mind-Affecting Spells",
+            "Immunity: Specific Spell Cure Moderate Wounds",
+            "Immunity: Specific Spell Delayed Blast Fireball",
+            "Immunity: Specific Spell Negative Energy Protection",
+            "Immunity: Specific Spell Protection From Elements",
+            "Regeneration +20",
+            "True Seeing"
+          ],
+          "found_at": [
+            "Carried by: Theoden's Chosen (Helm's Deep: Cave)"
+          ]
+        }
+      ],
+      "recommendation": "Give each variant a unique tag (and consider a matching unique resref) so scripts, players, and the wiki can unambiguously identify each item."
+    },
+    {
       "shared_tag": "BracersoftheDwarvenProtector",
       "item_count": 3,
       "variants": [
@@ -848,8 +1344,50 @@
     },
     {
       "shared_tag": "celebornsgarb",
-      "item_count": 3,
+      "item_count": 4,
       "variants": [
+        {
+          "resref": "celebornsgarb",
+          "name": "Crittable guard skin",
+          "base_item": "Creature Item",
+          "cost_gp": 23537849,
+          "wiki_url": "https://homers-lotr-wiki.jamesprice-slightlyepic.workers.dev/items/celebornsgarb.html",
+          "properties": [
+            "Cast Spell Invisibility Purge 2/Day",
+            "Damage Reduction 4 15/+1",
+            "Damage Resistance Acid 10",
+            "Damage Resistance Bludgeoning 10/-",
+            "Damage Resistance Cold 10/-",
+            "Damage Resistance Divine 10/-",
+            "Damage Resistance Electrical 10/-",
+            "Damage Resistance Fire 20/-",
+            "Damage Resistance Magical 10/-",
+            "Damage Resistance Negative 15/-",
+            "Damage Resistance Piercing 10/-",
+            "Damage Resistance Positive 10/-",
+            "Damage Resistance Slashing 10/-",
+            "Damage Resistance Sonic 10/-",
+            "Haste",
+            "Immunity: Miscellaneous Disease",
+            "Immunity: Miscellaneous Fear",
+            "Immunity: Miscellaneous Paralysis",
+            "Immunity: Miscellaneous Poison",
+            "Light Bright",
+            "Regeneration +10",
+            "Skill Bonus Listen +50",
+            "Skill Bonus Spot +50",
+            "Spell Resistance 32"
+          ],
+          "found_at": [
+            "Carried by: Defender of The Deep (Helm's Deep)",
+            "Carried by: Galadhrim Shield Guardian (Lothlorien: Main)",
+            "Carried by: Galadhrim High Wizard (Lothlorien: Main)",
+            "Carried by: Nature's Defender (Mirkwood: Thranduil's Hall)",
+            "Carried by: Gondorian Guardsman (Minas Tirith: Watchman Defender's Head Quarters)",
+            "Carried by: Gondorian Bowman (Minas Tirith: Watchman Defender's Head Quarters)",
+            "Carried by: Mirkwood Forest Walker (Mirkwood: Forest of Greenleaves)"
+          ]
+        },
         {
           "resref": "celebornsgarb001",
           "name": "NPC garb *weak",
@@ -975,6 +1513,43 @@
       "recommendation": "Give each variant a unique tag (and consider a matching unique resref) so scripts, players, and the wiki can unambiguously identify each item."
     },
     {
+      "shared_tag": "Chainmail4",
+      "item_count": 2,
+      "variants": [
+        {
+          "resref": "chainmail004",
+          "name": "Chainmail +4",
+          "base_item": "Armor",
+          "cost_gp": 37025,
+          "wiki_url": "https://homers-lotr-wiki.jamesprice-slightlyepic.workers.dev/items/chainmail004.html",
+          "properties": [
+            "AC Bonus +2",
+            "AC Bonus vs. Damage Type Slashing +3",
+            "Base Item Weight Reduction 80% reduction",
+            "Damage Resistance Slashing 20/-",
+            "Damage Vulnerability Bludgeoning 25%",
+            "Decreased Skill Modifier Move Silently -2"
+          ],
+          "found_at": [
+            "Sold at: carndumsmith (Carn Dum: Smithy)",
+            "Sold at: NW_STORESPEC003 (The Smithy of Rivendell)"
+          ]
+        },
+        {
+          "resref": "chainmail4",
+          "name": "Chain Mail +4",
+          "base_item": "Armor",
+          "cost_gp": 12470,
+          "wiki_url": "https://homers-lotr-wiki.jamesprice-slightlyepic.workers.dev/items/chainmail4.html",
+          "properties": [
+            "AC Bonus +4"
+          ],
+          "found_at": []
+        }
+      ],
+      "recommendation": "Give each variant a unique tag (and consider a matching unique resref) so scripts, players, and the wiki can unambiguously identify each item."
+    },
+    {
       "shared_tag": "Chainshirt4",
       "item_count": 2,
       "variants": [
@@ -1008,6 +1583,91 @@
             "Sold at: minordawrv (Lake Town: The Tips Slant Tavern)",
             "Sold at: NW_STORESPEC003 (The Smithy of Rivendell)"
           ]
+        }
+      ],
+      "recommendation": "Give each variant a unique tag (and consider a matching unique resref) so scripts, players, and the wiki can unambiguously identify each item."
+    },
+    {
+      "shared_tag": "CheftansArmor",
+      "item_count": 2,
+      "variants": [
+        {
+          "resref": "cheftansarmor",
+          "name": "Cheftan's Armor",
+          "base_item": "Armor",
+          "cost_gp": 7412,
+          "wiki_url": "https://homers-lotr-wiki.jamesprice-slightlyepic.workers.dev/items/cheftansarmor.html",
+          "properties": [
+            "AC Bonus +3"
+          ],
+          "found_at": []
+        },
+        {
+          "resref": "cheftansarmor001",
+          "name": "Chupas Armor",
+          "base_item": "Armor",
+          "cost_gp": 119628,
+          "wiki_url": "https://homers-lotr-wiki.jamesprice-slightlyepic.workers.dev/items/cheftansarmor001.html",
+          "properties": [
+            "AC Bonus +5",
+            "Bonus Feat Ambidexterity",
+            "Bonus Feat Two-Weapon Fighting",
+            "Haste"
+          ],
+          "found_at": [
+            "Sold at: NW_STORETMPLE002 (Temple of Illuvatar)"
+          ]
+        }
+      ],
+      "recommendation": "Give each variant a unique tag (and consider a matching unique resref) so scripts, players, and the wiki can unambiguously identify each item."
+    },
+    {
+      "shared_tag": "chosenfist",
+      "item_count": 2,
+      "variants": [
+        {
+          "resref": "chosenfist",
+          "name": "chosen fist",
+          "base_item": "Creature Pierce Weapon",
+          "cost_gp": 57248820,
+          "wiki_url": "https://homers-lotr-wiki.jamesprice-slightlyepic.workers.dev/items/chosenfist.html",
+          "properties": [
+            "Attack Bonus +20",
+            "Damage Bonus Acid 28",
+            "Damage Bonus Bludgeoning 28",
+            "Damage Bonus Negative 28",
+            "Damage Bonus Piercing 9",
+            "Enhancement Bonus +20",
+            "Keen",
+            "Massive Criticals 30",
+            "Monster Damage 4d8",
+            "On Monster Hit Slow",
+            "Regeneration: Vampiric +10"
+          ],
+          "found_at": [
+            "Carried by: Theoden's Chosen (Helm's Deep: Cave)",
+            "Carried by: Bishop of Sauron (Mount Doom: Halls of Sauron )"
+          ]
+        },
+        {
+          "resref": "chosenfist001",
+          "name": "Pet Rock",
+          "base_item": "Creature Pierce Weapon",
+          "cost_gp": 48166320,
+          "wiki_url": "https://homers-lotr-wiki.jamesprice-slightlyepic.workers.dev/items/chosenfist001.html",
+          "properties": [
+            "Attack Bonus +20",
+            "Damage Bonus Bludgeoning 30",
+            "Damage Bonus Piercing 9",
+            "Enhancement Bonus +20",
+            "Keen",
+            "Massive Criticals 30",
+            "Monster Damage 57",
+            "On Hit Properties Stun DC 26",
+            "On Monster Hit Knock",
+            "Regeneration: Vampiric +10"
+          ],
+          "found_at": []
         }
       ],
       "recommendation": "Give each variant a unique tag (and consider a matching unique resref) so scripts, players, and the wiki can unambiguously identify each item."
@@ -1047,6 +1707,41 @@
           ],
           "found_at": [
             "Carried by: Shelob (Shelob's Lair)"
+          ]
+        }
+      ],
+      "recommendation": "Give each variant a unique tag (and consider a matching unique resref) so scripts, players, and the wiki can unambiguously identify each item."
+    },
+    {
+      "shared_tag": "CloakofDarkness",
+      "item_count": 2,
+      "variants": [
+        {
+          "resref": "cloakofdarkne002",
+          "name": "Cloak of Darkness",
+          "base_item": "Cloak",
+          "cost_gp": 13501,
+          "wiki_url": "https://homers-lotr-wiki.jamesprice-slightlyepic.workers.dev/items/cloakofdarkne002.html",
+          "properties": [
+            "Cast Spell Darkness 6/Day"
+          ],
+          "found_at": []
+        },
+        {
+          "resref": "cloakofdarkness",
+          "name": "Cloak of Pale Darkness",
+          "base_item": "Cloak",
+          "cost_gp": 354758,
+          "wiki_url": "https://homers-lotr-wiki.jamesprice-slightlyepic.workers.dev/items/cloakofdarkness.html",
+          "properties": [
+            "AC Bonus +6",
+            "Freedom of Movement",
+            "Immunity: Specific Spell Flame Arrow",
+            "Light Normal",
+            "Saving Throw Bonus: Specific Reflex +5"
+          ],
+          "found_at": [
+            "Carried by: High Priest of Morannon (The Temple of Morannon)"
           ]
         }
       ],
@@ -1151,8 +1846,26 @@
     },
     {
       "shared_tag": "CrownofGondor",
-      "item_count": 2,
+      "item_count": 3,
       "variants": [
+        {
+          "resref": "crownofgondor",
+          "name": "Crown of Gondor",
+          "base_item": "Helmet",
+          "cost_gp": 553165,
+          "wiki_url": "https://homers-lotr-wiki.jamesprice-slightlyepic.workers.dev/items/crownofgondor.html",
+          "properties": [
+            "AC Bonus +7",
+            "Cast Spell Death Ward 1/Day",
+            "Immunity: Damage Type Bludgeoning 20%",
+            "Immunity: Damage Type Piercing 20%",
+            "Immunity: Damage Type Slashing 20%",
+            "Immunity: Miscellaneous Mind-Affecting Spells"
+          ],
+          "found_at": [
+            "Carried by: Denethor, Steward of Gondor (Minas Tirith: Keep)"
+          ]
+        },
         {
           "resref": "crownofgondor002",
           "name": "Crown of Gondor",
@@ -1254,7 +1967,7 @@
     },
     {
       "shared_tag": "CursedGuantlets",
-      "item_count": 2,
+      "item_count": 3,
       "variants": [
         {
           "resref": "cursedguantle002",
@@ -1293,14 +2006,178 @@
             "Darkvision"
           ],
           "found_at": []
+        },
+        {
+          "resref": "cursedguantlets",
+          "name": "Cursed Guantlets",
+          "base_item": "Gauntlet",
+          "cost_gp": 1823291,
+          "wiki_url": "https://homers-lotr-wiki.jamesprice-slightlyepic.workers.dev/items/cursedguantlets.html",
+          "properties": [
+            "Attack Bonus +10",
+            "Damage Bonus Acid 5",
+            "Damage Bonus Bludgeoning 7",
+            "Damage Bonus Cold 3",
+            "Damage Bonus Negative 30",
+            "Darkvision"
+          ],
+          "found_at": []
+        }
+      ],
+      "recommendation": "Give each variant a unique tag (and consider a matching unique resref) so scripts, players, and the wiki can unambiguously identify each item."
+    },
+    {
+      "shared_tag": "CursedOnesHelm",
+      "item_count": 2,
+      "variants": [
+        {
+          "resref": "cursedoneshel002",
+          "name": "Cursed Ones Helm",
+          "base_item": "Helmet",
+          "cost_gp": 3258890,
+          "wiki_url": "https://homers-lotr-wiki.jamesprice-slightlyepic.workers.dev/items/cursedoneshel002.html",
+          "properties": [
+            "AC Bonus +10",
+            "Ability Bonus Strength +10",
+            "Ability Bonus Wisdom +10",
+            "Cast Spell True Seeing 2/Day",
+            "Immunity: Damage Type Piercing 20%",
+            "Immunity: Damage Type Slashing 20%",
+            "Skill Bonus Discipline +7",
+            "Skill Bonus Listen +7",
+            "Skill Bonus Spot +7"
+          ],
+          "found_at": [
+            "Carried by: Heir of Haldor (Dimholt: The Forgotten King)"
+          ]
+        },
+        {
+          "resref": "cursedoneshelm",
+          "name": "Cursed Ones Helm",
+          "base_item": "Helmet",
+          "cost_gp": 370372,
+          "wiki_url": "https://homers-lotr-wiki.jamesprice-slightlyepic.workers.dev/items/cursedoneshelm.html",
+          "properties": [
+            "AC Bonus +3",
+            "Ability Bonus Strength +5",
+            "Ability Bonus Wisdom +4",
+            "Darkvision",
+            "Light Bright",
+            "Regeneration +1",
+            "Saving Throw Bonus: Specific Will +4"
+          ],
+          "found_at": []
+        }
+      ],
+      "recommendation": "Give each variant a unique tag (and consider a matching unique resref) so scripts, players, and the wiki can unambiguously identify each item."
+    },
+    {
+      "shared_tag": "CursedPlate",
+      "item_count": 2,
+      "variants": [
+        {
+          "resref": "cursedplate",
+          "name": "Cursed Plate",
+          "base_item": "Armor",
+          "cost_gp": 3241955,
+          "wiki_url": "https://homers-lotr-wiki.jamesprice-slightlyepic.workers.dev/items/cursedplate.html",
+          "properties": [
+            "AC Bonus +10",
+            "Ability Bonus Constitution +3",
+            "Ability Bonus Strength +3",
+            "Immunity: Damage Type Bludgeoning 20%",
+            "Immunity: Damage Type Piercing 25%",
+            "Immunity: Damage Type Slashing 50%",
+            "Immunity: Miscellaneous Disease",
+            "Regeneration +5"
+          ],
+          "found_at": []
+        },
+        {
+          "resref": "cursedplate002",
+          "name": "Cursed Plate",
+          "base_item": "Armor",
+          "cost_gp": 8687740,
+          "wiki_url": "https://homers-lotr-wiki.jamesprice-slightlyepic.workers.dev/items/cursedplate002.html",
+          "properties": [
+            "AC Bonus +10",
+            "Ability Bonus Strength +10",
+            "Damage Reduction 9 5/+3",
+            "Haste",
+            "Saving Throw Bonus: Specific Fortitude +8",
+            "Saving Throw Bonus: Specific Reflex +10",
+            "Saving Throw Bonus: Specific Will +8"
+          ],
+          "found_at": [
+            "Carried by: Heir of Haldor (Dimholt: The Forgotten King)"
+          ]
+        }
+      ],
+      "recommendation": "Give each variant a unique tag (and consider a matching unique resref) so scripts, players, and the wiki can unambiguously identify each item."
+    },
+    {
+      "shared_tag": "DaggerofVenom",
+      "item_count": 2,
+      "variants": [
+        {
+          "resref": "daggerofvenom",
+          "name": "Dagger of Venom",
+          "base_item": "Dagger",
+          "cost_gp": 16824,
+          "wiki_url": "https://homers-lotr-wiki.jamesprice-slightlyepic.workers.dev/items/daggerofvenom.html",
+          "properties": [
+            "Enhancement Bonus +1",
+            "On Hit Properties Poison DC 14"
+          ],
+          "found_at": [
+            "Sold at: NW_STORETHIEF002q (Carn Dum: Temple)"
+          ]
+        },
+        {
+          "resref": "daggerofvenom002",
+          "name": "Dagger of Venom",
+          "base_item": "Dagger",
+          "cost_gp": 729624,
+          "wiki_url": "https://homers-lotr-wiki.jamesprice-slightlyepic.workers.dev/items/daggerofvenom002.html",
+          "properties": [
+            "Attack Bonus +3",
+            "Damage Bonus Acid 5",
+            "Damage Bonus Piercing 5",
+            "Enhancement Bonus +6",
+            "Extra Melee Damage Type Piercing",
+            "On Hit Properties Poison DC 14"
+          ],
+          "found_at": [
+            "Carried by: Shelob (Shelob's Lair)"
+          ]
         }
       ],
       "recommendation": "Give each variant a unique tag (and consider a matching unique resref) so scripts, players, and the wiki can unambiguously identify each item."
     },
     {
       "shared_tag": "Darkshot",
-      "item_count": 2,
+      "item_count": 3,
       "variants": [
+        {
+          "resref": "darkshot",
+          "name": "Darkshot",
+          "base_item": "Longbow",
+          "cost_gp": 5681396,
+          "wiki_url": "https://homers-lotr-wiki.jamesprice-slightlyepic.workers.dev/items/darkshot.html",
+          "properties": [
+            "Attack Bonus +16",
+            "Bonus Feat Sneak Attack (+1d6)",
+            "Extra Ranged Damage Type Bludgeoning",
+            "Immunity: Miscellaneous Sneak Attack",
+            "Massive Criticals 7",
+            "Mighty +10",
+            "Saving Throw Bonus: Specific Will +1",
+            "Skill Bonus Hide +10",
+            "Skill Bonus Pick Pocket +20",
+            "Skill Bonus Spot +20"
+          ],
+          "found_at": []
+        },
         {
           "resref": "darkshot001",
           "name": "Darkshot",
@@ -1335,6 +2212,237 @@
             "Skill Bonus Spot +20"
           ],
           "found_at": []
+        }
+      ],
+      "recommendation": "Give each variant a unique tag (and consider a matching unique resref) so scripts, players, and the wiki can unambiguously identify each item."
+    },
+    {
+      "shared_tag": "DarkStoneHammer",
+      "item_count": 2,
+      "variants": [
+        {
+          "resref": "darkstonehamm002",
+          "name": "Dark Stone Hammer",
+          "base_item": "Warhammer",
+          "cost_gp": 7812524,
+          "wiki_url": "https://homers-lotr-wiki.jamesprice-slightlyepic.workers.dev/items/darkstonehamm002.html",
+          "properties": [
+            "Attack Bonus +9",
+            "Damage Bonus Bludgeoning 9",
+            "Damage Bonus Fire 9",
+            "Damage Bonus vs. Alignment Group Good 8",
+            "Enhancement Bonus +10",
+            "Extra Melee Damage Type Bludgeoning",
+            "Keen",
+            "Massive Criticals 9",
+            "On Hit Properties Disease DC 24",
+            "Visual Effect visualfx #5"
+          ],
+          "found_at": [
+            "Carried by: Gwathdor Minitaour (Gwathdor:  Tomb)"
+          ]
+        },
+        {
+          "resref": "darkstonehammer",
+          "name": "Dark Stone Hammer",
+          "base_item": "Warhammer",
+          "cost_gp": 828268,
+          "wiki_url": "https://homers-lotr-wiki.jamesprice-slightlyepic.workers.dev/items/darkstonehammer.html",
+          "properties": [
+            "Attack Bonus +6",
+            "Damage Bonus Bludgeoning 5",
+            "Damage Bonus Fire 5",
+            "Keen",
+            "On Hit Properties Disease DC 24",
+            "Regeneration: Vampiric +3"
+          ],
+          "found_at": [
+            "Carried by: Strong Minitaour (Gwathdor:  Cave)"
+          ]
+        }
+      ],
+      "recommendation": "Give each variant a unique tag (and consider a matching unique resref) so scripts, players, and the wiki can unambiguously identify each item."
+    },
+    {
+      "shared_tag": "DawnStar",
+      "item_count": 2,
+      "variants": [
+        {
+          "resref": "dawnstar",
+          "name": "Dawn Star",
+          "base_item": "Bastard Sword",
+          "cost_gp": 115210,
+          "wiki_url": "https://homers-lotr-wiki.jamesprice-slightlyepic.workers.dev/items/dawnstar.html",
+          "properties": [
+            "Damage Bonus Acid 1d6",
+            "Damage Bonus Cold 1d6",
+            "Enhancement Bonus +5",
+            "Keen",
+            "Massive Criticals 4"
+          ],
+          "found_at": []
+        },
+        {
+          "resref": "dawnstar002",
+          "name": "Dawn Star",
+          "base_item": "Bastard Sword",
+          "cost_gp": 3522076,
+          "wiki_url": "https://homers-lotr-wiki.jamesprice-slightlyepic.workers.dev/items/dawnstar002.html",
+          "properties": [
+            "Attack Bonus +6",
+            "Cast Spell Deafening Clang 1/Day",
+            "Damage Bonus Electrical 5",
+            "Damage Bonus Slashing 5",
+            "Damage Bonus Sonic 5",
+            "Enhancement Bonus +10",
+            "Keen",
+            "Massive Criticals 5",
+            "Visual Effect visualfx #5"
+          ],
+          "found_at": [
+            "Carried by: Kerufall (Kerufall's Lair)"
+          ]
+        }
+      ],
+      "recommendation": "Give each variant a unique tag (and consider a matching unique resref) so scripts, players, and the wiki can unambiguously identify each item."
+    },
+    {
+      "shared_tag": "DeadlyWhisper",
+      "item_count": 2,
+      "variants": [
+        {
+          "resref": "deadlywhisper",
+          "name": "Deadly Whisper",
+          "base_item": "Rapier",
+          "cost_gp": 5578360,
+          "wiki_url": "https://homers-lotr-wiki.jamesprice-slightlyepic.workers.dev/items/deadlywhisper.html",
+          "properties": [
+            "Attack Bonus +6",
+            "Damage Bonus Piercing 7",
+            "Damage Bonus Sonic 7",
+            "Enhancement Bonus +12",
+            "Keen",
+            "Massive Criticals 7",
+            "Visual Effect visualfx #5"
+          ],
+          "found_at": []
+        },
+        {
+          "resref": "deadlywhisper001",
+          "name": "Deadly Whisper",
+          "base_item": "Shortbow",
+          "cost_gp": 907438,
+          "wiki_url": "https://homers-lotr-wiki.jamesprice-slightlyepic.workers.dev/items/deadlywhisper001.html",
+          "properties": [
+            "Ability Bonus Constitution +2",
+            "Ability Bonus Dexterity +2",
+            "Attack Bonus +7",
+            "Extra Ranged Damage Type Piercing",
+            "Mighty +14"
+          ],
+          "found_at": [
+            "Carried by: Guardian of Henneth (Henneth Annun)"
+          ]
+        }
+      ],
+      "recommendation": "Give each variant a unique tag (and consider a matching unique resref) so scripts, players, and the wiki can unambiguously identify each item."
+    },
+    {
+      "shared_tag": "DenethorsPlate",
+      "item_count": 2,
+      "variants": [
+        {
+          "resref": "denethorsplat001",
+          "name": "Denethors Plate",
+          "base_item": "Armor",
+          "cost_gp": 745977705,
+          "wiki_url": "https://homers-lotr-wiki.jamesprice-slightlyepic.workers.dev/items/denethorsplat001.html",
+          "properties": [
+            "AC Bonus +20",
+            "Ability Bonus Charisma +12",
+            "Ability Bonus Constitution +12",
+            "Ability Bonus Dexterity +12",
+            "Ability Bonus Intelligence +12",
+            "Ability Bonus Strength +12",
+            "Ability Bonus Wisdom +12",
+            "Base Item Weight Reduction 10% reduction",
+            "Bonus Feat Ambidexterity",
+            "Bonus Feat Cleave",
+            "Bonus Feat Disarm",
+            "Bonus Feat Dodge",
+            "Bonus Feat Improved Critical (unarmed strike)",
+            "Bonus Feat Knockdown",
+            "Bonus Feat Mobility",
+            "Bonus Feat Power Attack",
+            "Bonus Feat Sneak Attack (+5d6)",
+            "Bonus Feat Weapon Finesse",
+            "Damage Resistance Acid 10",
+            "Damage Resistance Bludgeoning 10",
+            "Damage Resistance Cold 10",
+            "Damage Resistance Divine 10",
+            "Damage Resistance Electrical 10",
+            "Damage Resistance Fire 10",
+            "Damage Resistance Magical 10",
+            "Damage Resistance Negative 10",
+            "Damage Resistance Piercing 10",
+            "Damage Resistance Positive 10",
+            "Damage Resistance Slashing 10",
+            "Damage Resistance Sonic 10",
+            "Darkvision",
+            "Freedom of Movement",
+            "Haste",
+            "Immunity: Damage Type Acid 100%",
+            "Immunity: Damage Type Bludgeoning 100%",
+            "Immunity: Damage Type Cold 100%",
+            "Immunity: Damage Type Divine 100%",
+            "Immunity: Damage Type Electrical 100%",
+            "Immunity: Damage Type Fire 100%",
+            "Immunity: Damage Type Magical 100%",
+            "Immunity: Damage Type Negative 100%",
+            "Immunity: Damage Type Piercing 100%",
+            "Immunity: Damage Type Positive 100%",
+            "Immunity: Damage Type Slashing 100%",
+            "Immunity: Damage Type Sonic 100%",
+            "Immunity: Miscellaneous Critical Hits",
+            "Immunity: Miscellaneous Death Magic",
+            "Immunity: Miscellaneous Disease",
+            "Immunity: Miscellaneous Fear",
+            "Immunity: Miscellaneous Knockdown",
+            "Immunity: Miscellaneous Level/Ability Drain",
+            "Immunity: Miscellaneous Mind-Affecting Spells",
+            "Immunity: Miscellaneous Paralysis",
+            "Immunity: Miscellaneous Poison",
+            "Immunity: Miscellaneous Sneak Attack",
+            "Immunity: Spells by Level 9",
+            "Improved Evasion",
+            "Light Bright",
+            "Regeneration +20",
+            "Saving Throw Bonus: Specific Fortitude +20",
+            "Saving Throw Bonus: Specific Reflex +20",
+            "Saving Throw Bonus: Specific Will +20",
+            "Skill Bonus Open Lock +50",
+            "Skill Bonus Tumble +50",
+            "Spell Resistance 32",
+            "True Seeing"
+          ],
+          "found_at": []
+        },
+        {
+          "resref": "denethorsplate",
+          "name": "Denethors Plate",
+          "base_item": "Armor",
+          "cost_gp": 2176322,
+          "wiki_url": "https://homers-lotr-wiki.jamesprice-slightlyepic.workers.dev/items/denethorsplate.html",
+          "properties": [
+            "AC Bonus +10",
+            "Damage Reduction 9 5/+3",
+            "Immunity: Miscellaneous Knockdown",
+            "Immunity: Miscellaneous Mind-Affecting Spells",
+            "Light Low"
+          ],
+          "found_at": [
+            "Carried by: Denethor, Steward of Gondor (Minas Tirith: Keep)"
+          ]
         }
       ],
       "recommendation": "Give each variant a unique tag (and consider a matching unique resref) so scripts, players, and the wiki can unambiguously identify each item."
@@ -1507,9 +2615,18 @@
       "recommendation": "Give each variant a unique tag (and consider a matching unique resref) so scripts, players, and the wiki can unambiguously identify each item."
     },
     {
-      "shared_tag": "DyeKit",
-      "item_count": 2,
+      "shared_tag": "Dyekit",
+      "item_count": 3,
       "variants": [
+        {
+          "resref": "dyekit",
+          "name": "Dye kit",
+          "base_item": "Miscellaneous Small",
+          "cost_gp": 0,
+          "wiki_url": "https://homers-lotr-wiki.jamesprice-slightlyepic.workers.dev/items/dyekit.html",
+          "properties": [],
+          "found_at": []
+        },
         {
           "resref": "dyekit001",
           "name": "Dye Kit",
@@ -1730,6 +2847,53 @@
       "recommendation": "Give each variant a unique tag (and consider a matching unique resref) so scripts, players, and the wiki can unambiguously identify each item."
     },
     {
+      "shared_tag": "EpicRing",
+      "item_count": 2,
+      "variants": [
+        {
+          "resref": "dontdropbossring",
+          "name": "Gandalf's Epic Ring",
+          "base_item": "Ring",
+          "cost_gp": 15582153,
+          "wiki_url": "https://homers-lotr-wiki.jamesprice-slightlyepic.workers.dev/items/dontdropbossring.html",
+          "properties": [
+            "Haste",
+            "Immunity: Damage Type Acid 100%",
+            "Immunity: Damage Type Magical 20%",
+            "Immunity: Damage Type Positive 75%",
+            "Immunity: Miscellaneous Critical Hits",
+            "Immunity: Miscellaneous Death Magic",
+            "Immunity: Miscellaneous Mind-Affecting Spells",
+            "Immunity: Specific Spell Bless Weapon",
+            "Immunity: Specific Spell Circle of Doom",
+            "Immunity: Specific Spell Protection From Elements",
+            "Immunity: Spells by Level 6th level and below",
+            "Regeneration +10",
+            "Spell Resistance 10"
+          ],
+          "found_at": [
+            "Carried by: Galadhrim Arcane Archer (Lothlorien: Main)",
+            "Carried by: Mashano, Messenger To The Witch King (House of Nazgûl)",
+            "Carried by: Gandalf the Gray (Hobbiton)",
+            "Carried by: Sarumon's Personal Guard (The Dimrill Stair)"
+          ]
+        },
+        {
+          "resref": "epicring",
+          "name": "Epic Ring",
+          "base_item": "Ring",
+          "cost_gp": 227813,
+          "wiki_url": "https://homers-lotr-wiki.jamesprice-slightlyepic.workers.dev/items/epicring.html",
+          "properties": [
+            "Immunity: Miscellaneous Critical Hits",
+            "Immunity: Miscellaneous Death Magic"
+          ],
+          "found_at": []
+        }
+      ],
+      "recommendation": "Give each variant a unique tag (and consider a matching unique resref) so scripts, players, and the wiki can unambiguously identify each item."
+    },
+    {
       "shared_tag": "FeyRihalfdragonSkin",
       "item_count": 2,
       "variants": [
@@ -1782,9 +2946,121 @@
       "recommendation": "Give each variant a unique tag (and consider a matching unique resref) so scripts, players, and the wiki can unambiguously identify each item."
     },
     {
-      "shared_tag": "GaladhrimHelm",
-      "item_count": 3,
+      "shared_tag": "FrostBite",
+      "item_count": 2,
       "variants": [
+        {
+          "resref": "frostbite",
+          "name": "Frost Bite",
+          "base_item": "Kukri",
+          "cost_gp": 8368960,
+          "wiki_url": "https://homers-lotr-wiki.jamesprice-slightlyepic.workers.dev/items/frostbite.html",
+          "properties": [
+            "Attack Bonus +7",
+            "Bonus Feat Ambidexterity",
+            "Damage Bonus Cold 5",
+            "Damage Bonus Electrical 5",
+            "Damage Bonus Piercing 5",
+            "Enhancement Bonus +16",
+            "Keen",
+            "Massive Criticals 5"
+          ],
+          "found_at": [
+            "Carried by: Frost (Emyn Arnen: Peak)"
+          ]
+        },
+        {
+          "resref": "frostbite001",
+          "name": "Frostbite",
+          "base_item": "Creature Pierce Weapon",
+          "cost_gp": 29926808,
+          "wiki_url": "https://homers-lotr-wiki.jamesprice-slightlyepic.workers.dev/items/frostbite001.html",
+          "properties": [
+            "Attack Bonus +20",
+            "Damage Bonus Cold 30",
+            "Damage Bonus Piercing 9",
+            "Damage Bonus vs. Alignment Group Chaotic 9",
+            "Damage Bonus vs. Alignment Group Evil 9",
+            "Damage Bonus vs. Alignment Group Good 9",
+            "Damage Bonus vs. Alignment Group Lawful 9",
+            "Damage Bonus vs. Alignment Group Neutral 9",
+            "Enhancement Bonus +14",
+            "Keen",
+            "Monster Damage 4d8",
+            "On Hit Cast Spell Quillfire Caster Level 2",
+            "On Monster Hit Slow"
+          ],
+          "found_at": []
+        }
+      ],
+      "recommendation": "Give each variant a unique tag (and consider a matching unique resref) so scripts, players, and the wiki can unambiguously identify each item."
+    },
+    {
+      "shared_tag": "FullPlate4",
+      "item_count": 2,
+      "variants": [
+        {
+          "resref": "fullplate005",
+          "name": "Plate of the Dwarven Cleric",
+          "base_item": "Armor",
+          "cost_gp": 53124,
+          "wiki_url": "https://homers-lotr-wiki.jamesprice-slightlyepic.workers.dev/items/fullplate005.html",
+          "properties": [
+            "AC Bonus +5",
+            "Damage Resistance Cold 15/-",
+            "Damage Resistance Electrical 15/-",
+            "Damage Resistance Fire 15/-",
+            "Damage Resistance Sonic 15/-",
+            "Decreased Skill Modifier Hide -4",
+            "Decreased Skill Modifier Move Silently -4"
+          ],
+          "found_at": [
+            "Sold at: lonemerchant (Temple of Marr)",
+            "Carried by: Dellinth the Advocet (The Halls of Truth)",
+            "Carried by: A Dwarf Ajudicator (The Halls of Truth)",
+            "Carried by: A Dwarf Ajudicator (Lonely Mountain: Main Hall)",
+            "Carried by: Fifur the Craftsman (Temple of Marr)",
+            "Carried by: A Dwarf Ajudicator (Temple of Marr)"
+          ]
+        },
+        {
+          "resref": "fullplate4",
+          "name": "Full Plate +4",
+          "base_item": "Armor",
+          "cost_gp": 13820,
+          "wiki_url": "https://homers-lotr-wiki.jamesprice-slightlyepic.workers.dev/items/fullplate4.html",
+          "properties": [
+            "AC Bonus +4"
+          ],
+          "found_at": [
+            "Sold at: cirithmerch (Orc Armory)",
+            "Sold at: NW_STORESPEC003 (The Smithy of Rivendell)"
+          ]
+        }
+      ],
+      "recommendation": "Give each variant a unique tag (and consider a matching unique resref) so scripts, players, and the wiki can unambiguously identify each item."
+    },
+    {
+      "shared_tag": "GaladhrimHelm",
+      "item_count": 4,
+      "variants": [
+        {
+          "resref": "galadhrimhelm",
+          "name": "Galadhrim Wizards Helm",
+          "base_item": "Helmet",
+          "cost_gp": 1199586,
+          "wiki_url": "https://homers-lotr-wiki.jamesprice-slightlyepic.workers.dev/items/galadhrimhelm.html",
+          "properties": [
+            "Ability Bonus Constitution +4",
+            "Ability Bonus Intelligence +4",
+            "Bonus Spell Slot of Level N Wizard Level 8",
+            "Bonus Spell Slot of Level N Wizard Level 9",
+            "Regeneration +3",
+            "Saving Throw Bonus Universal +5",
+            "Skill Bonus Concentration +3"
+          ],
+          "found_at": []
+        },
         {
           "resref": "galadhrimhelm001",
           "name": "Galadhrim Monk Helm ",
@@ -1849,7 +3125,7 @@
     },
     {
       "shared_tag": "Galadhrimrobes",
-      "item_count": 2,
+      "item_count": 3,
       "variants": [
         {
           "resref": "galadhrimrobe001",
@@ -1882,6 +3158,32 @@
             "Damage Resistance Slashing 25/-",
             "Damage Resistance Sonic 20/-",
             "Saving Throw Bonus Universal +3",
+            "Use Limitation: Alignment Group Good"
+          ],
+          "found_at": []
+        },
+        {
+          "resref": "galadhrimrobes",
+          "name": "Galadhrim Robes",
+          "base_item": "Armor",
+          "cost_gp": 1041676,
+          "wiki_url": "https://homers-lotr-wiki.jamesprice-slightlyepic.workers.dev/items/galadhrimrobes.html",
+          "properties": [
+            "Damage Resistance Acid 25/-",
+            "Damage Resistance Bludgeoning 25/-",
+            "Damage Resistance Cold 25/-",
+            "Damage Resistance Divine 25/-",
+            "Damage Resistance Electrical 25/-",
+            "Damage Resistance Fire 25/-",
+            "Damage Resistance Magical 15/-",
+            "Damage Resistance Negative 25/-",
+            "Damage Resistance Piercing 25/-",
+            "Damage Resistance Positive 25/-",
+            "Damage Resistance Slashing 25/-",
+            "Damage Resistance Sonic 25/-",
+            "Saving Throw Bonus Universal +3",
+            "Skill Bonus Concentration +10",
+            "Skill Bonus Spellcraft +10",
             "Use Limitation: Alignment Group Good"
           ],
           "found_at": []
@@ -2166,6 +3468,37 @@
             "Skill Bonus Taunt +50",
             "Skill Bonus Tumble +50",
             "Visual Effect visualfx #5"
+          ],
+          "found_at": []
+        }
+      ],
+      "recommendation": "Give each variant a unique tag (and consider a matching unique resref) so scripts, players, and the wiki can unambiguously identify each item."
+    },
+    {
+      "shared_tag": "GreaterAcidArrow",
+      "item_count": 2,
+      "variants": [
+        {
+          "resref": "greateracidar001",
+          "name": "Melting Arrow",
+          "base_item": "Arrow",
+          "cost_gp": 8762,
+          "wiki_url": "https://homers-lotr-wiki.jamesprice-slightlyepic.workers.dev/items/greateracidar001.html",
+          "properties": [
+            "Damage Bonus Acid 4"
+          ],
+          "found_at": [
+            "Sold at: NW_STORENATU003q (Carn Dum: City)"
+          ]
+        },
+        {
+          "resref": "greateracidarrow",
+          "name": "Smoldering Arrow",
+          "base_item": "Arrow",
+          "cost_gp": 12128,
+          "wiki_url": "https://homers-lotr-wiki.jamesprice-slightlyepic.workers.dev/items/greateracidarrow.html",
+          "properties": [
+            "Damage Bonus Acid 2d8"
           ],
           "found_at": []
         }
@@ -2557,6 +3890,51 @@
       "recommendation": "Give each variant a unique tag (and consider a matching unique resref) so scripts, players, and the wiki can unambiguously identify each item."
     },
     {
+      "shared_tag": "GwathdorHelmet",
+      "item_count": 2,
+      "variants": [
+        {
+          "resref": "gwathdorhelme002",
+          "name": "Gwathdor Helmet",
+          "base_item": "Helmet",
+          "cost_gp": 200225,
+          "wiki_url": "https://homers-lotr-wiki.jamesprice-slightlyepic.workers.dev/items/gwathdorhelme002.html",
+          "properties": [
+            "AC Bonus +6",
+            "Bonus Feat Two-Weapon Fighting",
+            "Darkvision",
+            "Haste",
+            "Light Bright"
+          ],
+          "found_at": [
+            "Carried by: Gwathdor Shortsword Guardian (Gwathdor:  East Deeps)",
+            "Carried by: Gwathdor Shortsword Guardian (Gwathdor:  Throne of the Lord)",
+            "Carried by: Gwathdor Shortsword Guardian (Gwathdor:  West Deeps)",
+            "Carried by: Gwathdor Trident Guardian (Gwathdor:  East Deeps)",
+            "Carried by: Gwathdor Trident Guardian (Gwathdor:  West Deeps)",
+            "Carried by: Gwathdor Dark Watcher (Gwathdor:  East Deeps)",
+            "Carried by: Gwathdor Dark Watcher (Gwathdor:  West Deeps)"
+          ]
+        },
+        {
+          "resref": "gwathdorhelmet",
+          "name": "Gwathdor Helmet",
+          "base_item": "Helmet",
+          "cost_gp": 369027,
+          "wiki_url": "https://homers-lotr-wiki.jamesprice-slightlyepic.workers.dev/items/gwathdorhelmet.html",
+          "properties": [
+            "AC Bonus +5",
+            "Darkvision",
+            "Haste",
+            "Light Bright",
+            "Regeneration +5"
+          ],
+          "found_at": []
+        }
+      ],
+      "recommendation": "Give each variant a unique tag (and consider a matching unique resref) so scripts, players, and the wiki can unambiguously identify each item."
+    },
+    {
       "shared_tag": "GwathdorWatcherRobe",
       "item_count": 2,
       "variants": [
@@ -2642,6 +4020,101 @@
           "found_at": [
             "Carried by: Gwathdor Wizard (Gwathdor:  Throne of the Lord)"
           ]
+        }
+      ],
+      "recommendation": "Give each variant a unique tag (and consider a matching unique resref) so scripts, players, and the wiki can unambiguously identify each item."
+    },
+    {
+      "shared_tag": "Halberd4",
+      "item_count": 2,
+      "variants": [
+        {
+          "resref": "halberd005",
+          "name": "Halberd of the Rohir",
+          "base_item": "Halberd",
+          "cost_gp": 225800,
+          "wiki_url": "https://homers-lotr-wiki.jamesprice-slightlyepic.workers.dev/items/halberd005.html",
+          "properties": [
+            "Attack Bonus +4",
+            "Damage Bonus Slashing 3",
+            "Enhancement Bonus +5",
+            "Keen",
+            "On Hit Cast Spell Electric Jolt Caster Level 0"
+          ],
+          "found_at": [
+            "Sold at: NW_STOREWEAP007 (Lowyn's Smithy)",
+            "Carried by: A Rohirrim Soldier (Edoras)",
+            "Carried by: A Rohirrim Soldier (Theoden's Hall)",
+            "Carried by: A Rohirrim Soldier (Gap of Rohan)",
+            "Carried by: A Rohirrim Soldier (Great North Road)",
+            "Carried by: A Rohirrim Soldier (Great North Road)",
+            "Carried by: A Rohirrim Soldier (Great North Road)",
+            "Carried by: A Rohirrim Soldier (Mering Stream)",
+            "Carried by: A Rohirrim Soldier (The Pelennor Fields)",
+            "Carried by: A Rohirrim Soldier Reinforcement (Gap of Rohan)",
+            "Carried by: A Rohirrim Soldier Reinforcement (Great North Road)",
+            "Carried by: A Rohirrim Soldier Reinforcement (Great North Road)",
+            "Carried by: A Rohirrim Soldier Reinforcement (Great North Road)",
+            "Carried by: A Rohirrim Soldier Reinforcement (Mering Stream)",
+            "Carried by: A Rohirrim Soldier Reinforcement (The Pelennor Fields)"
+          ]
+        },
+        {
+          "resref": "halberd4",
+          "name": "Halberd +4",
+          "base_item": "Halberd",
+          "cost_gp": 30440,
+          "wiki_url": "https://homers-lotr-wiki.jamesprice-slightlyepic.workers.dev/items/halberd4.html",
+          "properties": [
+            "Enhancement Bonus +4"
+          ],
+          "found_at": []
+        }
+      ],
+      "recommendation": "Give each variant a unique tag (and consider a matching unique resref) so scripts, players, and the wiki can unambiguously identify each item."
+    },
+    {
+      "shared_tag": "HammeroftheGods",
+      "item_count": 2,
+      "variants": [
+        {
+          "resref": "hammerofthego001",
+          "name": "Hammer of the Gods",
+          "base_item": "Arrow",
+          "cost_gp": 4713420,
+          "wiki_url": "https://homers-lotr-wiki.jamesprice-slightlyepic.workers.dev/items/hammerofthego001.html",
+          "properties": [
+            "Damage Bonus Acid 30",
+            "Damage Bonus Bludgeoning 30",
+            "Damage Bonus Cold 30",
+            "Damage Bonus Divine 30",
+            "Damage Bonus Electrical 30",
+            "Damage Bonus Fire 30",
+            "Damage Bonus Magical 30",
+            "Damage Bonus Negative 30",
+            "Damage Bonus Piercing 30",
+            "Damage Bonus Positive 30",
+            "Damage Bonus Slashing 30",
+            "Damage Bonus Sonic 30",
+            "On Hit Cast Spell Bigby's Clenched Fist Caster Level 39",
+            "On Hit Cast Spell Power Word, Stun Caster Level 39",
+            "On Hit Properties Daze DC 26",
+            "On Hit Properties Slay Alignment Group: Evil DC 26",
+            "On Hit Properties Slay Alignment Group: Good DC 26",
+            "On Hit Properties Slay Alignment Group: Neutral DC 26"
+          ],
+          "found_at": []
+        },
+        {
+          "resref": "hammerofthegods",
+          "name": "Hammer of the Gods",
+          "base_item": "Miscellaneous Large",
+          "cost_gp": 36000,
+          "wiki_url": "https://homers-lotr-wiki.jamesprice-slightlyepic.workers.dev/items/hammerofthegods.html",
+          "properties": [
+            "Cast Spell Hammer of the Gods 1/Day"
+          ],
+          "found_at": []
         }
       ],
       "recommendation": "Give each variant a unique tag (and consider a matching unique resref) so scripts, players, and the wiki can unambiguously identify each item."
@@ -2854,9 +4327,67 @@
       "recommendation": "Give each variant a unique tag (and consider a matching unique resref) so scripts, players, and the wiki can unambiguously identify each item."
     },
     {
-      "shared_tag": "InfernoArrows",
-      "item_count": 11,
+      "shared_tag": "ImpBoots",
+      "item_count": 2,
       "variants": [
+        {
+          "resref": "impboots",
+          "name": "Imp Boots",
+          "base_item": "Boots",
+          "cost_gp": 114490,
+          "wiki_url": "https://homers-lotr-wiki.jamesprice-slightlyepic.workers.dev/items/impboots.html",
+          "properties": [
+            "Bonus Spell Slot of Level N Sorcerer Level 7",
+            "Bonus Spell Slot of Level N Sorcerer Level 8",
+            "Bonus Spell Slot of Level N Sorcerer Level 9",
+            "Improved Evasion",
+            "Spell Resistance 10"
+          ],
+          "found_at": [
+            "Sold at: saaurmanmagic (Isengard (Magic Room))"
+          ]
+        },
+        {
+          "resref": "impboots001",
+          "name": "Greater Lava Imp Boots",
+          "base_item": "Boots",
+          "cost_gp": 114490,
+          "wiki_url": "https://homers-lotr-wiki.jamesprice-slightlyepic.workers.dev/items/impboots001.html",
+          "properties": [
+            "Bonus Spell Slot of Level N Wizard Level 7",
+            "Bonus Spell Slot of Level N Wizard Level 8",
+            "Bonus Spell Slot of Level N Wizard Level 9",
+            "Improved Evasion",
+            "Spell Resistance 10"
+          ],
+          "found_at": [
+            "Sold at: minasarctower (Minas Tirith: Tower of The Arcane)",
+            "Sold at: alatarmerch (Tower of Alatar)"
+          ]
+        }
+      ],
+      "recommendation": "Give each variant a unique tag (and consider a matching unique resref) so scripts, players, and the wiki can unambiguously identify each item."
+    },
+    {
+      "shared_tag": "InfernoArrows",
+      "item_count": 12,
+      "variants": [
+        {
+          "resref": "infernoarrows",
+          "name": "Inferno Arrows",
+          "base_item": "Arrow",
+          "cost_gp": 8762,
+          "wiki_url": "https://homers-lotr-wiki.jamesprice-slightlyepic.workers.dev/items/infernoarrows.html",
+          "properties": [
+            "Damage Bonus Fire 4"
+          ],
+          "found_at": [
+            "Sold at: NW_STORENATU003q (Carn Dum: City)",
+            "Carried by: Mordor Orc Bowman (Orc Armory)",
+            "Carried by: Mordor Orc Bowman (Ered Duath Road: A)",
+            "Carried by: Mordor Orc Bowman (The Cirith Ungol Pass)"
+          ]
+        },
         {
           "resref": "infernoarrows001",
           "name": "Slug Arrow",
@@ -3132,6 +4663,54 @@
       "recommendation": "Give each variant a unique tag (and consider a matching unique resref) so scripts, players, and the wiki can unambiguously identify each item."
     },
     {
+      "shared_tag": "KatanaofKings",
+      "item_count": 2,
+      "variants": [
+        {
+          "resref": "katanaofkings",
+          "name": "Katana of Kings",
+          "base_item": "Katana",
+          "cost_gp": 1290400,
+          "wiki_url": "https://homers-lotr-wiki.jamesprice-slightlyepic.workers.dev/items/katanaofkings.html",
+          "properties": [
+            "Attack Bonus +10",
+            "Damage Bonus Acid 4",
+            "Damage Bonus Cold 4",
+            "Damage Bonus Electrical 4",
+            "Damage Bonus Fire 4",
+            "Extra Melee Damage Type Slashing",
+            "Visual Effect visualfx #5"
+          ],
+          "found_at": [
+            "Carried by: Denethor, Steward of Gondor (Minas Tirith: Keep)",
+            "Carried by: Boromir, Steward of Gondor (Minas Tirith: City)",
+            "Carried by: Witch King Leader of The Nine (The Witch King's Throne)"
+          ]
+        },
+        {
+          "resref": "katanaofkings001",
+          "name": "Katana of the Dark Kings",
+          "base_item": "Katana",
+          "cost_gp": 2249608,
+          "wiki_url": "https://homers-lotr-wiki.jamesprice-slightlyepic.workers.dev/items/katanaofkings001.html",
+          "properties": [
+            "Attack Bonus +13",
+            "Damage Bonus Acid 4",
+            "Damage Bonus Fire 4",
+            "Damage Bonus Negative 4",
+            "Damage Bonus Slashing 4",
+            "Keen",
+            "Massive Criticals 4",
+            "On Hit Properties Fear DC 14",
+            "Use Limitation: Alignment Group Evil",
+            "Visual Effect visualfx #6"
+          ],
+          "found_at": []
+        }
+      ],
+      "recommendation": "Give each variant a unique tag (and consider a matching unique resref) so scripts, players, and the wiki can unambiguously identify each item."
+    },
+    {
       "shared_tag": "KukrioftheMummylord",
       "item_count": 2,
       "variants": [
@@ -3173,6 +4752,125 @@
             "On Hit Cast Spell Feeblemind Caster Level 6"
           ],
           "found_at": []
+        }
+      ],
+      "recommendation": "Give each variant a unique tag (and consider a matching unique resref) so scripts, players, and the wiki can unambiguously identify each item."
+    },
+    {
+      "shared_tag": "LegofShelob",
+      "item_count": 2,
+      "variants": [
+        {
+          "resref": "legofshelob",
+          "name": "Leg of Shelob",
+          "base_item": "Quarterstaff",
+          "cost_gp": 118580,
+          "wiki_url": "https://homers-lotr-wiki.jamesprice-slightlyepic.workers.dev/items/legofshelob.html",
+          "properties": [
+            "Damage Bonus Piercing 1",
+            "Damage Bonus Slashing 1",
+            "Enhancement Bonus +5"
+          ],
+          "found_at": []
+        },
+        {
+          "resref": "legofshelob002",
+          "name": "Leg of Shelob",
+          "base_item": "Quarterstaff",
+          "cost_gp": 890422,
+          "wiki_url": "https://homers-lotr-wiki.jamesprice-slightlyepic.workers.dev/items/legofshelob002.html",
+          "properties": [
+            "Attack Bonus +4",
+            "Damage Bonus Piercing 7",
+            "Damage Bonus Slashing 7",
+            "Enhancement Bonus +5",
+            "Extra Melee Damage Type Piercing",
+            "Extra Melee Damage Type Slashing",
+            "Keen"
+          ],
+          "found_at": [
+            "Carried by: Shelob (Shelob's Lair)"
+          ]
+        }
+      ],
+      "recommendation": "Give each variant a unique tag (and consider a matching unique resref) so scripts, players, and the wiki can unambiguously identify each item."
+    },
+    {
+      "shared_tag": "lesserhelmofb002",
+      "item_count": 2,
+      "variants": [
+        {
+          "resref": "lesserhelmofb002",
+          "name": "Greater Helm of Battle",
+          "base_item": "Helmet",
+          "cost_gp": 52710,
+          "wiki_url": "https://homers-lotr-wiki.jamesprice-slightlyepic.workers.dev/items/lesserhelmofb002.html",
+          "properties": [
+            "AC Bonus +5",
+            "Damage Resistance Fire 25/-",
+            "Light Normal",
+            "Spell Resistance 10"
+          ],
+          "found_at": [
+            "Sold at: lonemerchant (Temple of Marr)"
+          ]
+        },
+        {
+          "resref": "lesserhelmofb003",
+          "name": "Helm of the Battle Lord",
+          "base_item": "Helmet",
+          "cost_gp": 39504,
+          "wiki_url": "https://homers-lotr-wiki.jamesprice-slightlyepic.workers.dev/items/lesserhelmofb003.html",
+          "properties": [
+            "AC Bonus +5",
+            "Damage Resistance Slashing 15/-"
+          ],
+          "found_at": [
+            "Sold at: cirithmerch (Orc Armory)",
+            "Carried by: Anaralia, The widow maker (Mirkwood: Central East)"
+          ]
+        }
+      ],
+      "recommendation": "Give each variant a unique tag (and consider a matching unique resref) so scripts, players, and the wiki can unambiguously identify each item."
+    },
+    {
+      "shared_tag": "lesserrobeoft003",
+      "item_count": 2,
+      "variants": [
+        {
+          "resref": "lesserrobeoft003",
+          "name": "Elder Robe of the Stone Hand",
+          "base_item": "Armor",
+          "cost_gp": 69057,
+          "wiki_url": "https://homers-lotr-wiki.jamesprice-slightlyepic.workers.dev/items/lesserrobeoft003.html",
+          "properties": [
+            "AC Bonus +1",
+            "Damage Reduction 2 5/+4",
+            "Light Bright",
+            "Spell Resistance 10"
+          ],
+          "found_at": [
+            "Sold at: saaurmanmagic (Isengard (Magic Room))",
+            "Sold at: cirithmerch (Orc Armory)"
+          ]
+        },
+        {
+          "resref": "lesserrobeoft004",
+          "name": "Master's Robe of the Stone Hand",
+          "base_item": "Armor",
+          "cost_gp": 116857,
+          "wiki_url": "https://homers-lotr-wiki.jamesprice-slightlyepic.workers.dev/items/lesserrobeoft004.html",
+          "properties": [
+            "AC Bonus +1",
+            "Damage Reduction 4 5/+5",
+            "Light Bright",
+            "Spell Resistance 10"
+          ],
+          "found_at": [
+            "Sold at: saaurmanmagic (Isengard (Magic Room))",
+            "Sold at: minordawrv (Lake Town: The Tips Slant Tavern)",
+            "Sold at: minasarctower (Minas Tirith: Tower of The Arcane)"
+          ]
         }
       ],
       "recommendation": "Give each variant a unique tag (and consider a matching unique resref) so scripts, players, and the wiki can unambiguously identify each item."
@@ -4745,9 +6443,151 @@
       "recommendation": "Give each variant a unique tag (and consider a matching unique resref) so scripts, players, and the wiki can unambiguously identify each item."
     },
     {
-      "shared_tag": "NPCBuffGear",
-      "item_count": 4,
+      "shared_tag": "Nightsmoke",
+      "item_count": 3,
       "variants": [
+        {
+          "resref": "nightsmoke",
+          "name": "Nightsmoke",
+          "base_item": "Belt",
+          "cost_gp": 46718,
+          "wiki_url": "https://homers-lotr-wiki.jamesprice-slightlyepic.workers.dev/items/nightsmoke.html",
+          "properties": [
+            "AC Bonus +1",
+            "Damage Reduction 5/+2",
+            "Damage Resistance Acid 10/-",
+            "Damage Resistance Cold 10/-",
+            "Damage Resistance Electrical 10/-",
+            "Damage Resistance Fire 10/-",
+            "Damage Resistance Piercing 10/-",
+            "Damage Resistance Slashing 10/-",
+            "Damage Resistance Sonic 10/-"
+          ],
+          "found_at": [
+            "Sold at: minasarctower (Minas Tirith: Tower of The Arcane)",
+            "Carried by: Boromir, Steward of Gondor (Minas Tirith: City)",
+            "Carried by: Wart Gondorian Gate Captain (Minas Tirith: Gates)"
+          ]
+        },
+        {
+          "resref": "nightsmoke002",
+          "name": "Nightsmoke",
+          "base_item": "Belt",
+          "cost_gp": 69473,
+          "wiki_url": "https://homers-lotr-wiki.jamesprice-slightlyepic.workers.dev/items/nightsmoke002.html",
+          "properties": [
+            "AC Bonus +1",
+            "Damage Reduction 5/+5",
+            "Damage Resistance Acid 10/-",
+            "Damage Resistance Cold 10/-",
+            "Damage Resistance Electrical 10/-",
+            "Damage Resistance Fire 10/-",
+            "Damage Resistance Piercing 10/-",
+            "Damage Resistance Slashing 10/-",
+            "Damage Resistance Sonic 10/-"
+          ],
+          "found_at": [
+            "Carried by: Thragg, Gate Commander (Morannon - The Black Gate)"
+          ]
+        },
+        {
+          "resref": "nightsmoke003",
+          "name": "Nightsmoke",
+          "base_item": "Belt",
+          "cost_gp": 69473,
+          "wiki_url": "https://homers-lotr-wiki.jamesprice-slightlyepic.workers.dev/items/nightsmoke003.html",
+          "properties": [
+            "AC Bonus +1",
+            "Damage Reduction 5/+5",
+            "Damage Resistance Acid 10/-",
+            "Damage Resistance Cold 10/-",
+            "Damage Resistance Electrical 10/-",
+            "Damage Resistance Fire 10/-",
+            "Damage Resistance Piercing 10/-",
+            "Damage Resistance Slashing 10/-",
+            "Damage Resistance Sonic 10/-"
+          ],
+          "found_at": [
+            "Carried by: Saruman the White (Tower of Orthanc: Saruman's Chambers)"
+          ]
+        }
+      ],
+      "recommendation": "Give each variant a unique tag (and consider a matching unique resref) so scripts, players, and the wiki can unambiguously identify each item."
+    },
+    {
+      "shared_tag": "NPCBuffGear",
+      "item_count": 5,
+      "variants": [
+        {
+          "resref": "npcbuffgear",
+          "name": "NPC Buff Gear",
+          "base_item": "Creature Item",
+          "cost_gp": 40768660,
+          "wiki_url": "https://homers-lotr-wiki.jamesprice-slightlyepic.workers.dev/items/npcbuffgear.html",
+          "properties": [
+            "Ability Bonus Strength +12",
+            "Damage Reduction 4 15/+1",
+            "Damage Resistance Acid 10",
+            "Damage Resistance Bludgeoning 20/-",
+            "Damage Resistance Cold 20/-",
+            "Damage Resistance Divine 10/-",
+            "Damage Resistance Electrical 20/-",
+            "Damage Resistance Fire 25/-",
+            "Damage Resistance Magical 15/-",
+            "Damage Resistance Negative 30/-",
+            "Damage Resistance Piercing 25/-",
+            "Damage Resistance Positive 10/-",
+            "Damage Resistance Slashing 20/-",
+            "Damage Resistance Sonic 15/-",
+            "Freedom of Movement",
+            "Haste",
+            "Immunity: Damage Type Acid 20%",
+            "Immunity: Damage Type Positive 50%",
+            "Immunity: Miscellaneous Critical Hits",
+            "Immunity: Miscellaneous Death Magic",
+            "Immunity: Miscellaneous Disease",
+            "Immunity: Miscellaneous Fear",
+            "Immunity: Miscellaneous Level/Ability Drain",
+            "Immunity: Miscellaneous Mind-Affecting Spells",
+            "Immunity: Miscellaneous Paralysis",
+            "Immunity: Miscellaneous Poison",
+            "Immunity: Specific Spell Circle of Doom",
+            "Immunity: Specific Spell Cure Moderate Wounds",
+            "Immunity: Specific Spell Delayed Blast Fireball",
+            "Immunity: Specific Spell Power Word Stun",
+            "Immunity: Specific Spell Resistance",
+            "Immunity: Spell School Transmutation",
+            "On Hit Cast Spell Chaos Shield (2% chance to strike on attacker) Caster Level 0",
+            "Regeneration +10",
+            "Skill Bonus Spot +50",
+            "True Seeing"
+          ],
+          "found_at": [
+            "Carried by: Khamûl The Ringwraith (Carn Dum: Throne)",
+            "Carried by: Faramir, Prince of Ithillien (Osgiliath: Citidal of the Stars)",
+            "Carried by: Sauron's Chosen Guardian (Dol Guldur:  Tower Of Black Magic Main Hall)",
+            "Carried by: Card Mennard (Edoras)",
+            "Carried by: Gimli (The Halls of Truth)",
+            "Carried by: Dunlending Shock Trooper (Isengard (Innerrim))",
+            "Carried by: Kainna the War Dancer (Isengard (Innerrim))",
+            "Carried by: Rail the White Hand Blaster (Isengard (Innerrim))",
+            "Carried by: Dunlending Shock Trooper (Isengard (Outerrim))",
+            "Carried by: Aragorn Son of Arathorn (Minas Tirith: Gates)",
+            "Carried by: Anaralia, The widow maker (Mirkwood: Central East)",
+            "Carried by: Gorg the General (Mount Gundabad)",
+            "Carried by: Arwen, The Evenstar (Rivendell Upper Halls)",
+            "Carried by: Gandalf the Gray (Hobbiton)",
+            "Carried by: Theoden King of Rohan (Theoden's Hall)",
+            "Carried by: High Priest of Morannon (The Temple of Morannon)",
+            "Carried by: Witch King Leader of The Nine (The Witch King's Throne)",
+            "Carried by: Dunlending Shock Trooper (Tower of Orthanc)",
+            "Carried by: Saruman the White (Tower of Orthanc: Saruman's Chambers)",
+            "Carried by: Khamûl The Ringwraith (Dol Guldur:  Tower Of Black Magic  Nazgul Quaters)",
+            "Carried by: Emyn Moutain Giant (Emyn Muil)",
+            "Carried by: Bobo (Goblin Town: Warrens)",
+            "Carried by: Kerufall (Kerufall's Lair)"
+          ]
+        },
         {
           "resref": "npcbuffgear002",
           "name": "NPC Buff Gear **",
@@ -4968,6 +6808,89 @@
       "recommendation": "Give each variant a unique tag (and consider a matching unique resref) so scripts, players, and the wiki can unambiguously identify each item."
     },
     {
+      "shared_tag": "NW_AARCL006",
+      "item_count": 2,
+      "variants": [
+        {
+          "resref": "aarcl007",
+          "name": "Dark Half Plate",
+          "base_item": "Armor",
+          "cost_gp": 20048,
+          "wiki_url": "https://homers-lotr-wiki.jamesprice-slightlyepic.workers.dev/items/aarcl007.html",
+          "properties": [
+            "AC Bonus +5"
+          ],
+          "found_at": [
+            "Carried by: Black Numenorean Priestess (Carn Dum: Temple)",
+            "Carried by: Black Numenorean Priestess (Mount Gundabad Level 2)",
+            "Carried by: Black Numenorean Priestess (Mount Gundabad)"
+          ]
+        },
+        {
+          "resref": "nw_aarcl006",
+          "name": "Half Plate",
+          "base_item": "Armor",
+          "cost_gp": 600,
+          "wiki_url": "https://homers-lotr-wiki.jamesprice-slightlyepic.workers.dev/items/nw_aarcl006.html",
+          "properties": [],
+          "found_at": [
+            "Sold at: NW_STORGENRAL003 (Brandywine Inn)",
+            "Sold at: NW_STOREWEAP00111 (Carn Dum: Smithy)",
+            "Sold at: NW_STOREWEAP003 (Kallrist, South shore)",
+            "Sold at: gondortemplestor (Minas Tirith: Temple)",
+            "Sold at: M_CL05M (Taggets Smith Shop)",
+            "Sold at: NW_STORGENRAL001 (Tharbad (West))",
+            "In container: Sarcophagus (Tomb of Garmir)",
+            "Carried by: Human, Commoner (Brandywine Inn : Second Floor)",
+            "Carried by: Sald Senden (Kallrist, South shore)",
+            "Carried by: Old Tagget (Taggets Smith Shop)"
+          ]
+        }
+      ],
+      "recommendation": "Give each variant a unique tag (and consider a matching unique resref) so scripts, players, and the wiki can unambiguously identify each item."
+    },
+    {
+      "shared_tag": "NW_ARMHE007",
+      "item_count": 2,
+      "variants": [
+        {
+          "resref": "armhe008",
+          "name": "Thieves' Hood",
+          "base_item": "Helmet",
+          "cost_gp": 39190,
+          "wiki_url": "https://homers-lotr-wiki.jamesprice-slightlyepic.workers.dev/items/armhe008.html",
+          "properties": [
+            "AC Bonus +4",
+            "Darkvision",
+            "Immunity: Miscellaneous Knockdown",
+            "Immunity: Miscellaneous Poison"
+          ],
+          "found_at": []
+        },
+        {
+          "resref": "nw_armhe007",
+          "name": "Thieves' Hood",
+          "base_item": "Helmet",
+          "cost_gp": 116427,
+          "wiki_url": "https://homers-lotr-wiki.jamesprice-slightlyepic.workers.dev/items/nw_armhe007.html",
+          "properties": [
+            "AC Bonus +5",
+            "Haste",
+            "Skill Bonus Concentration +8",
+            "Skill Bonus Open Lock +8",
+            "Skill Bonus Search +8",
+            "Use Limitation: Class Rogue"
+          ],
+          "found_at": [
+            "Sold at: NW_STORETHIEF002q (Carn Dum: Temple)",
+            "Sold at: NW_STORETHIEF001 (The Prancing Pony Ground Floor)",
+            "Sold at: NW_STORETHIEF002 (The Prancing Pony Ground Floor)"
+          ]
+        }
+      ],
+      "recommendation": "Give each variant a unique tag (and consider a matching unique resref) so scripts, players, and the wiki can unambiguously identify each item."
+    },
+    {
       "shared_tag": "NW_ARMHE010",
       "item_count": 2,
       "variants": [
@@ -5010,7 +6933,7 @@
     },
     {
       "shared_tag": "NW_ASHMLW003",
-      "item_count": 2,
+      "item_count": 3,
       "variants": [
         {
           "resref": "ashmlw004",
@@ -5046,6 +6969,160 @@
           ],
           "found_at": [
             "Carried by: Hareth of the Haladin (Edoras)"
+          ]
+        },
+        {
+          "resref": "nw_ashmlw003",
+          "name": "Shield of the Holy",
+          "base_item": "Large Shield",
+          "cost_gp": 22707,
+          "wiki_url": "https://homers-lotr-wiki.jamesprice-slightlyepic.workers.dev/items/nw_ashmlw003.html",
+          "properties": [
+            "AC Bonus +4",
+            "Bonus Feat Extra Turning"
+          ],
+          "found_at": [
+            "Sold at: lonemerchant (Temple of Marr)"
+          ]
+        }
+      ],
+      "recommendation": "Give each variant a unique tag (and consider a matching unique resref) so scripts, players, and the wiki can unambiguously identify each item."
+    },
+    {
+      "shared_tag": "NW_CLOTH008",
+      "item_count": 2,
+      "variants": [
+        {
+          "resref": "cloth009",
+          "name": "The Robes of Galadriel",
+          "base_item": "Armor",
+          "cost_gp": 1006734,
+          "wiki_url": "https://homers-lotr-wiki.jamesprice-slightlyepic.workers.dev/items/cloth009.html",
+          "properties": [
+            "AC Bonus +7",
+            "Ability Bonus Charisma +7",
+            "Damage Resistance Acid 10/-",
+            "Damage Resistance Bludgeoning 20/-",
+            "Damage Resistance Cold 10/-",
+            "Damage Resistance Electrical 10/-",
+            "Damage Resistance Fire 10/-",
+            "Damage Resistance Piercing 20/-",
+            "Damage Resistance Slashing 20/-",
+            "Damage Resistance Sonic 10/-",
+            "Light Bright",
+            "Skill Bonus Concentration +7",
+            "Spell Resistance 14",
+            "Use Limitation: Gender Female"
+          ],
+          "found_at": [
+            "Carried by: Galadriel (Lothlorien: Main)"
+          ]
+        },
+        {
+          "resref": "nw_cloth008",
+          "name": "Sorcerer's Robe",
+          "base_item": "Armor",
+          "cost_gp": 1,
+          "wiki_url": "https://homers-lotr-wiki.jamesprice-slightlyepic.workers.dev/items/nw_cloth008.html",
+          "properties": [],
+          "found_at": [
+            "Sold at: NW_STOREMAGIC001b (Bree)"
+          ]
+        }
+      ],
+      "recommendation": "Give each variant a unique tag (and consider a matching unique resref) so scripts, players, and the wiki can unambiguously identify each item."
+    },
+    {
+      "shared_tag": "NW_CLOTH026",
+      "item_count": 2,
+      "variants": [
+        {
+          "resref": "cloth028",
+          "name": "Leather of Shadows",
+          "base_item": "Armor",
+          "cost_gp": 361395,
+          "wiki_url": "https://homers-lotr-wiki.jamesprice-slightlyepic.workers.dev/items/cloth028.html",
+          "properties": [
+            "AC Bonus +5",
+            "Haste",
+            "Immunity: Miscellaneous Sneak Attack",
+            "Skill Bonus Hide +10",
+            "Skill Bonus Move Silently +10",
+            "Spell Resistance 10"
+          ],
+          "found_at": [
+            "Carried by: Archer of Dol Guldur (Caves of Dol Guldur)",
+            "Carried by: Shadow Walker (Caves of Dol Guldur)",
+            "Carried by: Shadow Priestess of Dol Guldur (Caves of Dol Guldur)",
+            "Carried by: Archer of Dol Guldur (Mirkwood: Dol Guldur)",
+            "Carried by: Shadow Walker (Mirkwood: Dol Guldur)"
+          ]
+        },
+        {
+          "resref": "nw_cloth026",
+          "name": "Necromancer's Robe",
+          "base_item": "Armor",
+          "cost_gp": 1,
+          "wiki_url": "https://homers-lotr-wiki.jamesprice-slightlyepic.workers.dev/items/nw_cloth026.html",
+          "properties": [],
+          "found_at": [
+            "Sold at: NW_STOREMAGIC001b (Bree)"
+          ]
+        }
+      ],
+      "recommendation": "Give each variant a unique tag (and consider a matching unique resref) so scripts, players, and the wiki can unambiguously identify each item."
+    },
+    {
+      "shared_tag": "NW_IT_CREITEM020",
+      "item_count": 2,
+      "variants": [
+        {
+          "resref": "it_creitem021",
+          "name": "Calrog of Moria",
+          "base_item": "Creature Item",
+          "cost_gp": 8468599,
+          "wiki_url": "https://homers-lotr-wiki.jamesprice-slightlyepic.workers.dev/items/it_creitem021.html",
+          "properties": [
+            "Damage Reduction 3 10/+2",
+            "Damage Resistance Acid 25/-",
+            "Damage Resistance Cold 25/-",
+            "Damage Resistance Fire 25/-",
+            "Darkvision",
+            "Haste",
+            "Immunity: Damage Type Electrical 100%",
+            "Immunity: Miscellaneous Death Magic",
+            "Immunity: Miscellaneous Fear",
+            "Immunity: Miscellaneous Knockdown",
+            "Immunity: Miscellaneous Mind-Affecting Spells",
+            "Immunity: Miscellaneous Paralysis",
+            "Immunity: Miscellaneous Poison",
+            "Immunity: Miscellaneous Sneak Attack",
+            "Immunity: Spell School Conjuration",
+            "Immunity: Spell School Divination",
+            "Immunity: Spell School Necromancy",
+            "Improved Evasion",
+            "Spell Resistance 28",
+            "True Seeing"
+          ],
+          "found_at": []
+        },
+        {
+          "resref": "nw_it_creitem020",
+          "name": "Balor Properties",
+          "base_item": "Creature Item",
+          "cost_gp": 1590015,
+          "wiki_url": "https://homers-lotr-wiki.jamesprice-slightlyepic.workers.dev/items/nw_it_creitem020.html",
+          "properties": [
+            "Damage Reduction 2 10/+2",
+            "Damage Resistance Acid 25/-",
+            "Damage Resistance Cold 25/-",
+            "Damage Resistance Fire 25/-",
+            "Immunity: Damage Type Electrical 100%",
+            "Immunity: Miscellaneous Poison",
+            "Spell Resistance 28"
+          ],
+          "found_at": [
+            "Carried by: Azagoth (Ruins of Annuminas)"
           ]
         }
       ],
@@ -5146,7 +7223,7 @@
     },
     {
       "shared_tag": "NW_IT_CREITEMDRB",
-      "item_count": 2,
+      "item_count": 3,
       "variants": [
         {
           "resref": "it_creitemdrb001",
@@ -5196,13 +7273,85 @@
             "True Seeing"
           ],
           "found_at": []
+        },
+        {
+          "resref": "nw_it_creitemdrb",
+          "name": "Ancient Gold Dragon Properties",
+          "base_item": "Creature Item",
+          "cost_gp": 2756250,
+          "wiki_url": "https://homers-lotr-wiki.jamesprice-slightlyepic.workers.dev/items/nw_it_creitemdrb.html",
+          "properties": [
+            "Damage Reduction 1 5/+4",
+            "Damage Vulnerability Cold 25%",
+            "Immunity: Damage Type Fire 100%",
+            "Immunity: Miscellaneous Mind-Affecting Spells",
+            "Immunity: Miscellaneous Paralysis",
+            "Immunity: Miscellaneous Sneak Attack",
+            "Spell Resistance 30",
+            "True Seeing"
+          ],
+          "found_at": [
+            "Carried by: Númenorian Barbaric Warlord (Númenor:  Noirinan)",
+            "Carried by: Númenorian Barbaric Warlord (Númenor:  Arnenelos)",
+            "Carried by: Númenorian Barbaric Warlord (Númenor:  Bay of Andúnië)"
+          ]
+        }
+      ],
+      "recommendation": "Give each variant a unique tag (and consider a matching unique resref) so scripts, players, and the wiki can unambiguously identify each item."
+    },
+    {
+      "shared_tag": "NW_IT_CREITEMUNE",
+      "item_count": 2,
+      "variants": [
+        {
+          "resref": "it_creitemune001",
+          "name": "Skeleton Properties",
+          "base_item": "Creature Item",
+          "cost_gp": 396009,
+          "wiki_url": "https://homers-lotr-wiki.jamesprice-slightlyepic.workers.dev/items/it_creitemune001.html",
+          "properties": [
+            "Immunity: Damage Type Piercing 20%",
+            "Immunity: Damage Type Slashing 20%",
+            "Immunity: Miscellaneous Death Magic",
+            "Immunity: Miscellaneous Disease",
+            "Immunity: Miscellaneous Level/Ability Drain",
+            "Immunity: Miscellaneous Mind-Affecting Spells",
+            "Immunity: Miscellaneous Paralysis",
+            "Immunity: Miscellaneous Poison"
+          ],
+          "found_at": []
+        },
+        {
+          "resref": "nw_it_creitemune",
+          "name": "Skeleton Properties",
+          "base_item": "Creature Item",
+          "cost_gp": 1709822,
+          "wiki_url": "https://homers-lotr-wiki.jamesprice-slightlyepic.workers.dev/items/nw_it_creitemune.html",
+          "properties": [
+            "Immunity: Damage Type Piercing 25%",
+            "Immunity: Damage Type Slashing 25%",
+            "Immunity: Miscellaneous Critical Hits",
+            "Immunity: Miscellaneous Death Magic",
+            "Immunity: Miscellaneous Disease",
+            "Immunity: Miscellaneous Level/Ability Drain",
+            "Immunity: Miscellaneous Mind-Affecting Spells",
+            "Immunity: Miscellaneous Paralysis",
+            "Immunity: Miscellaneous Poison",
+            "Immunity: Miscellaneous Sneak Attack"
+          ],
+          "found_at": [
+            "Carried by: Skeleton (Bree)",
+            "Carried by: Skeleton (Bree Crypt)",
+            "Carried by: Skeleton (Bree Crypt Lower Level)",
+            "Carried by: Skeleton (Road to Barad-Dûr)"
+          ]
         }
       ],
       "recommendation": "Give each variant a unique tag (and consider a matching unique resref) so scripts, players, and the wiki can unambiguously identify each item."
     },
     {
       "shared_tag": "NW_IT_CREITEMUNH",
-      "item_count": 9,
+      "item_count": 10,
       "variants": [
         {
           "resref": "034",
@@ -5448,6 +7597,38 @@
           "found_at": [
             "Carried by: Heir of Haldor (Dimholt: The Forgotten King)"
           ]
+        },
+        {
+          "resref": "nw_it_creitemunh",
+          "name": "Undead Properties",
+          "base_item": "Creature Item",
+          "cost_gp": 961000,
+          "wiki_url": "https://homers-lotr-wiki.jamesprice-slightlyepic.workers.dev/items/nw_it_creitemunh.html",
+          "properties": [
+            "Immunity: Miscellaneous Critical Hits",
+            "Immunity: Miscellaneous Death Magic",
+            "Immunity: Miscellaneous Disease",
+            "Immunity: Miscellaneous Level/Ability Drain",
+            "Immunity: Miscellaneous Mind-Affecting Spells",
+            "Immunity: Miscellaneous Paralysis",
+            "Immunity: Miscellaneous Poison",
+            "Immunity: Miscellaneous Sneak Attack"
+          ],
+          "found_at": [
+            "Carried by: Wraith (Carn Dum: Throne)",
+            "Carried by: Vampiric Mist (Temple of Nazgul)",
+            "Carried by: Zombie of Dol Guldur (Mirkwood: Dol Guldur)",
+            "Carried by: Undead of Gondor (Minas Tirith: Crypts)",
+            "Carried by: Undead of Gondor (Minas Tirith: Crypts)",
+            "Carried by: Dark Sorcerer (Gwathdor:  Cave)",
+            "Carried by: Gwathdor Wizard (Gwathdor:  West Deeps)",
+            "Carried by: Burning Skeleton (Kallrist Crypt)",
+            "Carried by: Lesser Barrow Wight (The Barrow Downs)",
+            "Carried by: Lesser Barrow Wight (Tomb of Garmir)",
+            "Carried by: Lesser Barrow Wight (Tomb of Mendegilath)",
+            "Carried by: Lesser Barrow Wight (Tomb of Peran)",
+            "Carried by: Lesser Barrow Wight (Tomb of Vinyalonde)"
+          ]
         }
       ],
       "recommendation": "Give each variant a unique tag (and consider a matching unique resref) so scripts, players, and the wiki can unambiguously identify each item."
@@ -5509,8 +7690,89 @@
       "recommendation": "Give each variant a unique tag (and consider a matching unique resref) so scripts, players, and the wiki can unambiguously identify each item."
     },
     {
+      "shared_tag": "NW_IT_CREWPS006",
+      "item_count": 2,
+      "variants": [
+        {
+          "resref": "it_crewps007",
+          "name": "Aranea Bite",
+          "base_item": "Creature Slash Weapon",
+          "cost_gp": 8000,
+          "wiki_url": "https://homers-lotr-wiki.jamesprice-slightlyepic.workers.dev/items/it_crewps007.html",
+          "properties": [
+            "On Monster Hit Doom"
+          ],
+          "found_at": []
+        },
+        {
+          "resref": "nw_it_crewps006",
+          "name": "Aranea Bite",
+          "base_item": "Creature Slash Weapon",
+          "cost_gp": 12500,
+          "wiki_url": "https://homers-lotr-wiki.jamesprice-slightlyepic.workers.dev/items/nw_it_crewps006.html",
+          "properties": [
+            "Monster Damage 2d6",
+            "On Monster Hit Doom"
+          ],
+          "found_at": [
+            "Carried by: Giant Spider (Old Forest)",
+            "Carried by: Giant Spider (Mirkwood: Central)",
+            "Carried by: Giant Spider (Mirkwood: Central East)",
+            "Carried by: Giant Spider (Mirkwood: Central South)",
+            "Carried by: Giant Spider (Mirkwood: East)",
+            "Carried by: Giant Spider (Mirkwood: North)",
+            "Carried by: Giant Spider (Mirkwood: West)",
+            "Carried by: Giant Spider (Old Road)",
+            "Carried by: Giant Spider (The Secret Pass of Mordor)"
+          ]
+        }
+      ],
+      "recommendation": "Give each variant a unique tag (and consider a matching unique resref) so scripts, players, and the wiki can unambiguously identify each item."
+    },
+    {
+      "shared_tag": "NW_IT_CREWPS018",
+      "item_count": 2,
+      "variants": [
+        {
+          "resref": "it_crewps019",
+          "name": "Sword/Giant Spider Bite",
+          "base_item": "Creature Slash Weapon",
+          "cost_gp": 2926124,
+          "wiki_url": "https://homers-lotr-wiki.jamesprice-slightlyepic.workers.dev/items/it_crewps019.html",
+          "properties": [
+            "Damage Bonus Acid 30",
+            "Damage Bonus Negative 30",
+            "Monster Damage 3d8",
+            "On Monster Hit onhit #4"
+          ],
+          "found_at": []
+        },
+        {
+          "resref": "nw_it_crewps018",
+          "name": "Sword/Giant Spider Bite",
+          "base_item": "Creature Slash Weapon",
+          "cost_gp": 15124,
+          "wiki_url": "https://homers-lotr-wiki.jamesprice-slightlyepic.workers.dev/items/nw_it_crewps018.html",
+          "properties": [
+            "Monster Damage 4d10",
+            "On Monster Hit Doom"
+          ],
+          "found_at": [
+            "Carried by: Spider-Queen (Mirkwood: Central)",
+            "Carried by: Spider-Queen (Mirkwood: Central East)",
+            "Carried by: Spider-Queen (Mirkwood: Central South)",
+            "Carried by: Spider-Queen (Mirkwood: East)",
+            "Carried by: Spider-Queen (Mirkwood: North)",
+            "Carried by: Spider-Queen (Mirkwood: West)",
+            "Carried by: Spider-Queen (The Secret Pass of Mordor)"
+          ]
+        }
+      ],
+      "recommendation": "Give each variant a unique tag (and consider a matching unique resref) so scripts, players, and the wiki can unambiguously identify each item."
+    },
+    {
       "shared_tag": "NW_IT_CREWPSP001",
-      "item_count": 3,
+      "item_count": 4,
       "variants": [
         {
           "resref": "it_crewpsp002",
@@ -5552,13 +7814,115 @@
             "Monster Damage 1d3"
           ],
           "found_at": []
+        },
+        {
+          "resref": "nw_it_crewpsp001",
+          "name": "Claw1d2",
+          "base_item": "Creature Slash Piercing Weapon",
+          "cost_gp": 80,
+          "wiki_url": "https://homers-lotr-wiki.jamesprice-slightlyepic.workers.dev/items/nw_it_crewpsp001.html",
+          "properties": [
+            "Monster Damage 1d3"
+          ],
+          "found_at": [
+            "Carried by: Cave Bat (Bree Cave)",
+            "Carried by: Cave Bat (Old North Road)",
+            "Carried by: Cave Bat (Midgewater Swamp)",
+            "Carried by: Crebain (Dunland)"
+          ]
+        }
+      ],
+      "recommendation": "Give each variant a unique tag (and consider a matching unique resref) so scripts, players, and the wiki can unambiguously identify each item."
+    },
+    {
+      "shared_tag": "NW_IT_CREWPSP015",
+      "item_count": 2,
+      "variants": [
+        {
+          "resref": "it_crewpsp023",
+          "name": "pissed claw",
+          "base_item": "Creature Slash Piercing Weapon",
+          "cost_gp": 48516124,
+          "wiki_url": "https://homers-lotr-wiki.jamesprice-slightlyepic.workers.dev/items/it_crewpsp023.html",
+          "properties": [
+            "Damage Bonus Bludgeoning 30",
+            "Damage Bonus Fire 30",
+            "Damage Bonus Magical 25",
+            "Damage Bonus Slashing 30",
+            "Damage Bonus Sonic 30",
+            "Enhancement Bonus +20",
+            "Monster Damage 57"
+          ],
+          "found_at": []
+        },
+        {
+          "resref": "nw_it_crewpsp015",
+          "name": "Claw2d6",
+          "base_item": "Creature Slash Piercing Weapon",
+          "cost_gp": 2000,
+          "wiki_url": "https://homers-lotr-wiki.jamesprice-slightlyepic.workers.dev/items/nw_it_crewpsp015.html",
+          "properties": [
+            "Monster Damage 2d8"
+          ],
+          "found_at": [
+            "Carried by: Gate Giant (Morannon - The Black Gate)",
+            "Carried by: Kallrist tiger (Kallrist, West shore)",
+            "Carried by: Kallrist tiger (Kallrist, Inner)",
+            "Carried by: Kallrist tiger (Kallrist, East shore)"
+          ]
+        }
+      ],
+      "recommendation": "Give each variant a unique tag (and consider a matching unique resref) so scripts, players, and the wiki can unambiguously identify each item."
+    },
+    {
+      "shared_tag": "NW_IT_CREWPSP021",
+      "item_count": 2,
+      "variants": [
+        {
+          "resref": "it_crewpsp022",
+          "name": "Balrog's Battle Claw",
+          "base_item": "Creature Slash Piercing Weapon",
+          "cost_gp": 70735006,
+          "wiki_url": "https://homers-lotr-wiki.jamesprice-slightlyepic.workers.dev/items/it_crewpsp022.html",
+          "properties": [
+            "Attack Bonus +20",
+            "Damage Bonus Bludgeoning 29",
+            "Damage Bonus Divine 9",
+            "Damage Bonus Negative 9",
+            "Damage Bonus Slashing 29",
+            "Damage Bonus Sonic 9",
+            "Enhancement Bonus +20",
+            "Keen",
+            "Massive Criticals 30",
+            "Monster Damage 37",
+            "On Hit Properties Vorpal DC 26",
+            "On Monster Hit Sleep"
+          ],
+          "found_at": [
+            "Carried by: The Balrog of Moria (The Abyss of Moria)",
+            "Carried by: The Balrog of Moria (Moria: The Balrog of Moria)"
+          ]
+        },
+        {
+          "resref": "nw_it_crewpsp021",
+          "name": "Battle Devourer Claw",
+          "base_item": "Creature Slash Piercing Weapon",
+          "cost_gp": 15124,
+          "wiki_url": "https://homers-lotr-wiki.jamesprice-slightlyepic.workers.dev/items/nw_it_crewpsp021.html",
+          "properties": [
+            "Monster Damage 4d10",
+            "On Monster Hit Fear"
+          ],
+          "found_at": [
+            "Carried by: Azagoth (Ruins of Annuminas)"
+          ]
         }
       ],
       "recommendation": "Give each variant a unique tag (and consider a matching unique resref) so scripts, players, and the wiki can unambiguously identify each item."
     },
     {
       "shared_tag": "NW_IT_CREWPSP027",
-      "item_count": 2,
+      "item_count": 3,
       "variants": [
         {
           "resref": "it_crewpsp018",
@@ -5589,13 +7953,33 @@
           "found_at": [
             "Carried by: Wraith of the Witch King (The Witch King's Throne)"
           ]
+        },
+        {
+          "resref": "nw_it_crewpsp027",
+          "name": "Claw2d8",
+          "base_item": "Creature Slash Piercing Weapon",
+          "cost_gp": 4500,
+          "wiki_url": "https://homers-lotr-wiki.jamesprice-slightlyepic.workers.dev/items/nw_it_crewpsp027.html",
+          "properties": [
+            "Monster Damage 4d12"
+          ],
+          "found_at": [
+            "Carried by: Minotaur Warcryer (Kallrist, Land bridge)",
+            "Carried by: Minotaur Warcryer (Kallrist, North shore)",
+            "Carried by: Minotaur Warcryer (Kallrist, Outer banks)",
+            "Carried by: Minotaur Warcryer (Kallrist, East shore)",
+            "Carried by: Minotaur Warcryer (Plane of the Render)",
+            "Carried by: Kallrist tiger (Kallrist, West shore)",
+            "Carried by: Kallrist tiger (Kallrist, Inner)",
+            "Carried by: Kallrist tiger (Kallrist, East shore)"
+          ]
         }
       ],
       "recommendation": "Give each variant a unique tag (and consider a matching unique resref) so scripts, players, and the wiki can unambiguously identify each item."
     },
     {
       "shared_tag": "NW_IT_MBELT007",
-      "item_count": 2,
+      "item_count": 3,
       "variants": [
         {
           "resref": "it_mbelt008",
@@ -5636,13 +8020,31 @@
           "found_at": [
             "Carried by: Denethor, Steward of Gondor (Minas Tirith: Keep)"
           ]
+        },
+        {
+          "resref": "nw_it_mbelt007",
+          "name": "Belt of Frost Giant Strength",
+          "base_item": "Belt",
+          "cost_gp": 23041,
+          "wiki_url": "https://homers-lotr-wiki.jamesprice-slightlyepic.workers.dev/items/nw_it_mbelt007.html",
+          "properties": [
+            "Ability Bonus Strength +4"
+          ],
+          "found_at": [
+            "Carried by: Ranger of the North (Bree)",
+            "Carried by: Tren Notteel (Rivendell)",
+            "Carried by: Erkenbrand Captain of Rohan (Theoden's Hall)",
+            "Carried by: Ranger of the North (The Valley of Rivendell)",
+            "Carried by: Yalgul the Wrath Herald (Ice Queen: Lair)",
+            "Carried by: Frust Ice Stone (Ice Queen: Lair)"
+          ]
         }
       ],
       "recommendation": "Give each variant a unique tag (and consider a matching unique resref) so scripts, players, and the wiki can unambiguously identify each item."
     },
     {
       "shared_tag": "nw_it_mglove010",
-      "item_count": 2,
+      "item_count": 3,
       "variants": [
         {
           "resref": "glovstoneheart",
@@ -5672,13 +8074,27 @@
           "found_at": [
             "Sold at: lonemerchant (Temple of Marr)"
           ]
+        },
+        {
+          "resref": "nw_it_mglove010",
+          "name": "Greater Gloves of Concentration",
+          "base_item": "Gauntlet",
+          "cost_gp": 519,
+          "wiki_url": "https://homers-lotr-wiki.jamesprice-slightlyepic.workers.dev/items/nw_it_mglove010.html",
+          "properties": [
+            "Skill Bonus Concentration +6"
+          ],
+          "found_at": [
+            "Carried by: Febrith Thient (Carn Dum: Temple)",
+            "Carried by: Kaale the Carrok Legate (Ice Queen: Lair)"
+          ]
         }
       ],
       "recommendation": "Give each variant a unique tag (and consider a matching unique resref) so scripts, players, and the wiki can unambiguously identify each item."
     },
     {
       "shared_tag": "NW_IT_MRING004",
-      "item_count": 5,
+      "item_count": 6,
       "variants": [
         {
           "resref": "it_mring008",
@@ -5745,6 +8161,25 @@
             "Regeneration +10"
           ],
           "found_at": []
+        },
+        {
+          "resref": "nw_it_mring004",
+          "name": "Ring of Regeneration",
+          "base_item": "Ring",
+          "cost_gp": 86051,
+          "wiki_url": "https://homers-lotr-wiki.jamesprice-slightlyepic.workers.dev/items/nw_it_mring004.html",
+          "properties": [
+            "Regeneration +4"
+          ],
+          "found_at": [
+            "Sold at: gondortemplestor (Minas Tirith: Temple)",
+            "Carried by: Gloin King Under the Mountain (Lonely Mountain: Main Hall)",
+            "Carried by: Darcara the Cruel (Dwarrow Delf (west))",
+            "Carried by: Ice Queen Avatar (Ice Queen: Lair)",
+            "Carried by: Yalgul the Wrath Herald (Ice Queen: Lair)",
+            "Carried by: Frust Ice Stone (Ice Queen: Lair)",
+            "Carried by: Azagoth (Ruins of Annuminas)"
+          ]
         }
       ],
       "recommendation": "Give each variant a unique tag (and consider a matching unique resref) so scripts, players, and the wiki can unambiguously identify each item."
@@ -5804,8 +8239,50 @@
       "recommendation": "Give each variant a unique tag (and consider a matching unique resref) so scripts, players, and the wiki can unambiguously identify each item."
     },
     {
+      "shared_tag": "NW_MAARCL018",
+      "item_count": 2,
+      "variants": [
+        {
+          "resref": "maarcl019",
+          "name": "White Dragon Armor",
+          "base_item": "Armor",
+          "cost_gp": 3390300,
+          "wiki_url": "https://homers-lotr-wiki.jamesprice-slightlyepic.workers.dev/items/maarcl019.html",
+          "properties": [
+            "AC Bonus +6",
+            "Bonus Feat Dodge",
+            "Bonus Feat Mobility",
+            "Damage Reduction 9 5/+4",
+            "Damage Resistance Cold 6",
+            "Damage Resistance Piercing 6",
+            "Saving Throw Bonus Universal +6"
+          ],
+          "found_at": [
+            "Carried by: Frost (Emyn Arnen: Peak)"
+          ]
+        },
+        {
+          "resref": "nw_maarcl018",
+          "name": "White Dragon Armor",
+          "base_item": "Armor",
+          "cost_gp": 17092,
+          "wiki_url": "https://homers-lotr-wiki.jamesprice-slightlyepic.workers.dev/items/nw_maarcl018.html",
+          "properties": [
+            "AC Bonus +3",
+            "Base Item Weight Reduction 80% reduction",
+            "Damage Resistance Cold 25/-"
+          ],
+          "found_at": [
+            "Sold at: x2_genie_store (Ranger Waystation)",
+            "Sold at: lonemerchant (Temple of Marr)"
+          ]
+        }
+      ],
+      "recommendation": "Give each variant a unique tag (and consider a matching unique resref) so scripts, players, and the wiki can unambiguously identify each item."
+    },
+    {
       "shared_tag": "NW_MAARCL022",
-      "item_count": 4,
+      "item_count": 5,
       "variants": [
         {
           "resref": "maarcl024",
@@ -5879,13 +8356,63 @@
             "Damage Reduction 4 5/+3"
           ],
           "found_at": []
+        },
+        {
+          "resref": "nw_maarcl022",
+          "name": "Elven Ceremonial Armor",
+          "base_item": "Armor",
+          "cost_gp": 15116,
+          "wiki_url": "https://homers-lotr-wiki.jamesprice-slightlyepic.workers.dev/items/nw_maarcl022.html",
+          "properties": [
+            "AC Bonus +1",
+            "Bonus Feat Spell Focus (Conjuration)",
+            "Bonus Feat Spell Focus (Divination)",
+            "Bonus Feat Spell Focus (Enchantment)",
+            "Bonus Feat Spell Focus (Evocation)"
+          ],
+          "found_at": [
+            "Sold at: NW_STOREWEAP003 (Kallrist, South shore)"
+          ]
+        }
+      ],
+      "recommendation": "Give each variant a unique tag (and consider a matching unique resref) so scripts, players, and the wiki can unambiguously identify each item."
+    },
+    {
+      "shared_tag": "NW_MAARCL039",
+      "item_count": 2,
+      "variants": [
+        {
+          "resref": "maarcl040",
+          "name": "Chainmail of Speed",
+          "base_item": "Armor",
+          "cost_gp": 37482,
+          "wiki_url": "https://homers-lotr-wiki.jamesprice-slightlyepic.workers.dev/items/maarcl040.html",
+          "properties": [
+            "AC Bonus +3",
+            "Haste"
+          ],
+          "found_at": []
+        },
+        {
+          "resref": "nw_maarcl039",
+          "name": "Chainmail of Speed",
+          "base_item": "Armor",
+          "cost_gp": 27294,
+          "wiki_url": "https://homers-lotr-wiki.jamesprice-slightlyepic.workers.dev/items/nw_maarcl039.html",
+          "properties": [
+            "AC Bonus +2",
+            "Haste"
+          ],
+          "found_at": [
+            "Sold at: NW_STOREWEAP003 (Kallrist, South shore)"
+          ]
         }
       ],
       "recommendation": "Give each variant a unique tag (and consider a matching unique resref) so scripts, players, and the wiki can unambiguously identify each item."
     },
     {
       "shared_tag": "NW_MAARCL068",
-      "item_count": 2,
+      "item_count": 3,
       "variants": [
         {
           "resref": "maarcl069",
@@ -5921,6 +8448,71 @@
           "found_at": [
             "Carried by: Yalgul the Wrath Herald (Ice Queen: Lair)",
             "Carried by: Frust Ice Stone (Ice Queen: Lair)"
+          ]
+        },
+        {
+          "resref": "nw_maarcl068",
+          "name": "Full Plate +2",
+          "base_item": "Armor",
+          "cost_gp": 4424,
+          "wiki_url": "https://homers-lotr-wiki.jamesprice-slightlyepic.workers.dev/items/nw_maarcl068.html",
+          "properties": [
+            "AC Bonus +2"
+          ],
+          "found_at": [
+            "Sold at: NW_STORESPEC003 (Barad-Dûr: Keep)",
+            "Sold at: NW_STORESPEC003 (Elvalia's Magic Shop)",
+            "Sold at: M_CL05M (Taggets Smith Shop)",
+            "Sold at: M_CL05M (Taggets Smith Shop)",
+            "Carried by: A Minotaur Battle Master (Kallrist, Land bridge)",
+            "Carried by: A Minotaur Battle Master (Kallrist, North shore)",
+            "Carried by: A Minotaur Battle Master (Kallrist, Outer banks)",
+            "Carried by: A Minotaur Battle Master (Kallrist, East shore)"
+          ]
+        }
+      ],
+      "recommendation": "Give each variant a unique tag (and consider a matching unique resref) so scripts, players, and the wiki can unambiguously identify each item."
+    },
+    {
+      "shared_tag": "NW_MAARCL080",
+      "item_count": 2,
+      "variants": [
+        {
+          "resref": "maarcl108",
+          "name": "Stormblood Armor",
+          "base_item": "Armor",
+          "cost_gp": 73071,
+          "wiki_url": "https://homers-lotr-wiki.jamesprice-slightlyepic.workers.dev/items/maarcl108.html",
+          "properties": [
+            "AC Bonus +5",
+            "Damage Resistance Bludgeoning 15/-",
+            "Damage Resistance Piercing 15/-",
+            "Decreased Skill Modifier Hide -5",
+            "Decreased Skill Modifier Move Silently -5",
+            "Light Low",
+            "Use Limitation: Racial Type Dwarf"
+          ],
+          "found_at": []
+        },
+        {
+          "resref": "nw_maarcl080",
+          "name": "Full Plate +3",
+          "base_item": "Armor",
+          "cost_gp": 8312,
+          "wiki_url": "https://homers-lotr-wiki.jamesprice-slightlyepic.workers.dev/items/nw_maarcl080.html",
+          "properties": [
+            "AC Bonus +3"
+          ],
+          "found_at": [
+            "Sold at: NW_STOREWEAP00111 (Carn Dum: Smithy)",
+            "Sold at: NW_STOREWEAP007 (Lowyn's Smithy)",
+            "Sold at: lonemerchant (Temple of Marr)",
+            "Carried by: Tirg the General (Angmar)",
+            "Carried by: The Goblin King (Goblin Town: Main Hall)",
+            "Carried by: A Minotaur Warlord (Kallrist, Land bridge)",
+            "Carried by: A Minotaur Warlord (Kallrist, North shore)",
+            "Carried by: A Minotaur Warlord (Kallrist, Outer banks)",
+            "Carried by: A Minotaur Warlord (Kallrist, East shore)"
           ]
         }
       ],
@@ -5997,9 +8589,117 @@
       "recommendation": "Give each variant a unique tag (and consider a matching unique resref) so scripts, players, and the wiki can unambiguously identify each item."
     },
     {
-      "shared_tag": "NW_WAMMAR003",
-      "item_count": 34,
+      "shared_tag": "NW_MCLOTH011",
+      "item_count": 2,
       "variants": [
+        {
+          "resref": "mcloth012",
+          "name": "Golden Scale of the Dragon",
+          "base_item": "Armor",
+          "cost_gp": 2034011,
+          "wiki_url": "https://homers-lotr-wiki.jamesprice-slightlyepic.workers.dev/items/mcloth012.html",
+          "properties": [
+            "AC Bonus +10",
+            "Ability Bonus Charisma +10",
+            "Bonus Feat Dodge",
+            "Bonus Feat Mobility",
+            "Haste",
+            "Light Dim"
+          ],
+          "found_at": [
+            "Carried by: Kerufall (Kerufall's Lair)"
+          ]
+        },
+        {
+          "resref": "nw_mcloth011",
+          "name": "Adventurer's Robe",
+          "base_item": "Armor",
+          "cost_gp": 6251,
+          "wiki_url": "https://homers-lotr-wiki.jamesprice-slightlyepic.workers.dev/items/nw_mcloth011.html",
+          "properties": [
+            "Damage Reduction 5/+2",
+            "Use Limitation: Class Sorcerer",
+            "Use Limitation: Class Wizard"
+          ],
+          "found_at": [
+            "Sold at: NW_STOREMAGIC001b (Bree)",
+            "Sold at: X2_STOREMAGE003 (The House of Healing)",
+            "Sold at: NW_STOREMAGIC002 (Tower of Alatar)",
+            "Carried by: Perry Blimeaf (Brandywine Inn)",
+            "Carried by: Rigrin Took (Whitfurrow Inn)"
+          ]
+        }
+      ],
+      "recommendation": "Give each variant a unique tag (and consider a matching unique resref) so scripts, players, and the wiki can unambiguously identify each item."
+    },
+    {
+      "shared_tag": "NW_WAMAR001",
+      "item_count": 2,
+      "variants": [
+        {
+          "resref": "nw_wamar001",
+          "name": "Arrow",
+          "base_item": "Arrow",
+          "cost_gp": 0,
+          "wiki_url": "https://homers-lotr-wiki.jamesprice-slightlyepic.workers.dev/items/nw_wamar001.html",
+          "properties": [],
+          "found_at": [
+            "Sold at: X2_STORETHIEF003 (Barad-Dûr: Barracks)",
+            "Sold at: NW_STORGENRAL003 (Brandywine Inn)",
+            "Sold at: NW_STORETMPLE002q (Carn Dum: Temple)",
+            "Sold at: NW_STOREWEAP003 (Kallrist, South shore)",
+            "Sold at: gondortemplestor (Minas Tirith: Temple)",
+            "Sold at: M_CL05M (Taggets Smith Shop)",
+            "Sold at: NW_STORETMPLE002 (Temple of Illuvatar)",
+            "Sold at: NW_STORGENRAL001 (Tharbad (West))",
+            "Sold at: NW_STORGENRAL001 (Tharbad (East))",
+            "Sold at: X2_STORETEMPL002 (The House of Healing)",
+            "Sold at: X2_STOREWEAP003 (The House of Healing)",
+            "Sold at: NW_STOREWEAP003 (The Smithy of Rivendell)",
+            "Sold at: X2_STOREWEAP003 (Minas Tirith: Watchman Defender's Head Quarters)",
+            "Sold at: X2_STORETHIEF001 (Whitfurrow Inn)",
+            "Carried by: Lake Town Defender (Esgaroth (Lake Town))",
+            "Carried by: Guardian Of Bree (Bree)",
+            "Carried by: Goriolad Wende'lyn (Ranger Waystation)",
+            "Carried by: Loogaz (Loogaz Lair)"
+          ]
+        },
+        {
+          "resref": "wamar002",
+          "name": "Arrow",
+          "base_item": "Arrow",
+          "cost_gp": 3960,
+          "wiki_url": "https://homers-lotr-wiki.jamesprice-slightlyepic.workers.dev/items/wamar002.html",
+          "properties": [
+            "On Hit Properties Sleep DC 14"
+          ],
+          "found_at": []
+        }
+      ],
+      "recommendation": "Give each variant a unique tag (and consider a matching unique resref) so scripts, players, and the wiki can unambiguously identify each item."
+    },
+    {
+      "shared_tag": "NW_WAMMAR003",
+      "item_count": 35,
+      "variants": [
+        {
+          "resref": "nw_wammar003",
+          "name": "Acid Arrow",
+          "base_item": "Arrow",
+          "cost_gp": 1940,
+          "wiki_url": "https://homers-lotr-wiki.jamesprice-slightlyepic.workers.dev/items/nw_wammar003.html",
+          "properties": [
+            "Damage Bonus Acid 1"
+          ],
+          "found_at": [
+            "Sold at: NW_STORESPEC003 (Barad-Dûr: Keep)",
+            "Sold at: NW_STORENATU003q (Carn Dum: City)",
+            "Sold at: NW_STORESPEC003 (Elvalia's Magic Shop)",
+            "Sold at: NW_STOREWEAP003 (Kallrist, South shore)",
+            "Sold at: gondortemplestor (Minas Tirith: Temple)",
+            "Sold at: NW_STORENATU003 (The Valley of Rivendell)"
+          ]
+        },
         {
           "resref": "wammar004",
           "name": "Tracker Arrow",
@@ -6511,8 +9211,28 @@
     },
     {
       "shared_tag": "NW_WAMMAR005",
-      "item_count": 7,
+      "item_count": 8,
       "variants": [
+        {
+          "resref": "nw_wammar005",
+          "name": "Ice Arrow",
+          "base_item": "Arrow",
+          "cost_gp": 1940,
+          "wiki_url": "https://homers-lotr-wiki.jamesprice-slightlyepic.workers.dev/items/nw_wammar005.html",
+          "properties": [
+            "Damage Bonus Cold 1"
+          ],
+          "found_at": [
+            "Sold at: NW_STORESPEC003 (Barad-Dûr: Keep)",
+            "Sold at: NW_STORENATU003q (Carn Dum: City)",
+            "Sold at: NW_STORESPEC003 (Elvalia's Magic Shop)",
+            "Sold at: NW_STOREWEAP003 (Kallrist, South shore)",
+            "Sold at: gondortemplestor (Minas Tirith: Temple)",
+            "Sold at: X2_STOREWEAP003 (The House of Healing)",
+            "Sold at: NW_STORENATU003 (The Valley of Rivendell)",
+            "Sold at: X2_STOREWEAP003 (Minas Tirith: Watchman Defender's Head Quarters)"
+          ]
+        },
         {
           "resref": "wammar024",
           "name": "Ice Arrow",
@@ -6602,8 +9322,28 @@
     },
     {
       "shared_tag": "NW_WAMMAR006",
-      "item_count": 3,
+      "item_count": 4,
       "variants": [
+        {
+          "resref": "nw_wammar006",
+          "name": "Lightning Arrow",
+          "base_item": "Arrow",
+          "cost_gp": 1940,
+          "wiki_url": "https://homers-lotr-wiki.jamesprice-slightlyepic.workers.dev/items/nw_wammar006.html",
+          "properties": [
+            "Damage Bonus Electrical 1"
+          ],
+          "found_at": [
+            "Sold at: NW_STORESPEC003 (Barad-Dûr: Keep)",
+            "Sold at: NW_STORENATU003q (Carn Dum: City)",
+            "Sold at: NW_STORESPEC003 (Elvalia's Magic Shop)",
+            "Sold at: NW_STOREWEAP003 (Kallrist, South shore)",
+            "Sold at: gondortemplestor (Minas Tirith: Temple)",
+            "Sold at: x2_genie_store (Ranger Waystation)",
+            "Sold at: NW_STORENATU003 (The Valley of Rivendell)",
+            "Carried by: Mebridiel Relein (The Valley of Rivendell)"
+          ]
+        },
         {
           "resref": "wammar007",
           "name": "Shock Arrow",
@@ -6648,9 +9388,79 @@
       "recommendation": "Give each variant a unique tag (and consider a matching unique resref) so scripts, players, and the wiki can unambiguously identify each item."
     },
     {
-      "shared_tag": "NW_WAXGR001",
+      "shared_tag": "NW_WAXBT001",
       "item_count": 2,
       "variants": [
+        {
+          "resref": "nw_waxbt001",
+          "name": "Battleaxe",
+          "base_item": "Battleaxe",
+          "cost_gp": 20,
+          "wiki_url": "https://homers-lotr-wiki.jamesprice-slightlyepic.workers.dev/items/nw_waxbt001.html",
+          "properties": [],
+          "found_at": [
+            "Sold at: NW_STORGENRAL003 (Brandywine Inn)",
+            "Sold at: NW_STOREWEAP00111 (Carn Dum: Smithy)",
+            "Sold at: NW_STOREWEAP003 (Kallrist, South shore)",
+            "Sold at: M_CL05M (Taggets Smith Shop)",
+            "In container: Sarcophagus (Tomb of Garmir)",
+            "Carried by: Skeleton (Bree)"
+          ]
+        },
+        {
+          "resref": "waxbt002",
+          "name": "Axe of the Battle Master",
+          "base_item": "Battleaxe",
+          "cost_gp": 30440,
+          "wiki_url": "https://homers-lotr-wiki.jamesprice-slightlyepic.workers.dev/items/waxbt002.html",
+          "properties": [
+            "Attack Bonus +3",
+            "Regeneration: Vampiric +5"
+          ],
+          "found_at": [
+            "Carried by: A Minotaur Battle Master (Kallrist, Land bridge)",
+            "Carried by: A Minotaur Battle Master (Kallrist, North shore)",
+            "Carried by: A Minotaur Battle Master (Kallrist, Outer banks)",
+            "Carried by: A Minotaur Battle Master (Kallrist, East shore)"
+          ]
+        }
+      ],
+      "recommendation": "Give each variant a unique tag (and consider a matching unique resref) so scripts, players, and the wiki can unambiguously identify each item."
+    },
+    {
+      "shared_tag": "NW_WAXGR001",
+      "item_count": 3,
+      "variants": [
+        {
+          "resref": "nw_waxgr001",
+          "name": "Greataxe",
+          "base_item": "Greataxe",
+          "cost_gp": 40,
+          "wiki_url": "https://homers-lotr-wiki.jamesprice-slightlyepic.workers.dev/items/nw_waxgr001.html",
+          "properties": [],
+          "found_at": [
+            "Sold at: NW_STORGENRAL003 (Brandywine Inn)",
+            "Sold at: NW_STOREWEAP00111 (Carn Dum: Smithy)",
+            "Sold at: NW_STOREWEAP003 (Kallrist, South shore)",
+            "Sold at: M_CL05M (Taggets Smith Shop)",
+            "Carried by: Moria Orc Grunt (Chamber of Records Wlkwy)",
+            "Carried by: Moria Orc Grunt (Durin's Bridge)",
+            "Carried by: Moria Orc Grunt (Dwarrow Delf (west))",
+            "Carried by: Moria Orc Grunt (The Dimrill Stair)",
+            "Carried by: Moria Orc Grunt (The Gates of Moria)",
+            "Carried by: Moria Orc Clan Terror (Chamber of Records Wlkwy)",
+            "Carried by: Moria Orc Clan Terror (Durin's Bridge)",
+            "Carried by: Moria Orc Clan Terror (Dwarrow Delf (east))",
+            "Carried by: Moria Orc Clan Terror (Dwarrow Delf (west))",
+            "Carried by: Moria Orc Clan Terror (Moria Level 1 (Center))",
+            "Carried by: Moria Orc Clan Terror (The Dimrill Stair)",
+            "Carried by: Moria Orc Clan Terror (The Gates of Moria)",
+            "Carried by: Dunland Savage (Dunland)",
+            "Carried by: Dunland Savage (Dunland War Party)",
+            "Carried by: Dunland Warrior (Dunland)",
+            "Carried by: Dunland Warrior (Dunland War Party)"
+          ]
+        },
         {
           "resref": "waxgr002",
           "name": "Thunder Axe",
@@ -6682,8 +9492,22 @@
     },
     {
       "shared_tag": "NW_WAXMBT005",
-      "item_count": 2,
+      "item_count": 3,
       "variants": [
+        {
+          "resref": "nw_waxmbt005",
+          "name": "Clangeddin's Wayward Axe",
+          "base_item": "Battleaxe",
+          "cost_gp": 61070,
+          "wiki_url": "https://homers-lotr-wiki.jamesprice-slightlyepic.workers.dev/items/nw_waxmbt005.html",
+          "properties": [
+            "Damage Bonus Electrical 2d6",
+            "Enhancement Bonus +3"
+          ],
+          "found_at": [
+            "Sold at: lonemerchant (Temple of Marr)"
+          ]
+        },
         {
           "resref": "waxmbt008",
           "name": "Stormblood Strider",
@@ -6721,8 +9545,25 @@
     },
     {
       "shared_tag": "NW_WBLMFH011",
-      "item_count": 2,
+      "item_count": 3,
       "variants": [
+        {
+          "resref": "nw_wblmfh011",
+          "name": "Heavy Flail +3",
+          "base_item": "Heavy Flail",
+          "cost_gp": 16850,
+          "wiki_url": "https://homers-lotr-wiki.jamesprice-slightlyepic.workers.dev/items/nw_wblmfh011.html",
+          "properties": [
+            "Enhancement Bonus +3"
+          ],
+          "found_at": [
+            "Sold at: NW_STORESPEC003 (Barad-Dûr: Keep)",
+            "Sold at: carndumsmith (Carn Dum: Smithy)",
+            "Sold at: NW_STOREWEAP00111 (Carn Dum: Smithy)",
+            "Sold at: NW_STORESPEC003 (Elvalia's Magic Shop)",
+            "Sold at: X2_STORETEMPL002 (The House of Healing)"
+          ]
+        },
         {
           "resref": "wblmfh012",
           "name": "Carrok Elite Flail",
@@ -6812,8 +9653,24 @@
     },
     {
       "shared_tag": "NW_WBWMLN007",
-      "item_count": 2,
+      "item_count": 3,
       "variants": [
+        {
+          "resref": "nw_wbwmln007",
+          "name": "North Wind Bow",
+          "base_item": "Longbow",
+          "cost_gp": 25710,
+          "wiki_url": "https://homers-lotr-wiki.jamesprice-slightlyepic.workers.dev/items/nw_wbwmln007.html",
+          "properties": [
+            "Attack Bonus +3",
+            "Damage Resistance Cold 25/-",
+            "Mighty +3"
+          ],
+          "found_at": [
+            "Carried by: Ranger of the North (Bree)",
+            "Carried by: Ranger of the North (The Valley of Rivendell)"
+          ]
+        },
         {
           "resref": "wbwmln008",
           "name": "North Wind Bow",
@@ -6850,9 +9707,113 @@
       "recommendation": "Give each variant a unique tag (and consider a matching unique resref) so scripts, players, and the wiki can unambiguously identify each item."
     },
     {
-      "shared_tag": "NW_WMGST005",
+      "shared_tag": "NW_WDBMSW006",
       "item_count": 2,
       "variants": [
+        {
+          "resref": "nw_wdbmsw006",
+          "name": "Sword of Bao",
+          "base_item": "Two-Bladed Sword",
+          "cost_gp": 4118,
+          "wiki_url": "https://homers-lotr-wiki.jamesprice-slightlyepic.workers.dev/items/nw_wdbmsw006.html",
+          "properties": [
+            "Damage Bonus Fire 1"
+          ],
+          "found_at": [
+            "Sold at: M_CL05M (Taggets Smith Shop)"
+          ]
+        },
+        {
+          "resref": "wdbmsw007",
+          "name": "Sword of the Ice Giant",
+          "base_item": "Two-Bladed Sword",
+          "cost_gp": 750980,
+          "wiki_url": "https://homers-lotr-wiki.jamesprice-slightlyepic.workers.dev/items/wdbmsw007.html",
+          "properties": [
+            "Attack Bonus +8",
+            "Damage Bonus Cold 7",
+            "Damage Bonus Electrical 3",
+            "Damage Bonus Slashing 3",
+            "Keen"
+          ],
+          "found_at": [
+            "Carried by: Frust Ice Stone (Ice Queen: Lair)",
+            "Carried by: A Minotaur Warrior (Kallrist, Land bridge)",
+            "Carried by: A Minotaur Warrior (Kallrist, North shore)",
+            "Carried by: A Minotaur Warrior (Kallrist, Outer banks)",
+            "Carried by: A Minotaur Warrior (Kallrist, East shore)"
+          ]
+        }
+      ],
+      "recommendation": "Give each variant a unique tag (and consider a matching unique resref) so scripts, players, and the wiki can unambiguously identify each item."
+    },
+    {
+      "shared_tag": "NW_WMGMRD002",
+      "item_count": 2,
+      "variants": [
+        {
+          "resref": "nw_wmgmrd002",
+          "name": "Rod of Resurrection",
+          "base_item": "Magic Rod",
+          "cost_gp": 30713,
+          "wiki_url": "https://homers-lotr-wiki.jamesprice-slightlyepic.workers.dev/items/nw_wmgmrd002.html",
+          "properties": [
+            "Cast Spell Resurrection 2 charges"
+          ],
+          "found_at": [
+            "Sold at: M_CL05M (Taggets Smith Shop)"
+          ]
+        },
+        {
+          "resref": "wmgmrd003",
+          "name": "Rod of Resurrection",
+          "base_item": "Magic Rod",
+          "cost_gp": 358314,
+          "wiki_url": "https://homers-lotr-wiki.jamesprice-slightlyepic.workers.dev/items/wmgmrd003.html",
+          "properties": [
+            "Cast Spell Greater Restoration 6/Day",
+            "Cast Spell Resurrection 6/Day"
+          ],
+          "found_at": [
+            "Sold at: NW_STORETMPLE002 (Temple of Illuvatar)"
+          ]
+        }
+      ],
+      "recommendation": "Give each variant a unique tag (and consider a matching unique resref) so scripts, players, and the wiki can unambiguously identify each item."
+    },
+    {
+      "shared_tag": "NW_WMGST005",
+      "item_count": 3,
+      "variants": [
+        {
+          "resref": "nw_wmgst005",
+          "name": "Staff of Power",
+          "base_item": "Magic Staff",
+          "cost_gp": 9094,
+          "wiki_url": "https://homers-lotr-wiki.jamesprice-slightlyepic.workers.dev/items/nw_wmgst005.html",
+          "properties": [
+            "Cast Spell Fireball 4 charges",
+            "Cast Spell Magic Missile 5 charges",
+            "Cast Spell Ray of Enfeeblement Unlimited Use",
+            "Use Limitation: Class Sorcerer",
+            "Use Limitation: Class Wizard"
+          ],
+          "found_at": [
+            "Sold at: NW_STOREMAGIC003q (Carn Dum: Temple)",
+            "Sold at: NW_STOREMAGIC003 (Rivendell)",
+            "Sold at: M_CL05M (Taggets Smith Shop)",
+            "Carried by: Black Numenorean Mage (Carn Dum: City)",
+            "Carried by: Elvaleng Ma'fer (Carn Dum: Temple)",
+            "Carried by: Black Numenorean Mage (Mount Gundabad Level 2)",
+            "Carried by: Black Numenorean Mage (Mount Gundabad)",
+            "Carried by: Carrok Sorcerer (Carrok)",
+            "Carried by: Carrok Sorcerer (Carrok: Greater)",
+            "Carried by: Carrok Sorcerer (Carrok: Lesser)",
+            "Carried by: Black Numenorean Mage (Great East Road)",
+            "Carried by: Black Numenorean Mage (The Angmar Mountain Range)",
+            "Carried by: Ice Queen Evocator (Ice Queen: Lair)"
+          ]
+        },
         {
           "resref": "wmgst006",
           "name": "Stave of the Carroc Wizard",
@@ -6894,6 +9855,220 @@
             "Carried by: Drider Mage (Angmar Dungeon)",
             "Carried by: Drider Mage (Angmar's Lair)"
           ]
+        }
+      ],
+      "recommendation": "Give each variant a unique tag (and consider a matching unique resref) so scripts, players, and the wiki can unambiguously identify each item."
+    },
+    {
+      "shared_tag": "NW_WPLSC001",
+      "item_count": 2,
+      "variants": [
+        {
+          "resref": "nw_wplsc001",
+          "name": "Scythe",
+          "base_item": "Scythe",
+          "cost_gp": 36,
+          "wiki_url": "https://homers-lotr-wiki.jamesprice-slightlyepic.workers.dev/items/nw_wplsc001.html",
+          "properties": [],
+          "found_at": [
+            "Sold at: NW_STORGENRAL003 (Brandywine Inn)",
+            "Sold at: NW_STOREWEAP00111 (Carn Dum: Smithy)",
+            "Sold at: NW_STOREWEAP003 (Kallrist, South shore)",
+            "Sold at: M_CL05M (Taggets Smith Shop)"
+          ]
+        },
+        {
+          "resref": "wplsc002",
+          "name": "Númenor Scythe",
+          "base_item": "Scythe",
+          "cost_gp": 2970314,
+          "wiki_url": "https://homers-lotr-wiki.jamesprice-slightlyepic.workers.dev/items/wplsc002.html",
+          "properties": [
+            "Attack Bonus +14",
+            "Damage Bonus Cold 5",
+            "Damage Bonus Magical 3",
+            "Damage Bonus Piercing 5",
+            "Damage Bonus Slashing 5",
+            "Damage Bonus Sonic 3",
+            "Keen",
+            "Massive Criticals 7",
+            "Visual Effect visualfx #5"
+          ],
+          "found_at": [
+            "Sold at: X2_STOREWEAP003 (Númenor:  The Great Forge Of Númenor)"
+          ]
+        }
+      ],
+      "recommendation": "Give each variant a unique tag (and consider a matching unique resref) so scripts, players, and the wiki can unambiguously identify each item."
+    },
+    {
+      "shared_tag": "NW_WSPMKU006",
+      "item_count": 2,
+      "variants": [
+        {
+          "resref": "nw_wspmku006",
+          "name": "Sharpshadow Blade",
+          "base_item": "Kukri",
+          "cost_gp": 3824,
+          "wiki_url": "https://homers-lotr-wiki.jamesprice-slightlyepic.workers.dev/items/nw_wspmku006.html",
+          "properties": [
+            "Enhancement Bonus +1",
+            "Skill Bonus Hide +2",
+            "Skill Bonus Move Silently +2"
+          ],
+          "found_at": [
+            "Sold at: carndumsmith (Carn Dum: Smithy)",
+            "Sold at: gondortemplestor (Minas Tirith: Temple)"
+          ]
+        },
+        {
+          "resref": "wspmku011",
+          "name": "Acid Dribble",
+          "base_item": "Kukri",
+          "cost_gp": 8522972,
+          "wiki_url": "https://homers-lotr-wiki.jamesprice-slightlyepic.workers.dev/items/wspmku011.html",
+          "properties": [
+            "Damage Bonus Acid 9",
+            "Damage Bonus Divine 3",
+            "Damage Bonus Magical 2",
+            "Damage Bonus Piercing 9",
+            "Damage Bonus Slashing 9",
+            "Enhancement Bonus +12",
+            "Keen",
+            "Massive Criticals 9",
+            "Skill Bonus Hide +12",
+            "Skill Bonus Move Silently +12"
+          ],
+          "found_at": [
+            "Carried by: The Rancid Skinner Green Mortal of Khamul (Dol Guldur:  Tower Of Black Magic Depths)"
+          ]
+        }
+      ],
+      "recommendation": "Give each variant a unique tag (and consider a matching unique resref) so scripts, players, and the wiki can unambiguously identify each item."
+    },
+    {
+      "shared_tag": "NW_WSWMKA011",
+      "item_count": 2,
+      "variants": [
+        {
+          "resref": "nw_wswmka011",
+          "name": "Katana +3",
+          "base_item": "Katana",
+          "cost_gp": 16900,
+          "wiki_url": "https://homers-lotr-wiki.jamesprice-slightlyepic.workers.dev/items/nw_wswmka011.html",
+          "properties": [
+            "Enhancement Bonus +3"
+          ],
+          "found_at": [
+            "Sold at: NW_STORESPEC003 (Barad-Dûr: Keep)",
+            "Sold at: NW_STOREWEAP00111 (Carn Dum: Smithy)",
+            "Sold at: NW_STORESPEC003 (Elvalia's Magic Shop)",
+            "Sold at: NW_STOREWEAP007 (Lowyn's Smithy)",
+            "Sold at: NW_STORESPEC003 (The Smithy of Rivendell)"
+          ]
+        },
+        {
+          "resref": "wswmka012",
+          "name": "Sword of the Elven Light",
+          "base_item": "Katana",
+          "cost_gp": 128080,
+          "wiki_url": "https://homers-lotr-wiki.jamesprice-slightlyepic.workers.dev/items/wswmka012.html",
+          "properties": [
+            "On Hit Properties Slay Alignment Group: Evil DC 18"
+          ],
+          "found_at": []
+        }
+      ],
+      "recommendation": "Give each variant a unique tag (and consider a matching unique resref) so scripts, players, and the wiki can unambiguously identify each item."
+    },
+    {
+      "shared_tag": "NW_WSWMLS012",
+      "item_count": 2,
+      "variants": [
+        {
+          "resref": "nw_wswmls012",
+          "name": "Longsword +3",
+          "base_item": "Longsword",
+          "cost_gp": 16850,
+          "wiki_url": "https://homers-lotr-wiki.jamesprice-slightlyepic.workers.dev/items/nw_wswmls012.html",
+          "properties": [
+            "Enhancement Bonus +3"
+          ],
+          "found_at": [
+            "Sold at: NW_STORESPEC003 (Barad-Dûr: Keep)",
+            "Sold at: carndumsmith (Carn Dum: Smithy)",
+            "Sold at: NW_STOREWEAP00111 (Carn Dum: Smithy)",
+            "Sold at: NW_STORESPEC003 (Elvalia's Magic Shop)",
+            "Sold at: NW_STOREWEAP007 (Lowyn's Smithy)",
+            "Sold at: M_CL05M (Taggets Smith Shop)",
+            "Sold at: NW_STORESPEC003 (The Smithy of Rivendell)",
+            "Carried by: Ranger of the North (Bree)",
+            "Carried by: Black Numenorean Raider (Great East Road)",
+            "Carried by: Black Numenorean Raider (The Angmar Mountain Range)"
+          ]
+        },
+        {
+          "resref": "wswmls013",
+          "name": "Longsword +3",
+          "base_item": "Longsword",
+          "cost_gp": 37874,
+          "wiki_url": "https://homers-lotr-wiki.jamesprice-slightlyepic.workers.dev/items/wswmls013.html",
+          "properties": [
+            "Attack Bonus +3",
+            "Enhancement Bonus +3"
+          ],
+          "found_at": [
+            "Carried by: Ranger of the North (The Valley of Rivendell)"
+          ]
+        }
+      ],
+      "recommendation": "Give each variant a unique tag (and consider a matching unique resref) so scripts, players, and the wiki can unambiguously identify each item."
+    },
+    {
+      "shared_tag": "OlorinsGift",
+      "item_count": 2,
+      "variants": [
+        {
+          "resref": "olorinsgift",
+          "name": "Olorin's Gift",
+          "base_item": "Greatsword",
+          "cost_gp": 4131504,
+          "wiki_url": "https://homers-lotr-wiki.jamesprice-slightlyepic.workers.dev/items/olorinsgift.html",
+          "properties": [
+            "Attack Bonus +16",
+            "Bonus Spell Slot of Level N Druid Level 7",
+            "Bonus Spell Slot of Level N Druid Level 8",
+            "Bonus Spell Slot of Level N Druid Level 9",
+            "Damage Bonus Divine 5",
+            "Damage Bonus Slashing 7",
+            "Extra Melee Damage Type Bludgeoning",
+            "Keen",
+            "Massive Criticals 9",
+            "Skill Bonus Concentration +8",
+            "Skill Bonus Discipline +8",
+            "Skill Bonus Hide +5",
+            "Skill Bonus Move Silently +4",
+            "Use Limitation: Class Druid",
+            "Visual Effect visualfx #5"
+          ],
+          "found_at": [
+            "Carried by: Thranduil, King of Eryn Lasgalen (Mirkwood: Thranduil's Hall)"
+          ]
+        },
+        {
+          "resref": "olorinsgift002",
+          "name": "Olorin's Gift",
+          "base_item": "Greatsword",
+          "cost_gp": 3386744,
+          "wiki_url": "https://homers-lotr-wiki.jamesprice-slightlyepic.workers.dev/items/olorinsgift002.html",
+          "properties": [
+            "Damage Bonus Divine 5",
+            "Damage Bonus Piercing 9",
+            "Damage Bonus Positive 5",
+            "Enhancement Bonus +10",
+            "Holy Avenger"
+          ],
+          "found_at": []
         }
       ],
       "recommendation": "Give each variant a unique tag (and consider a matching unique resref) so scripts, players, and the wiki can unambiguously identify each item."
@@ -6975,6 +10150,77 @@
             "Carried by: Mordor Hewer (Cirith Ungol)",
             "Carried by: Mordor Hewer (Orc Armory)"
           ]
+        }
+      ],
+      "recommendation": "Give each variant a unique tag (and consider a matching unique resref) so scripts, players, and the wiki can unambiguously identify each item."
+    },
+    {
+      "shared_tag": "PaddedArmor4",
+      "item_count": 2,
+      "variants": [
+        {
+          "resref": "paddedarmor004",
+          "name": "Padded Armor +4",
+          "base_item": "Armor",
+          "cost_gp": 8589,
+          "wiki_url": "https://homers-lotr-wiki.jamesprice-slightlyepic.workers.dev/items/paddedarmor004.html",
+          "properties": [
+            "AC Bonus +2",
+            "Base Item Weight Reduction 20% reduction",
+            "Damage Vulnerability Bludgeoning 10%",
+            "Damage Vulnerability Piercing 10%",
+            "Damage Vulnerability Slashing 10%",
+            "Skill Bonus Concentration +2",
+            "Skill Bonus Move Silently +4"
+          ],
+          "found_at": []
+        },
+        {
+          "resref": "paddedarmor4",
+          "name": "Padded Armor +4",
+          "base_item": "Armor",
+          "cost_gp": 12325,
+          "wiki_url": "https://homers-lotr-wiki.jamesprice-slightlyepic.workers.dev/items/paddedarmor4.html",
+          "properties": [
+            "AC Bonus +4"
+          ],
+          "found_at": []
+        }
+      ],
+      "recommendation": "Give each variant a unique tag (and consider a matching unique resref) so scripts, players, and the wiki can unambiguously identify each item."
+    },
+    {
+      "shared_tag": "PoisonTippedFang",
+      "item_count": 2,
+      "variants": [
+        {
+          "resref": "poisontippedf002",
+          "name": "Poison Tipped Fang",
+          "base_item": "Dagger",
+          "cost_gp": 488910,
+          "wiki_url": "https://homers-lotr-wiki.jamesprice-slightlyepic.workers.dev/items/poisontippedf002.html",
+          "properties": [
+            "AC Bonus +3",
+            "Damage Bonus Acid 7",
+            "Enhancement Bonus +5",
+            "On Hit Properties Poison DC 14"
+          ],
+          "found_at": [
+            "Carried by: Shelob (Shelob's Lair)"
+          ]
+        },
+        {
+          "resref": "poisontippedfang",
+          "name": "Poison Tipped Fang",
+          "base_item": "Dagger",
+          "cost_gp": 121996,
+          "wiki_url": "https://homers-lotr-wiki.jamesprice-slightlyepic.workers.dev/items/poisontippedfang.html",
+          "properties": [
+            "AC Bonus +5",
+            "Damage Bonus Acid 1",
+            "On Hit Properties Poison DC 14"
+          ],
+          "found_at": []
         }
       ],
       "recommendation": "Give each variant a unique tag (and consider a matching unique resref) so scripts, players, and the wiki can unambiguously identify each item."
@@ -7145,6 +10391,56 @@
       "recommendation": "Give each variant a unique tag (and consider a matching unique resref) so scripts, players, and the wiki can unambiguously identify each item."
     },
     {
+      "shared_tag": "SarumansRobes",
+      "item_count": 2,
+      "variants": [
+        {
+          "resref": "cloth007",
+          "name": "Alatar's Robes",
+          "base_item": "Armor",
+          "cost_gp": 15094,
+          "wiki_url": "https://homers-lotr-wiki.jamesprice-slightlyepic.workers.dev/items/cloth007.html",
+          "properties": [
+            "AC Bonus +1",
+            "Damage Resistance Slashing 15/-",
+            "Skill Bonus Concentration +10"
+          ],
+          "found_at": [
+            "Sold at: saaurmanmagic (Isengard (Magic Room))",
+            "Sold at: minordawrv (Lake Town: The Tips Slant Tavern)",
+            "Sold at: minasarctower (Minas Tirith: Tower of The Arcane)",
+            "Carried by: Alatar the Blue (Tower of Alatar)"
+          ]
+        },
+        {
+          "resref": "sarumansrobes",
+          "name": "Saruman's Robes",
+          "base_item": "Armor",
+          "cost_gp": 1152603,
+          "wiki_url": "https://homers-lotr-wiki.jamesprice-slightlyepic.workers.dev/items/sarumansrobes.html",
+          "properties": [
+            "AC Bonus +10",
+            "Bonus Feat Spell Focus (Abjuration)",
+            "Bonus Feat Spell Focus (Conjuration)",
+            "Bonus Feat Spell Focus (Divination)",
+            "Bonus Feat Spell Focus (Enchantment)",
+            "Bonus Feat Spell Focus (Evocation)",
+            "Bonus Feat Spell Focus (Illusion)",
+            "Bonus Feat Spell Focus (Necromancy)",
+            "Light Bright",
+            "Skill Bonus Concentration +15",
+            "Skill Bonus Spellcraft +15",
+            "Use Limitation: Class Sorcerer",
+            "Use Limitation: Class Wizard"
+          ],
+          "found_at": [
+            "Carried by: Saruman the White (Tower of Orthanc: Saruman's Chambers)"
+          ]
+        }
+      ],
+      "recommendation": "Give each variant a unique tag (and consider a matching unique resref) so scripts, players, and the wiki can unambiguously identify each item."
+    },
+    {
       "shared_tag": "SauronsMaskofEvil",
       "item_count": 2,
       "variants": [
@@ -7221,6 +10517,44 @@
             "Carried by: Fist of Sauron (Barad-Dûr: City)",
             "Carried by: Fist of Sauron (Barad-Dûr: Keep)"
           ]
+        }
+      ],
+      "recommendation": "Give each variant a unique tag (and consider a matching unique resref) so scripts, players, and the wiki can unambiguously identify each item."
+    },
+    {
+      "shared_tag": "Scalemail4",
+      "item_count": 2,
+      "variants": [
+        {
+          "resref": "scalemail004",
+          "name": "Scalemail +4",
+          "base_item": "Armor",
+          "cost_gp": 21633,
+          "wiki_url": "https://homers-lotr-wiki.jamesprice-slightlyepic.workers.dev/items/scalemail004.html",
+          "properties": [
+            "AC Bonus +2",
+            "AC Bonus vs. Damage Type Slashing +2",
+            "Base Item Weight Reduction 80% reduction",
+            "Damage Resistance Bludgeoning 15/-",
+            "Damage Vulnerability Piercing 20%",
+            "Decreased Skill Modifier Hide -1",
+            "Decreased Skill Modifier Move Silently -2"
+          ],
+          "found_at": [
+            "Sold at: minordawrv (Lake Town: The Tips Slant Tavern)",
+            "Sold at: NW_STORESPEC003 (The Smithy of Rivendell)"
+          ]
+        },
+        {
+          "resref": "scalemail4",
+          "name": "Scale Mail +4",
+          "base_item": "Armor",
+          "cost_gp": 12420,
+          "wiki_url": "https://homers-lotr-wiki.jamesprice-slightlyepic.workers.dev/items/scalemail4.html",
+          "properties": [
+            "AC Bonus +4"
+          ],
+          "found_at": []
         }
       ],
       "recommendation": "Give each variant a unique tag (and consider a matching unique resref) so scripts, players, and the wiki can unambiguously identify each item."
@@ -7431,7 +10765,7 @@
     },
     {
       "shared_tag": "SpearofDistany",
-      "item_count": 2,
+      "item_count": 3,
       "variants": [
         {
           "resref": "spearofdistan001",
@@ -7479,13 +10813,33 @@
             "Visual Effect visualfx #0"
           ],
           "found_at": []
+        },
+        {
+          "resref": "spearofdistany",
+          "name": "Spear of Destiny",
+          "base_item": "Spear",
+          "cost_gp": 25144032,
+          "wiki_url": "https://homers-lotr-wiki.jamesprice-slightlyepic.workers.dev/items/spearofdistany.html",
+          "properties": [
+            "Attack Bonus +20",
+            "Damage Bonus Electrical 9",
+            "Damage Bonus Magical 7",
+            "Damage Bonus Piercing 9",
+            "Damage Bonus Sonic 9",
+            "Enhancement Bonus +10",
+            "Extra Melee Damage Type Piercing",
+            "Keen",
+            "On Hit Cast Spell Paralysis (Gelatinous Cube Poison) Caster Level 9",
+            "On Hit Properties Ability Drain DC 14"
+          ],
+          "found_at": []
         }
       ],
       "recommendation": "Give each variant a unique tag (and consider a matching unique resref) so scripts, players, and the wiki can unambiguously identify each item."
     },
     {
       "shared_tag": "StaffoftheIstari",
-      "item_count": 2,
+      "item_count": 3,
       "variants": [
         {
           "resref": "staffoftheist001",
@@ -7526,6 +10880,28 @@
             "On Hit Properties Vorpal DC 26"
           ],
           "found_at": [
+            "Carried by: Saruman the White (Tower of Orthanc: Saruman's Chambers)"
+          ]
+        },
+        {
+          "resref": "staffoftheistari",
+          "name": "Staff of the Istari",
+          "base_item": "Magic Staff",
+          "cost_gp": 237078,
+          "wiki_url": "https://homers-lotr-wiki.jamesprice-slightlyepic.workers.dev/items/staffoftheistari.html",
+          "properties": [
+            "Attack Bonus +7",
+            "Cast Spell Chain Lightning 3/Day",
+            "Cast Spell Circle of Death 1/Day",
+            "Damage Bonus Magical 2",
+            "Damage Bonus Sonic 2",
+            "Light Bright",
+            "Use Limitation: Class Sorcerer",
+            "Use Limitation: Class Wizard"
+          ],
+          "found_at": [
+            "Sold at: saaurmanmagic (Isengard (Magic Room))",
+            "Sold at: NW_STOREMAGIC002 (Tower of Alatar)",
             "Carried by: Saruman the White (Tower of Orthanc: Saruman's Chambers)"
           ]
         }
@@ -7587,7 +10963,7 @@
     },
     {
       "shared_tag": "SuperbFlameArrow",
-      "item_count": 6,
+      "item_count": 7,
       "variants": [
         {
           "resref": "superbflamear001",
@@ -7675,6 +11051,20 @@
           "found_at": [
             "Sold at: NW_STORENATU003q (Carn Dum: City)",
             "Sold at: x2_genie_store (Ranger Waystation)",
+            "Sold at: X2_STORETHIEF001 (Whitfurrow Inn)"
+          ]
+        },
+        {
+          "resref": "superbflamearrow",
+          "name": "Superb Flame Arrow",
+          "base_item": "Arrow",
+          "cost_gp": 3032,
+          "wiki_url": "https://homers-lotr-wiki.jamesprice-slightlyepic.workers.dev/items/superbflamearrow.html",
+          "properties": [
+            "Damage Bonus Fire 1d10"
+          ],
+          "found_at": [
+            "Sold at: NW_STORENATU003q (Carn Dum: City)",
             "Sold at: X2_STORETHIEF001 (Whitfurrow Inn)"
           ]
         }
@@ -7949,6 +11339,112 @@
       "recommendation": "Give each variant a unique tag (and consider a matching unique resref) so scripts, players, and the wiki can unambiguously identify each item."
     },
     {
+      "shared_tag": "TheHandofBroc",
+      "item_count": 2,
+      "variants": [
+        {
+          "resref": "thehandofbroc",
+          "name": "The Hand of Forostar",
+          "base_item": "Gauntlet",
+          "cost_gp": 4000563,
+          "wiki_url": "https://homers-lotr-wiki.jamesprice-slightlyepic.workers.dev/items/thehandofbroc.html",
+          "properties": [
+            "Attack Bonus +15",
+            "Damage Bonus Acid 6",
+            "Damage Bonus Bludgeoning 6",
+            "Damage Bonus Cold 6",
+            "Damage Bonus Divine 6",
+            "Damage Bonus Electrical 6",
+            "Damage Bonus Fire 6",
+            "Damage Bonus Magical 6",
+            "Damage Bonus Negative 6",
+            "Damage Bonus Piercing 6",
+            "Damage Bonus Positive 6",
+            "Damage Bonus Slashing 6",
+            "Damage Bonus Sonic 6",
+            "On Hit Properties Level Drain DC 18",
+            "Regeneration +1",
+            "Saving Throw Bonus Poison +2"
+          ],
+          "found_at": [
+            "Sold at: gondortemplestor (Minas Tirith: Temple)",
+            "Carried by: Khamûl The Ringwraith (Carn Dum: Throne)",
+            "Carried by: Khamûl The Ringwraith (Dol Guldur:  Tower Of Black Magic  Nazgul Quaters)"
+          ]
+        },
+        {
+          "resref": "thehandofbroc001",
+          "name": "The Epic Hand of Broc",
+          "base_item": "Gauntlet",
+          "cost_gp": 4802491,
+          "wiki_url": "https://homers-lotr-wiki.jamesprice-slightlyepic.workers.dev/items/thehandofbroc001.html",
+          "properties": [
+            "Attack Bonus +20",
+            "Damage Bonus Bludgeoning 9",
+            "Damage Bonus Negative 9",
+            "Light Low",
+            "On Hit Cast Spell Enervation Caster Level 19"
+          ],
+          "found_at": []
+        }
+      ],
+      "recommendation": "Give each variant a unique tag (and consider a matching unique resref) so scripts, players, and the wiki can unambiguously identify each item."
+    },
+    {
+      "shared_tag": "TheodensArmor",
+      "item_count": 2,
+      "variants": [
+        {
+          "resref": "theodensarmor",
+          "name": "Theoden's Armor",
+          "base_item": "Armor",
+          "cost_gp": 108968,
+          "wiki_url": "https://homers-lotr-wiki.jamesprice-slightlyepic.workers.dev/items/theodensarmor.html",
+          "properties": [
+            "AC Bonus +5",
+            "Ability Bonus Constitution +5"
+          ],
+          "found_at": [
+            "Carried by: Erkenbrand Captain of Rohan (Theoden's Hall)",
+            "Carried by: Riddermark Swordsman (Gap of Rohan)",
+            "Carried by: Riddermark Swordsman (Great North Road)",
+            "Carried by: Riddermark Swordsman (Great North Road)",
+            "Carried by: Riddermark Swordsman (Great North Road)",
+            "Carried by: Riddermark Swordsman (Mering Stream)",
+            "Carried by: Riddermark Swordsman (The Pelennor Fields)",
+            "Carried by: Riddermark Bowman (Gap of Rohan)",
+            "Carried by: Riddermark Bowman (Great North Road)",
+            "Carried by: Riddermark Bowman (Great North Road)",
+            "Carried by: Riddermark Bowman (Great North Road)",
+            "Carried by: Riddermark Bowman (Mering Stream)",
+            "Carried by: Riddermark Bowman (The Pelennor Fields)",
+            "Carried by: Riddermark Guardian (Gap of Rohan)",
+            "Carried by: Riddermark Guardian (Great North Road)",
+            "Carried by: Riddermark Guardian (Great North Road)",
+            "Carried by: Riddermark Guardian (Great North Road)",
+            "Carried by: Riddermark Guardian (Mering Stream)",
+            "Carried by: Riddermark Guardian (The Pelennor Fields)"
+          ]
+        },
+        {
+          "resref": "theodensarmor002",
+          "name": "Theoden's Armor",
+          "base_item": "Armor",
+          "cost_gp": 1283139,
+          "wiki_url": "https://homers-lotr-wiki.jamesprice-slightlyepic.workers.dev/items/theodensarmor002.html",
+          "properties": [
+            "AC Bonus +8",
+            "Damage Reduction 9 5/+3",
+            "Freedom of Movement"
+          ],
+          "found_at": [
+            "Carried by: Theoden King of Rohan (Theoden's Hall)"
+          ]
+        }
+      ],
+      "recommendation": "Give each variant a unique tag (and consider a matching unique resref) so scripts, players, and the wiki can unambiguously identify each item."
+    },
+    {
       "shared_tag": "TheQueensDepair",
       "item_count": 2,
       "variants": [
@@ -8081,6 +11577,137 @@
             "Massive Criticals 9",
             "Regeneration: Vampiric +5",
             "Use Limitation: Alignment Group Evil"
+          ],
+          "found_at": []
+        }
+      ],
+      "recommendation": "Give each variant a unique tag (and consider a matching unique resref) so scripts, players, and the wiki can unambiguously identify each item."
+    },
+    {
+      "shared_tag": "TheWord",
+      "item_count": 2,
+      "variants": [
+        {
+          "resref": "theword",
+          "name": "The Word",
+          "base_item": "Tower Shield",
+          "cost_gp": 66685,
+          "wiki_url": "https://homers-lotr-wiki.jamesprice-slightlyepic.workers.dev/items/theword.html",
+          "properties": [
+            "AC Bonus +2",
+            "Ability Bonus Strength +4",
+            "Damage Resistance Acid 10/-",
+            "Damage Resistance Cold 10/-",
+            "Damage Resistance Electrical 10/-",
+            "Damage Resistance Fire 10/-",
+            "Damage Resistance Sonic 10/-"
+          ],
+          "found_at": []
+        },
+        {
+          "resref": "theword001",
+          "name": "The Paladins Choice",
+          "base_item": "Tower Shield",
+          "cost_gp": 245335,
+          "wiki_url": "https://homers-lotr-wiki.jamesprice-slightlyepic.workers.dev/items/theword001.html",
+          "properties": [
+            "AC Bonus +5",
+            "Ability Bonus Charisma +4",
+            "Ability Bonus Strength +4",
+            "Damage Resistance Acid 10/-",
+            "Damage Resistance Cold 10/-",
+            "Damage Resistance Electrical 10/-",
+            "Damage Resistance Fire 10/-",
+            "Damage Resistance Sonic 10/-",
+            "Use Limitation: Class Paladin"
+          ],
+          "found_at": []
+        }
+      ],
+      "recommendation": "Give each variant a unique tag (and consider a matching unique resref) so scripts, players, and the wiki can unambiguously identify each item."
+    },
+    {
+      "shared_tag": "Toothpick",
+      "item_count": 2,
+      "variants": [
+        {
+          "resref": "toothpick",
+          "name": "Toothpick",
+          "base_item": "Dagger",
+          "cost_gp": 3472780,
+          "wiki_url": "https://homers-lotr-wiki.jamesprice-slightlyepic.workers.dev/items/toothpick.html",
+          "properties": [
+            "Attack Bonus +16",
+            "Bonus Feat Two-Weapon Fighting",
+            "Damage Bonus Entropy 8",
+            "Damage Bonus Sonic 9",
+            "Extra Melee Damage Type Piercing",
+            "Keen",
+            "Massive Criticals 9",
+            "Skill Bonus Discipline +8",
+            "Skill Bonus Parry +8",
+            "Visual Effect visualfx #0"
+          ],
+          "found_at": []
+        },
+        {
+          "resref": "toothpick001",
+          "name": "Toothpick EPIC",
+          "base_item": "Dagger",
+          "cost_gp": 7452986,
+          "wiki_url": "https://homers-lotr-wiki.jamesprice-slightlyepic.workers.dev/items/toothpick001.html",
+          "properties": [
+            "Attack Bonus +20",
+            "Bonus Feat Two-Weapon Fighting",
+            "Damage Bonus Entropy 30",
+            "Damage Bonus Piercing 76",
+            "Damage Bonus Sonic 74",
+            "Extra Melee Damage Type Piercing",
+            "Keen",
+            "Massive Criticals 9",
+            "Skill Bonus Discipline +8",
+            "Skill Bonus Parry +8",
+            "Visual Effect visualfx #0"
+          ],
+          "found_at": []
+        }
+      ],
+      "recommendation": "Give each variant a unique tag (and consider a matching unique resref) so scripts, players, and the wiki can unambiguously identify each item."
+    },
+    {
+      "shared_tag": "UndeadHeart",
+      "item_count": 2,
+      "variants": [
+        {
+          "resref": "undeadheart",
+          "name": "Undead Heart",
+          "base_item": "Amulet",
+          "cost_gp": 3840901,
+          "wiki_url": "https://homers-lotr-wiki.jamesprice-slightlyepic.workers.dev/items/undeadheart.html",
+          "properties": [
+            "AC Bonus +9",
+            "Ability Bonus Constitution +8",
+            "Ability Bonus Strength +8",
+            "Damage Reduction 10 5/+3",
+            "Damage Resistance Slashing 25/-",
+            "Decreased Saving Throws: Specific Reflex -2"
+          ],
+          "found_at": [
+            "Carried by: Unnamed Horror (Dimholt: The Gate of the Dead)"
+          ]
+        },
+        {
+          "resref": "venison001",
+          "name": "The Undead's Heart",
+          "base_item": "Miscellaneous Medium",
+          "cost_gp": 160363,
+          "wiki_url": "https://homers-lotr-wiki.jamesprice-slightlyepic.workers.dev/items/venison001.html",
+          "properties": [
+            "Cast Spell Greater Spell Breach 1/Day",
+            "Cast Spell Greater Spell Mantle 1/Day",
+            "Cast Spell Mordenkainens Disjunction 1/Day",
+            "Cast Spell True Seeing 1/Day",
+            "Cast Spell Undeath to Death 1/Day"
           ],
           "found_at": []
         }
@@ -8292,6 +11919,173 @@
       "recommendation": "Give each variant a unique tag (and consider a matching unique resref) so scripts, players, and the wiki can unambiguously identify each item."
     },
     {
+      "shared_tag": "WhipofFire",
+      "item_count": 2,
+      "variants": [
+        {
+          "resref": "whipoffire",
+          "name": "Whip of Fire",
+          "base_item": "Whip",
+          "cost_gp": 4133224,
+          "wiki_url": "https://homers-lotr-wiki.jamesprice-slightlyepic.workers.dev/items/whipoffire.html",
+          "properties": [
+            "Attack Bonus +14",
+            "Bonus Feat Disarm (Whip)",
+            "Damage Bonus Fire 9",
+            "Damage Bonus Negative 9",
+            "Damage Bonus Slashing 9",
+            "Keen",
+            "Massive Criticals 9",
+            "Regeneration: Vampiric +2"
+          ],
+          "found_at": [
+            "Carried by: The Balrog of Moria (The Abyss of Moria)",
+            "Carried by: The Balrog of Moria (Moria: The Balrog of Moria)"
+          ]
+        },
+        {
+          "resref": "whipoffire001",
+          "name": "Whip of Fire (EPIC)",
+          "base_item": "Whip",
+          "cost_gp": 46977264,
+          "wiki_url": "https://homers-lotr-wiki.jamesprice-slightlyepic.workers.dev/items/whipoffire001.html",
+          "properties": [
+            "Attack Bonus +20",
+            "Bonus Feat Disarm (Whip)",
+            "Damage Bonus Bludgeoning 30",
+            "Damage Bonus Fire 30",
+            "Damage Bonus Magical 9",
+            "Damage Bonus Negative 30",
+            "Damage Bonus Piercing 30",
+            "Damage Bonus Slashing 30",
+            "Damage Bonus Sonic 30",
+            "Keen",
+            "Massive Criticals 9",
+            "Regeneration: Vampiric +10"
+          ],
+          "found_at": [
+            "Carried by: The Balrog of Moria (The Abyss of Moria)",
+            "Carried by: The Balrog of Moria (Moria: The Balrog of Moria)"
+          ]
+        }
+      ],
+      "recommendation": "Give each variant a unique tag (and consider a matching unique resref) so scripts, players, and the wiki can unambiguously identify each item."
+    },
+    {
+      "shared_tag": "WiltedStaff",
+      "item_count": 2,
+      "variants": [
+        {
+          "resref": "wiltedstaff",
+          "name": "Wilted Staff",
+          "base_item": "Magic Staff",
+          "cost_gp": 906970,
+          "wiki_url": "https://homers-lotr-wiki.jamesprice-slightlyepic.workers.dev/items/wiltedstaff.html",
+          "properties": [
+            "Bonus Feat Spell Focus (Necromancy)",
+            "Cast Spell Crumble 3/Day",
+            "Cast Spell Greater Stoneskin 3/Day",
+            "Cast Spell Mordenkainens Sword 3/Day",
+            "Cast Spell Premonition 3/Day",
+            "Cast Spell Protection from Spells 4 charges",
+            "Cast Spell True Strike 3/Day",
+            "Damage Bonus Negative 30",
+            "Extra Melee Damage Type Bludgeoning",
+            "Skill Bonus Concentration +20",
+            "Skill Bonus Spellcraft +20"
+          ],
+          "found_at": []
+        },
+        {
+          "resref": "wiltedstaff003",
+          "name": "Epic Wilted Staff",
+          "base_item": "Magic Staff",
+          "cost_gp": 19610504,
+          "wiki_url": "https://homers-lotr-wiki.jamesprice-slightlyepic.workers.dev/items/wiltedstaff003.html",
+          "properties": [
+            "Attack Bonus +20",
+            "Bonus Feat Knockdown",
+            "Damage Bonus Negative 30",
+            "Damage Bonus vs. Alignment Group Chaotic 30",
+            "Damage Bonus vs. Alignment Group Good 30",
+            "Damage Bonus vs. Alignment Group Lawful 30",
+            "Extra Melee Damage Type Bludgeoning",
+            "Massive Criticals 30",
+            "On Hit Properties Slay Alignment Group: Good DC 26",
+            "Skill Bonus Concentration +50",
+            "True Seeing"
+          ],
+          "found_at": []
+        }
+      ],
+      "recommendation": "Give each variant a unique tag (and consider a matching unique resref) so scripts, players, and the wiki can unambiguously identify each item."
+    },
+    {
+      "shared_tag": "WiltedTouch",
+      "item_count": 2,
+      "variants": [
+        {
+          "resref": "wiltedtouch",
+          "name": "Wilted Touch",
+          "base_item": "Gauntlet",
+          "cost_gp": 529001,
+          "wiki_url": "https://homers-lotr-wiki.jamesprice-slightlyepic.workers.dev/items/wiltedtouch.html",
+          "properties": [
+            "Attack Bonus +8",
+            "Damage Bonus Bludgeoning 9",
+            "Damage Bonus Negative 9",
+            "On Hit Properties Disease DC 14"
+          ],
+          "found_at": []
+        },
+        {
+          "resref": "wiltedtouch001",
+          "name": "Wilted Touch {EPIC}",
+          "base_item": "Gauntlet",
+          "cost_gp": 8977563,
+          "wiki_url": "https://homers-lotr-wiki.jamesprice-slightlyepic.workers.dev/items/wiltedtouch001.html",
+          "properties": [
+            "Attack Bonus +20",
+            "Damage Bonus Bludgeoning 30",
+            "Damage Bonus Magical 9",
+            "Damage Bonus Negative 30",
+            "Haste",
+            "On Hit Properties Disease DC 26",
+            "On Hit Properties Doom DC 26"
+          ],
+          "found_at": []
+        }
+      ],
+      "recommendation": "Give each variant a unique tag (and consider a matching unique resref) so scripts, players, and the wiki can unambiguously identify each item."
+    },
+    {
+      "shared_tag": "witchbud",
+      "item_count": 2,
+      "variants": [
+        {
+          "resref": "item118",
+          "name": "Witch Weed",
+          "base_item": "Miscellaneous Small 2*",
+          "cost_gp": 32769,
+          "wiki_url": "https://homers-lotr-wiki.jamesprice-slightlyepic.workers.dev/items/item118.html",
+          "properties": [
+            "Cast Spell Grenade Chicken 1 charge"
+          ],
+          "found_at": []
+        },
+        {
+          "resref": "witchbud",
+          "name": "Pipe-Weed",
+          "base_item": "Miscellaneous Small 2*",
+          "cost_gp": 600,
+          "wiki_url": "https://homers-lotr-wiki.jamesprice-slightlyepic.workers.dev/items/witchbud.html",
+          "properties": [],
+          "found_at": []
+        }
+      ],
+      "recommendation": "Give each variant a unique tag (and consider a matching unique resref) so scripts, players, and the wiki can unambiguously identify each item."
+    },
+    {
       "shared_tag": "WitchKingsScythe",
       "item_count": 2,
       "variants": [
@@ -8342,6 +12136,202 @@
       "recommendation": "Give each variant a unique tag (and consider a matching unique resref) so scripts, players, and the wiki can unambiguously identify each item."
     },
     {
+      "shared_tag": "X0_IT_MBOOTS004",
+      "item_count": 2,
+      "variants": [
+        {
+          "resref": "it_mboots005",
+          "name": "Greater Boots of Tumbling",
+          "base_item": "Boots",
+          "cost_gp": 12960,
+          "wiki_url": "https://homers-lotr-wiki.jamesprice-slightlyepic.workers.dev/items/it_mboots005.html",
+          "properties": [
+            "Skill Bonus Tumble +20"
+          ],
+          "found_at": []
+        },
+        {
+          "resref": "x0_it_mboots004",
+          "name": "Greater Boots of Tumbling",
+          "base_item": "Boots",
+          "cost_gp": 2823,
+          "wiki_url": "https://homers-lotr-wiki.jamesprice-slightlyepic.workers.dev/items/x0_it_mboots004.html",
+          "properties": [
+            "Skill Bonus Tumble +12"
+          ],
+          "found_at": [
+            "Carried by: Loogaz (Loogaz Lair)"
+          ]
+        }
+      ],
+      "recommendation": "Give each variant a unique tag (and consider a matching unique resref) so scripts, players, and the wiki can unambiguously identify each item."
+    },
+    {
+      "shared_tag": "X0_IT_MTHNMISC08",
+      "item_count": 2,
+      "variants": [
+        {
+          "resref": "it_mthnmisc009",
+          "name": "Horn of Blasting",
+          "base_item": "Miscellaneous Thin",
+          "cost_gp": 5181,
+          "wiki_url": "https://homers-lotr-wiki.jamesprice-slightlyepic.workers.dev/items/it_mthnmisc009.html",
+          "properties": [
+            "Cast Spell ItemTeleport 1/Day",
+            "Cast Spell Sound Burst 3/Day"
+          ],
+          "found_at": [
+            "In container: Altar, Stone Evil (Temple of Nazgul)"
+          ]
+        },
+        {
+          "resref": "x0_it_mthnmisc08",
+          "name": "Horn of Blasting",
+          "base_item": "Miscellaneous Thin",
+          "cost_gp": 2701,
+          "wiki_url": "https://homers-lotr-wiki.jamesprice-slightlyepic.workers.dev/items/x0_it_mthnmisc08.html",
+          "properties": [
+            "Cast Spell Sound Burst 1/Day"
+          ],
+          "found_at": [
+            "Sold at: x2_genie_store (Ranger Waystation)"
+          ]
+        }
+      ],
+      "recommendation": "Give each variant a unique tag (and consider a matching unique resref) so scripts, players, and the wiki can unambiguously identify each item."
+    },
+    {
+      "shared_tag": "X0_MAARCL012",
+      "item_count": 2,
+      "variants": [
+        {
+          "resref": "024",
+          "name": "Sarumon's Gift",
+          "base_item": "Armor",
+          "cost_gp": 1115660,
+          "wiki_url": "https://homers-lotr-wiki.jamesprice-slightlyepic.workers.dev/items/024.html",
+          "properties": [
+            "AC Bonus +7",
+            "Ability Bonus Strength +4",
+            "Bonus Spell Slot of Level N Ranger Level 3",
+            "Haste",
+            "Regeneration +3",
+            "Saving Throw Bonus Universal +5",
+            "Skill Bonus Concentration +10",
+            "Skill Bonus Use Magic Device +10",
+            "Use Limitation: Alignment Group Evil",
+            "Use Limitation: Alignment Group Neutral"
+          ],
+          "found_at": []
+        },
+        {
+          "resref": "x0_maarcl012",
+          "name": "Scale Mail +5",
+          "base_item": "Armor",
+          "cost_gp": 19548,
+          "wiki_url": "https://homers-lotr-wiki.jamesprice-slightlyepic.workers.dev/items/x0_maarcl012.html",
+          "properties": [
+            "AC Bonus +5"
+          ],
+          "found_at": [
+            "Sold at: lonemerchant (Temple of Marr)",
+            "Sold at: X2_STOREWEAP003 (The House of Healing)",
+            "Sold at: X2_STOREWEAP003 (Minas Tirith: Watchman Defender's Head Quarters)"
+          ]
+        }
+      ],
+      "recommendation": "Give each variant a unique tag (and consider a matching unique resref) so scripts, players, and the wiki can unambiguously identify each item."
+    },
+    {
+      "shared_tag": "X2_ASHMLW005",
+      "item_count": 2,
+      "variants": [
+        {
+          "resref": "ashmlw006",
+          "name": "Shield of the Mage",
+          "base_item": "Large Shield",
+          "cost_gp": 311925,
+          "wiki_url": "https://homers-lotr-wiki.jamesprice-slightlyepic.workers.dev/items/ashmlw006.html",
+          "properties": [
+            "AC Bonus +5",
+            "Arcane Spell Failure",
+            "Bonus Feat Spell Focus (Abjuration)",
+            "Bonus Feat Spell Focus (Conjuration)",
+            "Bonus Feat Spell Focus (Divination)",
+            "Bonus Feat Spell Focus (Enchantment)",
+            "Bonus Feat Spell Focus (Evocation)",
+            "Bonus Feat Spell Focus (Illusion)",
+            "Bonus Feat Spell Focus (Necromancy)"
+          ],
+          "found_at": [
+            "Carried by: Saruman the White (Tower of Orthanc: Saruman's Chambers)"
+          ]
+        },
+        {
+          "resref": "x2_ashmlw005",
+          "name": "Shield of Prator",
+          "base_item": "Large Shield",
+          "cost_gp": 177206,
+          "wiki_url": "https://homers-lotr-wiki.jamesprice-slightlyepic.workers.dev/items/x2_ashmlw005.html",
+          "properties": [
+            "AC Bonus +5",
+            "Ability Bonus Wisdom +3",
+            "Damage Resistance Acid 15/-",
+            "Damage Resistance Cold 15/-",
+            "Damage Resistance Electrical 15/-",
+            "Damage Resistance Fire 15/-",
+            "Damage Resistance Sonic 15/-",
+            "Spell Resistance 14"
+          ],
+          "found_at": [
+            "Sold at: X2_STORETHIEF003 (Barad-Dûr: Barracks)",
+            "Sold at: X2_STOREWEAP003 (Númenor:  The Great Forge Of Númenor)",
+            "Sold at: lonemerchant (Temple of Marr)",
+            "Sold at: X2_STORETEMPL002 (The House of Healing)"
+          ]
+        }
+      ],
+      "recommendation": "Give each variant a unique tag (and consider a matching unique resref) so scripts, players, and the wiki can unambiguously identify each item."
+    },
+    {
+      "shared_tag": "X2_ASHMTO005",
+      "item_count": 2,
+      "variants": [
+        {
+          "resref": "ashmto006",
+          "name": "Bulwark of the Great White Dragon",
+          "base_item": "Tower Shield",
+          "cost_gp": 150309,
+          "wiki_url": "https://homers-lotr-wiki.jamesprice-slightlyepic.workers.dev/items/ashmto006.html",
+          "properties": [
+            "AC Bonus +6",
+            "Cast Spell Dragon Breath Cold 2/Day",
+            "Immunity: Miscellaneous Knockdown",
+            "Improved Evasion"
+          ],
+          "found_at": [
+            "Carried by: Frost (Emyn Arnen: Peak)"
+          ]
+        },
+        {
+          "resref": "x2_ashmto005",
+          "name": "Bulwark of the Great Dragon",
+          "base_item": "Tower Shield",
+          "cost_gp": 84497,
+          "wiki_url": "https://homers-lotr-wiki.jamesprice-slightlyepic.workers.dev/items/x2_ashmto005.html",
+          "properties": [
+            "AC Bonus +6",
+            "Cast Spell Dragon Breath Fire 3/Day"
+          ],
+          "found_at": [
+            "Sold at: X2_STORETHIEF003 (Barad-Dûr: Barracks)",
+            "Sold at: lonemerchant (Temple of Marr)"
+          ]
+        }
+      ],
+      "recommendation": "Give each variant a unique tag (and consider a matching unique resref) so scripts, players, and the wiki can unambiguously identify each item."
+    },
+    {
       "shared_tag": "x2_cus_trainersgarb",
       "item_count": 2,
       "variants": [
@@ -8373,6 +12363,88 @@
           "wiki_url": "https://homers-lotr-wiki.jamesprice-slightlyepic.workers.dev/items/cus_shiftertu003.html",
           "properties": [],
           "found_at": []
+        }
+      ],
+      "recommendation": "Give each variant a unique tag (and consider a matching unique resref) so scripts, players, and the wiki can unambiguously identify each item."
+    },
+    {
+      "shared_tag": "x2_is_sandblue",
+      "item_count": 2,
+      "variants": [
+        {
+          "resref": "is_sandblue001",
+          "name": "Ioun Stone: Scarlet and Blue",
+          "base_item": "Miscellaneous Small",
+          "cost_gp": 27875,
+          "wiki_url": "https://homers-lotr-wiki.jamesprice-slightlyepic.workers.dev/items/is_sandblue001.html",
+          "properties": [
+            "Cast Spell Ioun Stone Scarlet Blue 3/Day"
+          ],
+          "found_at": [
+            "Carried by: Eowyn's Personal Guard (Helm's Deep: Keep)",
+            "Carried by: Hareth of the Haladin (Edoras)"
+          ]
+        },
+        {
+          "resref": "x2_is_sandblue",
+          "name": "Lesser Ioun Stone: Scarlet and Blue",
+          "base_item": "Miscellaneous Small",
+          "cost_gp": 15500,
+          "wiki_url": "https://homers-lotr-wiki.jamesprice-slightlyepic.workers.dev/items/x2_is_sandblue.html",
+          "properties": [
+            "Cast Spell Ioun Stone Scarlet Blue 1/Day"
+          ],
+          "found_at": []
+        }
+      ],
+      "recommendation": "Give each variant a unique tag (and consider a matching unique resref) so scripts, players, and the wiki can unambiguously identify each item."
+    },
+    {
+      "shared_tag": "x2_it_crewp_drac",
+      "item_count": 2,
+      "variants": [
+        {
+          "resref": "it_crewp_drac001",
+          "name": "Mazguls Claw",
+          "base_item": "Creature Slash Piercing Weapon",
+          "cost_gp": 104504484,
+          "wiki_url": "https://homers-lotr-wiki.jamesprice-slightlyepic.workers.dev/items/it_crewp_drac001.html",
+          "properties": [
+            "Attack Bonus +20",
+            "Damage Bonus Acid 9",
+            "Damage Bonus Bludgeoning 9",
+            "Damage Bonus Cold 30",
+            "Damage Bonus Negative 9",
+            "Damage Bonus vs. Alignment Group Chaotic 9",
+            "Damage Bonus vs. Alignment Group Evil 9",
+            "Damage Bonus vs. Alignment Group Good 9",
+            "Damage Bonus vs. Alignment Group Lawful 9",
+            "Damage Bonus vs. Alignment Group Neutral 9",
+            "Enhancement Bonus +20",
+            "Keen",
+            "Massive Criticals 30",
+            "Monster Damage 57",
+            "On Hit Cast Spell Paralyzing Touch (Dracolich) Caster Level 25",
+            "On Monster Hit Knock"
+          ],
+          "found_at": [
+            "Carried by: Nazgul (Temple of Nazgul)"
+          ]
+        },
+        {
+          "resref": "x2_it_crewp_drac",
+          "name": "Dracolich Claw",
+          "base_item": "Creature Slash Piercing Weapon",
+          "cost_gp": 16820,
+          "wiki_url": "https://homers-lotr-wiki.jamesprice-slightlyepic.workers.dev/items/x2_it_crewp_drac.html",
+          "properties": [
+            "Damage Bonus Cold 1",
+            "Monster Damage 4d12",
+            "On Hit Cast Spell Paralyzing Touch (Dracolich) Caster Level 25"
+          ],
+          "found_at": [
+            "Carried by: Dracolich (Esgaroth Crypts)"
+          ]
         }
       ],
       "recommendation": "Give each variant a unique tag (and consider a matching unique resref) so scripts, players, and the wiki can unambiguously identify each item."
@@ -8442,7 +12514,7 @@
     },
     {
       "shared_tag": "X2_IT_MGLOVE018",
-      "item_count": 3,
+      "item_count": 4,
       "variants": [
         {
           "resref": "it_mglove024",
@@ -8484,6 +12556,66 @@
             "Skill Bonus Discipline +30"
           ],
           "found_at": []
+        },
+        {
+          "resref": "x2_it_mglove018",
+          "name": "Epic Gloves of Discipline",
+          "base_item": "Gauntlet",
+          "cost_gp": 5760,
+          "wiki_url": "https://homers-lotr-wiki.jamesprice-slightlyepic.workers.dev/items/x2_it_mglove018.html",
+          "properties": [
+            "Skill Bonus Discipline +15"
+          ],
+          "found_at": [
+            "Sold at: X2_STOREWEAP003 (Númenor:  The Great Forge Of Númenor)",
+            "Carried by: Drider Militia (Angmar Dungeon)",
+            "Carried by: Drider Militia (Angmar's Lair)",
+            "Carried by: Black Numenorean Militia (Carn Dum)",
+            "Carried by: Black Numenorean Militia (Carn Dum: City)",
+            "Carried by: Black Numenorean Militia (Carn Dum: Smithy)",
+            "Carried by: Black Numenorean Militia (Carn Dum: Temple)",
+            "Carried by: Black Numenorean Militia (Carn Dum: Throne)",
+            "Carried by: Black Numenorean Militia (Mount Gundabad Level 2)",
+            "Carried by: Black Numenorean Militia (Mount Gundabad)",
+            "Carried by: Black Numenorean Militia (Great East Road)",
+            "Carried by: Black Numenorean Militia (The Angmar Mountain Range)",
+            "Carried by: Drider Militia (Great East Road)",
+            "Carried by: Drider Militia (The Angmar Mountain Range)"
+          ]
+        }
+      ],
+      "recommendation": "Give each variant a unique tag (and consider a matching unique resref) so scripts, players, and the wiki can unambiguously identify each item."
+    },
+    {
+      "shared_tag": "X2_IT_MNECK020",
+      "item_count": 2,
+      "variants": [
+        {
+          "resref": "it_mneck021",
+          "name": "Amulet of Wisdom +10",
+          "base_item": "Amulet",
+          "cost_gp": 144001,
+          "wiki_url": "https://homers-lotr-wiki.jamesprice-slightlyepic.workers.dev/items/it_mneck021.html",
+          "properties": [
+            "Ability Bonus Wisdom +10"
+          ],
+          "found_at": [
+            "Carried by: Hobbit (Hobbiton)",
+            "Carried by: High Priest of Morannon (The Temple of Morannon)"
+          ]
+        },
+        {
+          "resref": "x2_it_mneck020",
+          "name": "Amulet of Will +10",
+          "base_item": "Amulet",
+          "cost_gp": 285610,
+          "wiki_url": "https://homers-lotr-wiki.jamesprice-slightlyepic.workers.dev/items/x2_it_mneck020.html",
+          "properties": [
+            "Saving Throw Bonus: Specific Reflex +10"
+          ],
+          "found_at": [
+            "Sold at: NW_STOREMAGIC003 (Rivendell)"
+          ]
         }
       ],
       "recommendation": "Give each variant a unique tag (and consider a matching unique resref) so scripts, players, and the wiki can unambiguously identify each item."
@@ -8521,8 +12653,131 @@
       "recommendation": "Give each variant a unique tag (and consider a matching unique resref) so scripts, players, and the wiki can unambiguously identify each item."
     },
     {
+      "shared_tag": "X2_IT_WPMWHIP_H",
+      "item_count": 2,
+      "variants": [
+        {
+          "resref": "it_wpmwhip_h001",
+          "name": "Beast Tamer",
+          "base_item": "Whip",
+          "cost_gp": 6272002,
+          "wiki_url": "https://homers-lotr-wiki.jamesprice-slightlyepic.workers.dev/items/it_wpmwhip_h001.html",
+          "properties": [
+            "Damage Bonus Acid 30",
+            "Damage Bonus Cold 7",
+            "Damage Bonus Positive 30",
+            "Damage Bonus Slashing 30",
+            "Visual Effect visualfx #0"
+          ],
+          "found_at": []
+        },
+        {
+          "resref": "x2_it_wpmwhip_h",
+          "name": "Hellish Whip",
+          "base_item": "Whip",
+          "cost_gp": 238058,
+          "wiki_url": "https://homers-lotr-wiki.jamesprice-slightlyepic.workers.dev/items/x2_it_wpmwhip_h.html",
+          "properties": [
+            "Bonus Feat Disarm (Whip)",
+            "Enhancement Bonus +2",
+            "On Hit Cast Spell Flaming Weapon Properties (Fire Damage) Caster Level 9",
+            "Visual Effect visualfx #3"
+          ],
+          "found_at": [
+            "Sold at: carndumsmith (Carn Dum: Smithy)",
+            "Sold at: minordawrv (Lake Town: The Tips Slant Tavern)"
+          ]
+        }
+      ],
+      "recommendation": "Give each variant a unique tag (and consider a matching unique resref) so scripts, players, and the wiki can unambiguously identify each item."
+    },
+    {
+      "shared_tag": "X2_MAARCL027",
+      "item_count": 2,
+      "variants": [
+        {
+          "resref": "maarcl028",
+          "name": "Leather of War Dancer",
+          "base_item": "Armor",
+          "cost_gp": 1751522,
+          "wiki_url": "https://homers-lotr-wiki.jamesprice-slightlyepic.workers.dev/items/maarcl028.html",
+          "properties": [
+            "AC Bonus +8",
+            "Damage Reduction 4 5/+4",
+            "Damage Resistance Piercing 6",
+            "Immunity: Miscellaneous Sneak Attack",
+            "Skill Bonus Hide +15",
+            "Skill Bonus Move Silently +15",
+            "Use Limitation: Gender Female"
+          ],
+          "found_at": [
+            "Carried by: Kainna the War Dancer (Isengard (Innerrim))"
+          ]
+        },
+        {
+          "resref": "x2_maarcl027",
+          "name": "Leather Armor +6",
+          "base_item": "Armor",
+          "cost_gp": 58532,
+          "wiki_url": "https://homers-lotr-wiki.jamesprice-slightlyepic.workers.dev/items/x2_maarcl027.html",
+          "properties": [
+            "AC Bonus +6"
+          ],
+          "found_at": [
+            "Sold at: X2_STORETHIEF003 (Barad-Dûr: Barracks)",
+            "Sold at: NW_STORETHIEF002q (Carn Dum: Temple)",
+            "Sold at: lonemerchant (Temple of Marr)",
+            "Sold at: X2_STOREWEAP003 (The House of Healing)",
+            "Sold at: X2_STOREWEAP003 (Minas Tirith: Watchman Defender's Head Quarters)"
+          ]
+        }
+      ],
+      "recommendation": "Give each variant a unique tag (and consider a matching unique resref) so scripts, players, and the wiki can unambiguously identify each item."
+    },
+    {
+      "shared_tag": "X2_MAARCL037",
+      "item_count": 2,
+      "variants": [
+        {
+          "resref": "x2_c3_maarcl037",
+          "name": "Storm Armor of the Earth's Children",
+          "base_item": "Armor",
+          "cost_gp": 146401,
+          "wiki_url": "https://homers-lotr-wiki.jamesprice-slightlyepic.workers.dev/items/x2_c3_maarcl037.html",
+          "properties": [
+            "AC Bonus +7",
+            "Damage Resistance Electrical 20/-",
+            "Damage Resistance Fire 20/-",
+            "Use Limitation: Racial Type Dwarf",
+            "Use Limitation: Racial Type Gnome",
+            "Use Limitation: Racial Type Halfling"
+          ],
+          "found_at": [
+            "Sold at: x2_genie_store (Ranger Waystation)",
+            "Sold at: M_CL05M (Taggets Smith Shop)"
+          ]
+        },
+        {
+          "resref": "x2_maarcl037",
+          "name": "Chainmail +6",
+          "base_item": "Armor",
+          "cost_gp": 58672,
+          "wiki_url": "https://homers-lotr-wiki.jamesprice-slightlyepic.workers.dev/items/x2_maarcl037.html",
+          "properties": [
+            "AC Bonus +6"
+          ],
+          "found_at": [
+            "Sold at: lonemerchant (Temple of Marr)",
+            "Sold at: X2_STOREWEAP003 (The House of Healing)",
+            "Sold at: X2_STOREWEAP003 (Minas Tirith: Watchman Defender's Head Quarters)"
+          ]
+        }
+      ],
+      "recommendation": "Give each variant a unique tag (and consider a matching unique resref) so scripts, players, and the wiki can unambiguously identify each item."
+    },
+    {
       "shared_tag": "X2_MDROWAR028",
-      "item_count": 4,
+      "item_count": 5,
       "variants": [
         {
           "resref": "mdrowar029",
@@ -8610,6 +12865,69 @@
             "Use Limitation: Specific Alignment Lawful Evil"
           ],
           "found_at": []
+        },
+        {
+          "resref": "x2_mdrowar028",
+          "name": "Drow Chainmail +7",
+          "base_item": "Armor",
+          "cost_gp": 98159,
+          "wiki_url": "https://homers-lotr-wiki.jamesprice-slightlyepic.workers.dev/items/x2_mdrowar028.html",
+          "properties": [
+            "AC Bonus +7"
+          ],
+          "found_at": [
+            "Sold at: X2_STORETHIEF003 (Barad-Dûr: Barracks)",
+            "Sold at: NW_STOREWEAP00111 (Carn Dum: Smithy)"
+          ]
+        }
+      ],
+      "recommendation": "Give each variant a unique tag (and consider a matching unique resref) so scripts, players, and the wiki can unambiguously identify each item."
+    },
+    {
+      "shared_tag": "X2_WSWMDG006",
+      "item_count": 2,
+      "variants": [
+        {
+          "resref": "wswmdg007",
+          "name": "Risktaker",
+          "base_item": "Dagger",
+          "cost_gp": 3018648,
+          "wiki_url": "https://homers-lotr-wiki.jamesprice-slightlyepic.workers.dev/items/wswmdg007.html",
+          "properties": [
+            "Attack Bonus +5",
+            "Bonus Feat Sneak Attack (+5d6)",
+            "Damage Bonus Bludgeoning 9",
+            "Damage Bonus Piercing 9",
+            "Damage Bonus Slashing 9",
+            "Enhancement Bonus +5",
+            "Keen",
+            "Massive Criticals 9"
+          ],
+          "found_at": [
+            "Carried by: Archer of Dol Guldur (Caves of Dol Guldur)",
+            "Carried by: Shadow Walker (Caves of Dol Guldur)",
+            "Carried by: Archer of Dol Guldur (Mirkwood: Dol Guldur)",
+            "Carried by: Shadow Walker (Mirkwood: Dol Guldur)"
+          ]
+        },
+        {
+          "resref": "x2_wswmdg006",
+          "name": "Risktaker",
+          "base_item": "Dagger",
+          "cost_gp": 792024,
+          "wiki_url": "https://homers-lotr-wiki.jamesprice-slightlyepic.workers.dev/items/x2_wswmdg006.html",
+          "properties": [
+            "Decreased Ability Score Intelligence -4",
+            "Decreased Ability Score Wisdom -4",
+            "Enhancement Bonus +8",
+            "Haste",
+            "Skill Bonus Hide +10",
+            "Skill Bonus Move Silently +10",
+            "Use Limitation: Class Assassin"
+          ],
+          "found_at": [
+            "Sold at: M_CL05M (Taggets Smith Shop)"
+          ]
         }
       ],
       "recommendation": "Give each variant a unique tag (and consider a matching unique resref) so scripts, players, and the wiki can unambiguously identify each item."
