@@ -13,8 +13,14 @@
     <nav>
       <a href="../index.html">Map</a>
       <a href="../areas/index.html">Areas</a>
-      <a href="../creatures/index.html">Creature Blueprints</a>
-      <a href="../creatures/instances/index.html">Creature Instances</a>
+      <div class="nav-dropdown">
+        <span class="nav-dropdown-label">Creatures &#9660;</span>
+        <div class="nav-dropdown-menu">
+          <a href="../creatures/index.html">All Creatures</a>
+          <a href="../creatures/by-area/index.html">By Area</a>
+          <a href="../creatures/by-cr/index.html">By Challenge Rating</a>
+        </div>
+      </div>
       <div class="nav-dropdown">
         <span class="nav-dropdown-label">Items &#9660;</span>
         <div class="nav-dropdown-menu">
@@ -46,9 +52,15 @@
 <dt>HP</dt><dd>600</dd>
 <dt>CR</dt><dd>52.0</dd>
 <dt>Faction</dt><dd><a href="../factions.html">Commoner</a> <small class="muted">(id 2)</small></dd>
-<dt>Conversation</dt><dd></dd>
+<dt>Conversation</dt><dd>—</dd>
 </dl>
-<h2>Encounter spawns <small class="muted">(2 areas)</small></h2><table class="data"><thead><tr><th>Area</th><th>Encounter</th><th>Encounter ResRef</th></tr></thead><tbody><tr><td><a href="../areas/greateastroadd.html">Great East Road</a></td><td>carndumoutside</td><td><code>carndumoutside</code></td></tr>
+<h2>Where to find</h2>
+<h3>Placed directly</h3><table class="data"><thead><tr><th>Area</th><th>Count</th></tr></thead><tbody><tr><td><a href="../areas/carndumcity.html">Carn Dum: City</a></td><td>2</td></tr>
+<tr><td><a href="../areas/carndumtemple.html">Carn Dum: Temple</a></td><td>3</td></tr>
+<tr><td><a href="../areas/carndumthrone.html">Carn Dum: Throne</a></td><td>2</td></tr>
+<tr><td><a href="../areas/mountgundabadlev.html">Mount Gundabad</a></td><td>5</td></tr>
+<tr><td><a href="../areas/mountgundabad001.html">Mount Gundabad Level 2</a></td><td>2</td></tr></tbody></table>
+<h3>Encounter pools</h3><table class="data"><thead><tr><th>Area</th><th>Encounter</th><th>Encounter ResRef</th></tr></thead><tbody><tr><td><a href="../areas/greateastroadd.html">Great East Road</a></td><td>carndumoutside</td><td><code>carndumoutside</code></td></tr>
 <tr><td><a href="../areas/theangmarmountai.html">The Angmar Mountain Range</a></td><td>carndumoutside</td><td><code>carndumoutside</code></td></tr></tbody></table>
 <h2>Abilities</h2>
 <table class="data"><tr><th>Str</th><td>15</td><th>Dex</th><td>40</td><th>Con</th><td>26</td><th>Int</th><td>12</td><th>Wis</th><td>12</td><th>Cha</th><td>18</td></tr></table>
@@ -107,21 +119,7 @@
 <tr><td>ScriptSpellAt</td><td>nw_c2_defaultb</td></tr>
 <tr><td>ScriptUserDefine</td><td>nw_c2_defaultd</td></tr>
 <tr><td>ScriptOnBlocked</td><td>nw_c2_defaulte</td></tr></tbody></table>
-<h2>Instances <small class="muted">(14)</small></h2><table class="data"><thead><tr><th>Name</th><th>Area</th><th>Faction</th><th>Notes</th></tr></thead><tbody><tr><td><a href="instances/carndumcity-003.html">Black Numenorean Shadow Master</a></td><td><a href="../areas/carndumcity.html">Carn Dum: City</a></td><td>Commoner</td><td>—</td></tr>
-<tr><td><a href="instances/carndumcity-004.html">Black Numenorean Shadow Master</a></td><td><a href="../areas/carndumcity.html">Carn Dum: City</a></td><td>Commoner</td><td>—</td></tr>
-<tr><td><a href="instances/carndumtemple-001.html">Black Numenorean Shadow Master</a></td><td><a href="../areas/carndumtemple.html">Carn Dum: Temple</a></td><td>Commoner</td><td>—</td></tr>
-<tr><td><a href="instances/carndumtemple-002.html">Black Numenorean Shadow Master</a></td><td><a href="../areas/carndumtemple.html">Carn Dum: Temple</a></td><td>Commoner</td><td>—</td></tr>
-<tr><td><a href="instances/carndumtemple-003.html">Black Numenorean Shadow Master</a></td><td><a href="../areas/carndumtemple.html">Carn Dum: Temple</a></td><td>Commoner</td><td>—</td></tr>
-<tr><td><a href="instances/carndumthrone-003.html">Black Numenorean Shadow Master</a></td><td><a href="../areas/carndumthrone.html">Carn Dum: Throne</a></td><td>Commoner</td><td>—</td></tr>
-<tr><td><a href="instances/carndumthrone-004.html">Black Numenorean Shadow Master</a></td><td><a href="../areas/carndumthrone.html">Carn Dum: Throne</a></td><td>Commoner</td><td>—</td></tr>
-<tr><td><a href="instances/mountgundabadlev-004.html">Black Numenorean Shadow Master</a></td><td><a href="../areas/mountgundabadlev.html">Mount Gundabad</a></td><td>Commoner</td><td>—</td></tr>
-<tr><td><a href="instances/mountgundabadlev-005.html">Black Numenorean Shadow Master</a></td><td><a href="../areas/mountgundabadlev.html">Mount Gundabad</a></td><td>Commoner</td><td>—</td></tr>
-<tr><td><a href="instances/mountgundabadlev-012.html">Black Numenorean Shadow Master</a></td><td><a href="../areas/mountgundabadlev.html">Mount Gundabad</a></td><td>Commoner</td><td>—</td></tr>
-<tr><td><a href="instances/mountgundabadlev-013.html">Black Numenorean Shadow Master</a></td><td><a href="../areas/mountgundabadlev.html">Mount Gundabad</a></td><td>Commoner</td><td>—</td></tr>
-<tr><td><a href="instances/mountgundabadlev-014.html">Black Numenorean Shadow Master</a></td><td><a href="../areas/mountgundabadlev.html">Mount Gundabad</a></td><td>Commoner</td><td>—</td></tr>
-<tr><td><a href="instances/mountgundabad001-011.html">Black Numenorean Shadow Master</a></td><td><a href="../areas/mountgundabad001.html">Mount Gundabad Level 2</a></td><td>Commoner</td><td>—</td></tr>
-<tr><td><a href="instances/mountgundabad001-012.html">Black Numenorean Shadow Master</a></td><td><a href="../areas/mountgundabad001.html">Mount Gundabad Level 2</a></td><td>Commoner</td><td>—</td></tr></tbody></table>
   </main>
-  <footer>generated by <a href="https://github.com/mrprice22/nwn-manager">nwn-manager</a> &mdash; last updated May 25, 2026 06:51</footer>
+  <footer>generated by <a href="https://github.com/mrprice22/nwn-manager">nwn-manager</a> &mdash; last updated May 25, 2026 10:46</footer>
 </body>
 </html>

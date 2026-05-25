@@ -13,8 +13,14 @@
     <nav>
       <a href="../index.html">Map</a>
       <a href="../areas/index.html">Areas</a>
-      <a href="../creatures/index.html">Creature Blueprints</a>
-      <a href="../creatures/instances/index.html">Creature Instances</a>
+      <div class="nav-dropdown">
+        <span class="nav-dropdown-label">Creatures &#9660;</span>
+        <div class="nav-dropdown-menu">
+          <a href="../creatures/index.html">All Creatures</a>
+          <a href="../creatures/by-area/index.html">By Area</a>
+          <a href="../creatures/by-cr/index.html">By Challenge Rating</a>
+        </div>
+      </div>
       <div class="nav-dropdown">
         <span class="nav-dropdown-label">Items &#9660;</span>
         <div class="nav-dropdown-menu">
@@ -46,9 +52,13 @@
 <dt>HP</dt><dd>1,700</dd>
 <dt>CR</dt><dd>215.0</dd>
 <dt>Faction</dt><dd><a href="../factions.html">Good</a> <small class="muted">(id 6)</small></dd>
-<dt>Conversation</dt><dd></dd>
+<dt>Conversation</dt><dd>—</dd>
 </dl>
-<h2>Encounter spawns <small class="muted">(1 area)</small></h2><table class="data"><thead><tr><th>Area</th><th>Encounter</th><th>Encounter ResRef</th></tr></thead><tbody><tr><td><a href="../areas/thevalleyofriven.html">The Valley of Rivendell</a></td><td>rivendell spawn</td><td><code>rivendellspawn</code></td></tr></tbody></table>
+<h2>Where to find</h2>
+<h3>Placed directly</h3><table class="data"><thead><tr><th>Area</th><th>Count</th></tr></thead><tbody><tr><td><a href="../areas/rivendell.html">Rivendell</a></td><td>6</td></tr>
+<tr><td><a href="../areas/rivendellupperha.html">Rivendell Upper Halls</a></td><td>1</td></tr>
+<tr><td><a href="../areas/thevalleyofriven.html">The Valley of Rivendell</a></td><td>6</td></tr></tbody></table>
+<h3>Encounter pools</h3><table class="data"><thead><tr><th>Area</th><th>Encounter</th><th>Encounter ResRef</th></tr></thead><tbody><tr><td><a href="../areas/thevalleyofriven.html">The Valley of Rivendell</a></td><td>rivendell spawn</td><td><code>rivendellspawn</code></td></tr></tbody></table>
 <h2>Abilities</h2>
 <table class="data"><tr><th>Str</th><td>40</td><th>Dex</th><td>40</td><th>Con</th><td>40</td><th>Int</th><td>40</td><th>Wis</th><td>40</td><th>Cha</th><td>40</td></tr></table>
 <h2>Classes</h2><table class="data"><thead><tr><th>Class</th><th>Level</th></tr></thead><tbody><tr><td>Barbarian</td><td>20</td></tr><tr><td>Weapon Master</td><td>30</td></tr></tbody></table>
@@ -100,20 +110,7 @@
 <tr><td>ScriptSpellAt</td><td>nw_c2_defaultb</td></tr>
 <tr><td>ScriptUserDefine</td><td>nw_c2_defaultd</td></tr>
 <tr><td>ScriptOnBlocked</td><td>nw_c2_defaulte</td></tr></tbody></table>
-<h2>Instances <small class="muted">(13)</small></h2><table class="data"><thead><tr><th>Name</th><th>Area</th><th>Faction</th><th>Notes</th></tr></thead><tbody><tr><td><a href="instances/rivendell-004.html">Forest Guardian of Rivendell</a></td><td><a href="../areas/rivendell.html">Rivendell</a></td><td>Good</td><td>—</td></tr>
-<tr><td><a href="instances/rivendell-005.html">Forest Guardian of Rivendell</a></td><td><a href="../areas/rivendell.html">Rivendell</a></td><td>Good</td><td>—</td></tr>
-<tr><td><a href="instances/rivendell-006.html">Forest Guardian of Rivendell</a></td><td><a href="../areas/rivendell.html">Rivendell</a></td><td>Good</td><td>—</td></tr>
-<tr><td><a href="instances/rivendell-007.html">Forest Guardian of Rivendell</a></td><td><a href="../areas/rivendell.html">Rivendell</a></td><td>Good</td><td>—</td></tr>
-<tr><td><a href="instances/rivendell-008.html">Forest Guardian of Rivendell</a></td><td><a href="../areas/rivendell.html">Rivendell</a></td><td>Good</td><td>—</td></tr>
-<tr><td><a href="instances/rivendell-009.html">Forest Guardian of Rivendell</a></td><td><a href="../areas/rivendell.html">Rivendell</a></td><td>Good</td><td>—</td></tr>
-<tr><td><a href="instances/rivendellupperha-002.html">Forest Guardian of Rivendell</a></td><td><a href="../areas/rivendellupperha.html">Rivendell Upper Halls</a></td><td>Good</td><td>—</td></tr>
-<tr><td><a href="instances/thevalleyofriven-010.html">Forest Guardian of Rivendell</a></td><td><a href="../areas/thevalleyofriven.html">The Valley of Rivendell</a></td><td>Good</td><td>—</td></tr>
-<tr><td><a href="instances/thevalleyofriven-011.html">Forest Guardian of Rivendell</a></td><td><a href="../areas/thevalleyofriven.html">The Valley of Rivendell</a></td><td>Good</td><td>—</td></tr>
-<tr><td><a href="instances/thevalleyofriven-012.html">Forest Guardian of Rivendell</a></td><td><a href="../areas/thevalleyofriven.html">The Valley of Rivendell</a></td><td>Good</td><td>—</td></tr>
-<tr><td><a href="instances/thevalleyofriven-013.html">Forest Guardian of Rivendell</a></td><td><a href="../areas/thevalleyofriven.html">The Valley of Rivendell</a></td><td>Good</td><td>—</td></tr>
-<tr><td><a href="instances/thevalleyofriven-014.html">Forest Guardian of Rivendell</a></td><td><a href="../areas/thevalleyofriven.html">The Valley of Rivendell</a></td><td>Good</td><td>—</td></tr>
-<tr><td><a href="instances/thevalleyofriven-015.html">Forest Guardian of Rivendell</a></td><td><a href="../areas/thevalleyofriven.html">The Valley of Rivendell</a></td><td>Good</td><td>—</td></tr></tbody></table>
   </main>
-  <footer>generated by <a href="https://github.com/mrprice22/nwn-manager">nwn-manager</a> &mdash; last updated May 25, 2026 06:51</footer>
+  <footer>generated by <a href="https://github.com/mrprice22/nwn-manager">nwn-manager</a> &mdash; last updated May 25, 2026 10:46</footer>
 </body>
 </html>
