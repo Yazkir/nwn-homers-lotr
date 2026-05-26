@@ -62,6 +62,8 @@ void main()
 
     SetLocalInt(GetModule(), "MW_HALL_OCCUPIED", 1);
 
+    MW_SyncJournal(oEntering);
+
     int i;
     for (i = 0; i < MW_ROSTER_SIZE; i++)
     {

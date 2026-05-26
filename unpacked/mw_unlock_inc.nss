@@ -6,7 +6,7 @@
 //:: 7 named figures plus Akira the Don as Hall curator.
 //::
 //:: Meta-quest stages on "MW Path of Meaning":
-//::   1 = intro whisper (added on first module entry)
+//::   1 = intro whisper (added on first shrine touch or guide encounter)
 //::   2..8 = stage advances as guides 1..7 are unlocked
 //::   9 = finale (added by Akira's dialogue when mixtape is granted)
 //:://////////////////////////////////////////////
@@ -61,6 +61,40 @@ int MW_UnlockCount(object oPC)
     return n;
 }
 
+void MW_IntroJournal(object oPC)
+{
+    if (GetCampaignInt(MW_DB, "jq_intro", oPC)) return;
+    SetCampaignInt(MW_DB, "jq_intro", 1, oPC);
+    AddJournalQuestEntry(MW_META_QUEST, 1, oPC, FALSE, FALSE);
+}
+
+void MW_EncounterJournal(object oPC, string sGuide)
+{
+    MW_IntroJournal(oPC);
+    if (MW_IsUnlocked(oPC, sGuide)) return;
+    string sKey = "jq_enc_" + sGuide;
+    if (GetCampaignInt(MW_DB, sKey, oPC)) return;
+    SetCampaignInt(MW_DB, sKey, 1, oPC);
+    AddJournalQuestEntry(MW_GuideQuestTag(sGuide), 1, oPC, FALSE, FALSE);
+}
+
+void MW_SyncJournal(object oPC)
+{
+    int nCount = MW_UnlockCount(oPC);
+    if (nCount == 0) return;
+    AddJournalQuestEntry(MW_META_QUEST, 1, oPC, FALSE, FALSE);
+    AddJournalQuestEntry(MW_META_QUEST, nCount + 1, oPC, FALSE, FALSE);
+    if (GetCampaignInt(MW_DB, "finale", oPC))
+        AddJournalQuestEntry(MW_META_QUEST, MW_ROSTER_SIZE + 2, oPC, FALSE, FALSE);
+    int i;
+    for (i = 0; i < MW_ROSTER_SIZE; i++)
+    {
+        string sGuide = MW_GuideAt(i);
+        if (MW_IsUnlocked(oPC, sGuide))
+            AddJournalQuestEntry(MW_GuideQuestTag(sGuide), 2, oPC, FALSE, FALSE);
+    }
+}
+
 void MW_Unlock(object oPC, string sGuide)
 {
     if (MW_IsUnlocked(oPC, sGuide)) return;
@@ -68,8 +102,6 @@ void MW_Unlock(object oPC, string sGuide)
 
     int nCount = MW_UnlockCount(oPC);
 
-    if (nCount == 1)
-        AddJournalQuestEntry(MW_META_QUEST, 1, oPC, TRUE, FALSE);
     AddJournalQuestEntry(MW_META_QUEST, nCount + 1, oPC, TRUE, FALSE);
     AddJournalQuestEntry(MW_GuideQuestTag(sGuide), 2, oPC, TRUE, FALSE);
 

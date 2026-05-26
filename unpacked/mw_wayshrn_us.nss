@@ -12,6 +12,8 @@ void main()
     object oPC = GetLastUsedBy();
     if (!GetIsPC(oPC)) return;
 
+    MW_IntroJournal(oPC);
+
     if (MW_UnlockCount(oPC) < 1)
     {
         FloatingTextStringOnCreature(
