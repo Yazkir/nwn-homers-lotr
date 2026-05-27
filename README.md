@@ -53,7 +53,7 @@ so the apostrophe in the filename is no longer an issue.
 A browsable reference for all areas, creatures, items, quests, and scripts is
 published at:
 
-**<https://mrprice22.github.io/nwn-homers-lotr/index.html>**
+**<https://homers-lotr-wiki.jamesprice-slightlyepic.workers.dev/index.html>**
 
 The wiki is generated from `unpacked/` via `nwn-manager wiki` and deployed
 separately; the `wiki/` directory is gitignored.
