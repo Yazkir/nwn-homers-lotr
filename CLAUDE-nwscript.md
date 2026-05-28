@@ -61,6 +61,63 @@ files as **third-party — don't refactor unless you know the framework**.
 (`C:/NeverwinterNights/NWN/servervault/`) for Letoscript — leave the
 constant alone unless you actually want to enable Letoscript on this server.
 
+## Colour tokens in dialogue text
+
+**Never put `<c…>` colour tags directly in a `cexolocstring` dialogue field.** The NWN dialogue engine parses `<…>` as a token reference first; an unknown tag renders as `<UNRECOGNIZED TOKEN>` instead of changing colour.
+
+The correct pattern is a two-step indirection via custom tokens:
+
+**Step 1 — register the colour strings at startup** (`onmoduleload.nss`):
+```nss
+#include "color"
+SetCustomToken(6100, COLOR_RED);
+SetCustomToken(6101, COLOR_YELLOW);
+SetCustomToken(6102, COLOR_END);   // </c>
+```
+
+**Step 2 — reference tokens in dialogue text** (JSON `cexolocstring` `"0"` value):
+```
+"You must <CUSTOM6100>not do this lightly<CUSTOM6102> — it cannot be undone."
+```
+
+When the dialogue renders, `<CUSTOM6100>` expands to the raw `<c…>` bytes, which the renderer then interprets as a colour code.
+
+### `color.nss` — the module's colour include
+
+`unpacked/color.nss` defines named string constants for all common colours and a `ColorString()` helper. Use these; don't invent new byte sequences:
+
+| Constant | Approx colour |
+|---|---|
+| `COLOR_RED` | Red |
+| `COLOR_ORANGE` | Orange |
+| `COLOR_YELLOW` | Yellow |
+| `COLOR_GREEN` | Green |
+| `COLOR_BLUE` | Blue |
+| `COLOR_LIGHT_BLUE` | Light blue |
+| `COLOR_DARK_BLUE` | Dark blue |
+| `COLOR_PURPLE` | Purple |
+| `COLOR_LIGHT_PURPLE` | Light purple |
+| `COLOR_GRAY` | Gray |
+| `COLOR_LIGHT_GRAY` | Light gray |
+| `COLOR_WHITE` | White |
+| `COLOR_END` | `</c>` — closes the colour span |
+
+`ColorString(sText, COLOR_RED)` is a convenience wrapper that returns `COLOR_RED + sText + COLOR_END`, but it can only be used from NWScript; dialogue fields need the `<CUSTOM…>` token approach.
+
+### Reserved custom token numbers
+
+These token numbers are in use module-wide — don't reuse them:
+
+| Range | Used by |
+|---|---|
+| 101 | `bankbalance.nss` — gold balance display |
+| 698–699 | `xpbank.dlg.json` — XP reserve display |
+| 3671–3699 | `bbs_include.nss` — bulletin board system |
+| 4958 | Family gold balance |
+| 6000–6002 | Bank teller: gold, family gold, XP reserve balances |
+| **6100–6102** | **Colour tokens: red, yellow, close (set in `onmoduleload.nss`)** |
+| 90001–90002 | `brc_wheel.nss` — prize wheel |
+
 ## Persistence
 
 The module does NOT use NWNX. Persistence is via:

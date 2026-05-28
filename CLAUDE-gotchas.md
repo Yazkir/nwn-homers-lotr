@@ -63,6 +63,14 @@
   toolset to crash with an access violation when opening the area.
   Always hardcode `__struct_id: 4` for every creature GIC entry.
 
+- **`<c…>` colour tags in dialogue text render as `<UNRECOGNIZED TOKEN>`.** The
+  dialogue engine resolves `<…>` as token references before colour processing, so
+  raw `<cÿÿ >` tags become unknown tokens. The fix is to put the colour string in a
+  custom token via `SetCustomToken` (in `onmoduleload.nss`) and reference it as
+  `<CUSTOM6100>text<CUSTOM6102>` in the dialogue JSON. See the Colour tokens section
+  in [CLAUDE-nwscript.md](CLAUDE-nwscript.md) for the full pattern and the reserved
+  token number table.
+
 - **Don't invent NWScript builtins.** A fabricated identifier in a
   heavily-included header produces one `UNDEFINED IDENTIFIER` error per
   consumer script. Verify every engine function in the Lexicon
