@@ -303,4 +303,13 @@ void main()
 
  // Place your own custom content below
 
+ // Boot retired characters (XP bank deposit leaves a plot-flagged marker item on them)
+ if(GetIsObjectValid(GetItemPossessedBy(oPlayer, "bank_xp_retired")))
+ {
+  FloatingTextStringOnCreature("This character has been permanently retired through the XP Bank.  Please create a new character to withdraw from the family XP reserve.", oPlayer, FALSE);
+  SendMessageToPC(oPlayer, "This character has been permanently retired via the XP Bank.  Their experience has been deposited into the family XP reserve.");
+  DelayCommand(5.0, BootPC(oPlayer));
+  return;
+ }
+
 }
