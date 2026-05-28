@@ -2958,7 +2958,7 @@
         "Text": {
           "type": "cexolocstring",
           "value": {
-            "0": "The XP Bank allows you to permanently retire a character and transfer their experience to other characters on your account.  When you retire a character, 85% of their XP is stored in the family XP reserve, all gold is moved to your family gold account, and any items remaining on the character are destroyed.  Store anything you wish to keep in your family strongbox before retiring.  Both your family strongbox and family gold accounts must be open to use this service.  Other characters sharing your account key can then withdraw XP from the reserve here."
+            "0": "The XP Bank allows you to <cÿ  >permanently retire a character</c> and transfer their experience to other characters on your account.  When you retire a character, <cÿÿ >only 85% of their XP is stored</c> in the family XP reserve, all gold is moved to your family gold account, and <cÿ  >any items remaining on the character are destroyed</c>.  <cÿÿ >Store anything you wish to keep in your family strongbox before retiring.</c>  Both your family strongbox and family gold accounts must be open to use this service.  Other characters sharing your account key can then withdraw XP from the reserve here."
           }
         }
       },
@@ -3034,7 +3034,7 @@
         "Text": {
           "type": "cexolocstring",
           "value": {
-            "0": "Are you absolutely certain?  This cannot be undone.  Any items still on this character will be destroyed permanently \u2014 make sure you have moved everything you wish to keep into your family strongbox.  Your gold will be transferred to your family gold account, and 85%% of your XP will be saved in the family reserve.  This character will be retired and you will be disconnected from the server."
+            "0": "Are you absolutely certain?  <cÿ  >This cannot be undone.</c>  <cÿ  >Any items still on this character will be destroyed permanently</c> -- <cÿÿ >make sure you have moved everything you wish to keep into your family strongbox</c>.  Your gold will be transferred to your family gold account, and <cÿÿ >85%% of your XP will be saved in the family reserve</c>.  <cÿ  >This character will be retired and you will be disconnected from the server.</c>"
           }
         }
       },
@@ -3172,6 +3172,21 @@
               "__struct_id": 7,
               "Active": {
                 "type": "resref",
+                "value": "bank_xp_cap_chk"
+              },
+              "Index": {
+                "type": "dword",
+                "value": 78
+              },
+              "IsChild": {
+                "type": "byte",
+                "value": 0
+              }
+            },
+            {
+              "__struct_id": 8,
+              "Active": {
+                "type": "resref",
                 "value": ""
               },
               "Index": {
@@ -3201,6 +3216,67 @@
           "type": "cexolocstring",
           "value": {
             "0": "How much XP would you like to withdraw?  (<CUSTOM6002>xp in reserve)"
+          }
+        }
+      },
+      {
+        "__struct_id": 28,
+        "Animation": {
+          "type": "dword",
+          "value": 0
+        },
+        "AnimLoop": {
+          "type": "byte",
+          "value": 1
+        },
+        "Comment": {
+          "type": "cexostring",
+          "value": ""
+        },
+        "Delay": {
+          "type": "dword",
+          "value": 4294967295
+        },
+        "Quest": {
+          "type": "cexostring",
+          "value": ""
+        },
+        "RepliesList": {
+          "type": "list",
+          "value": [
+            {
+              "__struct_id": 0,
+              "Active": {
+                "type": "resref",
+                "value": ""
+              },
+              "Index": {
+                "type": "dword",
+                "value": 77
+              },
+              "IsChild": {
+                "type": "byte",
+                "value": 0
+              }
+            }
+          ]
+        },
+        "Script": {
+          "type": "resref",
+          "value": ""
+        },
+        "Sound": {
+          "type": "resref",
+          "value": ""
+        },
+        "Speaker": {
+          "type": "cexostring",
+          "value": ""
+        },
+        "Text": {
+          "type": "cexolocstring",
+          "value": {
+            "0": "I'm sorry, but I'm unable to withdraw any Experience for you — your character is already at the Level 60 experience cap (17,498,600 XP). Is there anything else I can help you with?"
           }
         }
       }
@@ -7345,6 +7421,21 @@
               "__struct_id": 0,
               "Active": {
                 "type": "resref",
+                "value": "bank_xp_atmax"
+              },
+              "Index": {
+                "type": "dword",
+                "value": 28
+              },
+              "IsChild": {
+                "type": "byte",
+                "value": 0
+              }
+            },
+            {
+              "__struct_id": 1,
+              "Active": {
+                "type": "resref",
                 "value": ""
               },
               "Index": {
@@ -7877,6 +7968,67 @@
           "type": "cexolocstring",
           "value": {
             "0": "That is all for now."
+          }
+        }
+      },
+      {
+        "__struct_id": 78,
+        "Active": {
+          "type": "resref",
+          "value": "bank_xp_cap_chk"
+        },
+        "Animation": {
+          "type": "dword",
+          "value": 0
+        },
+        "AnimLoop": {
+          "type": "byte",
+          "value": 1
+        },
+        "Comment": {
+          "type": "cexostring",
+          "value": ""
+        },
+        "Delay": {
+          "type": "dword",
+          "value": 4294967295
+        },
+        "EntriesList": {
+          "type": "list",
+          "value": [
+            {
+              "__struct_id": 0,
+              "Active": {
+                "type": "resref",
+                "value": ""
+              },
+              "Index": {
+                "type": "dword",
+                "value": 27
+              },
+              "IsChild": {
+                "type": "byte",
+                "value": 0
+              }
+            }
+          ]
+        },
+        "Quest": {
+          "type": "cexostring",
+          "value": ""
+        },
+        "Script": {
+          "type": "resref",
+          "value": "bank_xp_cap_set"
+        },
+        "Sound": {
+          "type": "resref",
+          "value": ""
+        },
+        "Text": {
+          "type": "cexolocstring",
+          "value": {
+            "0": "Enough XP needed for Level 60."
           }
         }
       }
