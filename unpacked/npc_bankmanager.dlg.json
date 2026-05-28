@@ -108,7 +108,7 @@
               "__struct_id": 4,
               "Active": {
                 "type": "resref",
-                "value": "bank_fg_noacc"
+                "value": "bank_fg_nofam"
               },
               "Index": {
                 "type": "dword",
@@ -861,7 +861,7 @@
               "__struct_id": 3,
               "Active": {
                 "type": "resref",
-                "value": "bank_fg_noacc"
+                "value": "bank_fg_nofam"
               },
               "Index": {
                 "type": "dword",
@@ -1234,6 +1234,25 @@
               "__struct_id": 2,
               "Active": {
                 "type": "resref",
+                "value": "bank_fg_nofam"
+              },
+              "Index": {
+                "type": "dword",
+                "value": 26
+              },
+              "IsChild": {
+                "type": "byte",
+                "value": 1
+              },
+              "LinkComment": {
+                "type": "cexostring",
+                "value": ""
+              }
+            },
+            {
+              "__struct_id": 3,
+              "Active": {
+                "type": "resref",
                 "value": ""
               },
               "Index": {
@@ -1384,6 +1403,21 @@
             },
             {
               "__struct_id": 1,
+              "Active": {
+                "type": "resref",
+                "value": "bank_fg_noacc"
+              },
+              "Index": {
+                "type": "dword",
+                "value": 26
+              },
+              "IsChild": {
+                "type": "byte",
+                "value": 0
+              }
+            },
+            {
+              "__struct_id": 2,
               "Active": {
                 "type": "resref",
                 "value": ""

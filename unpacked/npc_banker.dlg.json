@@ -2012,6 +2012,21 @@
               },
               "Index": {
                 "type": "dword",
+                "value": 65
+              },
+              "IsChild": {
+                "type": "byte",
+                "value": 0
+              }
+            },
+            {
+              "__struct_id": 5,
+              "Active": {
+                "type": "resref",
+                "value": ""
+              },
+              "Index": {
+                "type": "dword",
                 "value": 37
               },
               "IsChild": {
@@ -7818,11 +7833,26 @@
               "__struct_id": 0,
               "Active": {
                 "type": "resref",
-                "value": ""
+                "value": "bank_hasaccount"
               },
               "Index": {
                 "type": "dword",
                 "value": 1
+              },
+              "IsChild": {
+                "type": "byte",
+                "value": 0
+              }
+            },
+            {
+              "__struct_id": 1,
+              "Active": {
+                "type": "resref",
+                "value": "bank_noaccount"
+              },
+              "Index": {
+                "type": "dword",
+                "value": 16
               },
               "IsChild": {
                 "type": "byte",

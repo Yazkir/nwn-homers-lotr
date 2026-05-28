@@ -1,0 +1,571 @@
+DUNGEON SOLITAIRE × NWN HOMERS LOTR — CARD/CREATURE MAPPING REPORT
+Generated: 2026-05-27
+Source cards: DungeonSolitaire.Core/CardFactory.cs (LOTR theme, 40 cards)
+Source creatures: module-index/creature_index.json (695 creatures)
+
+================================================================================
+OVERVIEW
+================================================================================
+
+40 DS cards were compared against the NWN creature roster.
+
+  Exact name match (use directly):          4
+  Close match (NWN name differs slightly): 15
+  Missing — needs new NWN creature:        21
+
+The missing 21 break into two groups:
+  - Named characters not in the module:    13  (Frodo, Merry, Pippin, Lurtz, etc.)
+  - Generic faction cards:                  8  (Isengard Squire, Mirkwood Shade, etc.)
+
+For generic cards a substitution from existing creatures is usually fine.
+For major named characters, creating a new NWN blueprint is recommended.
+
+================================================================================
+SECTION 1: EXACT MATCHES — USE AS-IS
+================================================================================
+
+These four card names appear verbatim in creature_index.json.
+
+  Card                  NWN Creature              Race       Faction     CR
+  ──────────────────────────────────────────────────────────────────────────
+  Bilbo Baggins         Bilbo Baggins             Halfling   Good        424
+  Galadriel             Galadriel                 Elf        Defender    —
+  Samwise Gamgee        Samwise Gamgee            Halfling   Neutral     366
+  Saruman the White     Saruman the White         Human      —           —
+
+No changes needed for these four.
+
+================================================================================
+SECTION 2: CLOSE MATCHES — NWN CREATURE EXISTS, NAME DIFFERS
+================================================================================
+
+These cards have a clear NWN equivalent. Wire up the existing blueprint.
+
+  Card                      NWN Creature                          Notes
+  ──────────────────────────────────────────────────────────────────────────────
+  Gothmog the Burning       Gothmog Lord of Barad-Dur             Half-Orc, CR 604
+  Drowned Mouth of Sauron   Hoarmouth the Ringwraith              Ringwraith
+  Khamul the Easterling     The Rancid Skinner Green Mortal       Human, Evil, CR 810
+                              of Khamul                           (bizarre name but it's him)
+  Eowyn Shieldmaiden        Eowyn the Shieldmaiden                Human, Good
+  Ugluk                     Ugluk, Leader of the Uruk Hai         Half-Orc, Evil, CR 192
+  Aragorn Strider           Aragorn Son of Arathorn               Human, Good
+  Legolas Greenleaf         Legolas Greenleaf - Silvan            Elf, Defender, CR 1418
+                              Prince of Mirkwood
+  Adunaphel the Quiet       Adunaphel the Ringwraith              Human, Evil
+  The Witch-king of Angmar  Angmar / Angmar the Evocator          two variants present
+  Faramir                   Faramir, Prince of Ithillien          Half-Elf, Good, CR 190
+  Denethor                  Denethor, Steward of Gondor           Human
+  Boromir                   Boromir, Steward of Gondor            Human
+  Gimli Son of Gloin        Gimli                                 Dwarf
+  Mirkwood Shade            Mirkwood Forest Walker                Elf, Defender, CR 107
+  Thranduil's Scout         Thranduil's Defender                  Construct (Mithril Golem)
+                                                                  appearance is armored, works
+                                                                  thematically as a guardian
+
+================================================================================
+SECTION 3: MISSING — SUBSTITUTION OR NEW CREATURE REQUIRED
+================================================================================
+
+Each entry lists the card's DS stats and effects, the recommended substitution
+from existing NWN creatures, and notes on whether a new blueprint is worth
+building. Ability rename suggestions are included where the existing effect
+name fits awkwardly on the substitute.
+
+────────────────────────────────────────────────────────────────────────────────
+3A. MAIAR SPIRITS
+────────────────────────────────────────────────────────────────────────────────
+
+RADIANT OLORIN (id 1000)
+  Stats:     3 HP, 0 reward, 2 attack
+  Attack:    Renew — heal all other enemies, draw a card per enemy healed
+  Survivor:  Regenerate
+  Death:     none
+  Flavor:    Maiar Spirit
+
+  Olorin is Gandalf's name in Valinor before he came to Middle-earth.
+  NWN has Gandalf the Gray (Human, Commoner, CR 1914) which is the same being.
+
+  RECOMMENDATION: Create a new "Olorin the Wanderer" blueprint using the same
+  Gandalf appearance. Keeps the Maiar/pre-embodied framing distinct from
+  Gandalf-the-wizard, which matters if both end up in the same deck context.
+  Alternatively, wire directly to Gandalf the Gray and accept the name overlap.
+
+  Ability notes: Renew (heal enemies, draw cards) fits the compassionate Maiar
+  spirit perfectly — no rename needed.
+
+────────────────────────────────────────────────────────────────────────────────
+
+SHINING CURUNIR (id 2000)
+  Stats:     4 HP, 1 reward, 2 attack
+  Attack:    Palantir Gaze — suppress target's survivor/death effect this turn
+  Survivor:  Blind
+  Death:     none
+  Flavor:    Maiar Spirit
+
+  Curunir = Saruman's Quenya name. Since Saruman the White (id 37000) already
+  occupies the Army of Isengard slot, this card represents Saruman as a Maiar
+  before his corruption. The module has no second Saruman creature.
+  The module DOES have Alatar the Blue — one of the two Blue Wizards, also a
+  Maiar, who fits the "shining/uncorrupted wizard" archetype well.
+
+  RECOMMENDATION: Remap card to "Alatar the Blue" using the existing NWN
+  creature. Rename card to "Alatar the Blue" or "Morinehtar the Blue".
+
+  Ability rename suggestion:
+    Palantir Gaze → "Foresight of the Istari" (same mechanic, less Saruman-specific)
+    Blind → "Azure Veil" (same mechanic, blue-wizard flavor)
+
+────────────────────────────────────────────────────────────────────────────────
+3B. ORCS OF MORDOR
+────────────────────────────────────────────────────────────────────────────────
+
+GRISHNAKH (id 6000)
+  Stats:     2 HP, 1 reward, 1 attack
+  Attack:    Spoils of War — reduce enemy reward, gain that much attack if you
+             kill it
+  Death:     Feast on Flesh
+  Flavor:    Orc of Mordor
+
+  Grishnakh was a Mordor orc captain in the Two Towers. Not in the module.
+  NWN has Groodok the Skinner (Half-Orc, Hostile, CR 7) — a named orc skinner
+  whose name and flavor map almost perfectly to Grishnakh's predatory abilities.
+  Also available: Mordor Orc Scout Soldier as a generic fallback.
+
+  RECOMMENDATION: Create new "Grishnakh" blueprint using Half-Orc appearance
+  (many available in module). Primary substitute: Groodok the Skinner.
+
+  Ability notes: Spoils of War and Feast on Flesh fit a scavenging orc captain;
+  no rename needed.
+
+────────────────────────────────────────────────────────────────────────────────
+
+SHAGRAT (id 7000)
+  Stats:     2 HP, 1 reward, 1 attack
+  Attack:    Infest — if target has 4+ HP, deal 4 damage instead
+  Death:     Plague
+  Flavor:    Orc of Mordor
+
+  Shagrat was captain of the tower of Cirith Ungol. Not in the module.
+  NWN has Mordor Orc Lieutenant Soldier (Half-Orc, Evil, CR 200) — the
+  lieutenant rank maps to a tower captain.
+
+  RECOMMENDATION: Create new "Shagrat" blueprint using Half-Orc appearance.
+  Primary substitute: Mordor Orc Lieutenant Soldier.
+
+  Ability notes: Infest (burst damage vs. healthy targets) suits a tough orc
+  who picks on strong enemies; Plague fits the foul conditions of Cirith Ungol.
+  No rename needed.
+
+────────────────────────────────────────────────────────────────────────────────
+
+GORBAG (id 8000)
+  Stats:     2 HP, 1 reward, 1 attack
+  Attack:    Ringwraith's Grasp — if enemy dies, put it under the draw pile
+             instead of discard
+  Death:     Soul Eater
+  Flavor:    Orc of Mordor
+
+  Gorbag was captain of the Minas Morgul orc garrison. Not in the module.
+  NWN has Fiend of Morgul (Half-Orc, Evil, CR 65) — the Morgul connection is
+  exact. Also: Mordor Orc Warrior Soldier as a generic fallback.
+
+  RECOMMENDATION: Create new "Gorbag" blueprint. Primary substitute:
+  Fiend of Morgul (keeps the Minas Morgul origin intact).
+
+  Ability rename suggestion (if using Fiend of Morgul):
+    Ringwraith's Grasp → "Morgul Binding" (same mechanic, Morgul-lair flavor)
+
+────────────────────────────────────────────────────────────────────────────────
+3C. SHIRE COMPANIONS / HOBBITS
+────────────────────────────────────────────────────────────────────────────────
+
+BILL THE PONY (id 9000)
+  Stats:     2 HP, 0 reward, 1 attack
+  Attack:    Second Breakfast — if enemy is killed, return a discard to hand
+  Survivor:  Fetch
+  Flavor:    Shire Companion
+
+  No horse or pony creature exists in the module. Bill the Pony is a beloved
+  but minor character. Using a Hobbit Commoner creature with a renamed card is
+  the simplest path; the Halfling appearance conveys Shire warmth even if not
+  equine.
+
+  RECOMMENDATION: Create a new "Bill the Pony" blueprint using an Animal
+  appearance (the module has Boar, Deer, Cow; none ideal). Best compromise:
+  use Hobbit, Commoner appearance and rename the NWN creature tag accordingly.
+  If an animal appearance is added to the module later, swap it in.
+
+  Ability notes: Second Breakfast is already hobbit-flavored; Fetch suits a
+  loyal pony. No rename needed.
+
+────────────────────────────────────────────────────────────────────────────────
+
+PEREGRIN TOOK (id 11000)
+  Stats:     4 HP, 1 reward, 2 attack
+  Attack:    Thunder of Manwe — if enemy dies, deal 1 to another enemy
+  Death:     Unstable Magic
+  Flavor:    Hobbit of the Shire
+
+  The module has "Rigrin Took" in the creature list — likely a typo/alt-name
+  for Pippin. Worth investigating whether this blueprint has a usable appearance.
+  Otherwise, Bree Commoner Hobbit (Halfling) is the fallback.
+
+  RECOMMENDATION: Investigate Rigrin Took blueprint. If it has a Halfling
+  appearance and usable stats, remap to it and correct the name. Otherwise
+  create "Peregrin Took" using Halfling appearance.
+
+  Ability rename suggestion:
+    Thunder of Manwe → "Fool of a Took" (same chain-damage mechanic, iconic
+    Gandalf quote, Pippin's defining character moment — blunder that causes
+    a chain reaction)
+
+────────────────────────────────────────────────────────────────────────────────
+
+MERIADOC BRANDYBUCK (id 12000)
+  Stats:     2 HP, 0 reward, 4 attack
+  Attack:    Stone of Orthanc — at end of turn, place this ally as an active
+             enemy at the end of any column
+  Survivor:  Restoration
+  Flavor:    Hobbit of the Shire
+
+  No Merry in the module. The Stone of Orthanc effect (ally becomes an enemy)
+  is an unusual self-sacrifice mechanic that suits Merry well — the hobbit who
+  rode to war against orders and paid a price (the Black Breath).
+
+  RECOMMENDATION: Create new "Meriadoc Brandybuck" blueprint using Halfling
+  appearance. No good substitute exists for this one; the character is too
+  central to the Fellowship arc.
+
+  Ability rename suggestion:
+    Stone of Orthanc → "Barrow-blade" (same mechanic; Merry's blade from the
+    Barrow-downs was specifically enchanted to wound the Witch-king — a weapon
+    that costs the wielder, fitting the self-placement penalty)
+    Restoration → "Herb-lore of the Shire"
+
+────────────────────────────────────────────────────────────────────────────────
+3D. RIDERS OF ROHAN
+────────────────────────────────────────────────────────────────────────────────
+
+EOMER OF THE EASTMARK (id 13000)
+  Stats:     4 HP, 1 reward, 2 attack
+  Attack:    Sauron's Eye — if this ally targets Eowyn Shieldmaiden, deal
+             double damage
+  Death:     Moonlight
+  Flavor:    Rider of Rohan
+
+  Note: The Sauron's Eye/Shadow of Mordor paired effects (Eomer↔Eowyn deal
+  double damage to each other) are a clever DS mechanic representing their
+  sibling rivalry and battlefield bond. This only works if both cards exist.
+
+  NWN has Erkenbrand Captain of Rohan and Elite Rohirrim Soldier as named/
+  senior Rohan warriors, but Eomer is too important a character to omit.
+
+  RECOMMENDATION: Create new "Eomer of the Eastmark" blueprint using Human
+  appearance with Rohirrim armor. No substitute preserves the paired mechanic
+  with Eowyn.
+
+  Ability notes: Sauron's Eye / Shadow of Mordor pair mechanic should stay
+  intact — it's elegant game design. No rename needed.
+
+────────────────────────────────────────────────────────────────────────────────
+3E. URUK-HAI
+────────────────────────────────────────────────────────────────────────────────
+
+LURTZ (id 16000)
+  Stats:     6 HP, 2 reward, 2 attack
+  Attack:    Rampage — if enemy dies, activate next enemy in column and repeat
+             attack on it
+  Death:     Death Throes
+  Flavor:    Uruk-hai Berserker
+
+  Lurtz is a Peter Jackson film-original character (kills Boromir at Amon Hen).
+  Not in Tolkien's books, not in the NWN module. He is, however, the iconic
+  Uruk-hai commander of Fellowship of the Ring and would be recognizable to
+  players.
+
+  NWN has Urukai Captain (Half-Orc, Evil, CR 20) as the closest rank analog.
+  Urukai Squad Leader is also available.
+
+  RECOMMENDATION: Create new "Lurtz" blueprint using Half-Orc (Elite Orc
+  appearance) — several Elite Orc appearances are already in the module
+  (Elite Orc A*, Elite Orc B*, Elite Orc Captain*). This is a worthwhile new
+  creature given his prominence in the film story.
+
+  Ability notes: Rampage (chain kill mechanic) is perfect for a Uruk berserker;
+  Death Throes fits a creature that causes damage even in death. No rename
+  needed.
+
+────────────────────────────────────────────────────────────────────────────────
+
+MAUHUR (id 17000)
+  Stats:     6 HP, 2 reward, 5 attack
+  Attack:    Berserker Charge — discard top card of draw pile
+  Survivor:  Savagery
+  Flavor:    Uruk-hai Brute
+
+  Mauhur led the second Uruk-hai pack in The Two Towers. Not in the module.
+  NWN has Uruk Hai First Born (Half-Orc, Commoner, CR 115) — the "first born
+  of Saruman's pits" framing fits the brute role. Also: Uruk Hai White Hand's
+  Chosen.
+
+  RECOMMENDATION: Remap to Uruk Hai First Born, or create a new "Mauhur"
+  blueprint. Uruk Hai First Born is a strong substitute if creating a new
+  creature isn't a priority.
+
+  Ability rename suggestion (if using Uruk Hai First Born):
+    Berserker Charge → "Born of the Pit" (same discard mechanic, ties to
+    the First Born backstory of being bred for war)
+
+────────────────────────────────────────────────────────────────────────────────
+
+GRIMA WORMTONGUE (id 18000)
+  Stats:     3 HP, 1 reward, 3 attack
+  Attack:    Fracture — if enemy doesn't die, discard top card of draw pile
+  Survivor:  Brittle Bones
+  Flavor:    Servant of Saruman
+
+  Grima Wormtongue is Saruman's agent in Rohan, a human spy/advisor. Not in
+  the module. His abilities — Fracture (sabotage the draw pile when you fail)
+  and Brittle Bones — are distinctly sneaky/poisonous, fitting a traitor.
+
+  NWN has Saruman's Personal Guard (Half-Orc, Elf appearance, Evil, CR 267)
+  which is thematically adjacent but wrong race/role. Marshall of the White
+  Hand is a senior Isengard figure but also wrong role.
+
+  RECOMMENDATION: Create new "Grima Wormtongue" blueprint using Human Male
+  appearance. Grima is too distinctive a character (the only human Isengard
+  agent among major named characters) to replace with a generic Orc.
+
+  Ability notes: Fracture and Brittle Bones read as psychological sabotage —
+  perfect for Wormtongue. No rename needed.
+
+────────────────────────────────────────────────────────────────────────────────
+3F. RANGERS OF THE NORTH
+────────────────────────────────────────────────────────────────────────────────
+
+The module has generic Ranger of the North (Human, Good, CR 18–28) and Greater
+Ranger of the North (Human, Good, CR 68–73) creatures. These make good fallback
+substitutes for all three named Ranger cards below.
+
+────────────────────────────────────────────────────────────────────────────────
+
+HALBARAD (id 19000)
+  Stats:     3 HP, 1 reward, 2 attack
+  Attack:    Shelob's Web — suppress survivor/death on target; if it dies,
+             remove it from the game entirely
+  Death:     Hush
+  Flavor:    Ranger of the North
+
+  Halbarad was Aragorn's kinsman and captain of the Grey Company. Died at
+  Pelennor Fields carrying the banner of Arwen. Not in the module.
+
+  RECOMMENDATION: Create new "Halbarad" blueprint using Human (Ranger)
+  appearance. Substitute: Greater Ranger of the North.
+
+  Ability rename suggestion:
+    Shelob's Web → "Ranger's Silence" (same remove-from-game mechanic; Shelob
+    is a Mirkwood/Cirith Ungol reference, not Rangers-of-the-North flavor)
+    Hush → "Dúnedain Shadow" (same mechanic, better thematic fit)
+
+────────────────────────────────────────────────────────────────────────────────
+
+ELLADAN (id 20000)
+  Stats:     3 HP, 1 reward, 0 attack
+  Attack:    Infiltrate — put target enemy in hand, put this ally in its place
+  Survivor:  Evasion
+  Flavor:    Ranger of the North
+
+  Elladan, son of Elrond, half-elven ranger and member of the Grey Company.
+  Not in the module. NWN has Elf Ranger (Elf, Good, CR 33–65) as the closest
+  visual/role match.
+
+  RECOMMENDATION: Create new "Elladan" blueprint using Half-Elf or Elf Male
+  appearance. Substitute: Elf Ranger.
+
+  Ability notes: Infiltrate (swap positions with enemy) is a clever intelligence
+  mechanic suited to a half-elven spy; Evasion fits the ranger archetype.
+  No rename needed.
+
+────────────────────────────────────────────────────────────────────────────────
+
+ELROHIR (id 21000)
+  Stats:     3 HP, 1 reward, 1 attack
+  Attack:    Light-Fingers — draw cards equal to enemy reward; +1 if it dies
+  Survivor:  Meld
+  Flavor:    Ranger of the North
+
+  Elladan's twin brother. Same situation — not in the module.
+
+  RECOMMENDATION: Create new "Elrohir" blueprint using Half-Elf or Elf Male 2
+  appearance (differentiate visually from Elladan). Substitute: second Elf
+  Ranger entry (CR 65 variant vs. CR 33 for Elladan).
+
+  Ability notes: Light-Fingers draws on enemy reward value — suits an
+  intelligence-gathering ranger. Meld (hide/blend) fits a half-elven scout.
+  No rename needed.
+
+────────────────────────────────────────────────────────────────────────────────
+3G. WOOD-ELVES (GENERIC CARDS)
+────────────────────────────────────────────────────────────────────────────────
+
+SILVAN SHAPESHIFTER (id 23000)
+  Stats:     3 HP, 0 reward, 2 attack
+  Attack:    Ent Awakening — put hand on bottom of draw pile, draw same count
+  Death:     Faerie Dust
+  Flavor:    Wood-elf of Mirkwood (generic)
+
+  This is a generic shapeshifter card, not a named character. The module has
+  both Mirkwood Forest Walker (Elf, Defender) and — more interestingly —
+  Beorning and Beorning (shifted), which are literal shapeshifters.
+
+  RECOMMENDATION: Remap to Beorning (shifted). Rename card to "Beorning
+  Skin-changer" and update flavor type to "Skin-changer of the Anduin".
+
+  Ability rename suggestion:
+    Ent Awakening → "Bear's Fury" (same mechanic — the explosive hand-reset —
+    but now fits a shapeshifter's berserker transformation rather than ents.
+    Ent Awakening already belongs more naturally on a tree-themed card.)
+    Faerie Dust → "Beorn's Rage" (death effect carries the same flavor shift)
+
+────────────────────────────────────────────────────────────────────────────────
+3H. GUARDIANS OF GONDOR
+────────────────────────────────────────────────────────────────────────────────
+
+BEREGOND (id 32000)
+  Stats:     3 HP, 1 reward, 1 attack
+  Attack:    Morgul Curse — death effects do not trigger this turn
+  Survivor:  Unholy Prayer
+  Flavor:    Guardian of Gondor
+
+  Beregond was a soldier of the Tower Guard who defied orders to save Faramir
+  from Denethor's pyre. Not in the module. His abilities (suppress death
+  effects, unholy prayer) read as a man of Gondor resisting the Morgul shadow.
+
+  NWN has Gondorian Guardsman, Epic Gondorian Guardsman, and Gondorian Bowman
+  as generic substitutes.
+
+  RECOMMENDATION: Create new "Beregond" blueprint using Human (Gondorian
+  armor) appearance. Substitute: Gondorian Guardsman.
+
+  Ability rename suggestion:
+    Morgul Curse → "Tower Guard's Oath" (same mechanic — blocking death
+    effects — but framed as Beregond's defiant protection rather than a
+    Morgul curse being cast)
+    Unholy Prayer → "Vigil of the White Tree"
+
+────────────────────────────────────────────────────────────────────────────────
+3I. FELLOWSHIP
+────────────────────────────────────────────────────────────────────────────────
+
+FRODO BAGGINS (id 36000)
+  Stats:     4 HP, 1 reward, 3 attack
+  Attack:    All or Nothing — if target wouldn't die from attack alone, deal
+             0 damage
+  Survivor:  Resilience
+  Flavor:    Fellowship of the Ring
+
+  Frodo is arguably the most central character in LotR and is completely absent
+  from the NWN module. The module has Bilbo Baggins and Samwise Gamgee but not
+  Frodo. This is the single most important gap to fill.
+
+  All or Nothing (commit fully or not at all) + Resilience are deeply Frodo —
+  the Ring-bearer who could not act halfway, but who endured beyond all
+  expectation.
+
+  RECOMMENDATION: Create new "Frodo Baggins" blueprint using Halfling
+  appearance. This is the top-priority new creature for this integration.
+
+  Ability notes: All or Nothing and Resilience are mechanically and thematically
+  ideal for Frodo. No renames needed.
+
+────────────────────────────────────────────────────────────────────────────────
+3J. ARMY OF ISENGARD (GENERIC CARDS)
+────────────────────────────────────────────────────────────────────────────────
+
+ISENGARD EXECUTIONER (id 38000)
+  Stats:     3 HP, 1 reward, 1 attack
+  Attack:    Execute — if enemy dies this turn, return this ally to hand;
+             cannot draw cards this turn
+  Survivor:  Guillotine
+  Flavor:    Army of Isengard (generic)
+
+  RECOMMENDATION: Remap to Uruk Hai Slayer (Half-Orc, Commoner, CR 91).
+  The "Slayer" designation maps naturally to an executioner role. The execute-
+  and-return mechanic fits a specialist killer who withdraws after the kill.
+
+  Ability notes: No rename needed — Execute and Guillotine already read as
+  Isengard-flavored without being character-specific.
+
+────────────────────────────────────────────────────────────────────────────────
+
+ISENGARD WARCHIEF (id 39000)
+  Stats:     5 HP, 2 reward, 6 attack
+  Attack:    Helm's Deep — discard your hand
+  Survivor:  Battlecry
+  Flavor:    Army of Isengard (generic)
+
+  RECOMMENDATION: Remap to Marshall of the White Hand (Half-Orc, Commoner,
+  CR 107). The marshall rank fits a warchief. Helm's Deep (discard hand =
+  sacrifice everything for the assault) and Battlecry are thematically perfect
+  for a commander ordering a full charge.
+
+  Ability notes: No rename needed.
+
+────────────────────────────────────────────────────────────────────────────────
+
+ISENGARD SQUIRE (id 40000)
+  Stats:     2 HP, 1 reward, 1 attack
+  Attack:    Killing Stroke — if enemy is already injured, kill it instantly
+  Survivor:  Flourish
+  Flavor:    Army of Isengard (generic)
+
+  RECOMMENDATION: Remap to Urukai Trooper (Half-Orc, Evil, CR 11) — the
+  lowest-CR named Uruk-hai, fitting the "squire" tier. Killing Stroke (finish
+  injured enemies) + Flourish (draw on overkill) suit a veteran grunt who
+  cleans up wounded enemies.
+
+  Ability rename suggestion:
+    Flourish → "White Hand Brand" (same mechanic — a visual identity marker
+    rather than a fencing flourish, which reads oddly for an Uruk-hai)
+
+================================================================================
+SECTION 4: PRIORITY SUMMARY
+================================================================================
+
+NEW BLUEPRINTS TO CREATE (ranked by narrative importance):
+
+  Priority 1 — Core Fellowship, cannot be substituted:
+    1. Frodo Baggins          (Halfling appearance)
+    2. Meriadoc Brandybuck    (Halfling appearance)
+    3. Peregrin Took          (Halfling appearance; check "Rigrin Took" first)
+    4. Eomer of the Eastmark  (Human/Rohirrim; needed for Eowyn paired mechanic)
+
+  Priority 2 — Named villains / major supporting characters:
+    5. Lurtz                  (Half-Orc, Elite Orc Captain* appearance)
+    6. Grima Wormtongue       (Human Male appearance)
+    7. Grishnakh              (Half-Orc; Groodok the Skinner is a fine fallback)
+    8. Shagrat                (Half-Orc; Mordor Orc Lieutenant is a fallback)
+    9. Gorbag                 (Half-Orc; Fiend of Morgul is a strong fallback)
+
+  Priority 3 — Ranger trio (can all share similar Human appearance):
+    10. Halbarad
+    11. Elladan
+    12. Elrohir
+
+  Priority 4 — Gondor / Maiar (substitutes available, named versions preferred):
+    13. Beregond              (Human, Gondorian armor)
+    14. Radiant Olorin        (Gandalf appearance; Gandalf the Gray is a fallback)
+
+SUBSTITUTIONS (no new blueprint needed):
+    Shining Curunir       → Alatar the Blue         (rename card)
+    Silvan Shapeshifter   → Beorning (shifted)       (rename card + abilities)
+    Mauhur                → Uruk Hai First Born      (acceptable as-is)
+    Bill the Pony         → Hobbit, Commoner         (weakest substitute)
+    Isengard Executioner  → Uruk Hai Slayer
+    Isengard Warchief     → Marshall of the White Hand
+    Isengard Squire       → Urukai Trooper
+
+================================================================================
+END OF REPORT
+================================================================================
