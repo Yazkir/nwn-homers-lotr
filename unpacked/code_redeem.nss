@@ -15,6 +15,7 @@ string GetCodeExpiration(string sCodeLower)
 {
     if (sCodeLower == "freelegendary") return "2026-07-01";
     if (sCodeLower == "defect20260516") return "2026-05-25";
+    if (sCodeLower == "first100hours") return "2026-07-01";
     return "";
 }
 
@@ -29,6 +30,11 @@ int ApplyCodeBenefit(string sCodeLower, object oPC)
     if (sCodeLower == "defect20260516")
     {
         GiveXPToCreature(oPC, 25000);
+        return TRUE;
+    }
+    if (sCodeLower == "first100hours")
+    {
+        CreateItemOnObject("rodoffirst100hou", oPC);
         return TRUE;
     }
     return FALSE;
