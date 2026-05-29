@@ -1,0 +1,113 @@
+==============================================================================
+QUEST FIXES — MANUAL UAT CHECKLIST
+Homer's LOTR module    |    Changes applied: 2026-05-28
+==============================================================================
+
+HOW TO USE
+  1. Repack the module:            nwn-manager repack
+     (must compile with NO script errors)
+  2. Load the .mod in NWN:EE and run through the checks below.
+  3. Mark each [ ] as [x] when verified. A DM client (cheat console) helps:
+     - dm_givexp / give items, dm_jumptopoint to reach areas fast.
+     - To test logins, log out and back in (server-info checks).
+
+Items / tags referenced:
+  Heirloom item .... "Gloison's Coat of Arms"  tag GloisonsFamilyStone (item029)
+  Azagoth's Head ... azagothshead     Tiger Heart ... kallristtigerhea
+
+------------------------------------------------------------------------------
+TIER 1 — CRITICAL BUG FIXES
+------------------------------------------------------------------------------
+[ ] Server-info journals (NEW or EXISTING character):
+      - Log in. Open Journal -> COMPLETED section.
+      - Expect 3 entries: "Server Rules", "Guilds", "Website".
+      - Log out and back in: still present, not duplicated.
+      - Repeat with a brand-new character: same result.
+
+[ ] Elrond's Request — accept entry (was lost):
+      - Talk to Elrond (Rivendell), accept the two tasks.
+      - Open Journal -> "Elrond's Request" entry 1 ("two tasks...") is now present.
+      - (Completion still works: return Helm of the Warlord + Dwarf Head,
+        take reward -> 2,000 XP + Elrond's Writ, entry 2.)
+
+[ ] Well of Souls — accept entry (was lost) + reward bump:
+      - Talk to the Gondor Scribe, accept. Journal "The Well of Souls" entry 1 appears.
+      - Kill Azagoth (Moria Byss / Balrog area), loot Azagoth's Head, return.
+      - Expect 4,000 XP (raised from 1,000) + Annuminas Key; entry 2.
+
+[ ] Ruin of Annuminas — accept entry (was lost):
+      - Talk to the old woman in Bree ("Hanee the Loon").
+      - Journal "Ruin of Annuminas" entry 1 now appears.
+
+------------------------------------------------------------------------------
+TIER 2 — MISSING JOURNALS (working quests that had no log entry)
+------------------------------------------------------------------------------
+[ ] Kallrist Tiger Hunt:
+      - Travel to Kallrist Island, talk to Sald, accept the hunt
+        (reply: "Then I am off to find some...").
+      - Journal "Kallrist Tiger Hunt" entry appears (open-ended, stays active).
+      - Kill a Kallrist Tiger, loot a Tiger Heart, return to Sald, turn it in.
+      - Expect 200 gp paid; heart consumed (unchanged behaviour).
+
+[ ] Green Dragon Inn (gdquest1):
+      - Run the Green Dragon Inn quest (recover the stolen ring; Sharkey's
+        henchmen spawn).
+      - On accept: Journal "The Green Dragon Inn" entry 1.
+      - On completion: entry 2 marked complete; 500 XP + 1,000 gp.
+
+[ ] Oasis of Gwathdor (gwathquest):
+      - Trigger the Gwathdor quest start (Erab Oasis dialogue).
+      - Journal "The Oasis of Gwathdor" entry 1 appears.
+      - (Note: only a start state is scripted; no completion entry yet — expected.)
+
+[ ] Cursed Grave (cursedgrave):
+      - In Bree, cast Remove Curse / Dispel Magic / Lesser Dispel on the
+        cursed headstone (tag undead_headstone).
+      - Journal "The Cursed Grave" shows entry 2 (completed).
+      - Caster receives 250 XP (GetJournalQuestExperience now non-zero).
+
+------------------------------------------------------------------------------
+TIER 3 — GLOISON'S HEIRLOOM (built from scaffolding)
+------------------------------------------------------------------------------
+[ ] Quest giver:
+      - Go to Erebor (Lonely Mountain: Main Hall). Talk to "Gloin King Under
+        the Mountain".
+      - Choose "Is there any task I might help your people with?" -> he offers
+        the heirloom quest -> "I will retrieve it."
+      - Journal "Gloison's Heirloom" entry 1 set.
+
+[ ] Antagonist + loot:
+      - Travel to The Ruins of Dale. Gerrey Halliams (CR 17) is present
+        near the graverobbers camp (approx 13.5, 129.4).
+      - Kill him; loot "Gloison's Coat of Arms" (drops, since droppable).
+
+[ ] Turn-in:
+      - Return to Gloin. While holding the heirloom, the reply
+        "Actually, I recovered Gloisin's stolen heirloom." is available.
+      - Choosing it: heirloom consumed; 5,000 XP + 15,000 gp; journal entry 2.
+      - Without the heirloom, that reply must NOT appear (sc_glsn_have gate).
+
+------------------------------------------------------------------------------
+TIER 4 — BALANCE / REWARD BUMPS  (confirm new XP awards)
+------------------------------------------------------------------------------
+[ ] Bill Ferny's Ring .... 500 XP (was 150), both endings (give/keep letter).
+[ ] The Miller's Son ..... 450 XP (was 150) on turn-in.
+[ ] Feeding Tharbad ...... 500 XP (was 200) + Book of the Cora on turn-in.
+[ ] The Well of Souls .... 4,000 XP (was 1,000) — covered in Tier 1 above.
+
+------------------------------------------------------------------------------
+REGRESSION SPOT-CHECKS
+------------------------------------------------------------------------------
+[ ] No console/script errors on module load or on entering Ruins of Dale.
+[ ] Gloin's plain greeting still works for players who ignore the quest
+    (reply "Farewell." exits cleanly).
+[ ] Existing MeaningWave quests and journals unaffected.
+
+==============================================================================
+NOTES
+  - This file is a working artifact, not wiki content. Decide whether to commit
+    it; it is safe to delete after the UAT pass.
+  - Outstanding (not done, optional future work): named item drops for Ferny /
+    Well of Souls, Kallrist 10-heart milestone, refresh the dead Website URL in
+    module.jrl.json, Gwathdor completion entry, m2/m3 ported-campaign cleanup.
+==============================================================================

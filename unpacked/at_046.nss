@@ -10,7 +10,7 @@
 void main()
 {
     // Give the speaker some XP
-    RewardPartyXP(200, GetPCSpeaker());
+    RewardPartyXP(500, GetPCSpeaker());
 
     // Give the speaker the items
     CreateItemOnObject("bookofthecora", GetPCSpeaker(), 1);

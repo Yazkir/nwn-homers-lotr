@@ -10,7 +10,7 @@
 void main()
 {
 	// Give the speaker some XP
-	RewardPartyXP(150, GetPCSpeaker());
+	RewardPartyXP(450, GetPCSpeaker());
 
 	// Set the variables
 	SetLocalInt(GetPCSpeaker(), "millerson", 2);

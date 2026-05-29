@@ -64,5 +64,15 @@ void main()
     SetLocalString(oPC, "LetoScript", "");
     SetLocalString(oPC, "LetoscriptLL", "");
 
+    // Server-info reference journals (Rules/Guilds/Website). Each category's
+    // entry 1 has End=1, so these land in the player's Completed section.
+    // AddJournalQuestEntry is idempotent (re-adding the same state just resets
+    // it), so we deliver unconditionally on every login — this reaches existing
+    // characters too, not just first-time logins. mod_enter.nss (the old, never-
+    // wired delivery, which also had a "gguild" tag typo) is bypassed entirely.
+    AddJournalQuestEntry("rules",   1, oPC, FALSE, FALSE);
+    AddJournalQuestEntry("guilds",  1, oPC, FALSE, FALSE);
+    AddJournalQuestEntry("website", 1, oPC, FALSE, FALSE);
+
     DelayCommand(1.0, HgllPostEnter(oPC));
 }

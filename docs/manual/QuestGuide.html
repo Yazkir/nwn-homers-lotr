@@ -35,7 +35,7 @@
       <a href="../conversations/index.html">Conversations</a>
       <a href="../factions.html">Factions</a>
       <a href="../journal.html">Journal</a>
-      <a href="../activity.html">Activity</a>
+      
       <div class="nav-dropdown"><span class="nav-dropdown-label">Documents &#9660;</span><div class="nav-dropdown-menu"><a href="../manual/LevelingGuide.html">Leveling Guide — Homer&#x27;s LOTR</a>
 <a href="../manual/MeaningWave.html">MeaningWave: A Guide to the Guides</a>
 <a href="../manual/Quest Ideas.html">Quest Ideas &amp;amp; Draft Concepts — Homer&#x27;s LOTR</a>
@@ -217,6 +217,17 @@ progress, what they reward, and which ones are currently broken. A <span class="
 the quest is fully scripted; <span class="status-badge status-bug">Minor Bug</span> means it functions but has a tag mismatch or minor issue;
 <span class="status-badge status-broke">Broken</span> means it cannot be completed; <span class="status-badge status-awol">AWOL</span> means it once existed or was planned but has no placed content.</p>
 
+<div class="tip-box">
+  <p><strong>Update (2026-05-28):</strong> The fixes described in this guide have been
+  <strong>implemented</strong> in the module source. The status badges below reflect the
+  post-fix state. Three earlier diagnoses in this guide were corrected during implementation:
+  <code>sc_001.nss</code> never blocked Gloison's conversation (its <code>Random(100) &gt;= 100</code>
+  branch can never fire, so it always returns TRUE); <code>hgll_cliententer.nss</code> had no
+  pre-existing first-login check to hang the server-info journals from; and the
+  <em>Book of the Cora</em> already carries useful properties. Changes still require an
+  in-game pass — see <a href="#player-reports">UAT</a>.</p>
+</div>
+
 <hr>
 
 <!-- ============================================================ -->
@@ -232,7 +243,7 @@ the quest is fully scripted; <span class="status-badge status-bug">Minor Bug</sp
     <span>Journal tag: <code>Ferny's Ring</code></span>
     <span>Giver: Bill Ferny, Bree</span>
     <span>Level range: 1–10</span>
-    <span>Reward: 150&nbsp;XP + 200&nbsp;gp (or 150&nbsp;XP + keep Sharkey's Orders)</span>
+    <span>Reward: 500&nbsp;XP + 200&nbsp;gp (or 500&nbsp;XP + keep Sharkey's Orders)</span>
   </div>
   <p>Bill Ferny, a shifty resident of <a href="../areas/bree.html">Bree</a>, claims an underling ran into a nearby cave with
   his ring. He asks you to retrieve it. A straightforward early quest that uncovers a darker conspiracy.</p>
@@ -263,8 +274,7 @@ the quest is fully scripted; <span class="status-badge status-bug">Minor Bug</sp
   <div class="dm-note">Journal entry 2 is defined in the journal but the DLG Quest field for it points to the correct tag.
   The ring item (<code>RingofSharkey</code>) and Sharkey's Orders (<code>SharkeysOrders</code>) must be in
   inventory when speaking to Ferny. The ambush trigger is in <code>ferny_convo2.dlg.json</code>.
-  XP: 150 via <code>endferny1.nss</code> (give letter) or <code>aquirering.nss</code> (keep letter).
-  <strong>Balance concern:</strong> 150 XP is meagre for a multi-stage quest with an ambush; see Balance section.</div>
+  XP: 500 via <code>endferny1.nss</code> (give letter) or <code>aquirering.nss</code> (keep letter) — raised from 150.</div>
 </div>
 
 <!-- MILLER'S SON -->
@@ -274,7 +284,7 @@ the quest is fully scripted; <span class="status-badge status-bug">Minor Bug</sp
     <span>Journal tag: <code>Bree Millers Son</code></span>
     <span>Giver: Han the Bree Miller, Bree</span>
     <span>Level range: 1–10</span>
-    <span>Reward: 150&nbsp;XP</span>
+    <span>Reward: 450&nbsp;XP</span>
   </div>
   <p>The Miller of <a href="../areas/bree.html">Bree</a> has lost his son — the boy was delivering an ale shipment to
   Tharbad along the South Greenway Road. He asks you to find out what happened.</p>
@@ -285,7 +295,7 @@ the quest is fully scripted; <span class="status-badge status-bug">Minor Bug</sp
   <ol>
     <li>Accept the Miller's request — journal entry 1 is set.</li>
     <li>Travel south along the Greenway. You will find what happened to his son.</li>
-    <li>Return and deliver the grim news to the Miller — journal entry 2. 150 XP awarded via <code>at_003.nss</code>.</li>
+    <li>Return and deliver the grim news to the Miller — journal entry 2. 450 XP awarded via <code>at_003.nss</code> (raised from 150).</li>
   </ol>
 
   <strong>Journal entries:</strong>
@@ -294,7 +304,7 @@ the quest is fully scripted; <span class="status-badge status-bug">Minor Bug</sp
     <li>You delivered the sad news. The Miller grieves; his wife and his ale are small comfort.</li>
   </ol>
 
-  <div class="dm-note">Conversation in <code>b_miller_convo1.dlg.json</code>. Completion script <code>at_003.nss</code>. The shipment scene is scripted on the South Greenway. <strong>Balance concern:</strong> 150 XP only for a narrative investigation quest; consider 400–500 XP to match the emotional weight.</div>
+  <div class="dm-note">Conversation in <code>b_miller_convo1.dlg.json</code>. Completion script <code>at_003.nss</code> (now 450 XP). The shipment scene is scripted on the South Greenway.</div>
 </div>
 
 <!-- FEEDING THARBAD -->
@@ -304,7 +314,7 @@ the quest is fully scripted; <span class="status-badge status-bug">Minor Bug</sp
     <span>Journal tag: <code>Feeding Tharbad</code></span>
     <span>Giver: Temple of Ilúvatar cleric, Tharbad</span>
     <span>Level range: 5–15</span>
-    <span>Reward: 200&nbsp;XP + <em>Book of the Coran</em></span>
+    <span>Reward: 500&nbsp;XP + <em>Book of the Cora</em></span>
   </div>
   <p>The Temple of Ilúvatar in Tharbad is struggling to feed hungry refugees at the bridge. They ask you to
   purchase venison from a local store and hand it out to 20 refugees at the bridge.</p>
@@ -316,7 +326,7 @@ the quest is fully scripted; <span class="status-badge status-bug">Minor Bug</sp
     <li>Agree to help — journal entry 1 set. Local variable <code>agreefeed = 1</code> is stored.</li>
     <li>Buy venison from the general store.</li>
     <li>Travel to <a href="../areas/tharbadbridge.html">Tharbad Bridge</a> and feed 20 refugees.</li>
-    <li>Return to the cleric — journal entry 2 set. 200 XP and the Book of the Coran awarded.</li>
+    <li>Return to the cleric — journal entry 2 set. 500 XP (raised from 200) and the Book of the Cora awarded.</li>
   </ol>
 
   <strong>Journal entries:</strong>
@@ -325,12 +335,12 @@ the quest is fully scripted; <span class="status-badge status-bug">Minor Bug</sp
     <li>The refugees will not go hungry tonight. You gave selflessly for a noble cause.</li>
   </ol>
 
-  <div class="dm-note">Conversation in <code>clericq.dlg.json</code>. Completion via <code>at_046.nss</code>. The <em>Book of the Coran</em> is the only named quest reward item in this quest beyond XP. <strong>Balance concern:</strong> 200 XP for a two-area delivery chain is low; 400–500 XP would be more appropriate. The <em>Book of the Coran</em> item should ideally have a meaningful property (e.g. +1 Wisdom or a cleric-useful feat scroll).</div>
+  <div class="dm-note">Conversation in <code>clericq.dlg.json</code>. Completion via <code>at_046.nss</code> (now 500 XP). The reward item is <code>bookofthecora.uti.json</code> — <em>Book of the Cora</em> — which already carries 5 properties and a high gold value, so it is a meaningful reward as-is.</div>
 </div>
 
 <!-- ELROND'S REQUEST -->
 <div class="quest-card" id="elrond">
-  <h3>Elrond's Request <span class="status-badge status-bug">Minor Bug</span></h3>
+  <h3>Elrond's Request <span class="status-badge status-ok">Working</span></h3>
   <div class="quest-meta">
     <span>Journal tag: <code>Elrond's Request</code></span>
     <span>Giver: Elrond, Rivendell</span>
@@ -360,19 +370,23 @@ the quest is fully scripted; <span class="status-badge status-bug">Minor Bug</sp
   </ol>
 
   <div class="warning-box">
-    <p><strong>Known bug:</strong> One reply node in <code>elrondconv.dlg.json</code> sets journal tag <code>Category000</code> (which does not exist). NWN silently ignores the missing tag, so it causes no crash, but that journal entry is never written. Also: a dangling <code>at_023</code> action sets a local variable only — no quest effect.</p>
+    <p><strong>Fixed (2026-05-28):</strong> The reply node in <code>elrondconv.dlg.json</code> that set the
+    bogus tag <code>Category000</code> (QuestEntry 1) now sets <code>Elrond's Request</code>. This was
+    the <em>quest-accept</em> entry — previously only entry 2 (completion) was ever written, so players
+    saw no journal entry on accepting. A dangling <code>at_023</code> action still sets a local variable
+    only (no quest effect); harmless.</p>
   </div>
-  <div class="dm-note">The "existing journals got removed upon accepting the quest" report is a false diagnosis. No script in the module calls any journal-clearing function. What actually happened: the server-info journals (Rules, Website) are <em>never given to players at all</em> because <code>mod_enter.nss</code> is unwired (see Server Info section below). Players who noticed those journal entries gone were never receiving them in the first place. The Elrond quest is not the culprit. <strong>Fix:</strong> wire server-info journal delivery to the OnClientEnter hook and that symptom disappears.</div>
+  <div class="dm-note">The "existing journals got removed upon accepting the quest" report is a false diagnosis. No script in the module calls any journal-clearing function. What actually happened: the server-info journals (Rules, Website) are <em>never given to players at all</em> because <code>mod_enter.nss</code> is unwired (see Server Info section below). Players who noticed those journal entries gone were never receiving them in the first place. The Elrond quest is not the culprit. <strong>Fixed:</strong> server-info journal delivery is now wired into the OnClientEnter hook (<code>hgll_cliententer.nss</code>), so that symptom is gone — see the Server Info section below.</div>
 </div>
 
 <!-- WELL OF SOULS -->
 <div class="quest-card" id="well-of-souls">
-  <h3>The Well of Souls <span class="status-badge status-bug">Minor Bug</span></h3>
+  <h3>The Well of Souls <span class="status-badge status-ok">Working</span></h3>
   <div class="quest-meta">
     <span>Journal tag: <code>The Well of Souls</code></span>
     <span>Giver: Gondor Scribe, Gondor area</span>
     <span>Level range: 30–45</span>
-    <span>Reward: 1,000&nbsp;XP + <em>Annuminas Key</em></span>
+    <span>Reward: 4,000&nbsp;XP + <em>Annuminas Key</em></span>
   </div>
   <p>The Gondor Scribe asks you to face <strong>Azagoth</strong>, who threatens to open the Well of Souls. You must
   kill Azagoth and bring back his head to prove the deed is done.</p>
@@ -383,8 +397,8 @@ the quest is fully scripted; <span class="status-badge status-bug">Minor Bug</sp
   <ol>
     <li>Find and kill <strong>Azagoth</strong> in the Moria Byss / <a href="../areas/thebalrogofmoria.html">Balrog of Moria</a> area.</li>
     <li>Loot <em>Azagoth's Head</em> from the corpse.</li>
-    <li>Return to the Gondor Scribe with the head — <code>at_008.nss</code> removes the head and awards 1,000 XP.
-    The Annuminas Key is given by <code>at_007.nss</code>. Journal entry 2 set.</li>
+    <li>Return to the Gondor Scribe with the head — <code>at_008.nss</code> removes the head and awards 4,000 XP
+    (raised from 1,000). The Annuminas Key is given by <code>at_007.nss</code> (no XP of its own). Journal entry 2 set.</li>
   </ol>
 
   <strong>Journal entries:</strong>
@@ -394,16 +408,18 @@ the quest is fully scripted; <span class="status-badge status-bug">Minor Bug</sp
   </ol>
 
   <div class="warning-box">
-    <p><strong>Known bug:</strong> One dialogue node in <code>gondorscribe.dlg.json</code> sets the DLG Quest field to tag <code>wellofsouls</code> — but the journal category is named <code>The Well of Souls</code>. That specific journal entry is silently lost. The completion entry (entry 2) is set correctly.</p>
+    <p><strong>Fixed (2026-05-28):</strong> The dialogue node in <code>gondorscribe.dlg.json</code> that set
+    the DLG Quest field to <code>wellofsouls</code> now sets <code>The Well of Souls</code>, so the
+    accept entry is written. The completion entry (entry 2) was already correct.</p>
   </div>
-  <div class="dm-note"><strong>Balance concern:</strong> 1,000 XP for killing Azagoth — a Moria-deep boss — is extremely low by the time a player can reach him. Players who can kill Azagoth are likely level 30+, at which point 1,000 XP is trivial. Recommend increasing to 3,000–5,000 XP and adding a named item reward (e.g. a unique belt or ring tied to the "well" theme). Also fix the <code>wellofsouls</code> tag mismatch in <code>gondorscribe.dlg.json</code>.</div>
+  <div class="dm-note"><strong>Balance:</strong> Azagoth is a Moria-deep boss, so the old 1,000 XP was trivial for the level-30+ players who can reach him. Reward raised to 4,000 XP in <code>at_008.nss</code>. A named item drop themed around souls would still be a welcome future addition.</div>
 </div>
 
 <!-- KALLRIST TIGER HUNT -->
 <div class="quest-card" id="kalrist-tiger">
-  <h3>Kallrist Tiger Hunt <span class="status-badge status-bug">No Journal</span></h3>
+  <h3>Kallrist Tiger Hunt <span class="status-badge status-ok">Working</span></h3>
   <div class="quest-meta">
-    <span>Journal tag: <em>none</em></span>
+    <span>Journal tag: <code>Kallrist Tiger Hunt</code></span>
     <span>Giver: Sald (potion merchant), Kallrist Island</span>
     <span>Level range: 10–20</span>
     <span>Reward: 200&nbsp;gp per Kallrist Tiger Heart</span>
@@ -418,13 +434,16 @@ the quest is fully scripted; <span class="status-badge status-bug">Minor Bug</sp
   <ol>
     <li>Hunt <strong>Kallrist Tigers</strong> across the island's nine areas. Each drops a <em>Kallrist Tiger Heart</em>.</li>
     <li>Return to Sald with hearts in your inventory — he inspects via <code>sc_sald05</code>, destroys the heart, and pays 200 gp.</li>
-    <li>Repeat as desired. No journal entry is ever set.</li>
+    <li>Repeat as desired — the open-ended journal entry stays in the log.</li>
   </ol>
 
   <div class="warning-box">
-    <p><strong>Missing journal:</strong> This quest has no journal category. Players get no quest log entry when they accept or complete it, making it easy to forget entirely. This is the quest the player reported as "AWOL" — the quest is functional, it just has zero journal presence.</p>
+    <p><strong>Fixed (2026-05-28):</strong> A <code>Kallrist Tiger Hunt</code> journal category was added with an
+    open-ended (non-completing) entry, and <code>at_sald01.nss</code> (Sald's accept node) now sets it via
+    <code>AddJournalQuestEntry</code>. This was the quest the player reported as "AWOL" — it was always
+    functional, it just had zero journal presence.</p>
   </div>
-  <div class="dm-note">The island has 9 areas: <code>kallristinner</code>, <code>kallristeastshor</code>, <code>kallristnorthsho</code>, <code>kallristsouthsho</code>, <code>kallristwestshor</code>, <code>kallristouterban</code>, <code>kallristdarkrim</code>, <code>kallristcryptlow</code>, <code>kallristcryptupp</code>. Tiger blueprint: <code>kallristtiger.utc.json</code> (CR 6, drops <code>kallristtigerhea</code>). <strong>Fix needed:</strong> Add a journal category (e.g. tag <code>Kallrist Tiger Hunt</code>) with an intro entry when Sald accepts the quest and an open-ended "ongoing" framing since it's repeatable. Also consider an optional "first kill" or "ten hearts delivered" milestone entry for 500 XP.</div>
+  <div class="dm-note">The island has 9 areas: <code>kallristinner</code>, <code>kallristeastshor</code>, <code>kallristnorthsho</code>, <code>kallristsouthsho</code>, <code>kallristwestshor</code>, <code>kallristouterban</code>, <code>kallristdarkrim</code>, <code>kallristcryptlow</code>, <code>kallristcryptupp</code>. Tiger blueprint: <code>kallristtiger.utc.json</code> (CR 6, drops <code>kallristtigerhea</code>). A "ten hearts delivered" milestone entry (e.g. 500 XP) remains a possible future addition.</div>
 </div>
 
 <hr>
@@ -480,34 +499,52 @@ the quest is fully scripted; <span class="status-badge status-bug">Minor Bug</sp
 
 <!-- ============================================================ -->
 <div class="section-header" id="broken">
-  <h2>Broken &amp; Unreachable</h2>
-  <p class="sub">These quests or journal categories exist in the data but cannot currently be completed by players.</p>
+  <h2>Previously Broken / Unreachable</h2>
+  <p class="sub">These quests or journal categories were unreachable or silently broken in the data. As of 2026-05-28 the fixes below have been applied; each entry records what was wrong and what changed.</p>
 </div>
 
 <!-- GLOISON -->
 <div class="quest-card" id="gloison">
-  <h3>Gloison's Heirloom <span class="status-badge status-broke">Broken</span></h3>
+  <h3>Gloison's Heirloom <span class="status-badge status-ok">Working</span></h3>
   <div class="quest-meta">
     <span>Journal tag: <code>Gloison's Heirloom</code></span>
-    <span>Giver: Gerrey (dwarf NPC) — <em>never placed in any area</em></span>
-    <span>Reward: unknown</span>
+    <span>Giver: Gloin King Under the Mountain, Erebor (Lonely Mountain: Main Hall)</span>
+    <span>Level range: high (Gerrey is CR 17)</span>
+    <span>Reward: 5,000&nbsp;XP + 15,000&nbsp;gp</span>
   </div>
-  <p>Travel to the <strong>Ruins of Dale</strong> and retrieve an heirloom stolen from a dwarf named Gloisin.</p>
+  <p>Glóin asks you to recover his kinsman Gloisin's family heirloom — a coat of arms stolen by the brigand
+  <strong>Gerrey Halliams</strong>, who fled to the <a href="../areas/theruinsofdale.html">Ruins of Dale</a>.</p>
+
+  <strong>Steps:</strong>
+  <ol>
+    <li>Speak to <strong>Gloin</strong> in Erebor and accept the task — journal entry 1 set via the DLG Quest field.</li>
+    <li>Travel to the Ruins of Dale and kill <strong>Gerrey Halliams</strong> (CR 17). He carries the heirloom
+    (<code>item029</code>, <em>Gloison's Coat of Arms</em>, tag <code>GloisonsFamilyStone</code>) as a droppable.</li>
+    <li>Return to Gloin. The turn-in reply appears only while you hold the heirloom (gated by <code>sc_glsn_have</code>).
+    <code>at_glsn_rwd</code> consumes the item and awards 5,000 XP + 15,000 gp; journal entry 2 set.</li>
+  </ol>
 
   <div class="warning-box">
-    <p><strong>Permanently broken — two compounding bugs:</strong></p>
+    <p><strong>Fixed (2026-05-28) — this was unbuilt scaffolding, not a simple bug.</strong> The earlier
+    diagnosis was wrong on several points:</p>
     <ul>
-      <li>The NPC <strong>Gerrey</strong> (<code>gerrey.utc.json</code>) is only in the creature palette — he is not placed in any <code>.git.json</code> area file. No player can ever reach him.</li>
-      <li>Even if placed, his conversation (<code>gloisonscoat.dlg.json</code>) has starting condition <code>sc_001.nss</code> which calls <code>Random(100) &gt;= 100</code> — an always-false condition. The conversation can never start.</li>
-      <li>The DLG has no Quest field assignments, so even if triggered, no journal entry would be set.</li>
+      <li><strong>Gerrey is the antagonist, not the giver.</strong> His blueprint is a hostile CR-17 mob
+      whose conversation (<code>gloisonscoat.dlg.json</code>) is just a combat bark. He was never placed — now
+      placed in the Ruins of Dale, carrying the heirloom as droppable loot.</li>
+      <li><strong><code>sc_001.nss</code> never blocked anything.</strong> <code>Random(100) &gt;= 100</code> can
+      never be true (0–99), so the conditional always returns TRUE. It needed no change.</li>
+      <li><strong>The heirloom item already existed</strong> (<code>item029.uti.json</code>) — nothing to create.</li>
+      <li><strong>The real gap was a quest-giver.</strong> The existing friendly dwarf <em>Gloin King Under the
+      Mountain</em> (uses <code>gloingreet.dlg.json</code>, placed in Erebor) was extended into the giver: offer
+      → accept (journal 1) and a heirloom turn-in (journal 2 + reward) via new scripts <code>sc_glsn_have</code>
+      and <code>at_glsn_rwd</code>.</li>
     </ul>
   </div>
-  <div class="dm-note"><strong>Fix checklist:</strong> (1) Place Gerrey in an appropriate area GIT (e.g. Esgaroth or Dale). (2) Fix <code>sc_001.nss</code> — replace <code>Random(100) &gt;= 100</code> with a real condition, or remove it. (3) Add DLG Quest field assignments for both journal entries. (4) Verify the heirloom item (<code>gloisonsheirloom</code> or similar) exists and is placed as a container item in the Ruins of Dale.</div>
 </div>
 
 <!-- ANNUMINAS -->
 <div class="quest-card" id="annuminas">
-  <h3>Ruin of Annuminas <span class="status-badge status-broke">Broken — Tag Mismatch</span></h3>
+  <h3>Ruin of Annuminas <span class="status-badge status-ok">Working</span></h3>
   <div class="quest-meta">
     <span>Journal tag: <code>Ruin of Annuminas</code></span>
     <span>Giver: old woman in Bree ("Hanee the Loon")</span>
@@ -516,16 +553,16 @@ the quest is fully scripted; <span class="status-badge status-bug">Minor Bug</sp
   <p>An old woman in Bree tells you to seek out the Ruins of Annuminas, an ancient Dúnedain realm to the north.</p>
 
   <div class="warning-box">
-    <p><strong>Tag mismatch:</strong> The old woman's dialogue (<code>b_oldwoman_con1.dlg.json</code>) sets DLG Quest field
-    to tag <code>annuminas</code> (entry 1). But the journal category is named <code>Ruin of Annuminas</code>.
-    NWN silently ignores the wrong tag — the journal entry is never written.</p>
+    <p><strong>Fixed (2026-05-28):</strong> The old woman's dialogue (<code>b_oldwoman_con1.dlg.json</code>) set the
+    DLG Quest field to <code>annuminas</code> (entry 1) while the journal category is <code>Ruin of Annuminas</code>,
+    so the entry was silently dropped. The tag now matches and the journal entry is written.</p>
   </div>
-  <div class="dm-note"><strong>Fix:</strong> In <code>b_oldwoman_con1.dlg.json</code>, change the Quest node's tag from <code>annuminas</code> to <code>Ruin of Annuminas</code>. This is a one-field change in the DLG JSON. The area (<code>ruinsofannuminas</code>) and its content already exist.</div>
+  <div class="dm-note">The area (<code>ruinsofannuminas</code>) and its content already exist. This quest is a lore pointer with a single entry — no completion/turn-in is defined.</div>
 </div>
 
 <!-- SERVER INFO -->
 <div class="quest-card" id="server-info">
-  <h3>Server Info Journals (Rules, Guilds, Website) <span class="status-badge status-broke">Broken — Unwired</span></h3>
+  <h3>Server Info Journals (Rules, Guilds, Website) <span class="status-badge status-ok">Working</span></h3>
   <div class="quest-meta">
     <span>Journal tags: <code>rules</code>, <code>guilds</code>, <code>website</code></span>
     <span>Intended trigger: player first login</span>
@@ -535,19 +572,20 @@ the quest is fully scripted; <span class="status-badge status-bug">Minor Bug</sp
   old forum website URL. These were intended to be given to players automatically on their first login.</p>
 
   <div class="warning-box">
-    <p><strong>Completely unwired:</strong> The script <code>mod_enter.nss</code> contains the three
-    <code>AddJournalQuestEntry</code> calls that would deliver these entries, but <code>mod_enter.nss</code>
-    is not the module's <code>OnClientEnter</code> handler (that is <code>hgll_cliententer.nss</code>) and is
-    not referenced from any area's <code>OnEnter</code> event. No player ever receives these entries.</p>
-    <p><strong>Additional bug:</strong> <code>mod_enter.nss</code> calls <code>AddJournalQuestEntry("gguild", 1, ...)</code>
-    but the journal tag is <code>guilds</code>. Even if the script were wired, the Guilds entry would silently fail.</p>
+    <p><strong>Fixed (2026-05-28):</strong> The old delivery script <code>mod_enter.nss</code> was dead code —
+    not the module's <code>OnClientEnter</code> handler (that is <code>hgll_cliententer.nss</code>) and not
+    referenced anywhere — and it carried a <code>gguild</code> vs <code>guilds</code> tag typo. Rather than wire
+    it, the three deliveries were added directly to <code>hgll_cliententer.nss</code> with the correct tags.
+    All three categories already have entry 1 with <code>End=1</code>, so they land in the player's
+    <strong>Completed</strong> section.</p>
+    <p><strong>Note — correction to an earlier claim:</strong> <code>hgll_cliententer.nss</code> had no
+    pre-existing first-login check to hang these from. <code>AddJournalQuestEntry</code> is idempotent
+    (re-adding the same state just resets it), so the calls run unconditionally on every login — this
+    deliberately reaches existing characters too, not just first-time logins.</p>
   </div>
-  <div class="dm-note"><strong>Fix:</strong> In <code>hgll_cliententer.nss</code>, after the existing first-login check, add:<br>
-  <code>AddJournalQuestEntry("rules", 1, oPC, FALSE, FALSE);</code><br>
-  <code>AddJournalQuestEntry("guilds", 1, oPC, FALSE, FALSE);</code><br>
-  <code>AddJournalQuestEntry("website", 1, oPC, FALSE, FALSE);</code><br>
-  Also rename <code>gguild</code> → <code>guilds</code> in the old script. The website URL in the journal
-  (<em>http://Legend.nwnforums.com</em>) is almost certainly dead and should be updated before re-enabling.</div>
+  <div class="dm-note">The website URL in the <code>website</code> journal entry (<em>http://Legend.nwnforums.com</em>)
+  is almost certainly dead — update the entry text in <code>module.jrl.json</code> to the current community
+  resource when one is confirmed.</div>
 </div>
 
 <!-- UNJOURNALED -->
@@ -565,17 +603,17 @@ the quest is fully scripted; <span class="status-badge status-bug">Minor Bug</sp
       <tr>
         <td>Green Dragon quest (<code>gdqc2.nss</code>, <code>gdrev1/2/3.nss</code>)</td>
         <td><code>gdquest1</code></td>
-        <td>Conversation exists; underlying quest may function; no journal.</td>
+        <td><span class="status-badge status-ok">Journal added</span> Category "The Green Dragon Inn" added (entry 1 accept, entry 2 complete). Reward 500 XP + 1,000 gp via <code>gdrev1</code>.</td>
       </tr>
       <tr>
         <td>Gwathdor quest (<code>gqstart.nss</code>)</td>
         <td><code>gwathquest</code></td>
-        <td>Start trigger exists; no journal category.</td>
+        <td><span class="status-badge status-ok">Journal added</span> Category "The Oasis of Gwathdor" added (entry 1). Only a start state is scripted; no completion entry is set anywhere yet.</td>
       </tr>
       <tr>
         <td>Cursed Grave undead (<code>b_undead_dest.nss</code>)</td>
         <td><code>cursedgrave</code></td>
-        <td>Trigger exists; <code>GetJournalQuestExperience</code> returns 0 because category missing.</td>
+        <td><span class="status-badge status-ok">Journal added</span> Category "The Cursed Grave" added with entry 2 (End=1) and category XP=250, so <code>GetJournalQuestExperience</code> now returns 250.</td>
       </tr>
       <tr>
         <td>Ported campaign quests (m2/m3 plot scripts)</td>
@@ -585,7 +623,7 @@ the quest is fully scripted; <span class="status-badge status-bug">Minor Bug</sp
     </tbody>
   </table>
 
-  <div class="dm-note">Each of these needs either (a) a matching journal category added to <code>module.jrl.json</code>, or (b) the orphaned script calls removed. The Cursed Grave and Gwathdor quests are the most likely candidates for genuine content — they should get journal categories. The m2/m3 campaign remnants can be removed or wrapped into purpose-built persistent-world equivalents.</div>
+  <div class="dm-note">The Green Dragon, Gwathdor, and Cursed Grave quests now have matching journal categories in <code>module.jrl.json</code>. The m2/m3 ported-campaign remnants are intentionally left alone — they can be removed or wrapped into purpose-built persistent-world equivalents in a future pass.</div>
 </div>
 
 <hr>
@@ -610,23 +648,23 @@ the quest is fully scripted; <span class="status-badge status-bug">Minor Bug</sp
     <tr>
       <td>Bill Ferny's Ring</td>
       <td>1–10</td>
-      <td>150 XP + 200 gp</td>
-      <td>Too low. Multi-stage quest with an ambush. 150 XP at level 5 is maybe 5% of a level.</td>
-      <td>400–600 XP + 200 gp. Add a small unique: <em>Ferny's Grudge</em> dagger (+1, minor bonus vs. humans).</td>
+      <td>500 XP + 200 gp <em>(was 150)</em></td>
+      <td>Raised to 500 XP. A small unique (e.g. a <em>Ferny's Grudge</em> dagger) remains an optional future addition.</td>
+      <td>500 XP + 200 gp ✓ applied</td>
     </tr>
     <tr>
       <td>The Miller's Son</td>
       <td>1–10</td>
-      <td>150 XP</td>
-      <td>Very low for a narrative quest. No item reward, no gold.</td>
-      <td>400–500 XP. Optional: Miller gives a <em>Bree Miller's Favour</em> token redeemable at the Prancing Pony for a discount.</td>
+      <td>450 XP <em>(was 150)</em></td>
+      <td>Raised to 450 XP. An optional <em>Bree Miller's Favour</em> token remains a future idea.</td>
+      <td>450 XP ✓ applied</td>
     </tr>
     <tr>
       <td>Feeding Tharbad</td>
       <td>5–15</td>
-      <td>200 XP + Book of the Coran</td>
-      <td>Low. Two-area delivery, repeat trips. The Book of the Coran should have a meaningful property.</td>
-      <td>500 XP. Give the Book a property (e.g. +1 Wisdom, usable once for Remove Disease, or a cleric level 1 spell scroll stash). Alternatively make it sellable for 300 gp.</td>
+      <td>500 XP + Book of the Cora <em>(was 200)</em></td>
+      <td>Raised to 500 XP. The Book already carries useful properties, so no item change was needed.</td>
+      <td>500 XP ✓ applied</td>
     </tr>
     <tr>
       <td>Elrond's Request</td>
@@ -638,16 +676,16 @@ the quest is fully scripted; <span class="status-badge status-bug">Minor Bug</sp
     <tr>
       <td>The Well of Souls</td>
       <td>30–45</td>
-      <td>1,000 XP + Annuminas Key</td>
-      <td><strong>Badly underrewarded.</strong> Azagoth is a Moria-level boss. By the time you can kill him, 1,000 XP is essentially nothing. The "chicken feed" complaint is accurate.</td>
-      <td>3,000–5,000 XP. Add a named item drop: a unique belt or ring themed around souls (e.g. <em>Seal of the Warden</em>, +4 Wisdom, +2 saves vs. death magic). The Annuminas Key should unlock meaningful loot in the Ruins of Annuminas.</td>
+      <td>4,000 XP + Annuminas Key <em>(was 1,000)</em></td>
+      <td>Resolved. The old 1,000 XP was trivial for a Moria-deep boss; raised to 4,000 XP, addressing the "chicken feed" complaint.</td>
+      <td>4,000 XP ✓ applied. A named soul-themed item drop remains a future idea.</td>
     </tr>
     <tr>
       <td>Kallrist Tiger Hunt</td>
       <td>10–20</td>
       <td>200 gp/heart, repeatable</td>
-      <td>Fair rate for CR 6 enemies. The gold is good for early-game. The real problem is zero journal presence.</td>
-      <td>Add a journal category. Add a one-time milestone reward at 10 hearts delivered: 500 XP + a unique item from Sald (e.g. <em>Sald's Potion Cache</em> — a stack of healing potions, or a permanent discount on his wares).</td>
+      <td>Fair rate for CR 6 enemies. The journal-presence problem is now resolved (open-ended category added).</td>
+      <td>Journal category ✓ added. A one-time 10-hearts-delivered milestone (500 XP + a unique item from Sald) remains an optional future addition.</td>
     </tr>
     <tr>
       <td>MeaningWave (per guide)</td>
@@ -674,11 +712,11 @@ the quest is fully scripted; <span class="status-badge status-bug">Minor Bug</sp
 
 <div class="quest-card">
   <h3>"The Kallrist Island tiger quest is AWOL"</h3>
-  <p><strong>Verdict: Quest exists, but has no journal tracking.</strong></p>
-  <p>The Kallrist Tiger Hunt is fully functional — NPC Sald, the tiger creatures, the <em>Kallrist Tiger Heart</em>
-  item, and the 200 gp payout all work. Players never see it in their quest log because there is no journal
-  category. To a player who checks their journal to track active quests, it simply doesn't exist. Adding a
-  journal category and wiring it to Sald's opening conversation is the complete fix.</p>
+  <p><strong>Verdict: Quest existed but had no journal tracking — now resolved.</strong></p>
+  <p>The Kallrist Tiger Hunt was always fully functional — NPC Sald, the tiger creatures, the <em>Kallrist Tiger
+  Heart</em> item, and the 200 gp payout all work. Players never saw it in their quest log because there was no
+  journal category. <strong>Fixed:</strong> a <code>Kallrist Tiger Hunt</code> category was added and wired into
+  Sald's accept node (<code>at_sald01.nss</code>), so the hunt now shows in the journal.</p>
 </div>
 
 <div class="quest-card">
@@ -692,8 +730,8 @@ the quest is fully scripted; <span class="status-badge status-bug">Minor Bug</sp
     <li>A demon NPC was placed near Bree by a DM in the past and later removed from the GIT, or</li>
     <li>The player confused Azagoth (Moria) with a Bree-region encounter.</li>
   </ul>
-  <p>Either way, the 1,000 XP complaint is valid — see the <a href="#balance">Balance section</a> for the
-  Well of Souls reward recommendation.</p>
+  <p>Either way, the 1,000 XP complaint was valid — <strong>resolved:</strong> the Well of Souls payout in
+  <code>at_008.nss</code> was raised to 4,000 XP.</p>
 </div>
 
 <div class="quest-card">
@@ -702,13 +740,15 @@ the quest is fully scripted; <span class="status-badge status-bug">Minor Bug</sp
   <p>No script in the module calls <code>RemoveJournalQuestEntry</code> or any equivalent function. The
   Elrond quest sets entries via the DLG engine's built-in Quest field, which only <em>adds</em> entries and
   cannot remove existing ones.</p>
-  <p>The real problem: <code>mod_enter.nss</code> (which contains the server rules/guilds/website journal delivery)
-  is not wired to any event. Players never receive those entries. Before and after speaking to Elrond, the
-  server-info journals are absent — because they were never given. The timing coincidence made it look like
-  Elrond's quest was clearing them.</p>
-  <p><strong>Fix:</strong> Add the three <code>AddJournalQuestEntry</code> calls to <code>hgll_cliententer.nss</code>
-  inside the first-login block. Also fix the <code>gguild</code> → <code>guilds</code> tag typo. And update
-  the forum URL in the <code>website</code> journal entry to whatever the current community resource is.</p>
+  <p>The real problem: <code>mod_enter.nss</code> (which contained the server rules/guilds/website journal delivery)
+  was dead code, not wired to any event, so players never received those entries. Before and after speaking to
+  Elrond, the server-info journals were absent — because they were never given. The timing coincidence made it
+  look like Elrond's quest was clearing them.</p>
+  <p><strong>Fixed:</strong> the three <code>AddJournalQuestEntry</code> calls (with the correct
+  <code>guilds</code> tag) were added directly to <code>hgll_cliententer.nss</code>, the real OnClientEnter
+  handler, and run idempotently on every login so all characters receive them in their Completed section. The
+  dead-code <code>gguild</code> typo in <code>mod_enter.nss</code> is bypassed. The forum URL in the
+  <code>website</code> entry is still stale and should be refreshed when a current community resource is known.</p>
 </div>
 
   </div><!-- .mw-content -->
@@ -716,6 +756,6 @@ the quest is fully scripted; <span class="status-badge status-bug">Minor Bug</sp
   </main>
 
   </main>
-  <footer>generated by <a href="https://github.com/mrprice22/nwn-manager">nwn-manager</a> &mdash; last updated May 28, 2026 18:35</footer>
+  <footer>generated by <a href="https://github.com/mrprice22/nwn-manager">nwn-manager</a> &mdash; last updated May 28, 2026 21:04</footer>
 </body>
 </html>

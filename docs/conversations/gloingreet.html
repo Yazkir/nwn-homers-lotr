@@ -35,7 +35,7 @@
       <a href="../conversations/index.html">Conversations</a>
       <a href="../factions.html">Factions</a>
       <a href="../journal.html">Journal</a>
-      <a href="../activity.html">Activity</a>
+      
       <div class="nav-dropdown"><span class="nav-dropdown-label">Documents &#9660;</span><div class="nav-dropdown-menu"><a href="../manual/LevelingGuide.html">Leveling Guide — Homer&#x27;s LOTR</a>
 <a href="../manual/MeaningWave.html">MeaningWave: A Guide to the Guides</a>
 <a href="../manual/Quest Ideas.html">Quest Ideas &amp;amp; Draft Concepts — Homer&#x27;s LOTR</a>
@@ -45,8 +45,8 @@
   <main>
 <h1>Conversation: <code>gloingreet</code></h1>
 <dl class="meta">
-<dt>NPC lines</dt><dd>1</dd>
-<dt>PC replies</dt><dd>0</dd>
+<dt>NPC lines</dt><dd>4</dd>
+<dt>PC replies</dt><dd>5</dd>
 <dt>NumWords</dt><dd>37</dd>
 <dt>OnEnd</dt><dd><code>nw_walk_wp</code></dd>
 <dt>OnAbort</dt><dd><code>nw_walk_wp</code></dd>
@@ -55,6 +55,9 @@
 <li><span class="badge">creature</span> NPC <a href="../creatures/adwarfguardia001.html">Gloin King Under the Mountain</a> <code>adwarfguardia001</code> — in <a href="../areas/lonelymountainma.html">Lonely Mountain: Main Hall</a></li>
 <li><span class="badge">creature</span> NPC <a href="../creatures/adwarfguardia001.html">Gloin King Under the Mountain</a> — in <a href="../areas/lonelymountainma.html">Lonely Mountain: Main Hall</a></li>
 </ul>
+<h2>Scripts referenced</h2>
+<table class="data"><thead><tr><th>Script</th><th>Slot</th><th>In module</th><th>Notes</th></tr></thead><tbody><tr><td><code>sc_glsn_have</code></td><td>active</td><td>✓</td><td></td></tr>
+<tr><td><code>at_glsn_rwd</code></td><td>action</td><td>✓</td><td></td></tr></tbody></table>
 <h2>Starting entries</h2><ul>
 <li><a href="#e0">entry #0</a> — Hullo and welcome to Erebor. It has been some time since we have had guests. Don…</li>
 </ul>
@@ -64,12 +67,62 @@
 <details class="dlg-tree-node entry" open>
 <summary><span class="dlg-id">entry #0</span> <a class="dlg-anchor" href="#e0" title="jump to flat entry #0">¶</a></summary>
 <div class="dlg-text">Hullo and welcome to Erebor. It has been some time since we have had guests. Don&#x27;t let the locals get you down, they just aren&#x27;t used to strangers is all. They will warm up to you eventually.</div>
+<div class="dlg-tree-children">
+<details class="dlg-tree-node reply" open>
+<summary><span class="dlg-id">reply #0</span> <small class="muted">(if <code>sc_glsn_have</code>)</small> <a class="dlg-anchor" href="#r0" title="jump to flat reply #0">¶</a></summary>
+<div class="dlg-text">Actually, I recovered Gloisin&#x27;s stolen heirloom.</div>
+<div class="dlg-tree-children">
+<details class="dlg-tree-node entry" open>
+<summary><span class="dlg-id">entry #3</span> <span class="dlg-action">→ <code>at_glsn_rwd</code></span> <a class="dlg-anchor" href="#e3" title="jump to flat entry #3">¶</a></summary>
+<div class="dlg-text">By my beard — Gloisin&#x27;s coat of arms, returned at last! You have done a great service to the folk of Erebor this day. Take this reward, with our deepest gratitude.</div>
+</details>
+</div>
+</details>
+<details class="dlg-tree-node reply" open>
+<summary><span class="dlg-id">reply #1</span> <a class="dlg-anchor" href="#r1" title="jump to flat reply #1">¶</a></summary>
+<div class="dlg-text">Is there any task I might help your people with?</div>
+<div class="dlg-tree-children">
+<details class="dlg-tree-node entry" open>
+<summary><span class="dlg-id">entry #1</span> <a class="dlg-anchor" href="#e1" title="jump to flat entry #1">¶</a></summary>
+<div class="dlg-text">Aye, there is one thing that weighs on us. My kinsman Gloisin had his family&#x27;s heirloom — his coat of arms — stolen by a brigand named Gerrey Halliams, who fled south to the Ruins of Dale. None of us can be spared to chase him. Would you recover it?</div>
+<div class="dlg-tree-children">
+<details class="dlg-tree-node reply" open>
+<summary><span class="dlg-id">reply #3</span> <a class="dlg-anchor" href="#r3" title="jump to flat reply #3">¶</a></summary>
+<div class="dlg-text">I will retrieve it.</div>
+<div class="dlg-tree-children">
+<details class="dlg-tree-node entry" open>
+<summary><span class="dlg-id">entry #2</span> <a class="dlg-anchor" href="#e2" title="jump to flat entry #2">¶</a></summary>
+<div class="dlg-text">You have my thanks, friend. Seek out Gerrey Halliams in the Ruins of Dale and bring back what he stole. Gloisin will not forget this kindness.</div>
+</details>
+</div>
+</details>
+<details class="dlg-tree-node reply" open>
+<summary><span class="dlg-id">reply #4</span> <a class="dlg-anchor" href="#r4" title="jump to flat reply #4">¶</a></summary>
+<div class="dlg-text">Not at this time.</div>
+</details>
+</div>
+</details>
+</div>
+</details>
+<details class="dlg-tree-node reply" open>
+<summary><span class="dlg-id">reply #2</span> <a class="dlg-anchor" href="#r2" title="jump to flat reply #2">¶</a></summary>
+<div class="dlg-text">Farewell.</div>
+</details>
+</div>
 </details>
 </div>
 <h2>NPC lines (entries) — flat index</h2>
-<div class="dlg-node entry" id="e0"><div class="dlg-head"><span class="dlg-id">entry #0</span></div><div class="dlg-text">Hullo and welcome to Erebor. It has been some time since we have had guests. Don&#x27;t let the locals get you down, they just aren&#x27;t used to strangers is all. They will warm up to you eventually.</div></div>
+<div class="dlg-node entry" id="e0"><div class="dlg-head"><span class="dlg-id">entry #0</span></div><div class="dlg-text">Hullo and welcome to Erebor. It has been some time since we have had guests. Don&#x27;t let the locals get you down, they just aren&#x27;t used to strangers is all. They will warm up to you eventually.</div><ul class="dlg-links"><li><a href="#r0">→ reply #0</a> <span class="dlg-link-preview">“Actually, I recovered Gloisin&#x27;s stolen heirloom.”</span> <small class="muted">(if <code>sc_glsn_have</code>)</small></li><li><a href="#r1">→ reply #1</a> <span class="dlg-link-preview">“Is there any task I might help your people with?”</span></li><li><a href="#r2">→ reply #2</a> <span class="dlg-link-preview">“Farewell.”</span></li></ul></div>
+<div class="dlg-node entry" id="e1"><div class="dlg-head"><span class="dlg-id">entry #1</span></div><div class="dlg-text">Aye, there is one thing that weighs on us. My kinsman Gloisin had his family&#x27;s heirloom — his coat of arms — stolen by a brigand named Gerrey Halliams, who fled south to the Ruins of Dale. None of us can be spared to chase him. Would you recover it?</div><ul class="dlg-links"><li><a href="#r3">→ reply #3</a> <span class="dlg-link-preview">“I will retrieve it.”</span></li><li><a href="#r4">→ reply #4</a> <span class="dlg-link-preview">“Not at this time.”</span></li></ul></div>
+<div class="dlg-node entry" id="e2"><div class="dlg-head"><span class="dlg-id">entry #2</span></div><div class="dlg-text">You have my thanks, friend. Seek out Gerrey Halliams in the Ruins of Dale and bring back what he stole. Gloisin will not forget this kindness.</div></div>
+<div class="dlg-node entry" id="e3"><div class="dlg-head"><span class="dlg-id">entry #3</span> <span class="dlg-action">→ <code>at_glsn_rwd</code></span></div><div class="dlg-text">By my beard — Gloisin&#x27;s coat of arms, returned at last! You have done a great service to the folk of Erebor this day. Take this reward, with our deepest gratitude.</div></div>
 <h2>PC replies — flat index</h2>
+<div class="dlg-node reply" id="r0"><div class="dlg-head"><span class="dlg-id">reply #0</span></div><div class="dlg-text">Actually, I recovered Gloisin&#x27;s stolen heirloom.</div><ul class="dlg-links"><li><a href="#e3">→ entry #3</a> <span class="dlg-link-preview">“By my beard — Gloisin&#x27;s coat of arms, returned at last! You have done a great se…”</span></li></ul></div>
+<div class="dlg-node reply" id="r1"><div class="dlg-head"><span class="dlg-id">reply #1</span></div><div class="dlg-text">Is there any task I might help your people with?</div><ul class="dlg-links"><li><a href="#e1">→ entry #1</a> <span class="dlg-link-preview">“Aye, there is one thing that weighs on us. My kinsman Gloisin had his family&#x27;s h…”</span></li></ul></div>
+<div class="dlg-node reply" id="r2"><div class="dlg-head"><span class="dlg-id">reply #2</span></div><div class="dlg-text">Farewell.</div></div>
+<div class="dlg-node reply" id="r3"><div class="dlg-head"><span class="dlg-id">reply #3</span></div><div class="dlg-text">I will retrieve it.</div><ul class="dlg-links"><li><a href="#e2">→ entry #2</a> <span class="dlg-link-preview">“You have my thanks, friend. Seek out Gerrey Halliams in the Ruins of Dale and br…”</span></li></ul></div>
+<div class="dlg-node reply" id="r4"><div class="dlg-head"><span class="dlg-id">reply #4</span></div><div class="dlg-text">Not at this time.</div></div>
   </main>
-  <footer>generated by <a href="https://github.com/mrprice22/nwn-manager">nwn-manager</a> &mdash; last updated May 28, 2026 17:25</footer>
+  <footer>generated by <a href="https://github.com/mrprice22/nwn-manager">nwn-manager</a> &mdash; last updated May 28, 2026 21:04</footer>
 </body>
 </html>
