@@ -104,6 +104,41 @@ A blueprint's filename **is** its ResRef (e.g. `bree.are.json` → ResRef `bree`
 Areas are 1:1:1 between `.are` (static), `.git` (instances), and `.gic` (per-instance
 comments) — keep all three when renaming or deleting an area.
 
+## Quest wiki directives
+
+The wiki's **Quests** section is driven by the **Comment** field of each journal category (set in the NWN Toolset's Journal editor — it is the only per-quest free text; individual entries have no Comment). Add any of the following directives to control how a quest appears on the wiki:
+
+| Directive | Effect |
+|-----------|--------|
+| `@group 'Name'` | Places this quest under the **Name** heading on the Quests index. Quotes may be single, double, or omitted. Use the same name on all quests in the same group. |
+| `@group-order N` | Sets the sort position of this quest's **group** among all group headings (lower = earlier). Set it on any one quest in the group. Groups without it sort alphabetically after numbered groups. |
+| `@order N` | Sets the sort position of this quest **within its group** (or globally when no groups exist). Lower = earlier. Quests without `@order` sort alphabetically after numbered ones. |
+| `@hidden` | Removes this quest from the wiki entirely — no index row, no detail page. Synonyms: `@retired`, `@inactive`. The journal category stays in the module. |
+
+All directives are case-insensitive. Directive lines are stripped from the human-visible "Builder comment" on quest detail pages.
+
+**Example** — two groups, each with explicit ordering:
+
+```
+# Quest Comment for "The Shadow of Mordor" (first quest in Main Story):
+@group 'Main Story'
+@group-order 1
+@order 1
+
+# Quest Comment for "The Mines of Moria" (second quest in Main Story):
+@group 'Main Story'
+@order 2
+
+# Quest Comment for "The Shire Troubles" (side quest):
+@group 'Side Quests'
+@group-order 2
+@order 1
+```
+
+Journal entries within each quest always display in ascending ID order.
+
+After editing Comments in the toolset, run `bin/refresh-homers-lotr-wiki` to rebuild.
+
 ## Detailed documentation
 
 - [CLAUDE-gff-format.md](CLAUDE-gff-format.md) — GFF-as-JSON typed value format, key conventions (resref/tag/cexolocstring), `module.ifo.json` event hooks
