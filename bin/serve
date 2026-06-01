@@ -101,6 +101,21 @@ _SERVE_PID=$!
 trap 'kill "$_SERVE_PID" 2>/dev/null || true; wait "$_SERVE_PID" 2>/dev/null || true' EXIT INT TERM
 echo "[serve] activity monitor started (PID $_SERVE_PID)"
 
+# nwserver regenerates settings.tml from CLI args on every startup, resetting
+# values like sticky-modes to false. Patch the file now and mount it read-only
+# so the server reads our values but cannot overwrite them.
+_settings="$NWN_RUN_DIR/settings.tml"
+if [[ -f "$_settings" ]]; then
+  python3 - "$_settings" <<'PYEOF'
+import re, sys
+txt = open(sys.argv[1]).read()
+txt = re.sub(r'(always-roll-max-hitpoints-on-levelup\s*=\s*)false', r'\1true', txt, count=1)
+txt = re.sub(r'(\t\tsticky-modes\s*=\s*)false', r'\1true', txt, count=1)
+open(sys.argv[1], 'w').write(txt)
+PYEOF
+  echo "[serve] patched settings.tml: sticky-modes=true, always-roll-max-hitpoints-on-levelup=true"
+fi
+
 podman run --rm --name "$NWN_CONTAINER_NAME" \
   --userns=keep-id --user "$(id -u):$(id -g)" \
   --network=host \
@@ -108,6 +123,7 @@ podman run --rm --name "$NWN_CONTAINER_NAME" \
   "${env_args[@]}" \
   -v "$NWN_RUN_DIR:/nwn/run:rw,Z" \
   -v "$NWN_HOME_DIR:/nwn/home:rw,z" \
+  -v "$NWN_RUN_DIR/settings.tml:/nwn/run/settings.tml:ro,Z" \
   "$@" \
   "$NWN_IMAGE"
 
