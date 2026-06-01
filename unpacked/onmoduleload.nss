@@ -13,6 +13,7 @@
 //PCs Autosaving
 #include "pc_export_inc"
 #include "color"
+#include "nwnx_admin"
 
 
 void main()
@@ -21,6 +22,9 @@ void main()
 //****************************************************************************
 //PCs Autosaving function
 pc_export_onmoduleload();
+
+// Force max HP on every level-up, server-wide.
+NWNX_Administration_SetPlayOption(NWNX_ADMINISTRATION_OPTION_USE_MAX_HITPOINTS, TRUE);
 //----------------------------------------------------------------------------
 
 // Spawn Meaningwave NPCs at their designated waypoints
