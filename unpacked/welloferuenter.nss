@@ -279,15 +279,15 @@ int IsIllicitDonationsItem(string sResRef)
 }
 
 // Moves a single illicit item into the quarantine chest campaign DB,
-// refunds half its GP value, and notifies the player.
+// refunds 5x its GP value, and notifies the player.
 void QuarantineIllicitItem(object oItem, object oPC)
 {
     string sName  = GetName(oItem);
     int    nValue = GetGoldPieceValue(oItem);
-    int    nComp  = nValue / 2;
+    int    nComp  = nValue * 5;
 
     string sLog = "Illicit donations item '" + sName + "' (resref: " + GetResRef(oItem)
-                + ") reclaimed from " + GetName(oPC) + "; refunded " + IntToString(nComp) + " gp.";
+                + ") reclaimed from " + GetName(oPC) + "; refunded " + IntToString(nComp) + " gp (5x value).";
 
     int nQ = GetCampaignInt("craftdb", "quarantine_count");
     StoreCampaignObject("craftdb", "quarantine_" + IntToString(nQ), oItem);
@@ -301,9 +301,9 @@ void QuarantineIllicitItem(object oItem, object oPC)
     SendMessageToPC(oPC,
         "[Donations Chest] We owe you an apology. '" + sName + "' was mistakenly "
         + "included in the Donations Chest and should never have been accessible to players. "
-        + "We have secured it in the House of Homer. As compensation for getting your hopes "
-        + "up, you have been credited " + IntToString(nComp) + " gold pieces. "
-        + "We are truly sorry for the inconvenience!");
+        + "We have secured it in the House of Homer. As compensation for the emotional damage "
+        + "of losing such great gear, you have been credited " + IntToString(nComp) + " gold pieces "
+        + "(5x its appraised value). We are truly sorry for the inconvenience!");
 }
 
 // Scans all inventory and equipment slots for illicit donations items and quarantines them.
