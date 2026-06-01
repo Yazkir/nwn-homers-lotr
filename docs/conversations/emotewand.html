@@ -45,8 +45,8 @@
   <main>
 <h1>Conversation: <code>emotewand</code></h1>
 <dl class="meta">
-<dt>NPC lines</dt><dd>11</dd>
-<dt>PC replies</dt><dd>82</dd>
+<dt>NPC lines</dt><dd>13</dd>
+<dt>PC replies</dt><dd>99</dd>
 <dt>NumWords</dt><dd>241</dd>
 <dt>OnEnd</dt><dd><code>nw_walk_wp</code></dd>
 <dt>OnAbort</dt><dd><code>nw_walk_wp</code></dd>
@@ -109,6 +109,17 @@
 <tr><td><code>mw_chk_jocko</code></td><td>active</td><td>✓</td><td></td></tr>
 <tr><td><code>mw_chk_jung</code></td><td>active</td><td>✓</td><td></td></tr>
 <tr><td><code>mw_chk_aurelius</code></td><td>active</td><td>✓</td><td></td></tr>
+<tr><td><code>merit_has_prev</code></td><td>active</td><td>✓</td><td></td></tr>
+<tr><td><code>merit_slot_0_vis</code></td><td>active</td><td>✓</td><td></td></tr>
+<tr><td><code>merit_slot_1_vis</code></td><td>active</td><td>✓</td><td></td></tr>
+<tr><td><code>merit_slot_2_vis</code></td><td>active</td><td>✓</td><td></td></tr>
+<tr><td><code>merit_slot_3_vis</code></td><td>active</td><td>✓</td><td></td></tr>
+<tr><td><code>merit_slot_4_vis</code></td><td>active</td><td>✓</td><td></td></tr>
+<tr><td><code>merit_slot_5_vis</code></td><td>active</td><td>✓</td><td></td></tr>
+<tr><td><code>merit_slot_6_vis</code></td><td>active</td><td>✓</td><td></td></tr>
+<tr><td><code>merit_slot_7_vis</code></td><td>active</td><td>✓</td><td></td></tr>
+<tr><td><code>merit_slot_8_vis</code></td><td>active</td><td>✓</td><td></td></tr>
+<tr><td><code>merit_has_next</code></td><td>active</td><td>✓</td><td></td></tr>
 <tr><td><code>_homerdarklord</code></td><td>action</td><td>✓</td><td>teleports to: <code>darklord</code> (<a href="../areas/gwaththrone.html">Gwathdor:  Throne of the Lord</a>)</td></tr>
 <tr><td><code>_homerdunh</code></td><td>action</td><td>✓</td><td>teleports to: <code>Dunport</code> (<a href="../areas/dunharrow.html">Dimholt: Dunharrow</a>)</td></tr>
 <tr><td><code>_homerangmar</code></td><td>action</td><td>✓</td><td>teleports to: <code>lairjump</code> (<a href="../areas/area009.html">Angmar&#x27;s Lair</a>)</td></tr>
@@ -161,7 +172,34 @@
 <tr><td><code>_mw_port_joc</code></td><td>action</td><td>✓</td><td>teleports to: <code>MW_SPAWN_JOCKO</code> (<a href="../areas/helmsdeep001.html">Helm&#x27;s Deep</a>)</td></tr>
 <tr><td><code>_mw_port_jun</code></td><td>action</td><td>✓</td><td>teleports to: <code>MW_SPAWN_JUNG</code> (<a href="../areas/cryptsofthelosts.html">Esgaroth Crypts</a>)</td></tr>
 <tr><td><code>_mw_port_aur</code></td><td>action</td><td>✓</td><td>teleports to: <code>MW_SPAWN_AURELIUS</code> (<a href="../areas/gwaththrone.html">Gwathdor:  Throne of the Lord</a>)</td></tr>
-<tr><td><code>_mw_port_aki</code></td><td>action</td><td>✓</td><td>teleports to: <code>MW_SPAWN_AKIRA</code> (<a href="../areas/halloflegends.html">The Hall of Legends</a>)</td></tr></tbody></table>
+<tr><td><code>_mw_port_aki</code></td><td>action</td><td>✓</td><td>teleports to: <code>MW_SPAWN_AKIRA</code> (<a href="../areas/halloflegends.html">The Hall of Legends</a>)</td></tr>
+<tr><td><code>merit_list_pg</code></td><td>action</td><td>✓</td><td></td></tr>
+<tr><td><code>merit_sel_0</code></td><td>action</td><td>✓</td><td></td></tr>
+<tr><td><code>merit_sel_1</code></td><td>action</td><td>✓</td><td></td></tr>
+<tr><td><code>merit_sel_2</code></td><td>action</td><td>✓</td><td></td></tr>
+<tr><td><code>merit_sel_3</code></td><td>action</td><td>✓</td><td></td></tr>
+<tr><td><code>merit_sel_4</code></td><td>action</td><td>✓</td><td></td></tr>
+<tr><td><code>merit_sel_5</code></td><td>action</td><td>✓</td><td></td></tr>
+<tr><td><code>merit_sel_6</code></td><td>action</td><td>✓</td><td></td></tr>
+<tr><td><code>merit_sel_7</code></td><td>action</td><td>✓</td><td></td></tr>
+<tr><td><code>merit_sel_8</code></td><td>action</td><td>✓</td><td></td></tr>
+<tr><td><code>merit_page_p</code></td><td>action</td><td>✓</td><td></td></tr>
+<tr><td><code>merit_page_n</code></td><td>action</td><td>✓</td><td></td></tr>
+<tr><td><code>merit_award_bug</code></td><td>action</td><td>✓</td><td></td></tr>
+<tr><td><code>merit_award_exp</code></td><td>action</td><td>✓</td><td></td></tr>
+<tr><td><code>merit_award_ftr</code></td><td>action</td><td>✓</td><td></td></tr>
+<tr><td><code>merit_list_cur</code></td><td>action</td><td>✓</td><td></td></tr></tbody></table>
+<h2>Custom tokens</h2><p class="muted">These runtime tokens are filled by NWScript via <code>SetCustomToken(N, text)</code>. The scripts listed set each token; the actual value depends on game state at runtime.</p><table class="data"><thead><tr><th>Token</th><th>Set by script(s)</th></tr></thead><tbody><tr><td><code>&lt;CUSTOM5001&gt;</code></td><td><em class="muted">not found in static analysis</em></td></tr>
+<tr><td><code>&lt;CUSTOM5002&gt;</code></td><td><em class="muted">not found in static analysis</em></td></tr>
+<tr><td><code>&lt;CUSTOM5003&gt;</code></td><td><em class="muted">not found in static analysis</em></td></tr>
+<tr><td><code>&lt;CUSTOM5004&gt;</code></td><td><em class="muted">not found in static analysis</em></td></tr>
+<tr><td><code>&lt;CUSTOM5005&gt;</code></td><td><em class="muted">not found in static analysis</em></td></tr>
+<tr><td><code>&lt;CUSTOM5006&gt;</code></td><td><em class="muted">not found in static analysis</em></td></tr>
+<tr><td><code>&lt;CUSTOM5007&gt;</code></td><td><em class="muted">not found in static analysis</em></td></tr>
+<tr><td><code>&lt;CUSTOM5008&gt;</code></td><td><em class="muted">not found in static analysis</em></td></tr>
+<tr><td><code>&lt;CUSTOM5009&gt;</code></td><td><em class="muted">not found in static analysis</em></td></tr>
+<tr><td><code>&lt;CUSTOM5010&gt;</code></td><td><a href="../scripts/merit_db.html">merit_db</a></td></tr>
+<tr><td><code>&lt;CUSTOM5011&gt;</code></td><td><a href="../scripts/merit_award_bug.html">merit_award_bug</a>, <a href="../scripts/merit_award_exp.html">merit_award_exp</a>, <a href="../scripts/merit_award_ftr.html">merit_award_ftr</a>, <a href="../scripts/merit_sel_0.html">merit_sel_0</a>, <a href="../scripts/merit_sel_1.html">merit_sel_1</a>, <a href="../scripts/merit_sel_2.html">merit_sel_2</a>, <a href="../scripts/merit_sel_3.html">merit_sel_3</a>, <a href="../scripts/merit_sel_4.html">merit_sel_4</a>, <a href="../scripts/merit_sel_5.html">merit_sel_5</a>, <a href="../scripts/merit_sel_6.html">merit_sel_6</a>, <a href="../scripts/merit_sel_7.html">merit_sel_7</a>, <a href="../scripts/merit_sel_8.html">merit_sel_8</a></td></tr></tbody></table>
 <h2>Starting entries</h2><ul>
 <li><a href="#e0">entry #0</a></li>
 </ul>
@@ -380,6 +418,135 @@
 <details class="dlg-tree-node reply" open>
 <summary><span class="dlg-id">reply #61</span> <span class="dlg-action">→ <code>grant_lvl60</code></span> <a class="dlg-anchor" href="#r61" title="jump to flat reply #61">¶</a></summary>
 <div class="dlg-text">Grant me level 60</div>
+</details>
+<details class="dlg-tree-node reply" open>
+<summary><span class="dlg-id">reply #82</span> <span class="dlg-action">→ <code>merit_list_pg</code></span> <a class="dlg-anchor" href="#r82" title="jump to flat reply #82">¶</a></summary>
+<div class="dlg-text">[Admin] Merit Awards</div>
+<div class="dlg-tree-children">
+<details class="dlg-tree-node entry" open>
+<summary><span class="dlg-id">entry #11</span> <a class="dlg-anchor" href="#e11" title="jump to flat entry #11">¶</a></summary>
+<div class="dlg-text">Select a player to award merit (<span class="custom-token" title="SetCustomToken(5010, ...) called in: merit_db">&lt;CUSTOM5010&gt;<sup class="token-setters">[<a href="../scripts/merit_db.html">merit_db</a>]</sup></span>):</div>
+<div class="dlg-tree-children">
+<details class="dlg-tree-node reply" open>
+<summary><span class="dlg-id">reply #92</span> <span class="dlg-action">→ <code>merit_page_p</code></span> <small class="muted">(if <code>merit_has_prev</code>)</small> <a class="dlg-anchor" href="#r92" title="jump to flat reply #92">¶</a></summary>
+<div class="dlg-text">[&lt;&lt; Previous]</div>
+<div class="dlg-tree-children">
+<div class="dlg-tree-ref entry-ref">↩ <a href="#e11">entry #11</a> <span class="dlg-link-preview">“Select a player to award merit ():”</span></div>
+</div>
+</details>
+<details class="dlg-tree-node reply" open>
+<summary><span class="dlg-id">reply #83</span> <span class="dlg-action">→ <code>merit_sel_0</code></span> <small class="muted">(if <code>merit_slot_0_vis</code>)</small> <a class="dlg-anchor" href="#r83" title="jump to flat reply #83">¶</a></summary>
+<div class="dlg-text"><span class="custom-token custom-token-unknown" title="SetCustomToken(5001, ...) — no setter found in static analysis">&lt;CUSTOM5001&gt;</span></div>
+<div class="dlg-tree-children">
+<details class="dlg-tree-node entry" open>
+<summary><span class="dlg-id">entry #12</span> <a class="dlg-anchor" href="#e12" title="jump to flat entry #12">¶</a></summary>
+<div class="dlg-text">Award merit to <span class="custom-token" title="SetCustomToken(5011, ...) called in: merit_award_bug, merit_award_exp, merit_award_ftr, merit_sel_0, merit_sel_1, merit_sel_2, merit_sel_3, merit_sel_4, merit_sel_5, merit_sel_6, merit_sel_7, merit_sel_8">&lt;CUSTOM5011&gt;<sup class="token-setters">[<a href="../scripts/merit_award_bug.html">merit_award_bug</a>, <a href="../scripts/merit_award_exp.html">merit_award_exp</a>, <a href="../scripts/merit_award_ftr.html">merit_award_ftr</a>, <a href="../scripts/merit_sel_0.html">merit_sel_0</a>, <a href="../scripts/merit_sel_1.html">merit_sel_1</a>, <a href="../scripts/merit_sel_2.html">merit_sel_2</a>, <a href="../scripts/merit_sel_3.html">merit_sel_3</a>, <a href="../scripts/merit_sel_4.html">merit_sel_4</a>, <a href="../scripts/merit_sel_5.html">merit_sel_5</a>, <a href="../scripts/merit_sel_6.html">merit_sel_6</a>, <a href="../scripts/merit_sel_7.html">merit_sel_7</a>, <a href="../scripts/merit_sel_8.html">merit_sel_8</a>]</sup></span>:</div>
+<div class="dlg-tree-children">
+<details class="dlg-tree-node reply" open>
+<summary><span class="dlg-id">reply #95</span> <span class="dlg-action">→ <code>merit_award_bug</code></span> <a class="dlg-anchor" href="#r95" title="jump to flat reply #95">¶</a></summary>
+<div class="dlg-text">Award Defect Report (+1 merit)</div>
+<div class="dlg-tree-children">
+<div class="dlg-tree-ref entry-ref">↩ <a href="#e12">entry #12</a> <span class="dlg-link-preview">“Award merit to :”</span></div>
+</div>
+</details>
+<details class="dlg-tree-node reply" open>
+<summary><span class="dlg-id">reply #96</span> <span class="dlg-action">→ <code>merit_award_exp</code></span> <a class="dlg-anchor" href="#r96" title="jump to flat reply #96">¶</a></summary>
+<div class="dlg-text">Award Exploit Report (+3 merit)</div>
+<div class="dlg-tree-children">
+<div class="dlg-tree-ref entry-ref">↩ <a href="#e12">entry #12</a> <span class="dlg-link-preview">“Award merit to :”</span></div>
+</div>
+</details>
+<details class="dlg-tree-node reply" open>
+<summary><span class="dlg-id">reply #97</span> <span class="dlg-action">→ <code>merit_award_ftr</code></span> <a class="dlg-anchor" href="#r97" title="jump to flat reply #97">¶</a></summary>
+<div class="dlg-text">Award Feature Implementation (+2 merit)</div>
+<div class="dlg-tree-children">
+<div class="dlg-tree-ref entry-ref">↩ <a href="#e12">entry #12</a> <span class="dlg-link-preview">“Award merit to :”</span></div>
+</div>
+</details>
+<details class="dlg-tree-node reply" open>
+<summary><span class="dlg-id">reply #98</span> <span class="dlg-action">→ <code>merit_list_cur</code></span> <a class="dlg-anchor" href="#r98" title="jump to flat reply #98">¶</a></summary>
+<div class="dlg-text">[Back to player list]</div>
+<div class="dlg-tree-children">
+<div class="dlg-tree-ref entry-ref">↩ <a href="#e11">entry #11</a> <span class="dlg-link-preview">“Select a player to award merit ():”</span></div>
+</div>
+</details>
+</div>
+</details>
+</div>
+</details>
+<details class="dlg-tree-node reply" open>
+<summary><span class="dlg-id">reply #84</span> <span class="dlg-action">→ <code>merit_sel_1</code></span> <small class="muted">(if <code>merit_slot_1_vis</code>)</small> <a class="dlg-anchor" href="#r84" title="jump to flat reply #84">¶</a></summary>
+<div class="dlg-text"><span class="custom-token custom-token-unknown" title="SetCustomToken(5002, ...) — no setter found in static analysis">&lt;CUSTOM5002&gt;</span></div>
+<div class="dlg-tree-children">
+<div class="dlg-tree-ref entry-ref">↩ <a href="#e12">entry #12</a> <span class="dlg-link-preview">“Award merit to :”</span></div>
+</div>
+</details>
+<details class="dlg-tree-node reply" open>
+<summary><span class="dlg-id">reply #85</span> <span class="dlg-action">→ <code>merit_sel_2</code></span> <small class="muted">(if <code>merit_slot_2_vis</code>)</small> <a class="dlg-anchor" href="#r85" title="jump to flat reply #85">¶</a></summary>
+<div class="dlg-text"><span class="custom-token custom-token-unknown" title="SetCustomToken(5003, ...) — no setter found in static analysis">&lt;CUSTOM5003&gt;</span></div>
+<div class="dlg-tree-children">
+<div class="dlg-tree-ref entry-ref">↩ <a href="#e12">entry #12</a> <span class="dlg-link-preview">“Award merit to :”</span></div>
+</div>
+</details>
+<details class="dlg-tree-node reply" open>
+<summary><span class="dlg-id">reply #86</span> <span class="dlg-action">→ <code>merit_sel_3</code></span> <small class="muted">(if <code>merit_slot_3_vis</code>)</small> <a class="dlg-anchor" href="#r86" title="jump to flat reply #86">¶</a></summary>
+<div class="dlg-text"><span class="custom-token custom-token-unknown" title="SetCustomToken(5004, ...) — no setter found in static analysis">&lt;CUSTOM5004&gt;</span></div>
+<div class="dlg-tree-children">
+<div class="dlg-tree-ref entry-ref">↩ <a href="#e12">entry #12</a> <span class="dlg-link-preview">“Award merit to :”</span></div>
+</div>
+</details>
+<details class="dlg-tree-node reply" open>
+<summary><span class="dlg-id">reply #87</span> <span class="dlg-action">→ <code>merit_sel_4</code></span> <small class="muted">(if <code>merit_slot_4_vis</code>)</small> <a class="dlg-anchor" href="#r87" title="jump to flat reply #87">¶</a></summary>
+<div class="dlg-text"><span class="custom-token custom-token-unknown" title="SetCustomToken(5005, ...) — no setter found in static analysis">&lt;CUSTOM5005&gt;</span></div>
+<div class="dlg-tree-children">
+<div class="dlg-tree-ref entry-ref">↩ <a href="#e12">entry #12</a> <span class="dlg-link-preview">“Award merit to :”</span></div>
+</div>
+</details>
+<details class="dlg-tree-node reply" open>
+<summary><span class="dlg-id">reply #88</span> <span class="dlg-action">→ <code>merit_sel_5</code></span> <small class="muted">(if <code>merit_slot_5_vis</code>)</small> <a class="dlg-anchor" href="#r88" title="jump to flat reply #88">¶</a></summary>
+<div class="dlg-text"><span class="custom-token custom-token-unknown" title="SetCustomToken(5006, ...) — no setter found in static analysis">&lt;CUSTOM5006&gt;</span></div>
+<div class="dlg-tree-children">
+<div class="dlg-tree-ref entry-ref">↩ <a href="#e12">entry #12</a> <span class="dlg-link-preview">“Award merit to :”</span></div>
+</div>
+</details>
+<details class="dlg-tree-node reply" open>
+<summary><span class="dlg-id">reply #89</span> <span class="dlg-action">→ <code>merit_sel_6</code></span> <small class="muted">(if <code>merit_slot_6_vis</code>)</small> <a class="dlg-anchor" href="#r89" title="jump to flat reply #89">¶</a></summary>
+<div class="dlg-text"><span class="custom-token custom-token-unknown" title="SetCustomToken(5007, ...) — no setter found in static analysis">&lt;CUSTOM5007&gt;</span></div>
+<div class="dlg-tree-children">
+<div class="dlg-tree-ref entry-ref">↩ <a href="#e12">entry #12</a> <span class="dlg-link-preview">“Award merit to :”</span></div>
+</div>
+</details>
+<details class="dlg-tree-node reply" open>
+<summary><span class="dlg-id">reply #90</span> <span class="dlg-action">→ <code>merit_sel_7</code></span> <small class="muted">(if <code>merit_slot_7_vis</code>)</small> <a class="dlg-anchor" href="#r90" title="jump to flat reply #90">¶</a></summary>
+<div class="dlg-text"><span class="custom-token custom-token-unknown" title="SetCustomToken(5008, ...) — no setter found in static analysis">&lt;CUSTOM5008&gt;</span></div>
+<div class="dlg-tree-children">
+<div class="dlg-tree-ref entry-ref">↩ <a href="#e12">entry #12</a> <span class="dlg-link-preview">“Award merit to :”</span></div>
+</div>
+</details>
+<details class="dlg-tree-node reply" open>
+<summary><span class="dlg-id">reply #91</span> <span class="dlg-action">→ <code>merit_sel_8</code></span> <small class="muted">(if <code>merit_slot_8_vis</code>)</small> <a class="dlg-anchor" href="#r91" title="jump to flat reply #91">¶</a></summary>
+<div class="dlg-text"><span class="custom-token custom-token-unknown" title="SetCustomToken(5009, ...) — no setter found in static analysis">&lt;CUSTOM5009&gt;</span></div>
+<div class="dlg-tree-children">
+<div class="dlg-tree-ref entry-ref">↩ <a href="#e12">entry #12</a> <span class="dlg-link-preview">“Award merit to :”</span></div>
+</div>
+</details>
+<details class="dlg-tree-node reply" open>
+<summary><span class="dlg-id">reply #93</span> <span class="dlg-action">→ <code>merit_page_n</code></span> <small class="muted">(if <code>merit_has_next</code>)</small> <a class="dlg-anchor" href="#r93" title="jump to flat reply #93">¶</a></summary>
+<div class="dlg-text">[Next &gt;&gt;]</div>
+<div class="dlg-tree-children">
+<div class="dlg-tree-ref entry-ref">↩ <a href="#e11">entry #11</a> <span class="dlg-link-preview">“Select a player to award merit ():”</span></div>
+</div>
+</details>
+<details class="dlg-tree-node reply" open>
+<summary><span class="dlg-id">reply #94</span> <a class="dlg-anchor" href="#r94" title="jump to flat reply #94">¶</a></summary>
+<div class="dlg-text">[Back to Admin Menu]</div>
+<div class="dlg-tree-children">
+<div class="dlg-tree-ref entry-ref">↩ <a href="#e6">entry #6</a> <span class="dlg-link-preview">“Yo .”</span></div>
+</div>
+</details>
+</div>
+</details>
+</div>
 </details>
 <details class="dlg-tree-node reply" open>
 <summary><span class="dlg-id">reply #30</span> <a class="dlg-anchor" href="#r30" title="jump to flat reply #30">¶</a></summary>
@@ -602,11 +769,13 @@
 <div class="dlg-node entry" id="e3"><div class="dlg-head"><span class="dlg-id">entry #3</span></div><div class="dlg-text">Hello &lt;FullName&gt; Would you like to summons your Pet Rock?</div><ul class="dlg-links"><li><a href="#r14">→ reply #14</a> <span class="dlg-link-preview">“Heck yeah!!”</span></li><li><a href="#r13">→ reply #13</a> <span class="dlg-link-preview">“No thank you.”</span></li></ul></div>
 <div class="dlg-node entry" id="e4"><div class="dlg-head"><span class="dlg-id">entry #4</span></div><div class="dlg-text"><em>(no text)</em></div><ul class="dlg-links"><li><a href="#r22">→ reply #22</a> <span class="dlg-link-preview">“1d100”</span></li><li><a href="#r21">→ reply #21</a> <span class="dlg-link-preview">“1d20”</span></li><li><a href="#r20">→ reply #20</a> <span class="dlg-link-preview">“1d12”</span></li><li><a href="#r19">→ reply #19</a> <span class="dlg-link-preview">“1d8”</span></li><li><a href="#r18">→ reply #18</a> <span class="dlg-link-preview">“1d6”</span></li><li><a href="#r17">→ reply #17</a> <span class="dlg-link-preview">“1d4”</span></li><li><a href="#r16">→ reply #16</a> <span class="dlg-link-preview">“Exit.”</span></li></ul></div>
 <div class="dlg-node entry" id="e5"><div class="dlg-head"><span class="dlg-id">entry #5</span></div><div class="dlg-text"><em>(no text)</em></div><ul class="dlg-links"><li><a href="#r28">→ reply #28</a> <span class="dlg-link-preview">“To. The Well of Eru.”</span></li><li><a href="#r27">→ reply #27</a> <span class="dlg-link-preview">“To. Bree”</span></li><li><a href="#r26">→ reply #26</a> <span class="dlg-link-preview">“To. Lake Town”</span></li><li><a href="#r25">→ reply #25</a> <span class="dlg-link-preview">“Exit.”</span></li></ul></div>
-<div class="dlg-node entry" id="e6"><div class="dlg-head"><span class="dlg-id">entry #6</span></div><div class="dlg-text">Yo &lt;FullName&gt;.</div><ul class="dlg-links"><li><a href="#r60">→ reply #60</a> <span class="dlg-link-preview">“DM Options”</span></li><li><a href="#r59">→ reply #59</a> <span class="dlg-link-preview">“DM Heal”</span></li><li><a href="#r58">→ reply #58</a> <span class="dlg-link-preview">“God Mode”</span></li><li><a href="#r57">→ reply #57</a> <span class="dlg-link-preview">“Invisibility”</span></li><li><a href="#r32">→ reply #32</a> <span class="dlg-link-preview">“Teleports”</span></li><li><a href="#r81">→ reply #81</a> <span class="dlg-link-preview">“MW Teleports.”</span></li><li><a href="#r31">→ reply #31</a> <span class="dlg-link-preview">“Force Rest”</span></li><li><a href="#r61">→ reply #61</a> <span class="dlg-link-preview">“Grant me level 60”</span></li><li><a href="#r30">→ reply #30</a> <span class="dlg-link-preview">“Exit”</span></li></ul></div>
+<div class="dlg-node entry" id="e6"><div class="dlg-head"><span class="dlg-id">entry #6</span></div><div class="dlg-text">Yo &lt;FullName&gt;.</div><ul class="dlg-links"><li><a href="#r60">→ reply #60</a> <span class="dlg-link-preview">“DM Options”</span></li><li><a href="#r59">→ reply #59</a> <span class="dlg-link-preview">“DM Heal”</span></li><li><a href="#r58">→ reply #58</a> <span class="dlg-link-preview">“God Mode”</span></li><li><a href="#r57">→ reply #57</a> <span class="dlg-link-preview">“Invisibility”</span></li><li><a href="#r32">→ reply #32</a> <span class="dlg-link-preview">“Teleports”</span></li><li><a href="#r81">→ reply #81</a> <span class="dlg-link-preview">“MW Teleports.”</span></li><li><a href="#r31">→ reply #31</a> <span class="dlg-link-preview">“Force Rest”</span></li><li><a href="#r61">→ reply #61</a> <span class="dlg-link-preview">“Grant me level 60”</span></li><li><a href="#r82">→ reply #82</a> <span class="dlg-link-preview">“[Admin] Merit Awards”</span></li><li><a href="#r30">→ reply #30</a> <span class="dlg-link-preview">“Exit”</span></li></ul></div>
 <div class="dlg-node entry" id="e7"><div class="dlg-head"><span class="dlg-id">entry #7</span></div><div class="dlg-text"><em>(no text)</em></div><ul class="dlg-links"><li><a href="#r56">→ reply #56</a> <span class="dlg-link-preview">“Back.”</span></li><li><a href="#r55">→ reply #55</a> <span class="dlg-link-preview">“To. The Control Room”</span></li><li><a href="#r54">→ reply #54</a> <span class="dlg-link-preview">“To. Angmar”</span></li><li><a href="#r53">→ reply #53</a> <span class="dlg-link-preview">“To. Mount Doom: Suarons Hall”</span></li><li><a href="#r52">→ reply #52</a> <span class="dlg-link-preview">“To. Dol Guldur”</span></li><li><a href="#r51">→ reply #51</a> <span class="dlg-link-preview">“To. Kerufall”</span></li><li><a href="#r50">→ reply #50</a> <span class="dlg-link-preview">“To. Balrog”</span></li><li><a href="#r49">→ reply #49</a> <span class="dlg-link-preview">“To. Witch King”</span></li><li><a href="#r48">→ reply #48</a> <span class="dlg-link-preview">“To. House of Homer”</span></li><li><a href="#r47">→ reply #47</a> <span class="dlg-link-preview">“To. Moria Forge”</span></li><li><a href="#r34">→ reply #34</a> <span class="dlg-link-preview">“More.”</span></li><li><a href="#r33">→ reply #33</a> <span class="dlg-link-preview">“Exit.”</span></li></ul></div>
 <div class="dlg-node entry" id="e8"><div class="dlg-head"><span class="dlg-id">entry #8</span></div><div class="dlg-text">Yo.</div><ul class="dlg-links"><li><a href="#r46">→ reply #46</a> <span class="dlg-link-preview">“To. Minas Tirith Keep.”</span></li><li><a href="#r45">→ reply #45</a> <span class="dlg-link-preview">“To. Númenor:  The Great Forge”</span></li><li><a href="#r44">→ reply #44</a> <span class="dlg-link-preview">“To. Hobbiton.”</span></li><li><a href="#r43">→ reply #43</a> <span class="dlg-link-preview">“To. Mirkwoods: Halls of Greenleaf.”</span></li><li><a href="#r42">→ reply #42</a> <span class="dlg-link-preview">“To. Weathertop.”</span></li><li><a href="#r41">→ reply #41</a> <span class="dlg-link-preview">“To. Pit Prison”</span></li><li><a href="#r40">→ reply #40</a> <span class="dlg-link-preview">“To. Dol Guldur”</span></li><li><a href="#r39">→ reply #39</a> <span class="dlg-link-preview">“To. Dimholt: Dunharrow”</span></li><li><a href="#r38">→ reply #38</a> <span class="dlg-link-preview">“To. Helm&#x27;s Deep: Keep”</span></li><li><a href="#r37">→ reply #37</a> <span class="dlg-link-preview">“To. Helm&#x27;s Deep: Cave”</span></li><li><a href="#r36">→ reply #36</a> <span class="dlg-link-preview">“To. Gwathdor: Throne of the Lord”</span></li><li><a href="#r35">→ reply #35</a> <span class="dlg-link-preview">“Exit.”</span></li></ul></div>
 <div class="dlg-node entry" id="e9"><div class="dlg-head"><span class="dlg-id">entry #9</span></div><div class="dlg-text">A familiar music whispers across your mind. Which legend will walk with you?</div><ul class="dlg-links"><li><a href="#r62">→ reply #62</a> <span class="dlg-link-preview">“Jordan Peterson — Sage of Order.”</span> <small class="muted">(if <code>mw_chk_peterson</code>)</small></li><li><a href="#r63">→ reply #63</a> <span class="dlg-link-preview">“Alan Watts — Mystic of the Tao.”</span> <small class="muted">(if <code>mw_chk_watts</code>)</small></li><li><a href="#r64">→ reply #64</a> <span class="dlg-link-preview">“Joseph Campbell — the Mythkeeper.”</span> <small class="muted">(if <code>mw_chk_campbell</code>)</small></li><li><a href="#r65">→ reply #65</a> <span class="dlg-link-preview">“Terence McKenna — Bard of the Mushroom.”</span> <small class="muted">(if <code>mw_chk_mckenna</code>)</small></li><li><a href="#r66">→ reply #66</a> <span class="dlg-link-preview">“Jocko Willink — the Iron Captain.”</span> <small class="muted">(if <code>mw_chk_jocko</code>)</small></li><li><a href="#r67">→ reply #67</a> <span class="dlg-link-preview">“Carl Jung — the Shadow-Walker.”</span> <small class="muted">(if <code>mw_chk_jung</code>)</small></li><li><a href="#r68">→ reply #68</a> <span class="dlg-link-preview">“Marcus Aurelius — the Philosopher King.”</span> <small class="muted">(if <code>mw_chk_aurelius</code>)</small></li><li><a href="#r69">→ reply #69</a> <span class="dlg-link-preview">“(Back.)”</span></li></ul></div>
 <div class="dlg-node entry" id="e10"><div class="dlg-head"><span class="dlg-id">entry #10</span></div><div class="dlg-text">MW Teleport destinations.</div><ul class="dlg-links"><li><a href="#r71">→ reply #71</a> <span class="dlg-link-preview">“To. Peterson (Rivendell Upper Halls)”</span></li><li><a href="#r72">→ reply #72</a> <span class="dlg-link-preview">“To. Watts (Old Forest)”</span></li><li><a href="#r73">→ reply #73</a> <span class="dlg-link-preview">“To. Campbell (Balin&#x27;s Tomb)”</span></li><li><a href="#r74">→ reply #74</a> <span class="dlg-link-preview">“To. McKenna (N. Forests Ithilien)”</span></li><li><a href="#r75">→ reply #75</a> <span class="dlg-link-preview">“To. Jocko (Helm&#x27;s Deep)”</span></li><li><a href="#r76">→ reply #76</a> <span class="dlg-link-preview">“To. Jung (Esgaroth Crypts)”</span></li><li><a href="#r77">→ reply #77</a> <span class="dlg-link-preview">“To. Aurelius (Gwathdor Throne)”</span></li><li><a href="#r78">→ reply #78</a> <span class="dlg-link-preview">“To. Akira (Hall of Legends)”</span></li><li><a href="#r79">→ reply #79</a> <span class="dlg-link-preview">“Back.”</span></li><li><a href="#r80">→ reply #80</a> <span class="dlg-link-preview">“Exit.”</span></li></ul></div>
+<div class="dlg-node entry" id="e11"><div class="dlg-head"><span class="dlg-id">entry #11</span></div><div class="dlg-text">Select a player to award merit (<span class="custom-token" title="SetCustomToken(5010, ...) called in: merit_db">&lt;CUSTOM5010&gt;<sup class="token-setters">[<a href="../scripts/merit_db.html">merit_db</a>]</sup></span>):</div><ul class="dlg-links"><li><a href="#r92">→ reply #92</a> <span class="dlg-link-preview">“[&lt;&lt; Previous]”</span> <small class="muted">(if <code>merit_has_prev</code>)</small></li><li><a href="#r83">→ reply #83</a> <small class="muted">(if <code>merit_slot_0_vis</code>)</small></li><li><a href="#r84">→ reply #84</a> <small class="muted">(if <code>merit_slot_1_vis</code>)</small></li><li><a href="#r85">→ reply #85</a> <small class="muted">(if <code>merit_slot_2_vis</code>)</small></li><li><a href="#r86">→ reply #86</a> <small class="muted">(if <code>merit_slot_3_vis</code>)</small></li><li><a href="#r87">→ reply #87</a> <small class="muted">(if <code>merit_slot_4_vis</code>)</small></li><li><a href="#r88">→ reply #88</a> <small class="muted">(if <code>merit_slot_5_vis</code>)</small></li><li><a href="#r89">→ reply #89</a> <small class="muted">(if <code>merit_slot_6_vis</code>)</small></li><li><a href="#r90">→ reply #90</a> <small class="muted">(if <code>merit_slot_7_vis</code>)</small></li><li><a href="#r91">→ reply #91</a> <small class="muted">(if <code>merit_slot_8_vis</code>)</small></li><li><a href="#r93">→ reply #93</a> <span class="dlg-link-preview">“[Next &gt;&gt;]”</span> <small class="muted">(if <code>merit_has_next</code>)</small></li><li><a href="#r94">→ reply #94</a> <span class="dlg-link-preview">“[Back to Admin Menu]”</span></li></ul></div>
+<div class="dlg-node entry" id="e12"><div class="dlg-head"><span class="dlg-id">entry #12</span></div><div class="dlg-text">Award merit to <span class="custom-token" title="SetCustomToken(5011, ...) called in: merit_award_bug, merit_award_exp, merit_award_ftr, merit_sel_0, merit_sel_1, merit_sel_2, merit_sel_3, merit_sel_4, merit_sel_5, merit_sel_6, merit_sel_7, merit_sel_8">&lt;CUSTOM5011&gt;<sup class="token-setters">[<a href="../scripts/merit_award_bug.html">merit_award_bug</a>, <a href="../scripts/merit_award_exp.html">merit_award_exp</a>, <a href="../scripts/merit_award_ftr.html">merit_award_ftr</a>, <a href="../scripts/merit_sel_0.html">merit_sel_0</a>, <a href="../scripts/merit_sel_1.html">merit_sel_1</a>, <a href="../scripts/merit_sel_2.html">merit_sel_2</a>, <a href="../scripts/merit_sel_3.html">merit_sel_3</a>, <a href="../scripts/merit_sel_4.html">merit_sel_4</a>, <a href="../scripts/merit_sel_5.html">merit_sel_5</a>, <a href="../scripts/merit_sel_6.html">merit_sel_6</a>, <a href="../scripts/merit_sel_7.html">merit_sel_7</a>, <a href="../scripts/merit_sel_8.html">merit_sel_8</a>]</sup></span>:</div><ul class="dlg-links"><li><a href="#r95">→ reply #95</a> <span class="dlg-link-preview">“Award Defect Report (+1 merit)”</span></li><li><a href="#r96">→ reply #96</a> <span class="dlg-link-preview">“Award Exploit Report (+3 merit)”</span></li><li><a href="#r97">→ reply #97</a> <span class="dlg-link-preview">“Award Feature Implementation (+2 merit)”</span></li><li><a href="#r98">→ reply #98</a> <span class="dlg-link-preview">“[Back to player list]”</span></li></ul></div>
 <h2>PC replies — flat index</h2>
 <div class="dlg-node reply" id="r0"><div class="dlg-head"><span class="dlg-id">reply #0</span></div><div class="dlg-text">Exit.</div></div>
 <div class="dlg-node reply" id="r1"><div class="dlg-head"><span class="dlg-id">reply #1</span></div><div class="dlg-text">&lt;StartHighlight&gt;[Options of the Homeless]&lt;/Start&gt;</div><ul class="dlg-links"><li><a href="#e1">→ entry #1</a> <span class="dlg-link-preview">“Hello .”</span></li></ul></div>
@@ -690,7 +859,24 @@
 <div class="dlg-node reply" id="r79"><div class="dlg-head"><span class="dlg-id">reply #79</span></div><div class="dlg-text">Back.</div><ul class="dlg-links"><li><a href="#e6">→ entry #6</a> <span class="dlg-link-preview">“Yo .”</span></li></ul></div>
 <div class="dlg-node reply" id="r80"><div class="dlg-head"><span class="dlg-id">reply #80</span></div><div class="dlg-text">Exit.</div></div>
 <div class="dlg-node reply" id="r81"><div class="dlg-head"><span class="dlg-id">reply #81</span></div><div class="dlg-text">MW Teleports.</div><ul class="dlg-links"><li><a href="#e10">→ entry #10</a> <span class="dlg-link-preview">“MW Teleport destinations.”</span></li></ul></div>
+<div class="dlg-node reply" id="r82"><div class="dlg-head"><span class="dlg-id">reply #82</span> <span class="dlg-action">→ <code>merit_list_pg</code></span></div><div class="dlg-text">[Admin] Merit Awards</div><ul class="dlg-links"><li><a href="#e11">→ entry #11</a> <span class="dlg-link-preview">“Select a player to award merit ():”</span></li></ul></div>
+<div class="dlg-node reply" id="r83"><div class="dlg-head"><span class="dlg-id">reply #83</span> <span class="dlg-action">→ <code>merit_sel_0</code></span></div><div class="dlg-text"><span class="custom-token custom-token-unknown" title="SetCustomToken(5001, ...) — no setter found in static analysis">&lt;CUSTOM5001&gt;</span></div><ul class="dlg-links"><li><a href="#e12">→ entry #12</a> <span class="dlg-link-preview">“Award merit to :”</span></li></ul></div>
+<div class="dlg-node reply" id="r84"><div class="dlg-head"><span class="dlg-id">reply #84</span> <span class="dlg-action">→ <code>merit_sel_1</code></span></div><div class="dlg-text"><span class="custom-token custom-token-unknown" title="SetCustomToken(5002, ...) — no setter found in static analysis">&lt;CUSTOM5002&gt;</span></div><ul class="dlg-links"><li><a href="#e12">→ entry #12</a> <span class="dlg-link-preview">“Award merit to :”</span></li></ul></div>
+<div class="dlg-node reply" id="r85"><div class="dlg-head"><span class="dlg-id">reply #85</span> <span class="dlg-action">→ <code>merit_sel_2</code></span></div><div class="dlg-text"><span class="custom-token custom-token-unknown" title="SetCustomToken(5003, ...) — no setter found in static analysis">&lt;CUSTOM5003&gt;</span></div><ul class="dlg-links"><li><a href="#e12">→ entry #12</a> <span class="dlg-link-preview">“Award merit to :”</span></li></ul></div>
+<div class="dlg-node reply" id="r86"><div class="dlg-head"><span class="dlg-id">reply #86</span> <span class="dlg-action">→ <code>merit_sel_3</code></span></div><div class="dlg-text"><span class="custom-token custom-token-unknown" title="SetCustomToken(5004, ...) — no setter found in static analysis">&lt;CUSTOM5004&gt;</span></div><ul class="dlg-links"><li><a href="#e12">→ entry #12</a> <span class="dlg-link-preview">“Award merit to :”</span></li></ul></div>
+<div class="dlg-node reply" id="r87"><div class="dlg-head"><span class="dlg-id">reply #87</span> <span class="dlg-action">→ <code>merit_sel_4</code></span></div><div class="dlg-text"><span class="custom-token custom-token-unknown" title="SetCustomToken(5005, ...) — no setter found in static analysis">&lt;CUSTOM5005&gt;</span></div><ul class="dlg-links"><li><a href="#e12">→ entry #12</a> <span class="dlg-link-preview">“Award merit to :”</span></li></ul></div>
+<div class="dlg-node reply" id="r88"><div class="dlg-head"><span class="dlg-id">reply #88</span> <span class="dlg-action">→ <code>merit_sel_5</code></span></div><div class="dlg-text"><span class="custom-token custom-token-unknown" title="SetCustomToken(5006, ...) — no setter found in static analysis">&lt;CUSTOM5006&gt;</span></div><ul class="dlg-links"><li><a href="#e12">→ entry #12</a> <span class="dlg-link-preview">“Award merit to :”</span></li></ul></div>
+<div class="dlg-node reply" id="r89"><div class="dlg-head"><span class="dlg-id">reply #89</span> <span class="dlg-action">→ <code>merit_sel_6</code></span></div><div class="dlg-text"><span class="custom-token custom-token-unknown" title="SetCustomToken(5007, ...) — no setter found in static analysis">&lt;CUSTOM5007&gt;</span></div><ul class="dlg-links"><li><a href="#e12">→ entry #12</a> <span class="dlg-link-preview">“Award merit to :”</span></li></ul></div>
+<div class="dlg-node reply" id="r90"><div class="dlg-head"><span class="dlg-id">reply #90</span> <span class="dlg-action">→ <code>merit_sel_7</code></span></div><div class="dlg-text"><span class="custom-token custom-token-unknown" title="SetCustomToken(5008, ...) — no setter found in static analysis">&lt;CUSTOM5008&gt;</span></div><ul class="dlg-links"><li><a href="#e12">→ entry #12</a> <span class="dlg-link-preview">“Award merit to :”</span></li></ul></div>
+<div class="dlg-node reply" id="r91"><div class="dlg-head"><span class="dlg-id">reply #91</span> <span class="dlg-action">→ <code>merit_sel_8</code></span></div><div class="dlg-text"><span class="custom-token custom-token-unknown" title="SetCustomToken(5009, ...) — no setter found in static analysis">&lt;CUSTOM5009&gt;</span></div><ul class="dlg-links"><li><a href="#e12">→ entry #12</a> <span class="dlg-link-preview">“Award merit to :”</span></li></ul></div>
+<div class="dlg-node reply" id="r92"><div class="dlg-head"><span class="dlg-id">reply #92</span> <span class="dlg-action">→ <code>merit_page_p</code></span></div><div class="dlg-text">[&lt;&lt; Previous]</div><ul class="dlg-links"><li><a href="#e11">→ entry #11</a> <span class="dlg-link-preview">“Select a player to award merit ():”</span></li></ul></div>
+<div class="dlg-node reply" id="r93"><div class="dlg-head"><span class="dlg-id">reply #93</span> <span class="dlg-action">→ <code>merit_page_n</code></span></div><div class="dlg-text">[Next &gt;&gt;]</div><ul class="dlg-links"><li><a href="#e11">→ entry #11</a> <span class="dlg-link-preview">“Select a player to award merit ():”</span></li></ul></div>
+<div class="dlg-node reply" id="r94"><div class="dlg-head"><span class="dlg-id">reply #94</span></div><div class="dlg-text">[Back to Admin Menu]</div><ul class="dlg-links"><li><a href="#e6">→ entry #6</a> <span class="dlg-link-preview">“Yo .”</span></li></ul></div>
+<div class="dlg-node reply" id="r95"><div class="dlg-head"><span class="dlg-id">reply #95</span> <span class="dlg-action">→ <code>merit_award_bug</code></span></div><div class="dlg-text">Award Defect Report (+1 merit)</div><ul class="dlg-links"><li><a href="#e12">→ entry #12</a> <span class="dlg-link-preview">“Award merit to :”</span></li></ul></div>
+<div class="dlg-node reply" id="r96"><div class="dlg-head"><span class="dlg-id">reply #96</span> <span class="dlg-action">→ <code>merit_award_exp</code></span></div><div class="dlg-text">Award Exploit Report (+3 merit)</div><ul class="dlg-links"><li><a href="#e12">→ entry #12</a> <span class="dlg-link-preview">“Award merit to :”</span></li></ul></div>
+<div class="dlg-node reply" id="r97"><div class="dlg-head"><span class="dlg-id">reply #97</span> <span class="dlg-action">→ <code>merit_award_ftr</code></span></div><div class="dlg-text">Award Feature Implementation (+2 merit)</div><ul class="dlg-links"><li><a href="#e12">→ entry #12</a> <span class="dlg-link-preview">“Award merit to :”</span></li></ul></div>
+<div class="dlg-node reply" id="r98"><div class="dlg-head"><span class="dlg-id">reply #98</span> <span class="dlg-action">→ <code>merit_list_cur</code></span></div><div class="dlg-text">[Back to player list]</div><ul class="dlg-links"><li><a href="#e11">→ entry #11</a> <span class="dlg-link-preview">“Select a player to award merit ():”</span></li></ul></div>
   </main>
-  <footer>generated by <a href="https://github.com/mrprice22/nwn-manager">nwn-manager</a> &mdash; last updated May 31, 2026 16:16</footer>
+  <footer>generated by <a href="https://github.com/mrprice22/nwn-manager">nwn-manager</a> &mdash; last updated Jun 1, 2026 17:53</footer>
 </body>
 </html>

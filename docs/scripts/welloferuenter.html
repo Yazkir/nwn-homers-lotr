@@ -48,7 +48,7 @@
 // - Stocks the Donations Chest once per server reset with:
 //     * Loot from a randomly selected good-side city (Guardian of Light list)
 //     * Loot from a randomly selected evil-side city (Guardian of Darkness list)
-//     * Two random bonus items drawn from the full 200k-500k custom item pool
+//     * Two random bonus items drawn from the obtainable custom item pool
 
 // Creates an item and immediately identifies it.
 object CreateIDItem(string sResRef, object oTarget, int nStackSize = 1)
@@ -58,158 +58,117 @@ object CreateIDItem(string sResRef, object oTarget, int nStackSize = 1)
     return oItem;
 }
 
-// --- bonus item pool: 147 custom items priced 200k-500k GP ---
+// --- bonus item pool: 90 obtainable custom items (accessible via stores/containers/drops) ---
+// Returns 99 for ammunition cases, 1 for everything else.
+int GetBonusItemStackSize(int n)
+{
+    switch (n)
+    {
+        case 3:  // greaterfirearrow
+        case 15: // 043 Arrow of the Orc Defender
+        case 16: // 044 Arrow of the Orc Defender
+        case 45: // elitebolt
+        case 58: // wammar051 Arwen&#x27;s Arrow
+        case 68: // wammar050 Angmar&#x27;s Piercing Arrow
+            return 99;
+    }
+    return 1;
+}
+
 string GetBonusItemResref(int n)
 {
     switch (n)
     {
-        case 0:   return &quot;gwathdorhelme002&quot;;   // Gwathdor Helmet
-        case 1:   return &quot;orcsmasherflail&quot;;    // Orc Smasher Flail
-        case 2:   return &quot;spectralbrand5&quot;;     // Spectral Brand +5
-        case 3:   return &quot;beltoftherang001&quot;;   // Belt of the Rohirrin Ranger
-        case 4:   return &quot;greaterfirearrow&quot;;   // Greater Fire Arrows
-        case 5:   return &quot;gondorianhelm&quot;;      // Gondorian Helm
-        case 6:   return &quot;armhe009&quot;;           // Shadows&#x27; Hood
-        case 7:   return &quot;stormstar&quot;;          // Storm Star
-        case 8:   return &quot;orcquivers&quot;;         // Orc Quivers
-        case 9:   return &quot;greatshieldofriv&quot;;   // Great Shield of Rivendell
-        case 10:  return &quot;shroudoffog&quot;;        // Shroud of Fog
-        case 11:  return &quot;rorammy001&quot;;         // The Merrymen&#x27;s Amulet
-        case 12:  return &quot;halberd005&quot;;         // Halberd of the Rohir
-        case 13:  return &quot;gondorianrobes&quot;;     // Gondorian Robes
-        case 14:  return &quot;epicring&quot;;           // Epic Ring
-        case 15:  return &quot;staffoftheram5&quot;;     // Staff of the Ram +5
-        case 16:  return &quot;138&quot;;                // Cloak of Dol Guldur
-        case 17:  return &quot;dragonsbreath4&quot;;     // Dragon&#x27;s Breath +4
-        case 18:  return &quot;013&quot;;                // Armor of The Defender
-        case 19:  return &quot;bootsofquicke002&quot;;   // Boots of Quickening
-        case 20:  return &quot;100&quot;;                // Cover of Darkness
-        case 21:  return &quot;hindosdoom4&quot;;        // Hindo&#x27;s Doom +4
-        case 22:  return &quot;deadlycaress&quot;;       // Deadly Caress
-        case 23:  return &quot;garbofthewhitebe&quot;;   // Garb of the White Ninja
-        case 24:  return &quot;043&quot;;                // Arrow of the Orc Defender
-        case 25:  return &quot;044&quot;;                // Arrow of the Orc Defender
-        case 26:  return &quot;staffoftheistari&quot;;   // Staff of the Istari
-        case 27:  return &quot;027&quot;;                // Belt of the Dancer
-        case 28:  return &quot;item063&quot;;            // Belt of Hero&#x27;s
-        case 29:  return &quot;item014&quot;;            // Mesh of Barad-Dur
-        case 30:  return &quot;mordorbowmana001&quot;;   // Mordor Bowman Armor
-        case 31:  return &quot;040&quot;;                // Ring of the Red Warrior
-        case 32:  return &quot;theword001&quot;;         // The Paladin&#x27;s Choice
-        case 33:  return &quot;shadowstaff&quot;;        // ShadowStaff
-        case 34:  return &quot;orcstatbuff&quot;;        // Orcish Carapace
-        case 35:  return &quot;139&quot;;                // Ring of the Black Rider
-        case 36:  return &quot;marilithscimitar&quot;;   // Marilith Scimitar
-        case 37:  return &quot;goreshovel&quot;;         // Goreshovel
-        case 38:  return &quot;item088&quot;;            // Glove of the Hobbits
-        case 39:  return &quot;longswordofweath&quot;;   // Longsword of Weathertop
-        case 40:  return &quot;shieldofthegreyw&quot;;   // Shield of the Grey Walker
-        case 41:  return &quot;theeyeofmadusa&quot;;     // The Eye of Madusa
-        case 42:  return &quot;ls_angurvadal&quot;;      // Angurvadal
-        case 43:  return &quot;049&quot;;                // Boots of the Orc Defender
-        case 44:  return &quot;039&quot;;                // Ring of Speed and Magic Defenses
-        case 45:  return &quot;005&quot;;                // Shell
-        case 46:  return &quot;urukhaiwhitehand&quot;;   // Uruk Hai White Mask
-        case 47:  return &quot;060&quot;;                // Ring of Grimbeorn the Old
-        case 48:  return &quot;soulrazor&quot;;          // Soulrazor
-        case 49:  return &quot;glovstonehear001&quot;;   // Greater Gloves of the Stone Heart
-        case 50:  return &quot;shieldofthepr001&quot;;   // Shield of the Priest
-        case 51:  return &quot;gondorianplat001&quot;;   // Greater Gondorian Plate
-        case 52:  return &quot;daggerofthest001&quot;;   // Dagger of the Stars
-        case 53:  return &quot;gondorianlongswo&quot;;   // Gondorian Longsword
-        case 54:  return &quot;fleshoftheund003&quot;;   // Rags of an Underlord
-        case 55:  return &quot;gondorianlightar&quot;;   // Gondorian Light Armor
-        case 56:  return &quot;eyesoftheforest&quot;;    // Eyes of The Forest
-        case 57:  return &quot;wallofpain&quot;;         // Wall of Pain
-        case 58:  return &quot;wallofpain001&quot;;      // Wall of Pain
-        case 59:  return &quot;ixilsspike5&quot;;        // Ixil&#x27;s Spike +5
-        case 60:  return &quot;001&quot;;                // Stave of Slaughter
-        case 61:  return &quot;item094&quot;;            // Soulkeeper&#x27;s Robes
-        case 62:  return &quot;ashmlw006&quot;;          // Shield of the Mage
-        case 63:  return &quot;cloakofthebard&quot;;     // Cloak of the Bard
-        case 64:  return &quot;crossbowofthedef&quot;;   // Crossbow of the Defender
-        case 65:  return &quot;072&quot;;                // Glove of a Devoured Rogue
-        case 66:  return &quot;cloakofminastiri&quot;;   // Cloak of Minas Tirith
-        case 67:  return &quot;009&quot;;                // Cloak of Orc
-        case 68:  return &quot;crownofweathe004&quot;;   // Crown of Weathertop
-        case 69:  return &quot;blackheartarmor&quot;;    // Blackheart Armor
-        case 70:  return &quot;easterlinglaunch&quot;;   // Easterling Launcher
-        case 71:  return &quot;145&quot;;                // Boots of Darkness
-        case 72:  return &quot;nazgulamulet&quot;;       // Nazgul Amulet
-        case 73:  return &quot;elitebolt&quot;;          // Elite Bolt
-        case 74:  return &quot;item097&quot;;            // Elite Shot
-        case 75:  return &quot;lavaplate&quot;;          // Lava Plate
-        case 76:  return &quot;mordororcstandar&quot;;   // Ordurin-Forged Plate
-        case 77:  return &quot;arrowofhaldir&quot;;      // Arrow of Haldir
-        case 78:  return &quot;shieldofkings&quot;;      // Shield of Kings
-        case 79:  return &quot;armhe011&quot;;           // Circlet of Flame
-        case 80:  return &quot;042&quot;;                // Belt of the Orc Defender
-        case 81:  return &quot;glamhkama2&quot;;         // Kama of the Green Ninja
-        case 82:  return &quot;item050&quot;;            // Isaac&#x27;s Ring
-        case 83:  return &quot;bowoftheprotecto&quot;;   // Bow of the Protector
-        case 84:  return &quot;bootsofquicke004&quot;;   // Soft Step
-        case 85:  return &quot;branchofriven001&quot;;   // Branch of Rivendell
-        case 86:  return &quot;cloakofdarkness&quot;;    // Cloak of Pale Darkness
-        case 87:  return &quot;117&quot;;                // Messenger&#x27;s Robe
-        case 88:  return &quot;cloth028&quot;;           // Leather of Shadows
-        case 89:  return &quot;026&quot;;                // Mordor Orc Tower Shield
-        case 90:  return &quot;gwathdorhelmet&quot;;     // Gwathdor Helmet
-        case 91:  return &quot;cursedoneshelm&quot;;     // Cursed Ones Helm
-        case 92:  return &quot;rubyofpower&quot;;        // Ruby of Power
-        case 93:  return &quot;felloak&quot;;            // Felloak
-        case 94:  return &quot;amuletofdivin003&quot;;   // Amulet of Unfaithful
-        case 95:  return &quot;garbofthewhit001&quot;;   // Garb of the Green Ninja
-        case 96:  return &quot;bootsoftheharper&quot;;   // Boots of the Harper Scout
-        case 97:  return &quot;wammar051&quot;;          // Arwen&#x27;s Arrow
-        case 98:  return &quot;031&quot;;                // Helm&#x27;s Deep Shield
-        case 99:  return &quot;023&quot;;                // Sarumon&#x27;s Favor
-        case 100: return &quot;thedrowassassin&quot;;    // The Drow Assassin belt
-        case 101: return &quot;weathertoparrow&quot;;    // Road To Helms Arrow
-        case 102: return &quot;forestguard&quot;;        // Forest Guard shield
-        case 103: return &quot;beltofdivinem001&quot;;   // Hoarmouth&#x27;s Sash
-        case 104: return &quot;bootsofquickenin&quot;;   // Boots of the Rivendell Ranger
-        case 105: return &quot;helmoftheride004&quot;;   // Helm of the Ridermark Archer
-        case 106: return &quot;doomstouch&quot;;         // Dooms Touch
-        case 107: return &quot;loriengarb003&quot;;      // Lorien Garb
-        case 108: return &quot;helmoftheriderma&quot;;   // Helm of the Elite Rohirrim Soldier
-        case 109: return &quot;aarcl008&quot;;           // Rohirrin Heavy Armour
-        case 110: return &quot;shieldofthero003&quot;;   // Shield of the Rohan
-        case 111: return &quot;meshoferynlas002&quot;;   // Mesh of Eryn Lasgalen
-        case 112: return &quot;wswmls003&quot;;          // Balor Sword
-        case 113: return &quot;item001&quot;;            // Plate of The Khamul
-        case 114: return &quot;arrowofthranduil&quot;;   // Arrow of Thranduil
-        case 115: return &quot;gondorianstaff&quot;;     // Gondorian Staff
-        case 116: return &quot;item021&quot;;            // Sauron&#x27;s Mesh
-        case 117: return &quot;wammar050&quot;;          // Angmar&#x27;s Piercing Arrow
-        case 118: return &quot;shieldofthedwarv&quot;;   // Shield of the Dwarven Cleric
-        case 119: return &quot;item034&quot;;            // Dragon&#x27;s Tear
-        case 120: return &quot;greaterringof003&quot;;   // Greater Ring of Power
-        case 121: return &quot;longbowofdeath&quot;;     // Longbow of Death
-        case 122: return &quot;item111&quot;;            // Mordor Archer Bow
-        case 123: return &quot;bowofthegaladhri&quot;;   // Bow of the Galadhrim
-        case 124: return &quot;ringofthedwarf&quot;;     // Ring of the Dwarf
-        case 125: return &quot;maarcl002&quot;;          // Personal Guard Armor
-        case 126: return &quot;runehammer5&quot;;        // Rune Hammer +5
-        case 127: return &quot;hideofthefore&quot;;      // Hide of the Forest Spirit
-        case 128: return &quot;fistoftheninja&quot;;     // Fist of the Ninja
-        case 129: return &quot;item133&quot;;            // Nature&#x27;s Wrap
-        case 130: return &quot;126&quot;;                // Forged Boots of the Orc General
-        case 131: return &quot;warhammerofth001&quot;;   // Warhammer of the Life Sapper
-        case 132: return &quot;ringofdangersens&quot;;   // Ring of Danger Sense
-        case 133: return &quot;ringofjustice&quot;;      // Ring of Justice
-        case 134: return &quot;adamantitetow001&quot;;   // Fine Dwarven Tower Shield
-        case 135: return &quot;arangerdefender&quot;;    // A Ranger Defender
-        case 136: return &quot;gondorianplat002&quot;;   // Gondorian Captain&#x27;s Plate
-        case 137: return &quot;shieldofthero001&quot;;   // Shield of The Fleet Elf
-        case 138: return &quot;wammar048&quot;;          // Epic Arwen Arrow
-        case 139: return &quot;cloakofmist&quot;;        // Cloak of Mist
-        case 140: return &quot;headsplitter002&quot;;    // Black Numenorian Slasher
-        case 141: return &quot;theelfboneringof&quot;;   // The Elfbone Ring of Kiran-Hai
-        case 142: return &quot;helmofthehighcle&quot;;   // Helm of the High Cleric
-        case 143: return &quot;poisontippedf002&quot;;   // Poison Tipped Fang
-        case 144: return &quot;wingsofmirkwood&quot;;    // Wings of Mirkwood
-        case 145: return &quot;unholysigil&quot;;        // Unholy Sigil
-        case 146: return &quot;axeofthewarrioro&quot;;   // Axe of the Warrior Orc
+        case 0:  return &quot;gwathdorhelme002&quot;;   // Gwathdor Helmet
+        case 1:  return &quot;orcsmasherflail&quot;;    // Orc Smasher Flail
+        case 2:  return &quot;beltoftherang001&quot;;   // Belt of the Rohirrin Ranger
+        case 3:  return &quot;greaterfirearrow&quot;;   // Greater Fire Arrows
+        case 4:  return &quot;gondorianhelm&quot;;      // Gondorian Helm
+        case 5:  return &quot;armhe009&quot;;           // Shadows&#x27; Hood
+        case 6:  return &quot;shroudoffog&quot;;        // Shroud of Fog
+        case 7:  return &quot;halberd005&quot;;         // Halberd of the Rohir
+        case 8:  return &quot;gondorianrobes&quot;;     // Gondorian Robes
+        case 9:  return &quot;138&quot;;                // Cloak of Dol Guldur
+        case 10: return &quot;dragonsbreath4&quot;;     // Dragon&#x27;s Breath +4
+        case 11: return &quot;013&quot;;                // Armor of The Defender
+        case 12: return &quot;bootsofquicke002&quot;;   // Boots of Quickening
+        case 13: return &quot;100&quot;;                // Cover of Darkness
+        case 14: return &quot;deadlycaress&quot;;       // Deadly Caress
+        case 15: return &quot;043&quot;;                // Arrow of the Orc Defender
+        case 16: return &quot;044&quot;;                // Arrow of the Orc Defender
+        case 17: return &quot;staffoftheistari&quot;;   // Staff of the Istari
+        case 18: return &quot;027&quot;;                // Belt of the Dancer
+        case 19: return &quot;139&quot;;                // Ring of the Black Rider
+        case 20: return &quot;item088&quot;;            // Glove of the Hobbits
+        case 21: return &quot;shieldofthegreyw&quot;;   // Shield of the Grey Walker
+        case 22: return &quot;049&quot;;                // Boots of the Orc Defender
+        case 23: return &quot;039&quot;;                // Ring of Speed and Magic Defenses
+        case 24: return &quot;005&quot;;                // Shell
+        case 25: return &quot;urukhaiwhitehand&quot;;   // Uruk Hai White Mask
+        case 26: return &quot;glovstonehear001&quot;;   // Greater Gloves of the Stone Heart
+        case 27: return &quot;shieldofthepr001&quot;;   // Shield of the Priest
+        case 28: return &quot;gondorianplat001&quot;;   // Greater Gondorian Plate
+        case 29: return &quot;daggerofthest001&quot;;   // Dagger of the Stars
+        case 30: return &quot;gondorianlongswo&quot;;   // Gondorian Longsword
+        case 31: return &quot;fleshoftheund003&quot;;   // Rags of an Underlord
+        case 32: return &quot;gondorianlightar&quot;;   // Gondorian Light Armor
+        case 33: return &quot;eyesoftheforest&quot;;    // Eyes of The Forest
+        case 34: return &quot;wallofpain&quot;;         // Wall of Pain
+        case 35: return &quot;ixilsspike5&quot;;        // Ixil&#x27;s Spike +5
+        case 36: return &quot;001&quot;;                // Stave of Slaughter
+        case 37: return &quot;ashmlw006&quot;;          // Shield of the Mage
+        case 38: return &quot;cloakofthebard&quot;;     // Cloak of the Bard
+        case 39: return &quot;crossbowofthedef&quot;;   // Crossbow of the Defender
+        case 40: return &quot;072&quot;;                // Glove of a Devoured Rogue
+        case 41: return &quot;cloakofminastiri&quot;;   // Cloak of Minas Tirith
+        case 42: return &quot;blackheartarmor&quot;;    // Blackheart Armor
+        case 43: return &quot;easterlinglaunch&quot;;   // Easterling Launcher
+        case 44: return &quot;nazgulamulet&quot;;       // Nazgul Amulet
+        case 45: return &quot;elitebolt&quot;;          // Elite Bolt
+        case 46: return &quot;mordororcstandar&quot;;   // Ordurin-Forged Plate
+        case 47: return &quot;shieldofkings&quot;;      // Shield of Kings
+        case 48: return &quot;042&quot;;                // Belt of the Orc Defender
+        case 49: return &quot;bowoftheprotecto&quot;;   // Bow of the Protector
+        case 50: return &quot;bootsofquicke004&quot;;   // Soft Step
+        case 51: return &quot;cloakofdarkness&quot;;    // Cloak of Pale Darkness
+        case 52: return &quot;117&quot;;                // Messenger&#x27;s Robe
+        case 53: return &quot;cloth028&quot;;           // Leather of Shadows
+        case 54: return &quot;rubyofpower&quot;;        // Ruby of Power
+        case 55: return &quot;felloak&quot;;            // Felloak
+        case 56: return &quot;amuletofdivin003&quot;;   // Amulet of Unfaithful
+        case 57: return &quot;bootsoftheharper&quot;;   // Boots of the Harper Scout
+        case 58: return &quot;wammar051&quot;;          // Arwen&#x27;s Arrow
+        case 59: return &quot;031&quot;;                // Helm&#x27;s Deep Shield
+        case 60: return &quot;forestguard&quot;;        // Forest Guard shield
+        case 61: return &quot;bootsofquickenin&quot;;   // Boots of the Rivendell Ranger
+        case 62: return &quot;doomstouch&quot;;         // Dooms Touch
+        case 63: return &quot;loriengarb003&quot;;      // Lorien Garb
+        case 64: return &quot;helmoftheriderma&quot;;   // Helm of the Elite Rohirrim Soldier
+        case 65: return &quot;aarcl008&quot;;           // Rohirrin Heavy Armour
+        case 66: return &quot;gondorianstaff&quot;;     // Gondorian Staff
+        case 67: return &quot;item021&quot;;            // Sauron&#x27;s Mesh
+        case 68: return &quot;wammar050&quot;;          // Angmar&#x27;s Piercing Arrow
+        case 69: return &quot;shieldofthedwarv&quot;;   // Shield of the Dwarven Cleric
+        case 70: return &quot;item034&quot;;            // Dragon&#x27;s Tear
+        case 71: return &quot;greaterringof003&quot;;   // Greater Ring of Power
+        case 72: return &quot;longbowofdeath&quot;;     // Longbow of Death
+        case 73: return &quot;item111&quot;;            // Mordor Archer Bow
+        case 74: return &quot;bowofthegaladhri&quot;;   // Bow of the Galadhrim
+        case 75: return &quot;ringofthedwarf&quot;;     // Ring of the Dwarf
+        case 76: return &quot;maarcl002&quot;;          // Personal Guard Armor
+        case 77: return &quot;item133&quot;;            // Nature&#x27;s Wrap
+        case 78: return &quot;126&quot;;                // Forged Boots of the Orc General
+        case 79: return &quot;ringofjustice&quot;;      // Ring of Justice
+        case 80: return &quot;adamantitetow001&quot;;   // Fine Dwarven Tower Shield
+        case 81: return &quot;arangerdefender&quot;;    // A Ranger Defender
+        case 82: return &quot;gondorianplat002&quot;;   // Gondorian Captain&#x27;s Plate
+        case 83: return &quot;shieldofthero001&quot;;   // Shield of The Fleet Elf
+        case 84: return &quot;headsplitter002&quot;;    // Black Numenorian Slasher
+        case 85: return &quot;helmofthehighcle&quot;;   // Helm of the High Cleric
+        case 86: return &quot;poisontippedf002&quot;;   // Poison Tipped Fang
+        case 87: return &quot;wingsofmirkwood&quot;;    // Wings of Mirkwood
+        case 88: return &quot;unholysigil&quot;;        // Unholy Sigil
+        case 89: return &quot;axeofthewarrioro&quot;;   // Axe of the Warrior Orc
     }
     return &quot;&quot;;
 }
@@ -222,7 +181,7 @@ void SpawnGoodCityLoot(object oChest, int nCity)
         case 0: // Gondor
             // Gondorian Bowman (8) vs Epic Gondorian Guardsman (2)
             if (Random(2) == 0)
-                CreateIDItem(&quot;boltoftheblackel&quot;, oChest, 40);
+                CreateIDItem(&quot;boltoftheblackel&quot;, oChest, 99);
             else {
                 CreateIDItem(&quot;nw_it_mpotion009&quot;, oChest);
                 CreateIDItem(&quot;nw_it_mpotion016&quot;, oChest);
@@ -247,7 +206,7 @@ void SpawnGoodCityLoot(object oChest, int nCity)
         case 3: // Lothlorien
             // Galadhrim Arcane Archer (12) vs Galadhrim Shield Guardian (11)
             if (Random(2) == 0)
-                CreateIDItem(&quot;wammar029&quot;, oChest, 50);    // Cold Arrows
+                CreateIDItem(&quot;wammar029&quot;, oChest, 99);    // Cold Arrows
             else {
                 CreateIDItem(&quot;nw_it_mpotion016&quot;, oChest);
                 CreateIDItem(&quot;nw_it_mpotion005&quot;, oChest);
@@ -271,7 +230,7 @@ void SpawnEvilCityLoot(object oChest, int nCity)
     {
         case 0: // Morannan / Black Gate
             // Archer of Mordor (12)
-            CreateIDItem(&quot;wammar055&quot;, oChest, 50);        // Mordor Slayers
+            CreateIDItem(&quot;wammar055&quot;, oChest, 99);        // Mordor Slayers
             break;
 
         case 1: // Isengard
@@ -298,6 +257,121 @@ void SpawnEvilCityLoot(object oChest, int nCity)
     }
 }
 
+// --- reclaim items that were mistakenly included in the bonus pool ---
+
+// Returns TRUE if the item&#x27;s resref was removed from the donations chest pool
+// because it was never legitimately obtainable by players.
+int IsIllicitDonationsItem(string sResRef)
+{
+    if (sResRef == &quot;spectralbrand5&quot;)   return TRUE;
+    if (sResRef == &quot;stormstar&quot;)        return TRUE;
+    if (sResRef == &quot;orcquivers&quot;)       return TRUE;
+    if (sResRef == &quot;greatshieldofriv&quot;) return TRUE;
+    if (sResRef == &quot;rorammy001&quot;)       return TRUE;
+    if (sResRef == &quot;epicring&quot;)         return TRUE;
+    if (sResRef == &quot;staffoftheram5&quot;)   return TRUE;
+    if (sResRef == &quot;hindosdoom4&quot;)      return TRUE;
+    if (sResRef == &quot;garbofthewhitebe&quot;) return TRUE;
+    if (sResRef == &quot;item063&quot;)          return TRUE;
+    if (sResRef == &quot;item014&quot;)          return TRUE;
+    if (sResRef == &quot;mordorbowmana001&quot;) return TRUE;
+    if (sResRef == &quot;040&quot;)              return TRUE;
+    if (sResRef == &quot;theword001&quot;)       return TRUE;
+    if (sResRef == &quot;shadowstaff&quot;)      return TRUE;
+    if (sResRef == &quot;orcstatbuff&quot;)      return TRUE;
+    if (sResRef == &quot;marilithscimitar&quot;) return TRUE;
+    if (sResRef == &quot;goreshovel&quot;)       return TRUE;
+    if (sResRef == &quot;longswordofweath&quot;) return TRUE;
+    if (sResRef == &quot;theeyeofmadusa&quot;)   return TRUE;
+    if (sResRef == &quot;ls_angurvadal&quot;)    return TRUE;
+    if (sResRef == &quot;060&quot;)              return TRUE;
+    if (sResRef == &quot;soulrazor&quot;)        return TRUE;
+    if (sResRef == &quot;wallofpain001&quot;)    return TRUE;
+    if (sResRef == &quot;item094&quot;)          return TRUE;
+    if (sResRef == &quot;009&quot;)              return TRUE;
+    if (sResRef == &quot;crownofweathe004&quot;) return TRUE;
+    if (sResRef == &quot;145&quot;)              return TRUE;
+    if (sResRef == &quot;item097&quot;)          return TRUE;
+    if (sResRef == &quot;lavaplate&quot;)        return TRUE;
+    if (sResRef == &quot;arrowofhaldir&quot;)    return TRUE;
+    if (sResRef == &quot;armhe011&quot;)         return TRUE;
+    if (sResRef == &quot;glamhkama2&quot;)       return TRUE;
+    if (sResRef == &quot;item050&quot;)          return TRUE;
+    if (sResRef == &quot;branchofriven001&quot;) return TRUE;
+    if (sResRef == &quot;026&quot;)              return TRUE;
+    if (sResRef == &quot;gwathdorhelmet&quot;)   return TRUE;
+    if (sResRef == &quot;cursedoneshelm&quot;)   return TRUE;
+    if (sResRef == &quot;garbofthewhit001&quot;) return TRUE;
+    if (sResRef == &quot;023&quot;)              return TRUE;
+    if (sResRef == &quot;thedrowassassin&quot;)  return TRUE;
+    if (sResRef == &quot;weathertoparrow&quot;)  return TRUE;
+    if (sResRef == &quot;beltofdivinem001&quot;) return TRUE;
+    if (sResRef == &quot;helmoftheride004&quot;) return TRUE;
+    if (sResRef == &quot;shieldofthero003&quot;) return TRUE;
+    if (sResRef == &quot;meshoferynlas002&quot;) return TRUE;
+    if (sResRef == &quot;wswmls003&quot;)        return TRUE;
+    if (sResRef == &quot;item001&quot;)          return TRUE;
+    if (sResRef == &quot;arrowofthranduil&quot;) return TRUE;
+    if (sResRef == &quot;runehammer5&quot;)      return TRUE;
+    if (sResRef == &quot;hideofthefore&quot;)    return TRUE;
+    if (sResRef == &quot;fistoftheninja&quot;)   return TRUE;
+    if (sResRef == &quot;warhammerofth001&quot;) return TRUE;
+    if (sResRef == &quot;ringofdangersens&quot;) return TRUE;
+    if (sResRef == &quot;wammar048&quot;)        return TRUE;
+    if (sResRef == &quot;cloakofmist&quot;)      return TRUE;
+    if (sResRef == &quot;theelfboneringof&quot;) return TRUE;
+    return FALSE;
+}
+
+// Moves a single illicit item into the quarantine chest campaign DB,
+// refunds 5x its GP value, and notifies the player.
+void QuarantineIllicitItem(object oItem, object oPC)
+{
+    string sName  = GetName(oItem);
+    int    nValue = GetGoldPieceValue(oItem);
+    int    nComp  = nValue * 5;
+
+    string sLog = &quot;Illicit donations item &#x27;&quot; + sName + &quot;&#x27; (resref: &quot; + GetResRef(oItem)
+                + &quot;) reclaimed from &quot; + GetName(oPC) + &quot;; refunded &quot; + IntToString(nComp) + &quot; gp (5x value).&quot;;
+
+    int nQ = GetCampaignInt(&quot;craftdb&quot;, &quot;quarantine_count&quot;);
+    StoreCampaignObject(&quot;craftdb&quot;, &quot;quarantine_&quot; + IntToString(nQ), oItem);
+    SetCampaignString(&quot;craftdb&quot;, &quot;quarantine_&quot; + IntToString(nQ) + &quot;_info&quot;, sLog);
+    SetCampaignInt(&quot;craftdb&quot;, &quot;quarantine_count&quot;, nQ + 1);
+    DestroyObject(oItem);
+
+    WriteTimestampedLogEntry(sLog);
+    SendMessageToAllDMs(sLog);
+    GiveGoldToCreature(oPC, nComp);
+    SendMessageToPC(oPC,
+        &quot;[Donations Chest] We owe you an apology. &#x27;&quot; + sName + &quot;&#x27; was mistakenly &quot;
+        + &quot;included in the Donations Chest and should never have been accessible to players. &quot;
+        + &quot;We have secured it in the House of Homer. As compensation for the emotional damage &quot;
+        + &quot;of losing such great gear, you have been credited &quot; + IntToString(nComp) + &quot; gold pieces &quot;
+        + &quot;(5x its appraised value). We are truly sorry for the inconvenience!&quot;);
+}
+
+// Scans all inventory and equipment slots for illicit donations items and quarantines them.
+void ScanForIllicitItems(object oPC)
+{
+    int nSlot;
+    for (nSlot = 0; nSlot &lt; NUM_INVENTORY_SLOTS; nSlot++)
+    {
+        object oItem = GetItemInSlot(nSlot, oPC);
+        if (GetIsObjectValid(oItem) &amp;&amp; IsIllicitDonationsItem(GetResRef(oItem)))
+            QuarantineIllicitItem(oItem, oPC);
+    }
+
+    object oItem = GetFirstItemInInventory(oPC);
+    while (GetIsObjectValid(oItem))
+    {
+        object oNext = GetNextItemInInventory(oPC);
+        if (IsIllicitDonationsItem(GetResRef(oItem)))
+            QuarantineIllicitItem(oItem, oPC);
+        oItem = oNext;
+    }
+}
+
 // --- stock the chest once per server reset ---
 void StockDonationsChest()
 {
@@ -314,15 +388,15 @@ void StockDonationsChest()
     SpawnEvilCityLoot(oChest, Random(4));
 
     // Two distinct bonus items from the full 200k-500k custom item pool
-    int nPoolSize = 147;
+    int nPoolSize = 90;
     int nPick1 = Random(nPoolSize);
     int nPick2 = Random(nPoolSize - 1);
     if (nPick2 &gt;= nPick1) nPick2++;     // guarantee nPick2 != nPick1
 
     string sItem1 = GetBonusItemResref(nPick1);
     string sItem2 = GetBonusItemResref(nPick2);
-    if (sItem1 != &quot;&quot;) CreateIDItem(sItem1, oChest);
-    if (sItem2 != &quot;&quot;) CreateIDItem(sItem2, oChest);
+    if (sItem1 != &quot;&quot;) CreateIDItem(sItem1, oChest, GetBonusItemStackSize(nPick1));
+    if (sItem2 != &quot;&quot;) CreateIDItem(sItem2, oChest, GetBonusItemStackSize(nPick2));
 }
 
 void main()
@@ -341,10 +415,13 @@ void main()
             + &quot;Middle-earth be legendary!&quot;);
     }
 
+    if (!GetIsDM(oPC) &amp;&amp; GetIsPC(oPC))
+        ScanForIllicitItems(oPC);
+
     StockDonationsChest();
 }
 </code></pre>
   </main>
-  <footer>generated by <a href="https://github.com/mrprice22/nwn-manager">nwn-manager</a> &mdash; last updated May 31, 2026 16:16</footer>
+  <footer>generated by <a href="https://github.com/mrprice22/nwn-manager">nwn-manager</a> &mdash; last updated Jun 1, 2026 17:53</footer>
 </body>
 </html>
