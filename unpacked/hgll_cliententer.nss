@@ -7,6 +7,7 @@
 // pre-port characters.
 
 #include "pers_state_inc"
+#include "merit_db"
 
 // Death amulet check + persistent state restore. Delayed so the engine's
 // own post-login passes (inventory hydration, spellbook sync, "fresh PC"
@@ -63,6 +64,10 @@ void main()
     object oPC = GetEnteringObject();
     SetLocalString(oPC, "LetoScript", "");
     SetLocalString(oPC, "LetoscriptLL", "");
+
+    Merit_InitDb();
+    Merit_RecordLogin(oPC);
+    DelayCommand(3.0, Merit_LoginMessage(oPC));
 
     // Server-info reference journals (Rules/Guilds/Website). Each category's
     // entry 1 has End=1, so these land in the player's Completed section.
