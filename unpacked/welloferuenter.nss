@@ -212,6 +212,121 @@ void SpawnEvilCityLoot(object oChest, int nCity)
     }
 }
 
+// --- reclaim items that were mistakenly included in the bonus pool ---
+
+// Returns TRUE if the item's resref was removed from the donations chest pool
+// because it was never legitimately obtainable by players.
+int IsIllicitDonationsItem(string sResRef)
+{
+    if (sResRef == "spectralbrand5")   return TRUE;
+    if (sResRef == "stormstar")        return TRUE;
+    if (sResRef == "orcquivers")       return TRUE;
+    if (sResRef == "greatshieldofriv") return TRUE;
+    if (sResRef == "rorammy001")       return TRUE;
+    if (sResRef == "epicring")         return TRUE;
+    if (sResRef == "staffoftheram5")   return TRUE;
+    if (sResRef == "hindosdoom4")      return TRUE;
+    if (sResRef == "garbofthewhitebe") return TRUE;
+    if (sResRef == "item063")          return TRUE;
+    if (sResRef == "item014")          return TRUE;
+    if (sResRef == "mordorbowmana001") return TRUE;
+    if (sResRef == "040")              return TRUE;
+    if (sResRef == "theword001")       return TRUE;
+    if (sResRef == "shadowstaff")      return TRUE;
+    if (sResRef == "orcstatbuff")      return TRUE;
+    if (sResRef == "marilithscimitar") return TRUE;
+    if (sResRef == "goreshovel")       return TRUE;
+    if (sResRef == "longswordofweath") return TRUE;
+    if (sResRef == "theeyeofmadusa")   return TRUE;
+    if (sResRef == "ls_angurvadal")    return TRUE;
+    if (sResRef == "060")              return TRUE;
+    if (sResRef == "soulrazor")        return TRUE;
+    if (sResRef == "wallofpain001")    return TRUE;
+    if (sResRef == "item094")          return TRUE;
+    if (sResRef == "009")              return TRUE;
+    if (sResRef == "crownofweathe004") return TRUE;
+    if (sResRef == "145")              return TRUE;
+    if (sResRef == "item097")          return TRUE;
+    if (sResRef == "lavaplate")        return TRUE;
+    if (sResRef == "arrowofhaldir")    return TRUE;
+    if (sResRef == "armhe011")         return TRUE;
+    if (sResRef == "glamhkama2")       return TRUE;
+    if (sResRef == "item050")          return TRUE;
+    if (sResRef == "branchofriven001") return TRUE;
+    if (sResRef == "026")              return TRUE;
+    if (sResRef == "gwathdorhelmet")   return TRUE;
+    if (sResRef == "cursedoneshelm")   return TRUE;
+    if (sResRef == "garbofthewhit001") return TRUE;
+    if (sResRef == "023")              return TRUE;
+    if (sResRef == "thedrowassassin")  return TRUE;
+    if (sResRef == "weathertoparrow")  return TRUE;
+    if (sResRef == "beltofdivinem001") return TRUE;
+    if (sResRef == "helmoftheride004") return TRUE;
+    if (sResRef == "shieldofthero003") return TRUE;
+    if (sResRef == "meshoferynlas002") return TRUE;
+    if (sResRef == "wswmls003")        return TRUE;
+    if (sResRef == "item001")          return TRUE;
+    if (sResRef == "arrowofthranduil") return TRUE;
+    if (sResRef == "runehammer5")      return TRUE;
+    if (sResRef == "hideofthefore")    return TRUE;
+    if (sResRef == "fistoftheninja")   return TRUE;
+    if (sResRef == "warhammerofth001") return TRUE;
+    if (sResRef == "ringofdangersens") return TRUE;
+    if (sResRef == "wammar048")        return TRUE;
+    if (sResRef == "cloakofmist")      return TRUE;
+    if (sResRef == "theelfboneringof") return TRUE;
+    return FALSE;
+}
+
+// Moves a single illicit item into the quarantine chest campaign DB,
+// refunds half its GP value, and notifies the player.
+void QuarantineIllicitItem(object oItem, object oPC)
+{
+    string sName  = GetName(oItem);
+    int    nValue = GetGoldPieceValue(oItem);
+    int    nComp  = nValue / 2;
+
+    string sLog = "Illicit donations item '" + sName + "' (resref: " + GetResRef(oItem)
+                + ") reclaimed from " + GetName(oPC) + "; refunded " + IntToString(nComp) + " gp.";
+
+    int nQ = GetCampaignInt("craftdb", "quarantine_count");
+    StoreCampaignObject("craftdb", "quarantine_" + IntToString(nQ), oItem);
+    SetCampaignString("craftdb", "quarantine_" + IntToString(nQ) + "_info", sLog);
+    SetCampaignInt("craftdb", "quarantine_count", nQ + 1);
+    DestroyObject(oItem);
+
+    WriteTimestampedLogEntry(sLog);
+    SendMessageToAllDMs(sLog);
+    GiveGoldToCreature(oPC, nComp);
+    SendMessageToPC(oPC,
+        "[Donations Chest] We owe you an apology. '" + sName + "' was mistakenly "
+        + "included in the Donations Chest and should never have been accessible to players. "
+        + "We have secured it in the House of Homer. As compensation for getting your hopes "
+        + "up, you have been credited " + IntToString(nComp) + " gold pieces. "
+        + "We are truly sorry for the inconvenience!");
+}
+
+// Scans all inventory and equipment slots for illicit donations items and quarantines them.
+void ScanForIllicitItems(object oPC)
+{
+    int nSlot;
+    for (nSlot = 0; nSlot < NUM_INVENTORY_SLOTS; nSlot++)
+    {
+        object oItem = GetItemInSlot(nSlot, oPC);
+        if (GetIsObjectValid(oItem) && IsIllicitDonationsItem(GetResRef(oItem)))
+            QuarantineIllicitItem(oItem, oPC);
+    }
+
+    object oItem = GetFirstItemInInventory(oPC);
+    while (GetIsObjectValid(oItem))
+    {
+        object oNext = GetNextItemInInventory(oPC);
+        if (IsIllicitDonationsItem(GetResRef(oItem)))
+            QuarantineIllicitItem(oItem, oPC);
+        oItem = oNext;
+    }
+}
+
 // --- stock the chest once per server reset ---
 void StockDonationsChest()
 {
@@ -254,6 +369,9 @@ void main()
             + "useful to help you on your way. Good luck, and may your path through "
             + "Middle-earth be legendary!");
     }
+
+    if (!GetIsDM(oPC) && GetIsPC(oPC))
+        ScanForIllicitItems(oPC);
 
     StockDonationsChest();
 }
