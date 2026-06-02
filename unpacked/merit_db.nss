@@ -42,7 +42,7 @@ void Merit_RecordLogin(object oPC)
         "INSERT INTO players(cdkey, name, last_login) VALUES(@k, @n, datetime('now'))" +
         " ON CONFLICT(cdkey) DO UPDATE SET name=excluded.name, last_login=excluded.last_login");
     SqlBindString(q, "@k", GetPCPublicCDKey(oPC));
-    SqlBindString(q, "@n", GetName(oPC));
+    SqlBindString(q, "@n", GetPCPlayerName(oPC));
     SqlStep(q);
 }
 
