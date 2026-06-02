@@ -21,10 +21,6 @@
         "type": "int",
         "value": 32
       },
-      "Comment": {
-        "type": "cexostring",
-        "value": ""
-      },
       "EnvAudio": {
         "type": "int",
         "value": 15
@@ -58,11 +54,11 @@
         "__struct_id": 8,
         "AnimationState": {
           "type": "byte",
-          "value": 0
+          "value": 1
         },
         "Appearance": {
           "type": "dword",
-          "value": 67
+          "value": 54
         },
         "AutoRemoveKey": {
           "type": "byte",
@@ -104,8 +100,8 @@
           "type": "byte",
           "value": 16
         },
-        "GenericType": {
-          "type": "byte",
+        "GenericType_New": {
+          "type": "dword",
           "value": 0
         },
         "Hardness": {
@@ -130,7 +126,7 @@
         },
         "LinkedTo": {
           "type": "cexostring",
-          "value": "JeweledDoor"
+          "value": "mirkcrypt2mEast"
         },
         "LinkedToFlags": {
           "type": "byte",
@@ -151,7 +147,6 @@
         "LocName": {
           "type": "cexolocstring",
           "value": {
-            "0": "Door",
             "id": 5349
           }
         },
@@ -197,7 +192,7 @@
         },
         "OnSpellCastAt": {
           "type": "resref",
-          "value": "close_door_fast"
+          "value": ""
         },
         "OnTrapTriggered": {
           "type": "resref",
@@ -213,11 +208,11 @@
         },
         "OpenLockDC": {
           "type": "byte",
-          "value": 0
+          "value": 18
         },
         "Plot": {
           "type": "byte",
-          "value": 0
+          "value": 1
         },
         "PortraitId": {
           "type": "word",
@@ -233,7 +228,7 @@
         },
         "TemplateResRef": {
           "type": "resref",
-          "value": "nw_door_ttr_30"
+          "value": "nw_door_ttr_25"
         },
         "TrapDetectable": {
           "type": "byte",
@@ -265,11 +260,11 @@
         },
         "X": {
           "type": "float",
-          "value": 158.0
+          "value": 149.17
         },
         "Y": {
           "type": "float",
-          "value": 33.4
+          "value": 3.93
         },
         "Z": {
           "type": "float",
@@ -439,11 +434,11 @@
               "__struct_id": 0,
               "Appearance": {
                 "type": "int",
-                "value": 158
+                "value": 1201
               },
               "CR": {
                 "type": "float",
-                "value": 45.0
+                "value": 27.0
               },
               "ResRef": {
                 "type": "resref",
@@ -458,11 +453,11 @@
               "__struct_id": 0,
               "Appearance": {
                 "type": "int",
-                "value": 158
+                "value": 159
               },
               "CR": {
                 "type": "float",
-                "value": 147.0
+                "value": 21.0
               },
               "ResRef": {
                 "type": "resref",
@@ -813,11 +808,11 @@
               "__struct_id": 0,
               "Appearance": {
                 "type": "int",
-                "value": 158
+                "value": 1201
               },
               "CR": {
                 "type": "float",
-                "value": 45.0
+                "value": 27.0
               },
               "ResRef": {
                 "type": "resref",
@@ -832,11 +827,11 @@
               "__struct_id": 0,
               "Appearance": {
                 "type": "int",
-                "value": 158
+                "value": 159
               },
               "CR": {
                 "type": "float",
-                "value": 147.0
+                "value": 21.0
               },
               "ResRef": {
                 "type": "resref",
@@ -1187,11 +1182,11 @@
               "__struct_id": 0,
               "Appearance": {
                 "type": "int",
-                "value": 158
+                "value": 1201
               },
               "CR": {
                 "type": "float",
-                "value": 45.0
+                "value": 27.0
               },
               "ResRef": {
                 "type": "resref",
@@ -1206,11 +1201,11 @@
               "__struct_id": 0,
               "Appearance": {
                 "type": "int",
-                "value": 158
+                "value": 159
               },
               "CR": {
                 "type": "float",
-                "value": 147.0
+                "value": 21.0
               },
               "ResRef": {
                 "type": "resref",
@@ -1561,11 +1556,11 @@
               "__struct_id": 0,
               "Appearance": {
                 "type": "int",
-                "value": 158
+                "value": 1201
               },
               "CR": {
                 "type": "float",
-                "value": 45.0
+                "value": 27.0
               },
               "ResRef": {
                 "type": "resref",
@@ -1580,11 +1575,11 @@
               "__struct_id": 0,
               "Appearance": {
                 "type": "int",
-                "value": 158
+                "value": 159
               },
               "CR": {
                 "type": "float",
-                "value": 147.0
+                "value": 21.0
               },
               "ResRef": {
                 "type": "resref",

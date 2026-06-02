@@ -96,8 +96,8 @@
           "type": "byte",
           "value": 16
         },
-        "GenericType": {
-          "type": "byte",
+        "GenericType_New": {
+          "type": "dword",
           "value": 0
         },
         "Hardness": {
@@ -122,7 +122,7 @@
         },
         "LinkedTo": {
           "type": "cexostring",
-          "value": "crypt2lower"
+          "value": "mirkcrypt2lower"
         },
         "LinkedToFlags": {
           "type": "byte",
@@ -143,6 +143,7 @@
         "LocName": {
           "type": "cexolocstring",
           "value": {
+            "0": "Door",
             "id": 5349
           }
         },
@@ -313,8 +314,8 @@
           "type": "byte",
           "value": 16
         },
-        "GenericType": {
-          "type": "byte",
+        "GenericType_New": {
+          "type": "dword",
           "value": 0
         },
         "Hardness": {
@@ -536,8 +537,8 @@
           "type": "byte",
           "value": 16
         },
-        "GenericType": {
-          "type": "byte",
+        "GenericType_New": {
+          "type": "dword",
           "value": 8
         },
         "Hardness": {
@@ -562,11 +563,11 @@
         },
         "LinkedTo": {
           "type": "cexostring",
-          "value": "mirke2crypt"
+          "value": ""
         },
         "LinkedToFlags": {
           "type": "byte",
-          "value": 1
+          "value": 0
         },
         "LoadScreenID": {
           "type": "word",
