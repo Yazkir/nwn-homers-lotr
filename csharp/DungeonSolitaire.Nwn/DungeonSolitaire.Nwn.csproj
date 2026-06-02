@@ -1,0 +1,40 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <!--
+    Dungeon Solitaire — NWN front-end (Anvil plugin).
+
+    Runs in-process inside the nwnxee/unified container via the NWNX:EE DotNET
+    plugin + the Anvil managed framework. References the pure C# game engine
+    (DungeonSolitaire.Core) the same way the Godot front-end does, and drives it
+    with NWN creatures/placeables/VFX instead of card sprites.
+
+    Build:   dotnet build csharp/DungeonSolitaire.Nwn -c Release
+    Deploy:  copy bin/Release/net8.0/DungeonSolitaire.Nwn.dll + DungeonSolitaire.Core.dll
+             into  <server-home>/anvil/Plugins/DungeonSolitaire/
+    The Anvil host (NWN.Anvil) is provided by the server, so it is referenced but
+    not copied to the output (Anvil's build props mark host assemblies private=false).
+  -->
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <RootNamespace>DungeonSolitaire.Nwn</RootNamespace>
+    <AssemblyName>DungeonSolitaire.Nwn</AssemblyName>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <LangVersion>latest</LangVersion>
+    <!-- Plugins are loaded by the host; do not emit a deps.json that fights Anvil's resolver. -->
+    <GenerateDependencyFile>false</GenerateDependencyFile>
+    <CopyLocalLockFileAssemblies>true</CopyLocalLockFileAssemblies>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <!-- Pin to the NWN build the nwnxee/unified image targets (8193.37). Bump to match your image. -->
+    <PackageReference Include="NWN.Anvil" Version="8193.37.3" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <!-- The game engine. Lives in the sibling repo; built and copied alongside the plugin. -->
+    <ProjectReference Include="..\..\..\Dungeon-Solitaire\DungeonSolitaire.Core\DungeonSolitaire.Core.csproj" />
+  </ItemGroup>
+
+</Project>

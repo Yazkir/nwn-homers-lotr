@@ -1,0 +1,134 @@
+{
+  "format": 1,
+  "restore": {
+    "/var/home/james/GIT/nwn_homers_lotr/csharp/DungeonSolitaire.Nwn/DungeonSolitaire.Nwn.csproj": {}
+  },
+  "projects": {
+    "/var/home/james/GIT/Dungeon-Solitaire/DungeonSolitaire.Core/DungeonSolitaire.Core.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "/var/home/james/GIT/Dungeon-Solitaire/DungeonSolitaire.Core/DungeonSolitaire.Core.csproj",
+        "projectName": "DungeonSolitaire.Core",
+        "projectPath": "/var/home/james/GIT/Dungeon-Solitaire/DungeonSolitaire.Core/DungeonSolitaire.Core.csproj",
+        "packagesPath": "/home/james/.nuget/packages/",
+        "outputPath": "/var/home/james/GIT/Dungeon-Solitaire/DungeonSolitaire.Core/obj/",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "/home/james/.nuget/NuGet/NuGet.Config"
+        ],
+        "originalTargetFrameworks": [
+          "net8.0"
+        ],
+        "sources": {
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net8.0": {
+            "targetAlias": "net8.0",
+            "projectReferences": {}
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        },
+        "restoreAuditProperties": {
+          "enableAudit": "true",
+          "auditLevel": "low",
+          "auditMode": "direct"
+        }
+      },
+      "frameworks": {
+        "net8.0": {
+          "targetAlias": "net8.0",
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48",
+            "net481"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "/var/home/james/.dotnet/sdk/8.0.420/PortableRuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "/var/home/james/GIT/nwn_homers_lotr/csharp/DungeonSolitaire.Nwn/DungeonSolitaire.Nwn.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "/var/home/james/GIT/nwn_homers_lotr/csharp/DungeonSolitaire.Nwn/DungeonSolitaire.Nwn.csproj",
+        "projectName": "DungeonSolitaire.Nwn",
+        "projectPath": "/var/home/james/GIT/nwn_homers_lotr/csharp/DungeonSolitaire.Nwn/DungeonSolitaire.Nwn.csproj",
+        "packagesPath": "/home/james/.nuget/packages/",
+        "outputPath": "/var/home/james/GIT/nwn_homers_lotr/csharp/DungeonSolitaire.Nwn/obj/",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "/home/james/.nuget/NuGet/NuGet.Config"
+        ],
+        "originalTargetFrameworks": [
+          "net8.0"
+        ],
+        "sources": {
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net8.0": {
+            "targetAlias": "net8.0",
+            "projectReferences": {
+              "/var/home/james/GIT/Dungeon-Solitaire/DungeonSolitaire.Core/DungeonSolitaire.Core.csproj": {
+                "projectPath": "/var/home/james/GIT/Dungeon-Solitaire/DungeonSolitaire.Core/DungeonSolitaire.Core.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        },
+        "restoreAuditProperties": {
+          "enableAudit": "true",
+          "auditLevel": "low",
+          "auditMode": "direct"
+        }
+      },
+      "frameworks": {
+        "net8.0": {
+          "targetAlias": "net8.0",
+          "dependencies": {
+            "NWN.Anvil": {
+              "target": "Package",
+              "version": "[8193.37.3, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48",
+            "net481"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "/var/home/james/.dotnet/sdk/8.0.420/PortableRuntimeIdentifierGraph.json"
+        }
+      }
+    }
+  }
+}
