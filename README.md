@@ -192,6 +192,28 @@ folder before any hak and is not distributed to clients via nwsync.
    short-circuit). Reverting them is optional; `git revert` the relevant commit
    if you want exact parity with the original.
 
+## Dungeon Solitaire
+
+The module embeds a playable port of the card game **Dungeon Solitaire**
+([github.com/mrprice22/Dungeon-Solitaire](https://github.com/mrprice22/Dungeon-Solitaire)
+— designed by Steven Hastings, engine by James Price) in the prepped area
+**`area017`**. The unmodified `DungeonSolitaire.Core` engine runs in-process via
+an [Anvil](https://nwn-dotnet.github.io/Anvil/) managed plugin
+(`csharp/DungeonSolitaire.Nwn`) — an NWN front-end (by James Price and Claude)
+alongside that repo's Godot and console front-ends.
+
+Cards are portrayed by NWN creatures and statues instead of sprites: a player
+pulls the **DS_NewGame** lever, then clicks ally NPCs to attack the enemy columns;
+mid-turn decisions (discard, target, effect order) pop a conversation menu, and an
+invisible narrator, **"The Dungeon"**, speaks the engine's running commentary as
+colour-coded in-game talk. The engine runs on a background thread and marshals its
+events onto Anvil's main thread, mirroring the Godot front-end's threading model.
+
+The plugin is built and deployed separately from the module (`dotnet build` →
+copy the DLLs into the server's `anvil/Plugins/`), then its GFF assets ship via
+`nwn-manager repack`. **See [`csharp/README.md`](csharp/README.md)** for the full
+how-it-plays, architecture, build, and deploy details.
+
 ## Prerequisites
 
 `nasher`, `nwn_gff`, `nwn_script_comp`, and `python3` (for `wiki`) must be

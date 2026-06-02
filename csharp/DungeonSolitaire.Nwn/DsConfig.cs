@@ -29,6 +29,22 @@ internal static class DsConfig
     /// <summary>Conversation resref opened on an ally NPC to pick a target column.</summary>
     public const string AttackDialog = "ds_attack";
 
+    /// <summary>Conversation resref popped for secondary mid-turn choices (discard, pick target, effect order, …).</summary>
+    public const string ChoiceDialog = "ds_choice";
+
+    // ── Choice-popup custom tokens (set via NWScript.SetCustomToken before each popup) ──
+    /// <summary>Custom token holding the choice prompt text (the entry node shows &lt;CUSTOM5400&gt;).</summary>
+    public const int ChoicePromptToken = 5400;
+    /// <summary>First option slot token; slot i uses ChoiceOptionTokenBase + i (5401..5410).</summary>
+    public const int ChoiceOptionTokenBase = 5401;
+    /// <summary>Token for the "next page" reply label (&lt;CUSTOM5411&gt;).</summary>
+    public const int ChoiceNextPageToken = 5411;
+    /// <summary>Option slots shown per page in the choice menu.</summary>
+    public const int ChoicePageSize = 10;
+
+    /// <summary>Seconds to wait before re-opening a choice popup the player closed without answering.</summary>
+    public const double ChoiceReopenDelay = 3.0;
+
     // ── Timing (seconds) — ported from the Godot front-end ───────────────────
     public const double LungeSeconds          = 0.30; // ally moves onto the target column
     public const double FlipSeconds           = 0.20; // statue -> creature reveal beat
@@ -49,4 +65,13 @@ internal static class DsConfig
     public const float HandSpacing = 2.0f;
 
     public const int HighScoreCount = 10;
+
+    // ── Narration ────────────────────────────────────────────────────────────
+    /// <summary>
+    /// Engine <see cref="LogLevel"/>s the narrator does NOT speak. Console parity
+    /// would be just <c>{ Debug }</c>; the extra two trim the low-priority chatter
+    /// so the talk window stays readable.
+    /// </summary>
+    public static readonly HashSet<LogLevel> SuppressedLogLevels =
+        new() { LogLevel.Debug, LogLevel.Subtle, LogLevel.ExtraInfo };
 }

@@ -183,4 +183,43 @@ internal sealed class DsManager
         if (!ActiveSpeaker || _session == null || info.ObjectSelf is not NwCreature ally) return;
         _session.SubmitUnleash(ally);
     }
+
+    // ── Secondary-choice popup (ds_choice) ───────────────────────────────────────
+    // Spoken by the session's invisible narrator and started privately for the active
+    // player, so these gate on the live session rather than the ally-click _speaker.
+    // Condition scripts ds_chc0..9 enable option slots; ds_chcnext enables paging.
+    // Action scripts ds_chs0..9 submit a choice; ds_chnext pages; ds_chend re-pops on abort.
+    [ScriptHandler("ds_chc0")] public ScriptHandleResult Chc0(CallInfo i) => SlotCond(0);
+    [ScriptHandler("ds_chc1")] public ScriptHandleResult Chc1(CallInfo i) => SlotCond(1);
+    [ScriptHandler("ds_chc2")] public ScriptHandleResult Chc2(CallInfo i) => SlotCond(2);
+    [ScriptHandler("ds_chc3")] public ScriptHandleResult Chc3(CallInfo i) => SlotCond(3);
+    [ScriptHandler("ds_chc4")] public ScriptHandleResult Chc4(CallInfo i) => SlotCond(4);
+    [ScriptHandler("ds_chc5")] public ScriptHandleResult Chc5(CallInfo i) => SlotCond(5);
+    [ScriptHandler("ds_chc6")] public ScriptHandleResult Chc6(CallInfo i) => SlotCond(6);
+    [ScriptHandler("ds_chc7")] public ScriptHandleResult Chc7(CallInfo i) => SlotCond(7);
+    [ScriptHandler("ds_chc8")] public ScriptHandleResult Chc8(CallInfo i) => SlotCond(8);
+    [ScriptHandler("ds_chc9")] public ScriptHandleResult Chc9(CallInfo i) => SlotCond(9);
+
+    [ScriptHandler("ds_chcnext")]
+    public ScriptHandleResult ChcNext(CallInfo i)
+        => _session is { IsAlive: true } && _session.ChoiceHasNextPage()
+            ? ScriptHandleResult.True : ScriptHandleResult.False;
+
+    [ScriptHandler("ds_chs0")] public void Chs0(CallInfo i) => _session?.SubmitChoiceSlot(0);
+    [ScriptHandler("ds_chs1")] public void Chs1(CallInfo i) => _session?.SubmitChoiceSlot(1);
+    [ScriptHandler("ds_chs2")] public void Chs2(CallInfo i) => _session?.SubmitChoiceSlot(2);
+    [ScriptHandler("ds_chs3")] public void Chs3(CallInfo i) => _session?.SubmitChoiceSlot(3);
+    [ScriptHandler("ds_chs4")] public void Chs4(CallInfo i) => _session?.SubmitChoiceSlot(4);
+    [ScriptHandler("ds_chs5")] public void Chs5(CallInfo i) => _session?.SubmitChoiceSlot(5);
+    [ScriptHandler("ds_chs6")] public void Chs6(CallInfo i) => _session?.SubmitChoiceSlot(6);
+    [ScriptHandler("ds_chs7")] public void Chs7(CallInfo i) => _session?.SubmitChoiceSlot(7);
+    [ScriptHandler("ds_chs8")] public void Chs8(CallInfo i) => _session?.SubmitChoiceSlot(8);
+    [ScriptHandler("ds_chs9")] public void Chs9(CallInfo i) => _session?.SubmitChoiceSlot(9);
+
+    [ScriptHandler("ds_chnext")] public void ChNext(CallInfo i) => _session?.NextChoicePage();
+    [ScriptHandler("ds_chend")]  public void ChEnd(CallInfo i)  => _session?.OnChoiceConversationEnded();
+
+    private ScriptHandleResult SlotCond(int slot)
+        => _session is { IsAlive: true } && _session.ChoiceSlotActive(slot)
+            ? ScriptHandleResult.True : ScriptHandleResult.False;
 }

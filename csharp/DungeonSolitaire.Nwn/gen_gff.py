@@ -127,5 +127,66 @@ dlg = {
 with open(os.path.join(ROOT, "ds_attack.dlg.json"), "w") as f:
     json.dump(dlg, f, indent=2)
 
+# ── ds_choice.dlg.json : generic paged popup for secondary mid-turn choices ──────
+# Spoken by the session's invisible narrator and popped by the plugin whenever the
+# engine needs a discard / target / effect-order / yes-no decision (replacing the
+# old auto-pick-first behaviour). All visible text comes from custom tokens the
+# plugin sets via NWScript.SetCustomToken before each popup, so one static dialog
+# renders any option list:
+#   <CUSTOM5400>          prompt (the InputRequest context)
+#   <CUSTOM5401..5410>    the 10 option slots of the current page
+#   <CUSTOM5411>          the "more options" pager label
+# Keep these IDs in sync with DsConfig.Choice*Token.
+PAGE = 10
+
+choice_replies = [
+    reply_node(i, "<CUSTOM%d>" % (5401 + i), "ds_chs%d" % i) for i in range(PAGE)
+]
+# "more options" loops back to the entry (index 0) so the next page redraws in place.
+choice_replies.append({
+    "__struct_id": PAGE,
+    "Animation": dw(0), "AnimLoop": by(1),
+    "Comment": cs(""), "Delay": dw(4294967295),
+    "EntriesList": lst([link(0, 0, "")]),
+    "Quest": cs(""),
+    "Script": rs("ds_chnext"),
+    "Sound": rs(""),
+    "Text": loc("<CUSTOM5411>"),
+})
+# cancel: no script, empty EntriesList -> conversation ends -> EndConv* = ds_chend.
+choice_replies.append(reply_node(PAGE + 1, "Hold — leave it for now.", ""))
+
+choice_links = [link(i, i, "ds_chc%d" % i) for i in range(PAGE)]
+choice_links.append(link(PAGE, PAGE, "ds_chcnext"))   # pager, gated by next-page check
+choice_links.append(link(PAGE + 1, PAGE + 1, ""))      # cancel always shows
+
+choice_entry = {
+    "__struct_id": 0,
+    "Animation": dw(0), "AnimLoop": by(1),
+    "Comment": cs("E_DS_CHOICE"),
+    "Delay": dw(4294967295),
+    "Quest": cs(""),
+    "RepliesList": lst(choice_links),
+    "Script": rs(""),
+    "Sound": rs(""),
+    "Text": loc("<CUSTOM5400>"),
+}
+
+choice_dlg = {
+    "__data_type": "DLG ",
+    "DelayEntry": dw(0),
+    "DelayReply": dw(0),
+    "EndConverAbort": rs("ds_chend"),    # closed/aborted -> plugin re-pops after a delay
+    "EndConversation": rs("ds_chend"),   # (distinguishes abort from answered in C#)
+    "EntryList": lst([choice_entry]),
+    "NumWords": dw(0),
+    "PreventZoomIn": by(1),
+    "ReplyList": lst(choice_replies),
+    "StartingList": lst([{"__struct_id": 0, "Active": rs(""), "Index": dw(0)}]),
+}
+with open(os.path.join(ROOT, "ds_choice.dlg.json"), "w") as f:
+    json.dump(choice_dlg, f, indent=2)
+
 print("wrote", os.path.join(ROOT, "ds_facedown.utp.json"))
 print("wrote", os.path.join(ROOT, "ds_attack.dlg.json"))
+print("wrote", os.path.join(ROOT, "ds_choice.dlg.json"))

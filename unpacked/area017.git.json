@@ -546,7 +546,7 @@
         "Description": {
           "type": "cexolocstring",
           "value": {
-            "0": "Dungeon Solitaire\n\nA solitaire dungeon-crawl card game by Homer's Quest, themed on Middle-earth.\n\nGame engine: DungeonSolitaire.Core (C#).\nNWN integration: in-process Anvil plugin (DungeonSolitaire.Nwn) running on NWNX:EE.\nCards are portrayed by the module's creatures; missing characters use a stand-in.",
+            "0": "Dungeon Solitaire \u2014 Credits\n\nA solitaire dungeon-crawl card game, themed on Middle-earth for Homer's Quest.\n\n-- GAME DESIGN --\nSteven Hastings\nConceived the game, playtested it on paper, and designed every card, ability, and rule. Design consultant throughout the digital development.\n\n-- DIGITAL DEVELOPMENT (engine) --\nJames Price\nCore engine architecture, all card-effect implementations, and testing of the digital game (DungeonSolitaire.Core, C#).\n\n-- NWN INTEGRATION --\nJames Price (Homer's Quest)\nClaude (Anthropic) \u2014 the in-process Anvil / NWNX:EE plugin (DungeonSolitaire.Nwn) that renders the board with the module's creatures and statues, the attack and choice conversations, and the narrator that speaks the game.\n\n-- AI ASSISTANCE (engine) --\nChatGPT: early development guidance and initial skeleton framework.\nClaude AI: GameEventBus event system, input command pattern (RequestInput / SubmitInput), engine refactoring, and save / replay system.\n\nCards are portrayed by the module's creatures; missing characters use a stand-in.\n\n\u2665  Thank you for playing!  \u2665",
             "id": 4294967295
           }
         },

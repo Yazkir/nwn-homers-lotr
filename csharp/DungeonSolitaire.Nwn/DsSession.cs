@@ -1,5 +1,6 @@
 using Anvil.API;
 using NLog;
+using NWN.Core;
 using NwEffect = Anvil.API.Effect;
 
 namespace DungeonSolitaire.Nwn;
@@ -30,6 +31,8 @@ internal sealed class DsSession : IGameEventListener
     private volatile bool _alive;
     private int? _pendingColumn;   // column stashed by the attack conversation, consumed on the next SelectColumn
     private bool _recorded;        // guards one-time high-score recording at game over
+    private int _choicePage;       // current page of the secondary-choice popup menu
+    private NwCreature? _narrator; // invisible speaker the secondary-choice popup is spoken by
 
     public DsSession(NwPlayer activePlayer, BoardView board, MainThreadDispatcher dispatcher,
                      HighScoreStore scores, System.Action onEnded)
@@ -51,6 +54,14 @@ internal sealed class DsSession : IGameEventListener
         GameEventBus.Subscribe(this);
         Board.OnAllySpawned += OnAllyCreatureSpawned;
         Board.Sync(_engine);
+
+        // Bring the narrator on stage and relay the engine's GameLogger commentary
+        // through it as spoken talk. Start() runs on the main thread, so creating
+        // the narrator here is safe. The hook fires on the engine thread (see
+        // OnEngineLog), and Teardown() clears it again.
+        if (ActivePlayer.ControlledCreature?.Location is { } here) EnsureNarrator(here);
+        GameLogger.Log = OnEngineLog;
+
         Announce($"{ActivePlayerName} sits down to a game of Dungeon Solitaire.");
         MessageActive("Click one of your allies to send it into battle.");
 
@@ -76,12 +87,15 @@ internal sealed class DsSession : IGameEventListener
     {
         if (!_alive && _thread == null) return;
         _alive = false;
+        GameLogger.Log = (_, _) => { };   // stop relaying engine logs before the narrator is destroyed
         GameEventBus.Unsubscribe(this);
         Board.OnAllySpawned -= OnAllyCreatureSpawned;
         // Unblock the engine thread if it is parked on input or effect ack so it can exit.
         try { _engine?.SubmitInput(GameCommand.Confirm); } catch { /* not waiting */ }
         try { _engine?.AcknowledgeEffect(); } catch { /* not waiting */ }
         _thread = null;
+        if (_narrator is { IsValid: true }) _narrator.Destroy();
+        _narrator = null;
         Board.Clear();
     }
 
@@ -221,11 +235,159 @@ internal sealed class DsSession : IGameEventListener
                 break;
 
             default:
-                // Secondary effect-driven choices (discard / pick target / effect order) auto-resolve
-                // with the first option so the vertical slice plays through; see plan's known limitations.
-                _dispatcher.Enqueue(() => _engine.SubmitInput(new GameCommand(0)));
+                // Secondary effect-driven choices (discard / pick target / effect order / yes-no):
+                // pop a conversation so the player decides, rather than auto-picking option 0.
+                // Engine is blocked here, so the request's option lists are safe to read.
+                _dispatcher.Enqueue(() => { _choicePage = 0; PromptCurrentChoice(); });
                 break;
         }
+    }
+
+    // ── Secondary-choice popup (called on the main thread) ───────────────────────
+    private static bool IsSecondaryChoice(InputRequest? req) => req != null && req.Type is
+        InputType.SelectCardFromHand or InputType.SelectCardFromGraveyard or
+        InputType.SelectEnemy or InputType.SelectEffect or InputType.SelectChoice;
+
+    private static int OptionCount(InputRequest req) => req.Type switch
+    {
+        InputType.SelectEffect => req.EffectOptions?.Count ?? 0,
+        InputType.SelectChoice => req.StringOptions?.Count ?? 0,
+        _                      => req.CardOptions?.Count ?? 0,
+    };
+
+    private static List<string> OptionLabels(InputRequest req)
+    {
+        var labels = new List<string>();
+        switch (req.Type)
+        {
+            case InputType.SelectEffect:
+                foreach (CardEffect ce in req.EffectOptions ?? new List<CardEffect>())
+                    labels.Add($"{ce.effect.name}  — {ce.card.name}");
+                break;
+            case InputType.SelectChoice:
+                labels.AddRange(req.StringOptions ?? new List<string>());
+                break;
+            default:
+                bool asEnemy = req.ShowCardsAsEnemies || req.Type == InputType.SelectEnemy;
+                foreach (Card c in req.CardOptions ?? new List<Card>())
+                    labels.Add(CardCreatureMap.ChoiceLabel(c, asEnemy));
+                break;
+        }
+        return labels;
+    }
+
+    /// <summary>Open (or re-open) the choice popup for whatever secondary input the engine is awaiting.</summary>
+    private void PromptCurrentChoice()
+    {
+        InputRequest? req = _engine?.PendingInput;
+        if (!IsSecondaryChoice(req) || !ActivePlayer.IsValid
+            || ActivePlayer.ControlledCreature is not { IsValid: true } pc) return;
+
+        int count = OptionCount(req!);
+        int pages = Math.Max(1, (count + DsConfig.ChoicePageSize - 1) / DsConfig.ChoicePageSize);
+        if (_choicePage >= pages) _choicePage = 0;
+
+        RefreshChoiceTokens(req!);
+
+        NwCreature speaker = EnsureNarrator(pc.Location!);
+        ActivePlayer.ActionStartConversation(speaker, DsConfig.ChoiceDialog, true, false);
+    }
+
+    /// <summary>Set the prompt / per-slot / next-page custom tokens for the current page.</summary>
+    private void RefreshChoiceTokens(InputRequest req)
+    {
+        List<string> labels = OptionLabels(req);
+        int start = _choicePage * DsConfig.ChoicePageSize;
+        NWScript.SetCustomToken(DsConfig.ChoicePromptToken,
+            string.IsNullOrWhiteSpace(req.Context) ? "Make a choice:" : req.Context);
+        for (int i = 0; i < DsConfig.ChoicePageSize; i++)
+        {
+            int abs = start + i;
+            string text = abs < labels.Count ? $"{abs + 1}. {labels[abs]}" : "";
+            NWScript.SetCustomToken(DsConfig.ChoiceOptionTokenBase + i, text);
+        }
+        bool hasNext = labels.Count > (_choicePage + 1) * DsConfig.ChoicePageSize;
+        NWScript.SetCustomToken(DsConfig.ChoiceNextPageToken, hasNext ? "(more options…)" : "");
+    }
+
+    private NwCreature EnsureNarrator(Location at)
+    {
+        if (_narrator is { IsValid: true } existing)
+        {
+            existing.Location = at;     // co-locate with the PC so ActionStartConversation never walks
+            return existing;
+        }
+        NwCreature? c = NwCreature.Create(CardCreatureMap.Placeholder, at, false, "ds_narrator");
+        _narrator = c;
+        if (c != null)
+        {
+            c.Name = "The Dungeon";
+            c.PlotFlag = true;
+            c.Immortal = true;
+            if (NwFaction.FromStandardFaction(StandardFaction.Commoner) is { } commoner)
+                c.Faction = commoner;
+            c.ApplyEffect(EffectDuration.Permanent, NwEffect.Invisibility(InvisibilityType.Normal));
+        }
+        return c!;
+    }
+
+    // ── Choice handshake (called on the main thread from DsManager's ds_ch* handlers) ──
+    /// <summary>True while the engine is blocked awaiting a secondary choice.</summary>
+    public bool IsAwaitingChoice => IsSecondaryChoice(_engine?.PendingInput);
+
+    /// <summary>Is option <paramref name="slot"/> on the current page within range?</summary>
+    public bool ChoiceSlotActive(int slot)
+    {
+        InputRequest? req = _engine?.PendingInput;
+        return IsSecondaryChoice(req) && _choicePage * DsConfig.ChoicePageSize + slot < OptionCount(req!);
+    }
+
+    /// <summary>Are there more options beyond the current page?</summary>
+    public bool ChoiceHasNextPage()
+    {
+        InputRequest? req = _engine?.PendingInput;
+        return IsSecondaryChoice(req) && OptionCount(req!) > (_choicePage + 1) * DsConfig.ChoicePageSize;
+    }
+
+    /// <summary>Resolve the engine input with the option in the given on-screen slot.</summary>
+    public void SubmitChoiceSlot(int slot)
+    {
+        InputRequest? req = _engine?.PendingInput;
+        if (!IsSecondaryChoice(req)) return;
+        int abs = _choicePage * DsConfig.ChoicePageSize + slot;
+        if (abs < 0 || abs >= OptionCount(req!)) return;
+        _choicePage = 0;
+        _engine!.SubmitInput(new GameCommand(abs));
+    }
+
+    /// <summary>Advance the menu to the next page (the "more options" reply loops back to the entry).</summary>
+    public void NextChoicePage()
+    {
+        InputRequest? req = _engine?.PendingInput;
+        if (!IsSecondaryChoice(req)) return;
+        _choicePage++;
+        RefreshChoiceTokens(req!);   // entry redisplays after this handler returns; refresh now so it reads the new page
+    }
+
+    /// <summary>
+    /// Fired when the choice conversation closes (normal end or abort). If the engine is
+    /// still blocked on the very same request a few seconds later, the player closed it
+    /// without answering — re-open it. A real selection advances the engine (PendingInput
+    /// becomes a different request), so this is a no-op there.
+    /// </summary>
+    public void OnChoiceConversationEnded()
+    {
+        InputRequest? req = _engine?.PendingInput;
+        if (!IsSecondaryChoice(req)) return;
+        _dispatcher.Enqueue(async () =>
+        {
+            await NwTask.Delay(TimeSpan.FromSeconds(DsConfig.ChoiceReopenDelay));
+            if (_alive && ReferenceEquals(_engine?.PendingInput, req))
+            {
+                _choicePage = 0;
+                PromptCurrentChoice();
+            }
+        });
     }
 
     private void PlayEffectVfx(Card? source, string? effectName)
@@ -238,6 +400,31 @@ internal sealed class DsSession : IGameEventListener
 
     /// <summary>DsManager wires this to attach its OnConversation handler to each new ally NPC.</summary>
     public System.Action<NwCreature>? AllyConversationHook { get; set; }
+
+    // ── Engine log relay (GameLogger.Log fires on the engine background thread) ──
+    /// <summary>
+    /// Relay an engine log line to the narrator as spoken talk. Marshals onto the
+    /// main thread via the dispatcher (in emission order, so narration interleaves
+    /// correctly with the paced VFX/Sync beats). Suppressed levels are dropped;
+    /// banners that span multiple lines are spoken one line at a time.
+    /// </summary>
+    private void OnEngineLog(LogLevel level, string message)
+    {
+        if (DsConfig.SuppressedLogLevels.Contains(level)) return;
+        Color color = LogColors.ForLevel(level);
+        foreach (string raw in message.Split('\n'))
+        {
+            string line = raw.Trim();
+            if (line.Length == 0) continue;
+            string spoken = line.ColorString(color);
+            _dispatcher.Enqueue(() => Narrate(spoken));
+        }
+    }
+
+    private void Narrate(string text)
+    {
+        if (_alive && _narrator is { IsValid: true } n) n.SpeakString(text);
+    }
 
     // ── Messaging ───────────────────────────────────────────────────────────────
     private void MessageActive(string msg)

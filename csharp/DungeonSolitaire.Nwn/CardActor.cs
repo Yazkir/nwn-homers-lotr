@@ -1,4 +1,5 @@
 using Anvil.API;
+using Anvil.API.Events;
 using NwEffect = Anvil.API.Effect;
 
 namespace DungeonSolitaire.Nwn;
@@ -14,6 +15,9 @@ internal sealed class CardActor
     public Card Card { get; }
     public NwGameObject? Obj { get; private set; }
     public bool IsStatue { get; private set; }
+
+    /// <summary>The current HP we last asserted on the creature; re-applied if the player damages it.</summary>
+    public int DesiredHp { get; private set; }
 
     public NwCreature? Creature => Obj as NwCreature;
 
@@ -43,7 +47,7 @@ internal sealed class CardActor
         Obj = c;
         if (c == null) return;
 
-        c.Name = Card.name;
+        c.Name = CardCreatureMap.BuildName(Card);
         c.Description = CardCreatureMap.BuildDescription(Card);
 
         // Inert "card" creature: never dies, never wanders, never fights.
@@ -65,18 +69,48 @@ internal sealed class CardActor
             c.DialogResRef = DsConfig.AttackDialog;
         }
 
+        // Map the card's life onto NWN HP so the engine's "badly wounded" / "near death"
+        // states reflect card health, and snap HP back if the player ever damages the card.
+        RefreshHealth();
+        c.OnDamaged += RevertDamage;
+
         if (playAppearVfx)
             c.ApplyEffect(EffectDuration.Instant, NwEffect.VisualEffect(Vfx.Appear));
     }
 
-    /// <summary>Refresh the displayed name/description from the (possibly mutated) card.</summary>
+    /// <summary>Refresh the displayed name/description and HP from the (possibly mutated) card.</summary>
     public void RefreshText()
     {
         if (Creature is { IsValid: true } c)
         {
-            c.Name = Card.name;
+            c.Name = CardCreatureMap.BuildName(Card);
             c.Description = CardCreatureMap.BuildDescription(Card);
+            RefreshHealth();
         }
+    }
+
+    /// <summary>
+    /// Set the creature's current HP to the card's life ratio against its natural max,
+    /// so NWN's health bar / wounded states track the card. Clamped to [1, MaxHP]
+    /// (dead cards are removed by BoardView.Sync; Immortal keeps the creature alive
+    /// regardless). This is the engine-authoritative value we revert to on damage.
+    /// </summary>
+    public void RefreshHealth()
+    {
+        if (Creature is not { IsValid: true } c) return;
+        int max = c.MaxHP;
+        if (max <= 0) return;
+        float ratio = Card.maxHealth > 0 ? (float)Card.currentHealth / Card.maxHealth : 1f;
+        int target = (int)Math.Round(max * ratio);
+        target = Math.Clamp(target, 1, max);
+        DesiredHp = target;
+        if (c.HP != target) c.HP = target;
+    }
+
+    private void RevertDamage(CreatureEvents.OnDamaged evt)
+    {
+        if (Creature is { IsValid: true } c && c.HP != DesiredHp)
+            c.HP = DesiredHp;
     }
 
     public void Destroy()

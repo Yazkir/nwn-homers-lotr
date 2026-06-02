@@ -78,6 +78,33 @@ internal static class CardCreatureMap
         => card?.name != null && ByName.TryGetValue(card.name, out string? rr) ? rr : Placeholder;
 
     /// <summary>
+    /// Display name for the spawned NPC: the card name with its current life in
+    /// parentheses, e.g. "Lurtz (HP 3/6)". Enemies show current/max; allies (no
+    /// in-play damage) show their max. The NWN health bar / "badly wounded" tint is
+    /// driven separately by the creature's HP (see CardActor.RefreshHealth).
+    /// </summary>
+    public static string BuildName(Card card)
+    {
+        bool isEnemy = card.columnIndex >= 0;
+        return isEnemy
+            ? $"{card.name} (HP {card.currentHealth}/{card.maxHealth})"
+            : $"{card.name} (HP {card.maxHealth})";
+    }
+
+    /// <summary>
+    /// One-line label for this card as a row in the secondary-choice popup menu.
+    /// <paramref name="asEnemy"/> mirrors InputRequest.ShowCardsAsEnemies — show the
+    /// enemy-style current/max HP rather than the ally-style attack line.
+    /// </summary>
+    public static string ChoiceLabel(Card card, bool asEnemy)
+    {
+        bool enemy = asEnemy || card.columnIndex >= 0;
+        return enemy
+            ? $"{card.name}  (HP {card.currentHealth}/{card.maxHealth}, Atk {card.baseAttack})"
+            : $"{card.name}  (Atk {card.baseAttack}, HP {card.maxHealth})";
+    }
+
+    /// <summary>
     /// Full card text for the spawned NPC's description. Shown when the player
     /// examines the creature — this replaces the printed card face.
     /// </summary>

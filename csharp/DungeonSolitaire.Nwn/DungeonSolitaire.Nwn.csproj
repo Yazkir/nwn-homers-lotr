@@ -30,6 +30,10 @@
   <ItemGroup>
     <!-- Pin to the NWN build the nwnxee/unified image targets (8193.37). Bump to match your image. -->
     <PackageReference Include="NWN.Anvil" Version="8193.37.3" />
+    <!-- Raw NWScript (NWScript.SetCustomToken for dynamic dialog text). Anvil depends on
+         NWN.Core but excludes its Compile assets, so reference it compile-only here; the
+         Anvil host supplies the assembly at runtime (ExcludeAssets=runtime → not copied). -->
+    <PackageReference Include="NWN.Core" Version="8193.37.4" ExcludeAssets="runtime" />
   </ItemGroup>
 
   <ItemGroup>
