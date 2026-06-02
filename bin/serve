@@ -40,15 +40,15 @@ if podman container exists "$NWN_CONTAINER_NAME" 2>/dev/null; then
   podman rm -f "$NWN_CONTAINER_NAME" >/dev/null 2>&1 || true
 fi
 
-# Build the env-var list. Only NWN_ prefixed vars and NWNX_ prefixed vars
-# are forwarded — intentional, so accidental shell vars don't leak in.
+# Build the env-var list. Only NWN_, NWNX_ and ANVIL_ prefixed vars are
+# forwarded — intentional, so accidental shell vars don't leak in.
 env_files=("$ENV_FILE")
 [[ -f $LOCAL_ENV_FILE ]] && env_files+=("$LOCAL_ENV_FILE")
 env_args=()
 while IFS='=' read -r k _; do
   case "$k" in
     NWN_IMAGE|NWN_CONTAINER_NAME|NWN_RUN_DIR|NWN_HOME_DIR) continue ;;
-    TZ|NWN_*|NWNX_*) env_args+=(-e "$k=${!k}") ;;
+    TZ|NWN_*|NWNX_*|ANVIL_*) env_args+=(-e "$k=${!k}") ;;
   esac
 done < <(cat "${env_files[@]}" | grep -E '^[A-Z_][A-Z0-9_]*=')
 
