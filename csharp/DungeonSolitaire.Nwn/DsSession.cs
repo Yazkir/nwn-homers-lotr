@@ -29,6 +29,7 @@ internal sealed class DsSession : IGameEventListener
     private Thread? _thread;
     private volatile bool _alive;
     private int? _pendingColumn;   // column stashed by the attack conversation, consumed on the next SelectColumn
+    private bool _recorded;        // guards one-time high-score recording at game over
 
     public DsSession(NwPlayer activePlayer, BoardView board, MainThreadDispatcher dispatcher,
                      HighScoreStore scores, System.Action onEnded)
@@ -140,12 +141,12 @@ internal sealed class DsSession : IGameEventListener
                 if (e.PacingRequired)
                     _dispatcher.Enqueue(async () =>
                     {
+                        // Safe to read engine state: it is blocked awaiting this effect's ack.
+                        Board.Sync(_engine);
                         PlayEffectVfx(src, fx);
                         await NwTask.Delay(TimeSpan.FromSeconds(DsConfig.EffectActivatedPause));
                         _engine.AcknowledgeEffect();
                     });
-                else
-                    _dispatcher.Enqueue(() => PlayEffectVfx(src, fx));
                 break;
             }
 
@@ -169,30 +170,11 @@ internal sealed class DsSession : IGameEventListener
                 break;
             }
 
-            case GameEventType.CardRevealed:
-            case GameEventType.CardZoneChanged:
-            case GameEventType.CardRepositioned:
-            case GameEventType.CardHealed:
-                _dispatcher.Enqueue(() => Board.Sync(_engine));
-                break;
-
-            case GameEventType.GameWon:
-                _dispatcher.Enqueue(() =>
-                {
-                    Board.Sync(_engine);
-                    _scores.Record(ActivePlayerName, _engine.Score, _engine.turn, true);
-                    Announce($"Victory! {ActivePlayerName} cleared the dungeon — score {_engine.Score}.");
-                });
-                break;
-
-            case GameEventType.GameLost:
-                _dispatcher.Enqueue(() =>
-                {
-                    Board.Sync(_engine);
-                    _scores.Record(ActivePlayerName, _engine.Score, _engine.turn, false);
-                    Announce($"Defeat. {ActivePlayerName} fell to the dungeon — score {_engine.Score}.");
-                });
-                break;
+            // CardRevealed / CardZoneChanged / CardRepositioned / CardHealed fire while the
+            // engine thread is still running, so we do NOT read engine state here. The board
+            // is reconciled at the next safe point (paced effect beat, turn-end, game-over),
+            // where the engine is provably blocked. Win/loss is likewise finalised in the
+            // turn-end handler, the first point after game over where the engine is parked.
         }
     }
 
@@ -201,8 +183,13 @@ internal sealed class DsSession : IGameEventListener
         switch (req.Type)
         {
             case InputType.SelectAlly:
+                // Engine is blocked here — safe to reconcile the board to the new turn's state.
                 // Resolved by the player clicking an ally NPC (see DsManager conversation handlers).
-                _dispatcher.Enqueue(() => MessageActive("Click an ally to send it into battle."));
+                _dispatcher.Enqueue(() =>
+                {
+                    Board.Sync(_engine);
+                    MessageActive("Click an ally to send it into battle.");
+                });
                 break;
 
             case InputType.SelectColumn:
@@ -218,8 +205,17 @@ internal sealed class DsSession : IGameEventListener
             case InputType.AcknowledgeTurnEnd:
                 _dispatcher.Enqueue(async () =>
                 {
-                    Board.Sync(_engine);
-                    await NwTask.Delay(TimeSpan.FromSeconds(DsConfig.TurnEndHold));
+                    Board.Sync(_engine);                       // engine blocked here — safe snapshot
+                    bool over = _engine.IsWin || _engine.IsLoss;
+                    if (over && !_recorded)
+                    {
+                        _recorded = true;
+                        _scores.Record(ActivePlayerName, _engine.Score, _engine.turn, _engine.IsWin);
+                        Announce(_engine.IsWin
+                            ? $"Victory! {ActivePlayerName} cleared the dungeon — score {_engine.Score}."
+                            : $"Defeat. {ActivePlayerName} fell to the dungeon — score {_engine.Score}.");
+                    }
+                    await NwTask.Delay(TimeSpan.FromSeconds(over ? DsConfig.GameOverHold : DsConfig.TurnEndHold));
                     _engine.SubmitInput(GameCommand.Confirm);
                 });
                 break;

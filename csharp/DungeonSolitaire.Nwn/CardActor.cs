@@ -49,8 +49,9 @@ internal sealed class CardActor
         // Inert "card" creature: never dies, never wanders, never fights.
         c.PlotFlag = true;
         c.Immortal = true;
-        c.SetIsDestroyable(false, false, true);
-        c.Faction = NwFaction.FromStandardFaction(StandardFaction.Commoner);
+        c.IsDestroyable = false;
+        if (NwFaction.FromStandardFaction(StandardFaction.Commoner) is { } commoner)
+            c.Faction = commoner;
 
         bool isEnemy = Card.columnIndex >= 0;
         if (isEnemy)
