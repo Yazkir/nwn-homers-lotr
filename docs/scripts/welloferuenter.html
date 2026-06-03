@@ -1,0 +1,247 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Script welloferuenter</title>
+  <link rel="stylesheet" href="../assets/style.css">
+  <link rel="stylesheet" href="../assets/theme.css">
+  <link rel="icon" href="../assets/favicon.png">
+</head>
+<body>
+  <header class="site-header">
+    <a class="brand" href="../index.html"><img class="site-header-img" src="../assets/header.png" alt="Home"></a>
+    <nav>
+      <a href="../index.html">Map</a>
+      <a href="../areas/index.html">Areas</a>
+      <div class="nav-dropdown">
+        <span class="nav-dropdown-label">Creatures &#9660;</span>
+        <div class="nav-dropdown-menu">
+          <a href="../creatures/index.html">All Creatures</a>
+          <a href="../creatures/by-area/index.html">By Area</a>
+          <a href="../creatures/by-cr/index.html">By Challenge Rating</a>
+          <a href="../creatures/by-race/index.html">By Race</a>
+        </div>
+      </div>
+      <div class="nav-dropdown">
+        <span class="nav-dropdown-label">Items &#9660;</span>
+        <div class="nav-dropdown-menu">
+          <a href="../items/index.html">Accessible</a>
+          <a href="../items/inaccessible/index.html">Inaccessible</a>
+          <a href="../items/properties/index.html">By Property</a>
+          <a href="../items/search.html">Search</a>
+        </div>
+      </div>
+      <a href="../stores/index.html">Stores</a>
+      <a href="../conversations/index.html">Conversations</a>
+      <a href="../factions.html">Factions</a>
+      <a href="../quests/index.html">Quests</a>
+      <a href="../activity.html">Activity</a>
+      <div class="nav-dropdown"><span class="nav-dropdown-label">Documents &#9660;</span><div class="nav-dropdown-menu"><a href="../manual/LevelingGuide.html">Leveling Guide</a>
+<a href="../manual/MeaningWave.html">MeaningWave: A Guide to the Guides</a>
+<a href="../manual/Quest Ideas.html">Quest Ideas (Draft Concepts)</a>
+<a href="../manual/QuestGuide.html">Quest Guide</a></div></div>
+    </nav>
+  </header>
+  <main>
+<h1>Script: <code>welloferuenter</code></h1><pre class="nss-source"><code>// Well of Eru OnEnter
+// - Sends a welcome message and gives 3000 starter XP to brand-new characters.
+// - Stocks the Donations Chest once per server reset with:
+//     * Loot from a randomly selected good-side city (Guardian of Light list)
+//     * Loot from a randomly selected evil-side city (Guardian of Darkness list)
+//     * Two random bonus items drawn from the obtainable custom item pool
+#include &quot;_inc_donations&quot;
+
+// Creates an item and immediately identifies it.
+object CreateIDItem(string sResRef, object oTarget, int nStackSize = 1)
+{
+    object oItem = CreateItemOnObject(sResRef, oTarget, nStackSize);
+    SetIdentified(oItem, TRUE);
+    return oItem;
+}
+
+// --- helper: good-side city loot ---
+void SpawnGoodCityLoot(object oChest, int nCity)
+{
+    switch (nCity)
+    {
+        case 0: // Gondor
+            // Gondorian Bowman (8) vs Epic Gondorian Guardsman (2)
+            if (Random(2) == 0)
+                CreateIDItem(&quot;boltoftheblackel&quot;, oChest, 99);
+            else {
+                CreateIDItem(&quot;nw_it_mpotion009&quot;, oChest);
+                CreateIDItem(&quot;nw_it_mpotion016&quot;, oChest);
+            }
+            break;
+
+        case 1: // Helms Deep
+            // Helm&#x27;s Deep Elite Guard (6) vs Defender of the Deep (6)
+            if (Random(2) == 0) {
+                CreateIDItem(&quot;nw_it_mpotion003&quot;, oChest, 2);
+                CreateIDItem(&quot;nw_it_mpotion009&quot;, oChest, 2);
+            } else
+                CreateIDItem(&quot;012&quot;, oChest);      // Helm of the Defender
+            break;
+
+        case 2: // Rivendell
+            // Forest Guardian of Rivendell (6)
+            CreateIDItem(&quot;eyesoftheforest&quot;, oChest);
+            CreateIDItem(&quot;nw_it_mbelt021&quot;,  oChest);
+            break;
+
+        case 3: // Lothlorien
+            // Galadhrim Arcane Archer (12) vs Galadhrim Shield Guardian (11)
+            if (Random(2) == 0)
+                CreateIDItem(&quot;wammar029&quot;, oChest, 99);    // Cold Arrows
+            else {
+                CreateIDItem(&quot;nw_it_mpotion016&quot;, oChest);
+                CreateIDItem(&quot;nw_it_mpotion005&quot;, oChest);
+            }
+            break;
+
+        case 4: // Edoras
+            // Ridermark Guardian (8)
+            CreateIDItem(&quot;nw_it_mpotion012&quot;, oChest);
+            CreateIDItem(&quot;nw_it_mpotion015&quot;, oChest);
+            CreateIDItem(&quot;nw_it_mpotion009&quot;, oChest);
+            CreateIDItem(&quot;nw_it_mpotion016&quot;, oChest);
+            break;
+    }
+}
+
+// --- helper: evil-side city loot ---
+void SpawnEvilCityLoot(object oChest, int nCity)
+{
+    switch (nCity)
+    {
+        case 0: // Morannan / Black Gate
+            // Archer of Mordor (12)
+            CreateIDItem(&quot;wammar055&quot;, oChest, 99);        // Mordor Slayers
+            break;
+
+        case 1: // Isengard
+            // Dunlending Shock Trooper (5)
+            CreateIDItem(&quot;nw_it_mpotion004&quot;, oChest);
+            CreateIDItem(&quot;nw_it_mpotion003&quot;, oChest);
+            CreateIDItem(&quot;nw_it_mpotion014&quot;, oChest);
+            CreateIDItem(&quot;gauntletsofdexte&quot;, oChest);     // Gauntlets of Dex +6
+            break;
+
+        case 2: // Cirith Ungol
+            // Mordor Orc Snaker (4) vs Mordor Slaughterer (3)
+            CreateIDItem(&quot;nw_it_mpotion015&quot;, oChest);
+            CreateIDItem(&quot;nw_it_mpotion003&quot;, oChest);
+            if (Random(2) == 0)
+                CreateIDItem(&quot;mordoraxe&quot;, oChest);
+            break;
+
+        case 3: // Carn Dum
+            // Black Numenorean Militia (6)
+            CreateIDItem(&quot;nw_it_mpotion009&quot;, oChest);
+            CreateIDItem(&quot;nw_it_mpotion013&quot;, oChest);
+            break;
+    }
+}
+
+// Moves a single illicit item into the quarantine chest campaign DB,
+// refunds 5x its GP value, and notifies the player.
+void QuarantineIllicitItem(object oItem, object oPC)
+{
+    string sName  = GetName(oItem);
+    int    nValue = GetGoldPieceValue(oItem);
+    int    nComp  = nValue * 5;
+
+    string sLog = &quot;Illicit donations item &#x27;&quot; + sName + &quot;&#x27; (resref: &quot; + GetResRef(oItem)
+                + &quot;) reclaimed from &quot; + GetName(oPC) + &quot;; refunded &quot; + IntToString(nComp) + &quot; gp (5x value).&quot;;
+
+    int nQ = GetCampaignInt(&quot;craftdb&quot;, &quot;quarantine_count&quot;);
+    StoreCampaignObject(&quot;craftdb&quot;, &quot;quarantine_&quot; + IntToString(nQ), oItem);
+    SetCampaignString(&quot;craftdb&quot;, &quot;quarantine_&quot; + IntToString(nQ) + &quot;_info&quot;, sLog);
+    SetCampaignInt(&quot;craftdb&quot;, &quot;quarantine_count&quot;, nQ + 1);
+    DestroyObject(oItem);
+
+    WriteTimestampedLogEntry(sLog);
+    SendMessageToAllDMs(sLog);
+    GiveGoldToCreature(oPC, nComp);
+    SendMessageToPC(oPC,
+        &quot;[Donations Chest] We owe you an apology. &#x27;&quot; + sName + &quot;&#x27; was mistakenly &quot;
+        + &quot;included in the Donations Chest and should never have been accessible to players. &quot;
+        + &quot;We have secured it in the House of Homer. As compensation for the emotional damage &quot;
+        + &quot;of losing such great gear, you have been credited &quot; + IntToString(nComp) + &quot; gold pieces &quot;
+        + &quot;(5x its appraised value). We are truly sorry for the inconvenience!&quot;);
+}
+
+// Scans all inventory and equipment slots for illicit donations items and quarantines them.
+void ScanForIllicitItems(object oPC)
+{
+    int nSlot;
+    for (nSlot = 0; nSlot &lt; NUM_INVENTORY_SLOTS; nSlot++)
+    {
+        object oItem = GetItemInSlot(nSlot, oPC);
+        if (GetIsObjectValid(oItem) &amp;&amp; IsIllicitDonationsItem(GetResRef(oItem)))
+            QuarantineIllicitItem(oItem, oPC);
+    }
+
+    object oItem = GetFirstItemInInventory(oPC);
+    while (GetIsObjectValid(oItem))
+    {
+        object oNext = GetNextItemInInventory(oPC);
+        if (IsIllicitDonationsItem(GetResRef(oItem)))
+            QuarantineIllicitItem(oItem, oPC);
+        oItem = oNext;
+    }
+}
+
+// --- stock the chest once per server reset ---
+void StockDonationsChest()
+{
+    object oMod = GetModule();
+    if (GetLocalInt(oMod, &quot;DONATIONS_STOCKED&quot;)) return;
+    SetLocalInt(oMod, &quot;DONATIONS_STOCKED&quot;, 1);
+
+    object oChest = GetObjectByTag(&quot;x2_easy_Chest2ff&quot;);
+    if (!GetIsObjectValid(oChest)) return;
+
+    // Random good-side city: 0=Gondor 1=Helms Deep 2=Rivendell 3=Lothlorien 4=Edoras
+    SpawnGoodCityLoot(oChest, Random(5));
+    // Random evil-side city: 0=Black Gate 1=Isengard 2=Cirith Ungol 3=Carn Dum
+    SpawnEvilCityLoot(oChest, Random(4));
+
+    // Two distinct bonus items from the full 200k-500k custom item pool
+    int nPoolSize = BONUS_POOL_SIZE;
+    int nPick1 = Random(nPoolSize);
+    int nPick2 = Random(nPoolSize - 1);
+    if (nPick2 &gt;= nPick1) nPick2++;     // guarantee nPick2 != nPick1
+
+    string sItem1 = GetBonusItemResref(nPick1);
+    string sItem2 = GetBonusItemResref(nPick2);
+    if (sItem1 != &quot;&quot;) CreateIDItem(sItem1, oChest, GetBonusItemStackSize(nPick1));
+    if (sItem2 != &quot;&quot;) CreateIDItem(sItem2, oChest, GetBonusItemStackSize(nPick2));
+}
+
+void main()
+{
+    object oPC = GetEnteringObject();
+
+    // Starter XP + welcome message for brand-new characters
+    if (!GetIsDM(oPC) &amp;&amp; GetXP(oPC) == 0)
+    {
+        GiveXPToCreature(oPC, 3000);
+        SendMessageToPC(oPC, &quot;Welcome to Homer&#x27;s Legendary Lord of the Rings!&quot;);
+        SendMessageToPC(oPC, &quot;The light of Eru smiles upon you, new adventurer. &quot;
+            + &quot;You have been granted 3000 experience points to begin your journey. &quot;
+            + &quot;Check the Donations Chest near the Well Mart — it may hold something &quot;
+            + &quot;useful to help you on your way. Good luck, and may your path through &quot;
+            + &quot;Middle-earth be legendary!&quot;);
+    }
+
+    if (!GetIsDM(oPC) &amp;&amp; GetIsPC(oPC))
+        ScanForIllicitItems(oPC);
+
+    StockDonationsChest();
+}
+</code></pre>
+  </main>
+  <footer>generated by <a href="https://github.com/mrprice22/nwn-manager">nwn-manager</a> &mdash; last updated Jun 3, 2026 12:42</footer>
+</body>
+</html>

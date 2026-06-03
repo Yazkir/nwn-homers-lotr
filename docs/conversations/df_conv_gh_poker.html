@@ -1,0 +1,193 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Conversation df_conv_gh_poker</title>
+  <link rel="stylesheet" href="../assets/style.css">
+  <link rel="stylesheet" href="../assets/theme.css">
+  <link rel="icon" href="../assets/favicon.png">
+</head>
+<body>
+  <header class="site-header">
+    <a class="brand" href="../index.html"><img class="site-header-img" src="../assets/header.png" alt="Home"></a>
+    <nav>
+      <a href="../index.html">Map</a>
+      <a href="../areas/index.html">Areas</a>
+      <div class="nav-dropdown">
+        <span class="nav-dropdown-label">Creatures &#9660;</span>
+        <div class="nav-dropdown-menu">
+          <a href="../creatures/index.html">All Creatures</a>
+          <a href="../creatures/by-area/index.html">By Area</a>
+          <a href="../creatures/by-cr/index.html">By Challenge Rating</a>
+          <a href="../creatures/by-race/index.html">By Race</a>
+        </div>
+      </div>
+      <div class="nav-dropdown">
+        <span class="nav-dropdown-label">Items &#9660;</span>
+        <div class="nav-dropdown-menu">
+          <a href="../items/index.html">Accessible</a>
+          <a href="../items/inaccessible/index.html">Inaccessible</a>
+          <a href="../items/properties/index.html">By Property</a>
+          <a href="../items/search.html">Search</a>
+        </div>
+      </div>
+      <a href="../stores/index.html">Stores</a>
+      <a href="../conversations/index.html">Conversations</a>
+      <a href="../factions.html">Factions</a>
+      <a href="../quests/index.html">Quests</a>
+      <a href="../activity.html">Activity</a>
+      <div class="nav-dropdown"><span class="nav-dropdown-label">Documents &#9660;</span><div class="nav-dropdown-menu"><a href="../manual/LevelingGuide.html">Leveling Guide</a>
+<a href="../manual/MeaningWave.html">MeaningWave: A Guide to the Guides</a>
+<a href="../manual/Quest Ideas.html">Quest Ideas (Draft Concepts)</a>
+<a href="../manual/QuestGuide.html">Quest Guide</a></div></div>
+    </nav>
+  </header>
+  <main>
+<h1>Conversation: <code>df_conv_gh_poker</code></h1>
+<dl class="meta">
+<dt>NPC lines</dt><dd>6</dd>
+<dt>PC replies</dt><dd>11</dd>
+<dt>NumWords</dt><dd>129</dd>
+<dt>OnEnd</dt><dd><code>nw_walk_wp</code></dd>
+<dt>OnAbort</dt><dd><code>nw_walk_wp</code></dd>
+</dl>
+<h2>Triggered by</h2><p class="muted">No caller found in static analysis. May be invoked from runtime-only code paths (string-built resrefs, etc.).</p>
+<h2>Scripts referenced</h2>
+<table class="data"><thead><tr><th>Script</th><th>Slot</th><th>In module</th><th>Notes</th></tr></thead><tbody><tr><td><code>gh_poker_gold</code></td><td>active</td><td>✓</td><td></td></tr>
+<tr><td><code>gh_poker_start</code></td><td>action</td><td>✓</td><td></td></tr>
+<tr><td><code>gh_poker_end</code></td><td>action</td><td>✓</td><td></td></tr>
+<tr><td><code>gh_poker_call_1</code></td><td>action</td><td>✓</td><td></td></tr>
+<tr><td><code>gh_poker_raise_1</code></td><td>action</td><td>✓</td><td></td></tr>
+<tr><td><code>gh_poker_aft_dis</code></td><td>action</td><td>✓</td><td></td></tr>
+<tr><td><code>gh_poker_raise_2</code></td><td>action</td><td>✓</td><td></td></tr></tbody></table>
+<h2>Starting entries</h2><ul>
+<li><a href="#e0">entry #0</a> — Would you like to play a game of Poker?</li>
+</ul>
+<h2>Conversation flow</h2>
+<p class="muted">Each starting entry is expanded recursively. Repeated nodes (cycles, shared continuations) appear inline as <code>↩ link</code> backrefs to the first occurrence.</p>
+<div class="dlg-tree">
+<details class="dlg-tree-node entry" open>
+<summary><span class="dlg-id">entry #0</span> <a class="dlg-anchor" href="#e0" title="jump to flat entry #0">¶</a></summary>
+<div class="dlg-text">Would you like to play a game of Poker?</div>
+<div class="dlg-tree-children">
+<details class="dlg-tree-node reply" open>
+<summary><span class="dlg-id">reply #1</span> <small class="muted">(if <code>gh_poker_gold</code>)</small> <a class="dlg-anchor" href="#r1" title="jump to flat reply #1">¶</a></summary>
+<div class="dlg-text">Yes, please.</div>
+<div class="dlg-tree-children">
+<details class="dlg-tree-node entry" open>
+<summary><span class="dlg-id">entry #1</span> <span class="dlg-action">→ <code>gh_poker_start</code></span> <a class="dlg-anchor" href="#e1" title="jump to flat entry #1">¶</a></summary>
+<div class="dlg-text">There&#x27;s your cards. Make a decision.</div>
+<div class="dlg-tree-children">
+<details class="dlg-tree-node reply" open>
+<summary><span class="dlg-id">reply #5</span> <span class="dlg-action">→ <code>gh_poker_raise_1</code></span> <small class="muted">(if <code>gh_poker_gold</code>)</small> <a class="dlg-anchor" href="#r5" title="jump to flat reply #5">¶</a></summary>
+<div class="dlg-text">&lt;StartAction&gt;Raise&lt;/Start&gt;. Increase bet by 500 gold.</div>
+<div class="dlg-tree-children">
+<details class="dlg-tree-node entry" open>
+<summary><span class="dlg-id">entry #3</span> <a class="dlg-anchor" href="#e3" title="jump to flat entry #3">¶</a></summary>
+<div class="dlg-text">Choose which cards to discard. Say, &lt;StartAction&gt;discard card #&lt;/Start&gt;, where # is the appropriate card position (1,2,3,4,5). You can discard up to 3 cards, 4 if your final card is an Ace. To &quot;undiscard&quot; a card, just use &lt;StartAction&gt;undiscard card #&lt;/Start&gt;, where # is the appropriate card position. Cards marked as discards will be in &lt;StartAction&gt;[&lt;/Start&gt;brackets&lt;StartAction&gt;]&lt;/Start&gt;.</div>
+<div class="dlg-tree-children">
+<details class="dlg-tree-node reply" open>
+<summary><span class="dlg-id">reply #6</span> <span class="dlg-action">→ <code>gh_poker_aft_dis</code></span> <a class="dlg-anchor" href="#r6" title="jump to flat reply #6">¶</a></summary>
+<div class="dlg-text">&lt;StartAction&gt;Done&lt;/Start&gt;. Be sure to finish all your discarding.</div>
+<div class="dlg-tree-children">
+<details class="dlg-tree-node entry" open>
+<summary><span class="dlg-id">entry #4</span> <a class="dlg-anchor" href="#e4" title="jump to flat entry #4">¶</a></summary>
+<div class="dlg-text">Final bets?</div>
+<div class="dlg-tree-children">
+<details class="dlg-tree-node reply" open>
+<summary><span class="dlg-id">reply #9</span> <span class="dlg-action">→ <code>gh_poker_raise_2</code></span> <small class="muted">(if <code>gh_poker_gold</code>)</small> <a class="dlg-anchor" href="#r9" title="jump to flat reply #9">¶</a></summary>
+<div class="dlg-text">&lt;StartAction&gt;Raise&lt;/Start&gt;. Increase bet by 500 gold.</div>
+<div class="dlg-tree-children">
+<details class="dlg-tree-node entry" open>
+<summary><span class="dlg-id">entry #5</span> <span class="dlg-action">→ <code>gh_poker_end</code></span> <a class="dlg-anchor" href="#e5" title="jump to flat entry #5">¶</a></summary>
+<div class="dlg-text">Good game, shall we play again?</div>
+<div class="dlg-tree-children">
+<div class="dlg-tree-ref reply-ref">↩ <a href="#r1">reply #1</a> <span class="dlg-link-preview">“Yes, please.”</span> <small class="muted">(if <code>gh_poker_gold</code>)</small></div>
+<details class="dlg-tree-node reply" open>
+<summary><span class="dlg-id">reply #10</span> <a class="dlg-anchor" href="#r10" title="jump to flat reply #10">¶</a></summary>
+<div class="dlg-text">No.</div>
+</details>
+</div>
+</details>
+</div>
+</details>
+<details class="dlg-tree-node reply" open>
+<summary><span class="dlg-id">reply #8</span> <a class="dlg-anchor" href="#r8" title="jump to flat reply #8">¶</a></summary>
+<div class="dlg-text">&lt;StartAction&gt;Call&lt;/Start&gt;. Do not increase bet at this time.</div>
+<div class="dlg-tree-children">
+<div class="dlg-tree-ref entry-ref">↩ <a href="#e5">entry #5</a> <span class="dlg-link-preview">“Good game, shall we play again?”</span></div>
+</div>
+</details>
+<details class="dlg-tree-node reply" open>
+<summary><span class="dlg-id">reply #7</span> <a class="dlg-anchor" href="#r7" title="jump to flat reply #7">¶</a></summary>
+<div class="dlg-text">&lt;StartAction&gt;Fold&lt;/Start&gt;.</div>
+<div class="dlg-tree-children">
+<details class="dlg-tree-node entry" open>
+<summary><span class="dlg-id">entry #2</span> <a class="dlg-anchor" href="#e2" title="jump to flat entry #2">¶</a></summary>
+<div class="dlg-text">Would you like to play again?</div>
+<div class="dlg-tree-children">
+<div class="dlg-tree-ref reply-ref">↩ <a href="#r1">reply #1</a> <span class="dlg-link-preview">“Yes, please.”</span> <small class="muted">(if <code>gh_poker_gold</code>)</small></div>
+<details class="dlg-tree-node reply" open>
+<summary><span class="dlg-id">reply #3</span> <a class="dlg-anchor" href="#r3" title="jump to flat reply #3">¶</a></summary>
+<div class="dlg-text">No thanks.</div>
+</details>
+</div>
+</details>
+</div>
+</details>
+</div>
+</details>
+</div>
+</details>
+</div>
+</details>
+</div>
+</details>
+<details class="dlg-tree-node reply" open>
+<summary><span class="dlg-id">reply #4</span> <span class="dlg-action">→ <code>gh_poker_call_1</code></span> <a class="dlg-anchor" href="#r4" title="jump to flat reply #4">¶</a></summary>
+<div class="dlg-text">&lt;StartAction&gt;Call&lt;/Start&gt;. Do not increase bet at this time.</div>
+<div class="dlg-tree-children">
+<div class="dlg-tree-ref entry-ref">↩ <a href="#e3">entry #3</a> <span class="dlg-link-preview">“Choose which cards to discard. Say, discard card #, where # is the appropriate c…”</span></div>
+</div>
+</details>
+<details class="dlg-tree-node reply" open>
+<summary><span class="dlg-id">reply #2</span> <a class="dlg-anchor" href="#r2" title="jump to flat reply #2">¶</a></summary>
+<div class="dlg-text">&lt;StartAction&gt;Fold&lt;/Start&gt;.</div>
+<div class="dlg-tree-children">
+<div class="dlg-tree-ref entry-ref">↩ <a href="#e2">entry #2</a> <span class="dlg-link-preview">“Would you like to play again?”</span></div>
+</div>
+</details>
+</div>
+</details>
+</div>
+</details>
+<details class="dlg-tree-node reply" open>
+<summary><span class="dlg-id">reply #0</span> <a class="dlg-anchor" href="#r0" title="jump to flat reply #0">¶</a></summary>
+<div class="dlg-text">No.</div>
+</details>
+</div>
+</details>
+</div>
+<h2>NPC lines (entries) — flat index</h2>
+<div class="dlg-node entry" id="e0"><div class="dlg-head"><span class="dlg-id">entry #0</span></div><div class="dlg-text">Would you like to play a game of Poker?</div><ul class="dlg-links"><li><a href="#r1">→ reply #1</a> <span class="dlg-link-preview">“Yes, please.”</span> <small class="muted">(if <code>gh_poker_gold</code>)</small></li><li><a href="#r0">→ reply #0</a> <span class="dlg-link-preview">“No.”</span></li></ul></div>
+<div class="dlg-node entry" id="e1"><div class="dlg-head"><span class="dlg-id">entry #1</span> <span class="dlg-action">→ <code>gh_poker_start</code></span></div><div class="dlg-text">There&#x27;s your cards. Make a decision.</div><ul class="dlg-links"><li><a href="#r5">→ reply #5</a> <span class="dlg-link-preview">“Raise. Increase bet by 500 gold.”</span> <small class="muted">(if <code>gh_poker_gold</code>)</small></li><li><a href="#r4">→ reply #4</a> <span class="dlg-link-preview">“Call. Do not increase bet at this time.”</span></li><li><a href="#r2">→ reply #2</a> <span class="dlg-link-preview">“Fold.”</span></li></ul></div>
+<div class="dlg-node entry" id="e2"><div class="dlg-head"><span class="dlg-id">entry #2</span></div><div class="dlg-text">Would you like to play again?</div><ul class="dlg-links"><li><a href="#r1">→ child</a> <span class="dlg-link-preview">“Yes, please.”</span> <small class="muted">(if <code>gh_poker_gold</code>)</small></li><li><a href="#r3">→ reply #3</a> <span class="dlg-link-preview">“No thanks.”</span></li></ul></div>
+<div class="dlg-node entry" id="e3"><div class="dlg-head"><span class="dlg-id">entry #3</span></div><div class="dlg-text">Choose which cards to discard. Say, &lt;StartAction&gt;discard card #&lt;/Start&gt;, where # is the appropriate card position (1,2,3,4,5). You can discard up to 3 cards, 4 if your final card is an Ace. To &quot;undiscard&quot; a card, just use &lt;StartAction&gt;undiscard card #&lt;/Start&gt;, where # is the appropriate card position. Cards marked as discards will be in &lt;StartAction&gt;[&lt;/Start&gt;brackets&lt;StartAction&gt;]&lt;/Start&gt;.</div><ul class="dlg-links"><li><a href="#r6">→ reply #6</a> <span class="dlg-link-preview">“Done. Be sure to finish all your discarding.”</span></li></ul></div>
+<div class="dlg-node entry" id="e4"><div class="dlg-head"><span class="dlg-id">entry #4</span></div><div class="dlg-text">Final bets?</div><ul class="dlg-links"><li><a href="#r9">→ reply #9</a> <span class="dlg-link-preview">“Raise. Increase bet by 500 gold.”</span> <small class="muted">(if <code>gh_poker_gold</code>)</small></li><li><a href="#r8">→ reply #8</a> <span class="dlg-link-preview">“Call. Do not increase bet at this time.”</span></li><li><a href="#r7">→ reply #7</a> <span class="dlg-link-preview">“Fold.”</span></li></ul></div>
+<div class="dlg-node entry" id="e5"><div class="dlg-head"><span class="dlg-id">entry #5</span> <span class="dlg-action">→ <code>gh_poker_end</code></span></div><div class="dlg-text">Good game, shall we play again?</div><ul class="dlg-links"><li><a href="#r1">→ child</a> <span class="dlg-link-preview">“Yes, please.”</span> <small class="muted">(if <code>gh_poker_gold</code>)</small></li><li><a href="#r10">→ reply #10</a> <span class="dlg-link-preview">“No.”</span></li></ul></div>
+<h2>PC replies — flat index</h2>
+<div class="dlg-node reply" id="r0"><div class="dlg-head"><span class="dlg-id">reply #0</span></div><div class="dlg-text">No.</div></div>
+<div class="dlg-node reply" id="r1"><div class="dlg-head"><span class="dlg-id">reply #1</span></div><div class="dlg-text">Yes, please.</div><ul class="dlg-links"><li><a href="#e1">→ entry #1</a> <span class="dlg-link-preview">“There&#x27;s your cards. Make a decision.”</span></li></ul></div>
+<div class="dlg-node reply" id="r2"><div class="dlg-head"><span class="dlg-id">reply #2</span></div><div class="dlg-text">&lt;StartAction&gt;Fold&lt;/Start&gt;.</div><ul class="dlg-links"><li><a href="#e2">→ entry #2</a> <span class="dlg-link-preview">“Would you like to play again?”</span></li></ul></div>
+<div class="dlg-node reply" id="r3"><div class="dlg-head"><span class="dlg-id">reply #3</span></div><div class="dlg-text">No thanks.</div></div>
+<div class="dlg-node reply" id="r4"><div class="dlg-head"><span class="dlg-id">reply #4</span> <span class="dlg-action">→ <code>gh_poker_call_1</code></span></div><div class="dlg-text">&lt;StartAction&gt;Call&lt;/Start&gt;. Do not increase bet at this time.</div><ul class="dlg-links"><li><a href="#e3">→ child</a> <span class="dlg-link-preview">“Choose which cards to discard. Say, discard card #, where # is the appropriate c…”</span></li></ul></div>
+<div class="dlg-node reply" id="r5"><div class="dlg-head"><span class="dlg-id">reply #5</span> <span class="dlg-action">→ <code>gh_poker_raise_1</code></span></div><div class="dlg-text">&lt;StartAction&gt;Raise&lt;/Start&gt;. Increase bet by 500 gold.</div><ul class="dlg-links"><li><a href="#e3">→ entry #3</a> <span class="dlg-link-preview">“Choose which cards to discard. Say, discard card #, where # is the appropriate c…”</span></li></ul></div>
+<div class="dlg-node reply" id="r6"><div class="dlg-head"><span class="dlg-id">reply #6</span> <span class="dlg-action">→ <code>gh_poker_aft_dis</code></span></div><div class="dlg-text">&lt;StartAction&gt;Done&lt;/Start&gt;. Be sure to finish all your discarding.</div><ul class="dlg-links"><li><a href="#e4">→ entry #4</a> <span class="dlg-link-preview">“Final bets?”</span></li></ul></div>
+<div class="dlg-node reply" id="r7"><div class="dlg-head"><span class="dlg-id">reply #7</span></div><div class="dlg-text">&lt;StartAction&gt;Fold&lt;/Start&gt;.</div><ul class="dlg-links"><li><a href="#e2">→ child</a> <span class="dlg-link-preview">“Would you like to play again?”</span></li></ul></div>
+<div class="dlg-node reply" id="r8"><div class="dlg-head"><span class="dlg-id">reply #8</span></div><div class="dlg-text">&lt;StartAction&gt;Call&lt;/Start&gt;. Do not increase bet at this time.</div><ul class="dlg-links"><li><a href="#e5">→ child</a> <span class="dlg-link-preview">“Good game, shall we play again?”</span></li></ul></div>
+<div class="dlg-node reply" id="r9"><div class="dlg-head"><span class="dlg-id">reply #9</span> <span class="dlg-action">→ <code>gh_poker_raise_2</code></span></div><div class="dlg-text">&lt;StartAction&gt;Raise&lt;/Start&gt;. Increase bet by 500 gold.</div><ul class="dlg-links"><li><a href="#e5">→ entry #5</a> <span class="dlg-link-preview">“Good game, shall we play again?”</span></li></ul></div>
+<div class="dlg-node reply" id="r10"><div class="dlg-head"><span class="dlg-id">reply #10</span></div><div class="dlg-text">No.</div></div>
+  </main>
+  <footer>generated by <a href="https://github.com/mrprice22/nwn-manager">nwn-manager</a> &mdash; last updated Jun 3, 2026 12:42</footer>
+</body>
+</html>

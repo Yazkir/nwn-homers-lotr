@@ -1,0 +1,172 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Conversation eviltele</title>
+  <link rel="stylesheet" href="../assets/style.css">
+  <link rel="stylesheet" href="../assets/theme.css">
+  <link rel="icon" href="../assets/favicon.png">
+</head>
+<body>
+  <header class="site-header">
+    <a class="brand" href="../index.html"><img class="site-header-img" src="../assets/header.png" alt="Home"></a>
+    <nav>
+      <a href="../index.html">Map</a>
+      <a href="../areas/index.html">Areas</a>
+      <div class="nav-dropdown">
+        <span class="nav-dropdown-label">Creatures &#9660;</span>
+        <div class="nav-dropdown-menu">
+          <a href="../creatures/index.html">All Creatures</a>
+          <a href="../creatures/by-area/index.html">By Area</a>
+          <a href="../creatures/by-cr/index.html">By Challenge Rating</a>
+          <a href="../creatures/by-race/index.html">By Race</a>
+        </div>
+      </div>
+      <div class="nav-dropdown">
+        <span class="nav-dropdown-label">Items &#9660;</span>
+        <div class="nav-dropdown-menu">
+          <a href="../items/index.html">Accessible</a>
+          <a href="../items/inaccessible/index.html">Inaccessible</a>
+          <a href="../items/properties/index.html">By Property</a>
+          <a href="../items/search.html">Search</a>
+        </div>
+      </div>
+      <a href="../stores/index.html">Stores</a>
+      <a href="../conversations/index.html">Conversations</a>
+      <a href="../factions.html">Factions</a>
+      <a href="../quests/index.html">Quests</a>
+      <a href="../activity.html">Activity</a>
+      <div class="nav-dropdown"><span class="nav-dropdown-label">Documents &#9660;</span><div class="nav-dropdown-menu"><a href="../manual/LevelingGuide.html">Leveling Guide</a>
+<a href="../manual/MeaningWave.html">MeaningWave: A Guide to the Guides</a>
+<a href="../manual/Quest Ideas.html">Quest Ideas (Draft Concepts)</a>
+<a href="../manual/QuestGuide.html">Quest Guide</a></div></div>
+    </nav>
+  </header>
+  <main>
+<h1>Conversation: <code>eviltele</code></h1>
+<dl class="meta">
+<dt>NPC lines</dt><dd>1</dd>
+<dt>PC replies</dt><dd>13</dd>
+<dt>NumWords</dt><dd>36</dd>
+<dt>OnEnd</dt><dd><code>nw_walk_wp</code></dd>
+<dt>OnAbort</dt><dd><code>nw_walk_wp</code></dd>
+</dl>
+<h2>Triggered by</h2><ul class="dlg-callers">
+<li><span class="badge">creature</span> NPC <a href="../creatures/guardianofdar002.html">Guardian of Darkness</a> <code>guardianofdar002</code> — in <a href="../areas/castlehomelessgr.html">Castle Homeless (Ground Floor)</a>, <a href="../areas/dmhq.html">0 Mount Homer (DMHQ) 0</a>, <a href="../areas/houseofdispai001.html"><span style="color:#ff7d7d">House of Homer</span></a>, <a href="../areas/thewelloferu.html"><span style="color:#3ff23f"> &quot;Well of Eru&quot;</span></a></li>
+<li><span class="badge">creature</span> NPC <a href="../creatures/guardianofdarkne.html">Guardian of Darkness</a> <code>guardianofdarkne</code></li>
+<li><span class="badge">creature</span> NPC <a href="../creatures/guardianofdar002.html">Guardian of Darkness</a> — in <a href="../areas/castlehomelessgr.html">Castle Homeless (Ground Floor)</a></li>
+<li><span class="badge">creature</span> NPC <a href="../creatures/guardianofdar002.html">Guardian of Darkness</a> — in <a href="../areas/dmhq.html">0 Mount Homer (DMHQ) 0</a></li>
+<li><span class="badge">creature</span> NPC <a href="../creatures/guardianofdar002.html">Guardian of Darkness</a> — in <a href="../areas/houseofdispai001.html"><span style="color:#ff7d7d">House of Homer</span></a></li>
+<li><span class="badge">creature</span> NPC <a href="../creatures/guardianofdar002.html">Guardian of Darkness</a> — in <a href="../areas/thewelloferu.html"><span style="color:#3ff23f"> &quot;Well of Eru&quot;</span></a></li>
+</ul>
+<h2>Teleport destinations</h2>
+<table class="data"><thead><tr><th>Waypoint / object tag</th><th>Destination area</th><th>Via script</th><th>From node</th></tr></thead><tbody><tr><td><code>GladWP2</code></td><td><a href="../areas/area015.html">Arena - Gladiator</a></td><td><code>_homerglad</code></td><td><a href="#r1">reply #1</a></td></tr>
+<tr><td><code>battle</code></td><td><a href="../areas/area019.html">Arena - Team</a></td><td><code>_homerbattle</code></td><td><a href="#r2">reply #2</a></td></tr>
+<tr><td><code>tour2</code></td><td><a href="../areas/arena001.html">Arena</a></td><td><code>arenaenter</code></td><td><a href="#r3">reply #3</a></td></tr>
+<tr><td><code>blackenter</code></td><td><a href="../areas/blackgatge.html">Morannon - The Black Gate</a></td><td><code>blackenter</code></td><td><a href="#r4">reply #4</a></td></tr>
+<tr><td><code>baradenter</code></td><td><a href="../areas/baraddur.html">Barad-Dûr: City</a></td><td><code>baradtele</code></td><td><a href="#r5">reply #5</a></td></tr>
+<tr><td><code>isenenter</code></td><td><a href="../areas/isengardinnerrim.html">Isengard (Innerrim)</a></td><td><code>isentele</code></td><td><a href="#r6">reply #6</a></td></tr>
+<tr><td><code>cirithenter</code></td><td><a href="../areas/cirithungol.html">Cirith Ungol</a></td><td><code>cirithtele</code></td><td><a href="#r7">reply #7</a></td></tr>
+<tr><td><code>carnenter</code></td><td><a href="../areas/carndumcity.html">Carn Dum: City</a></td><td><code>carntele</code></td><td><a href="#r8">reply #8</a></td></tr>
+<tr><td><code>laketwonenter</code></td><td><a href="../areas/area006.html">Esgaroth (Lake Town)</a></td><td><code>laketele</code></td><td><a href="#r9">reply #9</a></td></tr>
+<tr><td><code>tharenter</code></td><td><a href="../areas/tharbadbridge.html">Tharbad Bridge</a></td><td><code>thrtele</code></td><td><a href="#r10">reply #10</a></td></tr>
+<tr><td><code>fornostenter</code></td><td><em class="muted">unresolved</em></td><td><code>fornostjump</code></td><td><a href="#r11">reply #11</a></td></tr>
+<tr><td><code>breeenter</code></td><td><a href="../areas/bree.html">Bree</a></td><td><code>breetele</code></td><td><a href="#r12">reply #12</a></td></tr></tbody></table>
+<h2>Scripts referenced</h2>
+<table class="data"><thead><tr><th>Script</th><th>Slot</th><th>In module</th><th>Notes</th></tr></thead><tbody><tr><td><code>_homerglad</code></td><td>action</td><td>✓</td><td>teleports to: <code>GladWP2</code> (<a href="../areas/area015.html">Arena - Gladiator</a>)</td></tr>
+<tr><td><code>_homerbattle</code></td><td>action</td><td>✓</td><td>teleports to: <code>battle</code> (<a href="../areas/area019.html">Arena - Team</a>)</td></tr>
+<tr><td><code>arenaenter</code></td><td>action</td><td>✓</td><td>teleports to: <code>tour2</code> (<a href="../areas/arena001.html">Arena</a>)</td></tr>
+<tr><td><code>blackenter</code></td><td>action</td><td>✓</td><td>teleports to: <code>blackenter</code> (<a href="../areas/blackgatge.html">Morannon - The Black Gate</a>)</td></tr>
+<tr><td><code>baradtele</code></td><td>action</td><td>✓</td><td>teleports to: <code>baradenter</code> (<a href="../areas/baraddur.html">Barad-Dûr: City</a>)</td></tr>
+<tr><td><code>isentele</code></td><td>action</td><td>✓</td><td>teleports to: <code>isenenter</code> (<a href="../areas/isengardinnerrim.html">Isengard (Innerrim)</a>)</td></tr>
+<tr><td><code>cirithtele</code></td><td>action</td><td>✓</td><td>teleports to: <code>cirithenter</code> (<a href="../areas/cirithungol.html">Cirith Ungol</a>)</td></tr>
+<tr><td><code>carntele</code></td><td>action</td><td>✓</td><td>teleports to: <code>carnenter</code> (<a href="../areas/carndumcity.html">Carn Dum: City</a>)</td></tr>
+<tr><td><code>laketele</code></td><td>action</td><td>✓</td><td>teleports to: <code>laketwonenter</code> (<a href="../areas/area006.html">Esgaroth (Lake Town)</a>)</td></tr>
+<tr><td><code>thrtele</code></td><td>action</td><td>✓</td><td>teleports to: <code>tharenter</code> (<a href="../areas/tharbadbridge.html">Tharbad Bridge</a>)</td></tr>
+<tr><td><code>fornostjump</code></td><td>action</td><td>✓</td><td>teleports to: <code>fornostenter</code></td></tr>
+<tr><td><code>breetele</code></td><td>action</td><td>✓</td><td>teleports to: <code>breeenter</code> (<a href="../areas/bree.html">Bree</a>)</td></tr></tbody></table>
+<h2>Starting entries</h2><ul>
+<li><a href="#e0">entry #0</a> — Welcome ! Tell me where you wish to be sent.</li>
+</ul>
+<h2>Conversation flow</h2>
+<p class="muted">Each starting entry is expanded recursively. Repeated nodes (cycles, shared continuations) appear inline as <code>↩ link</code> backrefs to the first occurrence.</p>
+<div class="dlg-tree">
+<details class="dlg-tree-node entry" open>
+<summary><span class="dlg-id">entry #0</span> <a class="dlg-anchor" href="#e0" title="jump to flat entry #0">¶</a></summary>
+<div class="dlg-text">Welcome &lt;FullName&gt;! Tell me where you wish to be sent.</div>
+<div class="dlg-tree-children">
+<details class="dlg-tree-node reply" open>
+<summary><span class="dlg-id">reply #12</span> <span class="dlg-action">→ <code>breetele</code></span> <a class="dlg-anchor" href="#r12" title="jump to flat reply #12">¶</a></summary>
+<div class="dlg-text">Bree.</div>
+</details>
+<details class="dlg-tree-node reply" open>
+<summary><span class="dlg-id">reply #11</span> <span class="dlg-action">→ <code>fornostjump</code></span> <a class="dlg-anchor" href="#r11" title="jump to flat reply #11">¶</a></summary>
+<div class="dlg-text">Fornost.</div>
+</details>
+<details class="dlg-tree-node reply" open>
+<summary><span class="dlg-id">reply #10</span> <span class="dlg-action">→ <code>thrtele</code></span> <a class="dlg-anchor" href="#r10" title="jump to flat reply #10">¶</a></summary>
+<div class="dlg-text">Tharbad.</div>
+</details>
+<details class="dlg-tree-node reply" open>
+<summary><span class="dlg-id">reply #9</span> <span class="dlg-action">→ <code>laketele</code></span> <a class="dlg-anchor" href="#r9" title="jump to flat reply #9">¶</a></summary>
+<div class="dlg-text">Lake Town.</div>
+</details>
+<details class="dlg-tree-node reply" open>
+<summary><span class="dlg-id">reply #8</span> <span class="dlg-action">→ <code>carntele</code></span> <a class="dlg-anchor" href="#r8" title="jump to flat reply #8">¶</a></summary>
+<div class="dlg-text">Carn Dum.</div>
+</details>
+<details class="dlg-tree-node reply" open>
+<summary><span class="dlg-id">reply #7</span> <span class="dlg-action">→ <code>cirithtele</code></span> <a class="dlg-anchor" href="#r7" title="jump to flat reply #7">¶</a></summary>
+<div class="dlg-text">Cirith Ungol.</div>
+</details>
+<details class="dlg-tree-node reply" open>
+<summary><span class="dlg-id">reply #6</span> <span class="dlg-action">→ <code>isentele</code></span> <a class="dlg-anchor" href="#r6" title="jump to flat reply #6">¶</a></summary>
+<div class="dlg-text">Isengrad, Innerrim.</div>
+</details>
+<details class="dlg-tree-node reply" open>
+<summary><span class="dlg-id">reply #5</span> <span class="dlg-action">→ <code>baradtele</code></span> <a class="dlg-anchor" href="#r5" title="jump to flat reply #5">¶</a></summary>
+<div class="dlg-text">Barad - Dur.</div>
+</details>
+<details class="dlg-tree-node reply" open>
+<summary><span class="dlg-id">reply #4</span> <span class="dlg-action">→ <code>blackenter</code></span> <a class="dlg-anchor" href="#r4" title="jump to flat reply #4">¶</a></summary>
+<div class="dlg-text">Morannan (The Black Gate).</div>
+</details>
+<details class="dlg-tree-node reply" open>
+<summary><span class="dlg-id">reply #3</span> <span class="dlg-action">→ <code>arenaenter</code></span> <a class="dlg-anchor" href="#r3" title="jump to flat reply #3">¶</a></summary>
+<div class="dlg-text">Arena.</div>
+</details>
+<details class="dlg-tree-node reply" open>
+<summary><span class="dlg-id">reply #2</span> <span class="dlg-action">→ <code>_homerbattle</code></span> <a class="dlg-anchor" href="#r2" title="jump to flat reply #2">¶</a></summary>
+<div class="dlg-text">Arena - .Team.</div>
+</details>
+<details class="dlg-tree-node reply" open>
+<summary><span class="dlg-id">reply #1</span> <span class="dlg-action">→ <code>_homerglad</code></span> <a class="dlg-anchor" href="#r1" title="jump to flat reply #1">¶</a></summary>
+<div class="dlg-text">Arena - Gladiator.</div>
+</details>
+<details class="dlg-tree-node reply" open>
+<summary><span class="dlg-id">reply #0</span> <a class="dlg-anchor" href="#r0" title="jump to flat reply #0">¶</a></summary>
+<div class="dlg-text">Exit.</div>
+</details>
+</div>
+</details>
+</div>
+<h2>NPC lines (entries) — flat index</h2>
+<div class="dlg-node entry" id="e0"><div class="dlg-head"><span class="dlg-id">entry #0</span></div><div class="dlg-text">Welcome &lt;FullName&gt;! Tell me where you wish to be sent.</div><ul class="dlg-links"><li><a href="#r12">→ reply #12</a> <span class="dlg-link-preview">“Bree.”</span></li><li><a href="#r11">→ reply #11</a> <span class="dlg-link-preview">“Fornost.”</span></li><li><a href="#r10">→ reply #10</a> <span class="dlg-link-preview">“Tharbad.”</span></li><li><a href="#r9">→ reply #9</a> <span class="dlg-link-preview">“Lake Town.”</span></li><li><a href="#r8">→ reply #8</a> <span class="dlg-link-preview">“Carn Dum.”</span></li><li><a href="#r7">→ reply #7</a> <span class="dlg-link-preview">“Cirith Ungol.”</span></li><li><a href="#r6">→ reply #6</a> <span class="dlg-link-preview">“Isengrad, Innerrim.”</span></li><li><a href="#r5">→ reply #5</a> <span class="dlg-link-preview">“Barad - Dur.”</span></li><li><a href="#r4">→ reply #4</a> <span class="dlg-link-preview">“Morannan (The Black Gate).”</span></li><li><a href="#r3">→ reply #3</a> <span class="dlg-link-preview">“Arena.”</span></li><li><a href="#r2">→ reply #2</a> <span class="dlg-link-preview">“Arena - .Team.”</span></li><li><a href="#r1">→ reply #1</a> <span class="dlg-link-preview">“Arena - Gladiator.”</span></li><li><a href="#r0">→ reply #0</a> <span class="dlg-link-preview">“Exit.”</span></li></ul></div>
+<h2>PC replies — flat index</h2>
+<div class="dlg-node reply" id="r0"><div class="dlg-head"><span class="dlg-id">reply #0</span></div><div class="dlg-text">Exit.</div></div>
+<div class="dlg-node reply" id="r1"><div class="dlg-head"><span class="dlg-id">reply #1</span> <span class="dlg-action">→ <code>_homerglad</code></span></div><div class="dlg-text">Arena - Gladiator.</div></div>
+<div class="dlg-node reply" id="r2"><div class="dlg-head"><span class="dlg-id">reply #2</span> <span class="dlg-action">→ <code>_homerbattle</code></span></div><div class="dlg-text">Arena - .Team.</div></div>
+<div class="dlg-node reply" id="r3"><div class="dlg-head"><span class="dlg-id">reply #3</span> <span class="dlg-action">→ <code>arenaenter</code></span></div><div class="dlg-text">Arena.</div></div>
+<div class="dlg-node reply" id="r4"><div class="dlg-head"><span class="dlg-id">reply #4</span> <span class="dlg-action">→ <code>blackenter</code></span></div><div class="dlg-text">Morannan (The Black Gate).</div></div>
+<div class="dlg-node reply" id="r5"><div class="dlg-head"><span class="dlg-id">reply #5</span> <span class="dlg-action">→ <code>baradtele</code></span></div><div class="dlg-text">Barad - Dur.</div></div>
+<div class="dlg-node reply" id="r6"><div class="dlg-head"><span class="dlg-id">reply #6</span> <span class="dlg-action">→ <code>isentele</code></span></div><div class="dlg-text">Isengrad, Innerrim.</div></div>
+<div class="dlg-node reply" id="r7"><div class="dlg-head"><span class="dlg-id">reply #7</span> <span class="dlg-action">→ <code>cirithtele</code></span></div><div class="dlg-text">Cirith Ungol.</div></div>
+<div class="dlg-node reply" id="r8"><div class="dlg-head"><span class="dlg-id">reply #8</span> <span class="dlg-action">→ <code>carntele</code></span></div><div class="dlg-text">Carn Dum.</div></div>
+<div class="dlg-node reply" id="r9"><div class="dlg-head"><span class="dlg-id">reply #9</span> <span class="dlg-action">→ <code>laketele</code></span></div><div class="dlg-text">Lake Town.</div></div>
+<div class="dlg-node reply" id="r10"><div class="dlg-head"><span class="dlg-id">reply #10</span> <span class="dlg-action">→ <code>thrtele</code></span></div><div class="dlg-text">Tharbad.</div></div>
+<div class="dlg-node reply" id="r11"><div class="dlg-head"><span class="dlg-id">reply #11</span> <span class="dlg-action">→ <code>fornostjump</code></span></div><div class="dlg-text">Fornost.</div></div>
+<div class="dlg-node reply" id="r12"><div class="dlg-head"><span class="dlg-id">reply #12</span> <span class="dlg-action">→ <code>breetele</code></span></div><div class="dlg-text">Bree.</div></div>
+  </main>
+  <footer>generated by <a href="https://github.com/mrprice22/nwn-manager">nwn-manager</a> &mdash; last updated Jun 3, 2026 12:42</footer>
+</body>
+</html>

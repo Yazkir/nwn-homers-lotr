@@ -1,0 +1,114 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Conversation minstevil</title>
+  <link rel="stylesheet" href="../assets/style.css">
+  <link rel="stylesheet" href="../assets/theme.css">
+  <link rel="icon" href="../assets/favicon.png">
+</head>
+<body>
+  <header class="site-header">
+    <a class="brand" href="../index.html"><img class="site-header-img" src="../assets/header.png" alt="Home"></a>
+    <nav>
+      <a href="../index.html">Map</a>
+      <a href="../areas/index.html">Areas</a>
+      <div class="nav-dropdown">
+        <span class="nav-dropdown-label">Creatures &#9660;</span>
+        <div class="nav-dropdown-menu">
+          <a href="../creatures/index.html">All Creatures</a>
+          <a href="../creatures/by-area/index.html">By Area</a>
+          <a href="../creatures/by-cr/index.html">By Challenge Rating</a>
+          <a href="../creatures/by-race/index.html">By Race</a>
+        </div>
+      </div>
+      <div class="nav-dropdown">
+        <span class="nav-dropdown-label">Items &#9660;</span>
+        <div class="nav-dropdown-menu">
+          <a href="../items/index.html">Accessible</a>
+          <a href="../items/inaccessible/index.html">Inaccessible</a>
+          <a href="../items/properties/index.html">By Property</a>
+          <a href="../items/search.html">Search</a>
+        </div>
+      </div>
+      <a href="../stores/index.html">Stores</a>
+      <a href="../conversations/index.html">Conversations</a>
+      <a href="../factions.html">Factions</a>
+      <a href="../quests/index.html">Quests</a>
+      <a href="../activity.html">Activity</a>
+      <div class="nav-dropdown"><span class="nav-dropdown-label">Documents &#9660;</span><div class="nav-dropdown-menu"><a href="../manual/LevelingGuide.html">Leveling Guide</a>
+<a href="../manual/MeaningWave.html">MeaningWave: A Guide to the Guides</a>
+<a href="../manual/Quest Ideas.html">Quest Ideas (Draft Concepts)</a>
+<a href="../manual/QuestGuide.html">Quest Guide</a></div></div>
+    </nav>
+  </header>
+  <main>
+<h1>Conversation: <code>minstevil</code></h1>
+<dl class="meta">
+<dt>NPC lines</dt><dd>3</dd>
+<dt>PC replies</dt><dd>4</dd>
+<dt>NumWords</dt><dd>188</dd>
+<dt>OnEnd</dt><dd><code>nw_walk_wp</code></dd>
+<dt>OnAbort</dt><dd><code>nw_walk_wp</code></dd>
+</dl>
+<h2>Triggered by</h2><ul class="dlg-callers">
+<li><span class="badge">creature</span> NPC <a href="../creatures/comfemale001.html">The Warcryer of Doom</a> <code>comfemale001</code></li>
+</ul>
+<h2>Starting entries</h2><ul>
+<li><a href="#e0">entry #0</a> — I shall chant of deeds unsung by good and tales of the land, do you wish to list…</li>
+</ul>
+<h2>Conversation flow</h2>
+<p class="muted">Each starting entry is expanded recursively. Repeated nodes (cycles, shared continuations) appear inline as <code>↩ link</code> backrefs to the first occurrence.</p>
+<div class="dlg-tree">
+<details class="dlg-tree-node entry" open>
+<summary><span class="dlg-id">entry #0</span> <a class="dlg-anchor" href="#e0" title="jump to flat entry #0">¶</a></summary>
+<div class="dlg-text">I shall chant of deeds unsung by good and tales of the land, do you wish to listen?</div>
+<div class="dlg-tree-children">
+<details class="dlg-tree-node reply" open>
+<summary><span class="dlg-id">reply #1</span> <a class="dlg-anchor" href="#r1" title="jump to flat reply #1">¶</a></summary>
+<div class="dlg-text">Yes let us here your tale.</div>
+<div class="dlg-tree-children">
+<details class="dlg-tree-node entry" open>
+<summary><span class="dlg-id">entry #1</span> <a class="dlg-anchor" href="#e1" title="jump to flat entry #1">¶</a></summary>
+<div class="dlg-text">On November 2nd a Contest of Champions will be held in Lake Town. The contest will run the gamut of power ranges and signups will start on the 27th. Prizes will be awarded. Food and Drink of rare quality.  fun and adventure await. And there will be one grand prize to be awarded to the bravest champion. All are welcome to Enter. Matches will be set up by the Guides. There will be a small entry fee of 50 gold per level.</div>
+<div class="dlg-tree-children">
+<details class="dlg-tree-node reply" open>
+<summary><span class="dlg-id">reply #2</span> <a class="dlg-anchor" href="#r2" title="jump to flat reply #2">¶</a></summary>
+<div class="dlg-text">what else?</div>
+<div class="dlg-tree-children">
+<details class="dlg-tree-node entry" open>
+<summary><span class="dlg-id">entry #2</span> <a class="dlg-anchor" href="#e2" title="jump to flat entry #2">¶</a></summary>
+<div class="dlg-text">The fortress of Carn Dum was assaulted and broken recently. Many of our Highest Servants fell. Numarok the Black Hand sustained injury and has ordered a couter offensive. The death toll was a high price for us, but to disobey would be even more costly. Even the Sacred Temple was defiled and the preistesses inside slaughtered. The do-gooders guilty of this act were none other than Rai, Perin, Daveram, Legolas, and others.</div>
+<div class="dlg-tree-children">
+<details class="dlg-tree-node reply" open>
+<summary><span class="dlg-id">reply #3</span> <a class="dlg-anchor" href="#r3" title="jump to flat reply #3">¶</a></summary>
+<div class="dlg-text">Carn Dum will be avenged.</div>
+</details>
+</div>
+</details>
+</div>
+</details>
+</div>
+</details>
+</div>
+</details>
+<details class="dlg-tree-node reply" open>
+<summary><span class="dlg-id">reply #0</span> <a class="dlg-anchor" href="#r0" title="jump to flat reply #0">¶</a></summary>
+<div class="dlg-text">No thank you.</div>
+</details>
+</div>
+</details>
+</div>
+<h2>NPC lines (entries) — flat index</h2>
+<div class="dlg-node entry" id="e0"><div class="dlg-head"><span class="dlg-id">entry #0</span></div><div class="dlg-text">I shall chant of deeds unsung by good and tales of the land, do you wish to listen?</div><ul class="dlg-links"><li><a href="#r1">→ reply #1</a> <span class="dlg-link-preview">“Yes let us here your tale.”</span></li><li><a href="#r0">→ reply #0</a> <span class="dlg-link-preview">“No thank you.”</span></li></ul></div>
+<div class="dlg-node entry" id="e1"><div class="dlg-head"><span class="dlg-id">entry #1</span></div><div class="dlg-text">On November 2nd a Contest of Champions will be held in Lake Town. The contest will run the gamut of power ranges and signups will start on the 27th. Prizes will be awarded. Food and Drink of rare quality.  fun and adventure await. And there will be one grand prize to be awarded to the bravest champion. All are welcome to Enter. Matches will be set up by the Guides. There will be a small entry fee of 50 gold per level.</div><ul class="dlg-links"><li><a href="#r2">→ reply #2</a> <span class="dlg-link-preview">“what else?”</span></li></ul></div>
+<div class="dlg-node entry" id="e2"><div class="dlg-head"><span class="dlg-id">entry #2</span></div><div class="dlg-text">The fortress of Carn Dum was assaulted and broken recently. Many of our Highest Servants fell. Numarok the Black Hand sustained injury and has ordered a couter offensive. The death toll was a high price for us, but to disobey would be even more costly. Even the Sacred Temple was defiled and the preistesses inside slaughtered. The do-gooders guilty of this act were none other than Rai, Perin, Daveram, Legolas, and others.</div><ul class="dlg-links"><li><a href="#r3">→ reply #3</a> <span class="dlg-link-preview">“Carn Dum will be avenged.”</span></li></ul></div>
+<h2>PC replies — flat index</h2>
+<div class="dlg-node reply" id="r0"><div class="dlg-head"><span class="dlg-id">reply #0</span></div><div class="dlg-text">No thank you.</div></div>
+<div class="dlg-node reply" id="r1"><div class="dlg-head"><span class="dlg-id">reply #1</span></div><div class="dlg-text">Yes let us here your tale.</div><ul class="dlg-links"><li><a href="#e1">→ entry #1</a> <span class="dlg-link-preview">“On November 2nd a Contest of Champions will be held in Lake Town. The contest wi…”</span></li></ul></div>
+<div class="dlg-node reply" id="r2"><div class="dlg-head"><span class="dlg-id">reply #2</span></div><div class="dlg-text">what else?</div><ul class="dlg-links"><li><a href="#e2">→ entry #2</a> <span class="dlg-link-preview">“The fortress of Carn Dum was assaulted and broken recently. Many of our Highest…”</span></li></ul></div>
+<div class="dlg-node reply" id="r3"><div class="dlg-head"><span class="dlg-id">reply #3</span></div><div class="dlg-text">Carn Dum will be avenged.</div></div>
+  </main>
+  <footer>generated by <a href="https://github.com/mrprice22/nwn-manager">nwn-manager</a> &mdash; last updated Jun 3, 2026 12:42</footer>
+</body>
+</html>

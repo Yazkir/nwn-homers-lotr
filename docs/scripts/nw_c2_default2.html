@@ -1,0 +1,214 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Script nw_c2_default2</title>
+  <link rel="stylesheet" href="../assets/style.css">
+  <link rel="stylesheet" href="../assets/theme.css">
+  <link rel="icon" href="../assets/favicon.png">
+</head>
+<body>
+  <header class="site-header">
+    <a class="brand" href="../index.html"><img class="site-header-img" src="../assets/header.png" alt="Home"></a>
+    <nav>
+      <a href="../index.html">Map</a>
+      <a href="../areas/index.html">Areas</a>
+      <div class="nav-dropdown">
+        <span class="nav-dropdown-label">Creatures &#9660;</span>
+        <div class="nav-dropdown-menu">
+          <a href="../creatures/index.html">All Creatures</a>
+          <a href="../creatures/by-area/index.html">By Area</a>
+          <a href="../creatures/by-cr/index.html">By Challenge Rating</a>
+          <a href="../creatures/by-race/index.html">By Race</a>
+        </div>
+      </div>
+      <div class="nav-dropdown">
+        <span class="nav-dropdown-label">Items &#9660;</span>
+        <div class="nav-dropdown-menu">
+          <a href="../items/index.html">Accessible</a>
+          <a href="../items/inaccessible/index.html">Inaccessible</a>
+          <a href="../items/properties/index.html">By Property</a>
+          <a href="../items/search.html">Search</a>
+        </div>
+      </div>
+      <a href="../stores/index.html">Stores</a>
+      <a href="../conversations/index.html">Conversations</a>
+      <a href="../factions.html">Factions</a>
+      <a href="../quests/index.html">Quests</a>
+      <a href="../activity.html">Activity</a>
+      <div class="nav-dropdown"><span class="nav-dropdown-label">Documents &#9660;</span><div class="nav-dropdown-menu"><a href="../manual/LevelingGuide.html">Leveling Guide</a>
+<a href="../manual/MeaningWave.html">MeaningWave: A Guide to the Guides</a>
+<a href="../manual/Quest Ideas.html">Quest Ideas (Draft Concepts)</a>
+<a href="../manual/QuestGuide.html">Quest Guide</a></div></div>
+    </nav>
+  </header>
+  <main>
+<h1>Script: <code>nw_c2_default2</code></h1><pre class="nss-source"><code>//:://////////////////////////////////////////////////
+//:: NW_C2_DEFAULT2
+/*
+  Default OnPerception event handler for NPCs.
+
+  Handles behavior when perceiving a creature for the
+  first time.
+ */
+//:://////////////////////////////////////////////////
+
+#include &quot;nw_i0_generic&quot;
+
+void main()
+{
+// * if not runnning normal or better Ai then exit for performance reasons
+    // * if not runnning normal or better Ai then exit for performance reasons
+    if (GetAILevel() == AI_LEVEL_VERY_LOW) return;
+
+    object oPercep = GetLastPerceived();
+    int bSeen = GetLastPerceptionSeen();
+    int bHeard = GetLastPerceptionHeard();
+    if (bHeard == FALSE)
+    {
+        // Has someone vanished in front of me?
+        bHeard = GetLastPerceptionVanished();
+    }
+
+    // This will cause the NPC to speak their one-liner
+    // conversation on perception even if they are already
+    // in combat.
+    if(GetSpawnInCondition(NW_FLAG_SPECIAL_COMBAT_CONVERSATION)
+       &amp;&amp; GetIsPC(oPercep)
+       &amp;&amp; bSeen)
+    {
+        SpeakOneLinerConversation();
+    }
+
+    // March 5 2003 Brent
+    // Had to add this section back in, since  modifications were not taking this specific
+    // example into account -- it made invisibility basically useless.
+    //If the last perception event was hearing based or if someone vanished then go to search mode
+    if ((GetLastPerceptionVanished()) &amp;&amp; GetIsEnemy(GetLastPerceived()))
+    {
+        object oGone = GetLastPerceived();
+        if((GetAttemptedAttackTarget() == GetLastPerceived() ||
+           GetAttemptedSpellTarget() == GetLastPerceived() ||
+           GetAttackTarget() == GetLastPerceived()) &amp;&amp; GetArea(GetLastPerceived()) != GetArea(OBJECT_SELF))
+        {
+           ClearAllActions();
+           DetermineCombatRound();
+        }
+    }
+
+    // This section has been heavily revised while keeping the
+    // pre-existing behavior:
+    // - If we&#x27;re in combat, keep fighting.
+    // - If not and we&#x27;ve perceived an enemy, start to fight.
+    //   Even if the perception event was a &#x27;vanish&#x27;, that&#x27;s
+    //   still what we do anyway, since that will keep us
+    //   fighting any visible targets.
+    // - If we&#x27;re not in combat and haven&#x27;t perceived an enemy,
+    //   see if the perception target is a PC and if we should
+    //   speak our attention-getting one-liner.
+    if (GetIsInCombat(OBJECT_SELF))
+    {
+        // don&#x27;t do anything else, we&#x27;re busy
+        //MyPrintString(&quot;GetIsFighting: TRUE&quot;);
+
+    }
+    // * BK FEB 2003 Only fight if you can see them. DO NOT RELY ON HEARING FOR ENEMY DETECTION
+    else if (GetIsEnemy(oPercep) &amp;&amp; bSeen)
+    { // SpawnScriptDebugger();
+        //MyPrintString(&quot;GetIsEnemy: TRUE&quot;);
+        // We spotted an enemy and we&#x27;re not already fighting
+        if(!GetHasEffect(EFFECT_TYPE_SLEEP)) {
+            if(GetBehaviorState(NW_FLAG_BEHAVIOR_SPECIAL))
+            {
+                //MyPrintString(&quot;DetermineSpecialBehavior&quot;);
+                DetermineSpecialBehavior();
+            } else
+            {
+                //MyPrintString(&quot;DetermineCombatRound&quot;);
+                SetFacingPoint(GetPosition(oPercep));
+                SpeakString(&quot;NW_I_WAS_ATTACKED&quot;, TALKVOLUME_SILENT_TALK);
+                DetermineCombatRound();
+            }
+        }
+    }
+    else
+    {
+        if (bSeen)
+        {
+            //MyPrintString(&quot;GetLastPerceptionSeen: TRUE&quot;);
+            if(GetBehaviorState(NW_FLAG_BEHAVIOR_SPECIAL)) {
+                DetermineSpecialBehavior();
+            } else if (GetSpawnInCondition(NW_FLAG_SPECIAL_CONVERSATION)
+                       &amp;&amp; GetIsPC(oPercep))
+            {
+                // The NPC will speak their one-liner conversation
+                // This should probably be:
+                // SpeakOneLinerConversation(oPercep);
+                // instead, but leaving it as is for now.
+                ActionStartConversation(OBJECT_SELF);
+            }
+        }
+        else
+        // * July 14 2003: Some minor reactions based on invisible creatures being nearby
+        if (bHeard &amp;&amp; GetIsEnemy(oPercep))
+        {
+           // SpeakString(&quot;vanished&quot;);
+            // * don&#x27;t want creatures wandering too far after noises
+            if (GetDistanceToObject(oPercep) &lt;= 7.0)
+            {
+//                if (GetHasSpell(SPELL_TRUE_SEEING) == TRUE)
+                if (GetHasSpell(SPELL_TRUE_SEEING))
+                {
+                    ActionCastSpellAtObject(SPELL_TRUE_SEEING, OBJECT_SELF);
+                }
+                else
+//                if (GetHasSpell(SPELL_SEE_INVISIBILITY) == TRUE)
+                if (GetHasSpell(SPELL_SEE_INVISIBILITY))
+                {
+                    ActionCastSpellAtObject(SPELL_SEE_INVISIBILITY, OBJECT_SELF);
+                }
+                else
+//                if (GetHasSpell(SPELL_INVISIBILITY_PURGE) == TRUE)
+                if (GetHasSpell(SPELL_INVISIBILITY_PURGE))
+                {
+                    ActionCastSpellAtObject(SPELL_INVISIBILITY_PURGE, OBJECT_SELF);
+                }
+                else
+                {
+                    ActionPlayAnimation(ANIMATION_FIREFORGET_HEAD_TURN_LEFT, 0.5);
+                    ActionPlayAnimation(ANIMATION_FIREFORGET_HEAD_TURN_RIGHT, 0.5);
+                    ActionPlayAnimation(ANIMATION_FIREFORGET_PAUSE_SCRATCH_HEAD, 0.5);
+                }
+            }
+        }
+
+        // activate ambient animations or walk waypoints if appropriate
+       if (!IsInConversation(OBJECT_SELF)) {
+           if (GetIsPostOrWalking()) {
+               WalkWayPoints();
+           } else if (GetIsPC(oPercep) &amp;&amp;
+               (GetSpawnInCondition(NW_FLAG_AMBIENT_ANIMATIONS)
+                || GetSpawnInCondition(NW_FLAG_AMBIENT_ANIMATIONS_AVIAN)
+                || GetSpawnInCondition(NW_FLAG_IMMOBILE_AMBIENT_ANIMATIONS)
+                || GetIsEncounterCreature()))
+           {
+                SetAnimationCondition(NW_ANIM_FLAG_IS_ACTIVE);
+           }
+        }
+    }
+
+    // Send the user-defined event if appropriate
+    if(GetSpawnInCondition(NW_FLAG_PERCIEVE_EVENT) &amp;&amp; GetLastPerceptionSeen())
+    {
+        SignalEvent(OBJECT_SELF, EventUserDefined(EVENT_PERCEIVE));
+    }
+}
+
+
+
+
+</code></pre>
+  </main>
+  <footer>generated by <a href="https://github.com/mrprice22/nwn-manager">nwn-manager</a> &mdash; last updated Jun 3, 2026 12:42</footer>
+</body>
+</html>

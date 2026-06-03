@@ -1,0 +1,202 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Conversation gwath_quest</title>
+  <link rel="stylesheet" href="../assets/style.css">
+  <link rel="stylesheet" href="../assets/theme.css">
+  <link rel="icon" href="../assets/favicon.png">
+</head>
+<body>
+  <header class="site-header">
+    <a class="brand" href="../index.html"><img class="site-header-img" src="../assets/header.png" alt="Home"></a>
+    <nav>
+      <a href="../index.html">Map</a>
+      <a href="../areas/index.html">Areas</a>
+      <div class="nav-dropdown">
+        <span class="nav-dropdown-label">Creatures &#9660;</span>
+        <div class="nav-dropdown-menu">
+          <a href="../creatures/index.html">All Creatures</a>
+          <a href="../creatures/by-area/index.html">By Area</a>
+          <a href="../creatures/by-cr/index.html">By Challenge Rating</a>
+          <a href="../creatures/by-race/index.html">By Race</a>
+        </div>
+      </div>
+      <div class="nav-dropdown">
+        <span class="nav-dropdown-label">Items &#9660;</span>
+        <div class="nav-dropdown-menu">
+          <a href="../items/index.html">Accessible</a>
+          <a href="../items/inaccessible/index.html">Inaccessible</a>
+          <a href="../items/properties/index.html">By Property</a>
+          <a href="../items/search.html">Search</a>
+        </div>
+      </div>
+      <a href="../stores/index.html">Stores</a>
+      <a href="../conversations/index.html">Conversations</a>
+      <a href="../factions.html">Factions</a>
+      <a href="../quests/index.html">Quests</a>
+      <a href="../activity.html">Activity</a>
+      <div class="nav-dropdown"><span class="nav-dropdown-label">Documents &#9660;</span><div class="nav-dropdown-menu"><a href="../manual/LevelingGuide.html">Leveling Guide</a>
+<a href="../manual/MeaningWave.html">MeaningWave: A Guide to the Guides</a>
+<a href="../manual/Quest Ideas.html">Quest Ideas (Draft Concepts)</a>
+<a href="../manual/QuestGuide.html">Quest Guide</a></div></div>
+    </nav>
+  </header>
+  <main>
+<h1>Conversation: <code>gwath_quest</code></h1>
+<dl class="meta">
+<dt>NPC lines</dt><dd>9</dd>
+<dt>PC replies</dt><dd>10</dd>
+<dt>NumWords</dt><dd>364</dd>
+<dt>OnEnd</dt><dd><code>nw_walk_wp</code></dd>
+<dt>OnAbort</dt><dd><code>nw_walk_wp</code></dd>
+</dl>
+<h2>Triggered by</h2><ul class="dlg-callers">
+<li><span class="badge">creature</span> NPC <a href="../creatures/thayenne.html">Thayenne Lannen</a> — in <a href="../areas/gwathdoroutskirt.html">Gwathdor:  Outskirts</a></li>
+</ul>
+<h2>Scripts referenced</h2>
+<table class="data"><thead><tr><th>Script</th><th>Slot</th><th>In module</th><th>Notes</th></tr></thead><tbody><tr><td><code>gqcompletetest</code></td><td>active</td><td>✓</td><td></td></tr>
+<tr><td><code>gqend</code></td><td>action</td><td>✓</td><td></td></tr>
+<tr><td><code>gqstart</code></td><td>action</td><td>✓</td><td></td></tr>
+<tr><td><code>gquest1</code></td><td>active</td><td>✓</td><td></td></tr>
+<tr><td><code>gquest2</code></td><td>active</td><td>✓</td><td></td></tr>
+<tr><td><code>gquest3</code></td><td>active</td><td>✓</td><td></td></tr></tbody></table>
+<h2>Quest entries granted</h2><table class="data"><thead><tr><th>Quest</th><th>Tag</th><th>Step(s)</th></tr></thead><tbody><tr><td><a href="../quests/gwathquest.html">The Oasis of Gwathdor</a></td><td><code>gwathquest</code></td><td>1</td></tr></tbody></table>
+<h2>Starting entries</h2><ul>
+<li><a href="#e2">entry #2</a> <small class="muted">(if <code>gquest1</code>)</small> — Hello traveler.</li>
+<li><a href="#e1">entry #1</a> <small class="muted">(if <code>gquest2</code>)</small> — Hello again! Do you bring me any good news yet?</li>
+<li><a href="#e0">entry #0</a> <small class="muted">(if <code>gquest3</code>)</small> — Thank you for offering your help.</li>
+</ul>
+<h2>Conversation flow</h2>
+<p class="muted">Each starting entry is expanded recursively. Repeated nodes (cycles, shared continuations) appear inline as <code>↩ link</code> backrefs to the first occurrence.</p>
+<div class="dlg-tree">
+<details class="dlg-tree-node entry" open>
+<summary><span class="dlg-id">entry #2</span> <small class="muted">(if <code>gquest1</code>)</small> <a class="dlg-anchor" href="#e2" title="jump to flat entry #2">¶</a></summary>
+<div class="dlg-text">Hello traveler.</div>
+<div class="dlg-tree-children">
+<details class="dlg-tree-node reply" open>
+<summary><span class="dlg-id">reply #2</span> <a class="dlg-anchor" href="#r2" title="jump to flat reply #2">¶</a></summary>
+<div class="dlg-text">Greetings. What is this nice place?</div>
+<div class="dlg-tree-children">
+<details class="dlg-tree-node entry" open>
+<summary><span class="dlg-id">entry #3</span> <a class="dlg-anchor" href="#e3" title="jump to flat entry #3">¶</a></summary>
+<div class="dlg-text">This is the Erab Oasis of Gwathdor, the only place where you will find safety and refuge on the whole island. It is centered around this ancient geiser which gives life to all these trees I have taken care of for years.</div>
+<div class="dlg-tree-children">
+<details class="dlg-tree-node reply" open>
+<summary><span class="dlg-id">reply #3</span> <a class="dlg-anchor" href="#r3" title="jump to flat reply #3">¶</a></summary>
+<div class="dlg-text">Why is this oasis so imporant to you?</div>
+<div class="dlg-tree-children">
+<details class="dlg-tree-node entry" open>
+<summary><span class="dlg-id">entry #4</span> <a class="dlg-anchor" href="#e4" title="jump to flat entry #4">¶</a></summary>
+<div class="dlg-text">Because it keeps the evil located inside the Gwathdor Caves at bay. Just the smell of this oasis is deadly for them, and they do not get near it. At least it was so until now...</div>
+<div class="dlg-tree-children">
+<details class="dlg-tree-node reply" open>
+<summary><span class="dlg-id">reply #4</span> <a class="dlg-anchor" href="#r4" title="jump to flat reply #4">¶</a></summary>
+<div class="dlg-text">Has anything changed now?</div>
+<div class="dlg-tree-children">
+<details class="dlg-tree-node entry" open>
+<summary><span class="dlg-id">entry #5</span> <a class="dlg-anchor" href="#e5" title="jump to flat entry #5">¶</a></summary>
+<div class="dlg-text">The Gwathdor Lord has been preparing a way to destroy this oasis. He sent many of his servants recently to prepare for an attack, therefore it seems he is ready to attack.</div>
+<div class="dlg-tree-children">
+<details class="dlg-tree-node reply" open>
+<summary><span class="dlg-id">reply #5</span> <a class="dlg-anchor" href="#r5" title="jump to flat reply #5">¶</a></summary>
+<div class="dlg-text">Is there anything I can do?</div>
+<div class="dlg-tree-children">
+<details class="dlg-tree-node entry" open>
+<summary><span class="dlg-id">entry #6</span> <a class="dlg-anchor" href="#e6" title="jump to flat entry #6">¶</a></summary>
+<div class="dlg-text">You yourself certainly not, but with a mighty party, yes. Head into the deeps of Gwathdor and kill the Lord before he unleashes all his powers against the oasis. I am afraid no magic of mine will be able to stop him.</div>
+<div class="dlg-tree-children">
+<details class="dlg-tree-node reply" open>
+<summary><span class="dlg-id">reply #7</span> <span class="dlg-action">→ <code>gqstart</code></span> <a class="dlg-anchor" href="#r7" title="jump to flat reply #7">¶</a></summary>
+<div class="dlg-text">Yes. I will do this task, but can you tell me more about what I can expect with my party?</div>
+<div class="dlg-tree-children">
+<details class="dlg-tree-node entry" open>
+<summary><span class="dlg-id">entry #7</span> <a class="dlg-anchor" href="#e7" title="jump to flat entry #7">¶</a></summary>
+<div class="dlg-text">Many dark wizards guard this place. Deeper inside there are guardians with mighty weapons and magical armor which move very swiftly. However, to get to the Lord himself you must first awake him.</div>
+<div class="dlg-tree-children">
+<details class="dlg-tree-node reply" open>
+<summary><span class="dlg-id">reply #8</span> <a class="dlg-anchor" href="#r8" title="jump to flat reply #8">¶</a></summary>
+<div class="dlg-text">How do we acomplish this?</div>
+<div class="dlg-tree-children">
+<details class="dlg-tree-node entry" open>
+<summary><span class="dlg-id">entry #8</span> <a class="dlg-anchor" href="#e8" title="jump to flat entry #8">¶</a></summary>
+<div class="dlg-text">There is a spirit of wind in the chambers just before you enter the hall of the Lord. This spirit moves extremely quickly and will not attack you. It will run from you. You must kill it first, and this will awaken the Lord. Once you bring me his pipe as proof that he has perished, I shall reward you for it.</div>
+<div class="dlg-tree-children">
+<details class="dlg-tree-node reply" open>
+<summary><span class="dlg-id">reply #9</span> <a class="dlg-anchor" href="#r9" title="jump to flat reply #9">¶</a></summary>
+<div class="dlg-text">Very well, we are on our way.</div>
+</details>
+</div>
+</details>
+</div>
+</details>
+</div>
+</details>
+</div>
+</details>
+<details class="dlg-tree-node reply" open>
+<summary><span class="dlg-id">reply #6</span> <a class="dlg-anchor" href="#r6" title="jump to flat reply #6">¶</a></summary>
+<div class="dlg-text">No, from what you speak I do not believe I can be victorious.</div>
+</details>
+</div>
+</details>
+</div>
+</details>
+</div>
+</details>
+</div>
+</details>
+</div>
+</details>
+</div>
+</details>
+</div>
+</details>
+</div>
+</details>
+</div>
+</details>
+<details class="dlg-tree-node entry" open>
+<summary><span class="dlg-id">entry #1</span> <small class="muted">(if <code>gquest2</code>)</small> <a class="dlg-anchor" href="#e1" title="jump to flat entry #1">¶</a></summary>
+<div class="dlg-text">Hello again! Do you bring me any good news yet?</div>
+<div class="dlg-tree-children">
+<details class="dlg-tree-node reply" open>
+<summary><span class="dlg-id">reply #1</span> <span class="dlg-action">→ <code>gqend</code></span> <small class="muted">(if <code>gqcompletetest</code>)</small> <a class="dlg-anchor" href="#r1" title="jump to flat reply #1">¶</a></summary>
+<div class="dlg-text">Yes. We have slayed the Gwathdor Lord, so you are rid of your worries. Here, take this pipe as a trophy.</div>
+</details>
+<details class="dlg-tree-node reply" open>
+<summary><span class="dlg-id">reply #0</span> <a class="dlg-anchor" href="#r0" title="jump to flat reply #0">¶</a></summary>
+<div class="dlg-text">We have not managed to slay him just yet.</div>
+</details>
+</div>
+</details>
+<details class="dlg-tree-node entry" open>
+<summary><span class="dlg-id">entry #0</span> <small class="muted">(if <code>gquest3</code>)</small> <a class="dlg-anchor" href="#e0" title="jump to flat entry #0">¶</a></summary>
+<div class="dlg-text">Thank you for offering your help.</div>
+</details>
+</div>
+<h2>NPC lines (entries) — flat index</h2>
+<div class="dlg-node entry" id="e0"><div class="dlg-head"><span class="dlg-id">entry #0</span></div><div class="dlg-text">Thank you for offering your help.</div></div>
+<div class="dlg-node entry" id="e1"><div class="dlg-head"><span class="dlg-id">entry #1</span></div><div class="dlg-text">Hello again! Do you bring me any good news yet?</div><ul class="dlg-links"><li><a href="#r1">→ reply #1</a> <span class="dlg-link-preview">“Yes. We have slayed the Gwathdor Lord, so you are rid of your worries. Here, tak…”</span> <small class="muted">(if <code>gqcompletetest</code>)</small></li><li><a href="#r0">→ reply #0</a> <span class="dlg-link-preview">“We have not managed to slay him just yet.”</span></li></ul></div>
+<div class="dlg-node entry" id="e2"><div class="dlg-head"><span class="dlg-id">entry #2</span></div><div class="dlg-text">Hello traveler.</div><ul class="dlg-links"><li><a href="#r2">→ reply #2</a> <span class="dlg-link-preview">“Greetings. What is this nice place?”</span></li></ul></div>
+<div class="dlg-node entry" id="e3"><div class="dlg-head"><span class="dlg-id">entry #3</span></div><div class="dlg-text">This is the Erab Oasis of Gwathdor, the only place where you will find safety and refuge on the whole island. It is centered around this ancient geiser which gives life to all these trees I have taken care of for years.</div><ul class="dlg-links"><li><a href="#r3">→ reply #3</a> <span class="dlg-link-preview">“Why is this oasis so imporant to you?”</span></li></ul></div>
+<div class="dlg-node entry" id="e4"><div class="dlg-head"><span class="dlg-id">entry #4</span></div><div class="dlg-text">Because it keeps the evil located inside the Gwathdor Caves at bay. Just the smell of this oasis is deadly for them, and they do not get near it. At least it was so until now...</div><ul class="dlg-links"><li><a href="#r4">→ reply #4</a> <span class="dlg-link-preview">“Has anything changed now?”</span></li></ul></div>
+<div class="dlg-node entry" id="e5"><div class="dlg-head"><span class="dlg-id">entry #5</span></div><div class="dlg-text">The Gwathdor Lord has been preparing a way to destroy this oasis. He sent many of his servants recently to prepare for an attack, therefore it seems he is ready to attack.</div><ul class="dlg-links"><li><a href="#r5">→ reply #5</a> <span class="dlg-link-preview">“Is there anything I can do?”</span></li></ul></div>
+<div class="dlg-node entry" id="e6"><div class="dlg-head"><span class="dlg-id">entry #6</span></div><div class="dlg-text">You yourself certainly not, but with a mighty party, yes. Head into the deeps of Gwathdor and kill the Lord before he unleashes all his powers against the oasis. I am afraid no magic of mine will be able to stop him.</div><ul class="dlg-links"><li><a href="#r7">→ reply #7</a> <span class="dlg-link-preview">“Yes. I will do this task, but can you tell me more about what I can expect with…”</span></li><li><a href="#r6">→ reply #6</a> <span class="dlg-link-preview">“No, from what you speak I do not believe I can be victorious.”</span></li></ul></div>
+<div class="dlg-node entry" id="e7"><div class="dlg-head"><span class="dlg-id">entry #7</span></div><div class="dlg-text">Many dark wizards guard this place. Deeper inside there are guardians with mighty weapons and magical armor which move very swiftly. However, to get to the Lord himself you must first awake him.</div><ul class="dlg-links"><li><a href="#r8">→ reply #8</a> <span class="dlg-link-preview">“How do we acomplish this?”</span></li></ul></div>
+<div class="dlg-node entry" id="e8"><div class="dlg-head"><span class="dlg-id">entry #8</span></div><div class="dlg-text">There is a spirit of wind in the chambers just before you enter the hall of the Lord. This spirit moves extremely quickly and will not attack you. It will run from you. You must kill it first, and this will awaken the Lord. Once you bring me his pipe as proof that he has perished, I shall reward you for it.</div><ul class="dlg-links"><li><a href="#r9">→ reply #9</a> <span class="dlg-link-preview">“Very well, we are on our way.”</span></li></ul></div>
+<h2>PC replies — flat index</h2>
+<div class="dlg-node reply" id="r0"><div class="dlg-head"><span class="dlg-id">reply #0</span></div><div class="dlg-text">We have not managed to slay him just yet.</div></div>
+<div class="dlg-node reply" id="r1"><div class="dlg-head"><span class="dlg-id">reply #1</span> <span class="dlg-action">→ <code>gqend</code></span></div><div class="dlg-text">Yes. We have slayed the Gwathdor Lord, so you are rid of your worries. Here, take this pipe as a trophy.</div></div>
+<div class="dlg-node reply" id="r2"><div class="dlg-head"><span class="dlg-id">reply #2</span></div><div class="dlg-text">Greetings. What is this nice place?</div><ul class="dlg-links"><li><a href="#e3">→ entry #3</a> <span class="dlg-link-preview">“This is the Erab Oasis of Gwathdor, the only place where you will find safety an…”</span></li></ul></div>
+<div class="dlg-node reply" id="r3"><div class="dlg-head"><span class="dlg-id">reply #3</span></div><div class="dlg-text">Why is this oasis so imporant to you?</div><ul class="dlg-links"><li><a href="#e4">→ entry #4</a> <span class="dlg-link-preview">“Because it keeps the evil located inside the Gwathdor Caves at bay. Just the sme…”</span></li></ul></div>
+<div class="dlg-node reply" id="r4"><div class="dlg-head"><span class="dlg-id">reply #4</span></div><div class="dlg-text">Has anything changed now?</div><ul class="dlg-links"><li><a href="#e5">→ entry #5</a> <span class="dlg-link-preview">“The Gwathdor Lord has been preparing a way to destroy this oasis. He sent many o…”</span></li></ul></div>
+<div class="dlg-node reply" id="r5"><div class="dlg-head"><span class="dlg-id">reply #5</span></div><div class="dlg-text">Is there anything I can do?</div><ul class="dlg-links"><li><a href="#e6">→ entry #6</a> <span class="dlg-link-preview">“You yourself certainly not, but with a mighty party, yes. Head into the deeps of…”</span></li></ul></div>
+<div class="dlg-node reply" id="r6"><div class="dlg-head"><span class="dlg-id">reply #6</span></div><div class="dlg-text">No, from what you speak I do not believe I can be victorious.</div></div>
+<div class="dlg-node reply" id="r7"><div class="dlg-head"><span class="dlg-id">reply #7</span> <span class="dlg-action">→ <code>gqstart</code></span></div><div class="dlg-text">Yes. I will do this task, but can you tell me more about what I can expect with my party?</div><ul class="dlg-links"><li><a href="#e7">→ entry #7</a> <span class="dlg-link-preview">“Many dark wizards guard this place. Deeper inside there are guardians with might…”</span></li></ul></div>
+<div class="dlg-node reply" id="r8"><div class="dlg-head"><span class="dlg-id">reply #8</span></div><div class="dlg-text">How do we acomplish this?</div><ul class="dlg-links"><li><a href="#e8">→ entry #8</a> <span class="dlg-link-preview">“There is a spirit of wind in the chambers just before you enter the hall of the…”</span></li></ul></div>
+<div class="dlg-node reply" id="r9"><div class="dlg-head"><span class="dlg-id">reply #9</span></div><div class="dlg-text">Very well, we are on our way.</div></div>
+  </main>
+  <footer>generated by <a href="https://github.com/mrprice22/nwn-manager">nwn-manager</a> &mdash; last updated Jun 3, 2026 12:42</footer>
+</body>
+</html>

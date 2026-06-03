@@ -1,0 +1,533 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Conversation fxwand</title>
+  <link rel="stylesheet" href="../assets/style.css">
+  <link rel="stylesheet" href="../assets/theme.css">
+  <link rel="icon" href="../assets/favicon.png">
+</head>
+<body>
+  <header class="site-header">
+    <a class="brand" href="../index.html"><img class="site-header-img" src="../assets/header.png" alt="Home"></a>
+    <nav>
+      <a href="../index.html">Map</a>
+      <a href="../areas/index.html">Areas</a>
+      <div class="nav-dropdown">
+        <span class="nav-dropdown-label">Creatures &#9660;</span>
+        <div class="nav-dropdown-menu">
+          <a href="../creatures/index.html">All Creatures</a>
+          <a href="../creatures/by-area/index.html">By Area</a>
+          <a href="../creatures/by-cr/index.html">By Challenge Rating</a>
+          <a href="../creatures/by-race/index.html">By Race</a>
+        </div>
+      </div>
+      <div class="nav-dropdown">
+        <span class="nav-dropdown-label">Items &#9660;</span>
+        <div class="nav-dropdown-menu">
+          <a href="../items/index.html">Accessible</a>
+          <a href="../items/inaccessible/index.html">Inaccessible</a>
+          <a href="../items/properties/index.html">By Property</a>
+          <a href="../items/search.html">Search</a>
+        </div>
+      </div>
+      <a href="../stores/index.html">Stores</a>
+      <a href="../conversations/index.html">Conversations</a>
+      <a href="../factions.html">Factions</a>
+      <a href="../quests/index.html">Quests</a>
+      <a href="../activity.html">Activity</a>
+      <div class="nav-dropdown"><span class="nav-dropdown-label">Documents &#9660;</span><div class="nav-dropdown-menu"><a href="../manual/LevelingGuide.html">Leveling Guide</a>
+<a href="../manual/MeaningWave.html">MeaningWave: A Guide to the Guides</a>
+<a href="../manual/Quest Ideas.html">Quest Ideas (Draft Concepts)</a>
+<a href="../manual/QuestGuide.html">Quest Guide</a></div></div>
+    </nav>
+  </header>
+  <main>
+<h1>Conversation: <code>fxwand</code></h1>
+<dl class="meta">
+<dt>NPC lines</dt><dd>11</dd>
+<dt>PC replies</dt><dd>63</dd>
+<dt>NumWords</dt><dd>275</dd>
+<dt>OnEnd</dt><dd><code></code></dd>
+<dt>OnAbort</dt><dd><code></code></dd>
+</dl>
+<h2>Triggered by</h2><p class="muted">No caller found in static analysis. May be invoked from runtime-only code paths (string-built resrefs, etc.).</p>
+<h2>Scripts referenced</h2>
+<table class="data"><thead><tr><th>Script</th><th>Slot</th><th>In module</th><th>Notes</th></tr></thead><tbody><tr><td><code>fxw_appeargood</code></td><td>action</td><td>✓</td><td></td></tr>
+<tr><td><code>fxw_appearevil</code></td><td>action</td><td>✓</td><td></td></tr>
+<tr><td><code>fxw_earthquaked</code></td><td>action</td><td>✓</td><td></td></tr>
+<tr><td><code>fxw_summongood</code></td><td>action</td><td>✓</td><td></td></tr>
+<tr><td><code>fxw_summonevil</code></td><td>action</td><td>✓</td><td></td></tr>
+<tr><td><code>fxw_summon</code></td><td>action</td><td>✓</td><td></td></tr>
+<tr><td><code>fxw_wdefault</code></td><td>action</td><td>✓</td><td></td></tr>
+<tr><td><code>fxw_wsnow</code></td><td>action</td><td>✓</td><td></td></tr>
+<tr><td><code>fxw_wclear</code></td><td>action</td><td>✓</td><td></td></tr>
+<tr><td><code>fxw_wrain</code></td><td>action</td><td>✓</td><td></td></tr>
+<tr><td><code>fxw_firestorm</code></td><td>action</td><td>✓</td><td></td></tr>
+<tr><td><code>fxw_lightning</code></td><td>action</td><td>✓</td><td></td></tr>
+<tr><td><code>fxw_earthquake</code></td><td>action</td><td>✓</td><td></td></tr>
+<tr><td><code>ew_sbranchsnap</code></td><td>action</td><td>✓</td><td></td></tr>
+<tr><td><code>ew_thunder</code></td><td>action</td><td>✓</td><td></td></tr>
+<tr><td><code>ew_ssplash</code></td><td>action</td><td>✓</td><td></td></tr>
+<tr><td><code>ew_sfloorcreak</code></td><td>action</td><td>✓</td><td></td></tr>
+<tr><td><code>ew_sdoorshuts</code></td><td>action</td><td>✓</td><td></td></tr>
+<tr><td><code>ew_sbushrustle</code></td><td>action</td><td>✓</td><td></td></tr>
+<tr><td><code>ew_sglassbreak</code></td><td>action</td><td>✓</td><td></td></tr>
+<tr><td><code>ew_sghouldrend</code></td><td>action</td><td>✓</td><td></td></tr>
+<tr><td><code>ew_sdemonpain</code></td><td>action</td><td>✓</td><td></td></tr>
+<tr><td><code>ew_sdemonsoul</code></td><td>action</td><td>✓</td><td></td></tr>
+<tr><td><code>ew_ssppokymoan</code></td><td>action</td><td>✓</td><td></td></tr>
+<tr><td><code>ew_sspooklaugh</code></td><td>action</td><td>✓</td><td></td></tr>
+<tr><td><code>ew_sevilchant</code></td><td>action</td><td>✓</td><td></td></tr>
+<tr><td><code>ew_sgrowling</code></td><td>action</td><td>✓</td><td></td></tr>
+<tr><td><code>ew_smdoomsayer</code></td><td>action</td><td>✓</td><td></td></tr>
+<tr><td><code>ew_smdrunksing</code></td><td>action</td><td>✓</td><td></td></tr>
+<tr><td><code>ew_smdrunkogre</code></td><td>action</td><td>✓</td><td></td></tr>
+<tr><td><code>ew_sfhandsoff</code></td><td>action</td><td>✓</td><td></td></tr>
+<tr><td><code>ew_smmoreale</code></td><td>action</td><td>✓</td><td></td></tr>
+<tr><td><code>ew_smpleading</code></td><td>action</td><td>✓</td><td></td></tr>
+<tr><td><code>ew_smshoutposts</code></td><td>action</td><td>✓</td><td></td></tr>
+<tr><td><code>ew_sfcrying</code></td><td>action</td><td>✓</td><td></td></tr>
+<tr><td><code>ew_sfemalecough</code></td><td>action</td><td>✓</td><td></td></tr>
+<tr><td><code>fxw_ladyscream</code></td><td>action</td><td>✓</td><td></td></tr>
+<tr><td><code>ew_smyawn</code></td><td>action</td><td>✓</td><td></td></tr>
+<tr><td><code>ew_smspits</code></td><td>action</td><td>✓</td><td></td></tr>
+<tr><td><code>ew_smsneeze</code></td><td>action</td><td>✓</td><td></td></tr>
+<tr><td><code>ew_smaledies</code></td><td>action</td><td>✓</td><td></td></tr>
+<tr><td><code>ew_smcrying</code></td><td>action</td><td>✓</td><td></td></tr>
+<tr><td><code>ew_scoughmale</code></td><td>action</td><td>✓</td><td></td></tr>
+<tr><td><code>ew_s2mtalk</code></td><td>action</td><td>✓</td><td></td></tr>
+<tr><td><code>ew_srooster</code></td><td>action</td><td>✓</td><td></td></tr>
+<tr><td><code>ew_sowlhoot</code></td><td>action</td><td>✓</td><td></td></tr>
+<tr><td><code>ew_shawk</code></td><td>action</td><td>✓</td><td></td></tr>
+<tr><td><code>ew_sdogbark</code></td><td>action</td><td>✓</td><td></td></tr>
+<tr><td><code>ew_scrow</code></td><td>action</td><td>✓</td><td></td></tr>
+<tr><td><code>ew_scow</code></td><td>action</td><td>✓</td><td></td></tr>
+<tr><td><code>fxw_wolfhowl</code></td><td>action</td><td>✓</td><td></td></tr>
+<tr><td><code>ew_scatscrech</code></td><td>action</td><td>✓</td><td></td></tr>
+<tr><td><code>ew_sbigcat</code></td><td>action</td><td>✓</td><td></td></tr></tbody></table>
+<h2>Starting entries</h2><ul>
+<li><a href="#e0">entry #0</a> — What sort of effect would you like?</li>
+</ul>
+<h2>Conversation flow</h2>
+<p class="muted">Each starting entry is expanded recursively. Repeated nodes (cycles, shared continuations) appear inline as <code>↩ link</code> backrefs to the first occurrence.</p>
+<div class="dlg-tree">
+<details class="dlg-tree-node entry" open>
+<summary><span class="dlg-id">entry #0</span> <a class="dlg-anchor" href="#e0" title="jump to flat entry #0">¶</a></summary>
+<div class="dlg-text">What sort of effect would you like?</div>
+<div class="dlg-tree-children">
+<details class="dlg-tree-node reply" open>
+<summary><span class="dlg-id">reply #18</span> <a class="dlg-anchor" href="#r18" title="jump to flat reply #18">¶</a></summary>
+<div class="dlg-text">A sound effect.</div>
+<div class="dlg-tree-children">
+<details class="dlg-tree-node entry" open>
+<summary><span class="dlg-id">entry #6</span> <a class="dlg-anchor" href="#e6" title="jump to flat entry #6">¶</a></summary>
+<div class="dlg-text">Which sound would you like?</div>
+<div class="dlg-tree-children">
+<details class="dlg-tree-node reply" open>
+<summary><span class="dlg-id">reply #53</span> <a class="dlg-anchor" href="#r53" title="jump to flat reply #53">¶</a></summary>
+<div class="dlg-text">Animal Sounds</div>
+<div class="dlg-tree-children">
+<details class="dlg-tree-node entry" open>
+<summary><span class="dlg-id">entry #10</span> <a class="dlg-anchor" href="#e10" title="jump to flat entry #10">¶</a></summary>
+<div class="dlg-text">Which Animal Sound?</div>
+<div class="dlg-tree-children">
+<details class="dlg-tree-node reply" open>
+<summary><span class="dlg-id">reply #62</span> <span class="dlg-action">→ <code>ew_sbigcat</code></span> <a class="dlg-anchor" href="#r62" title="jump to flat reply #62">¶</a></summary>
+<div class="dlg-text">Big Cat</div>
+</details>
+<details class="dlg-tree-node reply" open>
+<summary><span class="dlg-id">reply #61</span> <span class="dlg-action">→ <code>ew_scatscrech</code></span> <a class="dlg-anchor" href="#r61" title="jump to flat reply #61">¶</a></summary>
+<div class="dlg-text">Cat Screech</div>
+</details>
+<details class="dlg-tree-node reply" open>
+<summary><span class="dlg-id">reply #60</span> <span class="dlg-action">→ <code>fxw_wolfhowl</code></span> <a class="dlg-anchor" href="#r60" title="jump to flat reply #60">¶</a></summary>
+<div class="dlg-text">Wolves howling.</div>
+</details>
+<details class="dlg-tree-node reply" open>
+<summary><span class="dlg-id">reply #59</span> <span class="dlg-action">→ <code>ew_scow</code></span> <a class="dlg-anchor" href="#r59" title="jump to flat reply #59">¶</a></summary>
+<div class="dlg-text">Cow Mooing</div>
+</details>
+<details class="dlg-tree-node reply" open>
+<summary><span class="dlg-id">reply #58</span> <span class="dlg-action">→ <code>ew_scrow</code></span> <a class="dlg-anchor" href="#r58" title="jump to flat reply #58">¶</a></summary>
+<div class="dlg-text">Crow Cawing</div>
+</details>
+<details class="dlg-tree-node reply" open>
+<summary><span class="dlg-id">reply #57</span> <span class="dlg-action">→ <code>ew_sdogbark</code></span> <a class="dlg-anchor" href="#r57" title="jump to flat reply #57">¶</a></summary>
+<div class="dlg-text">Dog Barking</div>
+</details>
+<details class="dlg-tree-node reply" open>
+<summary><span class="dlg-id">reply #56</span> <span class="dlg-action">→ <code>ew_shawk</code></span> <a class="dlg-anchor" href="#r56" title="jump to flat reply #56">¶</a></summary>
+<div class="dlg-text">Hawk</div>
+</details>
+<details class="dlg-tree-node reply" open>
+<summary><span class="dlg-id">reply #55</span> <span class="dlg-action">→ <code>ew_sowlhoot</code></span> <a class="dlg-anchor" href="#r55" title="jump to flat reply #55">¶</a></summary>
+<div class="dlg-text">Owl Hooting</div>
+</details>
+<details class="dlg-tree-node reply" open>
+<summary><span class="dlg-id">reply #54</span> <span class="dlg-action">→ <code>ew_srooster</code></span> <a class="dlg-anchor" href="#r54" title="jump to flat reply #54">¶</a></summary>
+<div class="dlg-text">Rooster Crowing</div>
+</details>
+</div>
+</details>
+</div>
+</details>
+<details class="dlg-tree-node reply" open>
+<summary><span class="dlg-id">reply #35</span> <a class="dlg-anchor" href="#r35" title="jump to flat reply #35">¶</a></summary>
+<div class="dlg-text">People Sounds</div>
+<div class="dlg-tree-children">
+<details class="dlg-tree-node entry" open>
+<summary><span class="dlg-id">entry #9</span> <a class="dlg-anchor" href="#e9" title="jump to flat entry #9">¶</a></summary>
+<div class="dlg-text">Which People Sound?</div>
+<div class="dlg-tree-children">
+<details class="dlg-tree-node reply" open>
+<summary><span class="dlg-id">reply #52</span> <span class="dlg-action">→ <code>ew_s2mtalk</code></span> <a class="dlg-anchor" href="#r52" title="jump to flat reply #52">¶</a></summary>
+<div class="dlg-text">2 Men Chatting</div>
+</details>
+<details class="dlg-tree-node reply" open>
+<summary><span class="dlg-id">reply #51</span> <span class="dlg-action">→ <code>ew_scoughmale</code></span> <a class="dlg-anchor" href="#r51" title="jump to flat reply #51">¶</a></summary>
+<div class="dlg-text">Male Coughs</div>
+</details>
+<details class="dlg-tree-node reply" open>
+<summary><span class="dlg-id">reply #50</span> <span class="dlg-action">→ <code>ew_smcrying</code></span> <a class="dlg-anchor" href="#r50" title="jump to flat reply #50">¶</a></summary>
+<div class="dlg-text">Man Crying</div>
+</details>
+<details class="dlg-tree-node reply" open>
+<summary><span class="dlg-id">reply #49</span> <span class="dlg-action">→ <code>ew_smaledies</code></span> <a class="dlg-anchor" href="#r49" title="jump to flat reply #49">¶</a></summary>
+<div class="dlg-text">Man Dies</div>
+</details>
+<details class="dlg-tree-node reply" open>
+<summary><span class="dlg-id">reply #48</span> <span class="dlg-action">→ <code>ew_smsneeze</code></span> <a class="dlg-anchor" href="#r48" title="jump to flat reply #48">¶</a></summary>
+<div class="dlg-text">Male Sneezes</div>
+</details>
+<details class="dlg-tree-node reply" open>
+<summary><span class="dlg-id">reply #47</span> <span class="dlg-action">→ <code>ew_smspits</code></span> <a class="dlg-anchor" href="#r47" title="jump to flat reply #47">¶</a></summary>
+<div class="dlg-text">Male Spits</div>
+</details>
+<details class="dlg-tree-node reply" open>
+<summary><span class="dlg-id">reply #46</span> <span class="dlg-action">→ <code>ew_smyawn</code></span> <a class="dlg-anchor" href="#r46" title="jump to flat reply #46">¶</a></summary>
+<div class="dlg-text">Male Yawns</div>
+</details>
+<details class="dlg-tree-node reply" open>
+<summary><span class="dlg-id">reply #45</span> <span class="dlg-action">→ <code>fxw_ladyscream</code></span> <a class="dlg-anchor" href="#r45" title="jump to flat reply #45">¶</a></summary>
+<div class="dlg-text">Woman screams.</div>
+</details>
+<details class="dlg-tree-node reply" open>
+<summary><span class="dlg-id">reply #44</span> <span class="dlg-action">→ <code>ew_sfemalecough</code></span> <a class="dlg-anchor" href="#r44" title="jump to flat reply #44">¶</a></summary>
+<div class="dlg-text">Woman Coughs</div>
+</details>
+<details class="dlg-tree-node reply" open>
+<summary><span class="dlg-id">reply #43</span> <span class="dlg-action">→ <code>ew_sfcrying</code></span> <a class="dlg-anchor" href="#r43" title="jump to flat reply #43">¶</a></summary>
+<div class="dlg-text">Woman Crying</div>
+</details>
+<details class="dlg-tree-node reply" open>
+<summary><span class="dlg-id">reply #42</span> <span class="dlg-action">→ <code>ew_smshoutposts</code></span> <a class="dlg-anchor" href="#r42" title="jump to flat reply #42">¶</a></summary>
+<div class="dlg-text">Officer shouts &#x27;To your Posts!&#x27;</div>
+</details>
+<details class="dlg-tree-node reply" open>
+<summary><span class="dlg-id">reply #41</span> <span class="dlg-action">→ <code>ew_smpleading</code></span> <a class="dlg-anchor" href="#r41" title="jump to flat reply #41">¶</a></summary>
+<div class="dlg-text">Male Pleading &#x27;Let me out Please&#x27;</div>
+</details>
+<details class="dlg-tree-node reply" open>
+<summary><span class="dlg-id">reply #40</span> <span class="dlg-action">→ <code>ew_smmoreale</code></span> <a class="dlg-anchor" href="#r40" title="jump to flat reply #40">¶</a></summary>
+<div class="dlg-text">Rough Man says &#x27;I need more Ale&#x27;</div>
+</details>
+<details class="dlg-tree-node reply" open>
+<summary><span class="dlg-id">reply #39</span> <span class="dlg-action">→ <code>ew_sfhandsoff</code></span> <a class="dlg-anchor" href="#r39" title="jump to flat reply #39">¶</a></summary>
+<div class="dlg-text">Woman Says &#x27;Hands off Pig!&#x27;</div>
+</details>
+<details class="dlg-tree-node reply" open>
+<summary><span class="dlg-id">reply #38</span> <span class="dlg-action">→ <code>ew_smdrunkogre</code></span> <a class="dlg-anchor" href="#r38" title="jump to flat reply #38">¶</a></summary>
+<div class="dlg-text">Dunk man sings about an Ogre</div>
+</details>
+<details class="dlg-tree-node reply" open>
+<summary><span class="dlg-id">reply #37</span> <span class="dlg-action">→ <code>ew_smdrunksing</code></span> <a class="dlg-anchor" href="#r37" title="jump to flat reply #37">¶</a></summary>
+<div class="dlg-text">Drunk Singing</div>
+</details>
+<details class="dlg-tree-node reply" open>
+<summary><span class="dlg-id">reply #36</span> <span class="dlg-action">→ <code>ew_smdoomsayer</code></span> <a class="dlg-anchor" href="#r36" title="jump to flat reply #36">¶</a></summary>
+<div class="dlg-text">Doomsayer says &#x27;We&#x27;re doomed, I&#x27;ve seen it, seen our deaths in the air&#x27;</div>
+</details>
+</div>
+</details>
+</div>
+</details>
+<details class="dlg-tree-node reply" open>
+<summary><span class="dlg-id">reply #27</span> <a class="dlg-anchor" href="#r27" title="jump to flat reply #27">¶</a></summary>
+<div class="dlg-text">Spooky Sounds</div>
+<div class="dlg-tree-children">
+<details class="dlg-tree-node entry" open>
+<summary><span class="dlg-id">entry #8</span> <a class="dlg-anchor" href="#e8" title="jump to flat entry #8">¶</a></summary>
+<div class="dlg-text">Which Spooky Sound?</div>
+<div class="dlg-tree-children">
+<details class="dlg-tree-node reply" open>
+<summary><span class="dlg-id">reply #34</span> <span class="dlg-action">→ <code>ew_sgrowling</code></span> <a class="dlg-anchor" href="#r34" title="jump to flat reply #34">¶</a></summary>
+<div class="dlg-text">Deep Growling</div>
+</details>
+<details class="dlg-tree-node reply" open>
+<summary><span class="dlg-id">reply #33</span> <span class="dlg-action">→ <code>ew_sevilchant</code></span> <a class="dlg-anchor" href="#r33" title="jump to flat reply #33">¶</a></summary>
+<div class="dlg-text">Evil Men Chanting</div>
+</details>
+<details class="dlg-tree-node reply" open>
+<summary><span class="dlg-id">reply #32</span> <span class="dlg-action">→ <code>ew_sspooklaugh</code></span> <a class="dlg-anchor" href="#r32" title="jump to flat reply #32">¶</a></summary>
+<div class="dlg-text">Spooky Laughing</div>
+</details>
+<details class="dlg-tree-node reply" open>
+<summary><span class="dlg-id">reply #31</span> <span class="dlg-action">→ <code>ew_ssppokymoan</code></span> <a class="dlg-anchor" href="#r31" title="jump to flat reply #31">¶</a></summary>
+<div class="dlg-text">Spooky Moaning</div>
+</details>
+<details class="dlg-tree-node reply" open>
+<summary><span class="dlg-id">reply #30</span> <span class="dlg-action">→ <code>ew_sdemonsoul</code></span> <a class="dlg-anchor" href="#r30" title="jump to flat reply #30">¶</a></summary>
+<div class="dlg-text">Demon Voice &#x27;I will rape your soul&#x27;</div>
+</details>
+<details class="dlg-tree-node reply" open>
+<summary><span class="dlg-id">reply #29</span> <span class="dlg-action">→ <code>ew_sdemonpain</code></span> <a class="dlg-anchor" href="#r29" title="jump to flat reply #29">¶</a></summary>
+<div class="dlg-text">Demon Voice &#x27;Your pain shall be eternal&#x27;</div>
+</details>
+<details class="dlg-tree-node reply" open>
+<summary><span class="dlg-id">reply #28</span> <span class="dlg-action">→ <code>ew_sghouldrend</code></span> <a class="dlg-anchor" href="#r28" title="jump to flat reply #28">¶</a></summary>
+<div class="dlg-text">Ghoul Voice &#x27;Rend your flesh&#x27;</div>
+</details>
+</div>
+</details>
+</div>
+</details>
+<details class="dlg-tree-node reply" open>
+<summary><span class="dlg-id">reply #19</span> <a class="dlg-anchor" href="#r19" title="jump to flat reply #19">¶</a></summary>
+<div class="dlg-text">Environment Sounds</div>
+<div class="dlg-tree-children">
+<details class="dlg-tree-node entry" open>
+<summary><span class="dlg-id">entry #7</span> <a class="dlg-anchor" href="#e7" title="jump to flat entry #7">¶</a></summary>
+<div class="dlg-text">Which Environment Sound?</div>
+<div class="dlg-tree-children">
+<details class="dlg-tree-node reply" open>
+<summary><span class="dlg-id">reply #26</span> <span class="dlg-action">→ <code>ew_sglassbreak</code></span> <a class="dlg-anchor" href="#r26" title="jump to flat reply #26">¶</a></summary>
+<div class="dlg-text">Breaking Noises</div>
+</details>
+<details class="dlg-tree-node reply" open>
+<summary><span class="dlg-id">reply #25</span> <span class="dlg-action">→ <code>ew_sbushrustle</code></span> <a class="dlg-anchor" href="#r25" title="jump to flat reply #25">¶</a></summary>
+<div class="dlg-text">Bush Rustles</div>
+</details>
+<details class="dlg-tree-node reply" open>
+<summary><span class="dlg-id">reply #24</span> <span class="dlg-action">→ <code>ew_sdoorshuts</code></span> <a class="dlg-anchor" href="#r24" title="jump to flat reply #24">¶</a></summary>
+<div class="dlg-text">Door Shuts</div>
+</details>
+<details class="dlg-tree-node reply" open>
+<summary><span class="dlg-id">reply #23</span> <span class="dlg-action">→ <code>ew_sfloorcreak</code></span> <a class="dlg-anchor" href="#r23" title="jump to flat reply #23">¶</a></summary>
+<div class="dlg-text">Floorboard Creaks</div>
+</details>
+<details class="dlg-tree-node reply" open>
+<summary><span class="dlg-id">reply #22</span> <span class="dlg-action">→ <code>ew_ssplash</code></span> <a class="dlg-anchor" href="#r22" title="jump to flat reply #22">¶</a></summary>
+<div class="dlg-text">Small Splash</div>
+</details>
+<details class="dlg-tree-node reply" open>
+<summary><span class="dlg-id">reply #21</span> <span class="dlg-action">→ <code>ew_thunder</code></span> <a class="dlg-anchor" href="#r21" title="jump to flat reply #21">¶</a></summary>
+<div class="dlg-text">Thunder</div>
+</details>
+<details class="dlg-tree-node reply" open>
+<summary><span class="dlg-id">reply #20</span> <span class="dlg-action">→ <code>ew_sbranchsnap</code></span> <a class="dlg-anchor" href="#r20" title="jump to flat reply #20">¶</a></summary>
+<div class="dlg-text">Twig Snaps</div>
+</details>
+</div>
+</details>
+</div>
+</details>
+</div>
+</details>
+</div>
+</details>
+<details class="dlg-tree-node reply" open>
+<summary><span class="dlg-id">reply #9</span> <a class="dlg-anchor" href="#r9" title="jump to flat reply #9">¶</a></summary>
+<div class="dlg-text">A visual effect.</div>
+<div class="dlg-tree-children">
+<details class="dlg-tree-node entry" open>
+<summary><span class="dlg-id">entry #4</span> <a class="dlg-anchor" href="#e4" title="jump to flat entry #4">¶</a></summary>
+<div class="dlg-text">Which effect would you like?</div>
+<div class="dlg-tree-children">
+<details class="dlg-tree-node reply" open>
+<summary><span class="dlg-id">reply #17</span> <span class="dlg-action">→ <code>fxw_earthquake</code></span> <a class="dlg-anchor" href="#r17" title="jump to flat reply #17">¶</a></summary>
+<div class="dlg-text">An earthquake.</div>
+</details>
+<details class="dlg-tree-node reply" open>
+<summary><span class="dlg-id">reply #16</span> <span class="dlg-action">→ <code>fxw_lightning</code></span> <a class="dlg-anchor" href="#r16" title="jump to flat reply #16">¶</a></summary>
+<div class="dlg-text">A lightning bolt.</div>
+</details>
+<details class="dlg-tree-node reply" open>
+<summary><span class="dlg-id">reply #15</span> <span class="dlg-action">→ <code>fxw_firestorm</code></span> <a class="dlg-anchor" href="#r15" title="jump to flat reply #15">¶</a></summary>
+<div class="dlg-text">A Firestorm</div>
+</details>
+<details class="dlg-tree-node reply" open>
+<summary><span class="dlg-id">reply #10</span> <a class="dlg-anchor" href="#r10" title="jump to flat reply #10">¶</a></summary>
+<div class="dlg-text">Change the area&#x27;s weather.</div>
+<div class="dlg-tree-children">
+<details class="dlg-tree-node entry" open>
+<summary><span class="dlg-id">entry #5</span> <a class="dlg-anchor" href="#e5" title="jump to flat entry #5">¶</a></summary>
+<div class="dlg-text">What would you like the new weather to be?</div>
+<div class="dlg-tree-children">
+<details class="dlg-tree-node reply" open>
+<summary><span class="dlg-id">reply #14</span> <span class="dlg-action">→ <code>fxw_wrain</code></span> <a class="dlg-anchor" href="#r14" title="jump to flat reply #14">¶</a></summary>
+<div class="dlg-text">Rainy.</div>
+</details>
+<details class="dlg-tree-node reply" open>
+<summary><span class="dlg-id">reply #13</span> <span class="dlg-action">→ <code>fxw_wclear</code></span> <a class="dlg-anchor" href="#r13" title="jump to flat reply #13">¶</a></summary>
+<div class="dlg-text">Clear.</div>
+</details>
+<details class="dlg-tree-node reply" open>
+<summary><span class="dlg-id">reply #12</span> <span class="dlg-action">→ <code>fxw_wsnow</code></span> <a class="dlg-anchor" href="#r12" title="jump to flat reply #12">¶</a></summary>
+<div class="dlg-text">Snowy.</div>
+</details>
+<details class="dlg-tree-node reply" open>
+<summary><span class="dlg-id">reply #11</span> <span class="dlg-action">→ <code>fxw_wdefault</code></span> <a class="dlg-anchor" href="#r11" title="jump to flat reply #11">¶</a></summary>
+<div class="dlg-text">The area&#x27;s default weather.</div>
+</details>
+</div>
+</details>
+</div>
+</details>
+</div>
+</details>
+</div>
+</details>
+<details class="dlg-tree-node reply" open>
+<summary><span class="dlg-id">reply #5</span> <a class="dlg-anchor" href="#r5" title="jump to flat reply #5">¶</a></summary>
+<div class="dlg-text">A summoning effect</div>
+<div class="dlg-tree-children">
+<details class="dlg-tree-node entry" open>
+<summary><span class="dlg-id">entry #3</span> <a class="dlg-anchor" href="#e3" title="jump to flat entry #3">¶</a></summary>
+<div class="dlg-text">Have the Creator Window open and ready. effects are delayed by 5 seconds and will appear where you clicked.</div>
+<div class="dlg-tree-children">
+<details class="dlg-tree-node reply" open>
+<summary><span class="dlg-id">reply #8</span> <span class="dlg-action">→ <code>fxw_summon</code></span> <a class="dlg-anchor" href="#r8" title="jump to flat reply #8">¶</a></summary>
+<div class="dlg-text">A Delayed Summoning Effect (Create a Creature after using)</div>
+</details>
+<details class="dlg-tree-node reply" open>
+<summary><span class="dlg-id">reply #7</span> <span class="dlg-action">→ <code>fxw_summonevil</code></span> <a class="dlg-anchor" href="#r7" title="jump to flat reply #7">¶</a></summary>
+<div class="dlg-text">A Delayed Evil Gate Effect (Create a Creature after using)</div>
+</details>
+<details class="dlg-tree-node reply" open>
+<summary><span class="dlg-id">reply #6</span> <span class="dlg-action">→ <code>fxw_summongood</code></span> <a class="dlg-anchor" href="#r6" title="jump to flat reply #6">¶</a></summary>
+<div class="dlg-text">a Delayed Good Gate effect (Create a Creature after using)</div>
+</details>
+</div>
+</details>
+</div>
+</details>
+<details class="dlg-tree-node reply" open>
+<summary><span class="dlg-id">reply #3</span> <a class="dlg-anchor" href="#r3" title="jump to flat reply #3">¶</a></summary>
+<div class="dlg-text">A damaging effect.</div>
+<div class="dlg-tree-children">
+<details class="dlg-tree-node entry" open>
+<summary><span class="dlg-id">entry #2</span> <a class="dlg-anchor" href="#e2" title="jump to flat entry #2">¶</a></summary>
+<div class="dlg-text">Which effect would you like?</div>
+<div class="dlg-tree-children">
+<details class="dlg-tree-node reply" open>
+<summary><span class="dlg-id">reply #4</span> <span class="dlg-action">→ <code>fxw_earthquaked</code></span> <a class="dlg-anchor" href="#r4" title="jump to flat reply #4">¶</a></summary>
+<div class="dlg-text">An earthquake.</div>
+</details>
+</div>
+</details>
+</div>
+</details>
+<details class="dlg-tree-node reply" open>
+<summary><span class="dlg-id">reply #0</span> <a class="dlg-anchor" href="#r0" title="jump to flat reply #0">¶</a></summary>
+<div class="dlg-text">Dramatic Entrance/Exit</div>
+<div class="dlg-tree-children">
+<details class="dlg-tree-node entry" open>
+<summary><span class="dlg-id">entry #1</span> <a class="dlg-anchor" href="#e1" title="jump to flat entry #1">¶</a></summary>
+<div class="dlg-text">which effect would you like?</div>
+<div class="dlg-tree-children">
+<details class="dlg-tree-node reply" open>
+<summary><span class="dlg-id">reply #2</span> <span class="dlg-action">→ <code>fxw_appearevil</code></span> <a class="dlg-anchor" href="#r2" title="jump to flat reply #2">¶</a></summary>
+<div class="dlg-text">An evil gate effect. (Appear/Dissapear after using)</div>
+</details>
+<details class="dlg-tree-node reply" open>
+<summary><span class="dlg-id">reply #1</span> <span class="dlg-action">→ <code>fxw_appeargood</code></span> <a class="dlg-anchor" href="#r1" title="jump to flat reply #1">¶</a></summary>
+<div class="dlg-text">A good gate effect. (Appear/Disappear after using)</div>
+</details>
+</div>
+</details>
+</div>
+</details>
+</div>
+</details>
+</div>
+<h2>NPC lines (entries) — flat index</h2>
+<div class="dlg-node entry" id="e0"><div class="dlg-head"><span class="dlg-id">entry #0</span></div><div class="dlg-text">What sort of effect would you like?</div><ul class="dlg-links"><li><a href="#r18">→ reply #18</a> <span class="dlg-link-preview">“A sound effect.”</span></li><li><a href="#r9">→ reply #9</a> <span class="dlg-link-preview">“A visual effect.”</span></li><li><a href="#r5">→ reply #5</a> <span class="dlg-link-preview">“A summoning effect”</span></li><li><a href="#r3">→ reply #3</a> <span class="dlg-link-preview">“A damaging effect.”</span></li><li><a href="#r0">→ reply #0</a> <span class="dlg-link-preview">“Dramatic Entrance/Exit”</span></li></ul></div>
+<div class="dlg-node entry" id="e1"><div class="dlg-head"><span class="dlg-id">entry #1</span></div><div class="dlg-text">which effect would you like?</div><ul class="dlg-links"><li><a href="#r2">→ reply #2</a> <span class="dlg-link-preview">“An evil gate effect. (Appear/Dissapear after using)”</span></li><li><a href="#r1">→ reply #1</a> <span class="dlg-link-preview">“A good gate effect. (Appear/Disappear after using)”</span></li></ul></div>
+<div class="dlg-node entry" id="e2"><div class="dlg-head"><span class="dlg-id">entry #2</span></div><div class="dlg-text">Which effect would you like?</div><ul class="dlg-links"><li><a href="#r4">→ reply #4</a> <span class="dlg-link-preview">“An earthquake.”</span></li></ul></div>
+<div class="dlg-node entry" id="e3"><div class="dlg-head"><span class="dlg-id">entry #3</span></div><div class="dlg-text">Have the Creator Window open and ready. effects are delayed by 5 seconds and will appear where you clicked.</div><ul class="dlg-links"><li><a href="#r8">→ reply #8</a> <span class="dlg-link-preview">“A Delayed Summoning Effect (Create a Creature after using)”</span></li><li><a href="#r7">→ reply #7</a> <span class="dlg-link-preview">“A Delayed Evil Gate Effect (Create a Creature after using)”</span></li><li><a href="#r6">→ reply #6</a> <span class="dlg-link-preview">“a Delayed Good Gate effect (Create a Creature after using)”</span></li></ul></div>
+<div class="dlg-node entry" id="e4"><div class="dlg-head"><span class="dlg-id">entry #4</span></div><div class="dlg-text">Which effect would you like?</div><ul class="dlg-links"><li><a href="#r17">→ reply #17</a> <span class="dlg-link-preview">“An earthquake.”</span></li><li><a href="#r16">→ reply #16</a> <span class="dlg-link-preview">“A lightning bolt.”</span></li><li><a href="#r15">→ reply #15</a> <span class="dlg-link-preview">“A Firestorm”</span></li><li><a href="#r10">→ reply #10</a> <span class="dlg-link-preview">“Change the area&#x27;s weather.”</span></li></ul></div>
+<div class="dlg-node entry" id="e5"><div class="dlg-head"><span class="dlg-id">entry #5</span></div><div class="dlg-text">What would you like the new weather to be?</div><ul class="dlg-links"><li><a href="#r14">→ reply #14</a> <span class="dlg-link-preview">“Rainy.”</span></li><li><a href="#r13">→ reply #13</a> <span class="dlg-link-preview">“Clear.”</span></li><li><a href="#r12">→ reply #12</a> <span class="dlg-link-preview">“Snowy.”</span></li><li><a href="#r11">→ reply #11</a> <span class="dlg-link-preview">“The area&#x27;s default weather.”</span></li></ul></div>
+<div class="dlg-node entry" id="e6"><div class="dlg-head"><span class="dlg-id">entry #6</span></div><div class="dlg-text">Which sound would you like?</div><ul class="dlg-links"><li><a href="#r53">→ reply #53</a> <span class="dlg-link-preview">“Animal Sounds”</span></li><li><a href="#r35">→ reply #35</a> <span class="dlg-link-preview">“People Sounds”</span></li><li><a href="#r27">→ reply #27</a> <span class="dlg-link-preview">“Spooky Sounds”</span></li><li><a href="#r19">→ reply #19</a> <span class="dlg-link-preview">“Environment Sounds”</span></li></ul></div>
+<div class="dlg-node entry" id="e7"><div class="dlg-head"><span class="dlg-id">entry #7</span></div><div class="dlg-text">Which Environment Sound?</div><ul class="dlg-links"><li><a href="#r26">→ reply #26</a> <span class="dlg-link-preview">“Breaking Noises”</span></li><li><a href="#r25">→ reply #25</a> <span class="dlg-link-preview">“Bush Rustles”</span></li><li><a href="#r24">→ reply #24</a> <span class="dlg-link-preview">“Door Shuts”</span></li><li><a href="#r23">→ reply #23</a> <span class="dlg-link-preview">“Floorboard Creaks”</span></li><li><a href="#r22">→ reply #22</a> <span class="dlg-link-preview">“Small Splash”</span></li><li><a href="#r21">→ reply #21</a> <span class="dlg-link-preview">“Thunder”</span></li><li><a href="#r20">→ reply #20</a> <span class="dlg-link-preview">“Twig Snaps”</span></li></ul></div>
+<div class="dlg-node entry" id="e8"><div class="dlg-head"><span class="dlg-id">entry #8</span></div><div class="dlg-text">Which Spooky Sound?</div><ul class="dlg-links"><li><a href="#r34">→ reply #34</a> <span class="dlg-link-preview">“Deep Growling”</span></li><li><a href="#r33">→ reply #33</a> <span class="dlg-link-preview">“Evil Men Chanting”</span></li><li><a href="#r32">→ reply #32</a> <span class="dlg-link-preview">“Spooky Laughing”</span></li><li><a href="#r31">→ reply #31</a> <span class="dlg-link-preview">“Spooky Moaning”</span></li><li><a href="#r30">→ reply #30</a> <span class="dlg-link-preview">“Demon Voice &#x27;I will rape your soul&#x27;”</span></li><li><a href="#r29">→ reply #29</a> <span class="dlg-link-preview">“Demon Voice &#x27;Your pain shall be eternal&#x27;”</span></li><li><a href="#r28">→ reply #28</a> <span class="dlg-link-preview">“Ghoul Voice &#x27;Rend your flesh&#x27;”</span></li></ul></div>
+<div class="dlg-node entry" id="e9"><div class="dlg-head"><span class="dlg-id">entry #9</span></div><div class="dlg-text">Which People Sound?</div><ul class="dlg-links"><li><a href="#r52">→ reply #52</a> <span class="dlg-link-preview">“2 Men Chatting”</span></li><li><a href="#r51">→ reply #51</a> <span class="dlg-link-preview">“Male Coughs”</span></li><li><a href="#r50">→ reply #50</a> <span class="dlg-link-preview">“Man Crying”</span></li><li><a href="#r49">→ reply #49</a> <span class="dlg-link-preview">“Man Dies”</span></li><li><a href="#r48">→ reply #48</a> <span class="dlg-link-preview">“Male Sneezes”</span></li><li><a href="#r47">→ reply #47</a> <span class="dlg-link-preview">“Male Spits”</span></li><li><a href="#r46">→ reply #46</a> <span class="dlg-link-preview">“Male Yawns”</span></li><li><a href="#r45">→ reply #45</a> <span class="dlg-link-preview">“Woman screams.”</span></li><li><a href="#r44">→ reply #44</a> <span class="dlg-link-preview">“Woman Coughs”</span></li><li><a href="#r43">→ reply #43</a> <span class="dlg-link-preview">“Woman Crying”</span></li><li><a href="#r42">→ reply #42</a> <span class="dlg-link-preview">“Officer shouts &#x27;To your Posts!&#x27;”</span></li><li><a href="#r41">→ reply #41</a> <span class="dlg-link-preview">“Male Pleading &#x27;Let me out Please&#x27;”</span></li><li><a href="#r40">→ reply #40</a> <span class="dlg-link-preview">“Rough Man says &#x27;I need more Ale&#x27;”</span></li><li><a href="#r39">→ reply #39</a> <span class="dlg-link-preview">“Woman Says &#x27;Hands off Pig!&#x27;”</span></li><li><a href="#r38">→ reply #38</a> <span class="dlg-link-preview">“Dunk man sings about an Ogre”</span></li><li><a href="#r37">→ reply #37</a> <span class="dlg-link-preview">“Drunk Singing”</span></li><li><a href="#r36">→ reply #36</a> <span class="dlg-link-preview">“Doomsayer says &#x27;We&#x27;re doomed, I&#x27;ve seen it, seen our deaths in the air&#x27;”</span></li></ul></div>
+<div class="dlg-node entry" id="e10"><div class="dlg-head"><span class="dlg-id">entry #10</span></div><div class="dlg-text">Which Animal Sound?</div><ul class="dlg-links"><li><a href="#r62">→ reply #62</a> <span class="dlg-link-preview">“Big Cat”</span></li><li><a href="#r61">→ reply #61</a> <span class="dlg-link-preview">“Cat Screech”</span></li><li><a href="#r60">→ reply #60</a> <span class="dlg-link-preview">“Wolves howling.”</span></li><li><a href="#r59">→ reply #59</a> <span class="dlg-link-preview">“Cow Mooing”</span></li><li><a href="#r58">→ reply #58</a> <span class="dlg-link-preview">“Crow Cawing”</span></li><li><a href="#r57">→ reply #57</a> <span class="dlg-link-preview">“Dog Barking”</span></li><li><a href="#r56">→ reply #56</a> <span class="dlg-link-preview">“Hawk”</span></li><li><a href="#r55">→ reply #55</a> <span class="dlg-link-preview">“Owl Hooting”</span></li><li><a href="#r54">→ reply #54</a> <span class="dlg-link-preview">“Rooster Crowing”</span></li></ul></div>
+<h2>PC replies — flat index</h2>
+<div class="dlg-node reply" id="r0"><div class="dlg-head"><span class="dlg-id">reply #0</span></div><div class="dlg-text">Dramatic Entrance/Exit</div><ul class="dlg-links"><li><a href="#e1">→ entry #1</a> <span class="dlg-link-preview">“which effect would you like?”</span></li></ul></div>
+<div class="dlg-node reply" id="r1"><div class="dlg-head"><span class="dlg-id">reply #1</span> <span class="dlg-action">→ <code>fxw_appeargood</code></span></div><div class="dlg-text">A good gate effect. (Appear/Disappear after using)</div></div>
+<div class="dlg-node reply" id="r2"><div class="dlg-head"><span class="dlg-id">reply #2</span> <span class="dlg-action">→ <code>fxw_appearevil</code></span></div><div class="dlg-text">An evil gate effect. (Appear/Dissapear after using)</div></div>
+<div class="dlg-node reply" id="r3"><div class="dlg-head"><span class="dlg-id">reply #3</span></div><div class="dlg-text">A damaging effect.</div><ul class="dlg-links"><li><a href="#e2">→ entry #2</a> <span class="dlg-link-preview">“Which effect would you like?”</span></li></ul></div>
+<div class="dlg-node reply" id="r4"><div class="dlg-head"><span class="dlg-id">reply #4</span> <span class="dlg-action">→ <code>fxw_earthquaked</code></span></div><div class="dlg-text">An earthquake.</div></div>
+<div class="dlg-node reply" id="r5"><div class="dlg-head"><span class="dlg-id">reply #5</span></div><div class="dlg-text">A summoning effect</div><ul class="dlg-links"><li><a href="#e3">→ entry #3</a> <span class="dlg-link-preview">“Have the Creator Window open and ready. effects are delayed by 5 seconds and wil…”</span></li></ul></div>
+<div class="dlg-node reply" id="r6"><div class="dlg-head"><span class="dlg-id">reply #6</span> <span class="dlg-action">→ <code>fxw_summongood</code></span></div><div class="dlg-text">a Delayed Good Gate effect (Create a Creature after using)</div></div>
+<div class="dlg-node reply" id="r7"><div class="dlg-head"><span class="dlg-id">reply #7</span> <span class="dlg-action">→ <code>fxw_summonevil</code></span></div><div class="dlg-text">A Delayed Evil Gate Effect (Create a Creature after using)</div></div>
+<div class="dlg-node reply" id="r8"><div class="dlg-head"><span class="dlg-id">reply #8</span> <span class="dlg-action">→ <code>fxw_summon</code></span></div><div class="dlg-text">A Delayed Summoning Effect (Create a Creature after using)</div></div>
+<div class="dlg-node reply" id="r9"><div class="dlg-head"><span class="dlg-id">reply #9</span></div><div class="dlg-text">A visual effect.</div><ul class="dlg-links"><li><a href="#e4">→ entry #4</a> <span class="dlg-link-preview">“Which effect would you like?”</span></li></ul></div>
+<div class="dlg-node reply" id="r10"><div class="dlg-head"><span class="dlg-id">reply #10</span></div><div class="dlg-text">Change the area&#x27;s weather.</div><ul class="dlg-links"><li><a href="#e5">→ entry #5</a> <span class="dlg-link-preview">“What would you like the new weather to be?”</span></li></ul></div>
+<div class="dlg-node reply" id="r11"><div class="dlg-head"><span class="dlg-id">reply #11</span> <span class="dlg-action">→ <code>fxw_wdefault</code></span></div><div class="dlg-text">The area&#x27;s default weather.</div></div>
+<div class="dlg-node reply" id="r12"><div class="dlg-head"><span class="dlg-id">reply #12</span> <span class="dlg-action">→ <code>fxw_wsnow</code></span></div><div class="dlg-text">Snowy.</div></div>
+<div class="dlg-node reply" id="r13"><div class="dlg-head"><span class="dlg-id">reply #13</span> <span class="dlg-action">→ <code>fxw_wclear</code></span></div><div class="dlg-text">Clear.</div></div>
+<div class="dlg-node reply" id="r14"><div class="dlg-head"><span class="dlg-id">reply #14</span> <span class="dlg-action">→ <code>fxw_wrain</code></span></div><div class="dlg-text">Rainy.</div></div>
+<div class="dlg-node reply" id="r15"><div class="dlg-head"><span class="dlg-id">reply #15</span> <span class="dlg-action">→ <code>fxw_firestorm</code></span></div><div class="dlg-text">A Firestorm</div></div>
+<div class="dlg-node reply" id="r16"><div class="dlg-head"><span class="dlg-id">reply #16</span> <span class="dlg-action">→ <code>fxw_lightning</code></span></div><div class="dlg-text">A lightning bolt.</div></div>
+<div class="dlg-node reply" id="r17"><div class="dlg-head"><span class="dlg-id">reply #17</span> <span class="dlg-action">→ <code>fxw_earthquake</code></span></div><div class="dlg-text">An earthquake.</div></div>
+<div class="dlg-node reply" id="r18"><div class="dlg-head"><span class="dlg-id">reply #18</span></div><div class="dlg-text">A sound effect.</div><ul class="dlg-links"><li><a href="#e6">→ entry #6</a> <span class="dlg-link-preview">“Which sound would you like?”</span></li></ul></div>
+<div class="dlg-node reply" id="r19"><div class="dlg-head"><span class="dlg-id">reply #19</span></div><div class="dlg-text">Environment Sounds</div><ul class="dlg-links"><li><a href="#e7">→ entry #7</a> <span class="dlg-link-preview">“Which Environment Sound?”</span></li></ul></div>
+<div class="dlg-node reply" id="r20"><div class="dlg-head"><span class="dlg-id">reply #20</span> <span class="dlg-action">→ <code>ew_sbranchsnap</code></span></div><div class="dlg-text">Twig Snaps</div></div>
+<div class="dlg-node reply" id="r21"><div class="dlg-head"><span class="dlg-id">reply #21</span> <span class="dlg-action">→ <code>ew_thunder</code></span></div><div class="dlg-text">Thunder</div></div>
+<div class="dlg-node reply" id="r22"><div class="dlg-head"><span class="dlg-id">reply #22</span> <span class="dlg-action">→ <code>ew_ssplash</code></span></div><div class="dlg-text">Small Splash</div></div>
+<div class="dlg-node reply" id="r23"><div class="dlg-head"><span class="dlg-id">reply #23</span> <span class="dlg-action">→ <code>ew_sfloorcreak</code></span></div><div class="dlg-text">Floorboard Creaks</div></div>
+<div class="dlg-node reply" id="r24"><div class="dlg-head"><span class="dlg-id">reply #24</span> <span class="dlg-action">→ <code>ew_sdoorshuts</code></span></div><div class="dlg-text">Door Shuts</div></div>
+<div class="dlg-node reply" id="r25"><div class="dlg-head"><span class="dlg-id">reply #25</span> <span class="dlg-action">→ <code>ew_sbushrustle</code></span></div><div class="dlg-text">Bush Rustles</div></div>
+<div class="dlg-node reply" id="r26"><div class="dlg-head"><span class="dlg-id">reply #26</span> <span class="dlg-action">→ <code>ew_sglassbreak</code></span></div><div class="dlg-text">Breaking Noises</div></div>
+<div class="dlg-node reply" id="r27"><div class="dlg-head"><span class="dlg-id">reply #27</span></div><div class="dlg-text">Spooky Sounds</div><ul class="dlg-links"><li><a href="#e8">→ entry #8</a> <span class="dlg-link-preview">“Which Spooky Sound?”</span></li></ul></div>
+<div class="dlg-node reply" id="r28"><div class="dlg-head"><span class="dlg-id">reply #28</span> <span class="dlg-action">→ <code>ew_sghouldrend</code></span></div><div class="dlg-text">Ghoul Voice &#x27;Rend your flesh&#x27;</div></div>
+<div class="dlg-node reply" id="r29"><div class="dlg-head"><span class="dlg-id">reply #29</span> <span class="dlg-action">→ <code>ew_sdemonpain</code></span></div><div class="dlg-text">Demon Voice &#x27;Your pain shall be eternal&#x27;</div></div>
+<div class="dlg-node reply" id="r30"><div class="dlg-head"><span class="dlg-id">reply #30</span> <span class="dlg-action">→ <code>ew_sdemonsoul</code></span></div><div class="dlg-text">Demon Voice &#x27;I will rape your soul&#x27;</div></div>
+<div class="dlg-node reply" id="r31"><div class="dlg-head"><span class="dlg-id">reply #31</span> <span class="dlg-action">→ <code>ew_ssppokymoan</code></span></div><div class="dlg-text">Spooky Moaning</div></div>
+<div class="dlg-node reply" id="r32"><div class="dlg-head"><span class="dlg-id">reply #32</span> <span class="dlg-action">→ <code>ew_sspooklaugh</code></span></div><div class="dlg-text">Spooky Laughing</div></div>
+<div class="dlg-node reply" id="r33"><div class="dlg-head"><span class="dlg-id">reply #33</span> <span class="dlg-action">→ <code>ew_sevilchant</code></span></div><div class="dlg-text">Evil Men Chanting</div></div>
+<div class="dlg-node reply" id="r34"><div class="dlg-head"><span class="dlg-id">reply #34</span> <span class="dlg-action">→ <code>ew_sgrowling</code></span></div><div class="dlg-text">Deep Growling</div></div>
+<div class="dlg-node reply" id="r35"><div class="dlg-head"><span class="dlg-id">reply #35</span></div><div class="dlg-text">People Sounds</div><ul class="dlg-links"><li><a href="#e9">→ entry #9</a> <span class="dlg-link-preview">“Which People Sound?”</span></li></ul></div>
+<div class="dlg-node reply" id="r36"><div class="dlg-head"><span class="dlg-id">reply #36</span> <span class="dlg-action">→ <code>ew_smdoomsayer</code></span></div><div class="dlg-text">Doomsayer says &#x27;We&#x27;re doomed, I&#x27;ve seen it, seen our deaths in the air&#x27;</div></div>
+<div class="dlg-node reply" id="r37"><div class="dlg-head"><span class="dlg-id">reply #37</span> <span class="dlg-action">→ <code>ew_smdrunksing</code></span></div><div class="dlg-text">Drunk Singing</div></div>
+<div class="dlg-node reply" id="r38"><div class="dlg-head"><span class="dlg-id">reply #38</span> <span class="dlg-action">→ <code>ew_smdrunkogre</code></span></div><div class="dlg-text">Dunk man sings about an Ogre</div></div>
+<div class="dlg-node reply" id="r39"><div class="dlg-head"><span class="dlg-id">reply #39</span> <span class="dlg-action">→ <code>ew_sfhandsoff</code></span></div><div class="dlg-text">Woman Says &#x27;Hands off Pig!&#x27;</div></div>
+<div class="dlg-node reply" id="r40"><div class="dlg-head"><span class="dlg-id">reply #40</span> <span class="dlg-action">→ <code>ew_smmoreale</code></span></div><div class="dlg-text">Rough Man says &#x27;I need more Ale&#x27;</div></div>
+<div class="dlg-node reply" id="r41"><div class="dlg-head"><span class="dlg-id">reply #41</span> <span class="dlg-action">→ <code>ew_smpleading</code></span></div><div class="dlg-text">Male Pleading &#x27;Let me out Please&#x27;</div></div>
+<div class="dlg-node reply" id="r42"><div class="dlg-head"><span class="dlg-id">reply #42</span> <span class="dlg-action">→ <code>ew_smshoutposts</code></span></div><div class="dlg-text">Officer shouts &#x27;To your Posts!&#x27;</div></div>
+<div class="dlg-node reply" id="r43"><div class="dlg-head"><span class="dlg-id">reply #43</span> <span class="dlg-action">→ <code>ew_sfcrying</code></span></div><div class="dlg-text">Woman Crying</div></div>
+<div class="dlg-node reply" id="r44"><div class="dlg-head"><span class="dlg-id">reply #44</span> <span class="dlg-action">→ <code>ew_sfemalecough</code></span></div><div class="dlg-text">Woman Coughs</div></div>
+<div class="dlg-node reply" id="r45"><div class="dlg-head"><span class="dlg-id">reply #45</span> <span class="dlg-action">→ <code>fxw_ladyscream</code></span></div><div class="dlg-text">Woman screams.</div></div>
+<div class="dlg-node reply" id="r46"><div class="dlg-head"><span class="dlg-id">reply #46</span> <span class="dlg-action">→ <code>ew_smyawn</code></span></div><div class="dlg-text">Male Yawns</div></div>
+<div class="dlg-node reply" id="r47"><div class="dlg-head"><span class="dlg-id">reply #47</span> <span class="dlg-action">→ <code>ew_smspits</code></span></div><div class="dlg-text">Male Spits</div></div>
+<div class="dlg-node reply" id="r48"><div class="dlg-head"><span class="dlg-id">reply #48</span> <span class="dlg-action">→ <code>ew_smsneeze</code></span></div><div class="dlg-text">Male Sneezes</div></div>
+<div class="dlg-node reply" id="r49"><div class="dlg-head"><span class="dlg-id">reply #49</span> <span class="dlg-action">→ <code>ew_smaledies</code></span></div><div class="dlg-text">Man Dies</div></div>
+<div class="dlg-node reply" id="r50"><div class="dlg-head"><span class="dlg-id">reply #50</span> <span class="dlg-action">→ <code>ew_smcrying</code></span></div><div class="dlg-text">Man Crying</div></div>
+<div class="dlg-node reply" id="r51"><div class="dlg-head"><span class="dlg-id">reply #51</span> <span class="dlg-action">→ <code>ew_scoughmale</code></span></div><div class="dlg-text">Male Coughs</div></div>
+<div class="dlg-node reply" id="r52"><div class="dlg-head"><span class="dlg-id">reply #52</span> <span class="dlg-action">→ <code>ew_s2mtalk</code></span></div><div class="dlg-text">2 Men Chatting</div></div>
+<div class="dlg-node reply" id="r53"><div class="dlg-head"><span class="dlg-id">reply #53</span></div><div class="dlg-text">Animal Sounds</div><ul class="dlg-links"><li><a href="#e10">→ entry #10</a> <span class="dlg-link-preview">“Which Animal Sound?”</span></li></ul></div>
+<div class="dlg-node reply" id="r54"><div class="dlg-head"><span class="dlg-id">reply #54</span> <span class="dlg-action">→ <code>ew_srooster</code></span></div><div class="dlg-text">Rooster Crowing</div></div>
+<div class="dlg-node reply" id="r55"><div class="dlg-head"><span class="dlg-id">reply #55</span> <span class="dlg-action">→ <code>ew_sowlhoot</code></span></div><div class="dlg-text">Owl Hooting</div></div>
+<div class="dlg-node reply" id="r56"><div class="dlg-head"><span class="dlg-id">reply #56</span> <span class="dlg-action">→ <code>ew_shawk</code></span></div><div class="dlg-text">Hawk</div></div>
+<div class="dlg-node reply" id="r57"><div class="dlg-head"><span class="dlg-id">reply #57</span> <span class="dlg-action">→ <code>ew_sdogbark</code></span></div><div class="dlg-text">Dog Barking</div></div>
+<div class="dlg-node reply" id="r58"><div class="dlg-head"><span class="dlg-id">reply #58</span> <span class="dlg-action">→ <code>ew_scrow</code></span></div><div class="dlg-text">Crow Cawing</div></div>
+<div class="dlg-node reply" id="r59"><div class="dlg-head"><span class="dlg-id">reply #59</span> <span class="dlg-action">→ <code>ew_scow</code></span></div><div class="dlg-text">Cow Mooing</div></div>
+<div class="dlg-node reply" id="r60"><div class="dlg-head"><span class="dlg-id">reply #60</span> <span class="dlg-action">→ <code>fxw_wolfhowl</code></span></div><div class="dlg-text">Wolves howling.</div></div>
+<div class="dlg-node reply" id="r61"><div class="dlg-head"><span class="dlg-id">reply #61</span> <span class="dlg-action">→ <code>ew_scatscrech</code></span></div><div class="dlg-text">Cat Screech</div></div>
+<div class="dlg-node reply" id="r62"><div class="dlg-head"><span class="dlg-id">reply #62</span> <span class="dlg-action">→ <code>ew_sbigcat</code></span></div><div class="dlg-text">Big Cat</div></div>
+  </main>
+  <footer>generated by <a href="https://github.com/mrprice22/nwn-manager">nwn-manager</a> &mdash; last updated Jun 3, 2026 12:42</footer>
+</body>
+</html>

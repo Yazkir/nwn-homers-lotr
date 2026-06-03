@@ -1,0 +1,159 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Conversation alatar</title>
+  <link rel="stylesheet" href="../assets/style.css">
+  <link rel="stylesheet" href="../assets/theme.css">
+  <link rel="icon" href="../assets/favicon.png">
+</head>
+<body>
+  <header class="site-header">
+    <a class="brand" href="../index.html"><img class="site-header-img" src="../assets/header.png" alt="Home"></a>
+    <nav>
+      <a href="../index.html">Map</a>
+      <a href="../areas/index.html">Areas</a>
+      <div class="nav-dropdown">
+        <span class="nav-dropdown-label">Creatures &#9660;</span>
+        <div class="nav-dropdown-menu">
+          <a href="../creatures/index.html">All Creatures</a>
+          <a href="../creatures/by-area/index.html">By Area</a>
+          <a href="../creatures/by-cr/index.html">By Challenge Rating</a>
+          <a href="../creatures/by-race/index.html">By Race</a>
+        </div>
+      </div>
+      <div class="nav-dropdown">
+        <span class="nav-dropdown-label">Items &#9660;</span>
+        <div class="nav-dropdown-menu">
+          <a href="../items/index.html">Accessible</a>
+          <a href="../items/inaccessible/index.html">Inaccessible</a>
+          <a href="../items/properties/index.html">By Property</a>
+          <a href="../items/search.html">Search</a>
+        </div>
+      </div>
+      <a href="../stores/index.html">Stores</a>
+      <a href="../conversations/index.html">Conversations</a>
+      <a href="../factions.html">Factions</a>
+      <a href="../quests/index.html">Quests</a>
+      <a href="../activity.html">Activity</a>
+      <div class="nav-dropdown"><span class="nav-dropdown-label">Documents &#9660;</span><div class="nav-dropdown-menu"><a href="../manual/LevelingGuide.html">Leveling Guide</a>
+<a href="../manual/MeaningWave.html">MeaningWave: A Guide to the Guides</a>
+<a href="../manual/Quest Ideas.html">Quest Ideas (Draft Concepts)</a>
+<a href="../manual/QuestGuide.html">Quest Guide</a></div></div>
+    </nav>
+  </header>
+  <main>
+<h1>Conversation: <code>alatar</code></h1>
+<dl class="meta">
+<dt>NPC lines</dt><dd>5</dd>
+<dt>PC replies</dt><dd>8</dd>
+<dt>NumWords</dt><dd>96</dd>
+<dt>OnEnd</dt><dd><code>nw_walk_wp</code></dd>
+<dt>OnAbort</dt><dd><code>nw_walk_wp</code></dd>
+</dl>
+<h2>Triggered by</h2><ul class="dlg-callers">
+<li><span class="badge">creature</span> NPC <a href="../creatures/alatar__v2.html">Alatar the Blue</a> — in <a href="../areas/towerofalatar.html">Tower of Alatar</a></li>
+</ul>
+<h2>Scripts referenced</h2>
+<table class="data"><thead><tr><th>Script</th><th>Slot</th><th>In module</th><th>Notes</th></tr></thead><tbody><tr><td><code>at_058</code></td><td>action</td><td>✓</td><td></td></tr>
+<tr><td><code>at_059</code></td><td>action</td><td>✓</td><td></td></tr></tbody></table>
+<h2>Starting entries</h2><ul>
+<li><a href="#e0">entry #0</a> — You know... curiosity killed the cat.</li>
+</ul>
+<h2>Conversation flow</h2>
+<p class="muted">Each starting entry is expanded recursively. Repeated nodes (cycles, shared continuations) appear inline as <code>↩ link</code> backrefs to the first occurrence.</p>
+<div class="dlg-tree">
+<details class="dlg-tree-node entry" open>
+<summary><span class="dlg-id">entry #0</span> <a class="dlg-anchor" href="#e0" title="jump to flat entry #0">¶</a></summary>
+<div class="dlg-text">You know... curiosity killed the cat.</div>
+<div class="dlg-tree-children">
+<details class="dlg-tree-node reply" open>
+<summary><span class="dlg-id">reply #0</span> <a class="dlg-anchor" href="#r0" title="jump to flat reply #0">¶</a></summary>
+<div class="dlg-text">Um yes it did. *Gulp*</div>
+<div class="dlg-tree-children">
+<details class="dlg-tree-node entry" open>
+<summary><span class="dlg-id">entry #1</span> <a class="dlg-anchor" href="#e1" title="jump to flat entry #1">¶</a></summary>
+<div class="dlg-text">If you are indeed a loremaster of old. You shall go unharmed.... If you are not. You shall find what that cat did find.</div>
+<div class="dlg-tree-children">
+<details class="dlg-tree-node reply" open>
+<summary><span class="dlg-id">reply #1</span> <a class="dlg-anchor" href="#r1" title="jump to flat reply #1">¶</a></summary>
+<div class="dlg-text">Alright it seems I have no choice.</div>
+<div class="dlg-tree-children">
+<details class="dlg-tree-node entry" open>
+<summary><span class="dlg-id">entry #2</span> <a class="dlg-anchor" href="#e2" title="jump to flat entry #2">¶</a></summary>
+<div class="dlg-text">The doors of Moria stand closed. What word in the elvish tongue doth open them?</div>
+<div class="dlg-tree-children">
+<details class="dlg-tree-node reply" open>
+<summary><span class="dlg-id">reply #7</span> <a class="dlg-anchor" href="#r7" title="jump to flat reply #7">¶</a></summary>
+<div class="dlg-text">Kazad-dum.</div>
+<div class="dlg-tree-children">
+<details class="dlg-tree-node entry" open>
+<summary><span class="dlg-id">entry #4</span> <span class="dlg-action">→ <code>at_058</code></span> <a class="dlg-anchor" href="#e4" title="jump to flat entry #4">¶</a></summary>
+<div class="dlg-text">Ah yes I see you for what you truely are! Die!</div>
+</details>
+</div>
+</details>
+<details class="dlg-tree-node reply" open>
+<summary><span class="dlg-id">reply #6</span> <a class="dlg-anchor" href="#r6" title="jump to flat reply #6">¶</a></summary>
+<div class="dlg-text">Elbereth.</div>
+<div class="dlg-tree-children">
+<div class="dlg-tree-ref entry-ref">↩ <a href="#e4">entry #4</a> <span class="dlg-link-preview">“Ah yes I see you for what you truely are! Die!”</span></div>
+</div>
+</details>
+<details class="dlg-tree-node reply" open>
+<summary><span class="dlg-id">reply #3</span> <a class="dlg-anchor" href="#r3" title="jump to flat reply #3">¶</a></summary>
+<div class="dlg-text">Mellon.</div>
+<div class="dlg-tree-children">
+<details class="dlg-tree-node entry" open>
+<summary><span class="dlg-id">entry #3</span> <a class="dlg-anchor" href="#e3" title="jump to flat entry #3">¶</a></summary>
+<div class="dlg-text">You have chosen correctly, welcome lormaster. Chose what you like from my vault.</div>
+<div class="dlg-tree-children">
+<details class="dlg-tree-node reply" open>
+<summary><span class="dlg-id">reply #5</span> <span class="dlg-action">→ <code>at_059</code></span> <a class="dlg-anchor" href="#r5" title="jump to flat reply #5">¶</a></summary>
+<div class="dlg-text">My thanks Alatar.</div>
+</details>
+<details class="dlg-tree-node reply" open>
+<summary><span class="dlg-id">reply #4</span> <a class="dlg-anchor" href="#r4" title="jump to flat reply #4">¶</a></summary>
+<div class="dlg-text">I shall be off I have talked enough.</div>
+</details>
+</div>
+</details>
+</div>
+</details>
+<details class="dlg-tree-node reply" open>
+<summary><span class="dlg-id">reply #2</span> <a class="dlg-anchor" href="#r2" title="jump to flat reply #2">¶</a></summary>
+<div class="dlg-text">Friend.</div>
+<div class="dlg-tree-children">
+<div class="dlg-tree-ref entry-ref">↩ <a href="#e4">entry #4</a> <span class="dlg-link-preview">“Ah yes I see you for what you truely are! Die!”</span></div>
+</div>
+</details>
+</div>
+</details>
+</div>
+</details>
+</div>
+</details>
+</div>
+</details>
+</div>
+</details>
+</div>
+<h2>NPC lines (entries) — flat index</h2>
+<div class="dlg-node entry" id="e0"><div class="dlg-head"><span class="dlg-id">entry #0</span></div><div class="dlg-text">You know... curiosity killed the cat.</div><ul class="dlg-links"><li><a href="#r0">→ reply #0</a> <span class="dlg-link-preview">“Um yes it did. *Gulp*”</span></li></ul></div>
+<div class="dlg-node entry" id="e1"><div class="dlg-head"><span class="dlg-id">entry #1</span></div><div class="dlg-text">If you are indeed a loremaster of old. You shall go unharmed.... If you are not. You shall find what that cat did find.</div><ul class="dlg-links"><li><a href="#r1">→ reply #1</a> <span class="dlg-link-preview">“Alright it seems I have no choice.”</span></li></ul></div>
+<div class="dlg-node entry" id="e2"><div class="dlg-head"><span class="dlg-id">entry #2</span></div><div class="dlg-text">The doors of Moria stand closed. What word in the elvish tongue doth open them?</div><ul class="dlg-links"><li><a href="#r7">→ reply #7</a> <span class="dlg-link-preview">“Kazad-dum.”</span></li><li><a href="#r6">→ reply #6</a> <span class="dlg-link-preview">“Elbereth.”</span></li><li><a href="#r3">→ reply #3</a> <span class="dlg-link-preview">“Mellon.”</span></li><li><a href="#r2">→ reply #2</a> <span class="dlg-link-preview">“Friend.”</span></li></ul></div>
+<div class="dlg-node entry" id="e3"><div class="dlg-head"><span class="dlg-id">entry #3</span></div><div class="dlg-text">You have chosen correctly, welcome lormaster. Chose what you like from my vault.</div><ul class="dlg-links"><li><a href="#r5">→ reply #5</a> <span class="dlg-link-preview">“My thanks Alatar.”</span></li><li><a href="#r4">→ reply #4</a> <span class="dlg-link-preview">“I shall be off I have talked enough.”</span></li></ul></div>
+<div class="dlg-node entry" id="e4"><div class="dlg-head"><span class="dlg-id">entry #4</span> <span class="dlg-action">→ <code>at_058</code></span></div><div class="dlg-text">Ah yes I see you for what you truely are! Die!</div></div>
+<h2>PC replies — flat index</h2>
+<div class="dlg-node reply" id="r0"><div class="dlg-head"><span class="dlg-id">reply #0</span></div><div class="dlg-text">Um yes it did. *Gulp*</div><ul class="dlg-links"><li><a href="#e1">→ entry #1</a> <span class="dlg-link-preview">“If you are indeed a loremaster of old. You shall go unharmed.... If you are not.…”</span></li></ul></div>
+<div class="dlg-node reply" id="r1"><div class="dlg-head"><span class="dlg-id">reply #1</span></div><div class="dlg-text">Alright it seems I have no choice.</div><ul class="dlg-links"><li><a href="#e2">→ entry #2</a> <span class="dlg-link-preview">“The doors of Moria stand closed. What word in the elvish tongue doth open them?”</span></li></ul></div>
+<div class="dlg-node reply" id="r2"><div class="dlg-head"><span class="dlg-id">reply #2</span></div><div class="dlg-text">Friend.</div><ul class="dlg-links"><li><a href="#e4">→ child</a> <span class="dlg-link-preview">“Ah yes I see you for what you truely are! Die!”</span></li></ul></div>
+<div class="dlg-node reply" id="r3"><div class="dlg-head"><span class="dlg-id">reply #3</span></div><div class="dlg-text">Mellon.</div><ul class="dlg-links"><li><a href="#e3">→ entry #3</a> <span class="dlg-link-preview">“You have chosen correctly, welcome lormaster. Chose what you like from my vault.”</span></li></ul></div>
+<div class="dlg-node reply" id="r4"><div class="dlg-head"><span class="dlg-id">reply #4</span></div><div class="dlg-text">I shall be off I have talked enough.</div></div>
+<div class="dlg-node reply" id="r5"><div class="dlg-head"><span class="dlg-id">reply #5</span> <span class="dlg-action">→ <code>at_059</code></span></div><div class="dlg-text">My thanks Alatar.</div></div>
+<div class="dlg-node reply" id="r6"><div class="dlg-head"><span class="dlg-id">reply #6</span></div><div class="dlg-text">Elbereth.</div><ul class="dlg-links"><li><a href="#e4">→ child</a> <span class="dlg-link-preview">“Ah yes I see you for what you truely are! Die!”</span></li></ul></div>
+<div class="dlg-node reply" id="r7"><div class="dlg-head"><span class="dlg-id">reply #7</span></div><div class="dlg-text">Kazad-dum.</div><ul class="dlg-links"><li><a href="#e4">→ entry #4</a> <span class="dlg-link-preview">“Ah yes I see you for what you truely are! Die!”</span></li></ul></div>
+  </main>
+  <footer>generated by <a href="https://github.com/mrprice22/nwn-manager">nwn-manager</a> &mdash; last updated Jun 3, 2026 12:42</footer>
+</body>
+</html>

@@ -1,0 +1,407 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Script kpb_dateinc</title>
+  <link rel="stylesheet" href="../assets/style.css">
+  <link rel="stylesheet" href="../assets/theme.css">
+  <link rel="icon" href="../assets/favicon.png">
+</head>
+<body>
+  <header class="site-header">
+    <a class="brand" href="../index.html"><img class="site-header-img" src="../assets/header.png" alt="Home"></a>
+    <nav>
+      <a href="../index.html">Map</a>
+      <a href="../areas/index.html">Areas</a>
+      <div class="nav-dropdown">
+        <span class="nav-dropdown-label">Creatures &#9660;</span>
+        <div class="nav-dropdown-menu">
+          <a href="../creatures/index.html">All Creatures</a>
+          <a href="../creatures/by-area/index.html">By Area</a>
+          <a href="../creatures/by-cr/index.html">By Challenge Rating</a>
+          <a href="../creatures/by-race/index.html">By Race</a>
+        </div>
+      </div>
+      <div class="nav-dropdown">
+        <span class="nav-dropdown-label">Items &#9660;</span>
+        <div class="nav-dropdown-menu">
+          <a href="../items/index.html">Accessible</a>
+          <a href="../items/inaccessible/index.html">Inaccessible</a>
+          <a href="../items/properties/index.html">By Property</a>
+          <a href="../items/search.html">Search</a>
+        </div>
+      </div>
+      <a href="../stores/index.html">Stores</a>
+      <a href="../conversations/index.html">Conversations</a>
+      <a href="../factions.html">Factions</a>
+      <a href="../quests/index.html">Quests</a>
+      <a href="../activity.html">Activity</a>
+      <div class="nav-dropdown"><span class="nav-dropdown-label">Documents &#9660;</span><div class="nav-dropdown-menu"><a href="../manual/LevelingGuide.html">Leveling Guide</a>
+<a href="../manual/MeaningWave.html">MeaningWave: A Guide to the Guides</a>
+<a href="../manual/Quest Ideas.html">Quest Ideas (Draft Concepts)</a>
+<a href="../manual/QuestGuide.html">Quest Guide</a></div></div>
+    </nav>
+  </header>
+  <main>
+<h1>Script: <code>kpb_dateinc</code></h1><pre class="nss-source"><code>////////////////////////////////////////////////////////////////////////////////
+//Date and Time Functions
+//
+//inc_datetime
+//
+//Scripted By Warspawn
+//warspawn@cox.net
+//
+//These functions are great to use with Due Dates, Birthdays, Timed by Cycle
+//Feel free to modify, use, copy, distribute this any way you like.
+//If you make this better please let me know!
+//If you use this and love it please let me know!
+//If you have any problems, I&#x27;ll try to help. Just email me.
+////////////////////////////////////////////////////////////////////////////////
+
+string GetCurrentDate()//generates MM/DD/YYYY string of current date
+{
+    string sResult;
+
+    sResult = IntToString(GetCalendarMonth()) + &quot;/&quot; + IntToString(GetCalendarDay()) + &quot;/&quot; + IntToString(GetCalendarYear());
+    return sResult;
+}
+
+string GetDateString(int iDay = 1, int iMonth = 1, int iYear = 1)//generates a string MM/DD/YYYY out of given dates
+{
+    string sResult;
+
+    sResult = IntToString(iMonth) + &quot;/&quot; + IntToString(iDay) + &quot;/&quot; + IntToString(iYear);
+    return sResult;
+}
+
+//usage: iDay = ParseDateString(&quot;9/7/1977&quot;, &quot;day&quot;);
+int ParseDateString(string sDateString, string sOption)//option = day, month, year
+{
+    string sTemp1;
+    int iResult, iSlash1, iSlash2, iIndex, iStrLength;
+
+    iSlash1 = 0;
+    iSlash2 = 0;
+    iStrLength = GetStringLength(sDateString);
+    for(iIndex = 0; iIndex &lt;= (iStrLength - 1); iIndex++)//get position of slashes
+    {
+        sTemp1 = GetSubString(sDateString, iIndex, 1);
+        if(sTemp1 == &quot;/&quot;)
+        {
+            if(iSlash1 == 0)
+            {
+                iSlash1 = iIndex;
+            }
+            else if (iSlash2 == 0)
+            {
+                iSlash2 = iIndex;
+            }
+        }
+    }
+    if(sOption == &quot;month&quot;)
+    {
+        sTemp1 = GetStringLeft(sDateString, iSlash1);
+        iResult = StringToInt(sTemp1);
+    }
+    else if(sOption == &quot;day&quot;)
+    {
+        sTemp1 = GetSubString(sDateString, iSlash1 + 1, (iSlash2 - iSlash1) -1);
+        iResult = StringToInt(sTemp1);
+    }
+    else if(sOption == &quot;year&quot;)
+    {
+        sTemp1 = GetSubString(sDateString, iSlash2 + 1, (iStrLength - 1) - iSlash2);
+        iResult = StringToInt(sTemp1);
+    }
+    else
+        return -1;//invalid option
+
+    return iResult;
+}
+
+//usage: iNumOfDaysElapsed = GetDateDifference(&quot;1/14/1352&quot;, &quot;9/7/1977&quot;, &quot;days&quot;);
+//uses NWN calendar settings for # of days in month (28)
+//note: sDate1 MUST BE &lt;= SDate2
+//i.e. GetDateDifference(&quot;1/14/1356&quot;, &quot;1/14/1355&quot;, &quot;months&quot;) will result in BADNESS!
+//
+int GetDateDifference(string sDate1, string sDate2, string sOption)//option = &quot;days&quot;, &quot;months&quot;, &quot;years&quot;
+{
+    int iTempDay1, iTempMonth1, iTempYear1;
+    int iTempDay2, iTempMonth2, iTempYear2;
+    int iResult;
+    int iYears, iDays, iMonths;
+
+    iTempDay1 = ParseDateString(sDate1, &quot;day&quot;);
+    iTempMonth1 = ParseDateString(sDate1, &quot;month&quot;);
+    iTempYear1 = ParseDateString(sDate1, &quot;year&quot;);
+    iTempDay2 = ParseDateString(sDate2, &quot;day&quot;);
+    iTempMonth2 = ParseDateString(sDate2, &quot;month&quot;);
+    iTempYear2 = ParseDateString(sDate2, &quot;year&quot;);
+
+    if(iTempYear2 == iTempYear1)//same year
+    {
+        iYears = 0;
+        if(iTempMonth2 == iTempMonth1)//same year and same month
+        {
+            iMonths = 0;
+            iDays = iTempDay2 - iTempDay1;
+        }
+        else //same year and different month
+        {
+            if(iTempDay2 == iTempDay1)//same year, different month, same day
+            {
+                iMonths = iTempMonth2 - iTempMonth1;
+                iDays = iMonths * 28;
+            }
+            else //same year, diff month, diff day
+            {
+                if(iTempDay2 &gt;= iTempDay1)//different month at least one month
+                {
+                    iMonths = iTempMonth2 - iTempMonth1;
+                    iDays = (iTempDay2 - iTempDay1) + (iMonths * 28);
+                }
+                else //different month, at least one month, ending in incomplete month
+                {
+                    iMonths = (iTempMonth2 - iTempMonth1) - 1;
+                    iDays = (28 * iMonths) + (28 - (iTempDay1 - 1)) + (28 - ((28 - iTempDay2) + 1));
+                }
+            }
+        }
+    }
+
+    if(iTempYear2 &gt; iTempYear1)//not same year
+    {
+        if(iTempMonth2 == iTempMonth1)//diff year, same month
+        {
+            if(iTempDay2 == iTempDay1)//diff year, same month, same day
+            {
+                iYears = iTempYear2 - iTempYear1;
+                iMonths = 12 * iYears;
+                iDays = 28 * iMonths;
+            }
+            else //diff year, same month, diff day
+            {
+                if(iTempDay2 &gt; iTempDay1)//diff year, same month, at least one year
+                {
+                    iYears = iTempYear2 - iTempYear1;
+                    iMonths = 12 * iYears;
+                    iDays = (28 * iMonths) + (iTempDay2 - iTempDay1);
+                }
+                else //diff year, same month, one less year
+                {
+                    iYears = (iTempYear2 - iTempYear1) -1;
+                    iMonths = (12 * iYears) + 11;
+                    iDays = (28 * iMonths) + (28 + (iTempDay2 - iTempDay1));
+                }
+            }
+        }
+        else //diff year, diff month
+        {
+            if(iTempMonth2 &gt; iTempMonth1)//diff year, diff month, at least one year, extra months
+            {
+                if(iTempDay2 == iTempDay1)//diff year, diff month, same day
+                {
+                    iYears = iTempYear2 - iTempYear1;
+                    iMonths = (12 * iYears) + (iTempMonth2 - iTempMonth1);
+                    iDays = 28 * iMonths;
+                }
+                else //diff year, diff month, diff day
+                {
+                    if(iTempDay2 &gt; iTempDay1)//diff year, diff month, extra days
+                    {
+                        iYears = iTempYear2 - iTempYear1;
+                        iMonths = (12 * iYears) + (iTempMonth2 - iTempMonth1);
+                        iDays = (28 * iMonths) + (iTempDay2 - iTempDay1);
+                    }
+                    else //diff year, diff month, fewer days
+                    {
+                        iYears = iTempYear2 - iTempYear1;
+                        iMonths = (12 * iYears) + (iTempMonth2 - iTempMonth1);
+                        iDays =(28 * iMonths) + (28 + (iTempDay2 - iTempDay1));
+                    }
+                }
+            }
+            else //diff year, diff month, one year less (fewer months)
+            {
+                if(iTempDay2 == iTempDay1)//diff year, less months, same day
+                {
+                    iYears = (iTempYear2 - iTempYear1) -1;
+                    iMonths = (12 * iYears) - (iTempMonth2 - iTempMonth1);
+                    iDays = 28 * iMonths;
+                }
+                else //diff year, fewer months, diff day
+                {
+                    if(iTempDay2 &gt; iTempDay1)//diff year, fewer months, extra days
+                    {
+                        iYears = (iTempYear2 - iTempYear1) -1;
+                        iMonths = (12 * iYears) - (iTempMonth2 - iTempMonth1);
+                        iDays = (28 * iMonths) + (iTempDay2 - iTempDay1);
+                    }
+                    else //diff year, fewer months, less days
+                    {
+                        iYears = (iTempYear2 - iTempYear1) -1;
+                        iMonths = (12 * iYears) - (iTempMonth2 - iTempMonth1);
+                        iDays =(28 * iMonths) + (28 + (iTempDay2 - iTempDay1));
+                    }
+                }
+            }
+        }
+    }
+
+    if(iTempYear2 &lt; iTempYear1)
+        return -1;//badness insues
+
+    if(sOption == &quot;days&quot;)
+    {
+        return iDays;
+    }
+    else if(sOption == &quot;months&quot;)
+    {
+        return iMonths;
+    }
+    else if(sOption == &quot;years&quot;)
+    {
+        return iYears;
+    }
+    else
+        return -1; //invalid option
+}
+
+//usage: sDueDate = GetFutureDate(GetCurrentDate(), 7, 1, 0);
+//this will return a string 1 week and 1 month later
+string GetFutureDate(string sStartDate, int iIncDay = 0, int iIncMonth = 0, int iIncYear = 0)
+{
+    string sResult;
+    int iIndex, iRolloverBuffer;
+    int iStartDay, iStartMonth, iStartYear;
+    int iEndDay, iEndMonth, iEndYear;
+
+    iStartDay = ParseDateString(sStartDate, &quot;day&quot;);
+    iStartMonth = ParseDateString(sStartDate, &quot;month&quot;);
+    iStartYear = ParseDateString(sStartDate, &quot;year&quot;);
+
+    iEndYear = iStartYear + iIncYear;
+    iEndMonth = iStartMonth + iIncMonth;
+    iEndDay = iStartDay + iIncDay;
+    if((iStartDay + iIncDay) &gt; 28) //rollover days and months
+    {
+        iRolloverBuffer = iEndDay - 28;
+        iIndex = 1;
+        while (iRolloverBuffer &gt;= 28)
+        {
+            iRolloverBuffer = iRolloverBuffer - 28;
+            iIndex++;
+        }
+        iEndDay = iRolloverBuffer;
+        iEndMonth = iEndMonth + iIndex;
+    }
+    if(iEndMonth &gt; 12) //rollover months and years
+    {
+        iRolloverBuffer = iEndMonth - 12;
+        iIndex = 1;
+        while (iRolloverBuffer &gt;= 12)
+        {
+            iRolloverBuffer = iRolloverBuffer - 12;
+            iIndex++;
+        }
+        iEndMonth = iRolloverBuffer;
+        iEndYear = iEndYear + iIndex;
+    }
+
+    sResult = IntToString(iEndMonth) + &quot;/&quot; + IntToString(iEndDay) + &quot;/&quot; + IntToString(iEndYear);
+
+    return sResult;
+}
+
+//usage: sBDay = GetPastDate(GetCurrentDate(), 0, 0, 50);
+//this will return a string 50 years earlier
+string GetPastDate(string sStartDate, int iIncDay = 0, int iIncMonth = 0, int iIncYear = 0)
+{
+    string sResult;
+    int iIndex, iRolloverBuffer;
+    int iStartDay, iStartMonth, iStartYear;
+    int iEndDay, iEndMonth, iEndYear;
+
+    iStartDay = ParseDateString(sStartDate, &quot;day&quot;);
+    iStartMonth = ParseDateString(sStartDate, &quot;month&quot;);
+    iStartYear = ParseDateString(sStartDate, &quot;year&quot;);
+
+    iEndYear = iStartYear - iIncYear;
+    iEndMonth = iStartMonth - iIncMonth;
+    iEndDay = iStartDay - iIncDay;
+    if(iEndDay &lt; 1) //rollover days and months
+    {
+        iRolloverBuffer = iEndDay + 28;
+        iIndex = 1;
+        while (iRolloverBuffer &lt;= 1)
+        {
+            iRolloverBuffer = iRolloverBuffer + 28;
+            iIndex++;
+        }
+        iEndDay = iRolloverBuffer;
+        iEndMonth = iEndMonth - iIndex;
+    }
+    if(iEndMonth &lt; 1) //rollover months and years
+    {
+        iRolloverBuffer = iEndMonth + 12;
+        iIndex = 1;
+        while (iRolloverBuffer &lt;= 1)
+        {
+            iRolloverBuffer = iRolloverBuffer + 12;
+            iIndex++;
+        }
+        iEndMonth = iRolloverBuffer;
+        iEndYear = iEndYear - iIndex;
+    }
+
+    sResult = IntToString(iEndMonth) + &quot;/&quot; + IntToString(iEndDay) + &quot;/&quot; + IntToString(iEndYear);
+
+    return sResult;
+}
+
+//purpose: test if sDate1 is &gt; sDate2
+int CompareDates(string sDate1, string sDate2)
+{
+    int iResult;
+    int iTempDay1, iTempMonth1, iTempYear1;
+    int iTempDay2, iTempMonth2, iTempYear2;
+
+    iTempDay1 = ParseDateString(sDate1, &quot;day&quot;);
+    iTempMonth1 = ParseDateString(sDate1, &quot;month&quot;);
+    iTempYear1 = ParseDateString(sDate1, &quot;year&quot;);
+    iTempDay2 = ParseDateString(sDate2, &quot;day&quot;);
+    iTempMonth2 = ParseDateString(sDate2, &quot;month&quot;);
+    iTempYear2 = ParseDateString(sDate2, &quot;year&quot;);
+
+    if(iTempYear1 == iTempYear2) //same year
+    {
+        if(iTempMonth1 == iTempMonth2) //same month
+        {
+            if(iTempDay1 &gt; iTempDay2) //same year and month, just check day
+                iResult = TRUE;
+            else
+                iResult = FALSE;
+        }
+        else
+        {
+            if(iTempMonth1 &gt; iTempMonth2)//same year, if month is bigger date is &gt;
+                iResult = TRUE;
+            else
+                iResult = FALSE;
+        }
+    }
+    else
+    {
+        if(iTempYear1 &gt; iTempYear2)//if the year is bigger, day and month don&#x27;t matter
+            iResult = TRUE;
+        else
+            iResult = FALSE;
+    }
+
+    return iResult;
+}
+</code></pre>
+  </main>
+  <footer>generated by <a href="https://github.com/mrprice22/nwn-manager">nwn-manager</a> &mdash; last updated Jun 3, 2026 12:42</footer>
+</body>
+</html>

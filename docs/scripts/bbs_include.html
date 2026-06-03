@@ -1,0 +1,272 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Script bbs_include</title>
+  <link rel="stylesheet" href="../assets/style.css">
+  <link rel="stylesheet" href="../assets/theme.css">
+  <link rel="icon" href="../assets/favicon.png">
+</head>
+<body>
+  <header class="site-header">
+    <a class="brand" href="../index.html"><img class="site-header-img" src="../assets/header.png" alt="Home"></a>
+    <nav>
+      <a href="../index.html">Map</a>
+      <a href="../areas/index.html">Areas</a>
+      <div class="nav-dropdown">
+        <span class="nav-dropdown-label">Creatures &#9660;</span>
+        <div class="nav-dropdown-menu">
+          <a href="../creatures/index.html">All Creatures</a>
+          <a href="../creatures/by-area/index.html">By Area</a>
+          <a href="../creatures/by-cr/index.html">By Challenge Rating</a>
+          <a href="../creatures/by-race/index.html">By Race</a>
+        </div>
+      </div>
+      <div class="nav-dropdown">
+        <span class="nav-dropdown-label">Items &#9660;</span>
+        <div class="nav-dropdown-menu">
+          <a href="../items/index.html">Accessible</a>
+          <a href="../items/inaccessible/index.html">Inaccessible</a>
+          <a href="../items/properties/index.html">By Property</a>
+          <a href="../items/search.html">Search</a>
+        </div>
+      </div>
+      <a href="../stores/index.html">Stores</a>
+      <a href="../conversations/index.html">Conversations</a>
+      <a href="../factions.html">Factions</a>
+      <a href="../quests/index.html">Quests</a>
+      <a href="../activity.html">Activity</a>
+      <div class="nav-dropdown"><span class="nav-dropdown-label">Documents &#9660;</span><div class="nav-dropdown-menu"><a href="../manual/LevelingGuide.html">Leveling Guide</a>
+<a href="../manual/MeaningWave.html">MeaningWave: A Guide to the Guides</a>
+<a href="../manual/Quest Ideas.html">Quest Ideas (Draft Concepts)</a>
+<a href="../manual/QuestGuide.html">Quest Guide</a></div></div>
+    </nav>
+  </header>
+  <main>
+<h1>Script: <code>bbs_include</code></h1><pre class="nss-source"><code>//void main(){}
+//BULLETIN BOARD SYSTEM VERSION 1.1
+
+//This is an include file. Upon building your module you will get
+//a compile error in this file. That is normal and does not
+//affect the operation of the bulletin board.
+
+void bbs_do_board_stats();
+void bbs_initiate(object oBBS);
+int bbs_can_show(int WhichEntry);
+void bbs_change_page(int PageChange);
+void bbs_select_entry(int WhichEntry);
+void bbs_add_notice(object oBBS, string sPoster, string sTitle, string sMessage, string sDate, string sBBStag = &quot;&quot;);
+
+//Loads into tokens the stats for a board
+void bbs_do_board_stats() {
+  object oBBS = GetLocalObject(GetModule(), &quot;BBS_&quot; + GetTag(OBJECT_SELF));
+  int PageSize = GetLocalInt(oBBS, &quot;PageSize&quot;);
+  int TotalItems = GetCampaignInt(&quot;DB_BBS&quot;,GetTag(oBBS)+&quot;#C&quot;);
+  int PageIndex = GetLocalInt(GetPCSpeaker(), &quot;PageIndex&quot;) + 1;
+  SetCustomToken(3671, IntToString(TotalItems));
+  if (TotalItems == 0) {PageIndex = 0;}
+  SetCustomToken(3672, IntToString(PageIndex));
+  SetCustomToken(3673, IntToString((TotalItems + PageSize - 1) / PageSize));
+}
+
+//Initiates a bulletin board&#x27;s settings if neccessary
+void bbs_initiate(object oBBS) {
+  string sBBS = &quot;BBS_&quot; + GetTag(oBBS);
+  object myBBS = GetLocalObject(GetModule(), sBBS);
+  if (!GetIsObjectValid(myBBS)) {
+    SetLocalObject(GetModule(), sBBS, oBBS);
+    myBBS = oBBS;
+    //MaxItems is the maximum number of messages
+    SetLocalInt(myBBS, &quot;MaxItems&quot;, 100);
+    //PageSize is the number of entries per page, between 1 and 10
+    SetLocalInt(myBBS, &quot;PageSize&quot;, 5);
+  }
+}
+
+//Determines whether a dialogue option is visible in conversation
+int bbs_can_show(int WhichEntry) {
+  object oBBS = GetLocalObject(GetModule(), &quot;BBS_&quot; + GetTag(OBJECT_SELF));
+  int PageSize = GetLocalInt(oBBS, &quot;PageSize&quot;);
+  int nSpot = GetLocalInt(GetPCSpeaker(), &quot;PageIndex&quot;) * PageSize + WhichEntry;
+  if(nSpot &lt;= GetCampaignInt(&quot;DB_BBS&quot;,GetTag(oBBS)+&quot;#C&quot;) &amp;&amp; WhichEntry &lt;= PageSize) {return TRUE;}
+  return FALSE;
+}
+
+//Moves the page by the required PageFlip:
+//0 to reload page, -1 for previous page, 1 for next page
+void bbs_change_page(int PageFlip) {
+  object oBBS = GetLocalObject(GetModule(), &quot;BBS_&quot; + GetTag(OBJECT_SELF));
+  int PageSize = GetLocalInt(oBBS, &quot;PageSize&quot;);
+  int TotalItems = GetCampaignInt(&quot;DB_BBS&quot;,GetTag(oBBS)+&quot;#C&quot;);
+  int MaxItems = GetLocalInt(oBBS, &quot;MaxItems&quot;);
+  int LatestItem = GetCampaignInt(&quot;DB_BBS&quot;,GetTag(oBBS)+&quot;#L&quot;);
+  int PageIndex = GetLocalInt(GetPCSpeaker(), &quot;PageIndex&quot;) + 1 * PageFlip;
+  if (PageIndex &lt; 0) {PageIndex = 0;}
+  SetLocalInt(GetPCSpeaker(), &quot;PageIndex&quot;, PageIndex);
+  SetLocalString(GetPCSpeaker(),&quot;PostAuthor&quot;,&quot;&quot;);
+
+  string sInfo;
+  int iLoop;
+  int iNotice;
+
+  for (iLoop = 0; iLoop &lt; PageSize; iLoop++) {
+    iNotice = LatestItem - PageIndex * PageSize - iLoop;
+    if (iNotice &lt; 1) {iNotice = MaxItems + iNotice;}
+    sInfo = GetCampaignString(&quot;DB_BBS&quot;,GetTag(oBBS)+&quot;#T&quot;+IntToString(iNotice));
+    SetCustomToken(3680 + iLoop, sInfo);
+    sInfo = GetCampaignString(&quot;DB_BBS&quot;,GetTag(oBBS)+&quot;#P&quot;+IntToString(iNotice));
+    if (((PageIndex * PageSize + iLoop + 2) &gt; TotalItems) || (iLoop == PageSize - 1)){
+      sInfo = sInfo + &quot;\n &quot;;
+    }
+    SetCustomToken(3690 + iLoop, sInfo);
+  }
+  bbs_do_board_stats();
+  SetCustomToken(3674, &quot;&quot;);
+  SetCustomToken(3675, &quot;&quot;);
+  SetCustomToken(3676, &quot;&quot;);
+  SetCustomToken(3677, &quot;&quot;);
+  SetCustomToken(3678, &quot;&quot;);
+}
+
+//Displays the selected post
+void bbs_select_entry(int WhichEntry) {
+  object oBBS = GetLocalObject(GetModule(), &quot;BBS_&quot; + GetTag(OBJECT_SELF));
+  int PageSize = GetLocalInt(oBBS, &quot;PageSize&quot;);
+  int MaxItems = GetLocalInt(oBBS, &quot;MaxItems&quot;);
+  int LatestItem = GetCampaignInt(&quot;DB_BBS&quot;,GetTag(oBBS)+&quot;#L&quot;);
+  int PageIndex = GetLocalInt(GetPCSpeaker(), &quot;PageIndex&quot;);
+
+  int iNotice = LatestItem - PageIndex * PageSize - WhichEntry + 1;
+  if (iNotice &lt; 1) {iNotice = MaxItems + iNotice;}
+
+  SetLocalInt(GetPCSpeaker(),&quot;CurrentEntry&quot;,iNotice);
+  string sNotice = IntToString(iNotice);
+  string sAuthor = GetCampaignString(&quot;DB_BBS&quot;,GetTag(oBBS)+&quot;#P&quot; + sNotice);
+  SetLocalString(GetPCSpeaker(),&quot;PostAuthor&quot;,sAuthor);
+  bbs_do_board_stats();
+  SetCustomToken(3674, &quot;\n\n&quot; + GetCampaignString(&quot;DB_BBS&quot;,GetTag(oBBS)+&quot;#T&quot; + sNotice) + &quot;\nBy: &quot;);
+  SetCustomToken(3675, sAuthor);
+  SetCustomToken(3676, &quot;     On: &quot;);
+  SetCustomToken(3677, GetCampaignString(&quot;DB_BBS&quot;,GetTag(oBBS)+&quot;#D&quot; + sNotice));
+  SetCustomToken(3678, &quot;\n&quot; + GetCampaignString(&quot;DB_BBS&quot;,GetTag(oBBS)+&quot;#M&quot; + sNotice));
+}
+
+//Adds a post to the bulletin board. This can be called at any time
+//so you can insert your own notices. If you don&#x27;t specify a sDate,
+//it will use the current game time. The proper format for sDate is
+//something like &quot;6/30/1373 11:58&quot;. The last two lines write code to
+//the log file for restoring the messages after a module edit.
+void bbs_add_notice(object oBBS, string sPoster, string sTitle, string sMessage, string sDate, string sBBStag = &quot;&quot;)
+{
+  if (sBBStag != &quot;&quot;) {oBBS = GetObjectByTag(sBBStag);}
+  bbs_initiate(oBBS);
+  oBBS = GetLocalObject(GetModule(), &quot;BBS_&quot; + GetTag(oBBS));
+  if (sDate == &quot;&quot;) {
+    sDate = IntToString(GetTimeMinute());
+    if (GetStringLength(sDate) == 1) {sDate = &quot;0&quot; + sDate;}
+    sDate = IntToString(GetCalendarMonth()) + &quot;/&quot; + IntToString(GetCalendarDay()) + &quot;/&quot; + IntToString(GetCalendarYear()) + &quot; &quot; + IntToString(GetTimeHour()) + &quot;:&quot; + sDate;
+  }
+  int MaxItems = GetLocalInt(oBBS, &quot;MaxItems&quot;);
+  int TotalItems = GetCampaignInt(&quot;DB_BBS&quot;,GetTag(oBBS)+&quot;#C&quot;);
+  int nSpot = TotalItems + 1;
+  if (nSpot &gt; MaxItems)
+  {
+    nSpot = GetCampaignInt(&quot;DB_BBS&quot;,GetTag(oBBS)+&quot;#L&quot;) +1;
+    if (nSpot &gt; MaxItems) nSpot = nSpot - MaxItems;
+  }
+  SetCampaignString(&quot;DB_BBS&quot;,GetTag(oBBS)+&quot;#P&quot; + IntToString(nSpot), sPoster);
+  SetCampaignString(&quot;DB_BBS&quot;,GetTag(oBBS)+&quot;#D&quot; + IntToString(nSpot), sDate);
+  SetCampaignString(&quot;DB_BBS&quot;,GetTag(oBBS)+&quot;#T&quot; + IntToString(nSpot), sTitle);
+  SetCampaignString(&quot;DB_BBS&quot;,GetTag(oBBS)+&quot;#M&quot; + IntToString(nSpot), sMessage);
+  SetCampaignInt(&quot;DB_BBS&quot;,GetTag(oBBS)+&quot;#L&quot;, nSpot);
+  if (MaxItems &gt; TotalItems)
+    SetCampaignInt(&quot;DB_BBS&quot;,GetTag(oBBS)+&quot;#C&quot;, TotalItems + 1);
+
+  string sQuote = GetSubString(GetStringByStrRef(464), 13, 1);
+  //PrintString(&quot;bbs_add_notice(OBJECT_SELF, &quot; + sQuote + sPoster + sQuote + &quot;, &quot; + sQuote + sTitle + sQuote + &quot;, &quot; + sQuote + sMessage + sQuote + &quot;, &quot; + sQuote + sDate + sQuote + &quot;, &quot; + sQuote + GetTag(oBBS) + sQuote + &quot;); //:::BBS:::&quot;);
+}
+
+
+void bbs_delete_entry() {
+  int CurrentEntry = GetLocalInt(GetPCSpeaker(), &quot;CurrentEntry&quot;);
+  object oBBS = GetLocalObject(GetModule(), &quot;BBS_&quot; +
+GetTag(OBJECT_SELF));
+  int LatestItem = GetCampaignInt(&quot;DB_BBS&quot;,GetTag(oBBS)+&quot;#L&quot;);
+  int TotalItems = GetCampaignInt(&quot;DB_BBS&quot;,GetTag(oBBS)+&quot;#C&quot;);
+  int iLoop;
+  int i;
+
+//An attempt to store the CampaignStrings in Local Arrays.  Still slow though.
+//5-10 entries, upon testing, results in a 1 - 2 second spike when you delete
+//an entry.
+  for(i = 1; i &lt;= TotalItems; i++) {
+  SetLocalString(oBBS,&quot;#P&quot;+IntToString(i),
+GetCampaignString(&quot;DB_BBS&quot;,GetTag(oBBS)+&quot;#P&quot; + IntToString(i)));
+  SetLocalString(oBBS,&quot;#D&quot;+IntToString(i),
+GetCampaignString(&quot;DB_BBS&quot;,GetTag(oBBS)+&quot;#D&quot; + IntToString(i)));
+  SetLocalString(oBBS,&quot;#T&quot;+IntToString(i),
+GetCampaignString(&quot;DB_BBS&quot;,GetTag(oBBS)+&quot;#T&quot; + IntToString(i)));
+  SetLocalString(oBBS,&quot;#M&quot;+IntToString(i),
+GetCampaignString(&quot;DB_BBS&quot;,GetTag(oBBS)+&quot;#M&quot; + IntToString(i)));
+  }
+
+  for (iLoop = CurrentEntry; iLoop &lt; TotalItems; iLoop++) {
+    SetLocalString(oBBS,&quot;#P&quot;+IntToString(iLoop),
+GetLocalString(oBBS, &quot;#P&quot; + IntToString(iLoop + 1)));
+    SetLocalString(oBBS,&quot;#D&quot;+IntToString(iLoop),
+GetLocalString(oBBS, &quot;#D&quot; + IntToString(iLoop + 1)));
+    SetLocalString(oBBS,&quot;#T&quot;+IntToString(iLoop),
+GetLocalString(oBBS, &quot;#T&quot; + IntToString(iLoop + 1)));
+    SetLocalString(oBBS,&quot;#M&quot;+IntToString(iLoop),
+GetLocalString(oBBS, &quot;#M&quot; + IntToString(iLoop + 1)));
+  }
+
+  TotalItems = TotalItems - 1;
+  if (CurrentEntry &lt;= LatestItem) {LatestItem = LatestItem - 1;}
+  if (LatestItem == 0) {LatestItem = TotalItems;}
+
+  while (LatestItem &lt; TotalItems) {
+    for (iLoop = TotalItems; iLoop &gt; 0; iLoop--) {
+      SetLocalString(oBBS,&quot;#P&quot;+IntToString(iLoop+1),
+GetLocalString(oBBS, &quot;#P&quot; + IntToString(iLoop)));
+      SetLocalString(oBBS,&quot;#D&quot;+IntToString(iLoop+1),
+GetLocalString(oBBS, &quot;#D&quot; + IntToString(iLoop)));
+      SetLocalString(oBBS,&quot;#T&quot;+IntToString(iLoop+1),
+GetLocalString(oBBS, &quot;#T&quot; + IntToString(iLoop)));
+      SetLocalString(oBBS,&quot;#M&quot;+IntToString(iLoop+1),
+GetLocalString(oBBS, &quot;#M&quot; + IntToString(iLoop)));
+    }
+    SetLocalString(oBBS,&quot;#P&quot;+IntToString(1),
+GetLocalString(oBBS, &quot;#P&quot; + IntToString(TotalItems + 1)));
+    SetLocalString(oBBS,&quot;#D&quot;+IntToString(1),
+GetLocalString(oBBS, &quot;#D&quot; + IntToString(TotalItems + 1)));
+    SetLocalString(oBBS,&quot;#T&quot;+IntToString(1),
+GetLocalString(oBBS, &quot;#T&quot; + IntToString(TotalItems + 1)));
+    SetLocalString(oBBS,&quot;#M&quot;+IntToString(1),
+GetLocalString(oBBS, &quot;#M&quot; + IntToString(TotalItems + 1)));
+    LatestItem++;
+  }
+  for(i=1; i&lt;=TotalItems; i++) {
+  SetCampaignString(&quot;DB_BBS&quot;,GetTag(oBBS)+&quot;#P&quot; + IntToString(i),
+GetLocalString(oBBS,&quot;#P&quot; + IntToString(i)));
+  SetCampaignString(&quot;DB_BBS&quot;,GetTag(oBBS)+&quot;#D&quot; + IntToString(i),
+GetLocalString(oBBS,&quot;#D&quot; + IntToString(i)));
+  SetCampaignString(&quot;DB_BBS&quot;,GetTag(oBBS)+&quot;#T&quot; + IntToString(i),
+GetLocalString(oBBS,&quot;#T&quot; + IntToString(i)));
+  SetCampaignString(&quot;DB_BBS&quot;,GetTag(oBBS)+&quot;#M&quot; + IntToString(i),
+GetLocalString(oBBS,&quot;#M&quot; + IntToString(i)));
+  }
+
+  SetCampaignInt(&quot;DB_BBS&quot;, GetTag(oBBS) + &quot;#L&quot;, LatestItem);
+  SetCampaignInt(&quot;DB_BBS&quot;, GetTag(oBBS) + &quot;#C&quot;, TotalItems);
+
+  //I don&#x27;t remember if the syntax allows to simply pass &quot;-TotalItems&quot;
+  //so I&#x27;m playing safe
+  //This will move the BBS display to page 1
+  bbs_change_page(TotalItems * -1);
+}
+</code></pre>
+  </main>
+  <footer>generated by <a href="https://github.com/mrprice22/nwn-manager">nwn-manager</a> &mdash; last updated Jun 3, 2026 12:42</footer>
+</body>
+</html>

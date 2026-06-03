@@ -1,0 +1,377 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Script kpb_inv_assess</title>
+  <link rel="stylesheet" href="../assets/style.css">
+  <link rel="stylesheet" href="../assets/theme.css">
+  <link rel="icon" href="../assets/favicon.png">
+</head>
+<body>
+  <header class="site-header">
+    <a class="brand" href="../index.html"><img class="site-header-img" src="../assets/header.png" alt="Home"></a>
+    <nav>
+      <a href="../index.html">Map</a>
+      <a href="../areas/index.html">Areas</a>
+      <div class="nav-dropdown">
+        <span class="nav-dropdown-label">Creatures &#9660;</span>
+        <div class="nav-dropdown-menu">
+          <a href="../creatures/index.html">All Creatures</a>
+          <a href="../creatures/by-area/index.html">By Area</a>
+          <a href="../creatures/by-cr/index.html">By Challenge Rating</a>
+          <a href="../creatures/by-race/index.html">By Race</a>
+        </div>
+      </div>
+      <div class="nav-dropdown">
+        <span class="nav-dropdown-label">Items &#9660;</span>
+        <div class="nav-dropdown-menu">
+          <a href="../items/index.html">Accessible</a>
+          <a href="../items/inaccessible/index.html">Inaccessible</a>
+          <a href="../items/properties/index.html">By Property</a>
+          <a href="../items/search.html">Search</a>
+        </div>
+      </div>
+      <a href="../stores/index.html">Stores</a>
+      <a href="../conversations/index.html">Conversations</a>
+      <a href="../factions.html">Factions</a>
+      <a href="../quests/index.html">Quests</a>
+      <a href="../activity.html">Activity</a>
+      <div class="nav-dropdown"><span class="nav-dropdown-label">Documents &#9660;</span><div class="nav-dropdown-menu"><a href="../manual/LevelingGuide.html">Leveling Guide</a>
+<a href="../manual/MeaningWave.html">MeaningWave: A Guide to the Guides</a>
+<a href="../manual/Quest Ideas.html">Quest Ideas (Draft Concepts)</a>
+<a href="../manual/QuestGuide.html">Quest Guide</a></div></div>
+    </nav>
+  </header>
+  <main>
+<h1>Script: <code>kpb_inv_assess</code></h1><pre class="nss-source"><code>////////////////////////////////////////////
+//  Kittrell&#x27;s Persistent Banking System  //
+//  Designed by: Brian J. Kittrell        //
+//                                        //
+//  This script does the following:       //
+//                                        //
+//  kpb_inv_assess - This script allows   //
+//  players to assess their investment    //
+//  that they have made with the Broker.  //
+////////////////////////////////////////////
+#include &quot;kpb_dateinc&quot;
+
+void main()
+{
+  object oPC = GetPCSpeaker();
+  int nYear = GetCampaignInt(&quot;kpb_bank&quot;, &quot;KPB_INVEST_YEAR&quot;, oPC);
+  int nMonth = GetCampaignInt(&quot;kpb_bank&quot;, &quot;KPB_INVEST_MONTH&quot;, oPC);
+  int nDay = GetCampaignInt(&quot;kpb_bank&quot;, &quot;KPB_INVEST_DAY&quot;, oPC);
+
+  int iMonth = GetCalendarMonth();
+  int iDay = GetCalendarDay();
+  int iYear = GetCalendarYear();
+
+  string sCurrentDate = GetCurrentDate();
+  string sDepDate = GetDateString(nDay, nMonth, nYear);
+  int nTotalDays = GetDateDifference(sDepDate, sCurrentDate, &quot;days&quot;);
+
+  int nInvestment = GetCampaignInt(&quot;kpb_bank&quot;, &quot;KPB_INVEST_TYPE&quot;, oPC);
+  int nInvested = GetCampaignInt(&quot;kpb_bank&quot;, &quot;KPB_BROKER_TOGGLE&quot;, oPC);
+
+if (nInvested == 1 &amp;&amp; nTotalDays &lt; 1)
+    {
+    SpeakString(&quot;You must give us a little more time.  You must wait one day from the time you invested to see the results!&quot;, TALKVOLUME_TALK);
+    return;
+    }
+
+if (nInvested != 1)
+    {
+    SpeakString(&quot;Our records do not show you having any pending investments.&quot;, TALKVOLUME_TALK);
+    SetCampaignInt(&quot;kpb_bank&quot;, &quot;KPB_BROKER_TOGGLE&quot;, 0, oPC);
+    return;
+    }
+
+if (nInvested == 1 &amp;&amp; nTotalDays &gt;= 1)
+    {
+        if (nInvestment == 1)
+        {
+        int nOriginal = 100;
+        int nChance = d20(1);
+            if (nChance == 1)
+            {
+            int nReturn = 80;
+            GiveGoldToCreature(oPC, nReturn);
+            SpeakString(&quot;The farming tools we invested in did not help the farmers at all!  Your return is less than your investment.  Here is your &quot; + IntToString(nReturn) + &quot; gold pieces.&quot;, TALKVOLUME_TALK);
+            SetCampaignInt(&quot;kpb_bank&quot;, &quot;KPB_BROKER_TOGGLE&quot;, 0, oPC);
+            }
+            if (nChance &gt;= 2 &amp;&amp; nChance &lt;= 10)
+            {
+            int nReturn = 100 + (d10(1));
+            GiveGoldToCreature(oPC, nReturn);
+            SpeakString(&quot;The new planting techniques we trained the farmers in has proven helpful!  Here is your &quot; + IntToString(nReturn) + &quot; gold pieces.&quot;, TALKVOLUME_TALK);
+            SetCampaignInt(&quot;kpb_bank&quot;, &quot;KPB_BROKER_TOGGLE&quot;, 0, oPC);
+            }
+            if (nChance &gt;= 11 &amp;&amp; nChance &lt;= 19)
+            {
+            int nReturn = 100 + (d20(1));
+            GiveGoldToCreature(oPC, nReturn);
+            SpeakString(&quot;The investment towards a new plow horse has helped more than we expected!  Here is your &quot; + IntToString(nReturn) + &quot; gold pieces.&quot;, TALKVOLUME_TALK);
+            SetCampaignInt(&quot;kpb_bank&quot;, &quot;KPB_BROKER_TOGGLE&quot;, 0, oPC);
+            }
+            if (nChance == 20)
+            {
+            int nReturn = 100 + (d10(2)) + (d8(1));
+            GiveGoldToCreature(oPC, nReturn);
+            SpeakString(&quot;The extra pay for the farm hands really paid off, more than we could ever have dreamed!  Here is your &quot; + IntToString(nReturn) + &quot; gold pieces.&quot;, TALKVOLUME_TALK);
+            SetCampaignInt(&quot;kpb_bank&quot;, &quot;KPB_BROKER_TOGGLE&quot;, 0, oPC);
+            }
+        }
+        if (nInvestment == 2)
+        {
+        int nOriginal = 5000;
+        int nChance = (d100(1));
+            if (nChance == 1)
+            {
+            SpeakString(&quot;The ship we invested in encountered pirates!  We have lost the ship, the crew, its cargo... and your gold.&quot;, TALKVOLUME_TALK);
+            SetCampaignInt(&quot;kpb_bank&quot;, &quot;KPB_BROKER_TOGGLE&quot;, 0, oPC);
+            }
+            if (nChance &gt;= 2 &amp;&amp; nChance &lt;= 5)
+            {
+            int nReturn = 5000 - (d100(20));
+            GiveGoldToCreature(oPC, nReturn);
+            SpeakString(&quot;The ship we invested in encountered a storm!  It was forced to sell most of its goods at wholesale to pay for repairs. Here is your &quot; + IntToString(nReturn) + &quot; gold pieces.&quot;, TALKVOLUME_TALK);
+            SetCampaignInt(&quot;kpb_bank&quot;, &quot;KPB_BROKER_TOGGLE&quot;, 0, oPC);
+            }
+            if (nChance &gt;= 6 &amp;&amp; nChance &lt;= 15)
+            {
+            int nReturn = 5000 - (d20(10));
+            GiveGoldToCreature(oPC, nReturn);
+            SpeakString(&quot;A strange market price change for our ship&#x27;s goods happened before the ship arrived.  It was forced to sell its goods for cheaper than we bought them for. Here is your &quot; + IntToString(nReturn) + &quot; gold pieces.&quot;, TALKVOLUME_TALK);
+            SetCampaignInt(&quot;kpb_bank&quot;, &quot;KPB_BROKER_TOGGLE&quot;, 0, oPC);
+            }
+            if (nChance &gt;= 16 &amp;&amp; nChance &lt;= 30)
+            {
+            int nReturn = 5000 + (d20(1));
+            GiveGoldToCreature(oPC, nReturn);
+            SpeakString(&quot;The market price was decent, but not what we hoped for.  At least the ship made a profit.  Here is your &quot; + IntToString(nReturn) + &quot; gold pieces.&quot;, TALKVOLUME_TALK);
+            SetCampaignInt(&quot;kpb_bank&quot;, &quot;KPB_BROKER_TOGGLE&quot;, 0, oPC);
+            }
+            if (nChance &gt;= 31 &amp;&amp; nChance &lt;= 60)
+            {
+            int nReturn = 5000 + (d20(2));
+            GiveGoldToCreature(oPC, nReturn);
+            SpeakString(&quot;The market price was better than average, but not what we hoped for.  At least the ship made a profit.  Here is your &quot; + IntToString(nReturn) + &quot; gold pieces.&quot;, TALKVOLUME_TALK);
+            SetCampaignInt(&quot;kpb_bank&quot;, &quot;KPB_BROKER_TOGGLE&quot;, 0, oPC);
+            }
+            if (nChance &gt;= 61 &amp;&amp; nChance &lt;= 80)
+            {
+            int nReturn = 5040 + (d100(2));
+            GiveGoldToCreature(oPC, nReturn);
+            SpeakString(&quot;The market price was quite nice.  The ship made quite a good profit from its goods.  Here is your &quot; + IntToString(nReturn) + &quot; gold pieces.&quot;, TALKVOLUME_TALK);
+            SetCampaignInt(&quot;kpb_bank&quot;, &quot;KPB_BROKER_TOGGLE&quot;, 0, oPC);
+            }
+            if (nChance &gt;= 81 &amp;&amp; nChance &lt;= 95)
+            {
+            int nReturn = 5200 + (d100(2));
+            GiveGoldToCreature(oPC, nReturn);
+            SpeakString(&quot;The market price actually increased on the goods we shipped before our ship got to port!  The trade route made a hefty profit!  Here is your &quot; + IntToString(nReturn) + &quot; gold pieces.&quot;, TALKVOLUME_TALK);
+            SetCampaignInt(&quot;kpb_bank&quot;, &quot;KPB_BROKER_TOGGLE&quot;, 0, oPC);
+            }
+            if (nChance &gt;= 96 &amp;&amp; nChance &lt;= 99)
+            {
+            int nReturn = 5400 + (d100(3));
+            GiveGoldToCreature(oPC, nReturn);
+            SpeakString(&quot;The port ran out of quality goods, just in time for our shipment!  The trade route was extremely prosperous!  Here is your &quot; + IntToString(nReturn) + &quot; gold pieces.&quot;, TALKVOLUME_TALK);
+            SetCampaignInt(&quot;kpb_bank&quot;, &quot;KPB_BROKER_TOGGLE&quot;, 0, oPC);
+            }
+            if (nChance == 100)
+            {
+            int nReturn = 5500 + (d100(5));
+            GiveGoldToCreature(oPC, nReturn);
+            SpeakString(&quot;Our ship ran into a storm on its journey, but it discovered a new land!  The Crown has paid an additional ransom for our sea charts to establish trade!  Here is your &quot; + IntToString(nReturn) + &quot; gold pieces.&quot;, TALKVOLUME_TALK);
+            SetCampaignInt(&quot;kpb_bank&quot;, &quot;KPB_BROKER_TOGGLE&quot;, 0, oPC);
+            }
+        }
+        if (nInvestment == 3)
+        {
+        int nOriginal = 2500;
+        int nChance = (d100(1));
+            if (nChance &gt;= 1 &amp;&amp; nChance &lt;= 5)
+            {
+            SpeakString(&quot;The new market structure came crashing down due to faulty building.  There was no money left after rebuilding it and paying for the healers.&quot;, TALKVOLUME_TALK);
+            SetCampaignInt(&quot;kpb_bank&quot;, &quot;KPB_BROKER_TOGGLE&quot;, 0, oPC);
+            }
+            if (nChance &gt;= 6 &amp;&amp; nChance &lt;= 15)
+            {
+            int nReturn = 2500 - (d100(1));
+            GiveGoldToCreature(oPC, nReturn);
+            SpeakString(&quot;The new marketplace was not deemed very special by customers, so opening day did not pay off too well.  Here is your &quot; + IntToString(nReturn) + &quot; gold pieces.&quot;, TALKVOLUME_TALK);
+            SetCampaignInt(&quot;kpb_bank&quot;, &quot;KPB_BROKER_TOGGLE&quot;, 0, oPC);
+            }
+            if (nChance &gt;= 16 &amp;&amp; nChance &lt;= 25)
+            {
+            int nReturn = 2500 + (d20(1));
+            GiveGoldToCreature(oPC, nReturn);
+            SpeakString(&quot;The new marketplace sparked some customer interest.  At least there was a profit.  Here is your &quot; + IntToString(nReturn) + &quot; gold pieces.&quot;, TALKVOLUME_TALK);
+            SetCampaignInt(&quot;kpb_bank&quot;, &quot;KPB_BROKER_TOGGLE&quot;, 0, oPC);
+            }
+            if (nChance &gt;= 26 &amp;&amp; nChance &lt;= 55)
+            {
+            int nReturn = 2500 + (d20(5));
+            GiveGoldToCreature(oPC, nReturn);
+            SpeakString(&quot;The new marketplace gathered a decent amount of new customers and brought some old customers back.  Here is your &quot; + IntToString(nReturn) + &quot; gold pieces.&quot;, TALKVOLUME_TALK);
+            SetCampaignInt(&quot;kpb_bank&quot;, &quot;KPB_BROKER_TOGGLE&quot;, 0, oPC);
+            }
+            if (nChance &gt;= 56 &amp;&amp; nChance &lt;= 85)
+            {
+            int nReturn = 2600 + (d20(2));
+            GiveGoldToCreature(oPC, nReturn);
+            SpeakString(&quot;The marketplace was revitalized, and all the customers were eager to spend!  Here is your &quot; + IntToString(nReturn) + &quot; gold pieces.&quot;, TALKVOLUME_TALK);
+            SetCampaignInt(&quot;kpb_bank&quot;, &quot;KPB_BROKER_TOGGLE&quot;, 0, oPC);
+            }
+            if (nChance &gt;= 86 &amp;&amp; nChance &lt;= 95)
+            {
+            int nReturn = 2650 + (d20(2));
+            GiveGoldToCreature(oPC, nReturn);
+            SpeakString(&quot;The marketplace is breathing new life into the whole city!  Here is your &quot; + IntToString(nReturn) + &quot; gold pieces.&quot;, TALKVOLUME_TALK);
+            SetCampaignInt(&quot;kpb_bank&quot;, &quot;KPB_BROKER_TOGGLE&quot;, 0, oPC);
+            }
+            if (nChance &gt;= 96 &amp;&amp; nChance &lt;= 100)
+            {
+            int nReturn = 2700 + (d20(3));
+            GiveGoldToCreature(oPC, nReturn);
+            SpeakString(&quot;They are speaking of our marketplace in other, distant lands because it is so great now!  Here is your &quot; + IntToString(nReturn) + &quot; gold pieces.&quot;, TALKVOLUME_TALK);
+            SetCampaignInt(&quot;kpb_bank&quot;, &quot;KPB_BROKER_TOGGLE&quot;, 0, oPC);
+            }
+        }
+
+        if (nInvestment == 4)
+        {
+        int nOriginal = 3000;
+        int nChance = (d100(1));
+            if (nChance &gt;= 1 &amp;&amp; nChance &lt;= 15)
+            {
+            SpeakString(&quot;We actually cannot find the merchant we invested in... we believe he skipped town, with you gold.  We will inform the guards, but there is no hope.&quot;, TALKVOLUME_TALK);
+            SetCampaignInt(&quot;kpb_bank&quot;, &quot;KPB_BROKER_TOGGLE&quot;, 0, oPC);
+            }
+            if (nChance &gt;= 16 &amp;&amp; nChance &lt;= 30)
+            {
+            int nReturn = 3000 - (d100(2));
+            GiveGoldToCreature(oPC, nReturn);
+            SpeakString(&quot;The shop we invested in spent the money on expensive stained-glass windows.  Although beautiful, customers could not see through them to the goods inside the store.  We had a loss.  Here is your &quot; + IntToString(nReturn) + &quot; gold pieces.&quot;, TALKVOLUME_TALK);
+            SetCampaignInt(&quot;kpb_bank&quot;, &quot;KPB_BROKER_TOGGLE&quot;, 0, oPC);
+            }
+            if (nChance &gt;= 31 &amp;&amp; nChance &lt;= 50)
+            {
+            int nReturn = 3000 + ((d20(2)) - (d20(2)));
+            GiveGoldToCreature(oPC, nReturn);
+            SpeakString(&quot;The improvement was taken indifferently by passersby.  Here is your &quot; + IntToString(nReturn) + &quot; gold pieces.&quot;, TALKVOLUME_TALK);
+            SetCampaignInt(&quot;kpb_bank&quot;, &quot;KPB_BROKER_TOGGLE&quot;, 0, oPC);
+            }
+            if (nChance &gt;= 51 &amp;&amp; nChance &lt;= 75)
+            {
+            int nReturn = 3050 + (d100(1));
+            GiveGoldToCreature(oPC, nReturn);
+            SpeakString(&quot;The improvement seemed to draw the eyes of shoppers slightly.  Here is your &quot; + IntToString(nReturn) + &quot; gold pieces.&quot;, TALKVOLUME_TALK);
+            SetCampaignInt(&quot;kpb_bank&quot;, &quot;KPB_BROKER_TOGGLE&quot;, 0, oPC);
+            }
+            if (nChance &gt;= 76 &amp;&amp; nChance &lt;= 90)
+            {
+            int nReturn = 3100 + (d100(2));
+            GiveGoldToCreature(oPC, nReturn);
+            SpeakString(&quot;The shop was very lively and full of customers, thanks to an improvement in inventory placement!  Here is your &quot; + IntToString(nReturn) + &quot; gold pieces.&quot;, TALKVOLUME_TALK);
+            SetCampaignInt(&quot;kpb_bank&quot;, &quot;KPB_BROKER_TOGGLE&quot;, 0, oPC);
+            }
+            if (nChance &gt;= 91 &amp;&amp; nChance &lt;= 99)
+            {
+            int nReturn = 3200 + (d100(3));
+            GiveGoldToCreature(oPC, nReturn);
+            SpeakString(&quot;The shop&#x27;s new style and gold management has lead to record profits!  Here is your &quot; + IntToString(nReturn) + &quot; gold pieces.&quot;, TALKVOLUME_TALK);
+            SetCampaignInt(&quot;kpb_bank&quot;, &quot;KPB_BROKER_TOGGLE&quot;, 0, oPC);
+            }
+            if (nChance == 100)
+            {
+            int nReturn = 5500 + (d100(5));
+            GiveGoldToCreature(oPC, nReturn);
+            SpeakString(&quot;The shop did so well, it doubled its sales!  The shopkeeper has decided to move to a larger city, and now he can afford it!  Here is your &quot; + IntToString(nReturn) + &quot; gold pieces.&quot;, TALKVOLUME_TALK);
+            SetCampaignInt(&quot;kpb_bank&quot;, &quot;KPB_BROKER_TOGGLE&quot;, 0, oPC);
+            }
+        }
+
+
+        if (nInvestment == 5)
+        {
+        int nOriginal = 3000;
+        int nChance = (d100(1));
+            if (nChance &gt;= 1 &amp;&amp; nChance &lt;= 10)
+            {
+            SpeakString(&quot;The snobby little gnome we invested in used the gold to build something diabolical, sold it to the Drow, and we have not seen him since!  We have lost the investments!&quot;, TALKVOLUME_TALK);
+            SetCampaignInt(&quot;kpb_bank&quot;, &quot;KPB_BROKER_TOGGLE&quot;, 0, oPC);
+            }
+            if (nChance &gt;= 11 &amp;&amp; nChance &lt;= 20)
+            {
+            SpeakString(&quot;The lead wizard working on the project we invested in killed over at the ripe old age of 124.  Unfortunately, he coded all of his work in a way only he could understand, so we lost the investment!  Paranoid old fool...&quot;, TALKVOLUME_TALK);
+            SetCampaignInt(&quot;kpb_bank&quot;, &quot;KPB_BROKER_TOGGLE&quot;, 0, oPC);
+            }
+            if (nChance &gt;= 21 &amp;&amp; nChance &lt;= 30)
+            {
+            SpeakString(&quot;Wilhelm Shakesbeare came out with a few new poems and stories, but the only thing they were good for was to keep the bonfire going in front of his house.  What a waste of gold!&quot;, TALKVOLUME_TALK);
+            SetCampaignInt(&quot;kpb_bank&quot;, &quot;KPB_BROKER_TOGGLE&quot;, 0, oPC);
+            }
+            if (nChance &gt;= 31 &amp;&amp; nChance &lt;= 40)
+            {
+            SpeakString(&quot;We received a report from the researches that Beholder Juice, a new type of home brew, caused most of the test subjects to explode or go insane.  If they had only told us the TOPIC of the project...&quot;, TALKVOLUME_TALK);
+            SetCampaignInt(&quot;kpb_bank&quot;, &quot;KPB_BROKER_TOGGLE&quot;, 0, oPC);
+            }
+            if (nChance &gt;= 41 &amp;&amp; nChance &lt;= 50)
+            {
+            int nReturn = 1000 - (d100(2));
+            GiveGoldToCreature(oPC, nReturn);
+            SpeakString(&quot;Well, the local think-tank came up with a new way to engineer clocks.  Unfortunately, it was an exact copy of Billigard Greenfoot&#x27;s gears.  We had to pay him royalties to sell it.  Here is your &quot; + IntToString(nReturn) + &quot; gold pieces.&quot;, TALKVOLUME_TALK);
+            SetCampaignInt(&quot;kpb_bank&quot;, &quot;KPB_BROKER_TOGGLE&quot;, 0, oPC);
+            }
+            if (nChance &gt;= 51 &amp;&amp; nChance &lt;= 75)
+            {
+            int nReturn = 1000 - (d20(5));
+            GiveGoldToCreature(oPC, nReturn);
+            SpeakString(&quot;The genius Christof Columbo finished his experiments and revealed today that the world is round.  Unfortunately, the Crown rejected the theory, and we lost gold.  Of all people, you would think a genius would know the TRUE shape of the world... Here is your &quot; + IntToString(nReturn) + &quot; gold pieces.&quot;, TALKVOLUME_TALK);
+            SetCampaignInt(&quot;kpb_bank&quot;, &quot;KPB_BROKER_TOGGLE&quot;, 0, oPC);
+            }
+            if (nChance &gt;= 76 &amp;&amp; nChance &lt;= 85)
+            {
+            int nReturn = 1000 + (d20(10));
+            GiveGoldToCreature(oPC, nReturn);
+            SpeakString(&quot;By dipping iron into a new solution, rather than water, it was discovered it could be strengthened and preserved longer!  Here is your &quot; + IntToString(nReturn) + &quot; gold pieces.&quot;, TALKVOLUME_TALK);
+            SetCampaignInt(&quot;kpb_bank&quot;, &quot;KPB_BROKER_TOGGLE&quot;, 0, oPC);
+            }
+            if (nChance &gt;= 86 &amp;&amp; nChance &lt;= 90)
+            {
+            int nReturn = 1000 + (d100(5));
+            GiveGoldToCreature(oPC, nReturn);
+            SpeakString(&quot;A new form of copying paper has been discovered: a more durable scribe&#x27;s pen!  Clerics and Monks everywhere have bought one!  Here is your &quot; + IntToString(nReturn) + &quot; gold pieces.&quot;, TALKVOLUME_TALK);
+            SetCampaignInt(&quot;kpb_bank&quot;, &quot;KPB_BROKER_TOGGLE&quot;, 0, oPC);
+            }
+            if (nChance &gt;= 91 &amp;&amp; nChance &lt;= 94)
+            {
+            int nReturn = 1500 + (d100(5));
+            GiveGoldToCreature(oPC, nReturn);
+            SpeakString(&quot;The genius Herman Treffpunkt has originated a whole series of textbooks for teaching Common to Commoners!   Here is your &quot; + IntToString(nReturn) + &quot; gold pieces.&quot;, TALKVOLUME_TALK);
+            SetCampaignInt(&quot;kpb_bank&quot;, &quot;KPB_BROKER_TOGGLE&quot;, 0, oPC);
+            }
+            if (nChance &gt;= 95 &amp;&amp; nChance &lt;= 98)
+            {
+            int nReturn = 1900 + (d100(5));
+            GiveGoldToCreature(oPC, nReturn);
+            SpeakString(&quot;Our inventors have created a crystal which allows for long-distance communication!  The Crown wants to buy up the new invention!   Here is your &quot; + IntToString(nReturn) + &quot; gold pieces.&quot;, TALKVOLUME_TALK);
+            SetCampaignInt(&quot;kpb_bank&quot;, &quot;KPB_BROKER_TOGGLE&quot;, 0, oPC);
+            }
+            if (nChance &gt;= 99 &amp;&amp; nChance &lt;= 100)
+            {
+            int nReturn = 2100 + (d100(10));
+            GiveGoldToCreature(oPC, nReturn);
+            SpeakString(&quot;Our inventors have created a flying machine capable of moving people and goods over great distances!  The Crown has bought the prototype for testing!   Here is your &quot; + IntToString(nReturn) + &quot; gold pieces.&quot;, TALKVOLUME_TALK);
+            SetCampaignInt(&quot;kpb_bank&quot;, &quot;KPB_BROKER_TOGGLE&quot;, 0, oPC);
+            }
+        }
+    }
+}
+</code></pre>
+  </main>
+  <footer>generated by <a href="https://github.com/mrprice22/nwn-manager">nwn-manager</a> &mdash; last updated Jun 3, 2026 12:42</footer>
+</body>
+</html>

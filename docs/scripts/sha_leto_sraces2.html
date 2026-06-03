@@ -1,0 +1,625 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Script sha_leto_sraces2</title>
+  <link rel="stylesheet" href="../assets/style.css">
+  <link rel="stylesheet" href="../assets/theme.css">
+  <link rel="icon" href="../assets/favicon.png">
+</head>
+<body>
+  <header class="site-header">
+    <a class="brand" href="../index.html"><img class="site-header-img" src="../assets/header.png" alt="Home"></a>
+    <nav>
+      <a href="../index.html">Map</a>
+      <a href="../areas/index.html">Areas</a>
+      <div class="nav-dropdown">
+        <span class="nav-dropdown-label">Creatures &#9660;</span>
+        <div class="nav-dropdown-menu">
+          <a href="../creatures/index.html">All Creatures</a>
+          <a href="../creatures/by-area/index.html">By Area</a>
+          <a href="../creatures/by-cr/index.html">By Challenge Rating</a>
+          <a href="../creatures/by-race/index.html">By Race</a>
+        </div>
+      </div>
+      <div class="nav-dropdown">
+        <span class="nav-dropdown-label">Items &#9660;</span>
+        <div class="nav-dropdown-menu">
+          <a href="../items/index.html">Accessible</a>
+          <a href="../items/inaccessible/index.html">Inaccessible</a>
+          <a href="../items/properties/index.html">By Property</a>
+          <a href="../items/search.html">Search</a>
+        </div>
+      </div>
+      <a href="../stores/index.html">Stores</a>
+      <a href="../conversations/index.html">Conversations</a>
+      <a href="../factions.html">Factions</a>
+      <a href="../quests/index.html">Quests</a>
+      <a href="../activity.html">Activity</a>
+      <div class="nav-dropdown"><span class="nav-dropdown-label">Documents &#9660;</span><div class="nav-dropdown-menu"><a href="../manual/LevelingGuide.html">Leveling Guide</a>
+<a href="../manual/MeaningWave.html">MeaningWave: A Guide to the Guides</a>
+<a href="../manual/Quest Ideas.html">Quest Ideas (Draft Concepts)</a>
+<a href="../manual/QuestGuide.html">Quest Guide</a></div></div>
+    </nav>
+  </header>
+  <main>
+<h1>Script: <code>sha_leto_sraces2</code></h1><pre class="nss-source"><code>//::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+//:::::::::::::::::::::::: Shayan&#x27;s Subrace Engine :::::::::::::::::::::::::::::
+//:::::::::::::::::File Name: sha_leto_sraces2 ::::::::::::::::::::::::::::::::::::
+//::::::::::::::::::::: OnModuleLoad script ::::::::::::::::::::::::::::::::::::
+//:: Written By: Shayan.
+//:: Contact: mail_shayan@yahoo.com
+//
+// Description: This script holds the pre-made &#x27;wacky&#x27; subraces. These sub-races
+//              are either planar or monsterous. These include things like:
+//              Ogre, Illithid, Pixies... just to name a few.
+//              This script is the Leto equivalent of sha_subraces2.
+//              It will give players permanent ability scores,feats, etc rather than
+//              as a bonus from skin/creature hide. It may also contain added benefits like
+//              wings.
+
+
+
+#include &quot;sha_subr_methds&quot;
+void main()
+{
+
+
+
+
+//:::::::::::::::::::::::::::::::::
+//:::: SUBRACE: Human - Illithid ::
+//:::::::::::::::::::::::::::::::::
+
+//Subrace Name: Illithid.
+
+//Properties from the Skin:
+    //AC Bonus +3
+
+    //Immunity: Miscellaneous: Mind-Affecting Spells
+
+//Abilities from the unique item:
+    //Cast Spell: Charm Monster (10) 1 Use/Day
+    //Cast Spell: Charm Person (10) 1 Use/Day
+
+//Must be Human, and is light sensitive.
+//ECL: + 2
+   CreateSubrace(RACIAL_TYPE_HUMAN, &quot;illithid&quot;, &quot;sha_pcl_illithid&quot;, &quot;sha_subrace_illi&quot;, TRUE, 0, FALSE, 0, 3);
+
+//LETO - Change ability scores:
+    //Ability Bonus: Charisma +2
+    //Ability Bonus: Constitution -4
+    //Ability Bonus: Dexterity +4
+    //Ability Bonus: Intelligence +8
+    //Ability Bonus: Strength +2
+    //Ability Bonus: Wisdom +4
+    struct SubraceBaseStatsModifier IllithidStats = CustomBaseStatsModifiers(2, 4, -4, 8, 4, 2, MOVEMENT_SPEED_CURRENT);
+    CreateBaseStatModifier(&quot;illithid&quot;, IllithidStats, 1);
+
+//LETO - Feats:
+    //Darkvision
+    ModifySubraceFeat(&quot;illithid&quot;, FEAT_DARKVISION, 1);
+
+//Lawful Evil Only
+   CreateSubraceAlignmentRestriction(&quot;illithid&quot;, FALSE, FALSE, TRUE, TRUE, FALSE, FALSE);
+
+//Favored Class: Male: Wizard, Female: Wizard.
+   AddSubraceFavoredClass(&quot;illithid&quot;, CLASS_TYPE_WIZARD, CLASS_TYPE_WIZARD);
+
+//Can only be Monk, Cleric or Wizard
+   CreateSubraceClassRestriction(&quot;illithid&quot;, FALSE, FALSE, TRUE, FALSE, FALSE, TRUE, FALSE, FALSE,  FALSE, FALSE, TRUE);
+
+//Spell Resistance: Base: 25, Max: 65.  (25 + 1 per level)
+   CreateSubraceSpellResistance(&quot;illithid&quot;, 25, 65);
+
+//Appearance is permanently changed to Mind flayers (male is different from female)
+   CreateSubraceAppearance(&quot;illithid&quot;, TIME_BOTH, APPEARANCE_TYPE_MINDFLAYER, APPEARANCE_TYPE_MINDFLAYER_2);
+
+
+
+
+
+
+
+
+
+
+
+
+
+//:::::::::::::::::::::::::::::::::::
+//:::: SUBRACE: Dwarf - Azer ::::::::
+//:::::::::::::::::::::::::::::::::::
+
+//Subrace Name: Azer
+
+//Properties from the Skin:
+    //AC Bonus +6
+    //Damage Vulnerability: Cold 50% Damage Vulnerability
+    //Immunity: Damage Type: Fire 100% Immunity Bonus
+
+//Must be: Dwarf
+//ECL: + 3
+     CreateSubrace(RACIAL_TYPE_DWARF, &quot;azer&quot;, &quot;sha_pcl_azer&quot;, &quot;&quot;, FALSE, 0, FALSE, 0, 3);
+
+//LETO - Change ability scores:
+    //Ability Bonus: Constitution +2
+    //Ability Bonus: Dexterity +2
+    //Ability Bonus: Intelligence +2
+    //Ability Bonus: Strength +2
+    //Ability Bonus: Wisdom +2
+    struct SubraceBaseStatsModifier AzerStats = CustomBaseStatsModifiers(2, 2, 2, 2, 2, 0, MOVEMENT_SPEED_CURRENT);
+    CreateBaseStatModifier(&quot;azer&quot;, AzerStats, 1);
+
+//LETO - Feats:
+    //Darkvision
+    ModifySubraceFeat(&quot;azer&quot;, FEAT_DARKVISION, 1);
+
+//Appearance: Azer - Permanent.
+     CreateSubraceAppearance(&quot;azer&quot;, TIME_BOTH, APPEARANCE_TYPE_AZER_MALE, APPEARANCE_TYPE_AZER_FEMALE);
+
+//Spell Resistance: 13 + 1 Per Level.
+     CreateSubraceSpellResistance(&quot;azer&quot;, 13, 53);
+
+
+
+
+
+
+
+
+
+
+//:::::::::::::::::::::::::::::::::::::::
+//:::: SUBRACE: Halfling - Pixie ::::::::
+//:::::::::::::::::::::::::::::::::::::::
+
+//Subrace Name: Pixie
+
+//Properties from the Skin:
+    //AC Bonus +1
+    //Damage Reduction: +1 Soak 5 Damage
+
+
+//Abilities from the unique item:
+    //Cast Spell: Confusion (10) 1 Use/Day
+    //Cast Spell: Entangle (5) 1 Use/Day
+    //Cast Spell: Invisibility (3) 1 Use/Day
+    //Cast Spell: Lesser Dispel (5) 1 Use/Day
+    //Cast Spell: Polymorph Self (7) 1 Use/Day
+
+
+//Must be: Halfling.
+//ECL: +3
+    CreateSubrace(RACIAL_TYPE_HALFLING, &quot;pixie&quot;, &quot;sha_pcl_pixie&quot;, &quot;sha_subrace_pixi&quot;, FALSE, 0, FALSE, 0, 3);
+
+
+//LETO - Change ability scores:
+    //Ability Bonus: Charisma +6
+    //Ability Bonus: Dexterity +8
+    //Ability Bonus: Intelligence +6
+    //Ability Bonus: Wisdom +4
+    //Decreased Ability Score: Constitution -4
+    //Decreased Ability Score: Strength -4
+    //Movement Speed: Fast
+    struct SubraceBaseStatsModifier PixieStats = CustomBaseStatsModifiers(-4, 8, -4, 6, 4, 6, MOVEMENT_SPEED_FAST);
+    CreateBaseStatModifier(&quot;pixie&quot;, PixieStats, 1);
+
+
+//LETO - Feats:
+    //Darkvision
+    //Bonus Feat: Dodge
+    ModifySubraceFeat(&quot;pixie&quot;, FEAT_DARKVISION, 1);
+    ModifySubraceFeat(&quot;pixie&quot;, FEAT_DODGE, 1);
+
+
+//Alignment Restriction: Neutral Only.
+    CreateSubraceAlignmentRestriction(&quot;pixie&quot;, FALSE, TRUE, FALSE);
+
+//Class Restriction: Can only be either: Bard, Rogue, Sorcerer or Wizard.
+    CreateSubraceClassRestriction(&quot;pixie&quot;, FALSE, TRUE, FALSE, FALSE, FALSE, FALSE, FALSE, TRUE, TRUE, TRUE);
+
+//Favored Class: Sorcerer.
+    AddSubraceFavoredClass(&quot;pixie&quot;, CLASS_TYPE_SORCERER, CLASS_TYPE_SORCERER);
+
+//Appearance Change: Permanent - Pixie
+    CreateSubraceAppearance(&quot;pixie&quot;, TIME_BOTH, APPEARANCE_TYPE_FAIRY, APPEARANCE_TYPE_FAIRY);
+
+//Effect: Visual Effect - Fairy Dust.
+    AddSubraceEffect(&quot;pixie&quot;, EFFECT_TYPE_VISUALEFFECT, VFX_DUR_PIXIEDUST, FALSE, DURATION_TYPE_PERMANENT, 0.0, TIME_BOTH);
+
+//Spell Resistance: Base (at Level 1): 15, Max(at Level 40): 55.
+   CreateSubraceSpellResistance(&quot;pixie&quot;, 15, 55);
+
+//Can only use tiny weapons.
+   SubraceRestrictUseOfWeaponsOfType(&quot;pixie&quot;, SUBRACE_RESTRICTION_WEAPON_TINY, TIME_BOTH, TRUE);
+
+//Can only wear clothing. Can&#x27;t use any shields.
+   SubraceRestrictUseOfArmourAndShieldsOfType(&quot;pixie&quot;, SUBRACE_RESTRICTION_DEFENSE_CLOTHING, TIME_BOTH, TRUE);
+
+
+
+
+
+
+//:::::::::::::::::::::::::::::::::::::::
+//:::: SUBRACE: Half-Orc - Ogre :::::::::
+//:::::::::::::::::::::::::::::::::::::::
+
+//Subrace Name: Ogre
+
+//Properties from the Skin:
+    //AC Bonus +5
+
+
+
+//Must be:  Half-Orc
+//ECL: + 2
+     CreateSubrace(RACIAL_TYPE_HALFORC, &quot;ogre&quot;, &quot;sha_pcl_ogre&quot;, &quot;&quot;, FALSE, 0, FALSE, 0, 2);
+
+//LETO - Change ability scores:
+    //Ability Bonus: Constitution +4
+    //Ability Bonus: Strength +6
+    //Decreased Ability Score: Charisma -4
+    //Decreased Ability Score: Dexterity -2
+    //Decreased Ability Score: Intelligence -4
+    struct SubraceBaseStatsModifier OgreStats = CustomBaseStatsModifiers(6, -2, 4, -4, 0, -4, MOVEMENT_SPEED_CURRENT);
+    CreateBaseStatModifier(&quot;ogre&quot;, OgreStats, 1);
+
+//LETO - Feats:
+    //Darkvision
+    //Bonus Feat: Armor Proficiency (light)
+    //Bonus Feat: Armor Proficiency (medium)
+    //Bonus Feat: Shield Proficiency
+    //Bonus Feat: Weapon Proficiency (martial)
+    //Bonus Feat: Weapon Proficiency (simple)
+    ModifySubraceFeat(&quot;ogre&quot;, FEAT_DARKVISION, 1);
+    ModifySubraceFeat(&quot;ogre&quot;, FEAT_ARMOR_PROFICIENCY_LIGHT, 1);
+    ModifySubraceFeat(&quot;ogre&quot;, FEAT_ARMOR_PROFICIENCY_MEDIUM, 1);
+    ModifySubraceFeat(&quot;ogre&quot;, FEAT_SHIELD_PROFICIENCY, 1);
+    ModifySubraceFeat(&quot;ogre&quot;, FEAT_WEAPON_PROFICIENCY_MARTIAL, 1);
+    ModifySubraceFeat(&quot;ogre&quot;, FEAT_WEAPON_PROFICIENCY_SIMPLE, 1);
+
+//LETO - Skills:
+    //Decreased Skill Modifier: Move Silently -5
+    //Decreased Skill Modifier: Hide -8
+    ModifySubraceSkill(&quot;ogre&quot;, SKILL_HIDE, -8, 1, FALSE);
+    ModifySubraceSkill(&quot;ogre&quot;, SKILL_MOVE_SILENTLY, -5, 1, FALSE);
+
+//Alignment Restriction - Cannot be Lawful.
+     CreateSubraceAlignmentRestriction(&quot;ogre&quot;, TRUE, TRUE, TRUE, FALSE);
+
+//Appearance: Ogre - Permanent.
+     CreateSubraceAppearance(&quot;ogre&quot;, TIME_BOTH, APPEARANCE_TYPE_OGRE_CHIEFTAIN, APPEARANCE_TYPE_OGREB);
+
+//Can&#x27;t use any Tiny weapons (Too big to hold them!!)
+    SubraceRestrictUseOfWeaponsOfType(&quot;ogre&quot;, SUBRACE_RESTRICTION_WEAPON_TINY, TIME_BOTH);
+
+
+
+
+
+
+
+//:::::::::::::::::::::::::::::::::::::::
+//:::: SUBRACE: Half-Orc - Troll ::::::::
+//:::::::::::::::::::::::::::::::::::::::
+
+//Subrace Name: Troll
+
+//Properties from the Skin:
+    //AC Bonus +4
+    //Regeneration +3
+    //Decreased Skill Modifier: Hide -8
+    //Decreased Skill Modifier: Move Silently -5
+
+//Must be: Half-Orc
+//ECL: + 2
+    CreateSubrace(RACIAL_TYPE_HALFORC, &quot;troll&quot;, &quot;sha_pcl_troll&quot;,&quot;&quot;, FALSE, 0, FALSE, 0, 2);
+
+//LETO - Change ability scores:
+    //Ability Bonus: Constitution +6
+    //Ability Bonus: Strength +6
+    //Decreased Ability Score: Charisma -4
+    //Decreased Ability Score: Intelligence -4
+    //Decreased Ability Score: Wisdom -2
+    struct SubraceBaseStatsModifier TrollStats = CustomBaseStatsModifiers(6, 0, 6, -4, -2, -4, MOVEMENT_SPEED_CURRENT);
+    CreateBaseStatModifier(&quot;troll&quot;, TrollStats, 1);
+
+//LETO - Feats:
+    //Darkvision
+    ModifySubraceFeat(&quot;troll&quot;, FEAT_DARKVISION, 1);
+
+//LETO - Skills:
+    //Decreased Skill Modifier: Move Silently -5
+    //Decreased Skill Modifier: Hide -8
+    ModifySubraceSkill(&quot;troll&quot;, SKILL_HIDE, -8, 1, FALSE);
+    ModifySubraceSkill(&quot;troll&quot;, SKILL_MOVE_SILENTLY, -5, 1, FALSE);
+
+//Appearance: Troll - Permanent.
+     CreateSubraceAppearance(&quot;troll&quot;, TIME_BOTH, APPEARANCE_TYPE_TROLL_CHIEFTAIN, APPEARANCE_TYPE_TROLL_SHAMAN);
+
+//Can&#x27;t use any Tiny weapons (Too big to hold them!!)
+    SubraceRestrictUseOfWeaponsOfType(&quot;troll&quot;, SUBRACE_RESTRICTION_WEAPON_TINY, TIME_BOTH);
+
+//Favored Class: Fighter.
+    AddSubraceFavoredClass(&quot;troll&quot;, CLASS_TYPE_FIGHTER, CLASS_TYPE_FIGHTER);
+
+
+
+
+
+
+
+
+
+
+//:::::::::::::::::::::::::::::::::::::::
+//:::: SUBRACE: Halfling - Bugbear ::::::
+//:::::::::::::::::::::::::::::::::::::::
+
+//Subrace Name: Bugbear.
+
+//Properties from the Skin:
+    //AC Bonus +3
+
+//Must be: Halfling.
+//ECL: + 1
+     CreateSubrace(RACIAL_TYPE_HALFLING, &quot;bugbear&quot;, &quot;sha_pcl_bugbear&quot;, &quot;&quot;, FALSE, 0 , FALSE, 0, 1);
+
+//LETO - Change ability scores:
+    //Ability Bonus: Constitution +2
+    //Ability Bonus: Strength +4
+    //Decreased Ability Score: Charisma -2
+    struct SubraceBaseStatsModifier BugbearStats = CustomBaseStatsModifiers(4, 0, 2, 0, 0, -2, MOVEMENT_SPEED_CURRENT);
+    CreateBaseStatModifier(&quot;bugbear&quot;, BugbearStats, 1);
+
+//LETO - Feats:
+    //Darkvision
+    //Bonus Feat: Armor Proficiency (light)
+    //Bonus Feat: Shield Proficiency
+    //Bonus Feat: Weapon Proficiency (simple)
+    ModifySubraceFeat(&quot;bugbear&quot;, FEAT_DARKVISION, 1);
+    ModifySubraceFeat(&quot;bugbear&quot;, FEAT_ARMOR_PROFICIENCY_LIGHT, 1);
+    ModifySubraceFeat(&quot;bugbear&quot;, FEAT_SHIELD_PROFICIENCY, 1);
+    ModifySubraceFeat(&quot;bugbear&quot;, FEAT_WEAPON_PROFICIENCY_SIMPLE, 1);
+
+//Apearance: Bugbear - Permanent.
+    CreateSubraceAppearance(&quot;bugbear&quot;, TIME_BOTH, APPEARANCE_TYPE_BUGBEAR_CHIEFTAIN_A, APPEARANCE_TYPE_BUGBEAR_A);
+
+
+
+
+
+
+
+
+
+//:::::::::::::::::::::::::::::::::::::::
+//:::: SUBRACE: Halfling - Goblin :::::::
+//:::::::::::::::::::::::::::::::::::::::
+
+//Subrace Name: Goblin
+
+//Must be: Halfling.
+      CreateSubrace(RACIAL_TYPE_HALFLING, &quot;goblin&quot;);
+
+//LETO - Change ability scores:
+    //Decreased Ability Score: Charisma -2
+    struct SubraceBaseStatsModifier GoblinStats = CustomBaseStatsModifiers(0, 0, 0, 0, 0, -2, MOVEMENT_SPEED_CURRENT);
+    CreateBaseStatModifier(&quot;goblin&quot;, GoblinStats, 1);
+
+//LETO - Feats:
+    //Darkvision
+    ModifySubraceFeat(&quot;goblin&quot;, FEAT_DARKVISION, 1);
+
+//Apearance: Goblin - Permanent.
+      CreateSubraceAppearance(&quot;goblin&quot;, TIME_BOTH, APPEARANCE_TYPE_GOBLIN_CHIEF_A, APPEARANCE_TYPE_GOBLIN_A);
+
+
+
+
+
+
+
+
+
+
+
+//::::::::::::::::::::::::::::::::::::
+//::::: SUBRACE: Undead - Lich :::::::
+//::::::::::::::::::::::::::::::::::::
+
+//This is an example of how you can equip different skins on Players at different level.
+//So that you do not necessarily have to give all subrace feats at once.
+
+
+//Subrace Name: Lich
+
+//Properties from the Skin:
+    //Level 1:
+        //Damage Reduction: +1 Soak 15 Damage
+        //Turn Resistance +4
+        //Immunity: Damage Type: Cold 100% Immunity Bonus
+        //Immunity: Damage Type: Electrical 100% Immunity Bonus
+
+    //Level 5:
+        //Gains - Immunity: Miscellaneous: Disease
+
+    //Level 10:
+        //Gains - Immunity: Miscellaneous: Poison
+
+    //Level 15:
+        //Gains - Immunity: Miscellaneous: Paralysis
+
+    //Level 20:
+        //Gains - Immunity: Miscellaneous: Level/Ability Drain
+
+    //Level 25:
+        //Gains - Immunity: Miscellaneous: Mind-Affecting Spells
+
+    //Level 30:
+        //Gains - Immunity: Miscellaneous: Death Magic
+
+    //Level 35:
+        //Gains - Immunity: Miscellaneous: Sneak Attack
+
+    //Level 40:
+        //Gains - Immunity: Miscellaneous: Critical Hits
+
+
+//Abilities from the unique item:
+    //Cast Spell: Destruction (13) 1 Use/Day
+    //Cast Spell: Vampiric Touch (5) 1 Use/Day
+
+//Human. Light Sensitive. Takes 4 Divine Damage While in Sunlight.
+//ECL: + 3
+//Undead
+    CreateSubrace(RACIAL_TYPE_HUMAN, &quot;lich&quot;, &quot;sha_pcl_lich&quot;, &quot;sha_subrace_lich&quot;, TRUE, 4, FALSE, 0, 3, TRUE);
+
+
+//LETO - Change ability scores:
+    //Level 1:
+        //Ability Bonus: Charisma +2
+        //Ability Bonus: Intelligence +2
+        //Ability Bonus: Wisdom +2
+    struct SubraceBaseStatsModifier LichStats = CustomBaseStatsModifiers(0, 0, 0, 2, 2, 2, MOVEMENT_SPEED_CURRENT);
+    CreateBaseStatModifier(&quot;lich&quot;, LichStats, 1);
+
+
+//Can also be Elf.
+    AddAdditionalBaseRaceToSubrace(&quot;lich&quot;, RACIAL_TYPE_ELF);
+
+//Can also be Half-Elf.
+    AddAdditionalBaseRaceToSubrace(&quot;lich&quot;, RACIAL_TYPE_HALFELF);
+
+//The different skins to be equipped at different levels...
+    AddAdditionalSkinsToSubrace(&quot;lich&quot;, &quot;sha_pcl_lich1&quot;, 5);
+    AddAdditionalSkinsToSubrace(&quot;lich&quot;, &quot;sha_pcl_lich2&quot;, 10);
+    AddAdditionalSkinsToSubrace(&quot;lich&quot;, &quot;sha_pcl_lich3&quot;, 15);
+    AddAdditionalSkinsToSubrace(&quot;lich&quot;, &quot;sha_pcl_lich4&quot;, 20);
+    AddAdditionalSkinsToSubrace(&quot;lich&quot;, &quot;sha_pcl_lich5&quot;, 25);
+    AddAdditionalSkinsToSubrace(&quot;lich&quot;, &quot;sha_pcl_lich6&quot;, 30);
+    AddAdditionalSkinsToSubrace(&quot;lich&quot;, &quot;sha_pcl_lich7&quot;, 35);
+    AddAdditionalSkinsToSubrace(&quot;lich&quot;, &quot;sha_pcl_lich8&quot;, 40);
+
+//Alignment Restriction - Must be Evil.
+    CreateSubraceAlignmentRestriction(&quot;lich&quot;, FALSE, FALSE, TRUE);
+
+//Class Restriction - Can only be Wizard or Sorcerer.
+    CreateSubraceClassRestriction(&quot;lich&quot;, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, TRUE, TRUE);
+
+//Spell Resistance: 10 + 1/2 Per Level.
+    CreateSubraceSpellResistance(&quot;lich&quot;, 10, 30);
+
+//Appearance: Lich - Permanent.
+    CreateSubraceAppearance(&quot;lich&quot;, TIME_BOTH, APPEARANCE_TYPE_LICH, APPEARANCE_TYPE_HEURODIS_LICH);
+
+//Favored Class: Pale Master
+    AddSubraceFavoredClass(&quot;lich&quot;, CLASS_TYPE_WIZARD, CLASS_TYPE_WIZARD);
+
+
+
+
+
+
+
+
+
+
+
+//::::::::::::::::::::::
+//:::SUBRACE: Vampire ::
+//::::::::::::::::::::::
+
+//Subrace Name: Vampire
+
+//Properties from the Skin:
+
+    //Level 1:
+        //Damage Vulnerability: Divine 100% Damage Vulnerability
+        //Decreased Saving Throws: Divine -5
+        //Regeneration +1
+
+    //Level 5:
+        //Gains - Immunity: Miscellaneous: Paralysis
+
+    //Level 10:
+        //Gains - Immunity: Miscellaneous: Poison
+
+    //Level 15:
+        //Gains - Immunity: Miscellaneous: Disease
+
+    //Level 20:
+        //Gains - Immunity: Miscellaneous: Death Magic
+        //        Regeneration Increases by +1
+
+    //Level 25:
+        //Gains - Immunity: Miscellaneous: Level/Ability Drain
+
+    //Level 30:
+        //Gains - Immunity: Miscellaneous: Mind-Affecting Spells
+
+    //Level 35:
+        //Gains - Immunity: Miscellaneous: Sneak Attack
+
+
+    //Level 40:
+        //Gains - Immunity: Miscellaneous: Critical Hits
+        //        Regeneration Increases by +1
+
+//NOTE: Final Regeneration rate (At Level 40) is +3.
+
+
+//Human. Light Sensitive. Takes 2 Divine Damage while in Sunlight.
+//ECL: + 3
+//Undead
+   CreateSubrace(RACIAL_TYPE_HUMAN, &quot;vampire&quot;, &quot;sha_pc_vamp001&quot;, &quot;sha_subrace_vamp&quot;, TRUE, 2, FALSE, 0, 3, TRUE);
+
+
+//LETO - Change ability scores:
+    //Level 1:
+        //Decreased Ability Score: Charisma -2
+    struct SubraceBaseStatsModifier VampireStats = CustomBaseStatsModifiers(0, 0, 0, 0, 0, -2, MOVEMENT_SPEED_CURRENT);
+    CreateBaseStatModifier(&quot;vampire&quot;, VampireStats, 1);
+
+//LETO - Feats:
+    //Darkvision
+    ModifySubraceFeat(&quot;vampire&quot;, FEAT_DARKVISION, 1);
+
+//Can also be Elf
+   AddAdditionalBaseRaceToSubrace(&quot;vampire&quot;, RACIAL_TYPE_ELF);
+
+//Can also be Half-Elf
+   AddAdditionalBaseRaceToSubrace(&quot;vampire&quot;, RACIAL_TYPE_HALFELF);
+
+//Skins that are equipped at certain levels...
+   AddAdditionalSkinsToSubrace(&quot;vampire&quot;, &quot;sha_pcl_vamp002&quot;, 5);
+   AddAdditionalSkinsToSubrace(&quot;vampire&quot;, &quot;sha_pcl_vamp003&quot;, 10);
+   AddAdditionalSkinsToSubrace(&quot;vampire&quot;, &quot;sha_pcl_vamp004&quot;, 15);
+   AddAdditionalSkinsToSubrace(&quot;vampire&quot;, &quot;sha_pcl_vamp005&quot;, 20);
+   AddAdditionalSkinsToSubrace(&quot;vampire&quot;, &quot;sha_pcl_vamp006&quot;, 25);
+   AddAdditionalSkinsToSubrace(&quot;vampire&quot;, &quot;sha_pcl_vamp007&quot;, 30);
+   AddAdditionalSkinsToSubrace(&quot;vampire&quot;, &quot;sha_pcl_vamp008&quot;, 35);
+   AddAdditionalSkinsToSubrace(&quot;vampire&quot;, &quot;sha_pcl_vamp009&quot;, 40);
+
+//Alignment Restriction: Can only be evil.
+   CreateSubraceAlignmentRestriction(&quot;vampire&quot;, FALSE, FALSE, TRUE);
+
+//Appearance: Change the Appearance to a Vampire during night time, and revert back to normal during day time.
+  CreateSubraceAppearance(&quot;vampire&quot;, TIME_NIGHT, APPEARANCE_TYPE_VAMPIRE_MALE, APPEARANCE_TYPE_VAMPIRE_FEMALE, 1);
+
+//Temporary Stats: Bonuses at Night time.
+//Increase Strength by 6 points, Dexterity by 4 points, Consitution by 4, Charisma by 2, and AC by 5 and AB 10 during the Night.
+   struct SubraceStats VampStats1 =  CreateCustomStats(SUBRACE_STAT_MODIFIER_TYPE_POINTS, 6.0, 4.0, 4.0, 0.0, 0.0, 2.0, 5.0, 10.0);
+   CreateTemporaryStatModifier(&quot;vampire&quot;, VampStats1, TIME_NIGHT);
+
+//Favored Class: Rogue.
+   AddSubraceFavoredClass(&quot;vampire&quot;, CLASS_TYPE_ROGUE, CLASS_TYPE_ROGUE);
+
+}
+</code></pre>
+  </main>
+  <footer>generated by <a href="https://github.com/mrprice22/nwn-manager">nwn-manager</a> &mdash; last updated Jun 3, 2026 12:42</footer>
+</body>
+</html>

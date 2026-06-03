@@ -1,0 +1,133 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Script j_ai_onpercieve</title>
+  <link rel="stylesheet" href="../assets/style.css">
+  <link rel="stylesheet" href="../assets/theme.css">
+  <link rel="icon" href="../assets/favicon.png">
+</head>
+<body>
+  <header class="site-header">
+    <a class="brand" href="../index.html"><img class="site-header-img" src="../assets/header.png" alt="Home"></a>
+    <nav>
+      <a href="../index.html">Map</a>
+      <a href="../areas/index.html">Areas</a>
+      <div class="nav-dropdown">
+        <span class="nav-dropdown-label">Creatures &#9660;</span>
+        <div class="nav-dropdown-menu">
+          <a href="../creatures/index.html">All Creatures</a>
+          <a href="../creatures/by-area/index.html">By Area</a>
+          <a href="../creatures/by-cr/index.html">By Challenge Rating</a>
+          <a href="../creatures/by-race/index.html">By Race</a>
+        </div>
+      </div>
+      <div class="nav-dropdown">
+        <span class="nav-dropdown-label">Items &#9660;</span>
+        <div class="nav-dropdown-menu">
+          <a href="../items/index.html">Accessible</a>
+          <a href="../items/inaccessible/index.html">Inaccessible</a>
+          <a href="../items/properties/index.html">By Property</a>
+          <a href="../items/search.html">Search</a>
+        </div>
+      </div>
+      <a href="../stores/index.html">Stores</a>
+      <a href="../conversations/index.html">Conversations</a>
+      <a href="../factions.html">Factions</a>
+      <a href="../quests/index.html">Quests</a>
+      <a href="../activity.html">Activity</a>
+      <div class="nav-dropdown"><span class="nav-dropdown-label">Documents &#9660;</span><div class="nav-dropdown-menu"><a href="../manual/LevelingGuide.html">Leveling Guide</a>
+<a href="../manual/MeaningWave.html">MeaningWave: A Guide to the Guides</a>
+<a href="../manual/Quest Ideas.html">Quest Ideas (Draft Concepts)</a>
+<a href="../manual/QuestGuide.html">Quest Guide</a></div></div>
+    </nav>
+  </header>
+  <main>
+<h1>Script: <code>j_ai_onpercieve</code></h1><pre class="nss-source"><code>// On Percieve    -Working-
+// If the target is an enemy, attack
+// Will determine combat round on that person, is an enemy, basically.
+// Includes shouting for a big radius - if the spawn in condition is set to this.
+#include &quot;j_inc_generic_ai&quot;
+
+void main()
+{
+    object oPerceived = GetLastPerceived();
+    // This is the equivalent of a force conversation bubble, should only be used if you want an NPC
+    // to say something while he is already engaged in combat.
+    if(GetSpawnInCondition(NW_FLAG_SPECIAL_COMBAT_CONVERSATION))
+        if(GetIsPC(oPerceived) &amp;&amp; GetLastPerceptionSeen())
+            SpeakOneLinerConversation();
+    if(GetIsEnemy(oPerceived) &amp;&amp; !GetFactionEqual(oPerceived) &amp;&amp; !GetIsDM(oPerceived))
+    {
+        SpeakString(&quot;I_WAS_ATTACKED&quot;, TALKVOLUME_SILENT_TALK);
+        if(GetLastPerceptionVanished())
+        {
+        //  If the percieved were an enemy, follow if they went.
+             if((GetAttemptedAttackTarget() == oPerceived ||
+                 GetAttemptedSpellTarget() == oPerceived ||
+                 GetAttackTarget() == oPerceived) &amp;&amp; GetArea(oPerceived) != GetArea(OBJECT_SELF))
+            {
+                SpeakString(&quot;AI, Dissapeared target, Attacking &quot; + GetName(oPerceived), TALKVOLUME_SILENT_TALK);
+                DetermineCombatRound(oPerceived);
+            }
+        }
+        //Do not bother checking the last target seen if already fighting
+        else if(!GetIsFighting(FALSE))
+        {
+            //Check if the last percieved creature was actually seen, or heard of course.
+            if((GetLastPerceptionSeen() || GetLastPerceptionHeard()) &amp;&amp; !GetLastPerceptionInaudible())
+            {
+                SetFacingPoint(GetPosition(oPerceived));
+                if(d100() &lt;= GetLocalInt(OBJECT_SELF, &quot;AI_PERCENT_TO_SHOUT_ON_PERCIEVE&quot;))
+                {
+                    string sPercieve = GetLocalString(OBJECT_SELF, &quot;AI_TALK_ON_PERCIEVE_ENEMY&quot;);
+                    if(sPercieve != &quot;&quot;){ SpeakString(sPercieve); }
+                    else{ PlayRandomAttackTaunt(); }
+                }
+                // Get all allies in 60M to come to thier aid. Talkvolume silent shout does not seem to work well.
+                if(GetSpawnInCondition(BOSS_MONSTER_SHOUT))
+                {
+                    ShoutBossShout(oPerceived);
+                }
+                if(GetIsDead(oPerceived))
+                {
+                    ClearAllActions();
+                    DebugActionSpeak(&quot;Dead (enemy) target seen/heard. Should Shouting &amp; Moving to &quot; + GetName(oPerceived));
+                    ActionMoveToLocation(GetLocation(oPerceived), TRUE);
+                    DelayCommand(10.0, DetermineCombatRound());
+                }
+                else
+                {
+                    DebugActionSpeak(&quot;Percieved Enemy seen/heard &amp; Should Shout [Target] &quot; + GetName(oPerceived));
+                    DetermineCombatRound(oPerceived);
+                }
+            }
+        }
+    }
+    else if(GetFactionEqual(oPerceived) &amp;&amp; !GetIsDM(oPerceived) &amp;&amp; GetIsDead(oPerceived))
+    {
+        SpeakString(&quot;I_WAS_ATTACKED&quot;, TALKVOLUME_SILENT_TALK);
+        if(!GetIsFighting(FALSE) &amp;&amp; (GetLastPerceptionSeen() || GetLastPerceptionHeard()) &amp;&amp; !GetLastPerceptionInaudible())
+        {
+            ClearAllActions();
+            DebugActionSpeak(&quot;Percieved Dead Friend, and should shout [Friend]&quot; + GetName(oPerceived));
+            ActionMoveToObject(oPerceived, TRUE);
+            DelayCommand(8.0, DetermineCombatRound());
+        }
+    }
+    //Linked up to the special conversation check to initiate a special one-off conversation
+    //to get the PCs attention
+    if(GetSpawnInCondition(NW_FLAG_SPECIAL_CONVERSATION) &amp;&amp; GetIsPC(oPerceived))
+    {
+        ActionStartConversation(OBJECT_SELF);
+    }
+    if(GetSpawnInCondition(NW_FLAG_PERCIEVE_EVENT) &amp;&amp; GetLastPerceptionSeen())
+    {
+        SignalEvent(OBJECT_SELF, EventUserDefined(1002));
+    }
+}
+</code></pre>
+  </main>
+  <footer>generated by <a href="https://github.com/mrprice22/nwn-manager">nwn-manager</a> &mdash; last updated Jun 3, 2026 12:42</footer>
+</body>
+</html>

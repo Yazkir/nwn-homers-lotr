@@ -1,0 +1,136 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Script gh_poker_start</title>
+  <link rel="stylesheet" href="../assets/style.css">
+  <link rel="stylesheet" href="../assets/theme.css">
+  <link rel="icon" href="../assets/favicon.png">
+</head>
+<body>
+  <header class="site-header">
+    <a class="brand" href="../index.html"><img class="site-header-img" src="../assets/header.png" alt="Home"></a>
+    <nav>
+      <a href="../index.html">Map</a>
+      <a href="../areas/index.html">Areas</a>
+      <div class="nav-dropdown">
+        <span class="nav-dropdown-label">Creatures &#9660;</span>
+        <div class="nav-dropdown-menu">
+          <a href="../creatures/index.html">All Creatures</a>
+          <a href="../creatures/by-area/index.html">By Area</a>
+          <a href="../creatures/by-cr/index.html">By Challenge Rating</a>
+          <a href="../creatures/by-race/index.html">By Race</a>
+        </div>
+      </div>
+      <div class="nav-dropdown">
+        <span class="nav-dropdown-label">Items &#9660;</span>
+        <div class="nav-dropdown-menu">
+          <a href="../items/index.html">Accessible</a>
+          <a href="../items/inaccessible/index.html">Inaccessible</a>
+          <a href="../items/properties/index.html">By Property</a>
+          <a href="../items/search.html">Search</a>
+        </div>
+      </div>
+      <a href="../stores/index.html">Stores</a>
+      <a href="../conversations/index.html">Conversations</a>
+      <a href="../factions.html">Factions</a>
+      <a href="../quests/index.html">Quests</a>
+      <a href="../activity.html">Activity</a>
+      <div class="nav-dropdown"><span class="nav-dropdown-label">Documents &#9660;</span><div class="nav-dropdown-menu"><a href="../manual/LevelingGuide.html">Leveling Guide</a>
+<a href="../manual/MeaningWave.html">MeaningWave: A Guide to the Guides</a>
+<a href="../manual/Quest Ideas.html">Quest Ideas (Draft Concepts)</a>
+<a href="../manual/QuestGuide.html">Quest Guide</a></div></div>
+    </nav>
+  </header>
+  <main>
+<h1>Script: <code>gh_poker_start</code></h1><pre class="nss-source"><code>/*
+    Simple Poker game. 5 card draw.
+    By: Joe Leonard
+    Email: aiden_00@yahoo.com
+    Created: 10-10-02
+
+    Hands:
+    1. Royal Flush: A, K, Q, J, 10 all of the same suit.
+    2. Straight Flush: Any five card sequence in the same suit. (Ex: 7, 8, 9, 10, J and 2, 3, 4, 5, 6 of same suit).
+    3. Four of a Kind: All four cards of the same index (Ex: J, J, J, J).
+    4. Full House: Three of a kind combined with a pair (Ex: K, K, K, 10, 10).
+    5. Flush: Any five cards of the same suit, but not in sequence.
+    6. Straight: Five cards in sequence, but not in the same suit.
+    7. Three of a Kind: Three cards of the same index. (Ex: 11, 11, 11).
+    8. Two Pair: Two separate pairs (Ex: A, A, 8, 8).
+    9. Pair: Two cards of the same index. (Ex: 4, 4).
+    10. High Card
+
+    Sequence:
+    1. Place ante into pot. (Takes MINIMUM bet from PC)
+    2. Deal 5 cards.
+    3. Betting occurs. Raise / Call / Fold (Raising takes MINIMUM bet from PC)
+    4. Discard cards. 3 max, 4 if Ace is held. (PC discards by saying &#x27;discard card #&#x27; to the NPC)
+    5. Betting occurs. Raise / Call / Fold (Raising takes MINIMUM bet from PC)
+    6. Hands revealed, highest hand wins the pot. Start new game. (Pot is awarded to winner)
+
+    Misc:
+    Cards are valued as such: A, K, Q, J, 10, 9, 8, 7, 6, 5, 4, 3, 2.
+
+This initial code starts the game of poker, including initializes the deck,
+clearing the player and dealer hands of cards, resetting the pot, and
+clearing the scores. It sets the PCSpeaker as &quot;PLAYING&quot;.
+*/
+
+#include &quot;gh_poker_include&quot;
+
+void main()
+{
+    //Get the PC object.
+    object oPC = GetPCSpeaker();
+
+    //Pot of money and bets.
+    SetLocalInt(OBJECT_SELF, &quot;MONEY_POT&quot;, 0);
+    SetLocalInt(OBJECT_SELF, &quot;MINIMUM_BET&quot;, 500);
+
+    //Set player as &quot;PLAYING&quot;
+    SetLocalInt(oPC, &quot;IS_PLAYING_POKER&quot;, TRUE);
+
+    //Increase pot to starting ante. Player bet + Dealer bet.
+    TakeGoldFromCreature(GetLocalInt(OBJECT_SELF, &quot;MINIMUM_BET&quot;), oPC, FALSE);
+    SetLocalInt(OBJECT_SELF, &quot;MONEY_POT&quot;, (GetLocalInt(OBJECT_SELF, &quot;MINIMUM_BET&quot;) * 2));
+
+    //Initialize deck.
+    InitializeDeck();
+
+    //Deal cards to players hands.
+    SetLocalInt(OBJECT_SELF, &quot;PLAYER_CARD_1&quot;, Deal());
+    SetLocalInt(OBJECT_SELF, &quot;DEALER_CARD_1&quot;, Deal());
+    SetLocalInt(OBJECT_SELF, &quot;PLAYER_CARD_2&quot;, Deal());
+    SetLocalInt(OBJECT_SELF, &quot;DEALER_CARD_2&quot;, Deal());
+    SetLocalInt(OBJECT_SELF, &quot;PLAYER_CARD_3&quot;, Deal());
+    SetLocalInt(OBJECT_SELF, &quot;DEALER_CARD_3&quot;, Deal());
+    SetLocalInt(OBJECT_SELF, &quot;PLAYER_CARD_4&quot;, Deal());
+    SetLocalInt(OBJECT_SELF, &quot;DEALER_CARD_4&quot;, Deal());
+    SetLocalInt(OBJECT_SELF, &quot;PLAYER_CARD_5&quot;, Deal());
+    SetLocalInt(OBJECT_SELF, &quot;DEALER_CARD_5&quot;, Deal());
+
+    //Player and Dealer scores. Used for AI and figuring out a winner.
+    SetLocalInt(OBJECT_SELF, &quot;PLAYER_SCORE_MAIN&quot;, 0);
+    SetLocalInt(OBJECT_SELF, &quot;PLAYER_SCORE_FIRST&quot;, 0);
+    SetLocalInt(OBJECT_SELF, &quot;PLAYER_SCORE_SECOND&quot;, 0);
+    SetLocalInt(OBJECT_SELF, &quot;DEALER_SCORE_MAIN&quot;, 0);
+    SetLocalInt(OBJECT_SELF, &quot;DEALER_SCORE_FIRST&quot;, 0);
+    SetLocalInt(OBJECT_SELF, &quot;DEALER_SCORE_SECOND&quot;, 0);
+
+    //Dealer discard cards.
+    SetLocalInt(OBJECT_SELF, &quot;DEALER_DISCARD_1&quot;, 0);
+    SetLocalInt(OBJECT_SELF, &quot;DEALER_DISCARD_2&quot;, 0);
+    SetLocalInt(OBJECT_SELF, &quot;DEALER_DISCARD_3&quot;, 0);
+    SetLocalInt(OBJECT_SELF, &quot;DEALER_DISCARD_4&quot;, 0);
+    SetLocalInt(OBJECT_SELF, &quot;DEALER_DISCARD_5&quot;, 0);
+
+    //Show hands.
+    SendMessageToPC(oPC, &quot;The pot is: &quot; + IntToString(GetLocalInt(OBJECT_SELF, &quot;MONEY_POT&quot;)));
+    SendMessageToPC(oPC, ShowHandAndScores(&quot;PLAYER&quot;));
+}
+</code></pre>
+  </main>
+  <footer>generated by <a href="https://github.com/mrprice22/nwn-manager">nwn-manager</a> &mdash; last updated Jun 3, 2026 12:42</footer>
+</body>
+</html>

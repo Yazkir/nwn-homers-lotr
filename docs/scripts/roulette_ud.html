@@ -1,0 +1,1971 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Script roulette_ud</title>
+  <link rel="stylesheet" href="../assets/style.css">
+  <link rel="stylesheet" href="../assets/theme.css">
+  <link rel="icon" href="../assets/favicon.png">
+</head>
+<body>
+  <header class="site-header">
+    <a class="brand" href="../index.html"><img class="site-header-img" src="../assets/header.png" alt="Home"></a>
+    <nav>
+      <a href="../index.html">Map</a>
+      <a href="../areas/index.html">Areas</a>
+      <div class="nav-dropdown">
+        <span class="nav-dropdown-label">Creatures &#9660;</span>
+        <div class="nav-dropdown-menu">
+          <a href="../creatures/index.html">All Creatures</a>
+          <a href="../creatures/by-area/index.html">By Area</a>
+          <a href="../creatures/by-cr/index.html">By Challenge Rating</a>
+          <a href="../creatures/by-race/index.html">By Race</a>
+        </div>
+      </div>
+      <div class="nav-dropdown">
+        <span class="nav-dropdown-label">Items &#9660;</span>
+        <div class="nav-dropdown-menu">
+          <a href="../items/index.html">Accessible</a>
+          <a href="../items/inaccessible/index.html">Inaccessible</a>
+          <a href="../items/properties/index.html">By Property</a>
+          <a href="../items/search.html">Search</a>
+        </div>
+      </div>
+      <a href="../stores/index.html">Stores</a>
+      <a href="../conversations/index.html">Conversations</a>
+      <a href="../factions.html">Factions</a>
+      <a href="../quests/index.html">Quests</a>
+      <a href="../activity.html">Activity</a>
+      <div class="nav-dropdown"><span class="nav-dropdown-label">Documents &#9660;</span><div class="nav-dropdown-menu"><a href="../manual/LevelingGuide.html">Leveling Guide</a>
+<a href="../manual/MeaningWave.html">MeaningWave: A Guide to the Guides</a>
+<a href="../manual/Quest Ideas.html">Quest Ideas (Draft Concepts)</a>
+<a href="../manual/QuestGuide.html">Quest Guide</a></div></div>
+    </nav>
+  </header>
+  <main>
+<h1>Script: <code>roulette_ud</code></h1><pre class="nss-source"><code>//Roulette modified by Stephen Spann  (sspann@worldnet.att.net)
+//originally from Charles Adam&#x27;s &#x27;Casino Bertix&#x27; module
+//now includes the 00 slot, Five-Number bets, Corner Bets, and Split Bets.
+//and uses SetListeningPattern() cues instead of a conversation.
+
+
+void main() {
+    int nUser = GetUserDefinedEventNumber();
+
+    if(nUser == 1004) { //OnConversation.
+        int nMatch = GetListenPatternNumber();
+        string sUser = IntToString(nMatch);
+        int nStringLength = GetStringLength(sUser);
+        string sBetType = GetStringRight(sUser, 3);
+        string sBetAmount = GetStringLeft(sUser, (nStringLength - 3));
+        int nBet = (StringToInt(sBetAmount));
+        nMatch = StringToInt(&quot;10&quot; + sBetType);
+        object oPC = GetLastSpeaker();
+
+            switch(nMatch) {
+                case 10001:
+                    if (GetGold(oPC) &gt;= nBet)
+                        {
+                        TakeGoldFromCreature(nBet, oPC, TRUE);
+                        SpeakString (GetName(oPC)+&quot; has placed a &quot; + IntToString(nBet) + &quot; gold Five-Number bet.&quot;);
+                        int ixFive = GetLocalInt(oPC,&quot;iFive&quot;);
+                        ixFive += nBet;
+                        SetLocalInt(oPC,&quot;iFive&quot;, ixFive);
+                        SetLocalInt(oPC,&quot;iBet&quot;,1);
+                        }
+                    else SpeakString (GetName(oPC)+&quot;, you don&#x27;t have that much gold.&quot;);
+                    break;
+                case 10002:
+                    if (GetGold(oPC) &gt;= nBet)
+                        {
+                        TakeGoldFromCreature(nBet, oPC, TRUE);
+                        SpeakString (GetName(oPC)+&quot; has placed a &quot; + IntToString(nBet) + &quot; gold bet on Reds.&quot;);
+                        int ixRed = GetLocalInt(oPC,&quot;iRed&quot;);
+                        ixRed += nBet;
+                        SetLocalInt(oPC,&quot;iRed&quot;, ixRed);
+                        SetLocalInt(oPC,&quot;iBet&quot;,1);
+                        }
+                    else SpeakString (GetName(oPC)+&quot;, you don&#x27;t have that much gold.&quot;);
+                    break;
+                case 10003:
+                    if (GetGold(oPC) &gt;= nBet)
+                        {
+                        TakeGoldFromCreature(nBet, oPC, TRUE);
+                        SpeakString (GetName(oPC)+&quot; has placed a &quot; + IntToString(nBet) + &quot; gold bet on Blacks.&quot;);
+                        int ixBlack = GetLocalInt(oPC,&quot;iBlack&quot;);
+                        ixBlack += nBet;
+                        SetLocalInt(oPC,&quot;iBlack&quot;, ixBlack);
+                        SetLocalInt(oPC,&quot;iBet&quot;,1);
+                        }
+                    else SpeakString (GetName(oPC)+&quot;, you don&#x27;t have that much gold.&quot;);
+                    break;
+                case 10004:
+                    if (GetGold(oPC) &gt;= nBet)
+                        {
+                        TakeGoldFromCreature(nBet, oPC, TRUE);
+                        SpeakString (GetName(oPC)+&quot; has placed a &quot; + IntToString(nBet) + &quot; gold bet on Odds.&quot;);
+                        int ixOdd = GetLocalInt(oPC,&quot;iOdd&quot;);
+                        ixOdd += nBet;
+                        SetLocalInt(oPC,&quot;iOdd&quot;, ixOdd);
+                        SetLocalInt(oPC,&quot;iBet&quot;,1);
+                        }
+                    else SpeakString (GetName(oPC)+&quot;, you don&#x27;t have that much gold.&quot;);
+                    break;
+                case 10005:
+                    if (GetGold(oPC) &gt;= nBet)
+                        {
+                        TakeGoldFromCreature(nBet, oPC, TRUE);
+                        SpeakString (GetName(oPC)+&quot; has placed a &quot; + IntToString(nBet) + &quot; gold bet on Evens.&quot;);
+                        int ixEven = GetLocalInt(oPC,&quot;iEven&quot;);
+                        ixEven += nBet;
+                        SetLocalInt(oPC,&quot;iEven&quot;, ixEven);
+                        SetLocalInt(oPC,&quot;iBet&quot;,1);
+                        }
+                    else SpeakString (GetName(oPC)+&quot;, you don&#x27;t have that much gold.&quot;);
+                    break;
+                case 10006:
+                    if (GetGold(oPC) &gt;= nBet)
+                        {
+                        TakeGoldFromCreature(nBet, oPC, TRUE);
+                        SpeakString (GetName(oPC)+&quot; has placed a &quot; + IntToString(nBet) + &quot; gold bet on Highs.&quot;);
+                        int ixHigh = GetLocalInt(oPC,&quot;iHigh&quot;);
+                        ixHigh += nBet;
+                        SetLocalInt(oPC,&quot;iHigh&quot;, ixHigh);
+                        SetLocalInt(oPC,&quot;iBet&quot;,1);
+                        }
+                    else SpeakString (GetName(oPC)+&quot;, you don&#x27;t have that much gold.&quot;);
+                    break;
+                case 10007:
+                    if (GetGold(oPC) &gt;= nBet)
+                        {
+                        TakeGoldFromCreature(nBet, oPC, TRUE);
+                        SpeakString (GetName(oPC)+&quot; has placed a &quot; + IntToString(nBet) + &quot; gold bet on Lows.&quot;);
+                        int ixLow = GetLocalInt(oPC,&quot;iLow&quot;);
+                        ixLow += nBet;
+                        SetLocalInt(oPC,&quot;iLow&quot;, ixLow);
+                        SetLocalInt(oPC,&quot;iBet&quot;,1);
+                        }
+                    else SpeakString (GetName(oPC)+&quot;, you don&#x27;t have that much gold.&quot;);
+                    break;
+                case 10008:
+                    if (GetGold(oPC) &gt;= nBet)
+                        {
+                        TakeGoldFromCreature(nBet, oPC, TRUE);
+                        SpeakString (GetName(oPC)+&quot; has placed a Column bet of &quot; + IntToString(nBet) + &quot; gold.&quot;);
+                        int ixCol1 = GetLocalInt(oPC,&quot;iCol1&quot;);
+                        ixCol1 += nBet;
+                        SetLocalInt(oPC,&quot;iCol1&quot;, ixCol1);
+                        SetLocalInt(oPC,&quot;iBet&quot;,1);
+                        }
+                    else SpeakString (GetName(oPC)+&quot;, you don&#x27;t have that much gold.&quot;);
+                    break;
+                case 10009:
+                    if (GetGold(oPC) &gt;= nBet)
+                        {
+                        TakeGoldFromCreature(nBet, oPC, TRUE);
+                        SpeakString (GetName(oPC)+&quot; has placed a Column bet of &quot; + IntToString(nBet) + &quot; gold.&quot;);
+                        int ixCol2 = GetLocalInt(oPC,&quot;iCol2&quot;);
+                        ixCol2 += nBet;
+                        SetLocalInt(oPC,&quot;iCol2&quot;, ixCol2);
+                        SetLocalInt(oPC,&quot;iBet&quot;,1);
+                        }
+                    else SpeakString (GetName(oPC)+&quot;, you don&#x27;t have that much gold.&quot;);
+                    break;
+                case 10010:
+                    if (GetGold(oPC) &gt;= nBet)
+                        {
+                        TakeGoldFromCreature(nBet, oPC, TRUE);
+                        SpeakString (GetName(oPC)+&quot; has placed a Column bet of &quot; + IntToString(nBet) + &quot; gold.&quot;);
+                        int ixCol3 = GetLocalInt(oPC,&quot;iCol3&quot;);
+                        ixCol3 += nBet;
+                        SetLocalInt(oPC,&quot;iCol3&quot;, ixCol3);
+                        SetLocalInt(oPC,&quot;iBet&quot;,1);
+                        }
+                    else SpeakString (GetName(oPC)+&quot;, you don&#x27;t have that much gold.&quot;);
+                    break;
+                case 10011:
+                    if (GetGold(oPC) &gt;= nBet)
+                        {
+                        TakeGoldFromCreature(nBet, oPC, TRUE);
+                        SpeakString (GetName(oPC)+&quot; has placed a Dozen bet of &quot; + IntToString(nBet) + &quot; gold.&quot;);
+                        int ixDoz1 = GetLocalInt(oPC,&quot;iDoz1&quot;);
+                        ixDoz1 += nBet;
+                        SetLocalInt(oPC,&quot;iDoz1&quot;, ixDoz1);
+                        SetLocalInt(oPC,&quot;iBet&quot;,1);
+                        }
+                    else SpeakString (GetName(oPC)+&quot;, you don&#x27;t have that much gold.&quot;);
+                    break;
+                case 10012:
+                    if (GetGold(oPC) &gt;= nBet)
+                        {
+                        TakeGoldFromCreature(nBet, oPC, TRUE);
+                        SpeakString (GetName(oPC)+&quot; has placed a Dozen bet of &quot; + IntToString(nBet) + &quot; gold.&quot;);
+                        int ixDoz2 = GetLocalInt(oPC,&quot;iDoz2&quot;);
+                        ixDoz2 += nBet;
+                        SetLocalInt(oPC,&quot;iDoz2&quot;, ixDoz2);
+                        SetLocalInt(oPC,&quot;iBet&quot;,1);
+                        }
+                    else SpeakString (GetName(oPC)+&quot;, you don&#x27;t have that much gold.&quot;);
+                    break;
+                case 10013:
+                    if (GetGold(oPC) &gt;= nBet)
+                        {
+                        TakeGoldFromCreature(nBet, oPC, TRUE);
+                        SpeakString (GetName(oPC)+&quot; has placed a Dozen bet of &quot; + IntToString(nBet) + &quot; gold.&quot;);
+                        int ixDoz3 = GetLocalInt(oPC,&quot;iDoz3&quot;);
+                        ixDoz3 += nBet;
+                        SetLocalInt(oPC,&quot;iDoz3&quot;, ixDoz3);
+                        SetLocalInt(oPC,&quot;iBet&quot;,1);
+                        }
+                    else SpeakString (GetName(oPC)+&quot;, you don&#x27;t have that much gold.&quot;);
+                    break;
+                case 10014:
+                    if (GetGold(oPC) &gt;= nBet)
+                        {
+                        TakeGoldFromCreature(nBet, oPC, TRUE);
+                        SpeakString (GetName(oPC)+&quot; has placed a Line bet of &quot; + IntToString(nBet) + &quot; gold.&quot;);
+                        int ixLine1 = GetLocalInt(oPC,&quot;iLine1&quot;);
+                        ixLine1 += nBet;
+                        SetLocalInt(oPC,&quot;iLine1&quot;, ixLine1);
+                        SetLocalInt(oPC,&quot;iBet&quot;,1);
+                        }
+                    else SpeakString (GetName(oPC)+&quot;, you don&#x27;t have that much gold.&quot;);
+                    break;
+                case 10015:
+                    if (GetGold(oPC) &gt;= nBet)
+                        {
+                        TakeGoldFromCreature(nBet, oPC, TRUE);
+                        SpeakString (GetName(oPC)+&quot; has placed a Line bet of &quot; + IntToString(nBet) + &quot; gold.&quot;);
+                        int ixLine2 = GetLocalInt(oPC,&quot;iLine2&quot;);
+                        ixLine2 += nBet;
+                        SetLocalInt(oPC,&quot;iLine2&quot;, ixLine2);
+                        SetLocalInt(oPC,&quot;iBet&quot;,1);
+                        }
+                    else SpeakString (GetName(oPC)+&quot;, you don&#x27;t have that much gold.&quot;);
+                    break;
+                case 10016:
+                    if (GetGold(oPC) &gt;= nBet)
+                        {
+                        TakeGoldFromCreature(nBet, oPC, TRUE);
+                        SpeakString (GetName(oPC)+&quot; has placed a Line bet of &quot; + IntToString(nBet) + &quot; gold.&quot;);
+                        int ixLine3 = GetLocalInt(oPC,&quot;iLine3&quot;);
+                        ixLine3 += nBet;
+                        SetLocalInt(oPC,&quot;iLine3&quot;, ixLine3);
+                        SetLocalInt(oPC,&quot;iBet&quot;,1);
+                        }
+                    else SpeakString (GetName(oPC)+&quot;, you don&#x27;t have that much gold.&quot;);
+                    break;
+                case 10017:
+                    if (GetGold(oPC) &gt;= nBet)
+                        {
+                        TakeGoldFromCreature(nBet, oPC, TRUE);
+                        SpeakString (GetName(oPC)+&quot; has placed a Line bet of &quot; + IntToString(nBet) + &quot; gold.&quot;);
+                        int ixLine4 = GetLocalInt(oPC,&quot;iLine4&quot;);
+                        ixLine4 += nBet;
+                        SetLocalInt(oPC,&quot;iLine4&quot;, ixLine4);
+                        SetLocalInt(oPC,&quot;iBet&quot;,1);
+                        }
+                    else SpeakString (GetName(oPC)+&quot;, you don&#x27;t have that much gold.&quot;);
+                    break;
+                case 10018:
+                    if (GetGold(oPC) &gt;= nBet)
+                        {
+                        TakeGoldFromCreature(nBet, oPC, TRUE);
+                        SpeakString (GetName(oPC)+&quot; has placed a Line bet of &quot; + IntToString(nBet) + &quot; gold.&quot;);
+                        int ixLine5 = GetLocalInt(oPC,&quot;iLine5&quot;);
+                        ixLine5 += nBet;
+                        SetLocalInt(oPC,&quot;iLine5&quot;, ixLine5);
+                        SetLocalInt(oPC,&quot;iBet&quot;,1);
+                        }
+                    else SpeakString (GetName(oPC)+&quot;, you don&#x27;t have that much gold.&quot;);
+                    break;
+                case 10019:
+                    if (GetGold(oPC) &gt;= nBet)
+                        {
+                        TakeGoldFromCreature(nBet, oPC, TRUE);
+                        SpeakString (GetName(oPC)+&quot; has placed a Line bet of &quot; + IntToString(nBet) + &quot; gold.&quot;);
+                        int ixLine6 = GetLocalInt(oPC,&quot;iLine6&quot;);
+                        ixLine6 += nBet;
+                        SetLocalInt(oPC,&quot;iLine6&quot;, ixLine6);
+                        SetLocalInt(oPC,&quot;iBet&quot;,1);
+                        }
+                    else SpeakString (GetName(oPC)+&quot;, you don&#x27;t have that much gold.&quot;);
+                    break;
+                case 10020:
+                    if (GetGold(oPC) &gt;= nBet)
+                        {
+                        TakeGoldFromCreature(nBet, oPC, TRUE);
+                        SpeakString (GetName(oPC)+&quot; has placed a Line bet of &quot; + IntToString(nBet) + &quot; gold.&quot;);
+                        int ixLine7 = GetLocalInt(oPC,&quot;iLine7&quot;);
+                        ixLine7 += nBet;
+                        SetLocalInt(oPC,&quot;iLine7&quot;, ixLine7);
+                        SetLocalInt(oPC,&quot;iBet&quot;,1);
+                        }
+                    else SpeakString (GetName(oPC)+&quot;, you don&#x27;t have that much gold.&quot;);
+                    break;
+                case 10021:
+                    if (GetGold(oPC) &gt;= nBet)
+                        {
+                        TakeGoldFromCreature(nBet, oPC, TRUE);
+                        SpeakString (GetName(oPC)+&quot; has placed a Line bet of &quot; + IntToString(nBet) + &quot; gold.&quot;);
+                        int ixLine8 = GetLocalInt(oPC,&quot;iLine8&quot;);
+                        ixLine8 += nBet;
+                        SetLocalInt(oPC,&quot;iLine8&quot;, ixLine8);
+                        SetLocalInt(oPC,&quot;iBet&quot;,1);
+                        }
+                    else SpeakString (GetName(oPC)+&quot;, you don&#x27;t have that much gold.&quot;);
+                    break;
+                case 10022:
+                    if (GetGold(oPC) &gt;= nBet)
+                        {
+                        TakeGoldFromCreature(nBet, oPC, TRUE);
+                        SpeakString (GetName(oPC)+&quot; has placed a Line bet of &quot; + IntToString(nBet) + &quot; gold.&quot;);
+                        int ixLine9 = GetLocalInt(oPC,&quot;iLine9&quot;);
+                        ixLine9 += nBet;
+                        SetLocalInt(oPC,&quot;iLine9&quot;, ixLine9);
+                        SetLocalInt(oPC,&quot;iBet&quot;,1);
+                        }
+                    else SpeakString (GetName(oPC)+&quot;, you don&#x27;t have that much gold.&quot;);
+                    break;
+                case 10023:
+                    if (GetGold(oPC) &gt;= nBet)
+                        {
+                        TakeGoldFromCreature(nBet, oPC, TRUE);
+                        SpeakString (GetName(oPC)+&quot; has placed a Line bet of &quot; + IntToString(nBet) + &quot; gold.&quot;);
+                        int ixLine10 = GetLocalInt(oPC,&quot;iLine10&quot;);
+                        ixLine10 += nBet;
+                        SetLocalInt(oPC,&quot;iLine10&quot;, ixLine10);
+                        SetLocalInt(oPC,&quot;iBet&quot;,1);
+                        }
+                    else SpeakString (GetName(oPC)+&quot;, you don&#x27;t have that much gold.&quot;);
+                    break;
+                case 10024:
+                    if (GetGold(oPC) &gt;= nBet)
+                        {
+                        TakeGoldFromCreature(nBet, oPC, TRUE);
+                        SpeakString (GetName(oPC)+&quot; has placed a Line bet of &quot; + IntToString(nBet) + &quot; gold.&quot;);
+                        int ixLine11 = GetLocalInt(oPC,&quot;iLine11&quot;);
+                        ixLine11 += nBet;
+                        SetLocalInt(oPC,&quot;iLine11&quot;, ixLine11);
+                        SetLocalInt(oPC,&quot;iBet&quot;,1);
+                        }
+                    else SpeakString (GetName(oPC)+&quot;, you don&#x27;t have that much gold.&quot;);
+                    break;
+                case 10025:
+                    if (GetGold(oPC) &gt;= nBet)
+                        {
+                        TakeGoldFromCreature(nBet, oPC, TRUE);
+                        SpeakString (GetName(oPC)+&quot; has placed a Street bet of &quot; + IntToString(nBet) + &quot; gold.&quot;);
+                        int ixStreet1 = GetLocalInt(oPC,&quot;iStreet1&quot;);
+                        ixStreet1 += nBet;
+                        SetLocalInt(oPC,&quot;iStreet1&quot;, ixStreet1);
+                        SetLocalInt(oPC,&quot;iBet&quot;,1);
+                        }
+                    else SpeakString (GetName(oPC)+&quot;, you don&#x27;t have that much gold.&quot;);
+                    break;
+                case 10026:
+                    if (GetGold(oPC) &gt;= nBet)
+                        {
+                        TakeGoldFromCreature(nBet, oPC, TRUE);
+                        SpeakString (GetName(oPC)+&quot; has placed a Street bet of &quot; + IntToString(nBet) + &quot; gold.&quot;);
+                        int ixStreet2 = GetLocalInt(oPC,&quot;iStreet2&quot;);
+                        ixStreet2 += nBet;
+                        SetLocalInt(oPC,&quot;iStreet2&quot;, ixStreet2);
+                        SetLocalInt(oPC,&quot;iBet&quot;,1);
+                        }
+                    else SpeakString (GetName(oPC)+&quot;, you don&#x27;t have that much gold.&quot;);
+                    break;
+                case 10027:
+                    if (GetGold(oPC) &gt;= nBet)
+                        {
+                        TakeGoldFromCreature(nBet, oPC, TRUE);
+                        SpeakString (GetName(oPC)+&quot; has placed a Street bet of &quot; + IntToString(nBet) + &quot; gold.&quot;);
+                        int ixStreet3 = GetLocalInt(oPC,&quot;iStreet3&quot;);
+                        ixStreet3 += nBet;
+                        SetLocalInt(oPC,&quot;iStreet3&quot;, ixStreet3);
+                        SetLocalInt(oPC,&quot;iBet&quot;,1);
+                        }
+                    else SpeakString (GetName(oPC)+&quot;, you don&#x27;t have that much gold.&quot;);
+                    break;
+                case 10028:
+                    if (GetGold(oPC) &gt;= nBet)
+                        {
+                        TakeGoldFromCreature(nBet, oPC, TRUE);
+                        SpeakString (GetName(oPC)+&quot; has placed a Street bet of &quot; + IntToString(nBet) + &quot; gold.&quot;);
+                        int ixStreet4 = GetLocalInt(oPC,&quot;iStreet4&quot;);
+                        ixStreet4 += nBet;
+                        SetLocalInt(oPC,&quot;iStreet4&quot;, ixStreet4);
+                        SetLocalInt(oPC,&quot;iBet&quot;,1);
+                        }
+                    else SpeakString (GetName(oPC)+&quot;, you don&#x27;t have that much gold.&quot;);
+                    break;
+                case 10029:
+                    if (GetGold(oPC) &gt;= nBet)
+                        {
+                        TakeGoldFromCreature(nBet, oPC, TRUE);
+                        SpeakString (GetName(oPC)+&quot; has placed a Street bet of &quot; + IntToString(nBet) + &quot; gold.&quot;);
+                        int ixStreet5 = GetLocalInt(oPC,&quot;iStreet5&quot;);
+                        ixStreet5 += nBet;
+                        SetLocalInt(oPC,&quot;iStreet5&quot;, ixStreet5);
+                        SetLocalInt(oPC,&quot;iBet&quot;,1);
+                        }
+                    else SpeakString (GetName(oPC)+&quot;, you don&#x27;t have that much gold.&quot;);
+                    break;
+                case 10030:
+                    if (GetGold(oPC) &gt;= nBet)
+                        {
+                        TakeGoldFromCreature(nBet, oPC, TRUE);
+                        SpeakString (GetName(oPC)+&quot; has placed a Street bet of &quot; + IntToString(nBet) + &quot; gold.&quot;);
+                        int ixStreet6 = GetLocalInt(oPC,&quot;iStreet6&quot;);
+                        ixStreet6 += nBet;
+                        SetLocalInt(oPC,&quot;iStreet6&quot;, ixStreet6);
+                        SetLocalInt(oPC,&quot;iBet&quot;,1);
+                        }
+                    else SpeakString (GetName(oPC)+&quot;, you don&#x27;t have that much gold.&quot;);
+                    break;
+                case 10031:
+                    if (GetGold(oPC) &gt;= nBet)
+                        {
+                        TakeGoldFromCreature(nBet, oPC, TRUE);
+                        SpeakString (GetName(oPC)+&quot; has placed a Street bet of &quot; + IntToString(nBet) + &quot; gold.&quot;);
+                        int ixStreet7 = GetLocalInt(oPC,&quot;iStreet7&quot;);
+                        ixStreet7 += nBet;
+                        SetLocalInt(oPC,&quot;iStreet7&quot;, ixStreet7);
+                        SetLocalInt(oPC,&quot;iBet&quot;,1);
+                        }
+                    else SpeakString (GetName(oPC)+&quot;, you don&#x27;t have that much gold.&quot;);
+                    break;
+                case 10032:
+                    if (GetGold(oPC) &gt;= nBet)
+                        {
+                        TakeGoldFromCreature(nBet, oPC, TRUE);
+                        SpeakString (GetName(oPC)+&quot; has placed a Street bet of &quot; + IntToString(nBet) + &quot; gold.&quot;);
+                        int ixStreet8 = GetLocalInt(oPC,&quot;iStreet8&quot;);
+                        ixStreet8 += nBet;
+                        SetLocalInt(oPC,&quot;iStreet8&quot;, ixStreet8);
+                        SetLocalInt(oPC,&quot;iBet&quot;,1);
+                        }
+                    else SpeakString (GetName(oPC)+&quot;, you don&#x27;t have that much gold.&quot;);
+                    break;
+                case 10033:
+                    if (GetGold(oPC) &gt;= nBet)
+                        {
+                        TakeGoldFromCreature(nBet, oPC, TRUE);
+                        SpeakString (GetName(oPC)+&quot; has placed a Street bet of &quot; + IntToString(nBet) + &quot; gold.&quot;);
+                        int ixStreet9 = GetLocalInt(oPC,&quot;iStreet9&quot;);
+                        ixStreet9 += nBet;
+                        SetLocalInt(oPC,&quot;iStreet9&quot;, ixStreet9);
+                        SetLocalInt(oPC,&quot;iBet&quot;,1);
+                        }
+                    else SpeakString (GetName(oPC)+&quot;, you don&#x27;t have that much gold.&quot;);
+                    break;
+                case 10034:
+                    if (GetGold(oPC) &gt;= nBet)
+                        {
+                        TakeGoldFromCreature(nBet, oPC, TRUE);
+                        SpeakString (GetName(oPC)+&quot; has placed a Street bet of &quot; + IntToString(nBet) + &quot; gold.&quot;);
+                        int ixStreet10 = GetLocalInt(oPC,&quot;iStreet10&quot;);
+                        ixStreet10 += nBet;
+                        SetLocalInt(oPC,&quot;iStreet10&quot;, ixStreet10);
+                        SetLocalInt(oPC,&quot;iBet&quot;,1);
+                        }
+                    else SpeakString (GetName(oPC)+&quot;, you don&#x27;t have that much gold.&quot;);
+                    break;
+                case 10035:
+                    if (GetGold(oPC) &gt;= nBet)
+                        {
+                        TakeGoldFromCreature(nBet, oPC, TRUE);
+                        SpeakString (GetName(oPC)+&quot; has placed a Street bet of &quot; + IntToString(nBet) + &quot; gold.&quot;);
+                        int ixStreet11 = GetLocalInt(oPC,&quot;iStreet11&quot;);
+                        ixStreet11 += nBet;
+                        SetLocalInt(oPC,&quot;iStreet11&quot;, ixStreet11);
+                        SetLocalInt(oPC,&quot;iBet&quot;,1);
+                        }
+                    else SpeakString (GetName(oPC)+&quot;, you don&#x27;t have that much gold.&quot;);
+                    break;
+                case 10036:
+                    if (GetGold(oPC) &gt;= nBet)
+                        {
+                        TakeGoldFromCreature(nBet, oPC, TRUE);
+                        SpeakString (GetName(oPC)+&quot; has placed a Street bet of &quot; + IntToString(nBet) + &quot; gold.&quot;);
+                        int ixStreet12 = GetLocalInt(oPC,&quot;iStreet12&quot;);
+                        ixStreet12 += nBet;
+                        SetLocalInt(oPC,&quot;iStreet12&quot;, ixStreet12);
+                        SetLocalInt(oPC,&quot;iBet&quot;,1);
+                        }
+                    else SpeakString (GetName(oPC)+&quot;, you don&#x27;t have that much gold.&quot;);
+                    break;
+                case 10037:
+                    if (GetGold(oPC) &gt;= nBet)
+                        {
+                        TakeGoldFromCreature(nBet, oPC, TRUE);
+                        SpeakString (GetName(oPC)+&quot; has placed a Corner bet of &quot; + IntToString(nBet) + &quot; gold.&quot;);
+                        int ixCorner1 = GetLocalInt(oPC,&quot;iCorner1&quot;);
+                        ixCorner1 += nBet;
+                        SetLocalInt(oPC,&quot;iCorner1&quot;, ixCorner1);
+                        SetLocalInt(oPC,&quot;iBet&quot;,1);
+                        }
+                    else SpeakString (GetName(oPC)+&quot;, you don&#x27;t have that much gold.&quot;);
+                    break;
+                case 10038:
+                    if (GetGold(oPC) &gt;= nBet)
+                        {
+                        TakeGoldFromCreature(nBet, oPC, TRUE);
+                        SpeakString (GetName(oPC)+&quot; has placed a Corner bet of &quot; + IntToString(nBet) + &quot; gold.&quot;);
+                        int ixCorner2 = GetLocalInt(oPC,&quot;iCorner2&quot;);
+                        ixCorner2 += nBet;
+                        SetLocalInt(oPC,&quot;iCorner2&quot;, ixCorner2);
+                        SetLocalInt(oPC,&quot;iBet&quot;,1);
+                        }
+                    else SpeakString (GetName(oPC)+&quot;, you don&#x27;t have that much gold.&quot;);
+                    break;
+                case 10039:
+                    if (GetGold(oPC) &gt;= nBet)
+                        {
+                        TakeGoldFromCreature(nBet, oPC, TRUE);
+                        SpeakString (GetName(oPC)+&quot; has placed a Corner bet of &quot; + IntToString(nBet) + &quot; gold.&quot;);
+                        int ixCorner3 = GetLocalInt(oPC,&quot;iCorner3&quot;);
+                        ixCorner3 += nBet;
+                        SetLocalInt(oPC,&quot;iCorner3&quot;, ixCorner3);
+                        SetLocalInt(oPC,&quot;iBet&quot;,1);
+                        }
+                    else SpeakString (GetName(oPC)+&quot;, you don&#x27;t have that much gold.&quot;);
+                    break;
+                case 10040:
+                    if (GetGold(oPC) &gt;= nBet)
+                        {
+                        TakeGoldFromCreature(nBet, oPC, TRUE);
+                        SpeakString (GetName(oPC)+&quot; has placed a Corner bet of &quot; + IntToString(nBet) + &quot; gold.&quot;);
+                        int ixCorner4 = GetLocalInt(oPC,&quot;iCorner4&quot;);
+                        ixCorner4 += nBet;
+                        SetLocalInt(oPC,&quot;iCorner4&quot;, ixCorner4);
+                        SetLocalInt(oPC,&quot;iBet&quot;,1);
+                        }
+                    else SpeakString (GetName(oPC)+&quot;, you don&#x27;t have that much gold.&quot;);
+                    break;
+                case 10041:
+                    if (GetGold(oPC) &gt;= nBet)
+                        {
+                        TakeGoldFromCreature(nBet, oPC, TRUE);
+                        SpeakString (GetName(oPC)+&quot; has placed a Corner bet of &quot; + IntToString(nBet) + &quot; gold.&quot;);
+                        int ixCorner5 = GetLocalInt(oPC,&quot;iCorner5&quot;);
+                        ixCorner5 += nBet;
+                        SetLocalInt(oPC,&quot;iCorner5&quot;, ixCorner5);
+                        SetLocalInt(oPC,&quot;iBet&quot;,1);
+                        }
+                    else SpeakString (GetName(oPC)+&quot;, you don&#x27;t have that much gold.&quot;);
+                    break;
+                case 10042:
+                    if (GetGold(oPC) &gt;= nBet)
+                        {
+                        TakeGoldFromCreature(nBet, oPC, TRUE);
+                        SpeakString (GetName(oPC)+&quot; has placed a Corner bet of &quot; + IntToString(nBet) + &quot; gold.&quot;);
+                        int ixCorner6 = GetLocalInt(oPC,&quot;iCorner6&quot;);
+                        ixCorner6 += nBet;
+                        SetLocalInt(oPC,&quot;iCorner6&quot;, ixCorner6);
+                        SetLocalInt(oPC,&quot;iBet&quot;,1);
+                        }
+                    else SpeakString (GetName(oPC)+&quot;, you don&#x27;t have that much gold.&quot;);
+                    break;
+                case 10043:
+                    if (GetGold(oPC) &gt;= nBet)
+                        {
+                        TakeGoldFromCreature(nBet, oPC, TRUE);
+                        SpeakString (GetName(oPC)+&quot; has placed a Corner bet of &quot; + IntToString(nBet) + &quot; gold.&quot;);
+                        int ixCorner7 = GetLocalInt(oPC,&quot;iCorner7&quot;);
+                        ixCorner7 += nBet;
+                        SetLocalInt(oPC,&quot;iCorner7&quot;, ixCorner7);
+                        SetLocalInt(oPC,&quot;iBet&quot;,1);
+                        }
+                    else SpeakString (GetName(oPC)+&quot;, you don&#x27;t have that much gold.&quot;);
+                    break;
+                case 10044:
+                    if (GetGold(oPC) &gt;= nBet)
+                        {
+                        TakeGoldFromCreature(nBet, oPC, TRUE);
+                        SpeakString (GetName(oPC)+&quot; has placed a Corner bet of &quot; + IntToString(nBet) + &quot; gold.&quot;);
+                        int ixCorner8 = GetLocalInt(oPC,&quot;iCorner8&quot;);
+                        ixCorner8 += nBet;
+                        SetLocalInt(oPC,&quot;iCorner8&quot;, ixCorner8);
+                        SetLocalInt(oPC,&quot;iBet&quot;,1);
+                        }
+                    else SpeakString (GetName(oPC)+&quot;, you don&#x27;t have that much gold.&quot;);
+                    break;
+                case 10045:
+                    if (GetGold(oPC) &gt;= nBet)
+                        {
+                        TakeGoldFromCreature(nBet, oPC, TRUE);
+                        SpeakString (GetName(oPC)+&quot; has placed a Corner bet of &quot; + IntToString(nBet) + &quot; gold.&quot;);
+                        int ixCorner9 = GetLocalInt(oPC,&quot;iCorner9&quot;);
+                        ixCorner9 += nBet;
+                        SetLocalInt(oPC,&quot;iCorner9&quot;, ixCorner9);
+                        SetLocalInt(oPC,&quot;iBet&quot;,1);
+                        }
+                    else SpeakString (GetName(oPC)+&quot;, you don&#x27;t have that much gold.&quot;);
+                    break;
+                case 10046:
+                    if (GetGold(oPC) &gt;= nBet)
+                        {
+                        TakeGoldFromCreature(nBet, oPC, TRUE);
+                        SpeakString (GetName(oPC)+&quot; has placed a Corner bet of &quot; + IntToString(nBet) + &quot; gold.&quot;);
+                        int ixCorner10 = GetLocalInt(oPC,&quot;iCorner10&quot;);
+                        ixCorner10 += nBet;
+                        SetLocalInt(oPC,&quot;iCorner10&quot;, ixCorner10);
+                        SetLocalInt(oPC,&quot;iBet&quot;,1);
+                        }
+                    else SpeakString (GetName(oPC)+&quot;, you don&#x27;t have that much gold.&quot;);
+                    break;
+                case 10047:
+                    if (GetGold(oPC) &gt;= nBet)
+                        {
+                        TakeGoldFromCreature(nBet, oPC, TRUE);
+                        SpeakString (GetName(oPC)+&quot; has placed a Corner bet of &quot; + IntToString(nBet) + &quot; gold.&quot;);
+                        int ixCorner11 = GetLocalInt(oPC,&quot;iCorner11&quot;);
+                        ixCorner11 += nBet;
+                        SetLocalInt(oPC,&quot;iCorner11&quot;, ixCorner11);
+                        SetLocalInt(oPC,&quot;iBet&quot;,1);
+                        }
+                    else SpeakString (GetName(oPC)+&quot;, you don&#x27;t have that much gold.&quot;);
+                    break;
+                case 10048:
+                    if (GetGold(oPC) &gt;= nBet)
+                        {
+                        TakeGoldFromCreature(nBet, oPC, TRUE);
+                        SpeakString (GetName(oPC)+&quot; has placed a Corner bet of &quot; + IntToString(nBet) + &quot; gold.&quot;);
+                        int ixCorner12 = GetLocalInt(oPC,&quot;iCorner12&quot;);
+                        ixCorner12 += nBet;
+                        SetLocalInt(oPC,&quot;iCorner12&quot;, ixCorner12);
+                        SetLocalInt(oPC,&quot;iBet&quot;,1);
+                        }
+                    else SpeakString (GetName(oPC)+&quot;, you don&#x27;t have that much gold.&quot;);
+                    break;
+                case 10049:
+                    if (GetGold(oPC) &gt;= nBet)
+                        {
+                        TakeGoldFromCreature(nBet, oPC, TRUE);
+                        SpeakString (GetName(oPC)+&quot; has placed a Corner bet of &quot; + IntToString(nBet) + &quot; gold.&quot;);
+                        int ixCorner13 = GetLocalInt(oPC,&quot;iCorner13&quot;);
+                        ixCorner13 += nBet;
+                        SetLocalInt(oPC,&quot;iCorner13&quot;, ixCorner13);
+                        SetLocalInt(oPC,&quot;iBet&quot;,1);
+                        }
+                    else SpeakString (GetName(oPC)+&quot;, you don&#x27;t have that much gold.&quot;);
+                    break;
+                case 10050:
+                    if (GetGold(oPC) &gt;= nBet)
+                        {
+                        TakeGoldFromCreature(nBet, oPC, TRUE);
+                        SpeakString (GetName(oPC)+&quot; has placed a Corner bet of &quot; + IntToString(nBet) + &quot; gold.&quot;);
+                        int ixCorner14 = GetLocalInt(oPC,&quot;iCorner14&quot;);
+                        ixCorner14 += nBet;
+                        SetLocalInt(oPC,&quot;iCorner14&quot;, ixCorner14);
+                        SetLocalInt(oPC,&quot;iBet&quot;,1);
+                        }
+                    else SpeakString (GetName(oPC)+&quot;, you don&#x27;t have that much gold.&quot;);
+                    break;
+                case 10051:
+                    if (GetGold(oPC) &gt;= nBet)
+                        {
+                        TakeGoldFromCreature(nBet, oPC, TRUE);
+                        SpeakString (GetName(oPC)+&quot; has placed a Corner bet of &quot; + IntToString(nBet) + &quot; gold.&quot;);
+                        int ixCorner15 = GetLocalInt(oPC,&quot;iCorner15&quot;);
+                        ixCorner15 += nBet;
+                        SetLocalInt(oPC,&quot;iCorner15&quot;, ixCorner15);
+                        SetLocalInt(oPC,&quot;iBet&quot;,1);
+                        }
+                    else SpeakString (GetName(oPC)+&quot;, you don&#x27;t have that much gold.&quot;);
+                    break;
+                case 10052:
+                    if (GetGold(oPC) &gt;= nBet)
+                        {
+                        TakeGoldFromCreature(nBet, oPC, TRUE);
+                        SpeakString (GetName(oPC)+&quot; has placed a Corner bet of &quot; + IntToString(nBet) + &quot; gold.&quot;);
+                        int ixCorner16 = GetLocalInt(oPC,&quot;iCorner16&quot;);
+                        ixCorner16 += nBet;
+                        SetLocalInt(oPC,&quot;iCorner16&quot;, ixCorner16);
+                        SetLocalInt(oPC,&quot;iBet&quot;,1);
+                        }
+                    else SpeakString (GetName(oPC)+&quot;, you don&#x27;t have that much gold.&quot;);
+                    break;
+                case 10053:
+                    if (GetGold(oPC) &gt;= nBet)
+                        {
+                        TakeGoldFromCreature(nBet, oPC, TRUE);
+                        SpeakString (GetName(oPC)+&quot; has placed a Corner bet of &quot; + IntToString(nBet) + &quot; gold.&quot;);
+                        int ixCorner17 = GetLocalInt(oPC,&quot;iCorner17&quot;);
+                        ixCorner17 += nBet;
+                        SetLocalInt(oPC,&quot;iCorner17&quot;, ixCorner17);
+                        SetLocalInt(oPC,&quot;iBet&quot;,1);
+                        }
+                    else SpeakString (GetName(oPC)+&quot;, you don&#x27;t have that much gold.&quot;);
+                    break;
+                case 10054:
+                    if (GetGold(oPC) &gt;= nBet)
+                        {
+                        TakeGoldFromCreature(nBet, oPC, TRUE);
+                        SpeakString (GetName(oPC)+&quot; has placed a Corner bet of &quot; + IntToString(nBet) + &quot; gold.&quot;);
+                        int ixCorner18 = GetLocalInt(oPC,&quot;iCorner18&quot;);
+                        ixCorner18 += nBet;
+                        SetLocalInt(oPC,&quot;iCorner18&quot;, ixCorner18);
+                        SetLocalInt(oPC,&quot;iBet&quot;,1);
+                        }
+                    else SpeakString (GetName(oPC)+&quot;, you don&#x27;t have that much gold.&quot;);
+                    break;
+                case 10055:
+                    if (GetGold(oPC) &gt;= nBet)
+                        {
+                        TakeGoldFromCreature(nBet, oPC, TRUE);
+                        SpeakString (GetName(oPC)+&quot; has placed a Corner bet of &quot; + IntToString(nBet) + &quot; gold.&quot;);
+                        int ixCorner19 = GetLocalInt(oPC,&quot;iCorner19&quot;);
+                        ixCorner19 += nBet;
+                        SetLocalInt(oPC,&quot;iCorner19&quot;, ixCorner19);
+                        SetLocalInt(oPC,&quot;iBet&quot;,1);
+                        }
+                    else SpeakString (GetName(oPC)+&quot;, you don&#x27;t have that much gold.&quot;);
+                    break;
+                case 10056:
+                    if (GetGold(oPC) &gt;= nBet)
+                        {
+                        TakeGoldFromCreature(nBet, oPC, TRUE);
+                        SpeakString (GetName(oPC)+&quot; has placed a Corner bet of &quot; + IntToString(nBet) + &quot; gold.&quot;);
+                        int ixCorner20 = GetLocalInt(oPC,&quot;iCorner20&quot;);
+                        ixCorner20 += nBet;
+                        SetLocalInt(oPC,&quot;iCorner20&quot;, ixCorner20);
+                        SetLocalInt(oPC,&quot;iBet&quot;,1);
+                        }
+                    else SpeakString (GetName(oPC)+&quot;, you don&#x27;t have that much gold.&quot;);
+                    break;
+                case 10057:
+                    if (GetGold(oPC) &gt;= nBet)
+                        {
+                        TakeGoldFromCreature(nBet, oPC, TRUE);
+                        SpeakString (GetName(oPC)+&quot; has placed a Corner bet of &quot; + IntToString(nBet) + &quot; gold.&quot;);
+                        int ixCorner21 = GetLocalInt(oPC,&quot;iCorner21&quot;);
+                        ixCorner21 += nBet;
+                        SetLocalInt(oPC,&quot;iCorner21&quot;, ixCorner21);
+                        SetLocalInt(oPC,&quot;iBet&quot;,1);
+                        }
+                    else SpeakString (GetName(oPC)+&quot;, you don&#x27;t have that much gold.&quot;);
+                    break;
+                case 10058:
+                    if (GetGold(oPC) &gt;= nBet)
+                        {
+                        TakeGoldFromCreature(nBet, oPC, TRUE);
+                        SpeakString (GetName(oPC)+&quot; has placed a Corner bet of &quot; + IntToString(nBet) + &quot; gold.&quot;);
+                        int ixCorner22 = GetLocalInt(oPC,&quot;iCorner22&quot;);
+                        ixCorner22 += nBet;
+                        SetLocalInt(oPC,&quot;iCorner22&quot;, ixCorner22);
+                        SetLocalInt(oPC,&quot;iBet&quot;,1);
+                        }
+                    else SpeakString (GetName(oPC)+&quot;, you don&#x27;t have that much gold.&quot;);
+                    break;
+                case 10059:
+                    if (GetGold(oPC) &gt;= nBet)
+                        {
+                        TakeGoldFromCreature(nBet, oPC, TRUE);
+                        SpeakString (GetName(oPC)+&quot; has placed a Straight Up bet of &quot; + IntToString(nBet) + &quot; gold.&quot;);
+                        int ix0su = GetLocalInt(oPC,&quot;i0su&quot;);
+                        ix0su += nBet;
+                        SetLocalInt(oPC,&quot;i0su&quot;, ix0su);
+                        SetLocalInt(oPC,&quot;iBet&quot;,1);
+                        }
+                    else SpeakString (GetName(oPC)+&quot;, you don&#x27;t have that much gold.&quot;);
+                    break;
+                case 10060:
+                    if (GetGold(oPC) &gt;= nBet)
+                        {
+                        TakeGoldFromCreature(nBet, oPC, TRUE);
+                        SpeakString (GetName(oPC)+&quot; has placed a Straight Up bet of &quot; + IntToString(nBet) + &quot; gold.&quot;);
+                        int ix00su = GetLocalInt(oPC,&quot;i00su&quot;);
+                        ix00su += nBet;
+                        SetLocalInt(oPC,&quot;i00su&quot;, ix00su);
+                        SetLocalInt(oPC,&quot;iBet&quot;,1);
+                        }
+                    else SpeakString (GetName(oPC)+&quot;, you don&#x27;t have that much gold.&quot;);
+                    break;
+                case 10061:
+                    if (GetGold(oPC) &gt;= nBet)
+                        {
+                        TakeGoldFromCreature(nBet, oPC, TRUE);
+                        SpeakString (GetName(oPC)+&quot; has placed a Straight Up bet of &quot; + IntToString(nBet) + &quot; gold.&quot;);
+                        int ix1su = GetLocalInt(oPC,&quot;i1su&quot;);
+                        ix1su += nBet;
+                        SetLocalInt(oPC,&quot;i1su&quot;, ix1su);
+                        SetLocalInt(oPC,&quot;iBet&quot;,1);
+                        }
+                    else SpeakString (GetName(oPC)+&quot;, you don&#x27;t have that much gold.&quot;);
+                    break;
+                case 10062:
+                    if (GetGold(oPC) &gt;= nBet)
+                        {
+                        TakeGoldFromCreature(nBet, oPC, TRUE);
+                        SpeakString (GetName(oPC)+&quot; has placed a Straight Up bet of &quot; + IntToString(nBet) + &quot; gold.&quot;);
+                        int ix2su = GetLocalInt(oPC,&quot;i2su&quot;);
+                        ix2su += nBet;
+                        SetLocalInt(oPC,&quot;i2su&quot;, ix2su);
+                        SetLocalInt(oPC,&quot;iBet&quot;,1);
+                        }
+                    else SpeakString (GetName(oPC)+&quot;, you don&#x27;t have that much gold.&quot;);
+                    break;
+                case 10063:
+                    if (GetGold(oPC) &gt;= nBet)
+                        {
+                        TakeGoldFromCreature(nBet, oPC, TRUE);
+                        SpeakString (GetName(oPC)+&quot; has placed a Straight Up bet of &quot; + IntToString(nBet) + &quot; gold.&quot;);
+                        int ix3su = GetLocalInt(oPC,&quot;i3su&quot;);
+                        ix3su += nBet;
+                        SetLocalInt(oPC,&quot;i3su&quot;, ix3su);
+                        SetLocalInt(oPC,&quot;iBet&quot;,1);
+                        }
+                    else SpeakString (GetName(oPC)+&quot;, you don&#x27;t have that much gold.&quot;);
+                    break;
+                case 10064:
+                    if (GetGold(oPC) &gt;= nBet)
+                        {
+                        TakeGoldFromCreature(nBet, oPC, TRUE);
+                        SpeakString (GetName(oPC)+&quot; has placed a Straight Up bet of &quot; + IntToString(nBet) + &quot; gold.&quot;);
+                        int ix4su = GetLocalInt(oPC,&quot;i4su&quot;);
+                        ix4su += nBet;
+                        SetLocalInt(oPC,&quot;i4su&quot;, ix4su);
+                        SetLocalInt(oPC,&quot;iBet&quot;,1);
+                        }
+                    else SpeakString (GetName(oPC)+&quot;, you don&#x27;t have that much gold.&quot;);
+                    break;
+                case 10065:
+                    if (GetGold(oPC) &gt;= nBet)
+                        {
+                        TakeGoldFromCreature(nBet, oPC, TRUE);
+                        SpeakString (GetName(oPC)+&quot; has placed a Straight Up bet of &quot; + IntToString(nBet) + &quot; gold.&quot;);
+                        int ix5su = GetLocalInt(oPC,&quot;i5su&quot;);
+                        ix5su += nBet;
+                        SetLocalInt(oPC,&quot;i5su&quot;, ix5su);
+                        SetLocalInt(oPC,&quot;iBet&quot;,1);
+                        }
+                    else SpeakString (GetName(oPC)+&quot;, you don&#x27;t have that much gold.&quot;);
+                    break;
+                case 10066:
+                    if (GetGold(oPC) &gt;= nBet)
+                        {
+                        TakeGoldFromCreature(nBet, oPC, TRUE);
+                        SpeakString (GetName(oPC)+&quot; has placed a Straight Up bet of &quot; + IntToString(nBet) + &quot; gold.&quot;);
+                        int ix6su = GetLocalInt(oPC,&quot;i6su&quot;);
+                        ix6su += nBet;
+                        SetLocalInt(oPC,&quot;i6su&quot;, ix6su);
+                        SetLocalInt(oPC,&quot;iBet&quot;,1);
+                        }
+                    else SpeakString (GetName(oPC)+&quot;, you don&#x27;t have that much gold.&quot;);
+                    break;
+                case 10067:
+                    if (GetGold(oPC) &gt;= nBet)
+                        {
+                        TakeGoldFromCreature(nBet, oPC, TRUE);
+                        SpeakString (GetName(oPC)+&quot; has placed a Straight Up bet of &quot; + IntToString(nBet) + &quot; gold.&quot;);
+                        int ix7su = GetLocalInt(oPC,&quot;i7su&quot;);
+                        ix7su += nBet;
+                        SetLocalInt(oPC,&quot;i7su&quot;, ix7su);
+                        SetLocalInt(oPC,&quot;iBet&quot;,1);
+                        }
+                    else SpeakString (GetName(oPC)+&quot;, you don&#x27;t have that much gold.&quot;);
+                    break;
+                case 10068:
+                    if (GetGold(oPC) &gt;= nBet)
+                        {
+                        TakeGoldFromCreature(nBet, oPC, TRUE);
+                        SpeakString (GetName(oPC)+&quot; has placed a Straight Up bet of &quot; + IntToString(nBet) + &quot; gold.&quot;);
+                        int ix8su = GetLocalInt(oPC,&quot;i8su&quot;);
+                        ix8su += nBet;
+                        SetLocalInt(oPC,&quot;i8su&quot;, ix8su);
+                        SetLocalInt(oPC,&quot;iBet&quot;,1);
+                        }
+                    else SpeakString (GetName(oPC)+&quot;, you don&#x27;t have that much gold.&quot;);
+                    break;
+                case 10069:
+                    if (GetGold(oPC) &gt;= nBet)
+                        {
+                        TakeGoldFromCreature(nBet, oPC, TRUE);
+                        SpeakString (GetName(oPC)+&quot; has placed a Straight Up bet of &quot; + IntToString(nBet) + &quot; gold.&quot;);
+                        int ix9su = GetLocalInt(oPC,&quot;i9su&quot;);
+                        ix9su += nBet;
+                        SetLocalInt(oPC,&quot;i9su&quot;, ix9su);
+                        SetLocalInt(oPC,&quot;iBet&quot;,1);
+                        }
+                    else SpeakString (GetName(oPC)+&quot;, you don&#x27;t have that much gold.&quot;);
+                    break;
+                case 10070:
+                    if (GetGold(oPC) &gt;= nBet)
+                        {
+                        TakeGoldFromCreature(nBet, oPC, TRUE);
+                        SpeakString (GetName(oPC)+&quot; has placed a Straight Up bet of &quot; + IntToString(nBet) + &quot; gold.&quot;);
+                        int ix10su = GetLocalInt(oPC,&quot;i10su&quot;);
+                        ix10su += nBet;
+                        SetLocalInt(oPC,&quot;i10su&quot;, ix10su);
+                        SetLocalInt(oPC,&quot;iBet&quot;,1);
+                        }
+                    else SpeakString (GetName(oPC)+&quot;, you don&#x27;t have that much gold.&quot;);
+                    break;
+                case 10071:
+                    if (GetGold(oPC) &gt;= nBet)
+                        {
+                        TakeGoldFromCreature(nBet, oPC, TRUE);
+                        SpeakString (GetName(oPC)+&quot; has placed a Straight Up bet of &quot; + IntToString(nBet) + &quot; gold.&quot;);
+                        int ix11su = GetLocalInt(oPC,&quot;i11su&quot;);
+                        ix11su += nBet;
+                        SetLocalInt(oPC,&quot;i11su&quot;, ix11su);
+                        SetLocalInt(oPC,&quot;iBet&quot;,1);
+                        }
+                    else SpeakString (GetName(oPC)+&quot;, you don&#x27;t have that much gold.&quot;);
+                    break;
+                case 10072:
+                    if (GetGold(oPC) &gt;= nBet)
+                        {
+                        TakeGoldFromCreature(nBet, oPC, TRUE);
+                        SpeakString (GetName(oPC)+&quot; has placed a Straight Up bet of &quot; + IntToString(nBet) + &quot; gold.&quot;);
+                        int ix12su = GetLocalInt(oPC,&quot;i12su&quot;);
+                        ix12su += nBet;
+                        SetLocalInt(oPC,&quot;i12su&quot;, ix12su);
+                        SetLocalInt(oPC,&quot;iBet&quot;,1);
+                        }
+                    else SpeakString (GetName(oPC)+&quot;, you don&#x27;t have that much gold.&quot;);
+                    break;
+                case 10073:
+                    if (GetGold(oPC) &gt;= nBet)
+                        {
+                        TakeGoldFromCreature(nBet, oPC, TRUE);
+                        SpeakString (GetName(oPC)+&quot; has placed a Straight Up bet of &quot; + IntToString(nBet) + &quot; gold.&quot;);
+                        int ix13su = GetLocalInt(oPC,&quot;i13su&quot;);
+                        ix13su += nBet;
+                        SetLocalInt(oPC,&quot;i13su&quot;, ix13su);
+                        SetLocalInt(oPC,&quot;iBet&quot;,1);
+                        }
+                    else SpeakString (GetName(oPC)+&quot;, you don&#x27;t have that much gold.&quot;);
+                    break;
+                case 10074:
+                    if (GetGold(oPC) &gt;= nBet)
+                        {
+                        TakeGoldFromCreature(nBet, oPC, TRUE);
+                        SpeakString (GetName(oPC)+&quot; has placed a Straight Up bet of &quot; + IntToString(nBet) + &quot; gold.&quot;);
+                        int ix14su = GetLocalInt(oPC,&quot;i14su&quot;);
+                        ix14su += nBet;
+                        SetLocalInt(oPC,&quot;i14su&quot;, ix14su);
+                        SetLocalInt(oPC,&quot;iBet&quot;,1);
+                        }
+                    else SpeakString (GetName(oPC)+&quot;, you don&#x27;t have that much gold.&quot;);
+                    break;
+                case 10075:
+                    if (GetGold(oPC) &gt;= nBet)
+                        {
+                        TakeGoldFromCreature(nBet, oPC, TRUE);
+                        SpeakString (GetName(oPC)+&quot; has placed a Straight Up bet of &quot; + IntToString(nBet) + &quot; gold.&quot;);
+                        int ix15su = GetLocalInt(oPC,&quot;i15su&quot;);
+                        ix15su += nBet;
+                        SetLocalInt(oPC,&quot;i15su&quot;, ix15su);
+                        SetLocalInt(oPC,&quot;iBet&quot;,1);
+                        }
+                    else SpeakString (GetName(oPC)+&quot;, you don&#x27;t have that much gold.&quot;);
+                    break;
+                case 10076:
+                    if (GetGold(oPC) &gt;= nBet)
+                        {
+                        TakeGoldFromCreature(nBet, oPC, TRUE);
+                        SpeakString (GetName(oPC)+&quot; has placed a Straight Up bet of &quot; + IntToString(nBet) + &quot; gold.&quot;);
+                        int ix16su = GetLocalInt(oPC,&quot;i16su&quot;);
+                        ix16su += nBet;
+                        SetLocalInt(oPC,&quot;i16su&quot;, ix16su);
+                        SetLocalInt(oPC,&quot;iBet&quot;,1);
+                        }
+                    else SpeakString (GetName(oPC)+&quot;, you don&#x27;t have that much gold.&quot;);
+                    break;
+                case 10077:
+                    if (GetGold(oPC) &gt;= nBet)
+                        {
+                        TakeGoldFromCreature(nBet, oPC, TRUE);
+                        SpeakString (GetName(oPC)+&quot; has placed a Straight Up bet of &quot; + IntToString(nBet) + &quot; gold.&quot;);
+                        int ix17su = GetLocalInt(oPC,&quot;i17su&quot;);
+                        ix17su += nBet;
+                        SetLocalInt(oPC,&quot;i17su&quot;, ix17su);
+                        SetLocalInt(oPC,&quot;iBet&quot;,1);
+                        }
+                    else SpeakString (GetName(oPC)+&quot;, you don&#x27;t have that much gold.&quot;);
+                    break;
+                case 10078:
+                    if (GetGold(oPC) &gt;= nBet)
+                        {
+                        TakeGoldFromCreature(nBet, oPC, TRUE);
+                        SpeakString (GetName(oPC)+&quot; has placed a Straight Up bet of &quot; + IntToString(nBet) + &quot; gold.&quot;);
+                        int ix18su = GetLocalInt(oPC,&quot;i18su&quot;);
+                        ix18su += nBet;
+                        SetLocalInt(oPC,&quot;i18su&quot;, ix18su);
+                        SetLocalInt(oPC,&quot;iBet&quot;,1);
+                        }
+                    else SpeakString (GetName(oPC)+&quot;, you don&#x27;t have that much gold.&quot;);
+                    break;
+                case 10079:
+                    if (GetGold(oPC) &gt;= nBet)
+                        {
+                        TakeGoldFromCreature(nBet, oPC, TRUE);
+                        SpeakString (GetName(oPC)+&quot; has placed a Straight Up bet of &quot; + IntToString(nBet) + &quot; gold.&quot;);
+                        int ix19su = GetLocalInt(oPC,&quot;i19su&quot;);
+                        ix19su += nBet;
+                        SetLocalInt(oPC,&quot;i19su&quot;, ix19su);
+                        SetLocalInt(oPC,&quot;iBet&quot;,1);
+                        }
+                    else SpeakString (GetName(oPC)+&quot;, you don&#x27;t have that much gold.&quot;);
+                    break;
+                case 10080:
+                    if (GetGold(oPC) &gt;= nBet)
+                        {
+                        TakeGoldFromCreature(nBet, oPC, TRUE);
+                        SpeakString (GetName(oPC)+&quot; has placed a Straight Up bet of &quot; + IntToString(nBet) + &quot; gold.&quot;);
+                        int ix20su = GetLocalInt(oPC,&quot;i20su&quot;);
+                        ix20su += nBet;
+                        SetLocalInt(oPC,&quot;i20su&quot;, ix20su);
+                        SetLocalInt(oPC,&quot;iBet&quot;,1);
+                        }
+                    else SpeakString (GetName(oPC)+&quot;, you don&#x27;t have that much gold.&quot;);
+                    break;
+                case 10081:
+                    if (GetGold(oPC) &gt;= nBet)
+                        {
+                        TakeGoldFromCreature(nBet, oPC, TRUE);
+                        SpeakString (GetName(oPC)+&quot; has placed a Straight Up bet of &quot; + IntToString(nBet) + &quot; gold.&quot;);
+                        int ix21su = GetLocalInt(oPC,&quot;i21su&quot;);
+                        ix21su += nBet;
+                        SetLocalInt(oPC,&quot;i21su&quot;, ix21su);
+                        SetLocalInt(oPC,&quot;iBet&quot;,1);
+                        }
+                    else SpeakString (GetName(oPC)+&quot;, you don&#x27;t have that much gold.&quot;);
+                    break;
+                case 10082:
+                    if (GetGold(oPC) &gt;= nBet)
+                        {
+                        TakeGoldFromCreature(nBet, oPC, TRUE);
+                        SpeakString (GetName(oPC)+&quot; has placed a Straight Up bet of &quot; + IntToString(nBet) + &quot; gold.&quot;);
+                        int ix22su = GetLocalInt(oPC,&quot;i22su&quot;);
+                        ix22su += nBet;
+                        SetLocalInt(oPC,&quot;i22su&quot;, ix22su);
+                        SetLocalInt(oPC,&quot;iBet&quot;,1);
+                        }
+                    else SpeakString (GetName(oPC)+&quot;, you don&#x27;t have that much gold.&quot;);
+                    break;
+                case 10083:
+                    if (GetGold(oPC) &gt;= nBet)
+                        {
+                        TakeGoldFromCreature(nBet, oPC, TRUE);
+                        SpeakString (GetName(oPC)+&quot; has placed a Straight Up bet of &quot; + IntToString(nBet) + &quot; gold.&quot;);
+                        int ix23su = GetLocalInt(oPC,&quot;i23su&quot;);
+                        ix23su += nBet;
+                        SetLocalInt(oPC,&quot;i23su&quot;, ix23su);
+                        SetLocalInt(oPC,&quot;iBet&quot;,1);
+                        }
+                    else SpeakString (GetName(oPC)+&quot;, you don&#x27;t have that much gold.&quot;);
+                    break;
+                case 10084:
+                    if (GetGold(oPC) &gt;= nBet)
+                        {
+                        TakeGoldFromCreature(nBet, oPC, TRUE);
+                        SpeakString (GetName(oPC)+&quot; has placed a Straight Up bet of &quot; + IntToString(nBet) + &quot; gold.&quot;);
+                        int ix24su = GetLocalInt(oPC,&quot;i24su&quot;);
+                        ix24su += nBet;
+                        SetLocalInt(oPC,&quot;i24su&quot;, ix24su);
+                        SetLocalInt(oPC,&quot;iBet&quot;,1);
+                        }
+                    else SpeakString (GetName(oPC)+&quot;, you don&#x27;t have that much gold.&quot;);
+                    break;
+                case 10085:
+                    if (GetGold(oPC) &gt;= nBet)
+                        {
+                        TakeGoldFromCreature(nBet, oPC, TRUE);
+                        SpeakString (GetName(oPC)+&quot; has placed a Straight Up bet of &quot; + IntToString(nBet) + &quot; gold.&quot;);
+                        int ix25su = GetLocalInt(oPC,&quot;i25su&quot;);
+                        ix25su += nBet;
+                        SetLocalInt(oPC,&quot;i25su&quot;, ix25su);
+                        SetLocalInt(oPC,&quot;iBet&quot;,1);
+                        }
+                    else SpeakString (GetName(oPC)+&quot;, you don&#x27;t have that much gold.&quot;);
+                    break;
+                case 10086:
+                    if (GetGold(oPC) &gt;= nBet)
+                        {
+                        TakeGoldFromCreature(nBet, oPC, TRUE);
+                        SpeakString (GetName(oPC)+&quot; has placed a Straight Up bet of &quot; + IntToString(nBet) + &quot; gold.&quot;);
+                        int ix26su = GetLocalInt(oPC,&quot;i26su&quot;);
+                        ix26su += nBet;
+                        SetLocalInt(oPC,&quot;i26su&quot;, ix26su);
+                        SetLocalInt(oPC,&quot;iBet&quot;,1);
+                        }
+                    else SpeakString (GetName(oPC)+&quot;, you don&#x27;t have that much gold.&quot;);
+                    break;
+                case 10087:
+                    if (GetGold(oPC) &gt;= nBet)
+                        {
+                        TakeGoldFromCreature(nBet, oPC, TRUE);
+                        SpeakString (GetName(oPC)+&quot; has placed a Straight Up bet of &quot; + IntToString(nBet) + &quot; gold.&quot;);
+                        int ix27su = GetLocalInt(oPC,&quot;i27su&quot;);
+                        ix27su += nBet;
+                        SetLocalInt(oPC,&quot;i27su&quot;, ix27su);
+                        SetLocalInt(oPC,&quot;iBet&quot;,1);
+                        }
+                    else SpeakString (GetName(oPC)+&quot;, you don&#x27;t have that much gold.&quot;);
+                    break;
+                case 10088:
+                    if (GetGold(oPC) &gt;= nBet)
+                        {
+                        TakeGoldFromCreature(nBet, oPC, TRUE);
+                        SpeakString (GetName(oPC)+&quot; has placed a Straight Up bet of &quot; + IntToString(nBet) + &quot; gold.&quot;);
+                        int ix28su = GetLocalInt(oPC,&quot;i28su&quot;);
+                        ix28su += nBet;
+                        SetLocalInt(oPC,&quot;i28su&quot;, ix28su);
+                        SetLocalInt(oPC,&quot;iBet&quot;,1);
+                        }
+                    else SpeakString (GetName(oPC)+&quot;, you don&#x27;t have that much gold.&quot;);
+                    break;
+                case 10089:
+                    if (GetGold(oPC) &gt;= nBet)
+                        {
+                        TakeGoldFromCreature(nBet, oPC, TRUE);
+                        SpeakString (GetName(oPC)+&quot; has placed a Straight Up bet of &quot; + IntToString(nBet) + &quot; gold.&quot;);
+                        int ix29su = GetLocalInt(oPC,&quot;i29su&quot;);
+                        ix29su += nBet;
+                        SetLocalInt(oPC,&quot;i29su&quot;, ix29su);
+                        SetLocalInt(oPC,&quot;iBet&quot;,1);
+                        }
+                    else SpeakString (GetName(oPC)+&quot;, you don&#x27;t have that much gold.&quot;);
+                    break;
+                case 10090:
+                    if (GetGold(oPC) &gt;= nBet)
+                        {
+                        TakeGoldFromCreature(nBet, oPC, TRUE);
+                        SpeakString (GetName(oPC)+&quot; has placed a Straight Up bet of &quot; + IntToString(nBet) + &quot; gold.&quot;);
+                        int ix30su = GetLocalInt(oPC,&quot;i30su&quot;);
+                        ix30su += nBet;
+                        SetLocalInt(oPC,&quot;i30su&quot;, ix30su);
+                        SetLocalInt(oPC,&quot;iBet&quot;,1);
+                        }
+                    else SpeakString (GetName(oPC)+&quot;, you don&#x27;t have that much gold.&quot;);
+                    break;
+                case 10091:
+                    if (GetGold(oPC) &gt;= nBet)
+                        {
+                        TakeGoldFromCreature(nBet, oPC, TRUE);
+                        SpeakString (GetName(oPC)+&quot; has placed a Straight Up bet of &quot; + IntToString(nBet) + &quot; gold.&quot;);
+                        int ix31su = GetLocalInt(oPC,&quot;i31su&quot;);
+                        ix31su += nBet;
+                        SetLocalInt(oPC,&quot;i31su&quot;, ix31su);
+                        SetLocalInt(oPC,&quot;iBet&quot;,1);
+                        }
+                    else SpeakString (GetName(oPC)+&quot;, you don&#x27;t have that much gold.&quot;);
+                    break;
+                case 10092:
+                    if (GetGold(oPC) &gt;= nBet)
+                        {
+                        TakeGoldFromCreature(nBet, oPC, TRUE);
+                        SpeakString (GetName(oPC)+&quot; has placed a Straight Up bet of &quot; + IntToString(nBet) + &quot; gold.&quot;);
+                        int ix32su = GetLocalInt(oPC,&quot;i32su&quot;);
+                        ix32su += nBet;
+                        SetLocalInt(oPC,&quot;i32su&quot;, ix32su);
+                        SetLocalInt(oPC,&quot;iBet&quot;,1);
+                        }
+                    else SpeakString (GetName(oPC)+&quot;, you don&#x27;t have that much gold.&quot;);
+                    break;
+                case 10093:
+                    if (GetGold(oPC) &gt;= nBet)
+                        {
+                        TakeGoldFromCreature(nBet, oPC, TRUE);
+                        SpeakString (GetName(oPC)+&quot; has placed a Straight Up bet of &quot; + IntToString(nBet) + &quot; gold.&quot;);
+                        int ix33su = GetLocalInt(oPC,&quot;i33su&quot;);
+                        ix33su += nBet;
+                        SetLocalInt(oPC,&quot;i33su&quot;, ix33su);
+                        SetLocalInt(oPC,&quot;iBet&quot;,1);
+                        }
+                    else SpeakString (GetName(oPC)+&quot;, you don&#x27;t have that much gold.&quot;);
+                    break;
+                case 10094:
+                    if (GetGold(oPC) &gt;= nBet)
+                        {
+                        TakeGoldFromCreature(nBet, oPC, TRUE);
+                        SpeakString (GetName(oPC)+&quot; has placed a Straight Up bet of &quot; + IntToString(nBet) + &quot; gold.&quot;);
+                        int ix34su = GetLocalInt(oPC,&quot;i34su&quot;);
+                        ix34su += nBet;
+                        SetLocalInt(oPC,&quot;i34su&quot;, ix34su);
+                        SetLocalInt(oPC,&quot;iBet&quot;,1);
+                        }
+                    else SpeakString (GetName(oPC)+&quot;, you don&#x27;t have that much gold.&quot;);
+                    break;
+                case 10095:
+                    if (GetGold(oPC) &gt;= nBet)
+                        {
+                        TakeGoldFromCreature(nBet, oPC, TRUE);
+                        SpeakString (GetName(oPC)+&quot; has placed a Straight Up bet of &quot; + IntToString(nBet) + &quot; gold.&quot;);
+                        int ix35su = GetLocalInt(oPC,&quot;i35su&quot;);
+                        ix35su += nBet;
+                        SetLocalInt(oPC,&quot;i35su&quot;, ix35su);
+                        SetLocalInt(oPC,&quot;iBet&quot;,1);
+                        }
+                    else SpeakString (GetName(oPC)+&quot;, you don&#x27;t have that much gold.&quot;);
+                    break;
+                case 10096:
+                    if (GetGold(oPC) &gt;= nBet)
+                        {
+                        TakeGoldFromCreature(nBet, oPC, TRUE);
+                        SpeakString (GetName(oPC)+&quot; has placed a Straight Up bet of &quot; + IntToString(nBet) + &quot; gold.&quot;);
+                        int ix36su = GetLocalInt(oPC,&quot;i36su&quot;);
+                        ix36su += nBet;
+                        SetLocalInt(oPC,&quot;i36su&quot;, ix36su);
+                        SetLocalInt(oPC,&quot;iBet&quot;,1);
+                        }
+                    else SpeakString (GetName(oPC)+&quot;, you don&#x27;t have that much gold.&quot;);
+                    break;
+                case 10097:
+                    if (GetGold(oPC) &gt;= nBet)
+                        {
+                        TakeGoldFromCreature(nBet, oPC, TRUE);
+                        SpeakString (GetName(oPC)+&quot; has placed a Split bet of &quot; + IntToString(nBet) + &quot; gold.&quot;);
+                        int ixSplit1 = GetLocalInt(oPC,&quot;iSplit1&quot;);
+                        ixSplit1 += nBet;
+                        SetLocalInt(oPC,&quot;iSplit1&quot;, ixSplit1);
+                        SetLocalInt(oPC,&quot;iBet&quot;,1);
+                        }
+                    else SpeakString (GetName(oPC)+&quot;, you don&#x27;t have that much gold.&quot;);
+                    break;
+                case 10098:
+                    if (GetGold(oPC) &gt;= nBet)
+                        {
+                        TakeGoldFromCreature(nBet, oPC, TRUE);
+                        SpeakString (GetName(oPC)+&quot; has placed a Split bet of &quot; + IntToString(nBet) + &quot; gold.&quot;);
+                        int ixSplit2 = GetLocalInt(oPC,&quot;iSplit2&quot;);
+                        ixSplit2 += nBet;
+                        SetLocalInt(oPC,&quot;iSplit2&quot;, ixSplit2);
+                        SetLocalInt(oPC,&quot;iBet&quot;,1);
+                        }
+                    else SpeakString (GetName(oPC)+&quot;, you don&#x27;t have that much gold.&quot;);
+                    break;
+                case 10099:
+                    if (GetGold(oPC) &gt;= nBet)
+                        {
+                        TakeGoldFromCreature(nBet, oPC, TRUE);
+                        SpeakString (GetName(oPC)+&quot; has placed a Split bet of &quot; + IntToString(nBet) + &quot; gold.&quot;);
+                        int ixSplit3 = GetLocalInt(oPC,&quot;iSplit3&quot;);
+                        ixSplit3 += nBet;
+                        SetLocalInt(oPC,&quot;iSplit3&quot;, ixSplit3);
+                        SetLocalInt(oPC,&quot;iBet&quot;,1);
+                        }
+                    else SpeakString (GetName(oPC)+&quot;, you don&#x27;t have that much gold.&quot;);
+                    break;
+                case 10100:
+                    if (GetGold(oPC) &gt;= nBet)
+                        {
+                        TakeGoldFromCreature(nBet, oPC, TRUE);
+                        SpeakString (GetName(oPC)+&quot; has placed a Split bet of &quot; + IntToString(nBet) + &quot; gold.&quot;);
+                        int ixSplit4 = GetLocalInt(oPC,&quot;iSplit4&quot;);
+                        ixSplit4 += nBet;
+                        SetLocalInt(oPC,&quot;iSplit4&quot;, ixSplit4);
+                        SetLocalInt(oPC,&quot;iBet&quot;,1);
+                        }
+                    else SpeakString (GetName(oPC)+&quot;, you don&#x27;t have that much gold.&quot;);
+                    break;
+                case 10101:
+                    if (GetGold(oPC) &gt;= nBet)
+                        {
+                        TakeGoldFromCreature(nBet, oPC, TRUE);
+                        SpeakString (GetName(oPC)+&quot; has placed a Split bet of &quot; + IntToString(nBet) + &quot; gold.&quot;);
+                        int ixSplit5 = GetLocalInt(oPC,&quot;iSplit5&quot;);
+                        ixSplit5 += nBet;
+                        SetLocalInt(oPC,&quot;iSplit5&quot;, ixSplit5);
+                        SetLocalInt(oPC,&quot;iBet&quot;,1);
+                        }
+                    else SpeakString (GetName(oPC)+&quot;, you don&#x27;t have that much gold.&quot;);
+                    break;
+                case 10102:
+                    if (GetGold(oPC) &gt;= nBet)
+                        {
+                        TakeGoldFromCreature(nBet, oPC, TRUE);
+                        SpeakString (GetName(oPC)+&quot; has placed a Split bet of &quot; + IntToString(nBet) + &quot; gold.&quot;);
+                        int ixSplit6 = GetLocalInt(oPC,&quot;iSplit6&quot;);
+                        ixSplit6 += nBet;
+                        SetLocalInt(oPC,&quot;iSplit6&quot;, ixSplit6);
+                        SetLocalInt(oPC,&quot;iBet&quot;,1);
+                        }
+                    else SpeakString (GetName(oPC)+&quot;, you don&#x27;t have that much gold.&quot;);
+                    break;
+                case 10103:
+                    if (GetGold(oPC) &gt;= nBet)
+                        {
+                        TakeGoldFromCreature(nBet, oPC, TRUE);
+                        SpeakString (GetName(oPC)+&quot; has placed a Split bet of &quot; + IntToString(nBet) + &quot; gold.&quot;);
+                        int ixSplit7 = GetLocalInt(oPC,&quot;iSplit7&quot;);
+                        ixSplit7 += nBet;
+                        SetLocalInt(oPC,&quot;iSplit7&quot;, ixSplit7);
+                        SetLocalInt(oPC,&quot;iBet&quot;,1);
+                        }
+                    else SpeakString (GetName(oPC)+&quot;, you don&#x27;t have that much gold.&quot;);
+                    break;
+                case 10104:
+                    if (GetGold(oPC) &gt;= nBet)
+                        {
+                        TakeGoldFromCreature(nBet, oPC, TRUE);
+                        SpeakString (GetName(oPC)+&quot; has placed a Split bet of &quot; + IntToString(nBet) + &quot; gold.&quot;);
+                        int ixSplit8 = GetLocalInt(oPC,&quot;iSplit8&quot;);
+                        ixSplit8 += nBet;
+                        SetLocalInt(oPC,&quot;iSplit8&quot;, ixSplit8);
+                        SetLocalInt(oPC,&quot;iBet&quot;,1);
+                        }
+                    else SpeakString (GetName(oPC)+&quot;, you don&#x27;t have that much gold.&quot;);
+                    break;
+                case 10105:
+                    if (GetGold(oPC) &gt;= nBet)
+                        {
+                        TakeGoldFromCreature(nBet, oPC, TRUE);
+                        SpeakString (GetName(oPC)+&quot; has placed a Split bet of &quot; + IntToString(nBet) + &quot; gold.&quot;);
+                        int ixSplit9 = GetLocalInt(oPC,&quot;iSplit9&quot;);
+                        ixSplit9 += nBet;
+                        SetLocalInt(oPC,&quot;iSplit9&quot;, ixSplit9);
+                        SetLocalInt(oPC,&quot;iBet&quot;,1);
+                        }
+                    else SpeakString (GetName(oPC)+&quot;, you don&#x27;t have that much gold.&quot;);
+                    break;
+                case 10106:
+                    if (GetGold(oPC) &gt;= nBet)
+                        {
+                        TakeGoldFromCreature(nBet, oPC, TRUE);
+                        SpeakString (GetName(oPC)+&quot; has placed a Split bet of &quot; + IntToString(nBet) + &quot; gold.&quot;);
+                        int ixSplit10 = GetLocalInt(oPC,&quot;iSplit10&quot;);
+                        ixSplit10 += nBet;
+                        SetLocalInt(oPC,&quot;iSplit10&quot;, ixSplit10);
+                        SetLocalInt(oPC,&quot;iBet&quot;,1);
+                        }
+                    else SpeakString (GetName(oPC)+&quot;, you don&#x27;t have that much gold.&quot;);
+                    break;
+                case 10107:
+                    if (GetGold(oPC) &gt;= nBet)
+                        {
+                        TakeGoldFromCreature(nBet, oPC, TRUE);
+                        SpeakString (GetName(oPC)+&quot; has placed a Split bet of &quot; + IntToString(nBet) + &quot; gold.&quot;);
+                        int ixSplit11 = GetLocalInt(oPC,&quot;iSplit11&quot;);
+                        ixSplit11 += nBet;
+                        SetLocalInt(oPC,&quot;iSplit11&quot;, ixSplit11);
+                        SetLocalInt(oPC,&quot;iBet&quot;,1);
+                        }
+                    else SpeakString (GetName(oPC)+&quot;, you don&#x27;t have that much gold.&quot;);
+                    break;
+                case 10108:
+                    if (GetGold(oPC) &gt;= nBet)
+                        {
+                        TakeGoldFromCreature(nBet, oPC, TRUE);
+                        SpeakString (GetName(oPC)+&quot; has placed a Split bet of &quot; + IntToString(nBet) + &quot; gold.&quot;);
+                        int ixSplit12 = GetLocalInt(oPC,&quot;iSplit12&quot;);
+                        ixSplit12 += nBet;
+                        SetLocalInt(oPC,&quot;iSplit12&quot;, ixSplit12);
+                        SetLocalInt(oPC,&quot;iBet&quot;,1);
+                        }
+                    else SpeakString (GetName(oPC)+&quot;, you don&#x27;t have that much gold.&quot;);
+                    break;
+                case 10109:
+                    if (GetGold(oPC) &gt;= nBet)
+                        {
+                        TakeGoldFromCreature(nBet, oPC, TRUE);
+                        SpeakString (GetName(oPC)+&quot; has placed a Split bet of &quot; + IntToString(nBet) + &quot; gold.&quot;);
+                        int ixSplit13 = GetLocalInt(oPC,&quot;iSplit13&quot;);
+                        ixSplit13 += nBet;
+                        SetLocalInt(oPC,&quot;iSplit13&quot;, ixSplit13);
+                        SetLocalInt(oPC,&quot;iBet&quot;,1);
+                        }
+                    else SpeakString (GetName(oPC)+&quot;, you don&#x27;t have that much gold.&quot;);
+                    break;
+                case 10110:
+                    if (GetGold(oPC) &gt;= nBet)
+                        {
+                        TakeGoldFromCreature(nBet, oPC, TRUE);
+                        SpeakString (GetName(oPC)+&quot; has placed a Split bet of &quot; + IntToString(nBet) + &quot; gold.&quot;);
+                        int ixSplit14 = GetLocalInt(oPC,&quot;iSplit14&quot;);
+                        ixSplit14 += nBet;
+                        SetLocalInt(oPC,&quot;iSplit14&quot;, ixSplit14);
+                        SetLocalInt(oPC,&quot;iBet&quot;,1);
+                        }
+                    else SpeakString (GetName(oPC)+&quot;, you don&#x27;t have that much gold.&quot;);
+                    break;
+                case 10111:
+                    if (GetGold(oPC) &gt;= nBet)
+                        {
+                        TakeGoldFromCreature(nBet, oPC, TRUE);
+                        SpeakString (GetName(oPC)+&quot; has placed a Split bet of &quot; + IntToString(nBet) + &quot; gold.&quot;);
+                        int ixSplit15 = GetLocalInt(oPC,&quot;iSplit15&quot;);
+                        ixSplit15 += nBet;
+                        SetLocalInt(oPC,&quot;iSplit15&quot;, ixSplit15);
+                        SetLocalInt(oPC,&quot;iBet&quot;,1);
+                        }
+                    else SpeakString (GetName(oPC)+&quot;, you don&#x27;t have that much gold.&quot;);
+                    break;
+                case 10112:
+                    if (GetGold(oPC) &gt;= nBet)
+                        {
+                        TakeGoldFromCreature(nBet, oPC, TRUE);
+                        SpeakString (GetName(oPC)+&quot; has placed a Split bet of &quot; + IntToString(nBet) + &quot; gold.&quot;);
+                        int ixSplit16 = GetLocalInt(oPC,&quot;iSplit16&quot;);
+                        ixSplit16 += nBet;
+                        SetLocalInt(oPC,&quot;iSplit16&quot;, ixSplit16);
+                        SetLocalInt(oPC,&quot;iBet&quot;,1);
+                        }
+                    else SpeakString (GetName(oPC)+&quot;, you don&#x27;t have that much gold.&quot;);
+                    break;
+                case 10113:
+                    if (GetGold(oPC) &gt;= nBet)
+                        {
+                        TakeGoldFromCreature(nBet, oPC, TRUE);
+                        SpeakString (GetName(oPC)+&quot; has placed a Split bet of &quot; + IntToString(nBet) + &quot; gold.&quot;);
+                        int ixSplit17 = GetLocalInt(oPC,&quot;iSplit17&quot;);
+                        ixSplit17 += nBet;
+                        SetLocalInt(oPC,&quot;iSplit17&quot;, ixSplit17);
+                        SetLocalInt(oPC,&quot;iBet&quot;,1);
+                        }
+                    else SpeakString (GetName(oPC)+&quot;, you don&#x27;t have that much gold.&quot;);
+                    break;
+                case 10114:
+                    if (GetGold(oPC) &gt;= nBet)
+                        {
+                        TakeGoldFromCreature(nBet, oPC, TRUE);
+                        SpeakString (GetName(oPC)+&quot; has placed a Split bet of &quot; + IntToString(nBet) + &quot; gold.&quot;);
+                        int ixSplit18 = GetLocalInt(oPC,&quot;iSplit18&quot;);
+                        ixSplit18 += nBet;
+                        SetLocalInt(oPC,&quot;iSplit18&quot;, ixSplit18);
+                        SetLocalInt(oPC,&quot;iBet&quot;,1);
+                        }
+                    else SpeakString (GetName(oPC)+&quot;, you don&#x27;t have that much gold.&quot;);
+                    break;
+                case 10115:
+                    if (GetGold(oPC) &gt;= nBet)
+                        {
+                        TakeGoldFromCreature(nBet, oPC, TRUE);
+                        SpeakString (GetName(oPC)+&quot; has placed a Split bet of &quot; + IntToString(nBet) + &quot; gold.&quot;);
+                        int ixSplit19 = GetLocalInt(oPC,&quot;iSplit19&quot;);
+                        ixSplit19 += nBet;
+                        SetLocalInt(oPC,&quot;iSplit19&quot;, ixSplit19);
+                        SetLocalInt(oPC,&quot;iBet&quot;,1);
+                        }
+                    else SpeakString (GetName(oPC)+&quot;, you don&#x27;t have that much gold.&quot;);
+                    break;
+                case 10116:
+                if (GetGold(oPC) &gt;= nBet)
+                        {
+                        TakeGoldFromCreature(nBet, oPC, TRUE);
+                        SpeakString (GetName(oPC)+&quot; has placed a Split bet of &quot; + IntToString(nBet) + &quot; gold.&quot;);
+                        int ixSplit20 = GetLocalInt(oPC,&quot;iSplit20&quot;);
+                        ixSplit20 += nBet;
+                        SetLocalInt(oPC,&quot;iSplit20&quot;, ixSplit20);
+                        SetLocalInt(oPC,&quot;iBet&quot;,1);
+                        }
+                    else SpeakString (GetName(oPC)+&quot;, you don&#x27;t have that much gold.&quot;);
+                    break;
+                case 10117:
+                    if (GetGold(oPC) &gt;= nBet)
+                        {
+                        TakeGoldFromCreature(nBet, oPC, TRUE);
+                        SpeakString (GetName(oPC)+&quot; has placed a Split bet of &quot; + IntToString(nBet) + &quot; gold.&quot;);
+                        int ixSplit21 = GetLocalInt(oPC,&quot;iSplit21&quot;);
+                        ixSplit21 += nBet;
+                        SetLocalInt(oPC,&quot;iSplit21&quot;, ixSplit21);
+                        SetLocalInt(oPC,&quot;iBet&quot;,1);
+                        }
+                    else SpeakString (GetName(oPC)+&quot;, you don&#x27;t have that much gold.&quot;);
+                    break;
+                case 10118:
+                    if (GetGold(oPC) &gt;= nBet)
+                        {
+                        TakeGoldFromCreature(nBet, oPC, TRUE);
+                        SpeakString (GetName(oPC)+&quot; has placed a Split bet of &quot; + IntToString(nBet) + &quot; gold.&quot;);
+                        int ixSplit22 = GetLocalInt(oPC,&quot;iSplit22&quot;);
+                        ixSplit22 += nBet;
+                        SetLocalInt(oPC,&quot;iSplit22&quot;, ixSplit22);
+                        SetLocalInt(oPC,&quot;iBet&quot;,1);
+                        }
+                    else SpeakString (GetName(oPC)+&quot;, you don&#x27;t have that much gold.&quot;);
+                    break;
+                case 10119:
+                    if (GetGold(oPC) &gt;= nBet)
+                        {
+                        TakeGoldFromCreature(nBet, oPC, TRUE);
+                        SpeakString (GetName(oPC)+&quot; has placed a Split bet of &quot; + IntToString(nBet) + &quot; gold.&quot;);
+                        int ixSplit23 = GetLocalInt(oPC,&quot;iSplit23&quot;);
+                        ixSplit23 += nBet;
+                        SetLocalInt(oPC,&quot;iSplit23&quot;, ixSplit23);
+                        SetLocalInt(oPC,&quot;iBet&quot;,1);
+                        }
+                    else SpeakString (GetName(oPC)+&quot;, you don&#x27;t have that much gold.&quot;);
+                    break;
+                case 10120:
+                    if (GetGold(oPC) &gt;= nBet)
+                        {
+                        TakeGoldFromCreature(nBet, oPC, TRUE);
+                        SpeakString (GetName(oPC)+&quot; has placed a Split bet of &quot; + IntToString(nBet) + &quot; gold.&quot;);
+                        int ixSplit24 = GetLocalInt(oPC,&quot;iSplit24&quot;);
+                        ixSplit24 += nBet;
+                        SetLocalInt(oPC,&quot;iSplit24&quot;, ixSplit24);
+                        SetLocalInt(oPC,&quot;iBet&quot;,1);
+                        }
+                    else SpeakString (GetName(oPC)+&quot;, you don&#x27;t have that much gold.&quot;);
+                    break;
+                case 10121:
+                    if (GetGold(oPC) &gt;= nBet)
+                        {
+                        TakeGoldFromCreature(nBet, oPC, TRUE);
+                        SpeakString (GetName(oPC)+&quot; has placed a Split bet of &quot; + IntToString(nBet) + &quot; gold.&quot;);
+                        int ixSplit25 = GetLocalInt(oPC,&quot;iSplit25&quot;);
+                        ixSplit25 += nBet;
+                        SetLocalInt(oPC,&quot;iSplit25&quot;, ixSplit25);
+                        SetLocalInt(oPC,&quot;iBet&quot;,1);
+                        }
+                    else SpeakString (GetName(oPC)+&quot;, you don&#x27;t have that much gold.&quot;);
+                    break;
+                case 10122:
+                    if (GetGold(oPC) &gt;= nBet)
+                        {
+                        TakeGoldFromCreature(nBet, oPC, TRUE);
+                        SpeakString (GetName(oPC)+&quot; has placed a Split bet of &quot; + IntToString(nBet) + &quot; gold.&quot;);
+                        int ixSplit26 = GetLocalInt(oPC,&quot;iSplit26&quot;);
+                        ixSplit26 += nBet;
+                        SetLocalInt(oPC,&quot;iSplit26&quot;, ixSplit26);
+                        SetLocalInt(oPC,&quot;iBet&quot;,1);
+                        }
+                    else SpeakString (GetName(oPC)+&quot;, you don&#x27;t have that much gold.&quot;);
+                    break;
+                case 10123:
+                    if (GetGold(oPC) &gt;= nBet)
+                        {
+                        TakeGoldFromCreature(nBet, oPC, TRUE);
+                        SpeakString (GetName(oPC)+&quot; has placed a Split bet of &quot; + IntToString(nBet) + &quot; gold.&quot;);
+                        int ixSplit27 = GetLocalInt(oPC,&quot;iSplit27&quot;);
+                        ixSplit27 += nBet;
+                        SetLocalInt(oPC,&quot;iSplit27&quot;, ixSplit27);
+                        SetLocalInt(oPC,&quot;iBet&quot;,1);
+                        }
+                    else SpeakString (GetName(oPC)+&quot;, you don&#x27;t have that much gold.&quot;);
+                    break;
+                case 10124:
+                    if (GetGold(oPC) &gt;= nBet)
+                        {
+                        TakeGoldFromCreature(nBet, oPC, TRUE);
+                        SpeakString (GetName(oPC)+&quot; has placed a Split bet of &quot; + IntToString(nBet) + &quot; gold.&quot;);
+                        int ixSplit28 = GetLocalInt(oPC,&quot;iSplit28&quot;);
+                        ixSplit28 += nBet;
+                        SetLocalInt(oPC,&quot;iSplit28&quot;, ixSplit28);
+                        SetLocalInt(oPC,&quot;iBet&quot;,1);
+                        }
+                    else SpeakString (GetName(oPC)+&quot;, you don&#x27;t have that much gold.&quot;);
+                    break;
+                case 10125:
+                    if (GetGold(oPC) &gt;= nBet)
+                        {
+                        TakeGoldFromCreature(nBet, oPC, TRUE);
+                        SpeakString (GetName(oPC)+&quot; has placed a Split bet of &quot; + IntToString(nBet) + &quot; gold.&quot;);
+                        int ixSplit29 = GetLocalInt(oPC,&quot;iSplit29&quot;);
+                        ixSplit29 += nBet;
+                        SetLocalInt(oPC,&quot;iSplit29&quot;, ixSplit29);
+                        SetLocalInt(oPC,&quot;iBet&quot;,1);
+                        }
+                    else SpeakString (GetName(oPC)+&quot;, you don&#x27;t have that much gold.&quot;);
+                    break;
+                case 10126:
+                    if (GetGold(oPC) &gt;= nBet)
+                        {
+                        TakeGoldFromCreature(nBet, oPC, TRUE);
+                        SpeakString (GetName(oPC)+&quot; has placed a Split bet of &quot; + IntToString(nBet) + &quot; gold.&quot;);
+                        int ixSplit30 = GetLocalInt(oPC,&quot;iSplit30&quot;);
+                        ixSplit30 += nBet;
+                        SetLocalInt(oPC,&quot;iSplit30&quot;, ixSplit30);
+                        SetLocalInt(oPC,&quot;iBet&quot;,1);
+                        }
+                    else SpeakString (GetName(oPC)+&quot;, you don&#x27;t have that much gold.&quot;);
+                    break;
+                case 10127:
+                    if (GetGold(oPC) &gt;= nBet)
+                        {
+                        TakeGoldFromCreature(nBet, oPC, TRUE);
+                        SpeakString (GetName(oPC)+&quot; has placed a Split bet of &quot; + IntToString(nBet) + &quot; gold.&quot;);
+                        int ixSplit31 = GetLocalInt(oPC,&quot;iSplit31&quot;);
+                        ixSplit31 += nBet;
+                        SetLocalInt(oPC,&quot;iSplit31&quot;, ixSplit31);
+                        SetLocalInt(oPC,&quot;iBet&quot;,1);
+                        }
+                    else SpeakString (GetName(oPC)+&quot;, you don&#x27;t have that much gold.&quot;);
+                    break;
+                case 10128:
+                    if (GetGold(oPC) &gt;= nBet)
+                        {
+                        TakeGoldFromCreature(nBet, oPC, TRUE);
+                        SpeakString (GetName(oPC)+&quot; has placed a Split bet of &quot; + IntToString(nBet) + &quot; gold.&quot;);
+                        int ixSplit32 = GetLocalInt(oPC,&quot;iSplit32&quot;);
+                        ixSplit32 += nBet;
+                        SetLocalInt(oPC,&quot;iSplit32&quot;, ixSplit32);
+                        SetLocalInt(oPC,&quot;iBet&quot;,1);
+                        }
+                    else SpeakString (GetName(oPC)+&quot;, you don&#x27;t have that much gold.&quot;);
+                    break;
+                case 10129:
+                    if (GetGold(oPC) &gt;= nBet)
+                        {
+                        TakeGoldFromCreature(nBet, oPC, TRUE);
+                        SpeakString (GetName(oPC)+&quot; has placed a Split bet of &quot; + IntToString(nBet) + &quot; gold.&quot;);
+                        int ixSplit33 = GetLocalInt(oPC,&quot;iSplit33&quot;);
+                        ixSplit33 += nBet;
+                        SetLocalInt(oPC,&quot;iSplit33&quot;, ixSplit33);
+                        SetLocalInt(oPC,&quot;iBet&quot;,1);
+                        }
+                    else SpeakString (GetName(oPC)+&quot;, you don&#x27;t have that much gold.&quot;);
+                    break;
+                case 10130:
+                    if (GetGold(oPC) &gt;= nBet)
+                        {
+                        TakeGoldFromCreature(nBet, oPC, TRUE);
+                        SpeakString (GetName(oPC)+&quot; has placed a Split bet of &quot; + IntToString(nBet) + &quot; gold.&quot;);
+                        int ixSplit34 = GetLocalInt(oPC,&quot;iSplit34&quot;);
+                        ixSplit34 += nBet;
+                        SetLocalInt(oPC,&quot;iSplit34&quot;, ixSplit34);
+                        SetLocalInt(oPC,&quot;iBet&quot;,1);
+                        }
+                    else SpeakString (GetName(oPC)+&quot;, you don&#x27;t have that much gold.&quot;);
+                    break;
+                case 10131:
+                    if (GetGold(oPC) &gt;= nBet)
+                        {
+                        TakeGoldFromCreature(nBet, oPC, TRUE);
+                        SpeakString (GetName(oPC)+&quot; has placed a Split bet of &quot; + IntToString(nBet) + &quot; gold.&quot;);
+                        int ixSplit35 = GetLocalInt(oPC,&quot;iSplit35&quot;);
+                        ixSplit35 += nBet;
+                        SetLocalInt(oPC,&quot;iSplit35&quot;, ixSplit35);
+                        SetLocalInt(oPC,&quot;iBet&quot;,1);
+                        }
+                    else SpeakString (GetName(oPC)+&quot;, you don&#x27;t have that much gold.&quot;);
+                    break;
+                case 10132:
+                    if (GetGold(oPC) &gt;= nBet)
+                        {
+                        TakeGoldFromCreature(nBet, oPC, TRUE);
+                        SpeakString (GetName(oPC)+&quot; has placed a Split bet of &quot; + IntToString(nBet) + &quot; gold.&quot;);
+                        int ixSplit36 = GetLocalInt(oPC,&quot;iSplit36&quot;);
+                        ixSplit36 += nBet;
+                        SetLocalInt(oPC,&quot;iSplit36&quot;, ixSplit36);
+                        SetLocalInt(oPC,&quot;iBet&quot;,1);
+                        }
+                    else SpeakString (GetName(oPC)+&quot;, you don&#x27;t have that much gold.&quot;);
+                    break;
+                case 10133:
+                    if (GetGold(oPC) &gt;= nBet)
+                        {
+                        TakeGoldFromCreature(nBet, oPC, TRUE);
+                        SpeakString (GetName(oPC)+&quot; has placed a Split bet of &quot; + IntToString(nBet) + &quot; gold.&quot;);
+                        int ixSplit37 = GetLocalInt(oPC,&quot;iSplit37&quot;);
+                        ixSplit37 += nBet;
+                        SetLocalInt(oPC,&quot;iSplit37&quot;, ixSplit37);
+                        SetLocalInt(oPC,&quot;iBet&quot;,1);
+                        }
+                    else SpeakString (GetName(oPC)+&quot;, you don&#x27;t have that much gold.&quot;);
+                    break;
+                case 10134:
+                    if (GetGold(oPC) &gt;= nBet)
+                        {
+                        TakeGoldFromCreature(nBet, oPC, TRUE);
+                        SpeakString (GetName(oPC)+&quot; has placed a Split bet of &quot; + IntToString(nBet) + &quot; gold.&quot;);
+                        int ixSplit38 = GetLocalInt(oPC,&quot;iSplit38&quot;);
+                        ixSplit38 += nBet;
+                        SetLocalInt(oPC,&quot;iSplit38&quot;, ixSplit38);
+                        SetLocalInt(oPC,&quot;iBet&quot;,1);
+                        }
+                    else SpeakString (GetName(oPC)+&quot;, you don&#x27;t have that much gold.&quot;);
+                    break;
+                case 10135:
+                    if (GetGold(oPC) &gt;= nBet)
+                        {
+                        TakeGoldFromCreature(nBet, oPC, TRUE);
+                        SpeakString (GetName(oPC)+&quot; has placed a Split bet of &quot; + IntToString(nBet) + &quot; gold.&quot;);
+                        int ixSplit39 = GetLocalInt(oPC,&quot;iSplit39&quot;);
+                        ixSplit39 += nBet;
+                        SetLocalInt(oPC,&quot;iSplit39&quot;, ixSplit39);
+                        SetLocalInt(oPC,&quot;iBet&quot;,1);
+                        }
+                    else SpeakString (GetName(oPC)+&quot;, you don&#x27;t have that much gold.&quot;);
+                    break;
+                case 10136:
+                    if (GetGold(oPC) &gt;= nBet)
+                        {
+                        TakeGoldFromCreature(nBet, oPC, TRUE);
+                        SpeakString (GetName(oPC)+&quot; has placed a Split bet of &quot; + IntToString(nBet) + &quot; gold.&quot;);
+                        int ixSplit40 = GetLocalInt(oPC,&quot;iSplit40&quot;);
+                        ixSplit40 += nBet;
+                        SetLocalInt(oPC,&quot;iSplit40&quot;, ixSplit40);
+                        SetLocalInt(oPC,&quot;iBet&quot;,1);
+                        }
+                    else SpeakString (GetName(oPC)+&quot;, you don&#x27;t have that much gold.&quot;);
+                    break;
+                case 10137:
+                    if (GetGold(oPC) &gt;= nBet)
+                        {
+                        TakeGoldFromCreature(nBet, oPC, TRUE);
+                        SpeakString (GetName(oPC)+&quot; has placed a Split bet of &quot; + IntToString(nBet) + &quot; gold.&quot;);
+                        int ixSplit41 = GetLocalInt(oPC,&quot;iSplit41&quot;);
+                        ixSplit41 += nBet;
+                        SetLocalInt(oPC,&quot;iSplit41&quot;, ixSplit41);
+                        SetLocalInt(oPC,&quot;iBet&quot;,1);
+                        }
+                    else SpeakString (GetName(oPC)+&quot;, you don&#x27;t have that much gold.&quot;);
+                    break;
+                case 10138:
+                    if (GetGold(oPC) &gt;= nBet)
+                        {
+                        TakeGoldFromCreature(nBet, oPC, TRUE);
+                        SpeakString (GetName(oPC)+&quot; has placed a Split bet of &quot; + IntToString(nBet) + &quot; gold.&quot;);
+                        int ixSplit42 = GetLocalInt(oPC,&quot;iSplit42&quot;);
+                        ixSplit42 += nBet;
+                        SetLocalInt(oPC,&quot;iSplit42&quot;, ixSplit42);
+                        SetLocalInt(oPC,&quot;iBet&quot;,1);
+                        }
+                    else SpeakString (GetName(oPC)+&quot;, you don&#x27;t have that much gold.&quot;);
+                    break;
+                case 10139:
+                    if (GetGold(oPC) &gt;= nBet)
+                        {
+                        TakeGoldFromCreature(nBet, oPC, TRUE);
+                        SpeakString (GetName(oPC)+&quot; has placed a Split bet of &quot; + IntToString(nBet) + &quot; gold.&quot;);
+                        int ixSplit43 = GetLocalInt(oPC,&quot;iSplit43&quot;);
+                        ixSplit43 += nBet;
+                        SetLocalInt(oPC,&quot;iSplit43&quot;, ixSplit43);
+                        SetLocalInt(oPC,&quot;iBet&quot;,1);
+                        }
+                    else SpeakString (GetName(oPC)+&quot;, you don&#x27;t have that much gold.&quot;);
+                    break;
+                case 10140:
+                    if (GetGold(oPC) &gt;= nBet)
+                        {
+                        TakeGoldFromCreature(nBet, oPC, TRUE);
+                        SpeakString (GetName(oPC)+&quot; has placed a Split bet of &quot; + IntToString(nBet) + &quot; gold.&quot;);
+                        int ixSplit44 = GetLocalInt(oPC,&quot;iSplit44&quot;);
+                        ixSplit44 += nBet;
+                        SetLocalInt(oPC,&quot;iSplit44&quot;, ixSplit44);
+                        SetLocalInt(oPC,&quot;iBet&quot;,1);
+                        }
+                    else SpeakString (GetName(oPC)+&quot;, you don&#x27;t have that much gold.&quot;);
+                    break;
+                case 10141:
+                    if (GetGold(oPC) &gt;= nBet)
+                        {
+                        TakeGoldFromCreature(nBet, oPC, TRUE);
+                        SpeakString (GetName(oPC)+&quot; has placed a Split bet of &quot; + IntToString(nBet) + &quot; gold.&quot;);
+                        int ixSplit45 = GetLocalInt(oPC,&quot;iSplit45&quot;);
+                        ixSplit45 += nBet;
+                        SetLocalInt(oPC,&quot;iSplit45&quot;, ixSplit45);
+                        SetLocalInt(oPC,&quot;iBet&quot;,1);
+                        }
+                    else SpeakString (GetName(oPC)+&quot;, you don&#x27;t have that much gold.&quot;);
+                    break;
+                case 10142:
+                    if (GetGold(oPC) &gt;= nBet)
+                        {
+                        TakeGoldFromCreature(nBet, oPC, TRUE);
+                        SpeakString (GetName(oPC)+&quot; has placed a Split bet of &quot; + IntToString(nBet) + &quot; gold.&quot;);
+                        int ixSplit46 = GetLocalInt(oPC,&quot;iSplit46&quot;);
+                        ixSplit46 += nBet;
+                        SetLocalInt(oPC,&quot;iSplit46&quot;, ixSplit46);
+                        SetLocalInt(oPC,&quot;iBet&quot;,1);
+                        }
+                    else SpeakString (GetName(oPC)+&quot;, you don&#x27;t have that much gold.&quot;);
+                    break;
+                case 10143:
+                    if (GetGold(oPC) &gt;= nBet)
+                        {
+                        TakeGoldFromCreature(nBet, oPC, TRUE);
+                        SpeakString (GetName(oPC)+&quot; has placed a Split bet of &quot; + IntToString(nBet) + &quot; gold.&quot;);
+                        int ixSplit47 = GetLocalInt(oPC,&quot;iSplit47&quot;);
+                        ixSplit47 += nBet;
+                        SetLocalInt(oPC,&quot;iSplit47&quot;, ixSplit47);
+                        SetLocalInt(oPC,&quot;iBet&quot;,1);
+                        }
+                    else SpeakString (GetName(oPC)+&quot;, you don&#x27;t have that much gold.&quot;);
+                    break;
+                case 10144:
+                    if (GetGold(oPC) &gt;= nBet)
+                        {
+                        TakeGoldFromCreature(nBet, oPC, TRUE);
+                        SpeakString (GetName(oPC)+&quot; has placed a Split bet of &quot; + IntToString(nBet) + &quot; gold.&quot;);
+                        int ixSplit48 = GetLocalInt(oPC,&quot;iSplit48&quot;);
+                        ixSplit48 += nBet;
+                        SetLocalInt(oPC,&quot;iSplit48&quot;, ixSplit48);
+                        SetLocalInt(oPC,&quot;iBet&quot;,1);
+                        }
+                    else SpeakString (GetName(oPC)+&quot;, you don&#x27;t have that much gold.&quot;);
+                    break;
+                case 10145:
+                    if (GetGold(oPC) &gt;= nBet)
+                        {
+                        TakeGoldFromCreature(nBet, oPC, TRUE);
+                        SpeakString (GetName(oPC)+&quot; has placed a Split bet of &quot; + IntToString(nBet) + &quot; gold.&quot;);
+                        int ixSplit49 = GetLocalInt(oPC,&quot;iSplit49&quot;);
+                        ixSplit49 += nBet;
+                        SetLocalInt(oPC,&quot;iSplit49&quot;, ixSplit49);
+                        SetLocalInt(oPC,&quot;iBet&quot;,1);
+                        }
+                    else SpeakString (GetName(oPC)+&quot;, you don&#x27;t have that much gold.&quot;);
+                    break;
+                case 10146:
+                    if (GetGold(oPC) &gt;= nBet)
+                        {
+                        TakeGoldFromCreature(nBet, oPC, TRUE);
+                        SpeakString (GetName(oPC)+&quot; has placed a Split bet of &quot; + IntToString(nBet) + &quot; gold.&quot;);
+                        int ixSplit50 = GetLocalInt(oPC,&quot;iSplit50&quot;);
+                        ixSplit50 += nBet;
+                        SetLocalInt(oPC,&quot;iSplit50&quot;, ixSplit50);
+                        SetLocalInt(oPC,&quot;iBet&quot;,1);
+                        }
+                    else SpeakString (GetName(oPC)+&quot;, you don&#x27;t have that much gold.&quot;);
+                    break;
+                case 10147:
+                    if (GetGold(oPC) &gt;= nBet)
+                        {
+                        TakeGoldFromCreature(nBet, oPC, TRUE);
+                        SpeakString (GetName(oPC)+&quot; has placed a Split bet of &quot; + IntToString(nBet) + &quot; gold.&quot;);
+                        int ixSplit51 = GetLocalInt(oPC,&quot;iSplit51&quot;);
+                        ixSplit51 += nBet;
+                        SetLocalInt(oPC,&quot;iSplit51&quot;, ixSplit51);
+                        SetLocalInt(oPC,&quot;iBet&quot;,1);
+                        }
+                    else SpeakString (GetName(oPC)+&quot;, you don&#x27;t have that much gold.&quot;);
+                    break;
+                case 10148:
+                    if (GetGold(oPC) &gt;= nBet)
+                        {
+                        TakeGoldFromCreature(nBet, oPC, TRUE);
+                        SpeakString (GetName(oPC)+&quot; has placed a Split bet of &quot; + IntToString(nBet) + &quot; gold.&quot;);
+                        int ixSplit52 = GetLocalInt(oPC,&quot;iSplit52&quot;);
+                        ixSplit52 += nBet;
+                        SetLocalInt(oPC,&quot;iSplit52&quot;, ixSplit52);
+                        SetLocalInt(oPC,&quot;iBet&quot;,1);
+                        }
+                    else SpeakString (GetName(oPC)+&quot;, you don&#x27;t have that much gold.&quot;);
+                    break;
+                case 10149:
+                    if (GetGold(oPC) &gt;= nBet)
+                        {
+                        TakeGoldFromCreature(nBet, oPC, TRUE);
+                        SpeakString (GetName(oPC)+&quot; has placed a Split bet of &quot; + IntToString(nBet) + &quot; gold.&quot;);
+                        int ixSplit53 = GetLocalInt(oPC,&quot;iSplit53&quot;);
+                        ixSplit53 += nBet;
+                        SetLocalInt(oPC,&quot;iSplit53&quot;, ixSplit53);
+                        SetLocalInt(oPC,&quot;iBet&quot;,1);
+                        }
+                    else SpeakString (GetName(oPC)+&quot;, you don&#x27;t have that much gold.&quot;);
+                    break;
+                case 10150:
+                    if (GetGold(oPC) &gt;= nBet)
+                        {
+                        TakeGoldFromCreature(nBet, oPC, TRUE);
+                        SpeakString (GetName(oPC)+&quot; has placed a Split bet of &quot; + IntToString(nBet) + &quot; gold.&quot;);
+                        int ixSplit54 = GetLocalInt(oPC,&quot;iSplit54&quot;);
+                        ixSplit54 += nBet;
+                        SetLocalInt(oPC,&quot;iSplit54&quot;, ixSplit54);
+                        SetLocalInt(oPC,&quot;iBet&quot;,1);
+                        }
+                    else SpeakString (GetName(oPC)+&quot;, you don&#x27;t have that much gold.&quot;);
+                    break;
+                case 10151:
+                    if (GetGold(oPC) &gt;= nBet)
+                        {
+                        TakeGoldFromCreature(nBet, oPC, TRUE);
+                        SpeakString (GetName(oPC)+&quot; has placed a Split bet of &quot; + IntToString(nBet) + &quot; gold.&quot;);
+                        int ixSplit55 = GetLocalInt(oPC,&quot;iSplit55&quot;);
+                        ixSplit55 += nBet;
+                        SetLocalInt(oPC,&quot;iSplit55&quot;, ixSplit55);
+                        SetLocalInt(oPC,&quot;iBet&quot;,1);
+                        }
+                    else SpeakString (GetName(oPC)+&quot;, you don&#x27;t have that much gold.&quot;);
+                    break;
+                case 10152:
+                    if (GetGold(oPC) &gt;= nBet)
+                        {
+                        TakeGoldFromCreature(nBet, oPC, TRUE);
+                        SpeakString (GetName(oPC)+&quot; has placed a Split bet of &quot; + IntToString(nBet) + &quot; gold.&quot;);
+                        int ixSplit56 = GetLocalInt(oPC,&quot;iSplit56&quot;);
+                        ixSplit56 += nBet;
+                        SetLocalInt(oPC,&quot;iSplit56&quot;, ixSplit56);
+                        SetLocalInt(oPC,&quot;iBet&quot;,1);
+                        }
+                    else SpeakString (GetName(oPC)+&quot;, you don&#x27;t have that much gold.&quot;);
+                    break;
+                case 10153:
+                    if (GetGold(oPC) &gt;= nBet)
+                        {
+                        TakeGoldFromCreature(nBet, oPC, TRUE);
+                        SpeakString (GetName(oPC)+&quot; has placed a Split bet of &quot; + IntToString(nBet) + &quot; gold.&quot;);
+                        int ixSplit57 = GetLocalInt(oPC,&quot;iSplit57&quot;);
+                        ixSplit57 += nBet;
+                        SetLocalInt(oPC,&quot;iSplit57&quot;, ixSplit57);
+                        SetLocalInt(oPC,&quot;iBet&quot;,1);
+                        }
+                    else SpeakString (GetName(oPC)+&quot;, you don&#x27;t have that much gold.&quot;);
+                    break;
+                case 10154:
+                    if (GetGold(oPC) &gt;= nBet)
+                        {
+                        TakeGoldFromCreature(nBet, oPC, TRUE);
+                        SpeakString (GetName(oPC)+&quot; has placed a Split bet of &quot; + IntToString(nBet) + &quot; gold.&quot;);
+                        int ixSplit58 = GetLocalInt(oPC,&quot;iSplit58&quot;);
+                        ixSplit58 += nBet;
+                        SetLocalInt(oPC,&quot;iSplit58&quot;, ixSplit58);
+                        SetLocalInt(oPC,&quot;iBet&quot;,1);
+                        }
+                    else SpeakString (GetName(oPC)+&quot;, you don&#x27;t have that much gold.&quot;);
+                    break;
+                case 10155:
+                    if (GetGold(oPC) &gt;= nBet)
+                        {
+                        TakeGoldFromCreature(nBet, oPC, TRUE);
+                        SpeakString (GetName(oPC)+&quot; has placed a Split bet of &quot; + IntToString(nBet) + &quot; gold.&quot;);
+                        int ixSplit59 = GetLocalInt(oPC,&quot;iSplit59&quot;);
+                        ixSplit59 += nBet;
+                        SetLocalInt(oPC,&quot;iSplit59&quot;, ixSplit59);
+                        SetLocalInt(oPC,&quot;iBet&quot;,1);
+                        }
+                    else SpeakString (GetName(oPC)+&quot;, you don&#x27;t have that much gold.&quot;);
+                    break;
+                case 10156:
+                    if (GetGold(oPC) &gt;= nBet)
+                        {
+                        TakeGoldFromCreature(nBet, oPC, TRUE);
+                        SpeakString (GetName(oPC)+&quot; has placed a Split bet of &quot; + IntToString(nBet) + &quot; gold.&quot;);
+                        int ixSplit60 = GetLocalInt(oPC,&quot;iSplit60&quot;);
+                        ixSplit60 += nBet;
+                        SetLocalInt(oPC,&quot;iSplit60&quot;, ixSplit60);
+                        SetLocalInt(oPC,&quot;iBet&quot;,1);
+                        }
+                    else SpeakString (GetName(oPC)+&quot;, you don&#x27;t have that much gold.&quot;);
+                    break;
+                case 10157:
+                    if (GetGold(oPC) &gt;= nBet)
+                        {
+                        TakeGoldFromCreature(nBet, oPC, TRUE);
+                        SpeakString (GetName(oPC)+&quot; has placed a Split bet of &quot; + IntToString(nBet) + &quot; gold.&quot;);
+                        int ixSplit61 = GetLocalInt(oPC,&quot;iSplit61&quot;);
+                        ixSplit61 += nBet;
+                        SetLocalInt(oPC,&quot;iSplit61&quot;, ixSplit61);
+                        SetLocalInt(oPC,&quot;iBet&quot;,1);
+                        }
+                    else SpeakString (GetName(oPC)+&quot;, you don&#x27;t have that much gold.&quot;);
+                    break;
+                case 10158:
+                    if (GetGold(oPC) &gt;= nBet)
+                        {
+                        TakeGoldFromCreature(nBet, oPC, TRUE);
+                        SpeakString (GetName(oPC)+&quot; has placed a Split bet of &quot; + IntToString(nBet) + &quot; gold.&quot;);
+                        int ixSplit62 = GetLocalInt(oPC,&quot;iSplit62&quot;);
+                        ixSplit62 += nBet;
+                        SetLocalInt(oPC,&quot;iSplit62&quot;, ixSplit62);
+                        SetLocalInt(oPC,&quot;iBet&quot;,1);
+                        }
+                    else SpeakString (GetName(oPC)+&quot;, you don&#x27;t have that much gold.&quot;);
+                    break;
+
+            }
+
+        }
+    }
+</code></pre>
+  </main>
+  <footer>generated by <a href="https://github.com/mrprice22/nwn-manager">nwn-manager</a> &mdash; last updated Jun 3, 2026 12:42</footer>
+</body>
+</html>

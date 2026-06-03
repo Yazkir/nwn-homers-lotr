@@ -1,0 +1,195 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Script se_stopswap_inc</title>
+  <link rel="stylesheet" href="../assets/style.css">
+  <link rel="stylesheet" href="../assets/theme.css">
+  <link rel="icon" href="../assets/favicon.png">
+</head>
+<body>
+  <header class="site-header">
+    <a class="brand" href="../index.html"><img class="site-header-img" src="../assets/header.png" alt="Home"></a>
+    <nav>
+      <a href="../index.html">Map</a>
+      <a href="../areas/index.html">Areas</a>
+      <div class="nav-dropdown">
+        <span class="nav-dropdown-label">Creatures &#9660;</span>
+        <div class="nav-dropdown-menu">
+          <a href="../creatures/index.html">All Creatures</a>
+          <a href="../creatures/by-area/index.html">By Area</a>
+          <a href="../creatures/by-cr/index.html">By Challenge Rating</a>
+          <a href="../creatures/by-race/index.html">By Race</a>
+        </div>
+      </div>
+      <div class="nav-dropdown">
+        <span class="nav-dropdown-label">Items &#9660;</span>
+        <div class="nav-dropdown-menu">
+          <a href="../items/index.html">Accessible</a>
+          <a href="../items/inaccessible/index.html">Inaccessible</a>
+          <a href="../items/properties/index.html">By Property</a>
+          <a href="../items/search.html">Search</a>
+        </div>
+      </div>
+      <a href="../stores/index.html">Stores</a>
+      <a href="../conversations/index.html">Conversations</a>
+      <a href="../factions.html">Factions</a>
+      <a href="../quests/index.html">Quests</a>
+      <a href="../activity.html">Activity</a>
+      <div class="nav-dropdown"><span class="nav-dropdown-label">Documents &#9660;</span><div class="nav-dropdown-menu"><a href="../manual/LevelingGuide.html">Leveling Guide</a>
+<a href="../manual/MeaningWave.html">MeaningWave: A Guide to the Guides</a>
+<a href="../manual/Quest Ideas.html">Quest Ideas (Draft Concepts)</a>
+<a href="../manual/QuestGuide.html">Quest Guide</a></div></div>
+    </nav>
+  </header>
+  <main>
+<h1>Script: <code>se_stopswap_inc</code></h1><pre class="nss-source"><code>// file name - se_stopswap_inc v1.2
+#include &quot;x2_inc_itemprop&quot;
+
+
+// -----------------------------------------------------------------------------
+//  CONSTANTS
+// -----------------------------------------------------------------------------
+
+const float SAFE_DISTANCE             = 5.0;  // Set safe distance to equip items during combat
+const int LAST_PC_APPEARANCE_TYPE     = 6;    // Last standard racial type
+const int UNEQUIP_WEAPON_PROVOKES_AOO = TRUE; // TRUE or FALSE
+
+const string VAR_SLOT_KEY   = &quot;SLOT_KEY_&quot;;
+const string VAR_SLOT_LOCK  = &quot;SLOT_LOCK_&quot;;
+
+
+// -----------------------------------------------------------------------------
+//  PROTOTYPES
+// -----------------------------------------------------------------------------
+
+int GetIsRestrictedSlot(int nSlot);
+
+int GetRestictedInventorySlot(object oItem);
+
+int GetRestrictedInventorySlotByType(int nType);
+
+// Check if PC is in combat &amp; within the unsafe distance,
+// &amp; if they equip a melee or ranged weapon if so,
+// create an attack of opportunity
+// oPC   - Player
+// oItem - Check if melee or ranged weapon
+int GetWasWeaponUnequippedInMelee(object oPC, object oItem);
+
+int GetIsOkayToUnequip(object oPC, object oItem);
+
+void ActionStepBackwards(object oCreature, float fDistance);
+
+
+// -----------------------------------------------------------------------------
+//  FUNCTIONS
+// -----------------------------------------------------------------------------
+
+int GetIsRestrictedSlot(int nSlot)
+{
+    return nSlot &gt; -1;
+}
+
+
+int GetRestictedInventorySlot(object oItem)
+{
+    return GetRestrictedInventorySlotByType(GetBaseItemType(oItem));
+}
+
+
+int GetRestrictedInventorySlotByType(int nType)
+{
+    int nRet = -1;
+    switch (nType)
+    {
+        case BASE_ITEM_AMULET:      nRet = INVENTORY_SLOT_NECK;  break;
+        case BASE_ITEM_BELT:        nRet = INVENTORY_SLOT_BELT;  break;
+        case BASE_ITEM_BOOTS:       nRet = INVENTORY_SLOT_BOOTS; break;
+        case BASE_ITEM_CLOAK:       nRet = INVENTORY_SLOT_CLOAK; break;
+        case BASE_ITEM_BRACER:
+        case BASE_ITEM_GLOVES:      nRet = INVENTORY_SLOT_ARMS;  break;
+        case BASE_ITEM_HELMET:      nRet = INVENTORY_SLOT_HEAD;  break;
+        case BASE_ITEM_LARGESHIELD:
+        case BASE_ITEM_SMALLSHIELD:
+        case BASE_ITEM_TOWERSHIELD: nRet = INVENTORY_SLOT_LEFTHAND; break;
+    }
+    return nRet;
+}
+
+
+int GetWasWeaponUnequippedInMelee(object oPC, object oItem)
+{
+    // is it a weapon?
+    if(IPGetIsMeleeWeapon(oItem) || IPGetIsRangedWeapon(oItem))
+    {
+        // is the PC in combat?
+        if(GetIsInCombat(oPC))
+        {
+            // is the nearest enemy in striking range?
+            object oEnemy = GetNearestCreature(CREATURE_TYPE_REPUTATION, REPUTATION_TYPE_ENEMY, oPC);
+            if(GetDistanceBetween(oPC, oEnemy) &lt; SAFE_DISTANCE)
+            {
+                return TRUE;
+            }
+        }
+    }
+    return FALSE;
+}
+
+
+int GetIsOkayToUnequip(object oPC, object oItem)
+{
+    int nSlot = GetRestictedInventorySlot(oItem);
+
+    // is the slot locked?
+    // NOTE: if we are trying to unequip something from a locked slot then it
+    // is the system doing the unequipping
+    if(GetLocalInt(oPC, VAR_SLOT_LOCK + IntToString(nSlot)))
+    {
+        return TRUE;
+    }
+
+    // is it a restricted slot?
+    if(GetIsRestrictedSlot(nSlot))
+    {
+        // is PC in combat
+        if(GetIsInCombat(oPC))
+        {
+            // is enemy too close
+            object oEnemy = GetNearestCreature(CREATURE_TYPE_REPUTATION, REPUTATION_TYPE_ENEMY, oPC);
+            if(GetDistanceBetween(oPC, oEnemy) &lt; SAFE_DISTANCE)
+            {
+                return FALSE;
+            }
+        }
+    }
+
+    // at least one condition was not met so it is okay to unequip
+    return TRUE;
+}
+
+
+void ActionStepBackwards(object oCreature, float fDistance)
+{
+    // decompose the creature&#x27;s current location
+    object oArea = GetArea(oCreature);
+    vector vPosition = GetPosition(oCreature);
+    float fFacing = GetFacing(oCreature);
+
+    // generate a position behind the creature
+    float fX = fDistance * cos(fFacing + 180.0);
+    float fY = fDistance * sin(fFacing + 180.0);
+    vector vBackwards = Vector(fX, fY);
+
+    // generate a location behind the creature
+    location lBackwards = Location(oArea, vPosition + vBackwards, fFacing);
+
+    // force the creature to run there
+    AssignCommand(oCreature, ClearAllActions());
+    AssignCommand(oCreature, ActionMoveToLocation(lBackwards, TRUE));
+}
+</code></pre>
+  </main>
+  <footer>generated by <a href="https://github.com/mrprice22/nwn-manager">nwn-manager</a> &mdash; last updated Jun 3, 2026 12:42</footer>
+</body>
+</html>

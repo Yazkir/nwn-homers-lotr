@@ -1,0 +1,615 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Script lts_ambplc3_used</title>
+  <link rel="stylesheet" href="../assets/style.css">
+  <link rel="stylesheet" href="../assets/theme.css">
+  <link rel="icon" href="../assets/favicon.png">
+</head>
+<body>
+  <header class="site-header">
+    <a class="brand" href="../index.html"><img class="site-header-img" src="../assets/header.png" alt="Home"></a>
+    <nav>
+      <a href="../index.html">Map</a>
+      <a href="../areas/index.html">Areas</a>
+      <div class="nav-dropdown">
+        <span class="nav-dropdown-label">Creatures &#9660;</span>
+        <div class="nav-dropdown-menu">
+          <a href="../creatures/index.html">All Creatures</a>
+          <a href="../creatures/by-area/index.html">By Area</a>
+          <a href="../creatures/by-cr/index.html">By Challenge Rating</a>
+          <a href="../creatures/by-race/index.html">By Race</a>
+        </div>
+      </div>
+      <div class="nav-dropdown">
+        <span class="nav-dropdown-label">Items &#9660;</span>
+        <div class="nav-dropdown-menu">
+          <a href="../items/index.html">Accessible</a>
+          <a href="../items/inaccessible/index.html">Inaccessible</a>
+          <a href="../items/properties/index.html">By Property</a>
+          <a href="../items/search.html">Search</a>
+        </div>
+      </div>
+      <a href="../stores/index.html">Stores</a>
+      <a href="../conversations/index.html">Conversations</a>
+      <a href="../factions.html">Factions</a>
+      <a href="../quests/index.html">Quests</a>
+      <a href="../activity.html">Activity</a>
+      <div class="nav-dropdown"><span class="nav-dropdown-label">Documents &#9660;</span><div class="nav-dropdown-menu"><a href="../manual/LevelingGuide.html">Leveling Guide</a>
+<a href="../manual/MeaningWave.html">MeaningWave: A Guide to the Guides</a>
+<a href="../manual/Quest Ideas.html">Quest Ideas (Draft Concepts)</a>
+<a href="../manual/QuestGuide.html">Quest Guide</a></div></div>
+    </nav>
+  </header>
+  <main>
+<h1>Script: <code>lts_ambplc3_used</code></h1><pre class="nss-source"><code>int LORD_INT_XP_FOR_RETURNING_CORPSES = 50; // how much XP is awarded to a PC returning a corpse to an empty grave
+
+
+int LORD_INT_GRAVESAYINGS = 22; //number of different texts available
+
+// Grave Inscriptions ... &lt;%name%&gt; (random name) and &lt;%killer%&gt; (playername) are valid variables
+string LORD_SZGRAVE_00 = &quot;Here lies &lt;%name%&gt;&quot;;
+string LORD_SZGRAVE_01 = &quot;RIP &lt;%name%&gt;, you will not be forgotten!&quot;;
+string LORD_SZGRAVE_02 = &quot;&lt;%name%&gt;, farewell good friend&quot;;
+string LORD_SZGRAVE_03 = &quot;Goodbye dear &lt;%name%&gt;, we will remember you! &quot;;
+string LORD_SZGRAVE_04 = &quot;This grave belongs to &lt;%name%&gt; who died a very unfortunate death&quot;;
+string LORD_SZGRAVE_05 = &quot;&lt;%name%&gt;, may your bones rot here forever!&quot;;
+string LORD_SZGRAVE_06 = &quot;You cannot deciper what was once written on the grave &quot;;
+string LORD_SZGRAVE_07 = &quot;Here lies &lt;%name%&gt;&#x27;s sister, missed forever!&quot;;
+string LORD_SZGRAVE_08 = &quot;&lt;%name%&gt; lies here. Only the good die young!&quot;;
+string LORD_SZGRAVE_09 = &quot;&lt;%name%&gt;, who fell victim to the plague last year&quot;;
+string LORD_SZGRAVE_10 = &quot;This gravestone is to damaged to decipher what was inscribed on it&quot;;
+string LORD_SZGRAVE_11 = &quot;Rest in peace &lt;%name%&gt;, another young life lost too early&quot;;
+string LORD_SZGRAVE_12 = &quot;&lt;%name%&gt; the younger. He never scored&quot; ;
+string LORD_SZGRAVE_13 = &quot;The &lt;%name%&gt; family grave&quot; ;
+string LORD_SZGRAVE_14 = &quot;The inscription on this gravestone has been removed&quot; ;
+string LORD_SZGRAVE_15 = &quot;Two unnamed adventurers rest here.&quot;;
+string LORD_SZGRAVE_16 = &quot;&lt;%name%&gt;&#x27;s cat.&quot;;
+string LORD_SZGRAVE_17 = &quot;The inscription says that &lt;%name%&gt;&#x27;s body rests in this grave&quot;;
+string LORD_SZGRAVE_18 = &quot;Here lies another victim of &lt;%name%&gt;&#x27;s bad ale&quot;;
+string LORD_SZGRAVE_19 = &quot;RIP &lt;%name%&gt;, may your soul safely travel to heaven&quot;;
+string LORD_SZGRAVE_20 = &quot;This is the last resting place of &lt;%name%&gt;. May he burn in hell&quot;;
+string LORD_SZGRAVE_21 = &quot;The remains of &lt;%name%&gt; rest here, it is said he was killed by &lt;%killer%&gt;&quot;;
+
+
+
+// Ambient Comments ... &lt;%area%&gt; and &lt;%playername%&gt; are valid variables
+string LORD_SZGYAMBIENT_00 = &quot;I hate this graveyard odor!&quot;;
+string LORD_SZGYAMBIENT_01 = &quot;Why must graveyards always be that chilling?&quot;;
+string LORD_SZGYAMBIENT_02 = &quot;&lt;%area%&gt; ... a fitting description for this place.&quot;;
+string LORD_SZGYAMBIENT_03 = &quot;These graveyards! You always await the dead raising from their graves...&quot;;
+string LORD_SZGYAMBIENT_04 = &quot;This is not a nice place to work at!&quot;;
+string LORD_SZGYAMBIENT_05 = &quot;Only a necromancer could feel comfortable in this place.&quot;;
+
+
+// Ambient Comments ... &lt;%area%&gt; and &lt;%playername%&gt; are valid variables
+string LORD_SZGYAMBIENTC_00 = &quot;I have a bad feeling about this place!&quot;;
+string LORD_SZGYAMBIENTC_01 = &quot;There is something wrong here ... I can feel it!&quot;;
+string LORD_SZGYAMBIENTC_02 = &quot;I know we should not have come here ... This place is creepy!&quot;;
+string LORD_SZGYAMBIENTC_03 = &quot;Something is amiss here ... I better be careful!&quot;;
+string LORD_SZGYAMBIENTC_04 = &quot;&lt;%playername%&gt; doesn&#x27;t like this place ... it&#x27;s creepy!&quot;;
+string LORD_SZGYAMBIENTC_05 = &quot;This place is haunted ... or something even worse. I feel it!&quot;;
+
+
+void CreatePLCWrapper(string sTag, location lLoc, float fDestTime=0.0f)
+{
+    object oPlc = CreateObject(OBJECT_TYPE_PLACEABLE,sTag,lLoc);
+    if (fDestTime&gt;0.0f)
+        DestroyObject(oPlc,fDestTime);
+}
+
+string ReplaceString(string sText, string sOld, string sNew)
+{
+    int nLen = GetStringLength(sOld);
+
+    int nRep = FindSubString(sText,sOld);
+    if (nRep != -1)
+    {
+        string sLeft = GetStringLeft(sText,nRep);
+        string sRight = GetStringRight(sText,GetStringLength(sText)-nRep-(nLen));
+        sText = sLeft + sNew + sRight;
+    }
+    return sText;
+}
+
+// create some random grave treasure
+int GyardCreateRandomTreasure(object oTarget)
+{
+    int n = d20();
+    string sTag =&quot;&quot;;
+    switch (n)
+    {
+        case 1:  sTag = &quot;nw_it_msmlmisc20&quot;;  break; // fish
+        case 2:  sTag = &quot;nw_it_gold001&quot;;  break; // goldpiece
+        case 3:  sTag = &quot;nw_it_msmlmisc21&quot;; break; // rags
+        case 4:  sTag = &quot;nw_it_thnmisc001&quot;; break;// empty bottle
+        case 5:  sTag = &quot;nw_cloth023&quot;; break; // rags
+        case 6:  sTag = &quot;nw_cloth009&quot;; break;
+        case 7:  sTag = &quot;deadbaby&quot;; break; // dead baby
+        case 8:  sTag = &quot;nw_it_gem003&quot;; break; // gem
+        case 9:  sTag = &quot;nw_it_mpotion021&quot;; break; // ale
+        case 10: sTag = &quot;nw_it_mpotion023&quot;; break; // wine
+    }
+
+    if (sTag != &quot;&quot;)
+    {
+        CreateItemOnObject(sTag,oTarget);
+        if (d20()&lt;10)
+            CreateItemOnObject(&quot;nw_it_gold001&quot;,oTarget, d10());
+
+        return TRUE;
+    }
+
+return FALSE;
+}
+
+string LordGetAmbGraveText(object oGrave = OBJECT_SELF)
+{
+   int nSaying = GetLocalInt(oGrave,&quot;LORD_GRAVE_SAYING&quot;);
+   object oUser = GetLastUsedBy();
+   string sName = GetLocalString(oGrave,&quot;LORD_GRAVE_NAME&quot;);
+   if (nSaying  == 0)
+   {
+        nSaying = Random(LORD_INT_GRAVESAYINGS);
+        SetLocalInt(oGrave,&quot;LORD_GRAVE_SAYING&quot;,nSaying );
+   }
+
+   if (sName ==&quot;&quot;)
+   {
+        sName = RandomName();
+        SetLocalString(oGrave,&quot;LORD_GRAVE_NAME&quot;,sName);
+        SetLocalString(oGrave,&quot;LORD_GRAVE_FIRSTUSE_NAME&quot;,GetName(oUser));
+   }
+
+    string sText = &quot;Unlabeled Grave&quot;;
+    switch (nSaying)
+    {
+        case 1: sText = LORD_SZGRAVE_00;break;
+        case 2: sText = LORD_SZGRAVE_01;break;
+        case 3: sText = LORD_SZGRAVE_02;break;
+        case 4: sText = LORD_SZGRAVE_03;break;
+        case 5: sText = LORD_SZGRAVE_04;break;
+        case 6: sText = LORD_SZGRAVE_05;break;
+        case 7: sText = LORD_SZGRAVE_06;break;
+        case 8: sText = LORD_SZGRAVE_07;break;
+        case 9: sText = LORD_SZGRAVE_08;break;
+        case 10: sText = LORD_SZGRAVE_09;break;
+        case 11: sText = LORD_SZGRAVE_10;break;
+        case 12:  sText = LORD_SZGRAVE_11;break;
+        case 13: sText = LORD_SZGRAVE_12;break;
+        case 14: sText = LORD_SZGRAVE_13;break;
+        case 15:  sText = LORD_SZGRAVE_14;break;
+        case 16: sText = LORD_SZGRAVE_15;break;
+        case 17:  sText = LORD_SZGRAVE_16;break;
+        case 18: sText = LORD_SZGRAVE_17;break;
+        case 19: sText = LORD_SZGRAVE_18;break;
+        case 20:  sText = LORD_SZGRAVE_19;break;
+        case 21:  sText = LORD_SZGRAVE_20;break;
+        case 22:  sText = LORD_SZGRAVE_21;break;
+    }
+
+    sText = ReplaceString(sText, &quot;&lt;%name%&gt;&quot;, sName);
+    string sKiller = GetLocalString(oGrave,&quot;LORD_GRAVE_FIRSTUSE_NAME&quot;);
+    sText = ReplaceString(sText, &quot;&lt;%killer%&gt;&quot;, sKiller);
+
+    return sText;
+}
+
+
+void DoBurnObject()
+{
+            object oUser = GetLastUsedBy();
+            AssignCommand(oUser,ActionPlayAnimation(ANIMATION_LOOPING_GET_LOW,1.0f,2.0f));
+
+            SetPlotFlag(OBJECT_SELF,FALSE);
+            effect eFlame2 = EffectVisualEffect(VFX_IMP_FLAME_M);
+            effect eSmoke =  EffectVisualEffect(VFX_FNF_SMOKE_PUFF);
+            object oFlame = CreateObject(OBJECT_TYPE_PLACEABLE,&quot;plc_flamesmall&quot;,GetLocation(OBJECT_SELF));
+            DelayCommand(2.0f,PlaySound(&quot;al_na_firesmldr&quot;));
+            DelayCommand(2.0f,ApplyEffectToObject(DURATION_TYPE_PERMANENT,eSmoke, OBJECT_SELF));
+            DestroyObject(oFlame,5.0f);
+            DelayCommand(4.0f,ApplyEffectToObject(DURATION_TYPE_PERMANENT,eSmoke, OBJECT_SELF));
+            oFlame = CreateObject(OBJECT_TYPE_PLACEABLE,&quot;plc_flamemedium&quot;,GetLocation(OBJECT_SELF));
+            DestroyObject(oFlame,8.0f);
+            DelayCommand(4.0f,ApplyEffectToObject(DURATION_TYPE_PERMANENT,eFlame2, OBJECT_SELF));
+            DelayCommand(6.0f,ApplyEffectToObject(DURATION_TYPE_PERMANENT,eSmoke, OBJECT_SELF));
+            DelayCommand(7.0f,ApplyEffectToObject(DURATION_TYPE_PERMANENT,eFlame2, OBJECT_SELF));
+            DestroyObject(OBJECT_SELF,8.0f);
+            oFlame = CreateObject(OBJECT_TYPE_PLACEABLE,&quot;plc_weathmark&quot;,GetLocation(OBJECT_SELF));
+            DestroyObject(oFlame, 30.0f);
+}
+
+void main()
+{
+
+    string sTag = GetTag(OBJECT_SELF);
+    object oUser = GetLastUsedBy();
+
+    // Random Gravestone
+    if (sTag == &quot;lordo_randgrave&quot;)
+    {
+        ActionSpeakString(LordGetAmbGraveText());
+        return;
+    }
+    // Random Gravestone2
+    if (sTag == &quot;lordo_randgraveb&quot;)
+    {
+        if (GetLocalInt(OBJECT_SELF,&quot;NW_L_AMION&quot;) == 0)
+    {
+        PlayAnimation(ANIMATION_PLACEABLE_ACTIVATE);
+        DelayCommand(0.4,SetPlaceableIllumination(OBJECT_SELF, TRUE));
+        SetLocalInt(OBJECT_SELF,&quot;NW_L_AMION&quot;,1);
+        DelayCommand(0.5,RecomputeStaticLighting(GetArea(OBJECT_SELF)));
+    }
+    else
+    {
+        PlayAnimation(ANIMATION_PLACEABLE_DEACTIVATE);
+        DelayCommand(0.4,SetPlaceableIllumination(OBJECT_SELF, FALSE));
+        SetLocalInt(OBJECT_SELF,&quot;NW_L_AMION&quot;,0);
+        DelayCommand(0.9,RecomputeStaticLighting(GetArea(OBJECT_SELF)));
+    }
+        DelayCommand(1.2f,ActionSpeakString(LordGetAmbGraveText()));
+        return;
+    }
+
+    // Empty Grave
+
+    else if (sTag == &quot;lordo_egrave&quot;)
+    {
+
+        if (GetItemPossessedBy(oUser,&quot;lordi_corpse&quot;) != OBJECT_INVALID)
+        {
+         AssignCommand(oUser,ActionPlayAnimation(ANIMATION_LOOPING_GET_LOW,1.0f,3.0f));
+         DelayCommand(0.5f, PlaySound(&quot;as_cv_mineshovl3&quot;));
+         DestroyObject(GetItemPossessedBy(oUser,&quot;lordi_corpse&quot;), 2.0f);
+         DelayCommand(3.0f, GiveXPToCreature(oUser, LORD_INT_XP_FOR_RETURNING_CORPSES));
+         location lLoc = GetLocation(OBJECT_SELF);
+         DestroyObject(OBJECT_SELF, 3.0f);
+         GiveXPToCreature(oUser, d100(3));
+
+         DelayCommand(3.5f,CreatePLCWrapper(&quot;lordo_randgrave2&quot;,lLoc));
+        }
+        else
+        {
+            AssignCommand(oUser,ActionPlayAnimation(ANIMATION_FIREFORGET_BOW));
+            if (d2()==1)
+                AssignCommand(oUser, ActionSpeakString(&quot;A fresh empty grave, I wonder for whom...&quot;));
+            else
+                AssignCommand(oUser, ActionSpeakString(&quot;This grave is empty&quot;));
+        }
+
+    }
+
+    // Random Grave
+    else if (sTag == &quot;lordo_randgrave2&quot;)
+    {
+        ActionStartConversation(oUser,&quot;&quot;,TRUE);
+        return;
+    }
+    else if (sTag == &quot;lordo_corpsewag&quot;)
+    {
+         AssignCommand(oUser, ActionSpeakString(&quot;Lets see...&quot;));
+         AssignCommand(oUser,ActionPlayAnimation(ANIMATION_FIREFORGET_PAUSE_SCRATCH_HEAD,1.0f,3.0f));
+         effect eInsects = EffectAreaOfEffect(AOE_PER_CREEPING_DOOM,&quot;lord_dummy&quot;,&quot;lord_dummy&quot;,&quot;lord_dummy&quot;);
+         DelayCommand(0.1f,ApplyEffectAtLocation(DURATION_TYPE_TEMPORARY,eInsects,GetLocation(OBJECT_SELF),4.0f));
+         DelayCommand(3.0f,PlaySound(&quot;al_an_flies1&quot;));
+         if (d2()==1)
+             AssignCommand(oUser, ActionSpeakString(&quot;This is ... disgusting!&quot;));
+         else
+             AssignCommand(oUser, ActionSpeakString(&quot;That smell ... arg!&quot;));
+
+         if (FortitudeSave(oUser,14,SAVING_THROW_TYPE_POISON) == 0)
+         {
+             string sSnd = &quot;as_pl_hangoverm1&quot;;
+             if (GetGender(oUser) != GENDER_MALE)
+                sSnd = &quot;as_pl_hangoverf1&quot;;
+
+             AssignCommand(oUser,PlaySound(sSnd));
+             AssignCommand(oUser,ActionPlayAnimation(ANIMATION_FIREFORGET_BOW,1.0f,3.0f));
+             effect eVomit = EffectVisualEffect(VFX_COM_BLOOD_LRG_GREEN);
+             DelayCommand(3.0f, PlaySound(sSnd));
+             DelayCommand(3.0f, ApplyEffectToObject(DURATION_TYPE_TEMPORARY,eVomit,oUser,15.0f));
+             DelayCommand(3.2f,FloatingTextStringOnCreature(&quot;*vomit*&quot;, oUser));
+             DelayCommand(3.3f, ApplyEffectToObject(DURATION_TYPE_TEMPORARY,eVomit,oUser,15.0f));
+             AssignCommand(oUser,ActionPlayAnimation(ANIMATION_LOOPING_PAUSE_DRUNK,1.0f,5.0f));
+             AssignCommand(oUser, ActionSpeakString(&quot;I&#x27;m just not used to this!&quot;));
+        }
+        else
+        {
+          AssignCommand(oUser,PlayVoiceChat(VOICE_CHAT_LAUGH));
+          AssignCommand(oUser,ActionWait(1.5f));
+          AssignCommand(oUser,ActionSpeakString (&quot;Good that I&#x27;m blessed with a strong stomach&quot;));
+          CreateItemOnObject(&quot;lordi_corpse&quot;,oUser);
+        }
+
+       return;
+    }
+    // Corpse
+    else if (sTag == &quot;lordo_corpse&quot;)
+    {
+         if (FindSubString(GetStringUpperCase(GetName(GetItemInSlot(INVENTORY_SLOT_LEFTHAND, oUser))),&quot;TORCH&quot;) != -1)
+         {
+            AssignCommand(oUser, ActionSpeakString(&quot;Ashes to ashes, dust to dust...&quot;));
+            DoBurnObject();
+            return;
+         }
+        AssignCommand(oUser,ActionPlayAnimation(ANIMATION_LOOPING_GET_LOW,1.5f,3.0f));
+        DestroyObject(OBJECT_SELF);
+        CreateItemOnObject(&quot;lordi_corpse&quot;,oUser);
+        return;
+    }
+    // Impaled Corpse
+    else if (sTag == &quot;lordo_impcorpse&quot;)
+    {
+
+            if (GetAlignmentLawChaos(oUser) == ALIGNMENT_CHAOTIC)
+            {
+                 if (FindSubString(GetStringUpperCase(GetName(GetItemInSlot(INVENTORY_SLOT_LEFTHAND, oUser))),&quot;TORCH&quot;) != -1)
+                 {
+                    AssignCommand(oUser, ActionSpeakString(&quot;Let&#x27;s roast Spikey a bit!&quot;));
+                    DoBurnObject();
+                    return;
+                 }
+
+                 AssignCommand(oUser, ActionSpeakString(&quot;Let&#x27;s check Spikey for valueables...&quot;));
+                 {
+                   AssignCommand(oUser,ActionPlayAnimation(ANIMATION_LOOPING_GET_MID,1.5f,3.0f));
+                   effect eVomit = EffectVisualEffect(VFX_COM_BLOOD_LRG_RED);
+                   DelayCommand(1.5f,ApplyEffectToObject(DURATION_TYPE_INSTANT,eVomit,OBJECT_SELF));
+                   DelayCommand(2.3f,ApplyEffectToObject(DURATION_TYPE_INSTANT,eVomit,OBJECT_SELF));
+                   DelayCommand(2.3f,AssignCommand(oUser,PlayVoiceChat(VOICE_CHAT_LAUGH)));
+                   DelayCommand(2.5f,AssignCommand(oUser, ActionSpeakString(&quot;Nothing ... except for that stake&quot;)));
+
+                 }
+            }
+            else if (GetAlignmentLawChaos(oUser) == ALIGNMENT_NEUTRAL)
+            {
+                     if (FindSubString(GetStringUpperCase(GetName(GetItemInSlot(INVENTORY_SLOT_LEFTHAND, oUser))),&quot;TORCH&quot;) != -1)
+                     {
+                        AssignCommand(oUser, ActionSpeakString(&quot;Back to dust poor fellow!&quot;));
+                        DoBurnObject();
+                        return;
+                     }
+
+                  AssignCommand(oUser,ActionPlayAnimation(ANIMATION_FIREFORGET_HEAD_TURN_LEFT));
+                  AssignCommand(oUser,ActionPlayAnimation(ANIMATION_FIREFORGET_HEAD_TURN_RIGHT));
+                  AssignCommand(oUser,ActionSpeakString(&quot;What a waste of valuable human resources&quot;));
+            }
+            else if (GetAlignmentLawChaos(oUser) == ALIGNMENT_LAWFUL)
+            {
+                  AssignCommand(oUser,ActionSpeakString(&quot;Indeed an act of pure evil and vileness!!&quot;));
+                  AssignCommand(oUser,ActionPlayAnimation(ANIMATION_LOOPING_TALK_FORCEFUL,1.5f, 3.0f));
+                  AssignCommand(oUser,ActionSpeakString(&quot;This man deserves better, I shall remove him from that spike!&quot;));
+                  AssignCommand(oUser,ActionPlayAnimation(ANIMATION_LOOPING_GET_MID,1.5f,3.0f));
+                  location lLoc = GetLocation(OBJECT_SELF);
+                  DelayCommand(4.5f, DestroyObject(OBJECT_SELF,0.1f));
+                  DelayCommand(4.6f, CreatePLCWrapper(&quot;lordo_corpse&quot;,lLoc));
+
+            }
+
+
+    }
+    //diseased corpse
+    else if (sTag == &quot;lordo_dcorpse&quot;)
+    {
+
+         if (FindSubString(GetStringUpperCase(GetName(GetItemInSlot(INVENTORY_SLOT_LEFTHAND, oUser))),&quot;TORCH&quot;) != -1)
+         {
+            AssignCommand(oUser, ActionSpeakString(&quot;I better burn this corpse before somebody gets infected&quot;));
+            AssignCommand(oUser,ActionPlayAnimation(ANIMATION_LOOPING_GET_LOW,1.0f,2.0f));
+
+            DoBurnObject();
+
+         }
+            if (GetLocalInt(OBJECT_SELF,&quot;LORD_OBJECT_TRIGGERED&quot;))
+         {
+             AssignCommand(oUser,ActionPlayAnimation(ANIMATION_FIREFORGET_PAUSE_SCRATCH_HEAD));
+             AssignCommand(oUser, ActionSpeakString(&quot;This corpse looks maggot infested and already looted, I shouldn&#x27;t touch it&quot;));
+             return;
+         }
+         AssignCommand(oUser,ActionPlayAnimation(ANIMATION_LOOPING_GET_LOW,1.0f,4.0f));
+
+         effect eInsects = EffectAreaOfEffect(AOE_PER_CREEPING_DOOM,&quot;lord_dummy&quot;,&quot;lord_dummy&quot;,&quot;lord_dummy&quot;);
+         DelayCommand(2.0f,ApplyEffectAtLocation(DURATION_TYPE_TEMPORARY,eInsects,GetLocation(OBJECT_SELF),4.0f));
+         DelayCommand(2.0f,PlaySound(&quot;al_an_flies1&quot;));
+
+         if (d2()==1)
+             AssignCommand(oUser, ActionSpeakString(&quot;Eeek insects!&quot;));
+         else
+            AssignCommand(oUser, PlayVoiceChat(VOICE_CHAT_BADIDEA));
+
+         if (FortitudeSave(oUser,14,SAVING_THROW_TYPE_DISEASE) == 0)
+         {
+            effect eDisease;
+            if (d2()==1)
+                eDisease = EffectDisease(DISEASE_BURROW_MAGGOTS);
+            else
+                eDisease = EffectDisease(DISEASE_FILTH_FEVER);
+
+            ApplyEffectToObject(DURATION_TYPE_INSTANT, eDisease,oUser);
+        }
+
+        object oItem = GetFirstItemInInventory();
+        if (oItem == OBJECT_INVALID)
+        {
+           if (d2()==1)
+                AssignCommand(oUser, ActionSpeakString(&quot;Nothing except maggots!&quot;));
+           else
+               AssignCommand(oUser, ActionSpeakString(&quot;Nothing, I should burn this insect infested corpse&quot;));
+
+        }
+        SetLocalInt(OBJECT_SELF,&quot;LORD_OBJECT_TRIGGERED&quot;, TRUE);
+        return;
+
+    }
+    // Torture Equipment
+    else if (sTag == &quot;lordo_torteq1&quot;)
+    {
+       effect eDmg = EffectDamage(d6(20));
+       object oBlood;
+       int n = Random(7);
+       effect eFingerLost = EffectAbilityDecrease (ABILITY_DEXTERITY, 1);
+       object oRing = GetItemInSlot (INVENTORY_SLOT_RIGHTRING);
+
+       switch (n)
+       {
+           case 0:
+                AssignCommand(oUser,ActionSpeakString(&quot;Poor fellow, looks like a really squishy experience&quot;));
+                AssignCommand(oUser,ActionPlayAnimation(ANIMATION_LOOPING_GET_LOW,1.0f,4.0f));
+                DelayCommand(1.0f,ActionDoCommand(PlaySound(&quot;as_cv_winch1&quot;)));
+                AssignCommand(oUser,ActionSpeakString(&quot;It&#x27;s jammed!&quot;));
+                break;
+           case 1:
+                AssignCommand(oUser,ActionSpeakString(&quot;I wonder how this works...&quot;));
+                AssignCommand(oUser,ActionPlayAnimation(ANIMATION_LOOPING_GET_MID));
+                AssignCommand(oUser,ActionDoCommand(PlaySound(&quot;bf_med_insect&quot;)));
+                AssignCommand(oUser,PlayVoiceChat(VOICE_CHAT_PAIN1));
+                ApplyEffectToObject(DURATION_TYPE_INSTANT,eDmg, oUser);
+                DelayCommand(0.6f,CreatePLCWrapper(&quot;plc_bloodstain&quot;,GetLocation(oUser),10.0f));
+                DelayCommand(0.6f,FloatingTextStringOnCreature(&quot;*Squish*&quot;, oUser));
+                DelayCommand(1.0f, AssignCommand(oUser,ActionSpeakString(&quot;Wow, watch it, this thing is dangerous!&quot;)));
+                break;
+           case 2:
+                AssignCommand(oUser,ActionPlayAnimation(ANIMATION_LOOPING_GET_MID,1.0f,4.0f));
+                AssignCommand(oUser,ActionSpeakString(&quot;This torture equipment seems quite successful in making people remain silent&quot;));
+                break;
+           case 3:
+                AssignCommand(oUser,PlayVoiceChat(VOICE_CHAT_BADIDEA));
+                break;
+           case 4:
+                AssignCommand(oUser,ActionPlayAnimation(ANIMATION_LOOPING_GET_MID));
+                AssignCommand(oUser,ActionDoCommand(PlaySound(&quot;bf_med_insect&quot;)));
+                AssignCommand(oUser,PlayVoiceChat(VOICE_CHAT_PAIN2));
+                ApplyEffectToObject(DURATION_TYPE_INSTANT,eDmg, oUser);
+                DelayCommand(0.6f,FloatingTextStringOnCreature(&quot;*Squish*&quot;, oUser));
+                DelayCommand(0.6f,CreatePLCWrapper(&quot;plc_bloodstain&quot;,GetLocation(oUser),10.0f));
+                DelayCommand(1.0f, AssignCommand(oUser,ActionSpeakString(&quot;Oh my God, I just chopped my finger off!&quot;)));
+                ApplyEffectToObject( DURATION_TYPE_PERMANENT, eFingerLost, oUser);
+                CreateItemOnObject(&quot;severedfinger&quot;, oUser);
+                SetLocalInt(oUser,&quot;severedfinger&quot;,1);
+                ActionUnequipItem (oRing);
+                break;
+           case 5:
+               AssignCommand(oUser,ActionPlayAnimation(ANIMATION_FIREFORGET_PAUSE_SCRATCH_HEAD));
+               AssignCommand(oUser,ActionSpeakString(&quot;A most uncomfortable and unfortunate death&quot;));
+               break;
+       }
+       return;
+
+    }
+    // ambient comment trigger
+    else if (sTag == &quot;lordt_gyardcom1&quot;)
+    {
+
+
+        int nBreak = GetLocalInt(OBJECT_SELF,&quot;LORD_TRIGGER_SLEEPING&quot;);
+        if (nBreak)
+            return;
+
+        object oPC = GetEnteringObject(); // I know it is ugly as the script is labeled *_used, but on the other hand,
+                                          // its one less script in the module &lt;g&gt;
+
+        if (!GetIsPC(oPC) || GetIsDM(oPC)) // we do not want monster&#x27;s or DM&#x27;s  to comment on the grayeyard they live in ...
+            return;
+        int n = Random(6);
+        string sText;
+        switch (n)
+        {
+           case 0: sText =LORD_SZGYAMBIENT_00;
+                   break;
+           case 1: sText =LORD_SZGYAMBIENT_01;
+                   break;
+           case 2: sText =LORD_SZGYAMBIENT_02;
+                   break;
+           case 3: sText =LORD_SZGYAMBIENT_03;
+                   break;
+           case 4: sText =LORD_SZGYAMBIENT_04;
+                   break;
+           case 5: sText =LORD_SZGYAMBIENT_05;
+                   break;
+        }
+        //replace variables
+        sText =     ReplaceString(sText, &quot;&lt;%playername%&gt;&quot;, GetName(oPC));
+        sText =     ReplaceString(sText, &quot;&lt;%area%&gt;&quot;, GetName(GetArea(oPC)));
+        if (!GetIsInCombat(oPC))
+            AssignCommand(oPC, ClearAllActions());
+        AssignCommand(oPC, ActionSpeakString(sText));
+        // deactivate trigger
+        SetLocalInt(OBJECT_SELF,&quot;LORD_TRIGGER_SLEEPING&quot;,TRUE);
+        //reactivate trigger after 20 seconds
+        DelayCommand(20.0f,DeleteLocalInt(OBJECT_SELF,&quot;LORD_TRIGGER_SLEEPING&quot;));
+    }
+    else if (sTag == &quot;lordt_gyardcom2&quot;)
+    {
+
+
+        int nBreak = GetLocalInt(OBJECT_SELF,&quot;LORD_TRIGGER_SLEEPING&quot;);
+        if (nBreak)
+            return;
+        object oPC = GetEnteringObject();
+        if (!GetIsPC(oPC) || GetIsDM(oPC))
+            return;
+        int n = Random(6);
+        string sText;
+        switch (n)
+        {
+           case 0: sText =LORD_SZGYAMBIENTC_00;
+                   break;
+           case 1: sText =LORD_SZGYAMBIENTC_01;
+                   break;
+           case 2: sText =LORD_SZGYAMBIENTC_02;
+                   break;
+           case 3: sText =LORD_SZGYAMBIENTC_03;
+                   break;
+           case 4: sText =LORD_SZGYAMBIENTC_04;
+                   break;
+           case 5: sText =LORD_SZGYAMBIENTC_05;
+                   break;
+        }
+        //replace variables
+        sText =     ReplaceString(sText, &quot;&lt;%playername%&gt;&quot;, GetName(oPC));
+        sText =     ReplaceString(sText, &quot;&lt;%area%&gt;&quot;, GetName(GetArea(oPC)));
+        if (!GetIsInCombat(oPC))
+            AssignCommand(oPC, ClearAllActions());
+        AssignCommand(oPC, ActionSpeakString(sText));
+        // deactivate trigger
+        SetLocalInt(OBJECT_SELF,&quot;LORD_TRIGGER_SLEEPING&quot;,TRUE);
+
+        //reactivate trigger after 20 seconds
+        DelayCommand(20.0f,DeleteLocalInt(OBJECT_SELF,&quot;LORD_TRIGGER_SLEEPING&quot;));
+
+    }
+    else if (sTag == &quot;lordo_bones&quot; || sTag == &quot;lordo_corpse3&quot;)
+    {
+       if (GetLocalInt(OBJECT_SELF,&quot;NW_L_DOONCE&quot;) == 0)
+       {
+        if (!GyardCreateRandomTreasure(OBJECT_SELF))
+        {
+            SendMessageToPC(oUser,&quot;As you touch the remains of a human body, they crumble to dust&quot;);
+            DestroyObject(OBJECT_SELF);
+        }
+        SetLocalInt(OBJECT_SELF,&quot;NW_L_DOONCE&quot;,1);
+       }
+       else
+       {
+            DestroyObject(OBJECT_SELF);
+            SendMessageToPC(oUser,&quot;As you touch the remains of a human body, they crumble to dust&quot;);
+       }
+
+    }
+    else if (sTag == &quot;lordo_gmemo&quot;)
+    {
+        string sDeity = GetName(OBJECT_SELF);
+        SendMessageToPC(oUser, &quot;You take some time to pray at the &quot; + sDeity );
+        AssignCommand(oUser,ActionPlayAnimation(ANIMATION_LOOPING_MEDITATE,1.0f,6.0f));
+        effect eLight =  EffectVisualEffect(VFX_DUR_LIGHT_YELLOW_10);
+        DelayCommand(6.0f, SendMessageToPC(oUser,&quot;You feel enlighted!&quot;));
+        DelayCommand(6.0f,ApplyEffectToObject(DURATION_TYPE_TEMPORARY,eLight,oUser,45.0f));
+    }
+}
+</code></pre>
+  </main>
+  <footer>generated by <a href="https://github.com/mrprice22/nwn-manager">nwn-manager</a> &mdash; last updated Jun 3, 2026 12:42</footer>
+</body>
+</html>

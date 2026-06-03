@@ -1,0 +1,468 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Script dmw_start_inc</title>
+  <link rel="stylesheet" href="../assets/style.css">
+  <link rel="stylesheet" href="../assets/theme.css">
+  <link rel="icon" href="../assets/favicon.png">
+</head>
+<body>
+  <header class="site-header">
+    <a class="brand" href="../index.html"><img class="site-header-img" src="../assets/header.png" alt="Home"></a>
+    <nav>
+      <a href="../index.html">Map</a>
+      <a href="../areas/index.html">Areas</a>
+      <div class="nav-dropdown">
+        <span class="nav-dropdown-label">Creatures &#9660;</span>
+        <div class="nav-dropdown-menu">
+          <a href="../creatures/index.html">All Creatures</a>
+          <a href="../creatures/by-area/index.html">By Area</a>
+          <a href="../creatures/by-cr/index.html">By Challenge Rating</a>
+          <a href="../creatures/by-race/index.html">By Race</a>
+        </div>
+      </div>
+      <div class="nav-dropdown">
+        <span class="nav-dropdown-label">Items &#9660;</span>
+        <div class="nav-dropdown-menu">
+          <a href="../items/index.html">Accessible</a>
+          <a href="../items/inaccessible/index.html">Inaccessible</a>
+          <a href="../items/properties/index.html">By Property</a>
+          <a href="../items/search.html">Search</a>
+        </div>
+      </div>
+      <a href="../stores/index.html">Stores</a>
+      <a href="../conversations/index.html">Conversations</a>
+      <a href="../factions.html">Factions</a>
+      <a href="../quests/index.html">Quests</a>
+      <a href="../activity.html">Activity</a>
+      <div class="nav-dropdown"><span class="nav-dropdown-label">Documents &#9660;</span><div class="nav-dropdown-menu"><a href="../manual/LevelingGuide.html">Leveling Guide</a>
+<a href="../manual/MeaningWave.html">MeaningWave: A Guide to the Guides</a>
+<a href="../manual/Quest Ideas.html">Quest Ideas (Draft Concepts)</a>
+<a href="../manual/QuestGuide.html">Quest Guide</a></div></div>
+    </nav>
+  </header>
+  <main>
+<h1>Script: <code>dmw_start_inc</code></h1><pre class="nss-source"><code>#include &quot;dmw_proto_inc&quot;
+#include &quot;dmw_test_inc&quot;
+
+int dmw_conv_Start(int nCurrent, int nChoice, string sParams = &quot;&quot;)
+{
+   string sText = &quot;&quot;;
+   string sCall = &quot;&quot;;
+   string sCallParams = &quot;&quot;;
+
+   switch(nCurrent)
+   {
+      case 0:
+         nCurrent = 0;
+         sText =       &quot;Hello there, DM.  What can I do for you?&quot;;
+         sCall =       &quot;&quot;;
+         sCallParams = &quot;&quot;;
+         break;
+      case 1:
+         nCurrent = 1;
+         if(dmwand_istargetpcornpc())
+         {
+            sText =       &quot;Display this creature&#x27;s attributes.&quot;;
+            sCall =       &quot;conv_DispAttribs&quot;;
+            sCallParams = &quot;&quot;;
+            break;
+         }
+      case 2:
+         nCurrent = 2;
+         if(dmwand_istargetpcornpc())
+         {
+            sText =       &quot;Change this creature&#x27;s alignment.&quot;;
+            sCall =       &quot;conv_ChangeAlign&quot;;
+            sCallParams = &quot;&quot;;
+            break;
+         }
+      case 3:
+         nCurrent = 3;
+         if(dmwand_istargetpcornpcnme())
+         {
+            sText =       &quot;Map area out for this player.&quot;;
+            sCall =       &quot;func_MapArea&quot;;
+            sCallParams = &quot;&quot;;
+            break;
+         }
+      case 4:
+         nCurrent = 4;
+         if(dmwand_istargetinventory())
+         {
+            sText =       &quot;Work with this object&#x27;s inventory.&quot;;
+            sCall =       &quot;conv_Inventory&quot;;
+            sCallParams = &quot;&quot;;
+            break;
+         }
+     case 5:
+         nCurrent = 5;
+         if(dmwand_istargetpcornpcnme())
+         {
+            sText =       &quot;Follow this creature.&quot;;
+            sCall =       &quot;func_FollowTarget&quot;;
+            sCallParams = &quot;&quot;;
+            break;
+         }
+      case 6:
+         nCurrent = 6;
+         if(dmwand_istargetpcornpcnme())
+         {
+            sText =       &quot;Make this creature follow me.&quot;;
+            sCall =       &quot;func_FollowMe&quot;;
+            sCallParams = &quot;&quot;;
+            break;
+         }
+      case 7:
+         nCurrent = 7;
+         if(dmwand_istargetpcornpcnme())
+         {
+            sText =       &quot;Make this creature go about its business.&quot;;
+            sCall =       &quot;func_ResumeDefault&quot;;
+            sCallParams = &quot;&quot;;
+            break;
+         }
+      case 8:
+         nCurrent = 8;
+         if(dmwand_istargetpcnme())
+         {
+            sText =       &quot;Penguin this player.&quot;;
+            sCall =       &quot;func_Toad&quot;;
+            sCallParams = &quot;&quot;;
+            break;
+         }
+      case 9:
+         nCurrent = 9;
+         if(dmwand_istargetpcnme())
+         {
+            sText =       &quot;Unpenguin this player.&quot;;
+            sCall =       &quot;func_Untoad&quot;;
+            sCallParams = &quot;&quot;;
+            break;
+         }
+      case 10:
+         nCurrent = 10;
+         if(dmwand_istargetpcnme())
+         {
+            sText =       &quot;Boot this player.&quot;;
+            sCall =       &quot;func_KickPC&quot;;
+            sCallParams = &quot;&quot;;
+            break;
+         }
+      case 11:
+         nCurrent = 11;
+         if(dmwand_istargetnpc())
+         {
+            sText =       &quot;Kill this, leaving a corpse.&quot;;
+            sCall =       &quot;func_KillAndReplace&quot;;
+            sCallParams = &quot;&quot;;
+            break;
+         }
+      case 12:
+         nCurrent = 12;
+         if(dmwand_istargetinvalid())
+         {
+            sText =       &quot;List all players...&quot;;
+            sCall =       &quot;conv_ListPlayers&quot;;
+            sCallParams = &quot;func_PlayerListConv&quot;;
+            break;
+         }
+      case 13:
+         nCurrent = 13;
+         if(dmwand_istargetinvalid())
+         {
+            sText =       &quot;Advance the current time of day.&quot;;
+            sCall =       &quot;conv_TimeOfDay&quot;;
+            sCallParams = &quot;&quot;;
+            break;
+         }
+      case 14:
+         nCurrent = 14;
+         if(dmwand_istargetinvalid())
+         {
+            sText =       &quot;Reload the current running module.&quot;;
+            sCall =       &quot;func_ReloadModule&quot;;
+            sCallParams = &quot;&quot;;
+            break;
+         }
+      case 15:
+         nCurrent = 15;
+         if(dmwand_istargetpcornpc())
+         {
+            sText =       &quot;Roll a skill check.&quot;;
+            sCall =       &quot;conv_Roll&quot;;
+            sCallParams = &quot;skill__&quot;;
+            break;
+         }
+      case 16:
+         nCurrent = 16;
+         if(dmwand_istargetpcornpc())
+         {
+            sText =       &quot;Roll an ability check.&quot;;
+            sCall =       &quot;conv_Roll&quot;;
+            sCallParams = &quot;ability&quot;;
+            break;
+         }
+      case 17:
+         nCurrent = 17;
+         if(dmwand_istargetdestroyable())
+         {
+            sText =       &quot;Destroy this object.&quot;;
+            sCall =       &quot;func_DestroyTarget&quot;;
+            sCallParams = &quot;&quot;;
+            break;
+         }
+      case 18:
+         nCurrent = 18;
+         if((!dmwand_istargetdestroyable()) &amp;&amp; dmwand_isnearbydestroyable())
+         {
+            sText =       &quot;Destroy an object near this spot.&quot;;
+            sCall =       &quot;func_DestroyNearbyTarget&quot;;
+            sCallParams = &quot;&quot;;
+            break;
+         }
+      case 19:
+         nCurrent = 19;
+         if(dmwand_istargetdestroyable())
+         {
+            sText =       &quot;Turn this object on.&quot;;
+            sCall =       &quot;func_TurnTargetOn&quot;;
+            sCallParams = &quot;&quot;;
+            break;
+         }
+      case 20:
+         nCurrent = 20;
+         if(dmwand_istargetdestroyable())
+         {
+            sText =       &quot;Turn this object off.&quot;;
+            sCall =       &quot;func_TurnTargetOff&quot;;
+            sCallParams = &quot;&quot;;
+            break;
+         }
+      case 21:
+         nCurrent = 21;
+         if((!dmwand_istargetdestroyable()) &amp;&amp; dmwand_isnearbydestroyable())
+         {
+            sText =       &quot;Turn on an object near this spot.&quot;;
+            sCall =       &quot;func_TurnNearOn&quot;;
+            sCallParams = &quot;&quot;;
+            break;
+         }
+      case 22:
+         nCurrent = 22;
+         if((!dmwand_istargetdestroyable()) &amp;&amp; dmwand_isnearbydestroyable())
+         {
+            sText =       &quot;Turn off an object near this spot.&quot;;
+            sCall =       &quot;func_TurnNearOff&quot;;
+            sCallParams = &quot;&quot;;
+            break;
+         }
+      case 23:
+         nCurrent = 23;
+         if(dmwand_istargetnpc())
+         {
+            sText =       &quot;Change a player&#x27;s reputation with this creature&#x27;s faction.&quot;;
+            sCall =       &quot;conv_ModRep&quot;;
+            sCallParams = &quot;one&quot;;
+            break;
+         }
+      case 24:
+         nCurrent = 24;
+         if(dmwand_istargetnpc())
+         {
+            sText =       &quot;Change all player reputations with this creature&#x27;s faction.&quot;;
+            sCall =       &quot;conv_ModRep&quot;;
+            sCallParams = &quot;all&quot;;
+            break;
+         }
+      case 25:
+         nCurrent = 25;
+         if(dmwand_istargetinvalid())
+         {
+            sText =       &quot;Export all characters.&quot;;
+            sCall =       &quot;func_ExportChars&quot;;
+            sCallParams = &quot;&quot;;
+            break;
+         }
+      case 26:
+         nCurrent = 26;
+         if(dmwand_istargetpcnme())
+         {
+            sText =       &quot;Join this player&#x27;s party.&quot;;
+            sCall =       &quot;func_JoinParty&quot;;
+            sCallParams = &quot;&quot;;
+            break;
+         }
+      case 27:
+         nCurrent = 27;
+         if(dmwand_istargetinvalid())
+         {
+            sText =       &quot;Remove me from my current party.&quot;;
+            sCall =       &quot;func_LeaveParty&quot;;
+            sCallParams = &quot;&quot;;
+            break;
+         }
+      case 28:
+         nCurrent = 28;
+         if(dmwand_istargetpcnme())
+         {
+            sText =       &quot;Jump this player to my location.&quot;;
+            sCall =       &quot;func_JumpPlayerHere&quot;;
+            sCallParams = &quot;&quot;;
+            break;
+         }
+      case 29:
+         nCurrent = 29;
+         if(dmwand_istargetpcnme())
+         {
+            sText =       &quot;Jump me to this player&#x27;s location.&quot;;
+            sCall =       &quot;func_JumpToPlayer&quot;;
+            sCallParams = &quot;&quot;;
+            break;
+         }
+      default:
+         nCurrent = 0;
+         sText =       &quot;&quot;;
+         sCall =       &quot;&quot;;
+         sCallParams = &quot;&quot;;
+         break;
+   }
+
+   SetLocalString(oMySpeaker, &quot;dmw_dialog&quot; + IntToString(nChoice), sText);
+   SetLocalString(oMySpeaker, &quot;dmw_function&quot; + IntToString(nChoice), sCall);
+   SetLocalString(oMySpeaker, &quot;dmw_params&quot; + IntToString(nChoice), sCallParams);
+
+   return nCurrent;
+}
+
+int dmwand_BuildConversationDialog(int nCurrent, int nChoice, string sConversation, string sParams)
+{
+   if(TestStringAgainstPattern(sConversation, &quot;Start&quot;))
+   {
+      return dmw_conv_Start(nCurrent, nChoice, sParams);
+   }
+   return FALSE;
+}
+
+void dmwand_BuildConversation(string sConversation, string sParams)
+{
+   int nLast;
+   int nTemp;
+   int nChoice = 1;
+   int nCurrent = 1;
+   int nMatch;
+
+   if(TestStringAgainstPattern(sParams, &quot;prev&quot;))
+   {
+      //Get the number choice to start with
+      nCurrent = GetLocalInt(oMySpeaker, &quot;dmw_dialogprev&quot;);
+
+      //Since we&#x27;re going to the previous page, there will be a next
+      SetLocalString(oMySpeaker, &quot;dmw_dialog9&quot;, &quot;Next -&gt;&quot;);
+      SetLocalString(oMySpeaker, &quot;dmw_function9&quot;, &quot;conv_&quot; + sConversation);
+      SetLocalString(oMySpeaker, &quot;dmw_params9&quot;, &quot;next&quot;);
+      SetLocalInt(oMySpeaker, &quot;dmw_dialognext&quot;, nCurrent);
+
+      nChoice = 8;
+      for(;nChoice &gt;= 0; nChoice--)
+      {
+         int nTemp1 = nCurrent;
+         int nTemp2 = nCurrent;
+         nMatch = nTemp2;
+         while((nCurrent == nMatch) &amp;&amp; (nTemp2 &gt; 0))
+         {
+            nTemp2--;
+            nMatch = dmwand_BuildConversationDialog(nTemp2, nChoice, sConversation, sParams);
+         }
+
+         if(nTemp2 &lt;= 0)
+         {
+            //we went back too far for some reason, so make this choice blank
+            SetLocalString(oMySpeaker, &quot;dmw_dialog&quot; + IntToString(nChoice), &quot;&quot;);
+            SetLocalString(oMySpeaker, &quot;dmw_function&quot; + IntToString(nChoice), &quot;&quot;);
+            SetLocalString(oMySpeaker, &quot;dmw_params&quot; + IntToString(nChoice), &quot;&quot;);
+         }
+         nLast = nTemp;
+         nTemp = nTemp1;
+         nTemp1 = nMatch;
+         nCurrent = nMatch;
+      }
+
+      if(nMatch &gt; 0)
+      {
+         SetLocalString(oMySpeaker, &quot;dmw_dialog1&quot;, &quot;&lt;- previous&quot;);
+         SetLocalString(oMySpeaker, &quot;dmw_function1&quot;, &quot;conv_&quot; + sConversation);
+         SetLocalString(oMySpeaker, &quot;dmw_params1&quot;, &quot;prev&quot;);
+         SetLocalInt(oMySpeaker, &quot;dmw_dialogprev&quot;, nLast);
+      }
+
+      //fill the NPC&#x27;s dialog spot
+      //(saved for last because the build process tromps on it)
+      dmwand_BuildConversationDialog(0, 0, sConversation, sParams);
+   }
+   else
+   {
+      //fill the NPC&#x27;s dialog spot
+      dmwand_BuildConversationDialog(0, 0, sConversation, sParams);
+
+      //No parameters specified, start at the top of the conversation
+      if(sParams == &quot;&quot;)
+      {
+         nChoice = 1;
+         nCurrent = 1;
+      }
+
+      //A &quot;next-&gt;&quot; choice was selected
+      if(TestStringAgainstPattern(sParams, &quot;next&quot;))
+      {
+         //get the number choice to start with
+         nCurrent = GetLocalInt(oMySpeaker, &quot;dmw_dialognext&quot;);
+
+         //set this as the number for the &quot;previous&quot; choice to use
+         SetLocalInt(oMySpeaker, &quot;dmw_dialogprev&quot;, nCurrent);
+
+         //Set the first dialog choice to be &quot;previous&quot;
+         nChoice = 2;
+         SetLocalString(oMySpeaker, &quot;dmw_dialog1&quot;, &quot;&lt;- Previous&quot;);
+         SetLocalString(oMySpeaker, &quot;dmw_function1&quot;, &quot;conv_&quot; + sConversation);
+         SetLocalString(oMySpeaker, &quot;dmw_params1&quot;, &quot;prev&quot;);
+      }
+
+      //Loop through to build the dialog list
+      for(;nChoice &lt;= 10; nChoice++)
+      {
+         nMatch = dmwand_BuildConversationDialog(nCurrent, nChoice, sConversation, sParams);
+         //nLast will be the value of the choice before the last one
+         nLast = nTemp;
+         nTemp = nMatch;
+         if(nMatch &gt; 0) { nCurrent = nMatch; }
+         if(nMatch == 0) { nLast = 0; }
+         nCurrent++;
+      }
+
+      //If there were enough choices to fill 10 spots, make spot 9 a &quot;next&quot;
+      if(nLast &gt; 0)
+      {
+         SetLocalString(oMySpeaker, &quot;dmw_dialog9&quot;, &quot;Next -&gt;&quot;);
+         SetLocalString(oMySpeaker, &quot;dmw_function9&quot;, &quot;conv_&quot; + sConversation);
+         SetLocalString(oMySpeaker, &quot;dmw_params9&quot;, &quot;next&quot;);
+         SetLocalInt(oMySpeaker, &quot;dmw_dialognext&quot;, nLast);
+      }
+   }
+}
+
+void dmwand_StartConversation()
+{
+   if(! GetIsObjectValid(oMySpeaker))
+   {
+      return;
+   }
+
+   dmwand_BuildConversation(&quot;Start&quot;, &quot;&quot;);
+}
+</code></pre>
+  </main>
+  <footer>generated by <a href="https://github.com/mrprice22/nwn-manager">nwn-manager</a> &mdash; last updated Jun 3, 2026 12:42</footer>
+</body>
+</html>

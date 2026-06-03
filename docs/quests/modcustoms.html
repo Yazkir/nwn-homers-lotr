@@ -1,0 +1,112 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Quest: Module Customizations</title>
+  <link rel="stylesheet" href="../assets/style.css">
+  <link rel="stylesheet" href="../assets/theme.css">
+  <link rel="icon" href="../assets/favicon.png">
+</head>
+<body>
+  <header class="site-header">
+    <a class="brand" href="../index.html"><img class="site-header-img" src="../assets/header.png" alt="Home"></a>
+    <nav>
+      <a href="../index.html">Map</a>
+      <a href="../areas/index.html">Areas</a>
+      <div class="nav-dropdown">
+        <span class="nav-dropdown-label">Creatures &#9660;</span>
+        <div class="nav-dropdown-menu">
+          <a href="../creatures/index.html">All Creatures</a>
+          <a href="../creatures/by-area/index.html">By Area</a>
+          <a href="../creatures/by-cr/index.html">By Challenge Rating</a>
+          <a href="../creatures/by-race/index.html">By Race</a>
+        </div>
+      </div>
+      <div class="nav-dropdown">
+        <span class="nav-dropdown-label">Items &#9660;</span>
+        <div class="nav-dropdown-menu">
+          <a href="../items/index.html">Accessible</a>
+          <a href="../items/inaccessible/index.html">Inaccessible</a>
+          <a href="../items/properties/index.html">By Property</a>
+          <a href="../items/search.html">Search</a>
+        </div>
+      </div>
+      <a href="../stores/index.html">Stores</a>
+      <a href="../conversations/index.html">Conversations</a>
+      <a href="../factions.html">Factions</a>
+      <a href="../quests/index.html">Quests</a>
+      <a href="../activity.html">Activity</a>
+      <div class="nav-dropdown"><span class="nav-dropdown-label">Documents &#9660;</span><div class="nav-dropdown-menu"><a href="../manual/LevelingGuide.html">Leveling Guide</a>
+<a href="../manual/MeaningWave.html">MeaningWave: A Guide to the Guides</a>
+<a href="../manual/Quest Ideas.html">Quest Ideas (Draft Concepts)</a>
+<a href="../manual/QuestGuide.html">Quest Guide</a></div></div>
+    </nav>
+  </header>
+  <main>
+<p><a href="index.html">&larr; All quests</a></p>
+<h1>Module Customizations</h1>
+<p>Group: <a href="index.html#group-server-info">Server Info</a> &middot; Tag: <code>modcustoms</code> &middot; Priority: Lowest</p>
+<table class="data"><thead><tr><th>ID</th><th></th><th>Journal text</th><th>Awarded by</th></tr></thead><tbody><tr><td>1</td><td><span class="badge">final</span></td><td>=== Module Customizations ===
+
+This module includes custom changes to spells, appearance, and leveling. Read on for an overview.
+
+--- Epic Spell Enhancements ---
+
+Epic spells have been greatly improved beyond standard NWN:
+
+Dragon Knight: Summons a level-60 Fighter Red Dragon (CR 123, 540 HP, Str/Dex/Con/Cha 40). Duration 30 rounds. Cannot be dispelled.
+
+Mummy Dust: Summons a dual-class level-60 undead warrior (CR 212, 520 HP). Duration 30 hours. Cannot be dispelled.
+
+Epic Ward: Damage Reduction 60/+20. Cannot be dispelled. Duration scales with caster level.
+
+Hellball: 10d20 of each damage type (Acid, Electrical, Fire, Sonic) in a massive area. Reflex save for partial reduction. Causes knockdown if total damage exceeds 200.
+
+Greater Ruin: Up to 5000 damage (10d20 x25) to a single target. Fortitude save for partial reduction.
+
+Curse Song (Bard): Fully custom scaling across 30+ tiers based on Perform skill and level. At high ranks: -15 attack, -15 AC, -7 all saves, -18 all skills, and 98 sonic damage in a colossal radius.
+
+--- Other Spell Changes ---
+
+Summon Creature (I-IX): Fixed duration of 24 hours (no longer scales with level).
+
+Time Stop: Disabled. Cannot be cast.
+
+--- Spells/Systems NOT Changed (Stock Standard) ---
+
+The following are commonly modified on other servers but are left at standard NWN behavior here:
+
+True Seeing: Works exactly as written - penetrates all illusions and invisibility. No nerfs.
+
+Stealth/Hide: Standard mechanics. No custom detection bonuses or penalties beyond what the ruleset provides.
+
+Subraces: No subrace system. All characters use standard NWN races with default racial bonuses only.
+
+--- Appearance Customization ---
+
+Player Appearance (Bree): Talk to one of the cows in Bree to access an appearance menu with 315+ creature forms. This is free and permanent until changed again.
+
+Item Appearance Crafting: Armor and weapon appearance can be remodelled using the CEP crafting system (accessed via the Craft Armor/Weapon skill in conversation). No fail chance - all appearance changes succeed automatically regardless of skill level.
+
+--- Legendary Leveling: Levels 41-60 ---
+
+Once you reach level 40, you may continue advancing to level 60 through the Legendary Leveling system. Speak to the Legendary Leveler NPC in the Legendary Leveling area to advance.
+
+On each Legendary level-up you WILL gain:
+  - Skill points
+  - Hit Points (based on your highest-class hit die, not caster level)
+  - Ability score increases (at standard intervals)
+  - Feats (one selectable feat per level)
+
+On each Legendary level-up you will NOT gain:
+  - Caster level increases (spell power does not grow past level 40)
+  - New spell slots or spell levels
+  - Class-based progression (no new class features, BAB, or saving throw improvements)
+
+In short: Legendary levels make you tougher and more versatile through raw stats and feats, but do not increase spellcasting power.
+
+XP required climbs steeply - from ~49,000 per level at 41 to over 3,000,000 for level 60 (total ~17.5M XP to reach 60).</td><td><a href="../scripts/hgll_cliententer.html">hgll_cliententer</a></td></tr></tbody></table>
+  </main>
+  <footer>generated by <a href="https://github.com/mrprice22/nwn-manager">nwn-manager</a> &mdash; last updated Jun 3, 2026 12:42</footer>
+</body>
+</html>

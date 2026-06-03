@@ -1,0 +1,236 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Conversation glorfind</title>
+  <link rel="stylesheet" href="../assets/style.css">
+  <link rel="stylesheet" href="../assets/theme.css">
+  <link rel="icon" href="../assets/favicon.png">
+</head>
+<body>
+  <header class="site-header">
+    <a class="brand" href="../index.html"><img class="site-header-img" src="../assets/header.png" alt="Home"></a>
+    <nav>
+      <a href="../index.html">Map</a>
+      <a href="../areas/index.html">Areas</a>
+      <div class="nav-dropdown">
+        <span class="nav-dropdown-label">Creatures &#9660;</span>
+        <div class="nav-dropdown-menu">
+          <a href="../creatures/index.html">All Creatures</a>
+          <a href="../creatures/by-area/index.html">By Area</a>
+          <a href="../creatures/by-cr/index.html">By Challenge Rating</a>
+          <a href="../creatures/by-race/index.html">By Race</a>
+        </div>
+      </div>
+      <div class="nav-dropdown">
+        <span class="nav-dropdown-label">Items &#9660;</span>
+        <div class="nav-dropdown-menu">
+          <a href="../items/index.html">Accessible</a>
+          <a href="../items/inaccessible/index.html">Inaccessible</a>
+          <a href="../items/properties/index.html">By Property</a>
+          <a href="../items/search.html">Search</a>
+        </div>
+      </div>
+      <a href="../stores/index.html">Stores</a>
+      <a href="../conversations/index.html">Conversations</a>
+      <a href="../factions.html">Factions</a>
+      <a href="../quests/index.html">Quests</a>
+      <a href="../activity.html">Activity</a>
+      <div class="nav-dropdown"><span class="nav-dropdown-label">Documents &#9660;</span><div class="nav-dropdown-menu"><a href="../manual/LevelingGuide.html">Leveling Guide</a>
+<a href="../manual/MeaningWave.html">MeaningWave: A Guide to the Guides</a>
+<a href="../manual/Quest Ideas.html">Quest Ideas (Draft Concepts)</a>
+<a href="../manual/QuestGuide.html">Quest Guide</a></div></div>
+    </nav>
+  </header>
+  <main>
+<h1>Conversation: <code>glorfind</code></h1>
+<dl class="meta">
+<dt>NPC lines</dt><dd>11</dd>
+<dt>PC replies</dt><dd>13</dd>
+<dt>NumWords</dt><dd>377</dd>
+<dt>OnEnd</dt><dd><code>nw_walk_wp</code></dd>
+<dt>OnAbort</dt><dd><code>nw_walk_wp</code></dd>
+</dl>
+<h2>Triggered by</h2><ul class="dlg-callers">
+<li><span class="badge">creature</span> NPC <a href="../creatures/glorfindel002.html">Glorfindel</a> <code>glorfindel002</code> — in <a href="../areas/thevalleyofriven.html">The Valley of Rivendell</a></li>
+<li><span class="badge">creature</span> NPC <a href="../creatures/glorfindel002.html">Glorfindel</a> — in <a href="../areas/thevalleyofriven.html">The Valley of Rivendell</a></li>
+</ul>
+<h2>Scripts referenced</h2>
+<table class="data"><thead><tr><th>Script</th><th>Slot</th><th>In module</th><th>Notes</th></tr></thead><tbody><tr><td><code>sc_004</code></td><td>active</td><td>✓</td><td></td></tr>
+<tr><td><code>glorrew</code></td><td>action</td><td>✓</td><td></td></tr>
+<tr><td><code>at_011</code></td><td>action</td><td>✓</td><td></td></tr>
+<tr><td><code>at_012</code></td><td>action</td><td>✓</td><td></td></tr>
+<tr><td><code>sc_005</code></td><td>active</td><td>✓</td><td></td></tr>
+<tr><td><code>sc_006</code></td><td>active</td><td>✓</td><td></td></tr></tbody></table>
+<h2>Items checked</h2><p class="muted">These items' tags are checked via <code>GetItemPossessedBy</code> in this conversation's scripts:</p><ul><li><a href="../items/athelas.html">Athelas</a></li><li><a href="../items/it_msmlmisc013.html">Athelas</a></li><li><a href="../items/essenseoficed.html">Essense of Ice Drake</a></li><li><a href="../items/stonefromarath.html">Stone from Arathorn</a></li></ul>
+<h2>Starting entries</h2><ul>
+<li><a href="#e9">entry #9</a> <small class="muted">(if <code>sc_005</code>)</small> — Have you found all the Ingredients for the Curative potion?</li>
+<li><a href="#e8">entry #8</a> <small class="muted">(if <code>sc_006</code>)</small> — I am glad to see you again . A light shines upon our meeting.</li>
+<li><a href="#e0">entry #0</a> — Greetings , It is a fine  for a walk about the woods is it not?</li>
+</ul>
+<h2>Conversation flow</h2>
+<p class="muted">Each starting entry is expanded recursively. Repeated nodes (cycles, shared continuations) appear inline as <code>↩ link</code> backrefs to the first occurrence.</p>
+<div class="dlg-tree">
+<details class="dlg-tree-node entry" open>
+<summary><span class="dlg-id">entry #9</span> <small class="muted">(if <code>sc_005</code>)</small> <a class="dlg-anchor" href="#e9" title="jump to flat entry #9">¶</a></summary>
+<div class="dlg-text">Have you found all the Ingredients for the Curative potion?</div>
+<div class="dlg-tree-children">
+<details class="dlg-tree-node reply" open>
+<summary><span class="dlg-id">reply #12</span> <a class="dlg-anchor" href="#r12" title="jump to flat reply #12">¶</a></summary>
+<div class="dlg-text">Nope still looking thanks.</div>
+</details>
+<details class="dlg-tree-node reply" open>
+<summary><span class="dlg-id">reply #10</span> <small class="muted">(if <code>sc_004</code>)</small> <a class="dlg-anchor" href="#r10" title="jump to flat reply #10">¶</a></summary>
+<div class="dlg-text">Yes I have, I went through great pains to recover them all.</div>
+<div class="dlg-tree-children">
+<details class="dlg-tree-node entry" open>
+<summary><span class="dlg-id">entry #10</span> <span class="dlg-action">→ <code>glorrew</code></span> <a class="dlg-anchor" href="#e10" title="jump to flat entry #10">¶</a></summary>
+<div class="dlg-text">Your bravery is of unparalleled stature, and I salute you as an equal. For your troubles please accept this token of mine. My bracers, they have served me well and may they be a symbol of our friendship.</div>
+<div class="dlg-tree-children">
+<details class="dlg-tree-node reply" open>
+<summary><span class="dlg-id">reply #11</span> <span class="dlg-action">→ <code>at_012</code></span> <a class="dlg-anchor" href="#r11" title="jump to flat reply #11">¶</a></summary>
+<div class="dlg-text">Thanks Glrofindel was a long haul, but worth the valuable potion.</div>
+</details>
+</div>
+</details>
+</div>
+</details>
+</div>
+</details>
+<details class="dlg-tree-node entry" open>
+<summary><span class="dlg-id">entry #8</span> <small class="muted">(if <code>sc_006</code>)</small> <a class="dlg-anchor" href="#e8" title="jump to flat entry #8">¶</a></summary>
+<div class="dlg-text">I am glad to see you again &lt;FirstName&gt;. A light shines upon our meeting.</div>
+</details>
+<details class="dlg-tree-node entry" open>
+<summary><span class="dlg-id">entry #0</span> <a class="dlg-anchor" href="#e0" title="jump to flat entry #0">¶</a></summary>
+<div class="dlg-text">Greetings &lt;FullName&gt;, It is a fine &lt;quarterday&gt; for a walk about the woods is it not? </div>
+<div class="dlg-tree-children">
+<details class="dlg-tree-node reply" open>
+<summary><span class="dlg-id">reply #0</span> <a class="dlg-anchor" href="#r0" title="jump to flat reply #0">¶</a></summary>
+<div class="dlg-text">You know me?</div>
+<div class="dlg-tree-children">
+<details class="dlg-tree-node entry" open>
+<summary><span class="dlg-id">entry #1</span> <a class="dlg-anchor" href="#e1" title="jump to flat entry #1">¶</a></summary>
+<div class="dlg-text">The Rangers of the North have sent word to me of your deeds in this land. But come now. I bore you with trivial details. Are you interested in perhaps helping me with something?</div>
+<div class="dlg-tree-children">
+<details class="dlg-tree-node reply" open>
+<summary><span class="dlg-id">reply #9</span> <a class="dlg-anchor" href="#r9" title="jump to flat reply #9">¶</a></summary>
+<div class="dlg-text">Never trust an elf!</div>
+</details>
+<details class="dlg-tree-node reply" open>
+<summary><span class="dlg-id">reply #1</span> <a class="dlg-anchor" href="#r1" title="jump to flat reply #1">¶</a></summary>
+<div class="dlg-text">I would be honored but who are you?</div>
+<div class="dlg-tree-children">
+<details class="dlg-tree-node entry" open>
+<summary><span class="dlg-id">entry #2</span> <a class="dlg-anchor" href="#e2" title="jump to flat entry #2">¶</a></summary>
+<div class="dlg-text">My name is Glorfindel, Captain of the Guard of Rivendell. I require your assistance in a task most vital.</div>
+<div class="dlg-tree-children">
+<details class="dlg-tree-node reply" open>
+<summary><span class="dlg-id">reply #2</span> <a class="dlg-anchor" href="#r2" title="jump to flat reply #2">¶</a></summary>
+<div class="dlg-text">Go on. What of this task?</div>
+<div class="dlg-tree-children">
+<details class="dlg-tree-node entry" open>
+<summary><span class="dlg-id">entry #3</span> <a class="dlg-anchor" href="#e3" title="jump to flat entry #3">¶</a></summary>
+<div class="dlg-text">I seek components, for a curative my Lord Elrond has bid me collect. I however cannot tarry to collect them. The orcs are on the move in the Trollshalls. I must act swiftly to counter them and be prepared for the worst.</div>
+<div class="dlg-tree-children">
+<details class="dlg-tree-node reply" open>
+<summary><span class="dlg-id">reply #3</span> <a class="dlg-anchor" href="#r3" title="jump to flat reply #3">¶</a></summary>
+<div class="dlg-text">Well that explains why you do not go yourself. I would be honored to collect the ingredients on your behalf.</div>
+<div class="dlg-tree-children">
+<details class="dlg-tree-node entry" open>
+<summary><span class="dlg-id">entry #4</span> <a class="dlg-anchor" href="#e4" title="jump to flat entry #4">¶</a></summary>
+<div class="dlg-text">Excellent &lt;FirstName&gt;, I knew I could count on you!</div>
+<div class="dlg-tree-children">
+<details class="dlg-tree-node reply" open>
+<summary><span class="dlg-id">reply #4</span> <a class="dlg-anchor" href="#r4" title="jump to flat reply #4">¶</a></summary>
+<div class="dlg-text">Where and what are these ingredients?</div>
+<div class="dlg-tree-children">
+<details class="dlg-tree-node entry" open>
+<summary><span class="dlg-id">entry #5</span> <a class="dlg-anchor" href="#e5" title="jump to flat entry #5">¶</a></summary>
+<div class="dlg-text">The first is the Athelas plant that you may find along the riverbank of the Misty Mountain Foothills.</div>
+<div class="dlg-tree-children">
+<details class="dlg-tree-node reply" open>
+<summary><span class="dlg-id">reply #5</span> <a class="dlg-anchor" href="#r5" title="jump to flat reply #5">¶</a></summary>
+<div class="dlg-text">And...</div>
+<div class="dlg-tree-children">
+<details class="dlg-tree-node entry" open>
+<summary><span class="dlg-id">entry #6</span> <a class="dlg-anchor" href="#e6" title="jump to flat entry #6">¶</a></summary>
+<div class="dlg-text">The second is more treacherous. You must collect the headstone to the Statue of Arathorn, to be found in the Barrow Downs.</div>
+<div class="dlg-tree-children">
+<details class="dlg-tree-node reply" open>
+<summary><span class="dlg-id">reply #6</span> <a class="dlg-anchor" href="#r6" title="jump to flat reply #6">¶</a></summary>
+<div class="dlg-text">And the last?</div>
+<div class="dlg-tree-children">
+<details class="dlg-tree-node entry" open>
+<summary><span class="dlg-id">entry #7</span> <a class="dlg-anchor" href="#e7" title="jump to flat entry #7">¶</a></summary>
+<div class="dlg-text">The last is the most dangerous of all. Within Carrok of the Misty Mountains lies a Cave. Within that lair you must collect the Essense of a Drake. Be assured it is not necessary to confront the beast to obtain the essence.</div>
+<div class="dlg-tree-children">
+<details class="dlg-tree-node reply" open>
+<summary><span class="dlg-id">reply #8</span> <span class="dlg-action">→ <code>at_011</code></span> <a class="dlg-anchor" href="#r8" title="jump to flat reply #8">¶</a></summary>
+<div class="dlg-text">I will do my best to gather the ingredients, fare well and good fortune with the orcs Glorfindel.</div>
+</details>
+<details class="dlg-tree-node reply" open>
+<summary><span class="dlg-id">reply #7</span> <a class="dlg-anchor" href="#r7" title="jump to flat reply #7">¶</a></summary>
+<div class="dlg-text">I think thats way over my head and I don&#x27;t want no part of it, Good Day!</div>
+</details>
+</div>
+</details>
+</div>
+</details>
+</div>
+</details>
+</div>
+</details>
+</div>
+</details>
+</div>
+</details>
+</div>
+</details>
+</div>
+</details>
+</div>
+</details>
+</div>
+</details>
+</div>
+</details>
+</div>
+</details>
+</div>
+</details>
+</div>
+</details>
+</div>
+</details>
+</div>
+<h2>NPC lines (entries) — flat index</h2>
+<div class="dlg-node entry" id="e0"><div class="dlg-head"><span class="dlg-id">entry #0</span></div><div class="dlg-text">Greetings &lt;FullName&gt;, It is a fine &lt;quarterday&gt; for a walk about the woods is it not? </div><ul class="dlg-links"><li><a href="#r0">→ reply #0</a> <span class="dlg-link-preview">“You know me?”</span></li></ul></div>
+<div class="dlg-node entry" id="e1"><div class="dlg-head"><span class="dlg-id">entry #1</span></div><div class="dlg-text">The Rangers of the North have sent word to me of your deeds in this land. But come now. I bore you with trivial details. Are you interested in perhaps helping me with something?</div><ul class="dlg-links"><li><a href="#r9">→ reply #9</a> <span class="dlg-link-preview">“Never trust an elf!”</span></li><li><a href="#r1">→ reply #1</a> <span class="dlg-link-preview">“I would be honored but who are you?”</span></li></ul></div>
+<div class="dlg-node entry" id="e2"><div class="dlg-head"><span class="dlg-id">entry #2</span></div><div class="dlg-text">My name is Glorfindel, Captain of the Guard of Rivendell. I require your assistance in a task most vital.</div><ul class="dlg-links"><li><a href="#r2">→ reply #2</a> <span class="dlg-link-preview">“Go on. What of this task?”</span></li></ul></div>
+<div class="dlg-node entry" id="e3"><div class="dlg-head"><span class="dlg-id">entry #3</span></div><div class="dlg-text">I seek components, for a curative my Lord Elrond has bid me collect. I however cannot tarry to collect them. The orcs are on the move in the Trollshalls. I must act swiftly to counter them and be prepared for the worst.</div><ul class="dlg-links"><li><a href="#r3">→ reply #3</a> <span class="dlg-link-preview">“Well that explains why you do not go yourself. I would be honored to collect the…”</span></li></ul></div>
+<div class="dlg-node entry" id="e4"><div class="dlg-head"><span class="dlg-id">entry #4</span></div><div class="dlg-text">Excellent &lt;FirstName&gt;, I knew I could count on you!</div><ul class="dlg-links"><li><a href="#r4">→ reply #4</a> <span class="dlg-link-preview">“Where and what are these ingredients?”</span></li></ul></div>
+<div class="dlg-node entry" id="e5"><div class="dlg-head"><span class="dlg-id">entry #5</span></div><div class="dlg-text">The first is the Athelas plant that you may find along the riverbank of the Misty Mountain Foothills.</div><ul class="dlg-links"><li><a href="#r5">→ reply #5</a> <span class="dlg-link-preview">“And...”</span></li></ul></div>
+<div class="dlg-node entry" id="e6"><div class="dlg-head"><span class="dlg-id">entry #6</span></div><div class="dlg-text">The second is more treacherous. You must collect the headstone to the Statue of Arathorn, to be found in the Barrow Downs.</div><ul class="dlg-links"><li><a href="#r6">→ reply #6</a> <span class="dlg-link-preview">“And the last?”</span></li></ul></div>
+<div class="dlg-node entry" id="e7"><div class="dlg-head"><span class="dlg-id">entry #7</span></div><div class="dlg-text">The last is the most dangerous of all. Within Carrok of the Misty Mountains lies a Cave. Within that lair you must collect the Essense of a Drake. Be assured it is not necessary to confront the beast to obtain the essence.</div><ul class="dlg-links"><li><a href="#r8">→ reply #8</a> <span class="dlg-link-preview">“I will do my best to gather the ingredients, fare well and good fortune with the…”</span></li><li><a href="#r7">→ reply #7</a> <span class="dlg-link-preview">“I think thats way over my head and I don&#x27;t want no part of it, Good Day!”</span></li></ul></div>
+<div class="dlg-node entry" id="e8"><div class="dlg-head"><span class="dlg-id">entry #8</span></div><div class="dlg-text">I am glad to see you again &lt;FirstName&gt;. A light shines upon our meeting.</div></div>
+<div class="dlg-node entry" id="e9"><div class="dlg-head"><span class="dlg-id">entry #9</span></div><div class="dlg-text">Have you found all the Ingredients for the Curative potion?</div><ul class="dlg-links"><li><a href="#r12">→ reply #12</a> <span class="dlg-link-preview">“Nope still looking thanks.”</span></li><li><a href="#r10">→ reply #10</a> <span class="dlg-link-preview">“Yes I have, I went through great pains to recover them all.”</span> <small class="muted">(if <code>sc_004</code>)</small></li></ul></div>
+<div class="dlg-node entry" id="e10"><div class="dlg-head"><span class="dlg-id">entry #10</span> <span class="dlg-action">→ <code>glorrew</code></span></div><div class="dlg-text">Your bravery is of unparalleled stature, and I salute you as an equal. For your troubles please accept this token of mine. My bracers, they have served me well and may they be a symbol of our friendship.</div><ul class="dlg-links"><li><a href="#r11">→ reply #11</a> <span class="dlg-link-preview">“Thanks Glrofindel was a long haul, but worth the valuable potion.”</span></li></ul></div>
+<h2>PC replies — flat index</h2>
+<div class="dlg-node reply" id="r0"><div class="dlg-head"><span class="dlg-id">reply #0</span></div><div class="dlg-text">You know me?</div><ul class="dlg-links"><li><a href="#e1">→ entry #1</a> <span class="dlg-link-preview">“The Rangers of the North have sent word to me of your deeds in this land. But co…”</span></li></ul></div>
+<div class="dlg-node reply" id="r1"><div class="dlg-head"><span class="dlg-id">reply #1</span></div><div class="dlg-text">I would be honored but who are you?</div><ul class="dlg-links"><li><a href="#e2">→ entry #2</a> <span class="dlg-link-preview">“My name is Glorfindel, Captain of the Guard of Rivendell. I require your assista…”</span></li></ul></div>
+<div class="dlg-node reply" id="r2"><div class="dlg-head"><span class="dlg-id">reply #2</span></div><div class="dlg-text">Go on. What of this task?</div><ul class="dlg-links"><li><a href="#e3">→ entry #3</a> <span class="dlg-link-preview">“I seek components, for a curative my Lord Elrond has bid me collect. I however c…”</span></li></ul></div>
+<div class="dlg-node reply" id="r3"><div class="dlg-head"><span class="dlg-id">reply #3</span></div><div class="dlg-text">Well that explains why you do not go yourself. I would be honored to collect the ingredients on your behalf.</div><ul class="dlg-links"><li><a href="#e4">→ entry #4</a> <span class="dlg-link-preview">“Excellent , I knew I could count on you!”</span></li></ul></div>
+<div class="dlg-node reply" id="r4"><div class="dlg-head"><span class="dlg-id">reply #4</span></div><div class="dlg-text">Where and what are these ingredients?</div><ul class="dlg-links"><li><a href="#e5">→ entry #5</a> <span class="dlg-link-preview">“The first is the Athelas plant that you may find along the riverbank of the Mist…”</span></li></ul></div>
+<div class="dlg-node reply" id="r5"><div class="dlg-head"><span class="dlg-id">reply #5</span></div><div class="dlg-text">And...</div><ul class="dlg-links"><li><a href="#e6">→ entry #6</a> <span class="dlg-link-preview">“The second is more treacherous. You must collect the headstone to the Statue of…”</span></li></ul></div>
+<div class="dlg-node reply" id="r6"><div class="dlg-head"><span class="dlg-id">reply #6</span></div><div class="dlg-text">And the last?</div><ul class="dlg-links"><li><a href="#e7">→ entry #7</a> <span class="dlg-link-preview">“The last is the most dangerous of all. Within Carrok of the Misty Mountains lies…”</span></li></ul></div>
+<div class="dlg-node reply" id="r7"><div class="dlg-head"><span class="dlg-id">reply #7</span></div><div class="dlg-text">I think thats way over my head and I don&#x27;t want no part of it, Good Day!</div></div>
+<div class="dlg-node reply" id="r8"><div class="dlg-head"><span class="dlg-id">reply #8</span> <span class="dlg-action">→ <code>at_011</code></span></div><div class="dlg-text">I will do my best to gather the ingredients, fare well and good fortune with the orcs Glorfindel.</div></div>
+<div class="dlg-node reply" id="r9"><div class="dlg-head"><span class="dlg-id">reply #9</span></div><div class="dlg-text">Never trust an elf!</div></div>
+<div class="dlg-node reply" id="r10"><div class="dlg-head"><span class="dlg-id">reply #10</span></div><div class="dlg-text">Yes I have, I went through great pains to recover them all.</div><ul class="dlg-links"><li><a href="#e10">→ entry #10</a> <span class="dlg-link-preview">“Your bravery is of unparalleled stature, and I salute you as an equal. For your…”</span></li></ul></div>
+<div class="dlg-node reply" id="r11"><div class="dlg-head"><span class="dlg-id">reply #11</span> <span class="dlg-action">→ <code>at_012</code></span></div><div class="dlg-text">Thanks Glrofindel was a long haul, but worth the valuable potion.</div></div>
+<div class="dlg-node reply" id="r12"><div class="dlg-head"><span class="dlg-id">reply #12</span></div><div class="dlg-text">Nope still looking thanks.</div></div>
+  </main>
+  <footer>generated by <a href="https://github.com/mrprice22/nwn-manager">nwn-manager</a> &mdash; last updated Jun 3, 2026 12:42</footer>
+</body>
+</html>

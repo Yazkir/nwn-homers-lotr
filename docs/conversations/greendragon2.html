@@ -1,0 +1,515 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Conversation greendragon2</title>
+  <link rel="stylesheet" href="../assets/style.css">
+  <link rel="stylesheet" href="../assets/theme.css">
+  <link rel="icon" href="../assets/favicon.png">
+</head>
+<body>
+  <header class="site-header">
+    <a class="brand" href="../index.html"><img class="site-header-img" src="../assets/header.png" alt="Home"></a>
+    <nav>
+      <a href="../index.html">Map</a>
+      <a href="../areas/index.html">Areas</a>
+      <div class="nav-dropdown">
+        <span class="nav-dropdown-label">Creatures &#9660;</span>
+        <div class="nav-dropdown-menu">
+          <a href="../creatures/index.html">All Creatures</a>
+          <a href="../creatures/by-area/index.html">By Area</a>
+          <a href="../creatures/by-cr/index.html">By Challenge Rating</a>
+          <a href="../creatures/by-race/index.html">By Race</a>
+        </div>
+      </div>
+      <div class="nav-dropdown">
+        <span class="nav-dropdown-label">Items &#9660;</span>
+        <div class="nav-dropdown-menu">
+          <a href="../items/index.html">Accessible</a>
+          <a href="../items/inaccessible/index.html">Inaccessible</a>
+          <a href="../items/properties/index.html">By Property</a>
+          <a href="../items/search.html">Search</a>
+        </div>
+      </div>
+      <a href="../stores/index.html">Stores</a>
+      <a href="../conversations/index.html">Conversations</a>
+      <a href="../factions.html">Factions</a>
+      <a href="../quests/index.html">Quests</a>
+      <a href="../activity.html">Activity</a>
+      <div class="nav-dropdown"><span class="nav-dropdown-label">Documents &#9660;</span><div class="nav-dropdown-menu"><a href="../manual/LevelingGuide.html">Leveling Guide</a>
+<a href="../manual/MeaningWave.html">MeaningWave: A Guide to the Guides</a>
+<a href="../manual/Quest Ideas.html">Quest Ideas (Draft Concepts)</a>
+<a href="../manual/QuestGuide.html">Quest Guide</a></div></div>
+    </nav>
+  </header>
+  <main>
+<h1>Conversation: <code>greendragon2</code></h1>
+<dl class="meta">
+<dt>NPC lines</dt><dd>27</dd>
+<dt>PC replies</dt><dd>40</dd>
+<dt>NumWords</dt><dd>884</dd>
+<dt>OnEnd</dt><dd><code>nw_walk_wp</code></dd>
+<dt>OnAbort</dt><dd><code>nw_walk_wp</code></dd>
+</dl>
+<h2>Triggered by</h2><ul class="dlg-callers">
+<li><span class="badge">creature</span> NPC <a href="../creatures/greendragoninnke__v2.html">Green Dragon Inn Keeper</a> — in <a href="../areas/greendragoninn.html">Green Dragon Inn</a></li>
+</ul>
+<h2>Scripts referenced</h2>
+<table class="data"><thead><tr><th>Script</th><th>Slot</th><th>In module</th><th>Notes</th></tr></thead><tbody><tr><td><code>gddrink4</code></td><td>action</td><td>✓</td><td></td></tr>
+<tr><td><code>gddrink3</code></td><td>action</td><td>✓</td><td></td></tr>
+<tr><td><code>gddrink2</code></td><td>action</td><td>✓</td><td></td></tr>
+<tr><td><code>gddrink1</code></td><td>action</td><td>✓</td><td></td></tr>
+<tr><td><code>gdqs1</code></td><td>action</td><td>✓</td><td></td></tr></tbody></table>
+<h2>Starting entries</h2><ul>
+<li><a href="#e0">entry #0</a> — Greetings . How may I help you.</li>
+</ul>
+<h2>Conversation flow</h2>
+<p class="muted">Each starting entry is expanded recursively. Repeated nodes (cycles, shared continuations) appear inline as <code>↩ link</code> backrefs to the first occurrence.</p>
+<div class="dlg-tree">
+<details class="dlg-tree-node entry" open>
+<summary><span class="dlg-id">entry #0</span> <a class="dlg-anchor" href="#e0" title="jump to flat entry #0">¶</a></summary>
+<div class="dlg-text">Greetings &lt;Sir/Madam&gt;. How may I help you.</div>
+<div class="dlg-tree-children">
+<details class="dlg-tree-node reply" open>
+<summary><span class="dlg-id">reply #35</span> <a class="dlg-anchor" href="#r35" title="jump to flat reply #35">¶</a></summary>
+<div class="dlg-text">I&#x27;d just like to have something nice to drink.</div>
+<div class="dlg-tree-children">
+<details class="dlg-tree-node entry" open>
+<summary><span class="dlg-id">entry #22</span> <a class="dlg-anchor" href="#e22" title="jump to flat entry #22">¶</a></summary>
+<div class="dlg-text">Well, there are a lot of nice things that we can offer you. Would you like something to relax you, to cure you, or perhaps just something to rid you of thirst?</div>
+<div class="dlg-tree-children">
+<details class="dlg-tree-node reply" open>
+<summary><span class="dlg-id">reply #39</span> <a class="dlg-anchor" href="#r39" title="jump to flat reply #39">¶</a></summary>
+<div class="dlg-text">A drink that relaxes? That sounds nice, I&#x27;ll have that.</div>
+<div class="dlg-tree-children">
+<details class="dlg-tree-node entry" open>
+<summary><span class="dlg-id">entry #26</span> <span class="dlg-action">→ <code>gddrink1</code></span> <a class="dlg-anchor" href="#e26" title="jump to flat entry #26">¶</a></summary>
+<div class="dlg-text">Well, here you go. I believe you will feel more lively once you have it.</div>
+</details>
+</div>
+</details>
+<details class="dlg-tree-node reply" open>
+<summary><span class="dlg-id">reply #38</span> <a class="dlg-anchor" href="#r38" title="jump to flat reply #38">¶</a></summary>
+<div class="dlg-text">I believe I need to be cured.</div>
+<div class="dlg-tree-children">
+<details class="dlg-tree-node entry" open>
+<summary><span class="dlg-id">entry #25</span> <span class="dlg-action">→ <code>gddrink2</code></span> <a class="dlg-anchor" href="#e25" title="jump to flat entry #25">¶</a></summary>
+<div class="dlg-text">That would be 10 gp and you are as good as new.</div>
+</details>
+</div>
+</details>
+<details class="dlg-tree-node reply" open>
+<summary><span class="dlg-id">reply #37</span> <a class="dlg-anchor" href="#r37" title="jump to flat reply #37">¶</a></summary>
+<div class="dlg-text">I&#x27;m just thirsty.</div>
+<div class="dlg-tree-children">
+<details class="dlg-tree-node entry" open>
+<summary><span class="dlg-id">entry #24</span> <span class="dlg-action">→ <code>gddrink3</code></span> <a class="dlg-anchor" href="#e24" title="jump to flat entry #24">¶</a></summary>
+<div class="dlg-text">Here you are &lt;Sir/Madam&gt;, it is on the house.</div>
+</details>
+</div>
+</details>
+<details class="dlg-tree-node reply" open>
+<summary><span class="dlg-id">reply #36</span> <a class="dlg-anchor" href="#r36" title="jump to flat reply #36">¶</a></summary>
+<div class="dlg-text">Oh, can you not just offer me any drink? Don&#x27;t you realise when you become annyoing? </div>
+<div class="dlg-tree-children">
+<details class="dlg-tree-node entry" open>
+<summary><span class="dlg-id">entry #23</span> <span class="dlg-action">→ <code>gddrink4</code></span> <a class="dlg-anchor" href="#e23" title="jump to flat entry #23">¶</a></summary>
+<div class="dlg-text">Any drink is what you get then &lt;Sir/Madam&gt;... *He gives you a small bottle to drink*</div>
+</details>
+</div>
+</details>
+</div>
+</details>
+</div>
+</details>
+<details class="dlg-tree-node reply" open>
+<summary><span class="dlg-id">reply #0</span> <a class="dlg-anchor" href="#r0" title="jump to flat reply #0">¶</a></summary>
+<div class="dlg-text">Oh, nothing. I&#x27;m just looking around your inn. Looks nice, but slightly emptier than I should expect.</div>
+<div class="dlg-tree-children">
+<details class="dlg-tree-node entry" open>
+<summary><span class="dlg-id">entry #1</span> <a class="dlg-anchor" href="#e1" title="jump to flat entry #1">¶</a></summary>
+<div class="dlg-text">I agree on both conclusions... it is nice and it is empty.</div>
+<div class="dlg-tree-children">
+<details class="dlg-tree-node reply" open>
+<summary><span class="dlg-id">reply #32</span> <a class="dlg-anchor" href="#r32" title="jump to flat reply #32">¶</a></summary>
+<div class="dlg-text">It is probably emptier because it is this time of day, however. I&#x27;m sure you get more customers at other times.</div>
+<div class="dlg-tree-children">
+<details class="dlg-tree-node entry" open>
+<summary><span class="dlg-id">entry #21</span> <a class="dlg-anchor" href="#e21" title="jump to flat entry #21">¶</a></summary>
+<div class="dlg-text">Hm... *looks worried* yes nothing to worry about, I assure you.</div>
+<div class="dlg-tree-children">
+<details class="dlg-tree-node reply" open>
+<summary><span class="dlg-id">reply #34</span> <a class="dlg-anchor" href="#r34" title="jump to flat reply #34">¶</a></summary>
+<div class="dlg-text">How about a drink?</div>
+<div class="dlg-tree-children">
+<div class="dlg-tree-ref entry-ref">↩ <a href="#e22">entry #22</a> <span class="dlg-link-preview">“Well, there are a lot of nice things that we can offer you. Would you like somet…”</span></div>
+</div>
+</details>
+<details class="dlg-tree-node reply" open>
+<summary><span class="dlg-id">reply #33</span> <a class="dlg-anchor" href="#r33" title="jump to flat reply #33">¶</a></summary>
+<div class="dlg-text">End Dialog</div>
+</details>
+</div>
+</details>
+</div>
+</details>
+<details class="dlg-tree-node reply" open>
+<summary><span class="dlg-id">reply #6</span> <a class="dlg-anchor" href="#r6" title="jump to flat reply #6">¶</a></summary>
+<div class="dlg-text">You must be worried about loosing your job. But I wonder why an Inn with a reputation such as this should loose customers.</div>
+<div class="dlg-tree-children">
+<details class="dlg-tree-node entry" open>
+<summary><span class="dlg-id">entry #5</span> <a class="dlg-anchor" href="#e5" title="jump to flat entry #5">¶</a></summary>
+<div class="dlg-text">Not lost, just temporarily unintrested.</div>
+<div class="dlg-tree-children">
+<details class="dlg-tree-node reply" open>
+<summary><span class="dlg-id">reply #8</span> <a class="dlg-anchor" href="#r8" title="jump to flat reply #8">¶</a></summary>
+<div class="dlg-text">Knowing Inns, that&#x27;s usually the beginning of a bad end.</div>
+<div class="dlg-tree-children">
+<details class="dlg-tree-node entry" open>
+<summary><span class="dlg-id">entry #7</span> <a class="dlg-anchor" href="#e7" title="jump to flat entry #7">¶</a></summary>
+<div class="dlg-text">Perhaps, but we&#x27;ll get our customers to visit more often as soon as the problems are sorted out.</div>
+<div class="dlg-tree-children">
+<details class="dlg-tree-node reply" open>
+<summary><span class="dlg-id">reply #11</span> <a class="dlg-anchor" href="#r11" title="jump to flat reply #11">¶</a></summary>
+<div class="dlg-text">So you do have problems?</div>
+<div class="dlg-tree-children">
+<details class="dlg-tree-node entry" open>
+<summary><span class="dlg-id">entry #9</span> <a class="dlg-anchor" href="#e9" title="jump to flat entry #9">¶</a></summary>
+<div class="dlg-text">Well... actually... nothing too important to talk about now.</div>
+<div class="dlg-tree-children">
+<details class="dlg-tree-node reply" open>
+<summary><span class="dlg-id">reply #31</span> <a class="dlg-anchor" href="#r31" title="jump to flat reply #31">¶</a></summary>
+<div class="dlg-text">OK then. How about you get me a drink?</div>
+<div class="dlg-tree-children">
+<div class="dlg-tree-ref entry-ref">↩ <a href="#e22">entry #22</a> <span class="dlg-link-preview">“Well, there are a lot of nice things that we can offer you. Would you like somet…”</span></div>
+</div>
+</details>
+<details class="dlg-tree-node reply" open>
+<summary><span class="dlg-id">reply #30</span> <a class="dlg-anchor" href="#r30" title="jump to flat reply #30">¶</a></summary>
+<div class="dlg-text">If you say so.</div>
+</details>
+<details class="dlg-tree-node reply" open>
+<summary><span class="dlg-id">reply #12</span> <a class="dlg-anchor" href="#r12" title="jump to flat reply #12">¶</a></summary>
+<div class="dlg-text">But I&#x27;d like to hear it still.</div>
+<div class="dlg-tree-children">
+<details class="dlg-tree-node entry" open>
+<summary><span class="dlg-id">entry #10</span> <a class="dlg-anchor" href="#e10" title="jump to flat entry #10">¶</a></summary>
+<div class="dlg-text">Maybe I should just bring you a drink, and you find someone else to chat to.</div>
+<div class="dlg-tree-children">
+<details class="dlg-tree-node reply" open>
+<summary><span class="dlg-id">reply #29</span> <a class="dlg-anchor" href="#r29" title="jump to flat reply #29">¶</a></summary>
+<div class="dlg-text">Whatever. Get me a drink then.</div>
+<div class="dlg-tree-children">
+<div class="dlg-tree-ref entry-ref">↩ <a href="#e22">entry #22</a> <span class="dlg-link-preview">“Well, there are a lot of nice things that we can offer you. Would you like somet…”</span></div>
+</div>
+</details>
+<details class="dlg-tree-node reply" open>
+<summary><span class="dlg-id">reply #16</span> <a class="dlg-anchor" href="#r16" title="jump to flat reply #16">¶</a></summary>
+<div class="dlg-text">Should I talk to the owner of this place to find out?</div>
+<div class="dlg-tree-children">
+<details class="dlg-tree-node entry" open>
+<summary><span class="dlg-id">entry #12</span> <a class="dlg-anchor" href="#e12" title="jump to flat entry #12">¶</a></summary>
+<div class="dlg-text">Hah! He would just show you the door.</div>
+<div class="dlg-tree-children">
+<details class="dlg-tree-node reply" open>
+<summary><span class="dlg-id">reply #27</span> <a class="dlg-anchor" href="#r27" title="jump to flat reply #27">¶</a></summary>
+<div class="dlg-text">I see, so you are all rude. No wonder you have no customers.</div>
+<div class="dlg-tree-children">
+<details class="dlg-tree-node entry" open>
+<summary><span class="dlg-id">entry #20</span> <a class="dlg-anchor" href="#e20" title="jump to flat entry #20">¶</a></summary>
+<div class="dlg-text">No, we aren&#x27;t rude, but the matters are rather serious for us and we dislike talking about them to just anyone. Now please let me be.</div>
+<div class="dlg-tree-children">
+<details class="dlg-tree-node reply" open>
+<summary><span class="dlg-id">reply #28</span> <a class="dlg-anchor" href="#r28" title="jump to flat reply #28">¶</a></summary>
+<div class="dlg-text">Allright, suit yourself.</div>
+</details>
+</div>
+</details>
+</div>
+</details>
+<details class="dlg-tree-node reply" open>
+<summary><span class="dlg-id">reply #17</span> <a class="dlg-anchor" href="#r17" title="jump to flat reply #17">¶</a></summary>
+<div class="dlg-text">Why would he show me the door? I may just be trying to help.</div>
+<div class="dlg-tree-children">
+<details class="dlg-tree-node entry" open>
+<summary><span class="dlg-id">entry #13</span> <a class="dlg-anchor" href="#e13" title="jump to flat entry #13">¶</a></summary>
+<div class="dlg-text">That is what they all say...</div>
+<div class="dlg-tree-children">
+<details class="dlg-tree-node reply" open>
+<summary><span class="dlg-id">reply #25</span> <a class="dlg-anchor" href="#r25" title="jump to flat reply #25">¶</a></summary>
+<div class="dlg-text">Listen, you&#x27;re just getting on my nerves now. Will you tell me what is going on, or not?</div>
+<div class="dlg-tree-children">
+<details class="dlg-tree-node entry" open>
+<summary><span class="dlg-id">entry #19</span> <a class="dlg-anchor" href="#e19" title="jump to flat entry #19">¶</a></summary>
+<div class="dlg-text">I would, but I am rather busy. Farewell.</div>
+<div class="dlg-tree-children">
+<details class="dlg-tree-node reply" open>
+<summary><span class="dlg-id">reply #26</span> <a class="dlg-anchor" href="#r26" title="jump to flat reply #26">¶</a></summary>
+<div class="dlg-text">Fine!</div>
+</details>
+</div>
+</details>
+</div>
+</details>
+<details class="dlg-tree-node reply" open>
+<summary><span class="dlg-id">reply #18</span> <a class="dlg-anchor" href="#r18" title="jump to flat reply #18">¶</a></summary>
+<div class="dlg-text">Who is they? Would you please tell me, I am uniquely curious.</div>
+<div class="dlg-tree-children">
+<details class="dlg-tree-node entry" open>
+<summary><span class="dlg-id">entry #14</span> <a class="dlg-anchor" href="#e14" title="jump to flat entry #14">¶</a></summary>
+<div class="dlg-text">Well... *sigh* Allright. But you must promise to keep it to yourself! *raises eyeborws and gets close to you*</div>
+<div class="dlg-tree-children">
+<details class="dlg-tree-node reply" open>
+<summary><span class="dlg-id">reply #23</span> <a class="dlg-anchor" href="#r23" title="jump to flat reply #23">¶</a></summary>
+<div class="dlg-text">Oh come on. Like you have a death threatening problem...</div>
+<div class="dlg-tree-children">
+<details class="dlg-tree-node entry" open>
+<summary><span class="dlg-id">entry #18</span> <a class="dlg-anchor" href="#e18" title="jump to flat entry #18">¶</a></summary>
+<div class="dlg-text">You know? You are right. I don&#x27;t. We don&#x27;t. In fact, since you don&#x27;t get this quite so seriously may I ask you to let me continue my work... No no no. May i TELL you to let me continue my work.</div>
+<div class="dlg-tree-children">
+<details class="dlg-tree-node reply" open>
+<summary><span class="dlg-id">reply #24</span> <a class="dlg-anchor" href="#r24" title="jump to flat reply #24">¶</a></summary>
+<div class="dlg-text">OK! Relax...</div>
+</details>
+</div>
+</details>
+</div>
+</details>
+<details class="dlg-tree-node reply" open>
+<summary><span class="dlg-id">reply #19</span> <a class="dlg-anchor" href="#r19" title="jump to flat reply #19">¶</a></summary>
+<div class="dlg-text">Your secret will be safe with me.</div>
+<div class="dlg-tree-children">
+<details class="dlg-tree-node entry" open>
+<summary><span class="dlg-id">entry #15</span> <a class="dlg-anchor" href="#e15" title="jump to flat entry #15">¶</a></summary>
+<div class="dlg-text">I will just tell you a brief introduction to our problems. You may talk to our chef more, as he can tell you more details.</div>
+<div class="dlg-tree-children">
+<details class="dlg-tree-node reply" open>
+<summary><span class="dlg-id">reply #20</span> <a class="dlg-anchor" href="#r20" title="jump to flat reply #20">¶</a></summary>
+<div class="dlg-text">OK.</div>
+<div class="dlg-tree-children">
+<details class="dlg-tree-node entry" open>
+<summary><span class="dlg-id">entry #16</span> <a class="dlg-anchor" href="#e16" title="jump to flat entry #16">¶</a></summary>
+<div class="dlg-text">There is a certain to us unknown power of darkness rising in the east. These are just rumors to many Shire folk, but we have already felt its presence. There is a fellow in a nearby town called Sharkey. He seems to hide more knowledge about this power than most other men.</div>
+<div class="dlg-tree-children">
+<details class="dlg-tree-node reply" open>
+<summary><span class="dlg-id">reply #21</span> <a class="dlg-anchor" href="#r21" title="jump to flat reply #21">¶</a></summary>
+<div class="dlg-text">Yes...</div>
+<div class="dlg-tree-children">
+<details class="dlg-tree-node entry" open>
+<summary><span class="dlg-id">entry #17</span> <a class="dlg-anchor" href="#e17" title="jump to flat entry #17">¶</a></summary>
+<div class="dlg-text">He is preparing himself to serve this evil, whatever it may be, and gain power for himself over the lands of Shire and local towns such as Bree. He has already started his mission and our Inn seems to be posing some sort of a problem for him and his men... Perhaps from here you will be better off talking to our cook. You can find him in the kitchen.</div>
+<div class="dlg-tree-children">
+<details class="dlg-tree-node reply" open>
+<summary><span class="dlg-id">reply #22</span> <span class="dlg-action">→ <code>gdqs1</code></span> <a class="dlg-anchor" href="#r22" title="jump to flat reply #22">¶</a></summary>
+<div class="dlg-text">Yes, I certainly will.</div>
+</details>
+</div>
+</details>
+</div>
+</details>
+</div>
+</details>
+</div>
+</details>
+</div>
+</details>
+</div>
+</details>
+</div>
+</details>
+</div>
+</details>
+</div>
+</details>
+</div>
+</details>
+</div>
+</details>
+</div>
+</details>
+<details class="dlg-tree-node reply" open>
+<summary><span class="dlg-id">reply #15</span> <a class="dlg-anchor" href="#r15" title="jump to flat reply #15">¶</a></summary>
+<div class="dlg-text">You know what? I&#x27;ll just leave this rude filthy place, don&#x27;t want you giving me some rotten juices...</div>
+</details>
+<details class="dlg-tree-node reply" open>
+<summary><span class="dlg-id">reply #13</span> <a class="dlg-anchor" href="#r13" title="jump to flat reply #13">¶</a></summary>
+<div class="dlg-text">How long have you been working here?</div>
+<div class="dlg-tree-children">
+<details class="dlg-tree-node entry" open>
+<summary><span class="dlg-id">entry #11</span> <a class="dlg-anchor" href="#e11" title="jump to flat entry #11">¶</a></summary>
+<div class="dlg-text">I apologise to you, but I am busy serving what little customers we have. </div>
+<div class="dlg-tree-children">
+<details class="dlg-tree-node reply" open>
+<summary><span class="dlg-id">reply #14</span> <a class="dlg-anchor" href="#r14" title="jump to flat reply #14">¶</a></summary>
+<div class="dlg-text">Allright... allright... I&#x27;ll just sit here then, on my own... alllll alone....</div>
+</details>
+</div>
+</details>
+</div>
+</details>
+</div>
+</details>
+</div>
+</details>
+</div>
+</details>
+</div>
+</details>
+<details class="dlg-tree-node reply" open>
+<summary><span class="dlg-id">reply #9</span> <a class="dlg-anchor" href="#r9" title="jump to flat reply #9">¶</a></summary>
+<div class="dlg-text">Do you have more regulars or just passer-bys?</div>
+<div class="dlg-tree-children">
+<details class="dlg-tree-node entry" open>
+<summary><span class="dlg-id">entry #8</span> <a class="dlg-anchor" href="#e8" title="jump to flat entry #8">¶</a></summary>
+<div class="dlg-text">I can&#x27;t say really. From time to time we have more regulars, but lately things are just changing. Something is in the air.</div>
+<div class="dlg-tree-children">
+<details class="dlg-tree-node reply" open>
+<summary><span class="dlg-id">reply #10</span> <a class="dlg-anchor" href="#r10" title="jump to flat reply #10">¶</a></summary>
+<div class="dlg-text">Hm. Yes I feel it too. You will do fine, no worries.</div>
+</details>
+</div>
+</details>
+</div>
+</details>
+</div>
+</details>
+</div>
+</details>
+<details class="dlg-tree-node reply" open>
+<summary><span class="dlg-id">reply #7</span> <a class="dlg-anchor" href="#r7" title="jump to flat reply #7">¶</a></summary>
+<div class="dlg-text">Haha. No, your Inn has simply become oldfashined, dirty and smelly. You don&#x27;t stand a chance, better find another job soon.</div>
+<div class="dlg-tree-children">
+<details class="dlg-tree-node entry" open>
+<summary><span class="dlg-id">entry #6</span> <a class="dlg-anchor" href="#e6" title="jump to flat entry #6">¶</a></summary>
+<div class="dlg-text">*Looks you under the eye* Whatever you say &lt;Sir/Madam&gt;...</div>
+</details>
+</div>
+</details>
+</div>
+</details>
+</div>
+</details>
+<details class="dlg-tree-node reply" open>
+<summary><span class="dlg-id">reply #1</span> <a class="dlg-anchor" href="#r1" title="jump to flat reply #1">¶</a></summary>
+<div class="dlg-text">Don&#x27;t you have some music around this time?</div>
+<div class="dlg-tree-children">
+<details class="dlg-tree-node entry" open>
+<summary><span class="dlg-id">entry #2</span> <a class="dlg-anchor" href="#e2" title="jump to flat entry #2">¶</a></summary>
+<div class="dlg-text">Yes we do.</div>
+<div class="dlg-tree-children">
+<details class="dlg-tree-node reply" open>
+<summary><span class="dlg-id">reply #2</span> <a class="dlg-anchor" href="#r2" title="jump to flat reply #2">¶</a></summary>
+<div class="dlg-text">Well, where is it now? I&#x27;d like to hear some of the Shire music!</div>
+<div class="dlg-tree-children">
+<details class="dlg-tree-node entry" open>
+<summary><span class="dlg-id">entry #3</span> <a class="dlg-anchor" href="#e3" title="jump to flat entry #3">¶</a></summary>
+<div class="dlg-text">Uhh... the uhh... musicians are actually sick and they couldn&#x27;t come today. They should be back one of these days.</div>
+<div class="dlg-tree-children">
+<details class="dlg-tree-node reply" open>
+<summary><span class="dlg-id">reply #4</span> <a class="dlg-anchor" href="#r4" title="jump to flat reply #4">¶</a></summary>
+<div class="dlg-text">Hmm, can&#x27;t you get a replacement?</div>
+<div class="dlg-tree-children">
+<details class="dlg-tree-node entry" open>
+<summary><span class="dlg-id">entry #4</span> <a class="dlg-anchor" href="#e4" title="jump to flat entry #4">¶</a></summary>
+<div class="dlg-text">We can not find anyone of good enough quality to satisfy the requests of our regular customers.</div>
+<div class="dlg-tree-children">
+<details class="dlg-tree-node reply" open>
+<summary><span class="dlg-id">reply #5</span> <a class="dlg-anchor" href="#r5" title="jump to flat reply #5">¶</a></summary>
+<div class="dlg-text">That might pose a problem for you. Because as such, your Inn is really not worth much mention.</div>
+</details>
+</div>
+</details>
+</div>
+</details>
+<details class="dlg-tree-node reply" open>
+<summary><span class="dlg-id">reply #3</span> <a class="dlg-anchor" href="#r3" title="jump to flat reply #3">¶</a></summary>
+<div class="dlg-text">Allright. Hope they return soon.</div>
+</details>
+</div>
+</details>
+</div>
+</details>
+</div>
+</details>
+</div>
+</details>
+</div>
+</details>
+</div>
+</details>
+</div>
+</details>
+</div>
+<h2>NPC lines (entries) — flat index</h2>
+<div class="dlg-node entry" id="e0"><div class="dlg-head"><span class="dlg-id">entry #0</span></div><div class="dlg-text">Greetings &lt;Sir/Madam&gt;. How may I help you.</div><ul class="dlg-links"><li><a href="#r35">→ reply #35</a> <span class="dlg-link-preview">“I&#x27;d just like to have something nice to drink.”</span></li><li><a href="#r0">→ reply #0</a> <span class="dlg-link-preview">“Oh, nothing. I&#x27;m just looking around your inn. Looks nice, but slightly emptier…”</span></li></ul></div>
+<div class="dlg-node entry" id="e1"><div class="dlg-head"><span class="dlg-id">entry #1</span></div><div class="dlg-text">I agree on both conclusions... it is nice and it is empty.</div><ul class="dlg-links"><li><a href="#r32">→ reply #32</a> <span class="dlg-link-preview">“It is probably emptier because it is this time of day, however. I&#x27;m sure you get…”</span></li><li><a href="#r6">→ reply #6</a> <span class="dlg-link-preview">“You must be worried about loosing your job. But I wonder why an Inn with a reput…”</span></li><li><a href="#r1">→ reply #1</a> <span class="dlg-link-preview">“Don&#x27;t you have some music around this time?”</span></li></ul></div>
+<div class="dlg-node entry" id="e2"><div class="dlg-head"><span class="dlg-id">entry #2</span></div><div class="dlg-text">Yes we do.</div><ul class="dlg-links"><li><a href="#r2">→ reply #2</a> <span class="dlg-link-preview">“Well, where is it now? I&#x27;d like to hear some of the Shire music!”</span></li></ul></div>
+<div class="dlg-node entry" id="e3"><div class="dlg-head"><span class="dlg-id">entry #3</span></div><div class="dlg-text">Uhh... the uhh... musicians are actually sick and they couldn&#x27;t come today. They should be back one of these days.</div><ul class="dlg-links"><li><a href="#r4">→ reply #4</a> <span class="dlg-link-preview">“Hmm, can&#x27;t you get a replacement?”</span></li><li><a href="#r3">→ reply #3</a> <span class="dlg-link-preview">“Allright. Hope they return soon.”</span></li></ul></div>
+<div class="dlg-node entry" id="e4"><div class="dlg-head"><span class="dlg-id">entry #4</span></div><div class="dlg-text">We can not find anyone of good enough quality to satisfy the requests of our regular customers.</div><ul class="dlg-links"><li><a href="#r5">→ reply #5</a> <span class="dlg-link-preview">“That might pose a problem for you. Because as such, your Inn is really not worth…”</span></li></ul></div>
+<div class="dlg-node entry" id="e5"><div class="dlg-head"><span class="dlg-id">entry #5</span></div><div class="dlg-text">Not lost, just temporarily unintrested.</div><ul class="dlg-links"><li><a href="#r8">→ reply #8</a> <span class="dlg-link-preview">“Knowing Inns, that&#x27;s usually the beginning of a bad end.”</span></li><li><a href="#r7">→ reply #7</a> <span class="dlg-link-preview">“Haha. No, your Inn has simply become oldfashined, dirty and smelly. You don&#x27;t st…”</span></li></ul></div>
+<div class="dlg-node entry" id="e6"><div class="dlg-head"><span class="dlg-id">entry #6</span></div><div class="dlg-text">*Looks you under the eye* Whatever you say &lt;Sir/Madam&gt;...</div></div>
+<div class="dlg-node entry" id="e7"><div class="dlg-head"><span class="dlg-id">entry #7</span></div><div class="dlg-text">Perhaps, but we&#x27;ll get our customers to visit more often as soon as the problems are sorted out.</div><ul class="dlg-links"><li><a href="#r11">→ reply #11</a> <span class="dlg-link-preview">“So you do have problems?”</span></li><li><a href="#r9">→ reply #9</a> <span class="dlg-link-preview">“Do you have more regulars or just passer-bys?”</span></li></ul></div>
+<div class="dlg-node entry" id="e8"><div class="dlg-head"><span class="dlg-id">entry #8</span></div><div class="dlg-text">I can&#x27;t say really. From time to time we have more regulars, but lately things are just changing. Something is in the air.</div><ul class="dlg-links"><li><a href="#r10">→ reply #10</a> <span class="dlg-link-preview">“Hm. Yes I feel it too. You will do fine, no worries.”</span></li></ul></div>
+<div class="dlg-node entry" id="e9"><div class="dlg-head"><span class="dlg-id">entry #9</span></div><div class="dlg-text">Well... actually... nothing too important to talk about now.</div><ul class="dlg-links"><li><a href="#r31">→ reply #31</a> <span class="dlg-link-preview">“OK then. How about you get me a drink?”</span></li><li><a href="#r30">→ reply #30</a> <span class="dlg-link-preview">“If you say so.”</span></li><li><a href="#r12">→ reply #12</a> <span class="dlg-link-preview">“But I&#x27;d like to hear it still.”</span></li></ul></div>
+<div class="dlg-node entry" id="e10"><div class="dlg-head"><span class="dlg-id">entry #10</span></div><div class="dlg-text">Maybe I should just bring you a drink, and you find someone else to chat to.</div><ul class="dlg-links"><li><a href="#r29">→ reply #29</a> <span class="dlg-link-preview">“Whatever. Get me a drink then.”</span></li><li><a href="#r16">→ reply #16</a> <span class="dlg-link-preview">“Should I talk to the owner of this place to find out?”</span></li><li><a href="#r15">→ reply #15</a> <span class="dlg-link-preview">“You know what? I&#x27;ll just leave this rude filthy place, don&#x27;t want you giving me…”</span></li><li><a href="#r13">→ reply #13</a> <span class="dlg-link-preview">“How long have you been working here?”</span></li></ul></div>
+<div class="dlg-node entry" id="e11"><div class="dlg-head"><span class="dlg-id">entry #11</span></div><div class="dlg-text">I apologise to you, but I am busy serving what little customers we have. </div><ul class="dlg-links"><li><a href="#r14">→ reply #14</a> <span class="dlg-link-preview">“Allright... allright... I&#x27;ll just sit here then, on my own... alllll alone....”</span></li></ul></div>
+<div class="dlg-node entry" id="e12"><div class="dlg-head"><span class="dlg-id">entry #12</span></div><div class="dlg-text">Hah! He would just show you the door.</div><ul class="dlg-links"><li><a href="#r27">→ reply #27</a> <span class="dlg-link-preview">“I see, so you are all rude. No wonder you have no customers.”</span></li><li><a href="#r17">→ reply #17</a> <span class="dlg-link-preview">“Why would he show me the door? I may just be trying to help.”</span></li></ul></div>
+<div class="dlg-node entry" id="e13"><div class="dlg-head"><span class="dlg-id">entry #13</span></div><div class="dlg-text">That is what they all say...</div><ul class="dlg-links"><li><a href="#r25">→ reply #25</a> <span class="dlg-link-preview">“Listen, you&#x27;re just getting on my nerves now. Will you tell me what is going on,…”</span></li><li><a href="#r18">→ reply #18</a> <span class="dlg-link-preview">“Who is they? Would you please tell me, I am uniquely curious.”</span></li></ul></div>
+<div class="dlg-node entry" id="e14"><div class="dlg-head"><span class="dlg-id">entry #14</span></div><div class="dlg-text">Well... *sigh* Allright. But you must promise to keep it to yourself! *raises eyeborws and gets close to you*</div><ul class="dlg-links"><li><a href="#r23">→ reply #23</a> <span class="dlg-link-preview">“Oh come on. Like you have a death threatening problem...”</span></li><li><a href="#r19">→ reply #19</a> <span class="dlg-link-preview">“Your secret will be safe with me.”</span></li></ul></div>
+<div class="dlg-node entry" id="e15"><div class="dlg-head"><span class="dlg-id">entry #15</span></div><div class="dlg-text">I will just tell you a brief introduction to our problems. You may talk to our chef more, as he can tell you more details.</div><ul class="dlg-links"><li><a href="#r20">→ reply #20</a> <span class="dlg-link-preview">“OK.”</span></li></ul></div>
+<div class="dlg-node entry" id="e16"><div class="dlg-head"><span class="dlg-id">entry #16</span></div><div class="dlg-text">There is a certain to us unknown power of darkness rising in the east. These are just rumors to many Shire folk, but we have already felt its presence. There is a fellow in a nearby town called Sharkey. He seems to hide more knowledge about this power than most other men.</div><ul class="dlg-links"><li><a href="#r21">→ reply #21</a> <span class="dlg-link-preview">“Yes...”</span></li></ul></div>
+<div class="dlg-node entry" id="e17"><div class="dlg-head"><span class="dlg-id">entry #17</span></div><div class="dlg-text">He is preparing himself to serve this evil, whatever it may be, and gain power for himself over the lands of Shire and local towns such as Bree. He has already started his mission and our Inn seems to be posing some sort of a problem for him and his men... Perhaps from here you will be better off talking to our cook. You can find him in the kitchen.</div><ul class="dlg-links"><li><a href="#r22">→ reply #22</a> <span class="dlg-link-preview">“Yes, I certainly will.”</span></li></ul></div>
+<div class="dlg-node entry" id="e18"><div class="dlg-head"><span class="dlg-id">entry #18</span></div><div class="dlg-text">You know? You are right. I don&#x27;t. We don&#x27;t. In fact, since you don&#x27;t get this quite so seriously may I ask you to let me continue my work... No no no. May i TELL you to let me continue my work.</div><ul class="dlg-links"><li><a href="#r24">→ reply #24</a> <span class="dlg-link-preview">“OK! Relax...”</span></li></ul></div>
+<div class="dlg-node entry" id="e19"><div class="dlg-head"><span class="dlg-id">entry #19</span></div><div class="dlg-text">I would, but I am rather busy. Farewell.</div><ul class="dlg-links"><li><a href="#r26">→ reply #26</a> <span class="dlg-link-preview">“Fine!”</span></li></ul></div>
+<div class="dlg-node entry" id="e20"><div class="dlg-head"><span class="dlg-id">entry #20</span></div><div class="dlg-text">No, we aren&#x27;t rude, but the matters are rather serious for us and we dislike talking about them to just anyone. Now please let me be.</div><ul class="dlg-links"><li><a href="#r28">→ reply #28</a> <span class="dlg-link-preview">“Allright, suit yourself.”</span></li></ul></div>
+<div class="dlg-node entry" id="e21"><div class="dlg-head"><span class="dlg-id">entry #21</span></div><div class="dlg-text">Hm... *looks worried* yes nothing to worry about, I assure you.</div><ul class="dlg-links"><li><a href="#r34">→ reply #34</a> <span class="dlg-link-preview">“How about a drink?”</span></li><li><a href="#r33">→ reply #33</a> <span class="dlg-link-preview">“End Dialog”</span></li></ul></div>
+<div class="dlg-node entry" id="e22"><div class="dlg-head"><span class="dlg-id">entry #22</span></div><div class="dlg-text">Well, there are a lot of nice things that we can offer you. Would you like something to relax you, to cure you, or perhaps just something to rid you of thirst?</div><ul class="dlg-links"><li><a href="#r39">→ reply #39</a> <span class="dlg-link-preview">“A drink that relaxes? That sounds nice, I&#x27;ll have that.”</span></li><li><a href="#r38">→ reply #38</a> <span class="dlg-link-preview">“I believe I need to be cured.”</span></li><li><a href="#r37">→ reply #37</a> <span class="dlg-link-preview">“I&#x27;m just thirsty.”</span></li><li><a href="#r36">→ reply #36</a> <span class="dlg-link-preview">“Oh, can you not just offer me any drink? Don&#x27;t you realise when you become annyo…”</span></li></ul></div>
+<div class="dlg-node entry" id="e23"><div class="dlg-head"><span class="dlg-id">entry #23</span> <span class="dlg-action">→ <code>gddrink4</code></span></div><div class="dlg-text">Any drink is what you get then &lt;Sir/Madam&gt;... *He gives you a small bottle to drink*</div></div>
+<div class="dlg-node entry" id="e24"><div class="dlg-head"><span class="dlg-id">entry #24</span> <span class="dlg-action">→ <code>gddrink3</code></span></div><div class="dlg-text">Here you are &lt;Sir/Madam&gt;, it is on the house.</div></div>
+<div class="dlg-node entry" id="e25"><div class="dlg-head"><span class="dlg-id">entry #25</span> <span class="dlg-action">→ <code>gddrink2</code></span></div><div class="dlg-text">That would be 10 gp and you are as good as new.</div></div>
+<div class="dlg-node entry" id="e26"><div class="dlg-head"><span class="dlg-id">entry #26</span> <span class="dlg-action">→ <code>gddrink1</code></span></div><div class="dlg-text">Well, here you go. I believe you will feel more lively once you have it.</div></div>
+<h2>PC replies — flat index</h2>
+<div class="dlg-node reply" id="r0"><div class="dlg-head"><span class="dlg-id">reply #0</span></div><div class="dlg-text">Oh, nothing. I&#x27;m just looking around your inn. Looks nice, but slightly emptier than I should expect.</div><ul class="dlg-links"><li><a href="#e1">→ entry #1</a> <span class="dlg-link-preview">“I agree on both conclusions... it is nice and it is empty.”</span></li></ul></div>
+<div class="dlg-node reply" id="r1"><div class="dlg-head"><span class="dlg-id">reply #1</span></div><div class="dlg-text">Don&#x27;t you have some music around this time?</div><ul class="dlg-links"><li><a href="#e2">→ entry #2</a> <span class="dlg-link-preview">“Yes we do.”</span></li></ul></div>
+<div class="dlg-node reply" id="r2"><div class="dlg-head"><span class="dlg-id">reply #2</span></div><div class="dlg-text">Well, where is it now? I&#x27;d like to hear some of the Shire music!</div><ul class="dlg-links"><li><a href="#e3">→ entry #3</a> <span class="dlg-link-preview">“Uhh... the uhh... musicians are actually sick and they couldn&#x27;t come today. They…”</span></li></ul></div>
+<div class="dlg-node reply" id="r3"><div class="dlg-head"><span class="dlg-id">reply #3</span></div><div class="dlg-text">Allright. Hope they return soon.</div></div>
+<div class="dlg-node reply" id="r4"><div class="dlg-head"><span class="dlg-id">reply #4</span></div><div class="dlg-text">Hmm, can&#x27;t you get a replacement?</div><ul class="dlg-links"><li><a href="#e4">→ entry #4</a> <span class="dlg-link-preview">“We can not find anyone of good enough quality to satisfy the requests of our reg…”</span></li></ul></div>
+<div class="dlg-node reply" id="r5"><div class="dlg-head"><span class="dlg-id">reply #5</span></div><div class="dlg-text">That might pose a problem for you. Because as such, your Inn is really not worth much mention.</div></div>
+<div class="dlg-node reply" id="r6"><div class="dlg-head"><span class="dlg-id">reply #6</span></div><div class="dlg-text">You must be worried about loosing your job. But I wonder why an Inn with a reputation such as this should loose customers.</div><ul class="dlg-links"><li><a href="#e5">→ entry #5</a> <span class="dlg-link-preview">“Not lost, just temporarily unintrested.”</span></li></ul></div>
+<div class="dlg-node reply" id="r7"><div class="dlg-head"><span class="dlg-id">reply #7</span></div><div class="dlg-text">Haha. No, your Inn has simply become oldfashined, dirty and smelly. You don&#x27;t stand a chance, better find another job soon.</div><ul class="dlg-links"><li><a href="#e6">→ entry #6</a> <span class="dlg-link-preview">“*Looks you under the eye* Whatever you say ...”</span></li></ul></div>
+<div class="dlg-node reply" id="r8"><div class="dlg-head"><span class="dlg-id">reply #8</span></div><div class="dlg-text">Knowing Inns, that&#x27;s usually the beginning of a bad end.</div><ul class="dlg-links"><li><a href="#e7">→ entry #7</a> <span class="dlg-link-preview">“Perhaps, but we&#x27;ll get our customers to visit more often as soon as the problems…”</span></li></ul></div>
+<div class="dlg-node reply" id="r9"><div class="dlg-head"><span class="dlg-id">reply #9</span></div><div class="dlg-text">Do you have more regulars or just passer-bys?</div><ul class="dlg-links"><li><a href="#e8">→ entry #8</a> <span class="dlg-link-preview">“I can&#x27;t say really. From time to time we have more regulars, but lately things a…”</span></li></ul></div>
+<div class="dlg-node reply" id="r10"><div class="dlg-head"><span class="dlg-id">reply #10</span></div><div class="dlg-text">Hm. Yes I feel it too. You will do fine, no worries.</div></div>
+<div class="dlg-node reply" id="r11"><div class="dlg-head"><span class="dlg-id">reply #11</span></div><div class="dlg-text">So you do have problems?</div><ul class="dlg-links"><li><a href="#e9">→ entry #9</a> <span class="dlg-link-preview">“Well... actually... nothing too important to talk about now.”</span></li></ul></div>
+<div class="dlg-node reply" id="r12"><div class="dlg-head"><span class="dlg-id">reply #12</span></div><div class="dlg-text">But I&#x27;d like to hear it still.</div><ul class="dlg-links"><li><a href="#e10">→ entry #10</a> <span class="dlg-link-preview">“Maybe I should just bring you a drink, and you find someone else to chat to.”</span></li></ul></div>
+<div class="dlg-node reply" id="r13"><div class="dlg-head"><span class="dlg-id">reply #13</span></div><div class="dlg-text">How long have you been working here?</div><ul class="dlg-links"><li><a href="#e11">→ entry #11</a> <span class="dlg-link-preview">“I apologise to you, but I am busy serving what little customers we have.”</span></li></ul></div>
+<div class="dlg-node reply" id="r14"><div class="dlg-head"><span class="dlg-id">reply #14</span></div><div class="dlg-text">Allright... allright... I&#x27;ll just sit here then, on my own... alllll alone....</div></div>
+<div class="dlg-node reply" id="r15"><div class="dlg-head"><span class="dlg-id">reply #15</span></div><div class="dlg-text">You know what? I&#x27;ll just leave this rude filthy place, don&#x27;t want you giving me some rotten juices...</div></div>
+<div class="dlg-node reply" id="r16"><div class="dlg-head"><span class="dlg-id">reply #16</span></div><div class="dlg-text">Should I talk to the owner of this place to find out?</div><ul class="dlg-links"><li><a href="#e12">→ entry #12</a> <span class="dlg-link-preview">“Hah! He would just show you the door.”</span></li></ul></div>
+<div class="dlg-node reply" id="r17"><div class="dlg-head"><span class="dlg-id">reply #17</span></div><div class="dlg-text">Why would he show me the door? I may just be trying to help.</div><ul class="dlg-links"><li><a href="#e13">→ entry #13</a> <span class="dlg-link-preview">“That is what they all say...”</span></li></ul></div>
+<div class="dlg-node reply" id="r18"><div class="dlg-head"><span class="dlg-id">reply #18</span></div><div class="dlg-text">Who is they? Would you please tell me, I am uniquely curious.</div><ul class="dlg-links"><li><a href="#e14">→ entry #14</a> <span class="dlg-link-preview">“Well... *sigh* Allright. But you must promise to keep it to yourself! *raises ey…”</span></li></ul></div>
+<div class="dlg-node reply" id="r19"><div class="dlg-head"><span class="dlg-id">reply #19</span></div><div class="dlg-text">Your secret will be safe with me.</div><ul class="dlg-links"><li><a href="#e15">→ entry #15</a> <span class="dlg-link-preview">“I will just tell you a brief introduction to our problems. You may talk to our c…”</span></li></ul></div>
+<div class="dlg-node reply" id="r20"><div class="dlg-head"><span class="dlg-id">reply #20</span></div><div class="dlg-text">OK.</div><ul class="dlg-links"><li><a href="#e16">→ entry #16</a> <span class="dlg-link-preview">“There is a certain to us unknown power of darkness rising in the east. These are…”</span></li></ul></div>
+<div class="dlg-node reply" id="r21"><div class="dlg-head"><span class="dlg-id">reply #21</span></div><div class="dlg-text">Yes...</div><ul class="dlg-links"><li><a href="#e17">→ entry #17</a> <span class="dlg-link-preview">“He is preparing himself to serve this evil, whatever it may be, and gain power f…”</span></li></ul></div>
+<div class="dlg-node reply" id="r22"><div class="dlg-head"><span class="dlg-id">reply #22</span> <span class="dlg-action">→ <code>gdqs1</code></span></div><div class="dlg-text">Yes, I certainly will.</div></div>
+<div class="dlg-node reply" id="r23"><div class="dlg-head"><span class="dlg-id">reply #23</span></div><div class="dlg-text">Oh come on. Like you have a death threatening problem...</div><ul class="dlg-links"><li><a href="#e18">→ entry #18</a> <span class="dlg-link-preview">“You know? You are right. I don&#x27;t. We don&#x27;t. In fact, since you don&#x27;t get this qu…”</span></li></ul></div>
+<div class="dlg-node reply" id="r24"><div class="dlg-head"><span class="dlg-id">reply #24</span></div><div class="dlg-text">OK! Relax...</div></div>
+<div class="dlg-node reply" id="r25"><div class="dlg-head"><span class="dlg-id">reply #25</span></div><div class="dlg-text">Listen, you&#x27;re just getting on my nerves now. Will you tell me what is going on, or not?</div><ul class="dlg-links"><li><a href="#e19">→ entry #19</a> <span class="dlg-link-preview">“I would, but I am rather busy. Farewell.”</span></li></ul></div>
+<div class="dlg-node reply" id="r26"><div class="dlg-head"><span class="dlg-id">reply #26</span></div><div class="dlg-text">Fine!</div></div>
+<div class="dlg-node reply" id="r27"><div class="dlg-head"><span class="dlg-id">reply #27</span></div><div class="dlg-text">I see, so you are all rude. No wonder you have no customers.</div><ul class="dlg-links"><li><a href="#e20">→ entry #20</a> <span class="dlg-link-preview">“No, we aren&#x27;t rude, but the matters are rather serious for us and we dislike tal…”</span></li></ul></div>
+<div class="dlg-node reply" id="r28"><div class="dlg-head"><span class="dlg-id">reply #28</span></div><div class="dlg-text">Allright, suit yourself.</div></div>
+<div class="dlg-node reply" id="r29"><div class="dlg-head"><span class="dlg-id">reply #29</span></div><div class="dlg-text">Whatever. Get me a drink then.</div><ul class="dlg-links"><li><a href="#e22">→ child</a> <span class="dlg-link-preview">“Well, there are a lot of nice things that we can offer you. Would you like somet…”</span></li></ul></div>
+<div class="dlg-node reply" id="r30"><div class="dlg-head"><span class="dlg-id">reply #30</span></div><div class="dlg-text">If you say so.</div></div>
+<div class="dlg-node reply" id="r31"><div class="dlg-head"><span class="dlg-id">reply #31</span></div><div class="dlg-text">OK then. How about you get me a drink?</div><ul class="dlg-links"><li><a href="#e22">→ child</a> <span class="dlg-link-preview">“Well, there are a lot of nice things that we can offer you. Would you like somet…”</span></li></ul></div>
+<div class="dlg-node reply" id="r32"><div class="dlg-head"><span class="dlg-id">reply #32</span></div><div class="dlg-text">It is probably emptier because it is this time of day, however. I&#x27;m sure you get more customers at other times.</div><ul class="dlg-links"><li><a href="#e21">→ entry #21</a> <span class="dlg-link-preview">“Hm... *looks worried* yes nothing to worry about, I assure you.”</span></li></ul></div>
+<div class="dlg-node reply" id="r33"><div class="dlg-head"><span class="dlg-id">reply #33</span></div><div class="dlg-text">End Dialog</div></div>
+<div class="dlg-node reply" id="r34"><div class="dlg-head"><span class="dlg-id">reply #34</span></div><div class="dlg-text">How about a drink?</div><ul class="dlg-links"><li><a href="#e22">→ child</a> <span class="dlg-link-preview">“Well, there are a lot of nice things that we can offer you. Would you like somet…”</span></li></ul></div>
+<div class="dlg-node reply" id="r35"><div class="dlg-head"><span class="dlg-id">reply #35</span></div><div class="dlg-text">I&#x27;d just like to have something nice to drink.</div><ul class="dlg-links"><li><a href="#e22">→ entry #22</a> <span class="dlg-link-preview">“Well, there are a lot of nice things that we can offer you. Would you like somet…”</span></li></ul></div>
+<div class="dlg-node reply" id="r36"><div class="dlg-head"><span class="dlg-id">reply #36</span></div><div class="dlg-text">Oh, can you not just offer me any drink? Don&#x27;t you realise when you become annyoing? </div><ul class="dlg-links"><li><a href="#e23">→ entry #23</a> <span class="dlg-link-preview">“Any drink is what you get then ... *He gives you a small bottle to drink*”</span></li></ul></div>
+<div class="dlg-node reply" id="r37"><div class="dlg-head"><span class="dlg-id">reply #37</span></div><div class="dlg-text">I&#x27;m just thirsty.</div><ul class="dlg-links"><li><a href="#e24">→ entry #24</a> <span class="dlg-link-preview">“Here you are , it is on the house.”</span></li></ul></div>
+<div class="dlg-node reply" id="r38"><div class="dlg-head"><span class="dlg-id">reply #38</span></div><div class="dlg-text">I believe I need to be cured.</div><ul class="dlg-links"><li><a href="#e25">→ entry #25</a> <span class="dlg-link-preview">“That would be 10 gp and you are as good as new.”</span></li></ul></div>
+<div class="dlg-node reply" id="r39"><div class="dlg-head"><span class="dlg-id">reply #39</span></div><div class="dlg-text">A drink that relaxes? That sounds nice, I&#x27;ll have that.</div><ul class="dlg-links"><li><a href="#e26">→ entry #26</a> <span class="dlg-link-preview">“Well, here you go. I believe you will feel more lively once you have it.”</span></li></ul></div>
+  </main>
+  <footer>generated by <a href="https://github.com/mrprice22/nwn-manager">nwn-manager</a> &mdash; last updated Jun 3, 2026 12:42</footer>
+</body>
+</html>

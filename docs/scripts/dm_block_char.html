@@ -1,0 +1,1174 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Script dm_block_char</title>
+  <link rel="stylesheet" href="../assets/style.css">
+  <link rel="stylesheet" href="../assets/theme.css">
+  <link rel="icon" href="../assets/favicon.png">
+</head>
+<body>
+  <header class="site-header">
+    <a class="brand" href="../index.html"><img class="site-header-img" src="../assets/header.png" alt="Home"></a>
+    <nav>
+      <a href="../index.html">Map</a>
+      <a href="../areas/index.html">Areas</a>
+      <div class="nav-dropdown">
+        <span class="nav-dropdown-label">Creatures &#9660;</span>
+        <div class="nav-dropdown-menu">
+          <a href="../creatures/index.html">All Creatures</a>
+          <a href="../creatures/by-area/index.html">By Area</a>
+          <a href="../creatures/by-cr/index.html">By Challenge Rating</a>
+          <a href="../creatures/by-race/index.html">By Race</a>
+        </div>
+      </div>
+      <div class="nav-dropdown">
+        <span class="nav-dropdown-label">Items &#9660;</span>
+        <div class="nav-dropdown-menu">
+          <a href="../items/index.html">Accessible</a>
+          <a href="../items/inaccessible/index.html">Inaccessible</a>
+          <a href="../items/properties/index.html">By Property</a>
+          <a href="../items/search.html">Search</a>
+        </div>
+      </div>
+      <a href="../stores/index.html">Stores</a>
+      <a href="../conversations/index.html">Conversations</a>
+      <a href="../factions.html">Factions</a>
+      <a href="../quests/index.html">Quests</a>
+      <a href="../activity.html">Activity</a>
+      <div class="nav-dropdown"><span class="nav-dropdown-label">Documents &#9660;</span><div class="nav-dropdown-menu"><a href="../manual/LevelingGuide.html">Leveling Guide</a>
+<a href="../manual/MeaningWave.html">MeaningWave: A Guide to the Guides</a>
+<a href="../manual/Quest Ideas.html">Quest Ideas (Draft Concepts)</a>
+<a href="../manual/QuestGuide.html">Quest Guide</a></div></div>
+    </nav>
+  </header>
+  <main>
+<h1>Script: <code>dm_block_char</code></h1><pre class="nss-source"><code>string XP2LVL(int nPCXP)
+{
+string sFinalLVL;
+
+if (nPCXP &lt; 1000)
+{
+sFinalLVL = &quot;1&quot;;
+return sFinalLVL;
+}
+if (nPCXP &lt; 3000)
+{
+sFinalLVL = &quot;2&quot;;
+return sFinalLVL;
+}
+if (nPCXP &lt; 6000)
+{
+sFinalLVL = &quot;3&quot;;
+return sFinalLVL;
+}
+if (nPCXP &lt; 10000)
+{
+sFinalLVL = &quot;4&quot;;
+return sFinalLVL;
+}
+if (nPCXP &lt; 15000)
+{
+sFinalLVL = &quot;5&quot;;
+return sFinalLVL;
+}
+if (nPCXP &lt; 21000)
+{
+sFinalLVL = &quot;6&quot;;
+return sFinalLVL;
+}
+if (nPCXP &lt; 28000)
+{
+sFinalLVL = &quot;7&quot;;
+return sFinalLVL;
+}
+if (nPCXP &lt; 36000)
+{
+sFinalLVL = &quot;8&quot;;
+return sFinalLVL;
+}
+if (nPCXP &lt; 45000)
+{
+sFinalLVL = &quot;9&quot;;
+return sFinalLVL;
+}
+if (nPCXP &lt; 55000)
+{
+sFinalLVL = &quot;10&quot;;
+return sFinalLVL;
+}
+if (nPCXP &lt; 66000)
+{
+sFinalLVL = &quot;11&quot;;
+return sFinalLVL;
+}
+if (nPCXP &lt; 78000)
+{
+sFinalLVL = &quot;12&quot;;
+return sFinalLVL;
+}
+if (nPCXP &lt; 91000)
+{
+sFinalLVL = &quot;13&quot;;
+return sFinalLVL;
+}
+if (nPCXP &lt; 105000)
+{
+sFinalLVL = &quot;14&quot;;
+return sFinalLVL;
+}
+if (nPCXP &lt; 120000)
+{
+sFinalLVL = &quot;15&quot;;
+return sFinalLVL;
+}
+if (nPCXP &lt; 136000)
+{
+sFinalLVL = &quot;16&quot;;
+return sFinalLVL;
+}
+if (nPCXP &lt; 153000)
+{
+sFinalLVL = &quot;17&quot;;
+return sFinalLVL;
+}
+if (nPCXP &lt; 171000)
+{
+sFinalLVL = &quot;18&quot;;
+return sFinalLVL;
+}
+if (nPCXP &lt; 190000)
+{
+sFinalLVL = &quot;19&quot;;
+return sFinalLVL;
+}
+if (nPCXP &lt; 210000)
+{
+sFinalLVL = &quot;20&quot;;
+return sFinalLVL;
+}
+if (nPCXP &lt; 231000)
+{
+sFinalLVL = &quot;21&quot;;
+return sFinalLVL;
+}
+if (nPCXP &lt; 253000)
+{
+sFinalLVL = &quot;22&quot;;
+return sFinalLVL;
+}
+if (nPCXP &lt; 276000)
+{
+sFinalLVL = &quot;23&quot;;
+return sFinalLVL;
+}
+if (nPCXP &lt; 300000)
+{
+sFinalLVL = &quot;24&quot;;
+return sFinalLVL;
+}
+if (nPCXP &lt; 325000)
+{
+sFinalLVL = &quot;25&quot;;
+return sFinalLVL;
+}
+if (nPCXP &lt; 351000)
+{
+sFinalLVL = &quot;26&quot;;
+return sFinalLVL;
+}
+if (nPCXP &lt; 378000)
+{
+sFinalLVL = &quot;27&quot;;
+return sFinalLVL;
+}
+if (nPCXP &lt; 406000)
+{
+sFinalLVL = &quot;28&quot;;
+return sFinalLVL;
+}
+if (nPCXP &lt; 435000)
+{
+sFinalLVL = &quot;29&quot;;
+return sFinalLVL;
+}
+if (nPCXP &lt; 465000)
+{
+sFinalLVL = &quot;30&quot;;
+return sFinalLVL;
+}
+if (nPCXP &lt; 496000)
+{
+sFinalLVL = &quot;31&quot;;
+return sFinalLVL;
+}
+if (nPCXP &lt; 528000)
+{
+sFinalLVL = &quot;32&quot;;
+return sFinalLVL;
+}
+if (nPCXP &lt; 561000)
+{
+sFinalLVL = &quot;33&quot;;
+return sFinalLVL;
+}
+if (nPCXP &lt; 595000)
+{
+sFinalLVL = &quot;34&quot;;
+return sFinalLVL;
+}
+if (nPCXP &lt; 630000)
+{
+sFinalLVL = &quot;35&quot;;
+return sFinalLVL;
+}
+if (nPCXP &lt; 666000)
+{
+sFinalLVL = &quot;36&quot;;
+return sFinalLVL;
+}
+if (nPCXP &lt; 703000)
+{
+sFinalLVL = &quot;37&quot;;
+return sFinalLVL;
+}
+if (nPCXP &lt; 741000)
+{
+sFinalLVL = &quot;38&quot;;
+return sFinalLVL;
+}
+if (nPCXP &lt; 780000)
+{
+sFinalLVL = &quot;39&quot;;
+return sFinalLVL;
+}
+
+sFinalLVL = &quot;40&quot;;
+return sFinalLVL;
+}
+
+
+void main()
+{
+
+string sNameOfPC;
+int nXPOfPC;
+string sXPofPC;
+int nAlignmentPC;
+string sAlignmentPC;
+string sStringToSpeak;
+string sLVLofPC;
+string sPCPname;
+
+//make a player list:
+object oPC = GetFirstPC();
+
+
+
+
+sNameOfPC = GetName(oPC);
+nXPOfPC = GetXP(oPC);
+sXPofPC = IntToString(nXPOfPC);
+nAlignmentPC = GetAlignmentGoodEvil(oPC);
+if (nAlignmentPC == ALIGNMENT_EVIL)
+{ sAlignmentPC = &quot;Evil&quot;; }
+if (nAlignmentPC == ALIGNMENT_GOOD)
+{ sAlignmentPC = &quot;Good&quot;; }
+//convert XP to level
+sLVLofPC = XP2LVL(nXPOfPC);
+sStringToSpeak = &quot;1. &quot; + sNameOfPC + &quot;     ||     lvl (&quot; + sLVLofPC + &quot;)       ||      &quot; + sAlignmentPC;
+if (sNameOfPC!=&quot;&quot;)
+ActionSpeakString(sStringToSpeak, TALKVOLUME_TALK);
+sPCPname = GetPCPlayerName(oPC);
+SetLocalString (OBJECT_SELF, &quot;PC2check1&quot;, sPCPname);
+oPC = GetNextPC();
+
+
+
+sNameOfPC = GetName(oPC);
+nXPOfPC = GetXP(oPC);
+sXPofPC = IntToString(nXPOfPC);
+nAlignmentPC = GetAlignmentGoodEvil(oPC);
+if (nAlignmentPC == ALIGNMENT_EVIL)
+{ sAlignmentPC = &quot;Evil&quot;; }
+if (nAlignmentPC == ALIGNMENT_GOOD)
+{ sAlignmentPC = &quot;Good&quot;; }
+//convert XP to level
+sLVLofPC = XP2LVL(nXPOfPC);
+sStringToSpeak = &quot;2. &quot; + sNameOfPC + &quot;     ||     lvl (&quot; + sLVLofPC + &quot;)       ||      &quot; + sAlignmentPC;
+if (sNameOfPC!=&quot;&quot;)
+ActionSpeakString(sStringToSpeak, TALKVOLUME_TALK);
+sPCPname = GetPCPlayerName(oPC);
+SetLocalString (OBJECT_SELF, &quot;PC2check2&quot;, sPCPname);
+oPC = GetNextPC();
+
+
+
+sNameOfPC = GetName(oPC);
+nXPOfPC = GetXP(oPC);
+sXPofPC = IntToString(nXPOfPC);
+nAlignmentPC = GetAlignmentGoodEvil(oPC);
+if (nAlignmentPC == ALIGNMENT_EVIL)
+{ sAlignmentPC = &quot;Evil&quot;; }
+if (nAlignmentPC == ALIGNMENT_GOOD)
+{ sAlignmentPC = &quot;Good&quot;; }
+//convert XP to level
+sLVLofPC = XP2LVL(nXPOfPC);
+sStringToSpeak = &quot;3. &quot; + sNameOfPC + &quot;     ||     lvl (&quot; + sLVLofPC + &quot;)       ||      &quot; + sAlignmentPC;
+if (sNameOfPC!=&quot;&quot;)
+ActionSpeakString(sStringToSpeak, TALKVOLUME_TALK);
+sPCPname = GetPCPlayerName(oPC);
+SetLocalString (OBJECT_SELF, &quot;PC2check3&quot;, sPCPname);
+oPC = GetNextPC();
+
+
+
+sNameOfPC = GetName(oPC);
+nXPOfPC = GetXP(oPC);
+sXPofPC = IntToString(nXPOfPC);
+nAlignmentPC = GetAlignmentGoodEvil(oPC);
+if (nAlignmentPC == ALIGNMENT_EVIL)
+{ sAlignmentPC = &quot;Evil&quot;; }
+if (nAlignmentPC == ALIGNMENT_GOOD)
+{ sAlignmentPC = &quot;Good&quot;; }
+//convert XP to level
+sLVLofPC = XP2LVL(nXPOfPC);
+sStringToSpeak = &quot;4. &quot; + sNameOfPC + &quot;     ||     lvl (&quot; + sLVLofPC + &quot;)       ||      &quot; + sAlignmentPC;
+if (sNameOfPC!=&quot;&quot;)
+ActionSpeakString(sStringToSpeak, TALKVOLUME_TALK);
+sPCPname = GetPCPlayerName(oPC);
+SetLocalString (OBJECT_SELF, &quot;PC2check4&quot;, sPCPname);
+oPC = GetNextPC();
+
+
+
+sNameOfPC = GetName(oPC);
+nXPOfPC = GetXP(oPC);
+sXPofPC = IntToString(nXPOfPC);
+nAlignmentPC = GetAlignmentGoodEvil(oPC);
+if (nAlignmentPC == ALIGNMENT_EVIL)
+{ sAlignmentPC = &quot;Evil&quot;; }
+if (nAlignmentPC == ALIGNMENT_GOOD)
+{ sAlignmentPC = &quot;Good&quot;; }
+//convert XP to level
+sLVLofPC = XP2LVL(nXPOfPC);
+sStringToSpeak = &quot;5. &quot; + sNameOfPC + &quot;     ||     lvl (&quot; + sLVLofPC + &quot;)       ||      &quot; + sAlignmentPC;
+if (sNameOfPC!=&quot;&quot;)
+ActionSpeakString(sStringToSpeak, TALKVOLUME_TALK);
+sPCPname = GetPCPlayerName(oPC);
+SetLocalString (OBJECT_SELF, &quot;PC2check5&quot;, sPCPname);
+oPC = GetNextPC();
+
+
+
+sNameOfPC = GetName(oPC);
+nXPOfPC = GetXP(oPC);
+sXPofPC = IntToString(nXPOfPC);
+nAlignmentPC = GetAlignmentGoodEvil(oPC);
+if (nAlignmentPC == ALIGNMENT_EVIL)
+{ sAlignmentPC = &quot;Evil&quot;; }
+if (nAlignmentPC == ALIGNMENT_GOOD)
+{ sAlignmentPC = &quot;Good&quot;; }
+//convert XP to level
+sLVLofPC = XP2LVL(nXPOfPC);
+sStringToSpeak = &quot;6. &quot; + sNameOfPC + &quot;     ||     lvl (&quot; + sLVLofPC + &quot;)       ||      &quot; + sAlignmentPC;
+if (sNameOfPC!=&quot;&quot;)
+ActionSpeakString(sStringToSpeak, TALKVOLUME_TALK);
+sPCPname = GetPCPlayerName(oPC);
+SetLocalString (OBJECT_SELF, &quot;PC2check6&quot;, sPCPname);
+oPC = GetNextPC();
+
+
+
+sNameOfPC = GetName(oPC);
+nXPOfPC = GetXP(oPC);
+sXPofPC = IntToString(nXPOfPC);
+nAlignmentPC = GetAlignmentGoodEvil(oPC);
+if (nAlignmentPC == ALIGNMENT_EVIL)
+{ sAlignmentPC = &quot;Evil&quot;; }
+if (nAlignmentPC == ALIGNMENT_GOOD)
+{ sAlignmentPC = &quot;Good&quot;; }
+//convert XP to level
+sLVLofPC = XP2LVL(nXPOfPC);
+sStringToSpeak = &quot;7. &quot; + sNameOfPC + &quot;     ||     lvl (&quot; + sLVLofPC + &quot;)       ||      &quot; + sAlignmentPC;
+if (sNameOfPC!=&quot;&quot;)
+ActionSpeakString(sStringToSpeak, TALKVOLUME_TALK);
+sPCPname = GetPCPlayerName(oPC);
+SetLocalString (OBJECT_SELF, &quot;PC2check7&quot;, sPCPname);
+oPC = GetNextPC();
+
+
+
+sNameOfPC = GetName(oPC);
+nXPOfPC = GetXP(oPC);
+sXPofPC = IntToString(nXPOfPC);
+nAlignmentPC = GetAlignmentGoodEvil(oPC);
+if (nAlignmentPC == ALIGNMENT_EVIL)
+{ sAlignmentPC = &quot;Evil&quot;; }
+if (nAlignmentPC == ALIGNMENT_GOOD)
+{ sAlignmentPC = &quot;Good&quot;; }
+//convert XP to level
+sLVLofPC = XP2LVL(nXPOfPC);
+sStringToSpeak = &quot;8. &quot; + sNameOfPC + &quot;     ||     lvl (&quot; + sLVLofPC + &quot;)       ||      &quot; + sAlignmentPC;
+if (sNameOfPC!=&quot;&quot;)
+ActionSpeakString(sStringToSpeak, TALKVOLUME_TALK);
+sPCPname = GetPCPlayerName(oPC);
+SetLocalString (OBJECT_SELF, &quot;PC2check8&quot;,sPCPname);
+oPC = GetNextPC();
+
+
+
+sNameOfPC = GetName(oPC);
+nXPOfPC = GetXP(oPC);
+sXPofPC = IntToString(nXPOfPC);
+nAlignmentPC = GetAlignmentGoodEvil(oPC);
+if (nAlignmentPC == ALIGNMENT_EVIL)
+{ sAlignmentPC = &quot;Evil&quot;; }
+if (nAlignmentPC == ALIGNMENT_GOOD)
+{ sAlignmentPC = &quot;Good&quot;; }
+//convert XP to level
+sLVLofPC = XP2LVL(nXPOfPC);
+sStringToSpeak = &quot;9. &quot; + sNameOfPC + &quot;     ||     lvl (&quot; + sLVLofPC + &quot;)       ||      &quot; + sAlignmentPC;
+if (sNameOfPC!=&quot;&quot;)
+ActionSpeakString(sStringToSpeak, TALKVOLUME_TALK);
+sPCPname = GetPCPlayerName(oPC);
+SetLocalString (OBJECT_SELF, &quot;PC2check9&quot;, sPCPname);
+oPC = GetNextPC();
+
+
+
+sNameOfPC = GetName(oPC);
+nXPOfPC = GetXP(oPC);
+sXPofPC = IntToString(nXPOfPC);
+nAlignmentPC = GetAlignmentGoodEvil(oPC);
+if (nAlignmentPC == ALIGNMENT_EVIL)
+{ sAlignmentPC = &quot;Evil&quot;; }
+if (nAlignmentPC == ALIGNMENT_GOOD)
+{ sAlignmentPC = &quot;Good&quot;; }
+//convert XP to level
+sLVLofPC = XP2LVL(nXPOfPC);
+sStringToSpeak = &quot;10. &quot; + sNameOfPC + &quot;     ||     lvl (&quot; + sLVLofPC + &quot;)       ||      &quot; + sAlignmentPC;
+if (sNameOfPC!=&quot;&quot;)
+ActionSpeakString(sStringToSpeak, TALKVOLUME_TALK);
+sPCPname = GetPCPlayerName(oPC);
+SetLocalString (OBJECT_SELF, &quot;PC2check10&quot;, sPCPname);
+oPC = GetNextPC();
+
+
+
+sNameOfPC = GetName(oPC);
+nXPOfPC = GetXP(oPC);
+sXPofPC = IntToString(nXPOfPC);
+nAlignmentPC = GetAlignmentGoodEvil(oPC);
+if (nAlignmentPC == ALIGNMENT_EVIL)
+{ sAlignmentPC = &quot;Evil&quot;; }
+if (nAlignmentPC == ALIGNMENT_GOOD)
+{ sAlignmentPC = &quot;Good&quot;; }
+//convert XP to level
+sLVLofPC = XP2LVL(nXPOfPC);
+sStringToSpeak = &quot;11. &quot; + sNameOfPC + &quot;     ||     lvl (&quot; + sLVLofPC + &quot;)       ||      &quot; + sAlignmentPC;
+if (sNameOfPC!=&quot;&quot;)
+ActionSpeakString(sStringToSpeak, TALKVOLUME_TALK);
+sPCPname = GetPCPlayerName(oPC);
+SetLocalString (OBJECT_SELF, &quot;PC2check11&quot;, sPCPname);
+oPC = GetNextPC();
+
+
+
+sNameOfPC = GetName(oPC);
+nXPOfPC = GetXP(oPC);
+sXPofPC = IntToString(nXPOfPC);
+nAlignmentPC = GetAlignmentGoodEvil(oPC);
+if (nAlignmentPC == ALIGNMENT_EVIL)
+{ sAlignmentPC = &quot;Evil&quot;; }
+if (nAlignmentPC == ALIGNMENT_GOOD)
+{ sAlignmentPC = &quot;Good&quot;; }
+//convert XP to level
+sLVLofPC = XP2LVL(nXPOfPC);
+sStringToSpeak = &quot;12. &quot; + sNameOfPC + &quot;     ||     lvl (&quot; + sLVLofPC + &quot;)       ||      &quot; + sAlignmentPC;
+if (sNameOfPC!=&quot;&quot;)
+ActionSpeakString(sStringToSpeak, TALKVOLUME_TALK);
+sPCPname = GetPCPlayerName(oPC);
+SetLocalString (OBJECT_SELF, &quot;PC2check12&quot;, sPCPname);
+oPC = GetNextPC();
+
+
+
+sNameOfPC = GetName(oPC);
+nXPOfPC = GetXP(oPC);
+sXPofPC = IntToString(nXPOfPC);
+nAlignmentPC = GetAlignmentGoodEvil(oPC);
+if (nAlignmentPC == ALIGNMENT_EVIL)
+{ sAlignmentPC = &quot;Evil&quot;; }
+if (nAlignmentPC == ALIGNMENT_GOOD)
+{ sAlignmentPC = &quot;Good&quot;; }
+//convert XP to level
+sLVLofPC = XP2LVL(nXPOfPC);
+sStringToSpeak = &quot;13. &quot; + sNameOfPC + &quot;     ||     lvl (&quot; + sLVLofPC + &quot;)       ||      &quot; + sAlignmentPC;
+if (sNameOfPC!=&quot;&quot;)
+ActionSpeakString(sStringToSpeak, TALKVOLUME_TALK);
+sPCPname = GetPCPlayerName(oPC);
+SetLocalString (OBJECT_SELF, &quot;PC2check13&quot;, sPCPname);
+oPC = GetNextPC();
+
+
+
+sNameOfPC = GetName(oPC);
+nXPOfPC = GetXP(oPC);
+sXPofPC = IntToString(nXPOfPC);
+nAlignmentPC = GetAlignmentGoodEvil(oPC);
+if (nAlignmentPC == ALIGNMENT_EVIL)
+{ sAlignmentPC = &quot;Evil&quot;; }
+if (nAlignmentPC == ALIGNMENT_GOOD)
+{ sAlignmentPC = &quot;Good&quot;; }
+//convert XP to level
+sLVLofPC = XP2LVL(nXPOfPC);
+sStringToSpeak = &quot;14. &quot; + sNameOfPC + &quot;     ||     lvl (&quot; + sLVLofPC + &quot;)       ||      &quot; + sAlignmentPC;
+if (sNameOfPC!=&quot;&quot;)
+ActionSpeakString(sStringToSpeak, TALKVOLUME_TALK);
+sPCPname = GetPCPlayerName(oPC);
+SetLocalString (OBJECT_SELF, &quot;PC2check14&quot;, sPCPname);
+oPC = GetNextPC();
+
+
+
+sNameOfPC = GetName(oPC);
+nXPOfPC = GetXP(oPC);
+sXPofPC = IntToString(nXPOfPC);
+nAlignmentPC = GetAlignmentGoodEvil(oPC);
+if (nAlignmentPC == ALIGNMENT_EVIL)
+{ sAlignmentPC = &quot;Evil&quot;; }
+if (nAlignmentPC == ALIGNMENT_GOOD)
+{ sAlignmentPC = &quot;Good&quot;; }
+//convert XP to level
+sLVLofPC = XP2LVL(nXPOfPC);
+sStringToSpeak = &quot;15. &quot; + sNameOfPC + &quot;     ||     lvl (&quot; + sLVLofPC + &quot;)       ||      &quot; + sAlignmentPC;
+if (sNameOfPC!=&quot;&quot;)
+ActionSpeakString(sStringToSpeak, TALKVOLUME_TALK);
+sPCPname = GetPCPlayerName(oPC);
+SetLocalString (OBJECT_SELF, &quot;PC2check15&quot;, sPCPname);
+oPC = GetNextPC();
+
+
+
+sNameOfPC = GetName(oPC);
+nXPOfPC = GetXP(oPC);
+sXPofPC = IntToString(nXPOfPC);
+nAlignmentPC = GetAlignmentGoodEvil(oPC);
+if (nAlignmentPC == ALIGNMENT_EVIL)
+{ sAlignmentPC = &quot;Evil&quot;; }
+if (nAlignmentPC == ALIGNMENT_GOOD)
+{ sAlignmentPC = &quot;Good&quot;; }
+//convert XP to level
+sLVLofPC = XP2LVL(nXPOfPC);
+sStringToSpeak = &quot;16. &quot; + sNameOfPC + &quot;     ||     lvl (&quot; + sLVLofPC + &quot;)       ||      &quot; + sAlignmentPC;
+if (sNameOfPC!=&quot;&quot;)
+ActionSpeakString(sStringToSpeak, TALKVOLUME_TALK);
+sPCPname = GetPCPlayerName(oPC);
+SetLocalString (OBJECT_SELF, &quot;PC2check16&quot;, sPCPname);
+oPC = GetNextPC();
+
+
+
+sNameOfPC = GetName(oPC);
+nXPOfPC = GetXP(oPC);
+sXPofPC = IntToString(nXPOfPC);
+nAlignmentPC = GetAlignmentGoodEvil(oPC);
+if (nAlignmentPC == ALIGNMENT_EVIL)
+{ sAlignmentPC = &quot;Evil&quot;; }
+if (nAlignmentPC == ALIGNMENT_GOOD)
+{ sAlignmentPC = &quot;Good&quot;; }
+//convert XP to level
+sLVLofPC = XP2LVL(nXPOfPC);
+sStringToSpeak = &quot;17. &quot; + sNameOfPC + &quot;     ||     lvl (&quot; + sLVLofPC + &quot;)       ||      &quot; + sAlignmentPC;
+if (sNameOfPC!=&quot;&quot;)
+ActionSpeakString(sStringToSpeak, TALKVOLUME_TALK);
+sPCPname = GetPCPlayerName(oPC);
+SetLocalString (OBJECT_SELF, &quot;PC2check17&quot;, sPCPname);
+oPC = GetNextPC();
+
+
+
+sNameOfPC = GetName(oPC);
+nXPOfPC = GetXP(oPC);
+sXPofPC = IntToString(nXPOfPC);
+nAlignmentPC = GetAlignmentGoodEvil(oPC);
+if (nAlignmentPC == ALIGNMENT_EVIL)
+{ sAlignmentPC = &quot;Evil&quot;; }
+if (nAlignmentPC == ALIGNMENT_GOOD)
+{ sAlignmentPC = &quot;Good&quot;; }
+//convert XP to level
+sLVLofPC = XP2LVL(nXPOfPC);
+sStringToSpeak = &quot;18. &quot; + sNameOfPC + &quot;     ||     lvl (&quot; + sLVLofPC + &quot;)       ||      &quot; + sAlignmentPC;
+if (sNameOfPC!=&quot;&quot;)
+ActionSpeakString(sStringToSpeak, TALKVOLUME_TALK);
+sPCPname = GetPCPlayerName(oPC);
+SetLocalString (OBJECT_SELF, &quot;PC2check18&quot;, sPCPname);
+oPC = GetNextPC();
+
+
+
+sNameOfPC = GetName(oPC);
+nXPOfPC = GetXP(oPC);
+sXPofPC = IntToString(nXPOfPC);
+nAlignmentPC = GetAlignmentGoodEvil(oPC);
+if (nAlignmentPC == ALIGNMENT_EVIL)
+{ sAlignmentPC = &quot;Evil&quot;; }
+if (nAlignmentPC == ALIGNMENT_GOOD)
+{ sAlignmentPC = &quot;Good&quot;; }
+//convert XP to level
+sLVLofPC = XP2LVL(nXPOfPC);
+sStringToSpeak = &quot;19. &quot; + sNameOfPC + &quot;     ||     lvl (&quot; + sLVLofPC + &quot;)       ||      &quot; + sAlignmentPC;
+if (sNameOfPC!=&quot;&quot;)
+ActionSpeakString(sStringToSpeak, TALKVOLUME_TALK);
+sPCPname = GetPCPlayerName(oPC);
+SetLocalString (OBJECT_SELF, &quot;PC2check19&quot;, sPCPname);
+oPC = GetNextPC();
+
+
+
+sNameOfPC = GetName(oPC);
+nXPOfPC = GetXP(oPC);
+sXPofPC = IntToString(nXPOfPC);
+nAlignmentPC = GetAlignmentGoodEvil(oPC);
+if (nAlignmentPC == ALIGNMENT_EVIL)
+{ sAlignmentPC = &quot;Evil&quot;; }
+if (nAlignmentPC == ALIGNMENT_GOOD)
+{ sAlignmentPC = &quot;Good&quot;; }
+//convert XP to level
+sLVLofPC = XP2LVL(nXPOfPC);
+sStringToSpeak = &quot;20. &quot; + sNameOfPC + &quot;     ||     lvl (&quot; + sLVLofPC + &quot;)       ||      &quot; + sAlignmentPC;
+if (sNameOfPC!=&quot;&quot;)
+ActionSpeakString(sStringToSpeak, TALKVOLUME_TALK);
+sPCPname = GetPCPlayerName(oPC);
+SetLocalString (OBJECT_SELF, &quot;PC2check20&quot;, sPCPname);
+oPC = GetNextPC();
+
+
+
+sNameOfPC = GetName(oPC);
+nXPOfPC = GetXP(oPC);
+sXPofPC = IntToString(nXPOfPC);
+nAlignmentPC = GetAlignmentGoodEvil(oPC);
+if (nAlignmentPC == ALIGNMENT_EVIL)
+{ sAlignmentPC = &quot;Evil&quot;; }
+if (nAlignmentPC == ALIGNMENT_GOOD)
+{ sAlignmentPC = &quot;Good&quot;; }
+//convert XP to level
+sLVLofPC = XP2LVL(nXPOfPC);
+sStringToSpeak = &quot;21. &quot; + sNameOfPC + &quot;     ||     lvl (&quot; + sLVLofPC + &quot;)       ||      &quot; + sAlignmentPC;
+if (sNameOfPC!=&quot;&quot;)
+ActionSpeakString(sStringToSpeak, TALKVOLUME_TALK);
+sPCPname = GetPCPlayerName(oPC);
+SetLocalString (OBJECT_SELF, &quot;PC2check21&quot;, sPCPname);
+oPC = GetNextPC();
+
+
+
+sNameOfPC = GetName(oPC);
+nXPOfPC = GetXP(oPC);
+sXPofPC = IntToString(nXPOfPC);
+nAlignmentPC = GetAlignmentGoodEvil(oPC);
+if (nAlignmentPC == ALIGNMENT_EVIL)
+{ sAlignmentPC = &quot;Evil&quot;; }
+if (nAlignmentPC == ALIGNMENT_GOOD)
+{ sAlignmentPC = &quot;Good&quot;; }
+//convert XP to level
+sLVLofPC = XP2LVL(nXPOfPC);
+sStringToSpeak = &quot;22. &quot; + sNameOfPC + &quot;     ||     lvl (&quot; + sLVLofPC + &quot;)       ||      &quot; + sAlignmentPC;
+if (sNameOfPC!=&quot;&quot;)
+ActionSpeakString(sStringToSpeak, TALKVOLUME_TALK);
+sPCPname = GetPCPlayerName(oPC);
+SetLocalString (OBJECT_SELF, &quot;PC2check22&quot;, sPCPname);
+oPC = GetNextPC();
+
+
+
+sNameOfPC = GetName(oPC);
+nXPOfPC = GetXP(oPC);
+sXPofPC = IntToString(nXPOfPC);
+nAlignmentPC = GetAlignmentGoodEvil(oPC);
+if (nAlignmentPC == ALIGNMENT_EVIL)
+{ sAlignmentPC = &quot;Evil&quot;; }
+if (nAlignmentPC == ALIGNMENT_GOOD)
+{ sAlignmentPC = &quot;Good&quot;; }
+//convert XP to level
+sLVLofPC = XP2LVL(nXPOfPC);
+sStringToSpeak = &quot;23. &quot; + sNameOfPC + &quot;     ||     lvl (&quot; + sLVLofPC + &quot;)       ||      &quot; + sAlignmentPC;
+if (sNameOfPC!=&quot;&quot;)
+ActionSpeakString(sStringToSpeak, TALKVOLUME_TALK);
+sPCPname = GetPCPlayerName(oPC);
+SetLocalString (OBJECT_SELF, &quot;PC2check23&quot;, sPCPname);
+oPC = GetNextPC();
+
+
+
+sNameOfPC = GetName(oPC);
+nXPOfPC = GetXP(oPC);
+sXPofPC = IntToString(nXPOfPC);
+nAlignmentPC = GetAlignmentGoodEvil(oPC);
+if (nAlignmentPC == ALIGNMENT_EVIL)
+{ sAlignmentPC = &quot;Evil&quot;; }
+if (nAlignmentPC == ALIGNMENT_GOOD)
+{ sAlignmentPC = &quot;Good&quot;; }
+//convert XP to level
+sLVLofPC = XP2LVL(nXPOfPC);
+sStringToSpeak = &quot;24. &quot; + sNameOfPC + &quot;     ||     lvl (&quot; + sLVLofPC + &quot;)       ||      &quot; + sAlignmentPC;
+if (sNameOfPC!=&quot;&quot;)
+ActionSpeakString(sStringToSpeak, TALKVOLUME_TALK);
+sPCPname = GetPCPlayerName(oPC);
+SetLocalString (OBJECT_SELF, &quot;PC2check24&quot;, sPCPname);
+oPC = GetNextPC();
+
+
+
+sNameOfPC = GetName(oPC);
+nXPOfPC = GetXP(oPC);
+sXPofPC = IntToString(nXPOfPC);
+nAlignmentPC = GetAlignmentGoodEvil(oPC);
+if (nAlignmentPC == ALIGNMENT_EVIL)
+{ sAlignmentPC = &quot;Evil&quot;; }
+if (nAlignmentPC == ALIGNMENT_GOOD)
+{ sAlignmentPC = &quot;Good&quot;; }
+//convert XP to level
+sLVLofPC = XP2LVL(nXPOfPC);
+sStringToSpeak = &quot;25. &quot; + sNameOfPC + &quot;     ||     lvl (&quot; + sLVLofPC + &quot;)       ||      &quot; + sAlignmentPC;
+if (sNameOfPC!=&quot;&quot;)
+ActionSpeakString(sStringToSpeak, TALKVOLUME_TALK);
+sPCPname = GetPCPlayerName(oPC);
+SetLocalString (OBJECT_SELF, &quot;PC2check25&quot;, sPCPname);
+oPC = GetNextPC();
+
+
+
+sNameOfPC = GetName(oPC);
+nXPOfPC = GetXP(oPC);
+sXPofPC = IntToString(nXPOfPC);
+nAlignmentPC = GetAlignmentGoodEvil(oPC);
+if (nAlignmentPC == ALIGNMENT_EVIL)
+{ sAlignmentPC = &quot;Evil&quot;; }
+if (nAlignmentPC == ALIGNMENT_GOOD)
+{ sAlignmentPC = &quot;Good&quot;; }
+//convert XP to level
+sLVLofPC = XP2LVL(nXPOfPC);
+sStringToSpeak = &quot;26. &quot; + sNameOfPC + &quot;     ||     lvl (&quot; + sLVLofPC + &quot;)       ||      &quot; + sAlignmentPC;
+if (sNameOfPC!=&quot;&quot;)
+ActionSpeakString(sStringToSpeak, TALKVOLUME_TALK);
+sPCPname = GetPCPlayerName(oPC);
+SetLocalString (OBJECT_SELF, &quot;PC2check26&quot;, sPCPname);
+oPC = GetNextPC();
+
+
+
+sNameOfPC = GetName(oPC);
+nXPOfPC = GetXP(oPC);
+sXPofPC = IntToString(nXPOfPC);
+nAlignmentPC = GetAlignmentGoodEvil(oPC);
+if (nAlignmentPC == ALIGNMENT_EVIL)
+{ sAlignmentPC = &quot;Evil&quot;; }
+if (nAlignmentPC == ALIGNMENT_GOOD)
+{ sAlignmentPC = &quot;Good&quot;; }
+//convert XP to level
+sLVLofPC = XP2LVL(nXPOfPC);
+sStringToSpeak = &quot;27. &quot; + sNameOfPC + &quot;     ||     lvl (&quot; + sLVLofPC + &quot;)       ||      &quot; + sAlignmentPC;
+if (sNameOfPC!=&quot;&quot;)
+ActionSpeakString(sStringToSpeak, TALKVOLUME_TALK);
+sPCPname = GetPCPlayerName(oPC);
+SetLocalString (OBJECT_SELF, &quot;PC2check27&quot;, sPCPname);
+oPC = GetNextPC();
+
+
+
+sNameOfPC = GetName(oPC);
+nXPOfPC = GetXP(oPC);
+sXPofPC = IntToString(nXPOfPC);
+nAlignmentPC = GetAlignmentGoodEvil(oPC);
+if (nAlignmentPC == ALIGNMENT_EVIL)
+{ sAlignmentPC = &quot;Evil&quot;; }
+if (nAlignmentPC == ALIGNMENT_GOOD)
+{ sAlignmentPC = &quot;Good&quot;; }
+//convert XP to level
+sLVLofPC = XP2LVL(nXPOfPC);
+sStringToSpeak = &quot;28. &quot; + sNameOfPC + &quot;     ||     lvl (&quot; + sLVLofPC + &quot;)       ||      &quot; + sAlignmentPC;
+if (sNameOfPC!=&quot;&quot;)
+ActionSpeakString(sStringToSpeak, TALKVOLUME_TALK);
+sPCPname = GetPCPlayerName(oPC);
+SetLocalString (OBJECT_SELF, &quot;PC2check28&quot;, sPCPname);
+oPC = GetNextPC();
+
+
+
+sNameOfPC = GetName(oPC);
+nXPOfPC = GetXP(oPC);
+sXPofPC = IntToString(nXPOfPC);
+nAlignmentPC = GetAlignmentGoodEvil(oPC);
+if (nAlignmentPC == ALIGNMENT_EVIL)
+{ sAlignmentPC = &quot;Evil&quot;; }
+if (nAlignmentPC == ALIGNMENT_GOOD)
+{ sAlignmentPC = &quot;Good&quot;; }
+//convert XP to level
+sLVLofPC = XP2LVL(nXPOfPC);
+sStringToSpeak = &quot;29. &quot; + sNameOfPC + &quot;     ||     lvl (&quot; + sLVLofPC + &quot;)       ||      &quot; + sAlignmentPC;
+if (sNameOfPC!=&quot;&quot;)
+ActionSpeakString(sStringToSpeak, TALKVOLUME_TALK);
+sPCPname = GetPCPlayerName(oPC);
+SetLocalString (OBJECT_SELF, &quot;PC2check29&quot;, sPCPname);
+oPC = GetNextPC();
+
+
+
+sNameOfPC = GetName(oPC);
+nXPOfPC = GetXP(oPC);
+sXPofPC = IntToString(nXPOfPC);
+nAlignmentPC = GetAlignmentGoodEvil(oPC);
+if (nAlignmentPC == ALIGNMENT_EVIL)
+{ sAlignmentPC = &quot;Evil&quot;; }
+if (nAlignmentPC == ALIGNMENT_GOOD)
+{ sAlignmentPC = &quot;Good&quot;; }
+//convert XP to level
+sLVLofPC = XP2LVL(nXPOfPC);
+sStringToSpeak = &quot;30. &quot; + sNameOfPC + &quot;     ||     lvl (&quot; + sLVLofPC + &quot;)       ||      &quot; + sAlignmentPC;
+if (sNameOfPC!=&quot;&quot;)
+ActionSpeakString(sStringToSpeak, TALKVOLUME_TALK);
+sPCPname = GetPCPlayerName(oPC);
+SetLocalString (OBJECT_SELF, &quot;PC2check30&quot;, sPCPname);
+oPC = GetNextPC();
+
+
+
+sNameOfPC = GetName(oPC);
+nXPOfPC = GetXP(oPC);
+sXPofPC = IntToString(nXPOfPC);
+nAlignmentPC = GetAlignmentGoodEvil(oPC);
+if (nAlignmentPC == ALIGNMENT_EVIL)
+{ sAlignmentPC = &quot;Evil&quot;; }
+if (nAlignmentPC == ALIGNMENT_GOOD)
+{ sAlignmentPC = &quot;Good&quot;; }
+//convert XP to level
+sLVLofPC = XP2LVL(nXPOfPC);
+sStringToSpeak = &quot;31. &quot; + sNameOfPC + &quot;     ||     lvl (&quot; + sLVLofPC + &quot;)       ||      &quot; + sAlignmentPC;
+if (sNameOfPC!=&quot;&quot;)
+ActionSpeakString(sStringToSpeak, TALKVOLUME_TALK);
+sPCPname = GetPCPlayerName(oPC);
+SetLocalString (OBJECT_SELF, &quot;PC2check31&quot;, sPCPname);
+oPC = GetNextPC();
+
+
+
+sNameOfPC = GetName(oPC);
+nXPOfPC = GetXP(oPC);
+sXPofPC = IntToString(nXPOfPC);
+nAlignmentPC = GetAlignmentGoodEvil(oPC);
+if (nAlignmentPC == ALIGNMENT_EVIL)
+{ sAlignmentPC = &quot;Evil&quot;; }
+if (nAlignmentPC == ALIGNMENT_GOOD)
+{ sAlignmentPC = &quot;Good&quot;; }
+//convert XP to level
+sLVLofPC = XP2LVL(nXPOfPC);
+sStringToSpeak = &quot;32. &quot; + sNameOfPC + &quot;     ||     lvl (&quot; + sLVLofPC + &quot;)       ||      &quot; + sAlignmentPC;
+if (sNameOfPC!=&quot;&quot;)
+ActionSpeakString(sStringToSpeak, TALKVOLUME_TALK);
+sPCPname = GetPCPlayerName(oPC);
+SetLocalString (OBJECT_SELF, &quot;PC2check32&quot;, sPCPname);
+oPC = GetNextPC();
+
+
+
+sNameOfPC = GetName(oPC);
+nXPOfPC = GetXP(oPC);
+sXPofPC = IntToString(nXPOfPC);
+nAlignmentPC = GetAlignmentGoodEvil(oPC);
+if (nAlignmentPC == ALIGNMENT_EVIL)
+{ sAlignmentPC = &quot;Evil&quot;; }
+if (nAlignmentPC == ALIGNMENT_GOOD)
+{ sAlignmentPC = &quot;Good&quot;; }
+//convert XP to level
+sLVLofPC = XP2LVL(nXPOfPC);
+sStringToSpeak = &quot;33. &quot; + sNameOfPC + &quot;     ||     lvl (&quot; + sLVLofPC + &quot;)       ||      &quot; + sAlignmentPC;
+if (sNameOfPC!=&quot;&quot;)
+ActionSpeakString(sStringToSpeak, TALKVOLUME_TALK);
+sPCPname = GetPCPlayerName(oPC);
+SetLocalString (OBJECT_SELF, &quot;PC2check33&quot;, sPCPname);
+oPC = GetNextPC();
+
+
+
+sNameOfPC = GetName(oPC);
+nXPOfPC = GetXP(oPC);
+sXPofPC = IntToString(nXPOfPC);
+nAlignmentPC = GetAlignmentGoodEvil(oPC);
+if (nAlignmentPC == ALIGNMENT_EVIL)
+{ sAlignmentPC = &quot;Evil&quot;; }
+if (nAlignmentPC == ALIGNMENT_GOOD)
+{ sAlignmentPC = &quot;Good&quot;; }
+//convert XP to level
+sLVLofPC = XP2LVL(nXPOfPC);
+sStringToSpeak = &quot;34. &quot; + sNameOfPC + &quot;     ||     lvl (&quot; + sLVLofPC + &quot;)       ||      &quot; + sAlignmentPC;
+if (sNameOfPC!=&quot;&quot;)
+ActionSpeakString(sStringToSpeak, TALKVOLUME_TALK);
+sPCPname = GetPCPlayerName(oPC);
+SetLocalString (OBJECT_SELF, &quot;PC2check34&quot;, sPCPname);
+oPC = GetNextPC();
+
+
+
+sNameOfPC = GetName(oPC);
+nXPOfPC = GetXP(oPC);
+sXPofPC = IntToString(nXPOfPC);
+nAlignmentPC = GetAlignmentGoodEvil(oPC);
+if (nAlignmentPC == ALIGNMENT_EVIL)
+{ sAlignmentPC = &quot;Evil&quot;; }
+if (nAlignmentPC == ALIGNMENT_GOOD)
+{ sAlignmentPC = &quot;Good&quot;; }
+//convert XP to level
+sLVLofPC = XP2LVL(nXPOfPC);
+sStringToSpeak = &quot;35. &quot; + sNameOfPC + &quot;     ||     lvl (&quot; + sLVLofPC + &quot;)       ||      &quot; + sAlignmentPC;
+if (sNameOfPC!=&quot;&quot;)
+ActionSpeakString(sStringToSpeak, TALKVOLUME_TALK);
+sPCPname = GetPCPlayerName(oPC);
+SetLocalString (OBJECT_SELF, &quot;PC2check35&quot;, sPCPname);
+oPC = GetNextPC();
+
+
+
+sNameOfPC = GetName(oPC);
+nXPOfPC = GetXP(oPC);
+sXPofPC = IntToString(nXPOfPC);
+nAlignmentPC = GetAlignmentGoodEvil(oPC);
+if (nAlignmentPC == ALIGNMENT_EVIL)
+{ sAlignmentPC = &quot;Evil&quot;; }
+if (nAlignmentPC == ALIGNMENT_GOOD)
+{ sAlignmentPC = &quot;Good&quot;; }
+//convert XP to level
+sLVLofPC = XP2LVL(nXPOfPC);
+sStringToSpeak = &quot;36. &quot; + sNameOfPC + &quot;     ||     lvl (&quot; + sLVLofPC + &quot;)       ||      &quot; + sAlignmentPC;
+if (sNameOfPC!=&quot;&quot;)
+ActionSpeakString(sStringToSpeak, TALKVOLUME_TALK);
+sPCPname = GetPCPlayerName(oPC);
+SetLocalString (OBJECT_SELF, &quot;PC2check36&quot;, sPCPname);
+oPC = GetNextPC();
+
+
+
+sNameOfPC = GetName(oPC);
+nXPOfPC = GetXP(oPC);
+sXPofPC = IntToString(nXPOfPC);
+nAlignmentPC = GetAlignmentGoodEvil(oPC);
+if (nAlignmentPC == ALIGNMENT_EVIL)
+{ sAlignmentPC = &quot;Evil&quot;; }
+if (nAlignmentPC == ALIGNMENT_GOOD)
+{ sAlignmentPC = &quot;Good&quot;; }
+//convert XP to level
+sLVLofPC = XP2LVL(nXPOfPC);
+sStringToSpeak = &quot;37. &quot; + sNameOfPC + &quot;     ||     lvl (&quot; + sLVLofPC + &quot;)       ||      &quot; + sAlignmentPC;
+if (sNameOfPC!=&quot;&quot;)
+ActionSpeakString(sStringToSpeak, TALKVOLUME_TALK);
+sPCPname = GetPCPlayerName(oPC);
+SetLocalString (OBJECT_SELF, &quot;PC2check37&quot;, sPCPname);
+oPC = GetNextPC();
+
+
+
+sNameOfPC = GetName(oPC);
+nXPOfPC = GetXP(oPC);
+sXPofPC = IntToString(nXPOfPC);
+nAlignmentPC = GetAlignmentGoodEvil(oPC);
+if (nAlignmentPC == ALIGNMENT_EVIL)
+{ sAlignmentPC = &quot;Evil&quot;; }
+if (nAlignmentPC == ALIGNMENT_GOOD)
+{ sAlignmentPC = &quot;Good&quot;; }
+//convert XP to level
+sLVLofPC = XP2LVL(nXPOfPC);
+sStringToSpeak = &quot;38. &quot; + sNameOfPC + &quot;     ||     lvl (&quot; + sLVLofPC + &quot;)       ||      &quot; + sAlignmentPC;
+if (sNameOfPC!=&quot;&quot;)
+ActionSpeakString(sStringToSpeak, TALKVOLUME_TALK);
+sPCPname = GetPCPlayerName(oPC);
+SetLocalString (OBJECT_SELF, &quot;PC2check38&quot;, sPCPname);
+oPC = GetNextPC();
+
+
+
+sNameOfPC = GetName(oPC);
+nXPOfPC = GetXP(oPC);
+sXPofPC = IntToString(nXPOfPC);
+nAlignmentPC = GetAlignmentGoodEvil(oPC);
+if (nAlignmentPC == ALIGNMENT_EVIL)
+{ sAlignmentPC = &quot;Evil&quot;; }
+if (nAlignmentPC == ALIGNMENT_GOOD)
+{ sAlignmentPC = &quot;Good&quot;; }
+//convert XP to level
+sLVLofPC = XP2LVL(nXPOfPC);
+sStringToSpeak = &quot;39. &quot; + sNameOfPC + &quot;     ||     lvl (&quot; + sLVLofPC + &quot;)       ||      &quot; + sAlignmentPC;
+if (sNameOfPC!=&quot;&quot;)
+ActionSpeakString(sStringToSpeak, TALKVOLUME_TALK);
+sPCPname = GetPCPlayerName(oPC);
+SetLocalString (OBJECT_SELF, &quot;PC2check39&quot;, sPCPname);
+oPC = GetNextPC();
+
+
+
+sNameOfPC = GetName(oPC);
+nXPOfPC = GetXP(oPC);
+sXPofPC = IntToString(nXPOfPC);
+nAlignmentPC = GetAlignmentGoodEvil(oPC);
+if (nAlignmentPC == ALIGNMENT_EVIL)
+{ sAlignmentPC = &quot;Evil&quot;; }
+if (nAlignmentPC == ALIGNMENT_GOOD)
+{ sAlignmentPC = &quot;Good&quot;; }
+//convert XP to level
+sLVLofPC = XP2LVL(nXPOfPC);
+sStringToSpeak = &quot;40. &quot; + sNameOfPC + &quot;     ||     lvl (&quot; + sLVLofPC + &quot;)       ||      &quot; + sAlignmentPC;
+if (sNameOfPC!=&quot;&quot;)
+ActionSpeakString(sStringToSpeak, TALKVOLUME_TALK);
+sPCPname = GetPCPlayerName(oPC);
+SetLocalString (OBJECT_SELF, &quot;PC2check40&quot;, sPCPname);
+oPC = GetNextPC();
+
+
+
+sNameOfPC = GetName(oPC);
+nXPOfPC = GetXP(oPC);
+sXPofPC = IntToString(nXPOfPC);
+nAlignmentPC = GetAlignmentGoodEvil(oPC);
+if (nAlignmentPC == ALIGNMENT_EVIL)
+{ sAlignmentPC = &quot;Evil&quot;; }
+if (nAlignmentPC == ALIGNMENT_GOOD)
+{ sAlignmentPC = &quot;Good&quot;; }
+//convert XP to level
+sLVLofPC = XP2LVL(nXPOfPC);
+sStringToSpeak = &quot;41. &quot; + sNameOfPC + &quot;     ||     lvl (&quot; + sLVLofPC + &quot;)       ||      &quot; + sAlignmentPC;
+if (sNameOfPC!=&quot;&quot;)
+ActionSpeakString(sStringToSpeak, TALKVOLUME_TALK);
+sPCPname = GetPCPlayerName(oPC);
+SetLocalString (OBJECT_SELF, &quot;PC2check41&quot;, sPCPname);
+oPC = GetNextPC();
+
+
+
+sNameOfPC = GetName(oPC);
+nXPOfPC = GetXP(oPC);
+sXPofPC = IntToString(nXPOfPC);
+nAlignmentPC = GetAlignmentGoodEvil(oPC);
+if (nAlignmentPC == ALIGNMENT_EVIL)
+{ sAlignmentPC = &quot;Evil&quot;; }
+if (nAlignmentPC == ALIGNMENT_GOOD)
+{ sAlignmentPC = &quot;Good&quot;; }
+//convert XP to level
+sLVLofPC = XP2LVL(nXPOfPC);
+sStringToSpeak = &quot;42. &quot; + sNameOfPC + &quot;     ||     lvl (&quot; + sLVLofPC + &quot;)       ||      &quot; + sAlignmentPC;
+if (sNameOfPC!=&quot;&quot;)
+ActionSpeakString(sStringToSpeak, TALKVOLUME_TALK);
+sPCPname = GetPCPlayerName(oPC);
+SetLocalString (OBJECT_SELF, &quot;PC2check42&quot;, sPCPname);
+oPC = GetNextPC();
+
+
+
+sNameOfPC = GetName(oPC);
+nXPOfPC = GetXP(oPC);
+sXPofPC = IntToString(nXPOfPC);
+nAlignmentPC = GetAlignmentGoodEvil(oPC);
+if (nAlignmentPC == ALIGNMENT_EVIL)
+{ sAlignmentPC = &quot;Evil&quot;; }
+if (nAlignmentPC == ALIGNMENT_GOOD)
+{ sAlignmentPC = &quot;Good&quot;; }
+//convert XP to level
+sLVLofPC = XP2LVL(nXPOfPC);
+sStringToSpeak = &quot;43. &quot; + sNameOfPC + &quot;     ||     lvl (&quot; + sLVLofPC + &quot;)       ||      &quot; + sAlignmentPC;
+if (sNameOfPC!=&quot;&quot;)
+ActionSpeakString(sStringToSpeak, TALKVOLUME_TALK);
+sPCPname = GetPCPlayerName(oPC);
+SetLocalString (OBJECT_SELF, &quot;PC2check43&quot;, sPCPname);
+oPC = GetNextPC();
+
+
+
+sNameOfPC = GetName(oPC);
+nXPOfPC = GetXP(oPC);
+sXPofPC = IntToString(nXPOfPC);
+nAlignmentPC = GetAlignmentGoodEvil(oPC);
+if (nAlignmentPC == ALIGNMENT_EVIL)
+{ sAlignmentPC = &quot;Evil&quot;; }
+if (nAlignmentPC == ALIGNMENT_GOOD)
+{ sAlignmentPC = &quot;Good&quot;; }
+//convert XP to level
+sLVLofPC = XP2LVL(nXPOfPC);
+sStringToSpeak = &quot;44. &quot; + sNameOfPC + &quot;     ||     lvl (&quot; + sLVLofPC + &quot;)       ||      &quot; + sAlignmentPC;
+if (sNameOfPC!=&quot;&quot;)
+ActionSpeakString(sStringToSpeak, TALKVOLUME_TALK);
+sPCPname = GetPCPlayerName(oPC);
+SetLocalString (OBJECT_SELF, &quot;PC2check44&quot;, sPCPname);
+oPC = GetNextPC();
+
+
+
+sNameOfPC = GetName(oPC);
+nXPOfPC = GetXP(oPC);
+sXPofPC = IntToString(nXPOfPC);
+nAlignmentPC = GetAlignmentGoodEvil(oPC);
+if (nAlignmentPC == ALIGNMENT_EVIL)
+{ sAlignmentPC = &quot;Evil&quot;; }
+if (nAlignmentPC == ALIGNMENT_GOOD)
+{ sAlignmentPC = &quot;Good&quot;; }
+//convert XP to level
+sLVLofPC = XP2LVL(nXPOfPC);
+sStringToSpeak = &quot;45. &quot; + sNameOfPC + &quot;     ||     lvl (&quot; + sLVLofPC + &quot;)       ||      &quot; + sAlignmentPC;
+if (sNameOfPC!=&quot;&quot;)
+ActionSpeakString(sStringToSpeak, TALKVOLUME_TALK);
+sPCPname = GetPCPlayerName(oPC);
+SetLocalString (OBJECT_SELF, &quot;PC2check45&quot;, sPCPname);
+oPC = GetNextPC();
+
+
+
+sNameOfPC = GetName(oPC);
+nXPOfPC = GetXP(oPC);
+sXPofPC = IntToString(nXPOfPC);
+nAlignmentPC = GetAlignmentGoodEvil(oPC);
+if (nAlignmentPC == ALIGNMENT_EVIL)
+{ sAlignmentPC = &quot;Evil&quot;; }
+if (nAlignmentPC == ALIGNMENT_GOOD)
+{ sAlignmentPC = &quot;Good&quot;; }
+//convert XP to level
+sLVLofPC = XP2LVL(nXPOfPC);
+sStringToSpeak = &quot;46. &quot; + sNameOfPC + &quot;     ||     lvl (&quot; + sLVLofPC + &quot;)       ||      &quot; + sAlignmentPC;
+if (sNameOfPC!=&quot;&quot;)
+ActionSpeakString(sStringToSpeak, TALKVOLUME_TALK);
+sPCPname = GetPCPlayerName(oPC);
+SetLocalString (OBJECT_SELF, &quot;PC2check46&quot;, sPCPname);
+oPC = GetNextPC();
+
+
+
+sNameOfPC = GetName(oPC);
+nXPOfPC = GetXP(oPC);
+sXPofPC = IntToString(nXPOfPC);
+nAlignmentPC = GetAlignmentGoodEvil(oPC);
+if (nAlignmentPC == ALIGNMENT_EVIL)
+{ sAlignmentPC = &quot;Evil&quot;; }
+if (nAlignmentPC == ALIGNMENT_GOOD)
+{ sAlignmentPC = &quot;Good&quot;; }
+//convert XP to level
+sLVLofPC = XP2LVL(nXPOfPC);
+sStringToSpeak = &quot;47. &quot; + sNameOfPC + &quot;     ||     lvl (&quot; + sLVLofPC + &quot;)       ||      &quot; + sAlignmentPC;
+if (sNameOfPC!=&quot;&quot;)
+ActionSpeakString(sStringToSpeak, TALKVOLUME_TALK);
+sPCPname = GetPCPlayerName(oPC);
+SetLocalString (OBJECT_SELF, &quot;PC2check47&quot;, sPCPname);
+oPC = GetNextPC();
+
+
+
+
+
+
+
+
+
+
+}
+</code></pre>
+  </main>
+  <footer>generated by <a href="https://github.com/mrprice22/nwn-manager">nwn-manager</a> &mdash; last updated Jun 3, 2026 12:42</footer>
+</body>
+</html>

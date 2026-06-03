@@ -1,0 +1,455 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Script inc_emotewand</title>
+  <link rel="stylesheet" href="../assets/style.css">
+  <link rel="stylesheet" href="../assets/theme.css">
+  <link rel="icon" href="../assets/favicon.png">
+</head>
+<body>
+  <header class="site-header">
+    <a class="brand" href="../index.html"><img class="site-header-img" src="../assets/header.png" alt="Home"></a>
+    <nav>
+      <a href="../index.html">Map</a>
+      <a href="../areas/index.html">Areas</a>
+      <div class="nav-dropdown">
+        <span class="nav-dropdown-label">Creatures &#9660;</span>
+        <div class="nav-dropdown-menu">
+          <a href="../creatures/index.html">All Creatures</a>
+          <a href="../creatures/by-area/index.html">By Area</a>
+          <a href="../creatures/by-cr/index.html">By Challenge Rating</a>
+          <a href="../creatures/by-race/index.html">By Race</a>
+        </div>
+      </div>
+      <div class="nav-dropdown">
+        <span class="nav-dropdown-label">Items &#9660;</span>
+        <div class="nav-dropdown-menu">
+          <a href="../items/index.html">Accessible</a>
+          <a href="../items/inaccessible/index.html">Inaccessible</a>
+          <a href="../items/properties/index.html">By Property</a>
+          <a href="../items/search.html">Search</a>
+        </div>
+      </div>
+      <a href="../stores/index.html">Stores</a>
+      <a href="../conversations/index.html">Conversations</a>
+      <a href="../factions.html">Factions</a>
+      <a href="../quests/index.html">Quests</a>
+      <a href="../activity.html">Activity</a>
+      <div class="nav-dropdown"><span class="nav-dropdown-label">Documents &#9660;</span><div class="nav-dropdown-menu"><a href="../manual/LevelingGuide.html">Leveling Guide</a>
+<a href="../manual/MeaningWave.html">MeaningWave: A Guide to the Guides</a>
+<a href="../manual/Quest Ideas.html">Quest Ideas (Draft Concepts)</a>
+<a href="../manual/QuestGuide.html">Quest Guide</a></div></div>
+    </nav>
+  </header>
+  <main>
+<h1>Script: <code>inc_emotewand</code></h1><pre class="nss-source"><code>#include &quot;x2_inc_itemprop&quot;
+/*
+Emote-Wand V1000 UpDate!
+Includet &amp; Scripted By: Butcha
+*/
+void Teleport(object oTarget,string sTargetWP,int iBeam);
+void Roll_D6(object oPC);
+void Roll_D8(object oPC);
+void Roll_D10(object oPC);
+void Roll_D12(object oPC);
+void Roll_D20(object oPC);
+void Roll_D100(object oPC);
+void AddItemPropertyVisualEffect(object oPC,int iSlot,int iItemVisual);
+void APPEARANCE_CHANCE_VFX(object oPC);
+void Appearance(object oPC,int iAppearance);
+void RemoveAllEffects(object oPC);
+void Camera(object oPC);
+void Superfly(object oPC);
+void Animation_Dance(object oPC);
+void PolyMorph(object oPC,int iMorpTo);
+void CollorModLoad(string sTagg);
+void CollorModEnter(string sTag);
+void GodMode(object oPC, int iDuration);
+void Appear_Dissappear(object oPC);
+////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
+// Apply god-mode (full immunity) to oPC for iDuration seconds. Reimplements
+// the missing function the emote-wand dialogues invoke.
+void GodMode(object oPC, int iDuration)
+{
+    effect eImmunity = EffectDamageImmunityIncrease(DAMAGE_TYPE_BLUDGEONING, 100);
+    eImmunity = EffectLinkEffects(eImmunity, EffectDamageImmunityIncrease(DAMAGE_TYPE_PIERCING, 100));
+    eImmunity = EffectLinkEffects(eImmunity, EffectDamageImmunityIncrease(DAMAGE_TYPE_SLASHING, 100));
+    eImmunity = EffectLinkEffects(eImmunity, EffectDamageImmunityIncrease(DAMAGE_TYPE_MAGICAL, 100));
+    eImmunity = EffectLinkEffects(eImmunity, EffectDamageImmunityIncrease(DAMAGE_TYPE_FIRE, 100));
+    eImmunity = EffectLinkEffects(eImmunity, EffectDamageImmunityIncrease(DAMAGE_TYPE_COLD, 100));
+    eImmunity = EffectLinkEffects(eImmunity, EffectDamageImmunityIncrease(DAMAGE_TYPE_ELECTRICAL, 100));
+    eImmunity = EffectLinkEffects(eImmunity, EffectDamageImmunityIncrease(DAMAGE_TYPE_ACID, 100));
+    eImmunity = EffectLinkEffects(eImmunity, EffectDamageImmunityIncrease(DAMAGE_TYPE_NEGATIVE, 100));
+    eImmunity = EffectLinkEffects(eImmunity, EffectDamageImmunityIncrease(DAMAGE_TYPE_POSITIVE, 100));
+    eImmunity = EffectLinkEffects(eImmunity, EffectDamageImmunityIncrease(DAMAGE_TYPE_DIVINE, 100));
+    eImmunity = ExtraordinaryEffect(eImmunity);
+    ApplyEffectToObject(DURATION_TYPE_TEMPORARY, eImmunity, oPC, IntToFloat(iDuration));
+}
+
+// Toggle visibility on oPC. Reimplements the missing function used by
+// invisibility/visibility wand actions.
+void Appear_Dissappear(object oPC)
+{
+    int nState = GetLocalInt(oPC, &quot;EW_APPEAR_HIDDEN&quot;);
+    if (nState)
+    {
+        effect e = GetFirstEffect(oPC);
+        while (GetIsEffectValid(e))
+        {
+            int t = GetEffectType(e);
+            if (GetEffectCreator(e) == oPC &amp;&amp;
+                (t == EFFECT_TYPE_INVISIBILITY ||
+                 t == EFFECT_TYPE_CONCEALMENT ||
+                 t == EFFECT_TYPE_SANCTUARY))
+                RemoveEffect(oPC, e);
+            e = GetNextEffect(oPC);
+        }
+        DeleteLocalInt(oPC, &quot;EW_APPEAR_HIDDEN&quot;);
+    }
+    else
+    {
+        // Greater-invisibility variant: doesn&#x27;t break when the PC attacks.
+        effect eInvis = EffectInvisibility(INVISIBILITY_TYPE_DARKNESS);
+        eInvis = EffectLinkEffects(eInvis, EffectConcealment(50));
+        eInvis = EffectLinkEffects(eInvis, EffectSanctuary(100));
+        eInvis = ExtraordinaryEffect(eInvis);
+        ApplyEffectToObject(DURATION_TYPE_PERMANENT, eInvis, oPC);
+        SetLocalInt(oPC, &quot;EW_APPEAR_HIDDEN&quot;, 1);
+    }
+}
+
+////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
+void Teleport(object oTarget,string sTargetWP,int iBeam)
+{
+object oTeleTarget = GetObjectByTag(sTargetWP);
+SetCommandable(FALSE,oTarget);
+location PC_Location = GetLocation(oTarget);
+object oArea         = GetAreaFromLocation(PC_Location);
+vector vec0          = GetPositionFromLocation(PC_Location);
+vector vec1          = GetPositionFromLocation(PC_Location);
+vector vec2          = GetPositionFromLocation(PC_Location);
+vector vec3          = GetPositionFromLocation(PC_Location);
+vector vec4          = GetPositionFromLocation(PC_Location);
+vector vec5          = GetPositionFromLocation(PC_Location);
+vector vec6          = GetPositionFromLocation(PC_Location);
+vector vec7          = GetPositionFromLocation(PC_Location);
+vector vec8          = GetPositionFromLocation(PC_Location);
+vec0                 = Vector(vec0.x-5.0,vec0.y+0.0,vec0.z+0.0);
+vec1                 = Vector(vec1.x-5.0,vec1.y+5.0,vec1.z+0.0);
+vec2                 = Vector(vec2.x+0.0,vec2.y+5.0,vec2.z+0.0);
+vec3                 = Vector(vec3.x+5.0,vec3.y+5.0,vec3.z+0.0);
+vec4                 = Vector(vec4.x+5.0,vec4.y+0.0,vec4.z+0.0);
+vec5                 = Vector(vec5.x+5.0,vec5.y-5.0,vec5.z+0.0);
+vec6                 = Vector(vec6.x+0.0,vec6.y-5.0,vec6.z+0.0);
+vec7                 = Vector(vec7.x-5.0,vec7.y-5.0,vec7.z+0.0);
+vec8                 = Vector(vec8.x+0.0,vec8.y+0.0,vec8.z+5.0);
+location L0          = Location(oArea,vec0,0.0);
+location L1          = Location(oArea,vec1,0.0);
+location L2          = Location(oArea,vec2,0.0);
+location L3          = Location(oArea,vec3,0.0);
+location L4          = Location(oArea,vec4,0.0);
+location L5          = Location(oArea,vec5,0.0);
+location L6          = Location(oArea,vec6,0.0);
+location L7          = Location(oArea,vec7,0.0);
+location L8          = Location(oArea,vec8,0.0);
+object oCaster0      = CreateObject(OBJECT_TYPE_PLACEABLE, &quot;beamhelp&quot;, L0);
+object oCaster1      = CreateObject(OBJECT_TYPE_PLACEABLE, &quot;beamhelp&quot;, L1);
+object oCaster2      = CreateObject(OBJECT_TYPE_PLACEABLE, &quot;beamhelp&quot;, L2);
+object oCaster3      = CreateObject(OBJECT_TYPE_PLACEABLE, &quot;beamhelp&quot;, L3);
+object oCaster4      = CreateObject(OBJECT_TYPE_PLACEABLE, &quot;beamhelp&quot;, L4);
+object oCaster5      = CreateObject(OBJECT_TYPE_PLACEABLE, &quot;beamhelp&quot;, L5);
+object oCaster6      = CreateObject(OBJECT_TYPE_PLACEABLE, &quot;beamhelp&quot;, L6);
+object oCaster7      = CreateObject(OBJECT_TYPE_PLACEABLE, &quot;beamhelp&quot;, L7);
+object oCaster8      = CreateObject(OBJECT_TYPE_PLACEABLE, &quot;beamhelp&quot;, L8);
+effect ebeam0        = EffectBeam(iBeam,oCaster0, BODY_NODE_CHEST);
+effect ebeam1        = EffectBeam(iBeam,oCaster1, BODY_NODE_CHEST);
+effect ebeam2        = EffectBeam(iBeam,oCaster2, BODY_NODE_CHEST);
+effect ebeam3        = EffectBeam(iBeam,oCaster3, BODY_NODE_CHEST);
+effect ebeam4        = EffectBeam(iBeam,oCaster4, BODY_NODE_CHEST);
+effect ebeam5        = EffectBeam(iBeam,oCaster5, BODY_NODE_CHEST);
+effect ebeam6        = EffectBeam(iBeam,oCaster6, BODY_NODE_CHEST);
+effect ebeam7        = EffectBeam(iBeam,oCaster7, BODY_NODE_CHEST);
+effect ebeam8        = EffectBeam(iBeam,oCaster8, BODY_NODE_CHEST);
+effect ebeamx0       = EffectBeam(VFX_BEAM_FIRE_LASH ,oCaster0, BODY_NODE_CHEST);
+effect ebeamx1       = EffectBeam(VFX_BEAM_FIRE_LASH ,oCaster1, BODY_NODE_CHEST);
+effect ebeamx2       = EffectBeam(VFX_BEAM_FIRE_LASH ,oCaster2, BODY_NODE_CHEST);
+effect ebeamx3       = EffectBeam(VFX_BEAM_FIRE_LASH ,oCaster3, BODY_NODE_CHEST);
+effect ebeamx4       = EffectBeam(VFX_BEAM_FIRE_LASH ,oCaster4, BODY_NODE_CHEST);
+effect ebeamx5       = EffectBeam(VFX_BEAM_FIRE_LASH ,oCaster5, BODY_NODE_CHEST);
+effect ebeamx6       = EffectBeam(VFX_BEAM_FIRE_LASH ,oCaster6, BODY_NODE_CHEST);
+effect ebeamx7       = EffectBeam(VFX_BEAM_FIRE_LASH ,oCaster7, BODY_NODE_CHEST);
+effect ebeamx8       = EffectBeam(VFX_BEAM_FIRE_LASH ,oCaster8, BODY_NODE_CHEST);
+effect Knock         = EffectVisualEffect(VFX_IMP_KNOCK);
+effect Summon        = EffectVisualEffect(VFX_FNF_SUMMONDRAGON);
+DelayCommand(1.0,ApplyEffectToObject(DURATION_TYPE_TEMPORARY, ebeam0,oCaster1,60.0));
+DelayCommand(1.1,ApplyEffectToObject(DURATION_TYPE_TEMPORARY, ebeam1,oCaster2,60.0));
+DelayCommand(1.2,ApplyEffectToObject(DURATION_TYPE_TEMPORARY, ebeam2,oCaster3,60.0));
+DelayCommand(1.3,ApplyEffectToObject(DURATION_TYPE_TEMPORARY, ebeam3,oCaster4,60.0));
+DelayCommand(1.4,ApplyEffectToObject(DURATION_TYPE_TEMPORARY, ebeam4,oCaster5,60.0));
+DelayCommand(1.5,ApplyEffectToObject(DURATION_TYPE_TEMPORARY, ebeam5,oCaster6,60.0));
+DelayCommand(1.6,ApplyEffectToObject(DURATION_TYPE_TEMPORARY, ebeam6,oCaster7,60.0));
+DelayCommand(1.7,ApplyEffectToObject(DURATION_TYPE_TEMPORARY, ebeam7,oCaster0,60.0));
+DelayCommand(1.8,ApplyEffectToObject(DURATION_TYPE_TEMPORARY, ebeam0,oCaster8,60.5));
+DelayCommand(1.9,ApplyEffectToObject(DURATION_TYPE_TEMPORARY, ebeam1,oCaster8,60.5));
+DelayCommand(2.0,ApplyEffectToObject(DURATION_TYPE_TEMPORARY, ebeam2,oCaster8,60.5));
+DelayCommand(2.1,ApplyEffectToObject(DURATION_TYPE_TEMPORARY, ebeam3,oCaster8,60.5));
+DelayCommand(2.2,ApplyEffectToObject(DURATION_TYPE_TEMPORARY, ebeam4,oCaster8,60.5));
+DelayCommand(2.3,ApplyEffectToObject(DURATION_TYPE_TEMPORARY, ebeam5,oCaster8,60.5));
+DelayCommand(2.4,ApplyEffectToObject(DURATION_TYPE_TEMPORARY, ebeam6,oCaster8,60.5));
+DelayCommand(2.5,ApplyEffectToObject(DURATION_TYPE_TEMPORARY, ebeam7,oCaster8,60.5));
+DelayCommand(6.5,ApplyEffectToObject(DURATION_TYPE_INSTANT,Knock,oCaster0));
+DelayCommand(6.5,ApplyEffectToObject(DURATION_TYPE_INSTANT,Knock,oCaster1));
+DelayCommand(6.5,ApplyEffectToObject(DURATION_TYPE_INSTANT,Knock,oCaster2));
+DelayCommand(6.5,ApplyEffectToObject(DURATION_TYPE_INSTANT,Knock,oCaster3));
+DelayCommand(6.5,ApplyEffectToObject(DURATION_TYPE_INSTANT,Knock,oCaster4));
+DelayCommand(6.5,ApplyEffectToObject(DURATION_TYPE_INSTANT,Knock,oCaster5));
+DelayCommand(6.5,ApplyEffectToObject(DURATION_TYPE_INSTANT,Knock,oCaster6));
+DelayCommand(6.5,ApplyEffectToObject(DURATION_TYPE_INSTANT,Knock,oCaster7));
+DelayCommand(6.5,ApplyEffectToObject(DURATION_TYPE_INSTANT,Knock,oCaster8));
+DelayCommand(7.5,ApplyEffectToObject(DURATION_TYPE_TEMPORARY,ebeamx0,oTarget,2.0));
+DelayCommand(7.5,ApplyEffectToObject(DURATION_TYPE_TEMPORARY,ebeamx1,oTarget,2.0));
+DelayCommand(7.5,ApplyEffectToObject(DURATION_TYPE_TEMPORARY,ebeamx2,oTarget,2.0));
+DelayCommand(7.5,ApplyEffectToObject(DURATION_TYPE_TEMPORARY,ebeamx3,oTarget,2.0));
+DelayCommand(7.5,ApplyEffectToObject(DURATION_TYPE_TEMPORARY,ebeamx4,oTarget,2.0));
+DelayCommand(7.5,ApplyEffectToObject(DURATION_TYPE_TEMPORARY,ebeamx5,oTarget,2.0));
+DelayCommand(7.5,ApplyEffectToObject(DURATION_TYPE_TEMPORARY,ebeamx6,oTarget,2.0));
+DelayCommand(7.5,ApplyEffectToObject(DURATION_TYPE_TEMPORARY,ebeamx7,oTarget,2.0));
+DelayCommand(7.5,ApplyEffectToObject(DURATION_TYPE_TEMPORARY,ebeamx8,oTarget,2.0));
+DelayCommand(9.0,ApplyEffectToObject(DURATION_TYPE_INSTANT,Knock,oTarget));
+DelayCommand(10.0,ApplyEffectToObject(DURATION_TYPE_INSTANT,Summon,oTarget));
+DelayCommand(11.0,AssignCommand(oTarget,ActionJumpToObject(oTeleTarget)));
+DelayCommand(10.9,SetCommandable(TRUE,oTarget));
+DelayCommand(12.0,ApplyEffectToObject(DURATION_TYPE_INSTANT,Knock,oCaster0));
+DelayCommand(12.0,ApplyEffectToObject(DURATION_TYPE_INSTANT,Knock,oCaster1));
+DelayCommand(12.0,ApplyEffectToObject(DURATION_TYPE_INSTANT,Knock,oCaster2));
+DelayCommand(12.0,ApplyEffectToObject(DURATION_TYPE_INSTANT,Knock,oCaster3));
+DelayCommand(12.0,ApplyEffectToObject(DURATION_TYPE_INSTANT,Knock,oCaster4));
+DelayCommand(12.0,ApplyEffectToObject(DURATION_TYPE_INSTANT,Knock,oCaster5));
+DelayCommand(12.0,ApplyEffectToObject(DURATION_TYPE_INSTANT,Knock,oCaster6));
+DelayCommand(12.0,ApplyEffectToObject(DURATION_TYPE_INSTANT,Knock,oCaster7));
+DelayCommand(12.0,ApplyEffectToObject(DURATION_TYPE_INSTANT,Knock,oCaster8));
+DelayCommand(13.0,DestroyObject(oCaster0));
+DelayCommand(13.0,DestroyObject(oCaster1));
+DelayCommand(13.0,DestroyObject(oCaster2));
+DelayCommand(13.0,DestroyObject(oCaster3));
+DelayCommand(13.0,DestroyObject(oCaster4));
+DelayCommand(13.0,DestroyObject(oCaster5));
+DelayCommand(13.0,DestroyObject(oCaster6));
+DelayCommand(13.0,DestroyObject(oCaster7));
+DelayCommand(13.0,DestroyObject(oCaster8));
+}
+void Roll_D6(object oPC)
+{
+int iRoll = d6();
+string sName = GetName(oPC);
+string sRoll = IntToString(iRoll);
+AssignCommand(oPC, ActionPlayAnimation(ANIMATION_LOOPING_GET_MID,3.0,3.0));
+DelayCommand(2.0,AssignCommand(oPC, SpeakString(sName+&quot;&lt;c���&gt; Rolled a&lt;c   &gt; [&lt;c�&gt;D6&lt;c   &gt;]&lt;c���&gt; and gets a: &lt;c   &gt;[&lt;c�&gt;&quot;+sRoll+&quot;&lt;c   &gt;]&quot;)));
+if(iRoll == 6)
+{
+DelayCommand(3.5,AssignCommand(oPC, SpeakString(&quot;&lt;c�&gt;WoW nice Roll&quot;)));
+DelayCommand(3.5,AssignCommand(oPC,ActionPlayAnimation(ANIMATION_FIREFORGET_VICTORY1,1.0,0.0)));
+DelayCommand(3.5,PlayVoiceChat(VOICE_CHAT_CHEER,oPC));
+}
+}
+void Roll_D8(object oPC)
+{
+int iRoll = d8();
+string sName = GetName(oPC);
+string sRoll = IntToString(iRoll);
+AssignCommand(oPC, ActionPlayAnimation(ANIMATION_LOOPING_GET_MID,3.0,3.0));
+DelayCommand(2.0,AssignCommand(oPC, SpeakString(sName+&quot;&lt;c���&gt; Rolled a&lt;c   &gt; [&lt;c�&gt;D8&lt;c   &gt;]&lt;c���&gt; and gets a: &lt;c   &gt;[&lt;c�&gt;&quot;+sRoll+&quot;&lt;c   &gt;]&quot;)));
+if(iRoll == 8)
+{
+DelayCommand(3.5,AssignCommand(oPC, SpeakString(&quot;&lt;c�&gt;WOW NICE ROLL!!!&quot;)));
+DelayCommand(3.5,AssignCommand(oPC,ActionPlayAnimation(ANIMATION_FIREFORGET_VICTORY1,1.0,0.0)));
+DelayCommand(3.5,PlayVoiceChat(VOICE_CHAT_CHEER,oPC));
+}
+}
+void Roll_D10(object oPC)
+{
+int iRoll = d10();
+string sName = GetName(oPC);
+string sRoll = IntToString(iRoll);
+AssignCommand(oPC, ActionPlayAnimation(ANIMATION_LOOPING_GET_MID,3.0,3.0));
+DelayCommand(2.0,AssignCommand(oPC, SpeakString(sName+&quot;&lt;c���&gt; Rolled a&lt;c   &gt; [&lt;c�&gt;D10&lt;c   &gt;]&lt;c���&gt; and gets a: &lt;c   &gt;[&lt;c�&gt;&quot;+sRoll+&quot;&lt;c   &gt;]&quot;)));
+if(iRoll == 10)
+{
+DelayCommand(3.5,AssignCommand(oPC, SpeakString(&quot;&lt;c�&gt;WoW nice Roll&quot;)));
+DelayCommand(3.5,AssignCommand(oPC,ActionPlayAnimation(ANIMATION_FIREFORGET_VICTORY1,1.0,0.0)));
+DelayCommand(3.5,PlayVoiceChat(VOICE_CHAT_CHEER,oPC));
+}
+}
+void Roll_D12(object oPC)
+{
+int iRoll = d12();
+string sName = GetName(oPC);
+string sRoll = IntToString(iRoll);
+AssignCommand(oPC, ActionPlayAnimation(ANIMATION_LOOPING_GET_MID,3.0,3.0));
+DelayCommand(2.0,AssignCommand(oPC, SpeakString(sName+&quot;&lt;c���&gt; Rolled a&lt;c   &gt; [&lt;c�&gt;D12&lt;c   &gt;]&lt;c���&gt; and gets a: &lt;c   &gt;[&lt;c�&gt;&quot;+sRoll+&quot;&lt;c   &gt;]&quot;)));
+if(iRoll == 12)
+{
+DelayCommand(3.5,AssignCommand(oPC, SpeakString(&quot;&lt;c�&gt;WoW nice Roll&quot;)));
+DelayCommand(3.5,AssignCommand(oPC,ActionPlayAnimation(ANIMATION_FIREFORGET_VICTORY1,1.0,0.0)));
+DelayCommand(3.5,PlayVoiceChat(VOICE_CHAT_CHEER,oPC));
+}
+}
+void Roll_D20(object oPC)
+{
+int iRoll = d6();
+string sName = GetName(oPC);
+string sRoll = IntToString(iRoll);
+AssignCommand(oPC, ActionPlayAnimation(ANIMATION_LOOPING_GET_MID,3.0,3.0));
+DelayCommand(2.0,AssignCommand(oPC, SpeakString(sName+&quot;&lt;c���&gt; Rolled a&lt;c   &gt; [&lt;c�&gt;D20&lt;c   &gt;]&lt;c���&gt; and gets a: &lt;c   &gt;[&lt;c�&gt;&quot;+sRoll+&quot;&lt;c   &gt;]&quot;)));
+if(iRoll == 20)
+{
+DelayCommand(3.5,AssignCommand(oPC, SpeakString(&quot;&lt;c�&gt;WoW nice Roll&quot;)));
+DelayCommand(3.5,AssignCommand(oPC,ActionPlayAnimation(ANIMATION_FIREFORGET_VICTORY1,1.0,0.0)));
+DelayCommand(3.5,PlayVoiceChat(VOICE_CHAT_CHEER,oPC));
+}
+}
+void Roll_D100(object oPC)
+{
+int iRoll = d100();
+string sName = GetName(oPC);
+string sRoll = IntToString(iRoll);
+AssignCommand(oPC, ActionPlayAnimation(ANIMATION_LOOPING_GET_MID,3.0,3.0));
+DelayCommand(2.0,AssignCommand(oPC, SpeakString(sName+&quot;&lt;c���&gt; Rolled a&lt;c   &gt; [&lt;c�&gt;D100&lt;c   &gt;]&lt;c���&gt; and gets a: &lt;c   &gt;[&lt;c�&gt;&quot;+sRoll+&quot;&lt;c   &gt;]&quot;)));
+if(iRoll == 100)
+{
+DelayCommand(3.5,AssignCommand(oPC, SpeakString(&quot;&lt;c�&gt;WoW nice Roll&quot;)));
+DelayCommand(3.5,AssignCommand(oPC,ActionPlayAnimation(ANIMATION_FIREFORGET_VICTORY1,1.0,0.0)));
+DelayCommand(3.5,PlayVoiceChat(VOICE_CHAT_CHEER,oPC));
+}
+}
+void AddItemPropertyVisualEffect(object oPC,int iSlot,int iItemVisual)
+{
+object oItem = GetItemInSlot(iSlot, oPC);
+itemproperty ipAdd = ItemPropertyVisualEffect(iItemVisual);
+effect AddVfx = EffectVisualEffect(VFX_IMP_SUPER_HEROISM);
+if(GetIsObjectValid(oItem)==TRUE)
+{
+IPRemoveMatchingItemProperties(oItem,ITEM_PROPERTY_VISUALEFFECT, -1);
+IPSafeAddItemProperty(oItem,ipAdd);
+ApplyEffectToObject(DURATION_TYPE_INSTANT,AddVfx,oPC);
+FloatingTextStringOnCreature(&quot;New Visual Addet&quot;,oPC);
+}
+if(GetIsObjectValid(oItem)==FALSE)
+{
+FloatingTextStringOnCreature(&quot;No Item in Righthand SLot&quot;,oPC);
+}
+}
+void APPEARANCE_CHANCE_VFX(object oPC)
+{
+effect Appariance_Vfx_1 = EffectVisualEffect(VFX_IMP_PULSE_COLD);
+effect Appariance_Vfx_2 = EffectVisualEffect(VFX_IMP_PULSE_FIRE);
+effect Appariance_Vfx_3 = EffectVisualEffect(VFX_IMP_PULSE_HOLY);
+effect Appariance_Vfx_4 = EffectVisualEffect(VFX_IMP_PULSE_NATURE);
+DelayCommand(0.0,ApplyEffectToObject(DURATION_TYPE_INSTANT,Appariance_Vfx_1,oPC));
+DelayCommand(0.5,ApplyEffectToObject(DURATION_TYPE_INSTANT,Appariance_Vfx_2,oPC));
+DelayCommand(1.0,ApplyEffectToObject(DURATION_TYPE_INSTANT,Appariance_Vfx_3,oPC));
+DelayCommand(1.5,ApplyEffectToObject(DURATION_TYPE_INSTANT,Appariance_Vfx_4,oPC));
+}
+void Appearance(object oPC,int iAppearance)
+{
+APPEARANCE_CHANCE_VFX(oPC);
+DelayCommand(2.0,SetCreatureAppearanceType(oPC,iAppearance));
+}
+void RemoveAllEffects(object oPC)
+{
+effect Firstnext = GetFirstEffect(oPC);
+while(GetIsEffectValid(Firstnext))
+{
+RemoveEffect(oPC,Firstnext);
+Firstnext = GetNextEffect(oPC);
+}
+}
+void Camera(object oPC)
+{
+SetCutsceneMode(oPC,TRUE);
+SetCameraMode(oPC,CAMERA_MODE_TOP_DOWN);
+AssignCommand(oPC,SetCameraFacing(60.0,20.0,22.0,CAMERA_TRANSITION_TYPE_VERY_FAST));
+DelayCommand(2.0,AssignCommand(oPC,SetCameraFacing(-60.0,20.0,22.0,CAMERA_TRANSITION_TYPE_VERY_FAST)));
+DelayCommand(5.0,SetCutsceneMode(oPC,FALSE));
+}
+void Superfly(object oPC)
+{
+effect Vfx1 = EffectVisualEffect(VFX_IMP_DEATH_WARD);
+effect Vfx2 = EffectVisualEffect(VFX_IMP_TORNADO);
+effect Vfx3 = EffectVisualEffect(VFX_IMP_HASTE);
+effect Vfx4 = EffectVisualEffect(VFX_IMP_DEATH_L);
+effect Link = EffectLinkEffects(Vfx4,Vfx1);
+effect Flyup = EffectDisappear();
+effect Flydown = EffectAppear();
+DelayCommand(0.0,ApplyEffectToObject(DURATION_TYPE_INSTANT,Vfx3,oPC));
+DelayCommand(0.5,ApplyEffectToObject(DURATION_TYPE_INSTANT,Vfx2,oPC));
+DelayCommand(1.0,ApplyEffectToObject(DURATION_TYPE_INSTANT,Flyup,oPC));
+DelayCommand(1.0,ApplyEffectToObject(DURATION_TYPE_INSTANT,Link,oPC));
+DelayCommand(1.3,ApplyEffectToObject(DURATION_TYPE_INSTANT,Link,oPC));
+DelayCommand(1.6,ApplyEffectToObject(DURATION_TYPE_INSTANT,Link,oPC));
+DelayCommand(1.9,ApplyEffectToObject(DURATION_TYPE_INSTANT,Link,oPC));
+DelayCommand(2.2,ApplyEffectToObject(DURATION_TYPE_INSTANT,Link,oPC));
+DelayCommand(2.5,ApplyEffectToObject(DURATION_TYPE_INSTANT,Flydown,oPC));
+DelayCommand(2.5,ApplyEffectToObject(DURATION_TYPE_INSTANT,Link,oPC));
+DelayCommand(2.8,ApplyEffectToObject(DURATION_TYPE_INSTANT,Link,oPC));
+DelayCommand(3.1,ApplyEffectToObject(DURATION_TYPE_INSTANT,Link,oPC));
+}
+void Animation_Dance(object oPC)
+{
+AssignCommand(oPC,ActionPlayAnimation(ANIMATION_FIREFORGET_VICTORY2));
+DelayCommand(3.0,AssignCommand(oPC,ActionPlayAnimation(ANIMATION_LOOPING_TALK_LAUGHING, 3.0, 2.0)));
+DelayCommand(3.0,AssignCommand(oPC,PlayVoiceChat(VOICE_CHAT_LAUGH)));
+DelayCommand(5.0,AssignCommand(oPC,ActionPlayAnimation(ANIMATION_FIREFORGET_VICTORY1)));
+DelayCommand(8.5,AssignCommand(oPC,ActionPlayAnimation(ANIMATION_FIREFORGET_VICTORY3)));
+DelayCommand(11.0,AssignCommand(oPC,ActionPlayAnimation(ANIMATION_LOOPING_GET_MID, 3.0, 2.0)));
+DelayCommand(14.5,AssignCommand(oPC,PlayVoiceChat(VOICE_CHAT_LAUGH)));
+DelayCommand(13.0,AssignCommand(oPC,ActionPlayAnimation(ANIMATION_FIREFORGET_VICTORY3)));
+}
+void PolyMorph(object oPC,int iMorpTo)
+{
+effect Poly = EffectPolymorph(iMorpTo);
+effect Visual1 = EffectVisualEffect(VFX_IMP_DIVINE_STRIKE_HOLY);
+effect Visual2 = EffectVisualEffect(VFX_DUR_DEATH_ARMOR);
+effect heal = EffectHeal(TRUE);
+effect Link =  EffectLinkEffects(Visual1,Visual2);
+effect Link2 = EffectLinkEffects(heal,Poly);
+ApplyEffectToObject(DURATION_TYPE_INSTANT,Link,oPC);
+DelayCommand(0.5,ApplyEffectToObject(DURATION_TYPE_INSTANT,Link,oPC));
+DelayCommand(1.0,ApplyEffectToObject(DURATION_TYPE_INSTANT,Link,oPC));
+DelayCommand(1.5,ApplyEffectToObject(DURATION_TYPE_INSTANT,Link2,oPC));
+}
+void CollorModLoad(string sTag)
+{
+string sColor = GetName(GetObjectByTag(sTag));
+////////////////////////////////////////////////
+SetCustomToken(1001, GetSubString(sColor, 0, 6));
+SetCustomToken(1002, GetSubString(sColor, 6, 6));
+SetCustomToken(1003, GetSubString(sColor, 12, 6));
+SetCustomToken(1004, GetSubString(sColor, 18, 6));
+SetCustomToken(1005, GetSubString(sColor, 24, 6));
+SetCustomToken(1006, GetSubString(sColor, 30, 6));
+SetCustomToken(1007, GetSubString(sColor, 36, 6));
+////////////////////////////////////////////////
+}
+void CollorModEnter(string sTag)
+{
+string sColor = GetName(GetObjectByTag(sTag));
+////////////////////////////////////////////////
+string sWhite = GetSubString(sColor, 0, 6);
+string sYellow = GetSubString(sColor, 6, 6);
+string sMagenta = GetSubString(sColor, 12, 6);
+string sCyan = GetSubString(sColor, 18, 6);
+string sRed = GetSubString(sColor, 24, 6);
+string sGreen = GetSubString(sColor, 30, 6);
+string sBlue = GetSubString(sColor, 36, 6);
+///////////////////////////////////////////////
+}
+
+</code></pre>
+  </main>
+  <footer>generated by <a href="https://github.com/mrprice22/nwn-manager">nwn-manager</a> &mdash; last updated Jun 3, 2026 12:42</footer>
+</body>
+</html>

@@ -1,0 +1,138 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Script x0_s0_bigby3</title>
+  <link rel="stylesheet" href="../assets/style.css">
+  <link rel="stylesheet" href="../assets/theme.css">
+  <link rel="icon" href="../assets/favicon.png">
+</head>
+<body>
+  <header class="site-header">
+    <a class="brand" href="../index.html"><img class="site-header-img" src="../assets/header.png" alt="Home"></a>
+    <nav>
+      <a href="../index.html">Map</a>
+      <a href="../areas/index.html">Areas</a>
+      <div class="nav-dropdown">
+        <span class="nav-dropdown-label">Creatures &#9660;</span>
+        <div class="nav-dropdown-menu">
+          <a href="../creatures/index.html">All Creatures</a>
+          <a href="../creatures/by-area/index.html">By Area</a>
+          <a href="../creatures/by-cr/index.html">By Challenge Rating</a>
+          <a href="../creatures/by-race/index.html">By Race</a>
+        </div>
+      </div>
+      <div class="nav-dropdown">
+        <span class="nav-dropdown-label">Items &#9660;</span>
+        <div class="nav-dropdown-menu">
+          <a href="../items/index.html">Accessible</a>
+          <a href="../items/inaccessible/index.html">Inaccessible</a>
+          <a href="../items/properties/index.html">By Property</a>
+          <a href="../items/search.html">Search</a>
+        </div>
+      </div>
+      <a href="../stores/index.html">Stores</a>
+      <a href="../conversations/index.html">Conversations</a>
+      <a href="../factions.html">Factions</a>
+      <a href="../quests/index.html">Quests</a>
+      <a href="../activity.html">Activity</a>
+      <div class="nav-dropdown"><span class="nav-dropdown-label">Documents &#9660;</span><div class="nav-dropdown-menu"><a href="../manual/LevelingGuide.html">Leveling Guide</a>
+<a href="../manual/MeaningWave.html">MeaningWave: A Guide to the Guides</a>
+<a href="../manual/Quest Ideas.html">Quest Ideas (Draft Concepts)</a>
+<a href="../manual/QuestGuide.html">Quest Guide</a></div></div>
+    </nav>
+  </header>
+  <main>
+<h1>Script: <code>x0_s0_bigby3</code></h1><pre class="nss-source"><code>//::///////////////////////////////////////////////
+//:: Bigby&#x27;s Grasping Hand
+//:: [x0_s0_bigby3]
+//:: Copyright (c) 2002 Bioware Corp.
+//:://////////////////////////////////////////////
+/*
+    make an attack roll. If succesful target is held for 1 round/level
+
+
+*/
+//:://////////////////////////////////////////////
+//:: Created By: Brent
+//:: Created On: September 7, 2002
+//:://////////////////////////////////////////////
+//:: VFX Pass By:
+
+#include &quot;x0_i0_spells&quot;
+
+void main()
+{
+    //Declare major variables
+    object oTarget = GetSpellTargetObject();
+    int nDuration = GetCasterLevel(OBJECT_SELF);
+    int nMetaMagic = GetMetaMagicFeat();
+    effect eVis = EffectVisualEffect(VFX_DUR_MIND_AFFECTING_DISABLED);
+
+    //Check for metamagic extend
+    if (nMetaMagic == METAMAGIC_EXTEND) //Duration is +100%
+    {
+         nDuration = nDuration * 2;
+    }
+
+    if(!GetIsReactionTypeFriendly(oTarget))
+    {
+        //Fire cast spell at event for the specified target
+        SignalEvent(oTarget, EventSpellCastAt(OBJECT_SELF, 461, TRUE));
+
+        // Check spell resistance
+        if(!MyResistSpell(OBJECT_SELF, oTarget))
+        {
+//edited part.
+if(!MySavingThrow(SAVING_THROW_REFLEX, oTarget, GetSpellSaveDC(), SAVING_THROW_TYPE_SPELL, OBJECT_SELF, GetRandomDelay()))
+{
+            // Check caster ability vs. target&#x27;s AC
+
+            int nCasterModifier = GetCasterAbilityModifier(OBJECT_SELF);
+            int nCasterRoll = d20(1)
+                + nCasterModifier
+                + GetCasterLevel(OBJECT_SELF) + 25 + -1;
+
+            int nTargetRoll = GetAC(oTarget);
+
+            // * grapple HIT succesful,
+            if (nCasterRoll &gt;= nTargetRoll)
+            {
+                // * now must make a GRAPPLE check to
+                // * hold target for duration of spell
+                // * check caster ability vs. target&#x27;s size &amp; strength
+                nCasterRoll = d20(1) + nCasterModifier
+                    + GetCasterLevel(OBJECT_SELF) + 10 +4;
+
+                nTargetRoll = GetSizeModifier(oTarget)
+                    + GetAbilityModifier(ABILITY_STRENGTH);
+
+                if (nCasterRoll &gt;= nTargetRoll)
+                {
+                    // Hold the target paralyzed
+                    effect eKnockdown = EffectParalyze();
+                    effect eDur = EffectVisualEffect(VFX_DUR_CESSATE_NEGATIVE);
+                    effect eHand = EffectVisualEffect(VFX_DUR_BIGBYS_GRASPING_HAND);
+                    effect eLink = EffectLinkEffects(eKnockdown, eDur);
+                    eLink = EffectLinkEffects(eHand, eLink);
+                    eLink = EffectLinkEffects(eVis, eLink);
+
+                    ApplyEffectToObject(DURATION_TYPE_TEMPORARY,
+                                        eLink, oTarget,
+                                        RoundsToSeconds(nDuration));
+
+//                    ApplyEffectToObject(DURATION_TYPE_TEMPORARY,
+//                                        eVis, oTarget,RoundsToSeconds(nDuration));
+                }
+            }
+}//
+        }
+    }
+}
+
+
+</code></pre>
+  </main>
+  <footer>generated by <a href="https://github.com/mrprice22/nwn-manager">nwn-manager</a> &mdash; last updated Jun 3, 2026 12:42</footer>
+</body>
+</html>

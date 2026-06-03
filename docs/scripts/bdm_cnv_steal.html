@@ -1,0 +1,230 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Script bdm_cnv_steal</title>
+  <link rel="stylesheet" href="../assets/style.css">
+  <link rel="stylesheet" href="../assets/theme.css">
+  <link rel="icon" href="../assets/favicon.png">
+</head>
+<body>
+  <header class="site-header">
+    <a class="brand" href="../index.html"><img class="site-header-img" src="../assets/header.png" alt="Home"></a>
+    <nav>
+      <a href="../index.html">Map</a>
+      <a href="../areas/index.html">Areas</a>
+      <div class="nav-dropdown">
+        <span class="nav-dropdown-label">Creatures &#9660;</span>
+        <div class="nav-dropdown-menu">
+          <a href="../creatures/index.html">All Creatures</a>
+          <a href="../creatures/by-area/index.html">By Area</a>
+          <a href="../creatures/by-cr/index.html">By Challenge Rating</a>
+          <a href="../creatures/by-race/index.html">By Race</a>
+        </div>
+      </div>
+      <div class="nav-dropdown">
+        <span class="nav-dropdown-label">Items &#9660;</span>
+        <div class="nav-dropdown-menu">
+          <a href="../items/index.html">Accessible</a>
+          <a href="../items/inaccessible/index.html">Inaccessible</a>
+          <a href="../items/properties/index.html">By Property</a>
+          <a href="../items/search.html">Search</a>
+        </div>
+      </div>
+      <a href="../stores/index.html">Stores</a>
+      <a href="../conversations/index.html">Conversations</a>
+      <a href="../factions.html">Factions</a>
+      <a href="../quests/index.html">Quests</a>
+      <a href="../activity.html">Activity</a>
+      <div class="nav-dropdown"><span class="nav-dropdown-label">Documents &#9660;</span><div class="nav-dropdown-menu"><a href="../manual/LevelingGuide.html">Leveling Guide</a>
+<a href="../manual/MeaningWave.html">MeaningWave: A Guide to the Guides</a>
+<a href="../manual/Quest Ideas.html">Quest Ideas (Draft Concepts)</a>
+<a href="../manual/QuestGuide.html">Quest Guide</a></div></div>
+    </nav>
+  </header>
+  <main>
+<h1>Script: <code>bdm_cnv_steal</code></h1><pre class="nss-source"><code>//::///////////////////////////////////////////////
+//:: Name:      Bedlamson&#x27;s Dynamic Merchant System
+//::            Conversation &#x27;Actions Taken&#x27;
+//:: FileName:  bdm_cnv_steal
+//:: Copyright (c) 2003 Stephen Spann
+//::///////////////////////////////////////////////
+//:: Created By: Bedlamson
+//:: Created On: 1/23/2003
+//::///////////////////////////////////////////////
+
+#include &quot;bdm_include&quot;
+
+int GetFavoredEnemy();
+
+void main()
+{
+// Get variables.
+object oPC = GetPCSpeaker();
+object oShopkeeper = OBJECT_SELF;
+int nSpotBonus;
+string sParams = GetLocalString(oShopkeeper, &quot;PARAMS&quot;);
+object oStore = GetLocalObject(oShopkeeper, &quot;STORE&quot;);
+
+// Get parameters.
+int nCircumstancePos = FindSubString(sParams, &quot;SC&quot;);
+int nReactionHostile = GetValue(OBJECT_SELF, &quot;RH&quot;, sParams);
+int nTimeLimit = GetValue(OBJECT_SELF, &quot;SL&quot;, sParams);
+//int nTimeDelay = GetValue(OBJECT_SELF, &quot;TM&quot;, sParams);
+int nStealAll = GetValue(OBJECT_SELF, &quot;SA&quot;, sParams);
+
+// Apply bonuses to the shopkeeper&#x27;s Spot skill.
+if (GetRacialType(oShopkeeper) == RACIAL_TYPE_ELF) nSpotBonus = nSpotBonus + 2;
+if (GetRacialType(oShopkeeper) == RACIAL_TYPE_HALFELF) nSpotBonus = nSpotBonus + 1;
+if (GetFavoredEnemy() == GetRacialType(oPC)) nSpotBonus = nSpotBonus + 1;
+if (GetHasFeat(FEAT_ALERTNESS)) nSpotBonus = nSpotBonus + 2;
+
+int nPCSkill = GetSkillRank(SKILL_PICK_POCKET, oPC) + GetAbilityModifier(ABILITY_DEXTERITY, oPC);
+if (nCircumstancePos != -1)
+    {
+    string sCircumstance = GetSubString(sParams, nCircumstancePos + 2, 2);
+    if (GetStringLeft(sCircumstance, 1) == &quot;P&quot;)
+        {
+        nPCSkill = nPCSkill + StringToInt(GetStringRight(sCircumstance, 1));
+        }
+    if (GetStringLeft(sCircumstance, 1) == &quot;N&quot;)
+        {
+        nPCSkill = nPCSkill - StringToInt(GetStringRight(sCircumstance, 1));
+        }
+    }
+int nShopSkill = GetSkillRank(SKILL_SPOT, oShopkeeper) + GetAbilityModifier(ABILITY_WISDOM, oShopkeeper) + nSpotBonus;
+int nPCRoll = d20();
+int nShopRoll = d20();
+int nPCTotal = nPCSkill + nPCRoll;
+int nShopTotal = nShopRoll + nShopSkill;
+
+string sMessage = &quot;(&quot; + IntToString(nPCSkill) + &quot; + &quot;
+        + IntToString(nPCRoll) + &quot; = &quot;
+        + IntToString(nPCTotal) + &quot; vs. &quot;
+        + IntToString(nShopSkill) + &quot; + &quot;
+        + IntToString(nShopRoll) + &quot; = &quot;
+        + IntToString(nShopTotal) + &quot;)&quot;;
+
+if (nPCTotal == nShopTotal)
+    {
+    nPCRoll = GetAbilityModifier(ABILITY_DEXTERITY, oPC);
+    nShopRoll = GetAbilityModifier(ABILITY_WISDOM, oShopkeeper);
+    sMessage = &quot;Pick Pocket : *tie* : &quot;
+        + sMessage + &quot; : (&quot;
+        + IntToString(nPCRoll) + &quot; vs. &quot;
+        + IntToString(nShopRoll) + &quot;)&quot;;
+    }
+
+if (nPCTotal == nShopTotal)
+    {
+    sMessage = sMessage + &quot; : *tie* : &quot;;
+    switch(d2())
+        {
+        case 1:
+            nPCTotal = 1;
+            nShopTotal = 0;
+            sMessage = sMessage + &quot;PC wins.&quot;;
+            break;
+        case 2:
+            nPCTotal = 0;
+            nShopTotal = 1;
+            sMessage = sMessage + &quot;Shopkeeper wins.&quot;;
+            break;
+        }
+    }
+
+if (nShopTotal &gt; nPCTotal)
+    {
+    SendMessageToPC(oPC, &quot;Pick Pocket : *failure* : &quot; + sMessage);
+    SendMessageToPC(oPC, &quot;The merchant has spotted you!&quot;);
+    if (nReactionHostile)
+        {
+        AdjustReputation(oPC, OBJECT_SELF, -100);
+        ActionAttack(oPC);
+        }
+    return;
+    }
+if (nShopTotal &lt; nPCTotal)
+    {
+    SendMessageToPC(oPC, &quot;Pick Pocket : *success* : &quot; + sMessage);
+    }
+object oStealStore = CreateObject(OBJECT_TYPE_STORE, &quot;stealstore&quot;, GetLocation(oPC));
+if (nTimeLimit) DelayCommand(IntToFloat(nTimeLimit), DestroyObject(oStealStore));
+object oStoreInv = GetFirstItemInInventory(oStore);
+if (nDebug) SendMessageToPC(GetFirstPC(), &quot;Steal All: &quot; + IntToString(nStealAll));
+while (oStoreInv != OBJECT_INVALID)
+    {
+    //if (nTimeDelay &amp;&amp; GetItemTime(oStoreInv) &gt; nTimeDelay)
+    //    {
+    //    DestroyObject(oStoreInv);
+    //    }
+    int nType = GetBaseItemType(oStoreInv);
+    if (!nStealAll)
+        {
+        if (nType == BASE_ITEM_AMULET ||
+            nType == BASE_ITEM_ARROW ||
+            nType == BASE_ITEM_BELT ||
+            nType == BASE_ITEM_BOLT ||
+            nType == BASE_ITEM_BOOK ||
+            nType == BASE_ITEM_BOOTS ||
+            nType == BASE_ITEM_BRACER ||
+            nType == BASE_ITEM_BULLET ||
+            nType == BASE_ITEM_DAGGER ||
+            nType == BASE_ITEM_DART ||
+            nType == BASE_ITEM_GEM ||
+            nType == BASE_ITEM_GLOVES ||
+            nType == BASE_ITEM_HANDAXE ||
+            nType == BASE_ITEM_HEALERSKIT ||
+            nType == BASE_ITEM_KEY ||
+            nType == BASE_ITEM_LIGHTHAMMER ||
+            nType == BASE_ITEM_MAGICWAND ||
+            nType == BASE_ITEM_MISCSMALL ||
+            nType == BASE_ITEM_MISCTHIN ||
+            nType == BASE_ITEM_MISCWIDE ||
+            nType == BASE_ITEM_POTIONS ||
+            nType == BASE_ITEM_RING ||
+            nType == BASE_ITEM_SCROLL ||
+            nType == BASE_ITEM_SHORTSWORD ||
+            nType == BASE_ITEM_SHURIKEN ||
+            nType == BASE_ITEM_SLING ||
+            nType == BASE_ITEM_SPELLSCROLL ||
+            nType == BASE_ITEM_THIEVESTOOLS ||
+            nType == BASE_ITEM_THROWINGAXE)
+            {
+            object oNewItem = CreateItemOnObject(GetResRef(oStoreInv), oStealStore, GetNumStackedItems(oStoreInv));
+            SetLocalInt(oNewItem, &quot;STOLEN&quot;, TRUE);
+            SetLocalObject(oNewItem, &quot;STEALSTORE&quot;, oStealStore);
+            if (nDebug) SendMessageToPC(GetFirstPC(), &quot;steal small&quot;);
+            }
+        }
+    else
+        {
+        object oNewItem = CreateItemOnObject(GetResRef(oStoreInv), oStealStore, GetNumStackedItems(oStoreInv));
+        SetLocalInt(oNewItem, &quot;STOLEN&quot;, TRUE);
+        SetLocalObject(oNewItem, &quot;STEALSTORE&quot;, oStealStore);
+        if (nDebug) SendMessageToPC(GetFirstPC(), &quot;steal all&quot;);
+        }
+    oStoreInv = GetNextItemInInventory(oStore);
+    }
+GiveGoldToCreature(oPC, 1);
+if (nDebug &amp;&amp; oStealStore == OBJECT_INVALID) SendMessageToPC(oPC, &quot;No store to open.&quot;);
+OpenStore(oStealStore, oPC, -1, -1);
+}
+
+int GetFavoredEnemy()
+{
+int nFavoredEnemy;
+if (GetHasFeat(FEAT_FAVORED_ENEMY_DWARF)) return RACIAL_TYPE_DWARF;
+if (GetHasFeat(FEAT_FAVORED_ENEMY_ELF)) return RACIAL_TYPE_ELF;
+if (GetHasFeat(FEAT_FAVORED_ENEMY_GNOME)) return RACIAL_TYPE_GNOME;
+if (GetHasFeat(FEAT_FAVORED_ENEMY_HALFELF)) return RACIAL_TYPE_HALFELF;
+if (GetHasFeat(FEAT_FAVORED_ENEMY_HALFLING)) return RACIAL_TYPE_HALFLING;
+if (GetHasFeat(FEAT_FAVORED_ENEMY_HALFORC)) return RACIAL_TYPE_HALFORC;
+if (GetHasFeat(FEAT_FAVORED_ENEMY_HUMAN)) return RACIAL_TYPE_HUMAN;
+return FALSE;
+}
+</code></pre>
+  </main>
+  <footer>generated by <a href="https://github.com/mrprice22/nwn-manager">nwn-manager</a> &mdash; last updated Jun 3, 2026 12:42</footer>
+</body>
+</html>

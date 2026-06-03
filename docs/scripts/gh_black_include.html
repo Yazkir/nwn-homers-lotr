@@ -1,0 +1,271 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Script gh_black_include</title>
+  <link rel="stylesheet" href="../assets/style.css">
+  <link rel="stylesheet" href="../assets/theme.css">
+  <link rel="icon" href="../assets/favicon.png">
+</head>
+<body>
+  <header class="site-header">
+    <a class="brand" href="../index.html"><img class="site-header-img" src="../assets/header.png" alt="Home"></a>
+    <nav>
+      <a href="../index.html">Map</a>
+      <a href="../areas/index.html">Areas</a>
+      <div class="nav-dropdown">
+        <span class="nav-dropdown-label">Creatures &#9660;</span>
+        <div class="nav-dropdown-menu">
+          <a href="../creatures/index.html">All Creatures</a>
+          <a href="../creatures/by-area/index.html">By Area</a>
+          <a href="../creatures/by-cr/index.html">By Challenge Rating</a>
+          <a href="../creatures/by-race/index.html">By Race</a>
+        </div>
+      </div>
+      <div class="nav-dropdown">
+        <span class="nav-dropdown-label">Items &#9660;</span>
+        <div class="nav-dropdown-menu">
+          <a href="../items/index.html">Accessible</a>
+          <a href="../items/inaccessible/index.html">Inaccessible</a>
+          <a href="../items/properties/index.html">By Property</a>
+          <a href="../items/search.html">Search</a>
+        </div>
+      </div>
+      <a href="../stores/index.html">Stores</a>
+      <a href="../conversations/index.html">Conversations</a>
+      <a href="../factions.html">Factions</a>
+      <a href="../quests/index.html">Quests</a>
+      <a href="../activity.html">Activity</a>
+      <div class="nav-dropdown"><span class="nav-dropdown-label">Documents &#9660;</span><div class="nav-dropdown-menu"><a href="../manual/LevelingGuide.html">Leveling Guide</a>
+<a href="../manual/MeaningWave.html">MeaningWave: A Guide to the Guides</a>
+<a href="../manual/Quest Ideas.html">Quest Ideas (Draft Concepts)</a>
+<a href="../manual/QuestGuide.html">Quest Guide</a></div></div>
+    </nav>
+  </header>
+  <main>
+<h1>Script: <code>gh_black_include</code></h1><pre class="nss-source"><code>/*
+    Simple blackjack game. Dealer(NPC) vs. Player.
+    Dealer stands on all 17s.
+    Doubleing down is implemented.
+    Winnings are 3 to 2. Minimum bet is a variable, default to 10 gold.
+    No Surrenders, no Splits, although feel free to add that functionality,
+    it should be relatively easy to fit SOME of those in.
+*/
+
+
+/* INITIALIZE DECK
+Resets deck so all cards are &#x27;undrawn&#x27;.
+The &#x27;Y&#x27; and &#x27;N&#x27; at the end of the value indicates whether its been drawn or
+not. &#x27;N&#x27; = drawn, &#x27;Y&#x27; = undrawn or available to be drawn :)
+Also resets the players and dealers hands so they have no cards.
+and turns off the &quot;check for winner&quot; trigger.
+Also in the value of the cards, I included the suit, although whether
+a card is a Heart, Diamond, Club or Spade does not matter in BlackJack.
+Its only there in case I wanted to use this same deck for another game
+type later on.
+*/
+void InitializeDeck() { //Resets deck and hands so none are &#x27;drawn&#x27;.
+
+    //Only reshuffle deck on 3rd game played.
+    if(GetLocalInt(OBJECT_SELF, &quot;RESHUFFLE&quot;) &gt;= 3 || GetLocalInt(OBJECT_SELF, &quot;RESHUFFLE&quot;) == 0) {
+        SetLocalString(OBJECT_SELF, &quot;1&quot;, &quot;01HY&quot;);
+        SetLocalString(OBJECT_SELF, &quot;2&quot;, &quot;01DY&quot;);
+        SetLocalString(OBJECT_SELF, &quot;3&quot;, &quot;01CY&quot;);
+        SetLocalString(OBJECT_SELF, &quot;4&quot;, &quot;01SY&quot;);
+        SetLocalString(OBJECT_SELF, &quot;5&quot;, &quot;02HY&quot;);
+        SetLocalString(OBJECT_SELF, &quot;6&quot;, &quot;02DY&quot;);
+        SetLocalString(OBJECT_SELF, &quot;7&quot;, &quot;02CY&quot;);
+        SetLocalString(OBJECT_SELF, &quot;8&quot;, &quot;02SY&quot;);
+        SetLocalString(OBJECT_SELF, &quot;9&quot;, &quot;03HY&quot;);
+        SetLocalString(OBJECT_SELF, &quot;10&quot;, &quot;03DY&quot;);
+        SetLocalString(OBJECT_SELF, &quot;11&quot;, &quot;03CY&quot;);
+        SetLocalString(OBJECT_SELF, &quot;12&quot;, &quot;03SY&quot;);
+        SetLocalString(OBJECT_SELF, &quot;13&quot;, &quot;04HY&quot;);
+        SetLocalString(OBJECT_SELF, &quot;14&quot;, &quot;04DY&quot;);
+        SetLocalString(OBJECT_SELF, &quot;15&quot;, &quot;04CY&quot;);
+        SetLocalString(OBJECT_SELF, &quot;16&quot;, &quot;04SY&quot;);
+        SetLocalString(OBJECT_SELF, &quot;17&quot;, &quot;05HY&quot;);
+        SetLocalString(OBJECT_SELF, &quot;18&quot;, &quot;05DY&quot;);
+        SetLocalString(OBJECT_SELF, &quot;19&quot;, &quot;05CY&quot;);
+        SetLocalString(OBJECT_SELF, &quot;20&quot;, &quot;05SY&quot;);
+        SetLocalString(OBJECT_SELF, &quot;21&quot;, &quot;06HY&quot;);
+        SetLocalString(OBJECT_SELF, &quot;22&quot;, &quot;06DY&quot;);
+        SetLocalString(OBJECT_SELF, &quot;23&quot;, &quot;06CY&quot;);
+        SetLocalString(OBJECT_SELF, &quot;24&quot;, &quot;06SY&quot;);
+        SetLocalString(OBJECT_SELF, &quot;25&quot;, &quot;07HY&quot;);
+        SetLocalString(OBJECT_SELF, &quot;26&quot;, &quot;07DY&quot;);
+        SetLocalString(OBJECT_SELF, &quot;27&quot;, &quot;07CY&quot;);
+        SetLocalString(OBJECT_SELF, &quot;28&quot;, &quot;07SY&quot;);
+        SetLocalString(OBJECT_SELF, &quot;29&quot;, &quot;08HY&quot;);
+        SetLocalString(OBJECT_SELF, &quot;30&quot;, &quot;08DY&quot;);
+        SetLocalString(OBJECT_SELF, &quot;31&quot;, &quot;08CY&quot;);
+        SetLocalString(OBJECT_SELF, &quot;32&quot;, &quot;08SY&quot;);
+        SetLocalString(OBJECT_SELF, &quot;33&quot;, &quot;09HY&quot;);
+        SetLocalString(OBJECT_SELF, &quot;34&quot;, &quot;09DY&quot;);
+        SetLocalString(OBJECT_SELF, &quot;35&quot;, &quot;09CY&quot;);
+        SetLocalString(OBJECT_SELF, &quot;36&quot;, &quot;09SY&quot;);
+        SetLocalString(OBJECT_SELF, &quot;37&quot;, &quot;10HY&quot;);
+        SetLocalString(OBJECT_SELF, &quot;38&quot;, &quot;10DY&quot;);
+        SetLocalString(OBJECT_SELF, &quot;39&quot;, &quot;10CY&quot;);
+        SetLocalString(OBJECT_SELF, &quot;40&quot;, &quot;10SY&quot;);
+        SetLocalString(OBJECT_SELF, &quot;41&quot;, &quot;11HY&quot;);
+        SetLocalString(OBJECT_SELF, &quot;42&quot;, &quot;11DY&quot;);
+        SetLocalString(OBJECT_SELF, &quot;43&quot;, &quot;11CY&quot;);
+        SetLocalString(OBJECT_SELF, &quot;44&quot;, &quot;11SY&quot;);
+        SetLocalString(OBJECT_SELF, &quot;45&quot;, &quot;12HY&quot;);
+        SetLocalString(OBJECT_SELF, &quot;46&quot;, &quot;12DY&quot;);
+        SetLocalString(OBJECT_SELF, &quot;47&quot;, &quot;12CY&quot;);
+        SetLocalString(OBJECT_SELF, &quot;48&quot;, &quot;12SY&quot;);
+        SetLocalString(OBJECT_SELF, &quot;49&quot;, &quot;13HY&quot;);
+        SetLocalString(OBJECT_SELF, &quot;50&quot;, &quot;13DY&quot;);
+        SetLocalString(OBJECT_SELF, &quot;51&quot;, &quot;13CY&quot;);
+        SetLocalString(OBJECT_SELF, &quot;52&quot;, &quot;13SY&quot;);
+        SpeakString(&quot;Deck reshuffled.&quot;);
+        //Reset shuffle.
+        SetLocalInt(OBJECT_SELF, &quot;RESHUFFLE&quot;, 0);
+    }
+
+    //Resetting Dealer and Player hands to &#x27;empty&#x27;.
+    SetLocalInt(OBJECT_SELF, &quot;PLAYER_CARD_1&quot;, 0);
+    SetLocalInt(OBJECT_SELF, &quot;PLAYER_CARD_2&quot;, 0);
+    SetLocalInt(OBJECT_SELF, &quot;PLAYER_CARD_3&quot;, 0);
+    SetLocalInt(OBJECT_SELF, &quot;PLAYER_CARD_4&quot;, 0);
+    SetLocalInt(OBJECT_SELF, &quot;PLAYER_CARD_5&quot;, 0);
+    SetLocalInt(OBJECT_SELF, &quot;PLAYER_CARD_6&quot;, 0);
+    SetLocalInt(OBJECT_SELF, &quot;DEALER_CARD_1&quot;, 0);
+    SetLocalInt(OBJECT_SELF, &quot;DEALER_CARD_2&quot;, 0);
+    SetLocalInt(OBJECT_SELF, &quot;DEALER_CARD_3&quot;, 0);
+    SetLocalInt(OBJECT_SELF, &quot;DEALER_CARD_4&quot;, 0);
+    SetLocalInt(OBJECT_SELF, &quot;DEALER_CARD_5&quot;, 0);
+    SetLocalInt(OBJECT_SELF, &quot;DEALER_CARD_6&quot;, 0);
+
+    //Reset check for winner.
+    SetLocalInt(OBJECT_SELF, &quot;CHECK_WINNER&quot;, FALSE);
+}
+
+
+/* DEAL ONE CARD!
+Just picks one random card from the deck, if the card is designated with a
+&#x27;N&#x27; at the end of its value, a different card is picked until one is available.*/
+int Deal() { //Draws random card. Suit and color do not matter in BlackJack.
+    int iCard = Random(52) + 1;
+    //Iterate through deck till we get a card that is &#x27;available&#x27;.
+    while(GetStringRight(GetLocalString(OBJECT_SELF, IntToString(iCard)), 1) == &quot;N&quot;) {
+        iCard = Random(52) + 1;
+    }
+    //Set that card to NO, so we don&#x27;t draw it again.
+    SetLocalString(OBJECT_SELF, IntToString(iCard), GetStringLeft(GetLocalString(OBJECT_SELF, IntToString(iCard)), 3) + &quot;N&quot;);
+    return iCard;
+}
+
+
+/* GET FACE VALUE!
+Get the face value of the card. Jack&#x27;s, Queen&#x27;s, King&#x27;s = 10. Ace&#x27;s = 1 or 11.
+All the other cards are face value.*/
+int FaceValue(int iCard) {
+    if(iCard &gt;= 41) {
+        return 10;
+    }
+    else if(iCard &gt;= 1 &amp;&amp; iCard &lt;= 4) {
+        return 11;
+    }
+    else {
+        return StringToInt(GetStringLeft(GetLocalString(OBJECT_SELF, IntToString(iCard)), 2));
+    }
+}
+
+
+/* GET CARD NAME
+Just get the proper name of the card. Jack&#x27;s, Queen&#x27;s, King&#x27;s and Ace&#x27;s.*/
+string CardName(int iCard) {
+    if(iCard &gt;= 1 &amp;&amp; iCard &lt;= 4) {
+        return &quot;Ace&quot;;
+    }
+    else if(iCard &gt;= 5 &amp;&amp; iCard &lt;= 40) {
+        return GetStringLeft(GetLocalString(OBJECT_SELF, IntToString(iCard)), 2);
+    }
+    else if(iCard &gt;= 41 &amp;&amp; iCard &lt;= 44) {
+        return &quot;Jack&quot;;
+    }
+    else if(iCard &gt;= 45 &amp;&amp; iCard &lt;= 48) {
+        return &quot;Queen&quot;;
+    }
+    else if(iCard &gt;= 49 &amp;&amp; iCard &lt;= 52) {
+        return &quot;King&quot;;
+    }
+    else {
+        return &quot;Empty&quot;;
+    }
+}
+
+
+/* GET HAND SCORE
+Get the score of the hand. Called with &quot;PLAYER&quot; or &quot;DEALER&quot; based on which
+hand you want to check the score on. If score is greater than 22, it will
+search for an Ace and change its value to a 1 from an 11.*/
+int GetScore(string WHO) {
+    int iScore;
+    iScore = FaceValue(GetLocalInt(OBJECT_SELF, WHO + &quot;_CARD_1&quot;)) + FaceValue(GetLocalInt(OBJECT_SELF, WHO + &quot;_CARD_2&quot;)) + FaceValue(GetLocalInt(OBJECT_SELF, WHO + &quot;_CARD_3&quot;)) + FaceValue(GetLocalInt(OBJECT_SELF, WHO + &quot;_CARD_4&quot;)) + FaceValue(GetLocalInt(OBJECT_SELF, WHO + &quot;_CARD_5&quot;)) + FaceValue(GetLocalInt(OBJECT_SELF, WHO + &quot;_CARD_6&quot;));
+
+    if(iScore &gt;= 22) { //If score is greater than 21, check for an Ace and minus 10 from score.
+        int iCount = 0;
+        for(iCount = 1; iCount &lt;= 6; iCount++) {
+            int iCard = GetLocalInt(OBJECT_SELF, WHO + &quot;_CARD_&quot; + IntToString(iCount));
+            if(iScore &gt;= 22) {
+                if(iCard &gt;= 1 &amp;&amp; iCard &lt;= 4) {
+                    iScore = iScore - 10;
+                }
+            }
+        }
+    }
+    return iScore;
+}
+
+
+/* SHOW PLAYER AND DEALER HANDS AND SCORES
+Show the scores of the player and dealer, as well as showing the hands to
+the PC. Hides the first dealer card from the player.*/
+void ShowHandAndScores(int DealerNotHidden) {
+    SetLocalInt(OBJECT_SELF, &quot;PlayerScore&quot;, GetScore(&quot;PLAYER&quot;));
+    SetLocalInt(OBJECT_SELF, &quot;DealerScore&quot;, GetScore(&quot;DEALER&quot;));
+    SendMessageToPC(GetPCSpeaker(), &quot;Player score: &quot; + IntToString(GetLocalInt(OBJECT_SELF, &quot;PlayerScore&quot;)) + &quot; Bet: &quot; + IntToString(GetLocalInt(OBJECT_SELF, &quot;MINIMUM_BET&quot;)));
+    if(DealerNotHidden == TRUE) { //Hide Dealers first card.
+        SendMessageToPC(GetPCSpeaker(), &quot;Dealer score: &quot; + IntToString(GetLocalInt(OBJECT_SELF, &quot;DealerScore&quot;)));
+    }
+    string PlayerHand = &quot;Player hand: &quot; + CardName(GetLocalInt(OBJECT_SELF, &quot;PLAYER_CARD_1&quot;)) + &quot;, &quot; + CardName(GetLocalInt(OBJECT_SELF, &quot;PLAYER_CARD_2&quot;));
+    string DealerHand;
+    if(DealerNotHidden == TRUE) { //hide Dealers first card.
+        DealerHand = &quot;Dealer hand: &quot; + CardName(GetLocalInt(OBJECT_SELF, &quot;DEALER_CARD_1&quot;)) + &quot;, &quot; + CardName(GetLocalInt(OBJECT_SELF, &quot;DEALER_CARD_2&quot;));
+    }
+    else {
+        DealerHand = &quot;Dealer hand: &quot; + &quot;HIDDEN&quot; + &quot;, &quot; + CardName(GetLocalInt(OBJECT_SELF, &quot;DEALER_CARD_2&quot;));
+    }
+    //Iterate through the hands of the players and only show the nth number card in each hand if
+    //one of the players has a card in that spot.
+    if(GetLocalInt(OBJECT_SELF, &quot;PLAYER_CARD_3&quot;) != 0 || GetLocalInt(OBJECT_SELF, &quot;DEALER_CARD_3&quot;) != 0) {
+        PlayerHand = PlayerHand + &quot;, &quot; + CardName(GetLocalInt(OBJECT_SELF, &quot;PLAYER_CARD_3&quot;));
+        DealerHand = DealerHand + &quot;, &quot; + CardName(GetLocalInt(OBJECT_SELF, &quot;DEALER_CARD_3&quot;));
+    }
+    if(GetLocalInt(OBJECT_SELF, &quot;PLAYER_CARD_4&quot;) != 0 || GetLocalInt(OBJECT_SELF, &quot;DEALER_CARD_4&quot;) != 0) {
+        PlayerHand = PlayerHand + &quot;, &quot; + CardName(GetLocalInt(OBJECT_SELF, &quot;PLAYER_CARD_4&quot;));
+        DealerHand = DealerHand + &quot;, &quot; + CardName(GetLocalInt(OBJECT_SELF, &quot;DEALER_CARD_4&quot;));
+    }
+    if(GetLocalInt(OBJECT_SELF, &quot;PLAYER_CARD_5&quot;) != 0 || GetLocalInt(OBJECT_SELF, &quot;DEALER_CARD_5&quot;) != 0) {
+        PlayerHand = PlayerHand + &quot;, &quot; + CardName(GetLocalInt(OBJECT_SELF, &quot;PLAYER_CARD_5&quot;));
+        DealerHand = DealerHand + &quot;, &quot; + CardName(GetLocalInt(OBJECT_SELF, &quot;DEALER_CARD_5&quot;));
+    }
+    if(GetLocalInt(OBJECT_SELF, &quot;PLAYER_CARD_6&quot;) != 0 || GetLocalInt(OBJECT_SELF, &quot;DEALER_CARD_6&quot;) != 0) {
+        PlayerHand = PlayerHand + &quot;, &quot; + CardName(GetLocalInt(OBJECT_SELF, &quot;PLAYER_CARD_6&quot;));
+        DealerHand = DealerHand + &quot;, &quot; + CardName(GetLocalInt(OBJECT_SELF, &quot;DEALER_CARD_6&quot;));
+    }
+    //Spit it out!
+    SendMessageToPC(GetPCSpeaker(), PlayerHand);
+    SendMessageToPC(GetPCSpeaker(), DealerHand);
+}
+
+
+</code></pre>
+  </main>
+  <footer>generated by <a href="https://github.com/mrprice22/nwn-manager">nwn-manager</a> &mdash; last updated Jun 3, 2026 12:42</footer>
+</body>
+</html>

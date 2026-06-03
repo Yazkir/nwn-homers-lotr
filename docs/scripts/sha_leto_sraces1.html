@@ -1,0 +1,822 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Script sha_leto_sraces1</title>
+  <link rel="stylesheet" href="../assets/style.css">
+  <link rel="stylesheet" href="../assets/theme.css">
+  <link rel="icon" href="../assets/favicon.png">
+</head>
+<body>
+  <header class="site-header">
+    <a class="brand" href="../index.html"><img class="site-header-img" src="../assets/header.png" alt="Home"></a>
+    <nav>
+      <a href="../index.html">Map</a>
+      <a href="../areas/index.html">Areas</a>
+      <div class="nav-dropdown">
+        <span class="nav-dropdown-label">Creatures &#9660;</span>
+        <div class="nav-dropdown-menu">
+          <a href="../creatures/index.html">All Creatures</a>
+          <a href="../creatures/by-area/index.html">By Area</a>
+          <a href="../creatures/by-cr/index.html">By Challenge Rating</a>
+          <a href="../creatures/by-race/index.html">By Race</a>
+        </div>
+      </div>
+      <div class="nav-dropdown">
+        <span class="nav-dropdown-label">Items &#9660;</span>
+        <div class="nav-dropdown-menu">
+          <a href="../items/index.html">Accessible</a>
+          <a href="../items/inaccessible/index.html">Inaccessible</a>
+          <a href="../items/properties/index.html">By Property</a>
+          <a href="../items/search.html">Search</a>
+        </div>
+      </div>
+      <a href="../stores/index.html">Stores</a>
+      <a href="../conversations/index.html">Conversations</a>
+      <a href="../factions.html">Factions</a>
+      <a href="../quests/index.html">Quests</a>
+      <a href="../activity.html">Activity</a>
+      <div class="nav-dropdown"><span class="nav-dropdown-label">Documents &#9660;</span><div class="nav-dropdown-menu"><a href="../manual/LevelingGuide.html">Leveling Guide</a>
+<a href="../manual/MeaningWave.html">MeaningWave: A Guide to the Guides</a>
+<a href="../manual/Quest Ideas.html">Quest Ideas (Draft Concepts)</a>
+<a href="../manual/QuestGuide.html">Quest Guide</a></div></div>
+    </nav>
+  </header>
+  <main>
+<h1>Script: <code>sha_leto_sraces1</code></h1><pre class="nss-source"><code>//::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+//:::::::::::::::::::::::: Shayan&#x27;s Subrace Engine :::::::::::::::::::::::::::::
+//:::::::::::::::::File Name: sha_leto_sraces1 ::::::::::::::::::::::::::::::::::::
+//::::::::::::::::::::: OnModuleLoad script ::::::::::::::::::::::::::::::::::::
+//:: Written By: Shayan.
+//:: Contact: mail_shayan@yahoo.com
+//
+// Description: This script holds the pre-made &#x27;normal&#x27; subraces. (By normal I mean,
+//              subraces that are often found on persistent worlds. These sub-races
+//              are humaniod sub-races... that is subraces like:
+//              Drow, Aasimar, Duergar, etc.
+//              This script is the Leto equivalent of sha_subraces1.
+//              It will give players permanent ability scores,feats, etc rather than
+//              as a bonus from skin/creature hide. It may also contain added benefits like
+//              wings.
+
+
+#include &quot;sha_subr_methds&quot;
+void main()
+{
+
+
+
+//:::::::::::::::::::::::::::::::::::
+//:::: SUBRACE: Human - Aasimar :::::
+//:::::::::::::::::::::::::::::::::::
+
+//Subrace Name: Aasimar
+
+//Properties from the Skin:
+    //Damage Resistance: Acid Resist 5 / -
+    //Damage Resistance: Cold Resist 5 / -
+    //Damage Resistance: Electrical Resist 5 / -
+    //Saving Throw Bonus: Universal +2
+
+//Abilities from the unique item:
+    //Cast Spell: Light (5) 1 Use/Per Day
+
+//Must be: Human
+//ECL: + 1
+     CreateSubrace(RACIAL_TYPE_HUMAN, &quot;aasimar&quot;, &quot;sha_pcl_aasimar&quot;, &quot;sha_subrace_aasi&quot;, FALSE, 0, FALSE, 0, 1);
+
+//LETO - Change ability scores:
+    //Ability Bonus: Charisma +2
+    //Ability Bonus: Wisdom +2
+    struct SubraceBaseStatsModifier AasimarStats = CustomBaseStatsModifiers(0, 0, 0, 0, 2, 2, MOVEMENT_SPEED_CURRENT);
+    CreateBaseStatModifier(&quot;aasimar&quot;, AasimarStats, 1);
+
+//LETO - Feats:
+    //Darkvision
+    ModifySubraceFeat(&quot;aasimar&quot;, FEAT_DARKVISION, 1);
+
+//LETO - Skills:
+    //Skill Bonus: Listen +2
+    //Skill Bonus: Spot +2
+    ModifySubraceSkill(&quot;aasimar&quot;, SKILL_SPOT, 2, 1, FALSE);
+    ModifySubraceSkill(&quot;aasimar&quot;, SKILL_LISTEN, 2, 1, FALSE);
+
+//Alignment Restriction: Good
+      CreateSubraceAlignmentRestriction(&quot;aasimar&quot;, TRUE, FALSE, FALSE);
+
+//Favored Class: Paladin
+     AddSubraceFavoredClass(&quot;aasimar&quot;, CLASS_TYPE_PALADIN, CLASS_TYPE_PALADIN);
+
+//LETO - Add Angel Wings.
+     ModifySubraceAppearanceAttachment(&quot;aasimar&quot;, APPEARANCE_TYPE_ATTACHMENT_WINGS_ANGEL, APPEARANCE_TYPE_ATTACHMENT_WINGS_ANGEL, 0, 0, 1);
+
+
+
+
+
+
+
+
+
+//:::::::::::::::::::::::::::::::::::::::
+//:::: SUBRACE: Human - Tiefling ::::::::
+//:::::::::::::::::::::::::::::::::::::::
+
+//Subrace Name: Tiefling
+
+//Properties from the Skin:
+    //Damage Resistance: Cold Resist 5 / -
+    //Damage Resistance: Electrical Resist 5 / -
+    //Damage Resistance: Fire Resist 5 / -
+
+
+//Abilities from the unique item:
+    //Cast Spell: Darkness (3) 1 Use/Per Day
+
+
+//Must be: Human
+//ECL: + 1
+     CreateSubrace(RACIAL_TYPE_HUMAN, &quot;tiefling&quot;, &quot;sha_pcl_tiefling&quot;, &quot;sha_subrace_tief&quot;, FALSE, 0, FALSE, 0, 1);
+
+//LETO - Change ability scores:
+    //Ability Bonus: Charisma +2
+    //Ability Bonus: Wisdom +2
+    //Decreased Ability Score: Charisma -2
+    struct SubraceBaseStatsModifier TieflingStats = CustomBaseStatsModifiers(0, 2, 0, 2, 0, -2, MOVEMENT_SPEED_CURRENT);
+    CreateBaseStatModifier(&quot;tiefling&quot;, TieflingStats, 1);
+
+//LETO - Feats:
+    //Darkvision
+    ModifySubraceFeat(&quot;tiefling&quot;, FEAT_DARKVISION, 1);
+
+//LETO - Skills:
+    //Skill Bonus: Bluff +2
+    //Skill Bonus: Hide +2
+
+    //ModifySubraceSkill(&quot;tiefling&quot;, SKILL_BLUFF, 2, 1, FALSE);
+    ModifySubraceSkill(&quot;tiefling&quot;, SKILL_HIDE, 2, 1, FALSE);
+
+//Alignment Restriction: Evil
+      CreateSubraceAlignmentRestriction(&quot;tiefling&quot;, FALSE, FALSE, TRUE);
+
+//Favored Class: Rogue
+     AddSubraceFavoredClass(&quot;tiefling&quot;, CLASS_TYPE_ROGUE, CLASS_TYPE_ROGUE);
+
+//LETO - Add Demon Wings and Demon tail.
+     ModifySubraceAppearanceAttachment(&quot;tiefling&quot;, APPEARANCE_TYPE_ATTACHMENT_WINGS_DEMON, APPEARANCE_TYPE_ATTACHMENT_WINGS_DEMON, APPEARANCE_TYPE_ATTACHMENT_TAIL_DEVIL, APPEARANCE_TYPE_ATTACHMENT_TAIL_DEVIL, 1);
+
+
+
+
+
+
+
+
+
+//:::::::::::::::::::::::::::::::::::::::
+//:::: SUBRACE: Human - Air Genasi ::::::
+//:::::::::::::::::::::::::::::::::::::::
+
+//Subrace Name: Air-Genasi
+
+//Properties from the Skin:
+
+
+//Must be: Human
+    CreateSubrace(RACIAL_TYPE_HUMAN, &quot;air-genasi&quot;, &quot;&quot;);
+
+
+//LETO - Change ability scores:
+    //Ability Bonus: Dexterity +2
+    //Ability Bonus: Intelligence +2
+    //Decreased Ability Score: Charisma -2
+    //Decreased Ability Score: Wisdom -2
+    struct SubraceBaseStatsModifier AirGenasiStats = CustomBaseStatsModifiers(0, 2, 0, 2, -2, -2, MOVEMENT_SPEED_CURRENT);
+    CreateBaseStatModifier(&quot;air-genasi&quot;, AirGenasiStats, 1);
+
+
+//LETO - Feats:
+    //Darkvision
+    ModifySubraceFeat(&quot;air-genasi&quot;, FEAT_DARKVISION, 1);
+
+
+//Favored Class: Fighter
+     AddSubraceFavoredClass(&quot;air-genasi&quot;, CLASS_TYPE_FIGHTER, CLASS_TYPE_FIGHTER);
+
+
+
+
+
+
+
+
+
+//:::::::::::::::::::::::::::::::::::::::
+//:::: SUBRACE: Human - Earth Genasi ::::
+//:::::::::::::::::::::::::::::::::::::::
+
+//Subrace Name: Earth-Genasi
+
+//Properties from the Skin:
+
+
+//Must be: Human
+    CreateSubrace(RACIAL_TYPE_HUMAN, &quot;earth-genasi&quot;, &quot;&quot;);
+
+
+//LETO - Change ability scores:
+    //Ability Bonus: Constitution +2
+    //Ability Bonus: Strength +2
+    //Decreased Ability Score: Charisma -2
+    //Decreased Ability Score: Wisdom -2
+    struct SubraceBaseStatsModifier EarthGenasiStats = CustomBaseStatsModifiers(2, 0, 2, 0, -2, -2, MOVEMENT_SPEED_CURRENT);
+    CreateBaseStatModifier(&quot;earth-genasi&quot;, EarthGenasiStats, 1);
+
+
+//LETO - Feats:
+    //Darkvision
+    ModifySubraceFeat(&quot;earth-genasi&quot;, FEAT_DARKVISION, 1);
+
+//Favored Class: Fighter
+     AddSubraceFavoredClass(&quot;earth-genasi&quot;, CLASS_TYPE_FIGHTER, CLASS_TYPE_FIGHTER);
+
+
+
+
+
+
+
+
+
+
+//:::::::::::::::::::::::::::::::::::::::
+//:::: SUBRACE: Human - Fire Genasi :::::
+//:::::::::::::::::::::::::::::::::::::::
+
+//Subrace Name: Fire-Genasi
+
+//Properties from the Skin:
+    //Ability Bonus: Intelligence +2
+    //Darkvision
+    //Decreased Ability Score: Charisma -2
+
+//Must be: Human
+    CreateSubrace(RACIAL_TYPE_HUMAN, &quot;fire-genasi&quot;, &quot;&quot;);
+
+
+//LETO - Change ability scores:
+    //Ability Bonus: Intelligence +2
+    //Decreased Ability Score: Charisma -2
+    struct SubraceBaseStatsModifier FireGenasiStats = CustomBaseStatsModifiers(0, 0, 0, 2, 0, -2, MOVEMENT_SPEED_CURRENT);
+    CreateBaseStatModifier(&quot;fire-genasi&quot;, FireGenasiStats, 1);
+
+//LETO - Feats:
+    //Darkvision
+    ModifySubraceFeat(&quot;fire-genasi&quot;, FEAT_DARKVISION, 1);
+
+//Favored Class: Fighter
+     AddSubraceFavoredClass(&quot;fire-genasi&quot;, CLASS_TYPE_FIGHTER, CLASS_TYPE_FIGHTER);
+
+
+
+
+
+
+
+
+
+//:::::::::::::::::::::::::::::::::::::::
+//:::: SUBRACE: Human - Water Genasi ::::
+//:::::::::::::::::::::::::::::::::::::::
+
+//Subrace Name: Water-Genasi
+
+//Properties from the Skin:
+    //Immunity: Specific Spell Drown
+
+//Must be: Human
+    CreateSubrace(RACIAL_TYPE_HUMAN, &quot;water-genasi&quot;, &quot;sha_pcl_watergen&quot;);
+
+//LETO - Change ability scores:
+    //Ability Bonus: Constitution +2
+    //Decreased Ability Score: Charisma -2
+    struct SubraceBaseStatsModifier WaterGenasiStats = CustomBaseStatsModifiers(0, 0, 2, 0, 0, -2, MOVEMENT_SPEED_CURRENT);
+    CreateBaseStatModifier(&quot;water-genasi&quot;, WaterGenasiStats, 1);
+
+//LETO - Feats:
+    //Darkvision
+    ModifySubraceFeat(&quot;water-genasi&quot;, FEAT_DARKVISION, 1);
+
+//Favored Class: Fighter
+     AddSubraceFavoredClass(&quot;water-genasi&quot;, CLASS_TYPE_FIGHTER, CLASS_TYPE_FIGHTER);
+
+
+
+
+
+
+
+
+//:::::::::::::::::::::::::::::::::::::
+//:::: SUBRACE: Dwarf - Artic :::::::::
+//:::::::::::::::::::::::::::::::::::::
+
+//Subrace Name: Dwarf-Artic.
+
+//Properties from the Skin:
+    //AC Bonus +1
+    //Immunity: Damage Type: Cold 100% Immunity Bonus
+
+
+//Must be: Dwarf.
+//ECL: + 1
+    CreateSubrace(RACIAL_TYPE_DWARF, &quot;dwarf-artic&quot;, &quot;sha_pcl_dwarfart&quot;, &quot;&quot;, FALSE, 0, FALSE, 0, 1);
+
+//LETO - Change ability scores:
+    //Ability Bonus: Strength +4
+    //Decreased Ability Score: Dexterity -2
+    struct SubraceBaseStatsModifier DwarfArticStats = CustomBaseStatsModifiers(4, -2, 0, 0, 0, 0, MOVEMENT_SPEED_CURRENT);
+    CreateBaseStatModifier(&quot;dwarf-artic&quot;, DwarfArticStats, 1);
+
+//LETO - Skills:
+    //Skill Bonus: Hide +4
+    ModifySubraceSkill(&quot;dwarf-artic&quot;, SKILL_HIDE, 4, 1, FALSE);
+
+//Favored class: Ranger.
+    AddSubraceFavoredClass(&quot;dwarf-artic&quot;, CLASS_TYPE_RANGER, CLASS_TYPE_RANGER);
+
+
+
+
+
+
+
+
+
+
+//:::::::::::::::::::::::::::::::::::::::
+//:::: SUBRACE: Dwarf - Duergar :::::::::
+//:::::::::::::::::::::::::::::::::::::::
+
+//Subrace Name: Dwarf-Duergar
+
+//Properties from the Skin:
+    //Immunity: Miscellaneous: Paralysis
+    //Immunity: Miscellaneous: Poison
+    //Immunity: Specific Spell Phantasmal Killer
+    //Immunity: Specific Spell Weird
+
+//Abilities from the unique item:
+    //Cast Spell: Invisibility (3) 1 Use Per/Day.
+//Must be: Dwarf. Light sensitive.
+//ECL: + 2
+    CreateSubrace(RACIAL_TYPE_DWARF, &quot;dwarf-duergar&quot;, &quot;sha_pcl_dwarfdue&quot;, &quot;sha_subrace_duer&quot;, TRUE, 0, FALSE, 0, 2);
+
+
+//LETO - Change ability scores:
+    //Decreased Ability Score: Charisma -2
+    struct SubraceBaseStatsModifier DwarfDuergarStats = CustomBaseStatsModifiers(0, 0, 0, 0, 0, -2, MOVEMENT_SPEED_CURRENT);
+    CreateBaseStatModifier(&quot;dwarf-duergar&quot;, DwarfDuergarStats, 1);
+
+
+
+
+
+
+
+
+
+//:::::::::::::::::::::::::::::::::::::::
+//:::: SUBRACE: Dwarf - Wild ::::::::::::
+//:::::::::::::::::::::::::::::::::::::::
+
+//Subrace Name: Dwarf-Wild.
+
+//Properties from the Skin:
+    //AC Bonus +1
+    //Damage Resistance: Fire Resist 5 / -
+    //Saving Throw Bonus: Disease +4
+    //Saving Throw Bonus: Poison +1
+
+//Must be: Dwarf.
+   CreateSubrace(RACIAL_TYPE_DWARF, &quot;dwarf-wild&quot;, &quot;sha_pcl_dwarfwil&quot;, &quot;&quot;);
+
+//LETO - Feats:
+    //Use Poison
+    ModifySubraceFeat(&quot;dwarf-wild&quot;, FEAT_USE_POISON, 1);
+
+//LETO - Skills:
+    //Skill Bonus: Hide +4
+    ModifySubraceSkill(&quot;dwarf-wild&quot;, SKILL_HIDE, 4, 1, FALSE);
+
+//Favored class: Barbarian.
+    AddSubraceFavoredClass(&quot;dwarf-wild&quot;, CLASS_TYPE_BARBARIAN, CLASS_TYPE_BARBARIAN);
+
+
+
+
+
+
+
+
+
+
+
+//:::::::::::::::::::::::::::::::::::::::
+//:::: SUBRACE: Elf - Aquatic :::::::::::
+//:::::::::::::::::::::::::::::::::::::::
+
+//Subrace Name: Elf-Aquatic
+
+//Properties from the Skin:
+    //Immunity: Specific Spell Drown
+
+//Must be: Elf
+   CreateSubrace(RACIAL_TYPE_ELF, &quot;elf-aquatic&quot;, &quot;sha_pcl_elfaquat&quot;, &quot;&quot;);
+
+//LETO - Change ability scores:
+    //Decreased Ability Score: Intelligence -2
+    struct SubraceBaseStatsModifier ElfAquaticStats = CustomBaseStatsModifiers(0, 0, 0, -2, 0, 0, MOVEMENT_SPEED_CURRENT);
+    CreateBaseStatModifier(&quot;elf-aquatic&quot;, ElfAquaticStats, 1);
+
+//Favored Class: Fighter
+   AddSubraceFavoredClass(&quot;elf-aquatic&quot;, CLASS_TYPE_FIGHTER, CLASS_TYPE_FIGHTER);
+
+
+
+
+
+
+
+
+
+
+//:::::::::::::::::::::::::::::::::::::::
+//:::: SUBRACE:  Elf - Avariel ::::::::::
+//:::::::::::::::::::::::::::::::::::::::
+
+//Subrace Name: Elf-Avariel
+
+
+
+//Must be: Elf
+    CreateSubrace(RACIAL_TYPE_ELF, &quot;elf-avariel&quot;);
+
+//LETO - Change ability scores:
+    //Ability Bonus: Dexterity +2
+    //Ability Bonus: Intelligence +2
+    //Ability Bonus: Wisdom +2
+    struct SubraceBaseStatsModifier ElfAvarielStats = CustomBaseStatsModifiers(0, 2, 0, 2, 2, 0, MOVEMENT_SPEED_CURRENT);
+    CreateBaseStatModifier(&quot;elf-avariel&quot;, ElfAvarielStats, 1);
+
+//LETO - Skills:
+    //Skill Bonus: Spot +2
+    ModifySubraceSkill(&quot;elf-avariel&quot;, SKILL_SPOT, 2, 1, FALSE);
+
+//Favored Class: Cleric
+    AddSubraceFavoredClass(&quot;elf-avariel&quot;, CLASS_TYPE_CLERIC, CLASS_TYPE_CLERIC);
+
+//Leto - Add Bird wings
+    ModifySubraceAppearanceAttachment(&quot;elf-avariel&quot;, APPEARANCE_TYPE_ATTACHMENT_WINGS_BIRD, APPEARANCE_TYPE_ATTACHMENT_WINGS_BIRD, 0, 0, 1);
+
+
+
+
+
+
+
+
+
+
+
+//:::::::::::::::::::::::::::::::::::::::
+//:::: SUBRACE:    Elf - Wild :::::::::::
+//:::::::::::::::::::::::::::::::::::::::
+
+//Subrace Name: Elf-Wild
+
+
+
+//Must be: Elf
+    CreateSubrace(RACIAL_TYPE_ELF, &quot;elf-wild&quot;);
+
+//LETO - Change ability scores:
+    //Decreased Ability Score: Intelligence -2
+    struct SubraceBaseStatsModifier ElfWildStats = CustomBaseStatsModifiers(0, 0, 0, -2, 0, 0, MOVEMENT_SPEED_CURRENT);
+    CreateBaseStatModifier(&quot;elf-wild&quot;, ElfWildStats, 1);
+
+//Favored Class: Sorcerer
+    AddSubraceFavoredClass(&quot;elf-wild&quot;, CLASS_TYPE_SORCERER, CLASS_TYPE_SORCERER);
+
+
+
+
+
+
+
+
+
+
+//:::::::::::::::::::::::::::::::::::::::
+//:::: SUBRACE:    Elf - Wood :::::::::::
+//:::::::::::::::::::::::::::::::::::::::
+
+//Subrace Name: Elf-Wood
+
+
+//Must be: Elf
+    CreateSubrace(RACIAL_TYPE_ELF, &quot;elf-wood&quot;);
+
+//LETO - Change ability scores:
+    //Ability Bonus: Strength +2
+    //Decreased Ability Score: Charisma -2
+    //Decreased Ability Score: Intelligence -2
+    struct SubraceBaseStatsModifier ElfWoodStats = CustomBaseStatsModifiers(2, 0, 0, -2, 0, -2, MOVEMENT_SPEED_CURRENT);
+    CreateBaseStatModifier(&quot;elf-wood&quot;, ElfWoodStats, 1);
+
+//Favored Class: Ranger
+    AddSubraceFavoredClass(&quot;elf-wood&quot;, CLASS_TYPE_RANGER, CLASS_TYPE_RANGER);
+
+
+
+
+
+
+
+
+//:::::::::::::::::::::::::::::::::::::::
+//:::: SUBRACE:    Elf - Drow :::::::::::
+//:::::::::::::::::::::::::::::::::::::::
+
+//Subrace Name: Drow
+
+//Properties from the Skin:
+    //Saving Throw Bonus: Specific: Will +2
+
+//Abilities from the unique item:
+    //Cast Spell: Darkness (5) 1 Use Per Day
+    //Cast Spell: Light () 1 Use Per Day
+
+//Must be Elf. Light Sensitive.
+//ECL: +2
+   CreateSubrace(RACIAL_TYPE_ELF, &quot;drow&quot;, &quot;sha_pcl_drow&quot;, &quot;sha_subrace_drow&quot;, TRUE, 0, FALSE, 0, 2);
+
+//LETO - Change ability scores:
+    //Ability Bonus: Charisma +2
+    //Ability Bonus: Intelligence +2
+    struct SubraceBaseStatsModifier DrowStats = CustomBaseStatsModifiers(0, 0, 0, 2, 0, 2, MOVEMENT_SPEED_CURRENT);
+    CreateBaseStatModifier(&quot;drow&quot;, DrowStats, 1);
+
+
+//LETO - Feats:
+    //Darkvision
+    ModifySubraceFeat(&quot;drow&quot;, FEAT_DARKVISION, 1);
+
+//LETO - Skills:
+    //Skill Bonus: Move Silently +2
+    //Skill Bonus: Hide +2
+    ModifySubraceSkill(&quot;drow&quot;, SKILL_MOVE_SILENTLY, 2, 1, FALSE);
+    ModifySubraceSkill(&quot;drow&quot;, SKILL_HIDE, 2, 1, FALSE);
+
+//Favored Class - Male: Wizard, Female: Cleric.
+   AddSubraceFavoredClass(&quot;drow&quot;, CLASS_TYPE_WIZARD, CLASS_TYPE_CLERIC);
+
+//Can only be evil
+   CreateSubraceAlignmentRestriction(&quot;drow&quot;, FALSE, FALSE, TRUE);
+
+//Spell Resistance: Base (at Level 1): 10, Max(at Level 40): 50.
+   CreateSubraceSpellResistance(&quot;drow&quot;, 10, 50);
+
+
+
+
+
+
+
+
+
+
+
+
+//:::::::::::::::::::::::::::::::::::::::
+//:::: SUBRACE: Half-Elf - Half-Drow ::::
+//:::::::::::::::::::::::::::::::::::::::
+
+//Subrace Name: Half-Drow
+
+
+//Must be: Half-Elf
+    CreateSubrace(RACIAL_TYPE_HALFELF, &quot;half-drow&quot;);
+
+//LETO - Feats:
+    //Darkvision
+    ModifySubraceFeat(&quot;half-drow&quot;, FEAT_DARKVISION, 1);
+
+
+
+
+
+
+
+
+
+//:::::::::::::::::::::::::::::::::::::::
+//:::: SUBRACE: Half-Elf - Shadow :::::::
+//:::::::::::::::::::::::::::::::::::::::
+
+//Subrace Name: Shadow
+
+//Properties from the Skin:
+
+    //AC Bonus vs. Alignment Group: Good +1
+    //Damage Vulnerability: Positive Energy 25% Damage Vulnerability
+    //Immunity: Damage Type: Negative Energy 10% Immunity Bonus
+
+//Must be: Half-Elf
+    CreateSubrace(RACIAL_TYPE_HALFELF, &quot;shadow&quot;, &quot;sha_pcl_shadow&quot;, &quot;&quot;);
+
+//LETO - Feats:
+    //Darkvision
+    ModifySubraceFeat(&quot;shadow&quot;, FEAT_DARKVISION, 1);
+
+//LETO - Change ability scores:
+    //Ability Bonus: Intelligence +2
+    //Decreased Ability Score: Charisma -2
+    struct SubraceBaseStatsModifier ShadowStats = CustomBaseStatsModifiers(0, 0, 0, 2, 0, -2, MOVEMENT_SPEED_CURRENT);
+    CreateBaseStatModifier(&quot;shadow&quot;, ShadowStats, 1);
+
+//Favored Class: Shadow Dancer
+    AddSubraceFavoredClass(&quot;shadow&quot;, CLASS_TYPE_ROGUE, CLASS_TYPE_ROGUE);
+
+
+
+
+
+
+
+//:::::::::::::::::::::::::::::::::::::::
+//:::: SUBRACE: Half-Elf - Air-Touched ::
+//:::::::::::::::::::::::::::::::::::::::
+
+//Subrace Name: Air-Touched
+
+//Properties from the Skin:
+    //AC Bonus vs. Alignment Group: Lawful +2
+    //Damage Vulnerability: Magical 25% Damage Vulnerability
+    //Immunity: Damage Type: Cold 10% Immunity Bonus
+    //Immunity: Damage Type: Electrical 10% Immunity Bonus
+
+//Must be: Half-Elf
+    CreateSubrace(RACIAL_TYPE_HALFELF, &quot;air-touched&quot;, &quot;sha_pcl_airtouch&quot;);
+
+//LETO - Change ability scores:
+    //Ability Bonus: Dexterity +2
+    //Ability Bonus: Intelligence +2
+    //Decreased Ability Score: Strength -2
+    //Decreased Ability Score: Wisdom -2
+    struct SubraceBaseStatsModifier AirTouchedStats = CustomBaseStatsModifiers(-2, 2, 0, 2, -2, 0, MOVEMENT_SPEED_CURRENT);
+    CreateBaseStatModifier(&quot;air-touched&quot;, AirTouchedStats, 1);
+
+//Favored Class: Shadow Dancer
+    AddSubraceFavoredClass(&quot;air-touched&quot;, CLASS_TYPE_ROGUE, CLASS_TYPE_ROGUE);
+
+
+
+
+
+
+
+//:::::::::::::::::::::::::::::::::::::::
+//:::: SUBRACE: Gnome - Svirfneblin :::::
+//:::::::::::::::::::::::::::::::::::::::
+
+//Subrace Name: Svirfneblin
+
+//Properties from the Skin:
+    //Saving Throw Bonus: Universal +2
+
+//Abilities from the unique item:
+   //Cast Spell: Blindness/Deafness (3) 1 Use/Day
+
+//Must be: Gnome.
+//Light Sensitive.
+//ECL: + 2
+    CreateSubrace(RACIAL_TYPE_GNOME, &quot;svirfneblin&quot;, &quot;sha_pcl_svirfneb&quot;, &quot;sha_subrace_svir&quot;, TRUE, 0, FALSE, 2);
+
+//LETO - Change ability scores:
+    //Ability Bonus: Dexterity +2
+    //Ability Bonus: Wisdom +2
+    //Decreased Ability Score: Charisma -4
+    struct SubraceBaseStatsModifier SvirnStats = CustomBaseStatsModifiers(0, 2, 0, 0, 2, -4, MOVEMENT_SPEED_CURRENT);
+    CreateBaseStatModifier(&quot;svirfneblin&quot;, SvirnStats, 1);
+
+//LETO - Feats:
+    //Darkvision
+    //Bonus Feat: Dodge
+    ModifySubraceFeat(&quot;svirfneblin&quot;, FEAT_DARKVISION, 1);
+    ModifySubraceFeat(&quot;svirfneblin&quot;, FEAT_DODGE, 1);
+
+//LETO - Skills:
+    //Skill Bonus: Search +2
+    ModifySubraceSkill(&quot;svirfneblin&quot;, SKILL_SEARCH, 2, 1, FALSE);
+
+
+//Spell Resistance: 10 + 1 Per Level.
+    CreateSubraceSpellResistance(&quot;svirfneblin&quot;, 10, 50);
+
+
+
+
+
+
+
+
+//:::::::::::::::::::::::::::::::::::
+//:::: SUBRACE: Gnome - Tinker ::::::
+//:::::::::::::::::::::::::::::::::::
+
+//Subrace Name: Tinker
+
+//Must be: Gnome.
+    CreateSubrace(RACIAL_TYPE_GNOME, &quot;tinker&quot;);
+
+//LETO - Change ability scores:
+    //Ability Bonus: Intelligence +2
+    //Decreased Ability Score: Wisdom -2
+    struct SubraceBaseStatsModifier TinkerStats = CustomBaseStatsModifiers(0, 0, 0, 2, -2, 0, MOVEMENT_SPEED_CURRENT);
+    CreateBaseStatModifier(&quot;tinker&quot;, TinkerStats, 1);
+
+//LETO - Skills:
+    //Skill Bonus: Appraise +2
+    //Skill Bonus: Craft Armor +4
+    //Skill Bonus: Craft Trap +4
+    //Skill Bonus: Craft Weapon +4
+    //Skill Bonus: Disable Trap +2
+    //Skill Bonus: Open Lock +2
+    //Skill Bonus: Set Trap +2
+    //Skill Bonus: Use Magic Device +4
+
+    //ModifySubraceSkill(&quot;tinker&quot;, SKILL_APPRAISE, 2, 1, FALSE);
+    //ModifySubraceSkill(&quot;tinker&quot;, SKILL_CRAFT_ARMOR, 4, 1, FALSE);
+    //ModifySubraceSkill(&quot;tinker&quot;, SKILL_CRAFT_TRAP, 4, 1, FALSE);
+    ModifySubraceSkill(&quot;tinker&quot;, SKILL_DISABLE_TRAP, 2, 1, FALSE);
+    ModifySubraceSkill(&quot;tinker&quot;, SKILL_OPEN_LOCK, 2, 1, FALSE);
+    ModifySubraceSkill(&quot;tinker&quot;, SKILL_SET_TRAP, 2, 1, FALSE);
+    ModifySubraceSkill(&quot;tinker&quot;, SKILL_USE_MAGIC_DEVICE, 4, 1, FALSE);
+
+
+
+
+
+
+
+
+
+//:::::::::::::::::::::::::::::::::::::::
+//:::: SUBRACE: Halfling - Deep :::::::::
+//:::::::::::::::::::::::::::::::::::::::
+
+//Subrace Name: Deep
+
+
+//Must be: Halfling.
+     CreateSubrace(RACIAL_TYPE_HALFLING, &quot;deep&quot;);
+
+//LETO - Feats:
+    //Darkvision
+    ModifySubraceFeat(&quot;deep&quot;, FEAT_DARKVISION, 1);
+
+
+//LETO - Skills:
+    //Skill Bonus: Search +2
+    ModifySubraceSkill(&quot;deep&quot;, SKILL_SEARCH, 2, 1, FALSE);
+
+
+
+
+
+
+
+
+
+//:::::::::::::::::::::::::::::::::::::::
+//:::: SUBRACE: Halfling - Ghostwise ::::
+//:::::::::::::::::::::::::::::::::::::::
+
+//Subrace Name: Ghostwise
+
+//Must be: Halfling.
+     CreateSubrace(RACIAL_TYPE_HALFLING, &quot;ghostwise&quot;);
+
+//Favored Class: Barbarian.
+     AddSubraceFavoredClass(&quot;ghostwise&quot;, CLASS_TYPE_BARBARIAN, CLASS_TYPE_BARBARIAN);
+
+
+
+
+}
+</code></pre>
+  </main>
+  <footer>generated by <a href="https://github.com/mrprice22/nwn-manager">nwn-manager</a> &mdash; last updated Jun 3, 2026 12:42</footer>
+</body>
+</html>

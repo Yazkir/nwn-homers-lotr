@@ -1,0 +1,371 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Script wandering</title>
+  <link rel="stylesheet" href="../assets/style.css">
+  <link rel="stylesheet" href="../assets/theme.css">
+  <link rel="icon" href="../assets/favicon.png">
+</head>
+<body>
+  <header class="site-header">
+    <a class="brand" href="../index.html"><img class="site-header-img" src="../assets/header.png" alt="Home"></a>
+    <nav>
+      <a href="../index.html">Map</a>
+      <a href="../areas/index.html">Areas</a>
+      <div class="nav-dropdown">
+        <span class="nav-dropdown-label">Creatures &#9660;</span>
+        <div class="nav-dropdown-menu">
+          <a href="../creatures/index.html">All Creatures</a>
+          <a href="../creatures/by-area/index.html">By Area</a>
+          <a href="../creatures/by-cr/index.html">By Challenge Rating</a>
+          <a href="../creatures/by-race/index.html">By Race</a>
+        </div>
+      </div>
+      <div class="nav-dropdown">
+        <span class="nav-dropdown-label">Items &#9660;</span>
+        <div class="nav-dropdown-menu">
+          <a href="../items/index.html">Accessible</a>
+          <a href="../items/inaccessible/index.html">Inaccessible</a>
+          <a href="../items/properties/index.html">By Property</a>
+          <a href="../items/search.html">Search</a>
+        </div>
+      </div>
+      <a href="../stores/index.html">Stores</a>
+      <a href="../conversations/index.html">Conversations</a>
+      <a href="../factions.html">Factions</a>
+      <a href="../quests/index.html">Quests</a>
+      <a href="../activity.html">Activity</a>
+      <div class="nav-dropdown"><span class="nav-dropdown-label">Documents &#9660;</span><div class="nav-dropdown-menu"><a href="../manual/LevelingGuide.html">Leveling Guide</a>
+<a href="../manual/MeaningWave.html">MeaningWave: A Guide to the Guides</a>
+<a href="../manual/Quest Ideas.html">Quest Ideas (Draft Concepts)</a>
+<a href="../manual/QuestGuide.html">Quest Guide</a></div></div>
+    </nav>
+  </header>
+  <main>
+<h1>Script: <code>wandering</code></h1><pre class="nss-source"><code> //::///////////////////////////////////////////////
+//:: Custom User Defined Event
+//:: wt_user_wander
+//::
+//:://////////////////////////////////////////////
+/*   version 1.5  improved turning and faster
+                  travel.
+*/
+
+//:://////////////////////////////////////////////
+//:: Created By: John Nichols  (masterthief)
+//:: Created: 08/10/2002
+//:://////////////////////////////////////////////
+#include &quot;NW_I0_GENERIC&quot;
+
+int WANDER_INIT        = 0;
+int WANDER_MOVING      = 1;
+int WANDER_TEST_MOVE   = 2;
+int WANDER_SEARCHING   = 3;
+int WANDER_REST        = 4;
+
+int WANDER_DISABLED    = 255;
+
+object oMaster;
+
+int iTravel            = 10;    //Distance to travel each move
+int iTraveled;                  //Distance traveled in WANDER mode
+int iMaxDistance       = 100;   //Max distance before rest
+
+int nRand;
+int nRand2;
+
+vector vVectorb;
+vector vVector;
+object oArea;
+float fY2;
+float fZ2;
+float fX;
+float fD;
+float fZ;
+float fY;
+
+location lSelf;
+object   oSelf;
+location lStartLoc;
+location lEndLoc;
+int      iDistStrt;
+string   sDistStrt;
+
+int      iDistMov;
+string   sDistMov;
+location lNewLoc;
+
+
+void WCSetState(int iState)
+{
+  SetLocalInt(OBJECT_SELF,&quot;WT_NPC_STATE&quot;,iState);
+}
+void WTWANDER_INIT()     //Set to ranged attack if not set
+{
+    object oMaster;
+    oMaster = GetMaster(OBJECT_SELF);
+    if(!(GetAssociateState(NW_ASC_USE_RANGED_WEAPON)))
+    {
+     SetAssociateState(NW_ASC_USE_RANGED_WEAPON);
+     DelayCommand(0.2,ActionEquipMostDamagingRanged());
+     oMaster = GetMaster(OBJECT_SELF);
+    }
+    SetLocalInt(OBJECT_SELF,&quot;WT_RIGHTTURN&quot;,0);
+    SetLocalInt(OBJECT_SELF,&quot;WT_LEFTTURN&quot;,0);
+    SetLocalInt(OBJECT_SELF,&quot;WT_MAXTRAVEL&quot;,iMaxDistance);
+    SetLocalInt(OBJECT_SELF,&quot;WT_TRAVELED&quot;,0);
+
+    WCSetState(WANDER_MOVING);
+}
+
+void WTWANDER_MOVING(int iTraveled, int iMaxDistance)
+{
+    //ActionSpeakString (&quot;I&#x27;m in move script&quot;);
+
+    fD = IntToFloat(iTravel);           //Distance to travel
+
+    vVector = GetPosition(OBJECT_SELF); //Get current vector.
+    fZ = GetFacing(OBJECT_SELF);        //Get direction facing
+    oArea = GetArea(OBJECT_SELF);       //Get area
+
+    //Set current location
+    SetLocalLocation(OBJECT_SELF,&quot;WT_NPC_STARTLOC&quot;,GetLocation(OBJECT_SELF));
+    lStartLoc = GetLocalLocation(OBJECT_SELF,&quot;WT_NPC_STARTLOC&quot;);
+
+    // Calculate new positon based on distance and direction facing
+    fX = fD * cos(fZ);
+    fY = fD * sin(fZ);
+
+    // Fix problems if facing south
+    if (fZ &gt; 180.0)
+     {
+      fY2 = 0.0 - fY;
+      fZ2 = (180.0 - (fZ -180.0));
+     }
+    else
+     {
+      fY2 = fY;
+      fZ2 = fZ;
+     }
+
+    // Define location to walk to
+    vector vNewVector = Vector(fX, fY2, 0.0);
+    vVectorb = vVector + vNewVector;
+    lNewLoc = Location(oArea, vVectorb, fZ2);
+
+    //Get walking distance
+
+    float fDistStrt = GetDistanceBetweenLocations(lStartLoc,lNewLoc);
+    iDistStrt = FloatToInt(fDistStrt);
+    sDistStrt = IntToString(iDistStrt);
+    ActionSpeakString (&quot;I am moving to new location &quot; + sDistStrt + &quot; away&quot;);
+    SetLocalFloat(OBJECT_SELF,&quot;WT_NPC_WALKDIST&quot;,fDistStrt);
+
+    //Move to new location
+    ActionMoveToLocation(lNewLoc);
+
+    WCSetState(WANDER_TEST_MOVE);
+
+    iTraveled = GetLocalInt(OBJECT_SELF,&quot;WT_TRAVELED&quot;);
+    int iMax = GetLocalInt(OBJECT_SELF,&quot;WT_MAXTRAVEL&quot;);
+    if(iTraveled &gt;= iMax)
+     {
+      WCSetState(WANDER_REST);
+     }
+}
+
+void WTWANDER_TEST_MOVE()
+{
+/*
+  After the move procedure get the ending
+  information for the distance, from start to end
+  to see if I really moved or if I hit a wall.
+*/
+
+   //Get start location, and distance you wanted to walk
+   lStartLoc = GetLocalLocation(OBJECT_SELF,&quot;WT_NPC_STARTLOC&quot;);
+   float fDistAsk = GetLocalFloat(OBJECT_SELF,&quot;WT_NPC_WALKDIST&quot;);
+
+   //Set current location
+   SetLocalLocation(OBJECT_SELF,&quot;WT_NPC_ENDLOC&quot;,GetLocation(OBJECT_SELF));
+   lEndLoc = GetLocalLocation(OBJECT_SELF,&quot;WT_NPC_ENDLOC&quot;);
+
+   //Get distance you actually walked (check for walls)
+   //Add a 0.5 fudge factor for going around some items in the floor
+   float fDistMov = GetDistanceBetweenLocations(lStartLoc,lEndLoc);
+
+   if ((fDistMov + 0.5f) &lt; fDistAsk)
+    {
+     fZ = GetFacing(OBJECT_SELF);          //Get current direction facing
+     string sDistMov = FloatToString(fDistMov);
+     ActionSpeakString (&quot;Blocked at &quot; + sDistMov + &quot; facing &quot; + FloatToString(fZ));
+
+     //Control the search pattern can get very fancy if you want to tweek
+     //Right now uses random turns of left and right
+     //Note if turns right the first time will continue to turn right
+
+     // Pick a new direction to turn
+     nRand2 = Random(100);
+
+     int iCountRight = GetLocalInt(OBJECT_SELF,&quot;WT_RIGHTTURN&quot;);
+     int iCountLeft = GetLocalInt(OBJECT_SELF,&quot;WT_LEFTTURN&quot;);
+
+     float fT = 45.0f;
+     if(iCountRight &gt; 3 | iCountLeft &gt; 3)
+      {
+       fZ = fZ - 180.0f;
+       iCountRight = iCountRight +1;
+       ActionSpeakString (&quot;Turn around &quot; + &quot; facing &quot; + FloatToString(fZ));
+       if(iCountRight &gt; 3)
+        {
+         SetLocalInt(OBJECT_SELF,&quot;WT_RIGHTTURN&quot;,1);
+        }
+       else
+       {
+        SetLocalInt(OBJECT_SELF,&quot;WT_LEFTTURN&quot;,1);
+       }
+      }
+     else
+      {
+       if((nRand2 &gt; 51 | iCountRight &gt; 0) &amp;&amp;
+         (iCountLeft &lt; 1))
+         {
+          fZ = fZ - fT;
+          fT = fT + 5.0f;
+          iCountRight = iCountRight +1;
+          SetLocalInt(OBJECT_SELF,&quot;WT_RIGHTTURN&quot;,iCountRight);
+          ActionSpeakString (&quot;Turn to right&quot; + &quot; facing &quot; + FloatToString(fZ));
+         }
+       else
+         {
+          fZ = fZ + fT;
+          fT = fT + 5.0f;
+          iCountLeft = iCountLeft +1;
+          SetLocalInt(OBJECT_SELF,&quot;WT_LEFTTURN&quot;,iCountLeft);
+          ActionSpeakString (&quot;Turn to left&quot; + &quot; facing &quot; + FloatToString(fZ));
+         }
+      }
+      SetFacing(fZ);
+      WCSetState(WANDER_TEST_MOVE);
+    }
+   else
+    {
+     ActionSpeakString (&quot;I moved it&quot;);
+     SetLocalInt(OBJECT_SELF,&quot;WT_RIGHTTURN&quot;,0);
+     SetLocalInt(OBJECT_SELF,&quot;WT_LEFTTURN&quot;,0);
+     iTraveled = GetLocalInt(OBJECT_SELF,&quot;WT_TRAVELED&quot;);
+     iTraveled = iTraveled + FloatToInt(fDistMov);  //Add the traveled distance
+     SetLocalInt(OBJECT_SELF,&quot;WT_TRAVELED&quot;,iTraveled);
+     string sTraveled = IntToString(iTraveled);
+     int iMax = GetLocalInt(OBJECT_SELF,&quot;WT_MAXTRAVEL&quot;);
+     string sMax = IntToString(iMax);
+     ActionSpeakString (&quot;I have traveled &quot; + sTraveled + &quot; of &quot; + sMax);
+     WCSetState(WANDER_SEARCHING);
+   }
+}
+
+void WTWANDER_SEARCHING()
+{
+  //ActionSpeakString (&quot;I got to the search test&quot;);
+
+  object oMaster = GetMaster();
+  //Seek out and move away from traps
+  object oTrap = GetNearestTrapToObject();
+  if(GetIsObjectValid(oTrap) &amp;&amp; GetDistanceToObject(oTrap) &lt; 15.0 &amp;&amp; GetDistanceToObject(oTrap) &gt; 0.0)
+   {
+   ActionMoveAwayFromObject(oTrap, FALSE,40.0f);
+   }
+}
+
+void WTWANDER_REST()
+{
+  int iRoll = d20();
+  if (iRoll&lt;10)
+    if (iRoll == 1 || iRoll == 2)
+      {
+       ActionSpeakString(&quot;*sigh*, I&#x27;m tired of walking.&quot;);
+       ActionPlayAnimation(ANIMATION_FIREFORGET_PAUSE_BORED);
+      }
+    else if (iRoll == 3 || iRoll == 4)
+     {
+      ActionSpeakString(&quot;No chair, no bed, This aint good.&quot;);
+      ActionPlayAnimation(ANIMATION_FIREFORGET_PAUSE_SCRATCH_HEAD);
+     }
+    else if (iRoll == 5 || iRoll == 6)
+     {
+      ActionSpeakString(&quot;I wonder what trouble i can get into now.&quot;);
+      ActionPlayAnimation(ANIMATION_FIREFORGET_PAUSE_SCRATCH_HEAD);
+     }
+    else if (iRoll &gt; 7 || iRoll &lt;10)
+     {
+      WCSetState(WANDER_INIT);
+     }
+}
+
+void WTWANDER_DISABLED()
+{
+}
+
+void main()
+{
+    int nUser = GetUserDefinedEventNumber();
+
+    if(nUser == 1001) //HEARTBEAT
+    {
+        //ActionSpeakString (&quot;I saw case 1001&quot;);
+        int iState = GetLocalInt(OBJECT_SELF,&quot;WT_NPC_STATE&quot;);
+        string sState = IntToString(iState);
+        ActionSpeakString (&quot;I&#x27;m doing function &quot; + sState);
+        if (iState != WANDER_DISABLED)
+            switch (iState)
+            {
+                case 0 : WTWANDER_INIT();break;      //first heartbeat
+
+                case 1 : WTWANDER_MOVING(iTraveled,iMaxDistance);break;
+
+                case 2 : WTWANDER_TEST_MOVE();
+                         WTWANDER_MOVING(iTraveled,iMaxDistance);break;
+
+                case 3 : WTWANDER_SEARCHING();break;
+                case 4 : WTWANDER_REST();break;
+            }
+    iState = GetLocalInt(OBJECT_SELF,&quot;WT_NPC_STATE&quot;);
+    sState = IntToString(iState);
+    //ActionSpeakString (&quot;Next heartbeat function &quot; + sState);
+    }
+    else if(nUser == 1002) // PERCEIVE
+    {
+
+    }
+    else if(nUser == 1003) // END OF COMBAT
+    {
+
+    }
+    else if(nUser == 1004) // ON DIALOGUE
+    {
+
+    }
+    else if(nUser == 1005) // ATTACKED
+    {
+
+    }
+    else if(nUser == 1006) // DAMAGED
+    {
+
+    }
+    else if(nUser == 1007) // DEATH
+    {
+
+    }
+    else if(nUser == 1008) // DISTURBED
+    {
+
+    }
+
+}
+</code></pre>
+  </main>
+  <footer>generated by <a href="https://github.com/mrprice22/nwn-manager">nwn-manager</a> &mdash; last updated Jun 3, 2026 12:42</footer>
+</body>
+</html>

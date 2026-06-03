@@ -1,0 +1,327 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Script dmfi_activate</title>
+  <link rel="stylesheet" href="../assets/style.css">
+  <link rel="stylesheet" href="../assets/theme.css">
+  <link rel="icon" href="../assets/favicon.png">
+</head>
+<body>
+  <header class="site-header">
+    <a class="brand" href="../index.html"><img class="site-header-img" src="../assets/header.png" alt="Home"></a>
+    <nav>
+      <a href="../index.html">Map</a>
+      <a href="../areas/index.html">Areas</a>
+      <div class="nav-dropdown">
+        <span class="nav-dropdown-label">Creatures &#9660;</span>
+        <div class="nav-dropdown-menu">
+          <a href="../creatures/index.html">All Creatures</a>
+          <a href="../creatures/by-area/index.html">By Area</a>
+          <a href="../creatures/by-cr/index.html">By Challenge Rating</a>
+          <a href="../creatures/by-race/index.html">By Race</a>
+        </div>
+      </div>
+      <div class="nav-dropdown">
+        <span class="nav-dropdown-label">Items &#9660;</span>
+        <div class="nav-dropdown-menu">
+          <a href="../items/index.html">Accessible</a>
+          <a href="../items/inaccessible/index.html">Inaccessible</a>
+          <a href="../items/properties/index.html">By Property</a>
+          <a href="../items/search.html">Search</a>
+        </div>
+      </div>
+      <a href="../stores/index.html">Stores</a>
+      <a href="../conversations/index.html">Conversations</a>
+      <a href="../factions.html">Factions</a>
+      <a href="../quests/index.html">Quests</a>
+      <a href="../activity.html">Activity</a>
+      <div class="nav-dropdown"><span class="nav-dropdown-label">Documents &#9660;</span><div class="nav-dropdown-menu"><a href="../manual/LevelingGuide.html">Leveling Guide</a>
+<a href="../manual/MeaningWave.html">MeaningWave: A Guide to the Guides</a>
+<a href="../manual/Quest Ideas.html">Quest Ideas (Draft Concepts)</a>
+<a href="../manual/QuestGuide.html">Quest Guide</a></div></div>
+    </nav>
+  </header>
+  <main>
+<h1>Script: <code>dmfi_activate</code></h1><dl class="meta"><dt>Starts dialogs</dt><dd><a href="../conversations/devinering.html">devinering</a>, <a href="../conversations/dmfi_universal.html">dmfi_universal</a>, <a href="../conversations/dye_dyekit.html">dye_dyekit</a>, <a href="../conversations/emotewand.html">emotewand</a>, <a href="../conversations/mw_mixtape_use.html">mw_mixtape_use</a></dd></dl><pre class="nss-source"><code>#include &quot;x2_inc_switches&quot;
+
+void dmw_CleanUp(object oMySpeaker)
+{
+   int nCount;
+   int nCache;
+   DeleteLocalObject(oMySpeaker, &quot;dmfi_univ_target&quot;);
+   DeleteLocalLocation(oMySpeaker, &quot;dmfi_univ_location&quot;);
+   DeleteLocalObject(oMySpeaker, &quot;dmw_item&quot;);
+   DeleteLocalString(oMySpeaker, &quot;dmw_repamt&quot;);
+   DeleteLocalString(oMySpeaker, &quot;dmw_repargs&quot;);
+   nCache = GetLocalInt(oMySpeaker, &quot;dmw_playercache&quot;);
+   for(nCount = 1; nCount &lt;= nCache; nCount++)
+   {
+      DeleteLocalObject(oMySpeaker, &quot;dmw_playercache&quot; + IntToString(nCount));
+   }
+   DeleteLocalInt(oMySpeaker, &quot;dmw_playercache&quot;);
+   nCache = GetLocalInt(oMySpeaker, &quot;dmw_itemcache&quot;);
+   for(nCount = 1; nCount &lt;= nCache; nCount++)
+   {
+      DeleteLocalObject(oMySpeaker, &quot;dmw_itemcache&quot; + IntToString(nCount));
+   }
+   DeleteLocalInt(oMySpeaker, &quot;dmw_itemcache&quot;);
+   for(nCount = 1; nCount &lt;= 10; nCount++)
+   {
+      DeleteLocalString(oMySpeaker, &quot;dmw_dialog&quot; + IntToString(nCount));
+      DeleteLocalString(oMySpeaker, &quot;dmw_function&quot; + IntToString(nCount));
+      DeleteLocalString(oMySpeaker, &quot;dmw_params&quot; + IntToString(nCount));
+   }
+   DeleteLocalString(oMySpeaker, &quot;dmw_playerfunc&quot;);
+   DeleteLocalInt(oMySpeaker, &quot;dmw_started&quot;);
+}
+
+
+void main()
+{
+{
+   object oItem=GetItemActivated();
+   object oActivator=GetItemActivator();
+
+   // Tag-based scripting: execute item&#x27;s tag script if enabled
+   if (GetModuleSwitchValue(MODULE_SWITCH_ENABLE_TAGBASED_SCRIPTS) == TRUE)
+   {
+      SetUserDefinedItemEventNumber(X2_ITEM_EVENT_ACTIVATE);
+      int nRet = ExecuteScriptAndReturnInt(GetUserDefinedItemEventScriptName(oItem), OBJECT_SELF);
+      if (nRet == X2_EXECUTE_SCRIPT_END) return;
+   }
+
+      if(GetTag(oItem)==&quot;DyeKit&quot;)
+   {
+      AssignCommand(oActivator, ActionStartConversation(oActivator, &quot;dye_dyekit&quot;, TRUE));
+      return;
+   }
+   if(GetTag(oItem)==&quot;StoneofDivineIntervention&quot;)
+   {
+      AssignCommand(oActivator, ActionStartConversation(oActivator, &quot;devinering&quot;, TRUE));
+      return;
+   }
+   if(GetTag(oItem)==&quot;mw_mixtape&quot;)
+   {
+      AssignCommand(oActivator, ActionStartConversation(oActivator, &quot;mw_mixtape_use&quot;, TRUE, FALSE));
+      return;
+   }
+    //object oItem=GetItemActivated();
+    object oUser=GetItemActivator();
+    object oOther=GetItemActivatedTarget();
+    location lLocation=GetItemActivatedTargetLocation();
+    string sItemTag=GetTag(oItem);
+
+    dmw_CleanUp(oUser);
+    if (GetStringLeft(sItemTag,8) == &quot;hlslang_&quot;)
+    {
+            //Destroy any existing Voice attached to the user
+            if (GetIsObjectValid(GetLocalObject(oUser, &quot;dmfi_MyVoice&quot;)))
+            {
+                DestroyObject(GetLocalObject(oUser, &quot;dmfi_MyVoice&quot;));
+                FloatingTextStringOnCreature(&quot;You have destroyed your previous Voice&quot;, oUser, FALSE);
+            }
+
+            //Set the Voice to interpret language of the appropriate widget
+            string ssLanguage = GetStringRight(sItemTag, 2);
+            if (GetStringLeft(ssLanguage, 1) == &quot;_&quot;)
+                ssLanguage = GetStringRight(sItemTag, 1);
+            SetLocalInt(oUser, &quot;hls_MyLanguage&quot;, StringToInt(ssLanguage));
+            SetLocalString(oUser, &quot;hls_MyLanguageName&quot;, GetName(oItem));
+            DelayCommand(1.0f, FloatingTextStringOnCreature(&quot;You are speaking &quot; + GetName(oItem) + &quot;. Type /dm [(what you want to say in brackets)]&quot;, oUser, FALSE));
+            object oArea = GetFirstObjectInArea(GetArea(oUser));
+            while (GetIsObjectValid(oArea))
+            {
+                if (GetObjectType(oArea) == OBJECT_TYPE_CREATURE &amp;&amp;
+                    GetLocalInt(oArea, &quot;hls_Listening&quot;) &amp;&amp;
+                    GetDistanceBetween(oUser, oArea) &lt; 20.0f &amp;&amp;
+                    oArea != GetLocalObject(oUser, &quot;dmfi_MyVoice&quot;))
+                    {
+                        DeleteLocalObject(oUser, &quot;dmfi_MyVoice&quot;);
+                        return;
+                    }
+                oArea = GetNextObjectInArea(GetArea(oUser));
+            }
+        //Create the Voice
+        object oVoice = CreateObject(OBJECT_TYPE_CREATURE, &quot;dmfi_voice&quot;, GetLocation(oUser));
+        //Set the Voice to Autofollow the User
+        AssignCommand(oVoice, ActionForceFollowObject(oUser, 3.0f));
+        //Set Ownership of the Voice to the User
+        SetLocalObject(oUser, &quot;dmfi_MyVoice&quot;, oVoice);
+        return;
+    }
+
+    if (GetStringLeft(sItemTag, 8) == &quot;dmfi_pc_&quot;)
+    {
+        if (sItemTag == &quot;dmfi_pc_follow&quot;)
+        {
+            if (GetIsObjectValid(oOther))
+            {
+                FloatingTextStringOnCreature(&quot;Now following &quot;+ GetName(oOther),oUser, FALSE);
+                DelayCommand(2.0f, AssignCommand(oUser, ActionForceFollowObject(oOther, 2.0f)));
+            }
+            return;
+        }
+        SetLocalObject(oUser, &quot;dmfi_univ_target&quot;, oUser);
+        SetLocalLocation(oUser, &quot;dmfi_univ_location&quot;, lLocation);
+        SetLocalString(oUser, &quot;dmfi_univ_conv&quot;, GetStringRight(sItemTag, GetStringLength(sItemTag) - 5));
+        AssignCommand(oUser, ClearAllActions());
+        AssignCommand(oUser, ActionStartConversation(OBJECT_SELF, &quot;dmfi_universal&quot;, TRUE));
+        return;
+    }
+
+    if (GetStringLeft(sItemTag, 5) == &quot;dmfi_&quot;)
+    {
+        if (!GetIsDM(oUser) &amp;&amp;
+            !GetLocalInt(GetModule(), &quot;dmfi_Admin&quot; + GetPCPublicCDKey(oUser)) &amp;&amp;
+            !GetLocalInt(oUser, &quot;hls_Listening&quot;) &amp;&amp;
+            GetIsPC(oUser) &amp;&amp;
+            GetLocalInt(GetModule(), &quot;dmfi_DMToolLock&quot;))
+        {
+            FloatingTextStringOnCreature(&quot;You cannot use this item.&quot; ,oUser, FALSE);
+            SendMessageToAllDMs(GetName(oUser)+ &quot; is attempting to use a DM item.&quot;);
+            return;
+        }
+        if (sItemTag == &quot;dmfi_exploder&quot;)
+        {
+            if(!GetIsObjectValid(GetItemPossessedBy(oUser, &quot;dmfi_afflict&quot;))) CreateItemOnObject(&quot;dmfi_afflict&quot;, oUser);
+            if(!GetIsObjectValid(GetItemPossessedBy(oUser, &quot;dmfi_dicebag&quot;))) CreateItemOnObject(&quot;dmfi_dicebag&quot;, oUser);
+            if(!GetIsObjectValid(GetItemPossessedBy(oUser, &quot;dmfi_pc_dicebag&quot;))) CreateItemOnObject(&quot;dmfi_pc_dicebag&quot;, oUser);
+            if(!GetIsObjectValid(GetItemPossessedBy(oUser, &quot;dmfi_pc_follow&quot;))) CreateItemOnObject(&quot;dmfi_pc_follow&quot;, oUser);
+            if(!GetIsObjectValid(GetItemPossessedBy(oUser, &quot;dmfi_pc_emote&quot;))) CreateItemOnObject(&quot;dmfi_pc_emote&quot;, oUser);
+            if(!GetIsObjectValid(GetItemPossessedBy(oUser, &quot;dmfi_dmw&quot;))) CreateItemOnObject(&quot;dmfi_dmw&quot;, oUser);
+            if(!GetIsObjectValid(GetItemPossessedBy(oUser, &quot;dmfi_emote&quot;))) CreateItemOnObject(&quot;dmfi_emote&quot;, oUser);
+            if(!GetIsObjectValid(GetItemPossessedBy(oUser, &quot;dmfi_encounter&quot;))) CreateItemOnObject(&quot;dmfi_encounter&quot;, oUser);
+            if(!GetIsObjectValid(GetItemPossessedBy(oUser, &quot;dmfi_faction&quot;))) CreateItemOnObject(&quot;dmfi_faction&quot;, oUser);
+            if(!GetIsObjectValid(GetItemPossessedBy(oUser, &quot;dmfi_fx&quot;))) CreateItemOnObject(&quot;dmfi_fx&quot;, oUser);
+            if(!GetIsObjectValid(GetItemPossessedBy(oUser, &quot;dmfi_music&quot;))) CreateItemOnObject(&quot;dmfi_music&quot;, oUser);
+            if(!GetIsObjectValid(GetItemPossessedBy(oUser, &quot;dmfi_sound&quot;))) CreateItemOnObject(&quot;dmfi_sound&quot;, oUser);
+            if(!GetIsObjectValid(GetItemPossessedBy(oUser, &quot;dmfi_voice&quot;))) CreateItemOnObject(&quot;dmfi_voice&quot;, oUser);
+            if(!GetIsObjectValid(GetItemPossessedBy(oUser, &quot;dmfi_xp&quot;))) CreateItemOnObject(&quot;dmfi_xp&quot;, oUser);
+            if(!GetIsObjectValid(GetItemPossessedBy(oUser, &quot;dmfi_500xp&quot;))) CreateItemOnObject(&quot;dmfi_500xp&quot;, oUser);
+            if(!GetIsObjectValid(GetItemPossessedBy(oUser, &quot;dmfi_en_ditto&quot;))) CreateItemOnObject(&quot;dmfi_en_ditto&quot;, oUser);
+            if(!GetIsObjectValid(GetItemPossessedBy(oUser, &quot;dmfi_mute&quot;))) CreateItemOnObject(&quot;dmfi_mute&quot;, oUser);
+            if(!GetIsObjectValid(GetItemPossessedBy(oUser, &quot;dmfi_peace&quot;))) CreateItemOnObject(&quot;dmfi_peace&quot;, oUser);
+            if(!GetIsObjectValid(GetItemPossessedBy(oUser, &quot;dmfi_voicewidget&quot;))) CreateItemOnObject(&quot;dmfi_voicewidget&quot;, oUser);
+            return;
+        }
+        if (sItemTag == &quot;dmfi_peace&quot;)
+        {   //This widget sets all creatures in the area to a neutral stance and clears combat.
+            object oArea = GetFirstObjectInArea(GetArea(oUser));
+            object oP;
+            while (GetIsObjectValid(oArea))
+            {
+                if (GetObjectType(oArea) == OBJECT_TYPE_CREATURE &amp;&amp; !GetIsPC(oArea))
+                {
+                    AssignCommand(oArea, ClearAllActions(TRUE));
+                    oP = GetFirstPC();
+                    while (GetIsObjectValid(oP))
+                    {
+                        if (GetArea(oP) == GetArea(oUser))
+                        {
+                            ClearPersonalReputation(oArea, oP);
+                            SetStandardFactionReputation(STANDARD_FACTION_HOSTILE, 25, oP);
+                            SetStandardFactionReputation(STANDARD_FACTION_COMMONER, 91, oP);
+                            SetStandardFactionReputation(STANDARD_FACTION_MERCHANT, 91, oP);
+                            SetStandardFactionReputation(STANDARD_FACTION_DEFENDER, 91, oP);
+                        }
+                        oP = GetNextPC();
+                    }
+                    AssignCommand(oArea, ClearAllActions(TRUE));
+                }
+                oArea = GetNextObjectInArea(GetArea(oUser));
+            }
+        }
+        if (sItemTag == &quot;dmfi_voicewidget&quot;)
+        {
+            object oVoice;
+            //Destroy any existing Voice attached to the user
+            if (GetIsObjectValid(GetLocalObject(oUser, &quot;dmfi_MyVoice&quot;)))
+            {
+                DestroyObject(GetLocalObject(oUser, &quot;dmfi_MyVoice&quot;));
+                FloatingTextStringOnCreature(&quot;You have destroyed your previous Voice&quot;, oUser, FALSE);
+            }
+            if (GetIsObjectValid(oOther))
+            {
+                SetLocalObject(oUser, &quot;dmfi_VoiceTarget&quot;, oOther);
+                FloatingTextStringOnCreature(&quot;You have targeted &quot; + GetName(oOther) + &quot; with the Voice Widget&quot;, oUser, FALSE);
+                object oArea = GetFirstObjectInArea(GetArea(oUser));
+                while (GetIsObjectValid(oArea))
+                {
+                    if (GetObjectType(oArea) == OBJECT_TYPE_CREATURE &amp;&amp;
+                    GetLocalInt(oArea, &quot;hls_Listening&quot;) &amp;&amp;
+                    GetDistanceBetween(oUser, oArea) &lt; 20.0f &amp;&amp;
+                    oArea != GetLocalObject(oUser, &quot;dmfi_MyVoice&quot;))
+                    {
+                        DeleteLocalObject(oUser, &quot;dmfi_MyVoice&quot;);
+                        return;
+                    }
+                oArea = GetNextObjectInArea(GetArea(oUser));
+                }
+                //Create the Voice
+                object oVoice = CreateObject(OBJECT_TYPE_CREATURE, &quot;dmfi_voice&quot;, GetLocation(oUser));
+                //Set Ownership of the Voice to the User
+                AssignCommand(oVoice, ActionForceFollowObject(oUser, 3.0f));
+                SetLocalObject(oUser, &quot;dmfi_MyVoice&quot;, oVoice);
+                return;
+            }
+            else
+            {
+                //Create the Voice
+                oVoice = CreateObject(OBJECT_TYPE_CREATURE, &quot;dmfi_voice&quot;, lLocation);
+                AssignCommand(oVoice, ActionForceFollowObject(oUser, 3.0f));
+                SetLocalObject(oUser, &quot;dmfi_VoiceTarget&quot;, oVoice);
+                //Set Ownership of the Voice to the User
+                SetLocalObject(oUser, &quot;dmfi_MyVoice&quot;, oVoice);
+                DelayCommand(1.0f, FloatingTextStringOnCreature(&quot;The Voice is operational&quot;, oUser, FALSE));
+                return;
+            }
+            return;
+        }
+        if (sItemTag == &quot;dmfi_mute&quot;)
+        {
+            SetLocalObject(oUser, &quot;dmfi_univ_target&quot;, oUser);
+            SetLocalString(oUser, &quot;dmfi_univ_conv&quot;, &quot;voice&quot;);
+            SetLocalInt(oUser, &quot;dmfi_univ_int&quot;, 8);
+            ExecuteScript(&quot;dmfi_execute&quot;, oUser);
+            return;
+        }
+        if (sItemTag == &quot;dmfi_en_ditto&quot;)
+        {
+            SetLocalObject(oUser, &quot;dmfi_univ_target&quot;, oOther);
+            SetLocalLocation(oUser, &quot;dmfi_univ_location&quot;, lLocation);
+            SetLocalString(oUser, &quot;dmfi_univ_conv&quot;, &quot;encounter&quot;);
+            SetLocalInt(oUser, &quot;dmfi_univ_int&quot;, GetLocalInt(oUser, &quot;EncounterType&quot;));
+            ExecuteScript(&quot;dmfi_execute&quot;, oUser);
+            return;
+        }
+        if (sItemTag == &quot;dmfi_500xp&quot;)
+        {
+            SetLocalObject(oUser, &quot;dmfi_univ_target&quot;, oOther);
+            SetLocalLocation(oUser, &quot;dmfi_univ_location&quot;, lLocation);
+            SetLocalString(oUser, &quot;dmfi_univ_conv&quot;, &quot;xp&quot;);
+            SetLocalInt(oUser, &quot;dmfi_univ_int&quot;, 53);
+            ExecuteScript(&quot;dmfi_execute&quot;, oUser);
+            return;
+        }
+        SetLocalObject(oUser, &quot;dmfi_univ_target&quot;, oOther);
+        SetLocalLocation(oUser, &quot;dmfi_univ_location&quot;, lLocation);
+        SetLocalString(oUser, &quot;dmfi_univ_conv&quot;, GetStringRight(sItemTag, GetStringLength(sItemTag) - 5));
+        AssignCommand(oUser, ClearAllActions());
+        AssignCommand(oUser, ActionStartConversation(OBJECT_SELF, &quot;dmfi_universal&quot;, TRUE));
+           object oActivator=GetItemActivator();
+           if(GetTag(oItem)==&quot;EmoteWand&quot;)
+      AssignCommand(oActivator, ActionStartConversation(oActivator, &quot;emotewand&quot;, TRUE));
+      return;
+   }
+}
+    }
+       object oItem        = GetItemActivated();
+       object oPC          = GetItemActivated();
+       string sItemTag     = GetTag(oItem);
+
+</code></pre>
+  </main>
+  <footer>generated by <a href="https://github.com/mrprice22/nwn-manager">nwn-manager</a> &mdash; last updated Jun 3, 2026 12:42</footer>
+</body>
+</html>

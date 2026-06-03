@@ -1,0 +1,133 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Script omw_ppis_disturb</title>
+  <link rel="stylesheet" href="../assets/style.css">
+  <link rel="stylesheet" href="../assets/theme.css">
+  <link rel="icon" href="../assets/favicon.png">
+</head>
+<body>
+  <header class="site-header">
+    <a class="brand" href="../index.html"><img class="site-header-img" src="../assets/header.png" alt="Home"></a>
+    <nav>
+      <a href="../index.html">Map</a>
+      <a href="../areas/index.html">Areas</a>
+      <div class="nav-dropdown">
+        <span class="nav-dropdown-label">Creatures &#9660;</span>
+        <div class="nav-dropdown-menu">
+          <a href="../creatures/index.html">All Creatures</a>
+          <a href="../creatures/by-area/index.html">By Area</a>
+          <a href="../creatures/by-cr/index.html">By Challenge Rating</a>
+          <a href="../creatures/by-race/index.html">By Race</a>
+        </div>
+      </div>
+      <div class="nav-dropdown">
+        <span class="nav-dropdown-label">Items &#9660;</span>
+        <div class="nav-dropdown-menu">
+          <a href="../items/index.html">Accessible</a>
+          <a href="../items/inaccessible/index.html">Inaccessible</a>
+          <a href="../items/properties/index.html">By Property</a>
+          <a href="../items/search.html">Search</a>
+        </div>
+      </div>
+      <a href="../stores/index.html">Stores</a>
+      <a href="../conversations/index.html">Conversations</a>
+      <a href="../factions.html">Factions</a>
+      <a href="../quests/index.html">Quests</a>
+      <a href="../activity.html">Activity</a>
+      <div class="nav-dropdown"><span class="nav-dropdown-label">Documents &#9660;</span><div class="nav-dropdown-menu"><a href="../manual/LevelingGuide.html">Leveling Guide</a>
+<a href="../manual/MeaningWave.html">MeaningWave: A Guide to the Guides</a>
+<a href="../manual/Quest Ideas.html">Quest Ideas (Draft Concepts)</a>
+<a href="../manual/QuestGuide.html">Quest Guide</a></div></div>
+    </nav>
+  </header>
+  <main>
+<h1>Script: <code>omw_ppis_disturb</code></h1><pre class="nss-source"><code>/*
+Persistent Player Item Storage - using Bioware campaign database
+by OldManWhistler
+
+See the omw_ppis_start script or documentation that was included with the zip.
+*/
+
+// ****************************************************************************
+// ** CONFIGURATION (modify)
+// ****************************************************************************
+
+// Use this function to create limits to prevent a PC from storing too many items,
+// etc.
+int PPISUserDefinedInventoryLimit(object oPC, int iCount, object oItem)
+{
+    // This code is limiting the chest to storing 20 items. Change it if you like.
+    // There is probably a fix limit to how many items you can store without having
+    // performance hits.
+    // You could do something cool with this like have the players buy different
+    // levels of storage space. You could also prevent them from storing gold,
+    // no drop items, have a limit to the total GP value of the items stored, etc etc.
+    if(iCount &gt; 20)
+    {
+        SendMessageToPC(oPC, &quot;You have reached your storage limit.&quot;);
+        return FALSE;
+    }
+    return TRUE;
+}
+
+// ****************************************************************************
+// ** CONSTANTS (do not modify)
+// ****************************************************************************
+
+// Used for keeping track of the number of items stored.
+const string PPIS_COUNT = &quot;PPISCount&quot;;
+
+// ****************************************************************************
+// ** MAIN
+// ****************************************************************************
+
+void main()
+{
+    object oPC = GetLastDisturbed();
+    // No point in trying to catch the inventory disturbed event if the source
+    // is not a player. It is most likely that the commands are coming in so
+    // faster that most of the disturbed events are going to be lost.
+    if (!GetIsPC(oPC)) return;
+    int iType = GetInventoryDisturbType();
+    object oItem = GetInventoryDisturbItem();
+    int iCount = GetLocalInt(OBJECT_SELF, PPIS_COUNT);
+    if (iType == INVENTORY_DISTURB_TYPE_ADDED)
+    {
+        if (GetItemStackSize(oItem) &gt; 50000)
+        {
+            DelayCommand(0.3, AssignCommand(OBJECT_SELF, ActionGiveItem(oItem, oPC)));
+            SendMessageToPC(oPC, &quot;Gold must be broken into separate 50,000 gp stacks.&quot;);
+        }
+        // Refuse items that have inventories.
+        if (GetHasInventory(oItem))
+        {
+            DelayCommand(0.3, AssignCommand(OBJECT_SELF, ActionGiveItem(oItem, oPC)));
+            SendMessageToPC(oPC, &quot;You cannot store containers.&quot;);
+            return;
+        }
+        if(!PPISUserDefinedInventoryLimit(oPC, iCount, oItem))
+        {
+            // Delay is important, it makes sure that the item actually exists before
+            // it is transfered.
+            DelayCommand(0.3, AssignCommand(OBJECT_SELF, ActionGiveItem(oItem, oPC)));
+            return;
+        }
+        // The inventory was added to.
+        iCount++;
+        SetLocalInt(OBJECT_SELF, PPIS_COUNT, iCount);
+    }
+    else if (iType == INVENTORY_DISTURB_TYPE_REMOVED)
+    {
+        // The inventory was removed from.
+        iCount--;
+        SetLocalInt(OBJECT_SELF, PPIS_COUNT, iCount);
+    }
+    SendMessageToPC(oPC, &quot;Storage has &quot;+IntToString(iCount)+&quot; items.&quot;);
+}
+</code></pre>
+  </main>
+  <footer>generated by <a href="https://github.com/mrprice22/nwn-manager">nwn-manager</a> &mdash; last updated Jun 3, 2026 12:42</footer>
+</body>
+</html>

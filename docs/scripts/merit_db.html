@@ -1,0 +1,277 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Script merit_db</title>
+  <link rel="stylesheet" href="../assets/style.css">
+  <link rel="stylesheet" href="../assets/theme.css">
+  <link rel="icon" href="../assets/favicon.png">
+</head>
+<body>
+  <header class="site-header">
+    <a class="brand" href="../index.html"><img class="site-header-img" src="../assets/header.png" alt="Home"></a>
+    <nav>
+      <a href="../index.html">Map</a>
+      <a href="../areas/index.html">Areas</a>
+      <div class="nav-dropdown">
+        <span class="nav-dropdown-label">Creatures &#9660;</span>
+        <div class="nav-dropdown-menu">
+          <a href="../creatures/index.html">All Creatures</a>
+          <a href="../creatures/by-area/index.html">By Area</a>
+          <a href="../creatures/by-cr/index.html">By Challenge Rating</a>
+          <a href="../creatures/by-race/index.html">By Race</a>
+        </div>
+      </div>
+      <div class="nav-dropdown">
+        <span class="nav-dropdown-label">Items &#9660;</span>
+        <div class="nav-dropdown-menu">
+          <a href="../items/index.html">Accessible</a>
+          <a href="../items/inaccessible/index.html">Inaccessible</a>
+          <a href="../items/properties/index.html">By Property</a>
+          <a href="../items/search.html">Search</a>
+        </div>
+      </div>
+      <a href="../stores/index.html">Stores</a>
+      <a href="../conversations/index.html">Conversations</a>
+      <a href="../factions.html">Factions</a>
+      <a href="../quests/index.html">Quests</a>
+      <a href="../activity.html">Activity</a>
+      <div class="nav-dropdown"><span class="nav-dropdown-label">Documents &#9660;</span><div class="nav-dropdown-menu"><a href="../manual/LevelingGuide.html">Leveling Guide</a>
+<a href="../manual/MeaningWave.html">MeaningWave: A Guide to the Guides</a>
+<a href="../manual/Quest Ideas.html">Quest Ideas (Draft Concepts)</a>
+<a href="../manual/QuestGuide.html">Quest Guide</a></div></div>
+    </nav>
+  </header>
+  <main>
+<h1>Script: <code>merit_db</code></h1><pre class="nss-source"><code>// merit_db.nss — Merit Award System database helpers
+//
+// Campaign DB: &quot;meritdb&quot; (SQLite)
+// Schema:  players(cdkey PK, name, last_login, bugs, exploits, features, merit_spent)
+//
+// Merit rates: defect=1pt  exploit=3pts  feature=2pts
+
+const string MERIT_DB            = &quot;meritdb&quot;;
+const int    MERIT_BUG_VALUE     = 1;
+const int    MERIT_EXPLOIT_VALUE = 3;
+const int    MERIT_FEATURE_VALUE = 2;
+
+const int MERIT_COST_1 = 5;
+const int MERIT_COST_2 = 10;
+const int MERIT_COST_3 = 20;
+const int MERIT_COST_4 = 35;
+const int MERIT_COST_5 = 50;
+
+// ------------------------------------------------------------
+// Schema
+
+void Merit_InitDb()
+{
+    sqlquery q = SqlPrepareQueryCampaign(MERIT_DB,
+        &quot;CREATE TABLE IF NOT EXISTS players (&quot; +
+        &quot;cdkey TEXT PRIMARY KEY,&quot; +
+        &quot;name TEXT,&quot; +
+        &quot;last_login TEXT,&quot; +
+        &quot;bugs INTEGER DEFAULT 0,&quot; +
+        &quot;exploits INTEGER DEFAULT 0,&quot; +
+        &quot;features INTEGER DEFAULT 0,&quot; +
+        &quot;merit_spent INTEGER DEFAULT 0)&quot;);
+    SqlStep(q);
+}
+
+// ------------------------------------------------------------
+// Login tracking
+
+void Merit_RecordLogin(object oPC)
+{
+    sqlquery q = SqlPrepareQueryCampaign(MERIT_DB,
+        &quot;INSERT INTO players(cdkey, name, last_login) VALUES(@k, @n, datetime(&#x27;now&#x27;))&quot; +
+        &quot; ON CONFLICT(cdkey) DO UPDATE SET name=excluded.name, last_login=excluded.last_login&quot;);
+    SqlBindString(q, &quot;@k&quot;, GetPCPublicCDKey(oPC));
+    SqlBindString(q, &quot;@n&quot;, GetPCPlayerName(oPC));
+    SqlStep(q);
+}
+
+// Sent on login only when the player has at least one contribution.
+void Merit_LoginMessage(object oPC)
+{
+    sqlquery q = SqlPrepareQueryCampaign(MERIT_DB,
+        &quot;SELECT bugs, exploits, features, merit_spent FROM players WHERE cdkey=@k&quot;);
+    SqlBindString(q, &quot;@k&quot;, GetPCPublicCDKey(oPC));
+    if (!SqlStep(q)) return;
+
+    int nBugs  = SqlGetInt(q, 0);
+    int nExp   = SqlGetInt(q, 1);
+    int nFtr   = SqlGetInt(q, 2);
+    int nSpent = SqlGetInt(q, 3);
+
+    if (nBugs + nExp + nFtr == 0) return;
+
+    int nEarned = nBugs  * MERIT_BUG_VALUE
+                + nExp   * MERIT_EXPLOIT_VALUE
+                + nFtr   * MERIT_FEATURE_VALUE;
+    int nAvail  = nEarned - nSpent;
+
+    SendMessageToPC(oPC,
+        &quot;\n[Merit] Thank you for your contributions to this world!\n&quot; +
+        &quot;  Defects reported:    &quot; + IntToString(nBugs) + &quot;\n&quot; +
+        &quot;  Exploits reported:   &quot; + IntToString(nExp)  + &quot;\n&quot; +
+        &quot;  Features implemented:&quot; + IntToString(nFtr)  + &quot;\n&quot; +
+        &quot;Merit balance: &quot; + IntToString(nAvail) + &quot; pts available to spend.\n&quot; +
+        &quot;Visit the Keeper of Records in the Prancing Pony to redeem rewards.&quot;);
+}
+
+// ------------------------------------------------------------
+// Awarding
+
+void Merit_AwardBug(string sCdKey)
+{
+    sqlquery q = SqlPrepareQueryCampaign(MERIT_DB,
+        &quot;UPDATE players SET bugs=bugs+1 WHERE cdkey=@k&quot;);
+    SqlBindString(q, &quot;@k&quot;, sCdKey);
+    SqlStep(q);
+}
+
+void Merit_AwardExploit(string sCdKey)
+{
+    sqlquery q = SqlPrepareQueryCampaign(MERIT_DB,
+        &quot;UPDATE players SET exploits=exploits+1 WHERE cdkey=@k&quot;);
+    SqlBindString(q, &quot;@k&quot;, sCdKey);
+    SqlStep(q);
+}
+
+void Merit_AwardFeature(string sCdKey)
+{
+    sqlquery q = SqlPrepareQueryCampaign(MERIT_DB,
+        &quot;UPDATE players SET features=features+1 WHERE cdkey=@k&quot;);
+    SqlBindString(q, &quot;@k&quot;, sCdKey);
+    SqlStep(q);
+}
+
+// ------------------------------------------------------------
+// Balance
+
+int Merit_Available(string sCdKey)
+{
+    sqlquery q = SqlPrepareQueryCampaign(MERIT_DB,
+        &quot;SELECT bugs, exploits, features, merit_spent FROM players WHERE cdkey=@k&quot;);
+    SqlBindString(q, &quot;@k&quot;, sCdKey);
+    if (!SqlStep(q)) return 0;
+    int nBugs  = SqlGetInt(q, 0);
+    int nExp   = SqlGetInt(q, 1);
+    int nFtr   = SqlGetInt(q, 2);
+    int nSpent = SqlGetInt(q, 3);
+    return nBugs  * MERIT_BUG_VALUE
+         + nExp   * MERIT_EXPLOIT_VALUE
+         + nFtr   * MERIT_FEATURE_VALUE
+         - nSpent;
+}
+
+void Merit_Spend(string sCdKey, int nCost)
+{
+    sqlquery q = SqlPrepareQueryCampaign(MERIT_DB,
+        &quot;UPDATE players SET merit_spent=merit_spent+@c WHERE cdkey=@k&quot;);
+    SqlBindInt(q, &quot;@c&quot;, nCost);
+    SqlBindString(q, &quot;@k&quot;, sCdKey);
+    SqlStep(q);
+}
+
+// ------------------------------------------------------------
+// NPC conversation tokens (5020-5027)
+// Call from reply action scripts; tokens are set before the next entry renders.
+
+void Merit_SetNpcTokens(object oPC)
+{
+    sqlquery q = SqlPrepareQueryCampaign(MERIT_DB,
+        &quot;SELECT bugs, exploits, features, merit_spent FROM players WHERE cdkey=@k&quot;);
+    SqlBindString(q, &quot;@k&quot;, GetPCPublicCDKey(oPC));
+
+    int nBugs  = 0;
+    int nExp   = 0;
+    int nFtr   = 0;
+    int nSpent = 0;
+    if (SqlStep(q))
+    {
+        nBugs  = SqlGetInt(q, 0);
+        nExp   = SqlGetInt(q, 1);
+        nFtr   = SqlGetInt(q, 2);
+        nSpent = SqlGetInt(q, 3);
+    }
+
+    int nBugPts = nBugs  * MERIT_BUG_VALUE;
+    int nExpPts = nExp   * MERIT_EXPLOIT_VALUE;
+    int nFtrPts = nFtr   * MERIT_FEATURE_VALUE;
+    int nEarned = nBugPts + nExpPts + nFtrPts;
+    int nAvail  = nEarned - nSpent;
+
+    SetCustomToken(5020, IntToString(nBugs));
+    SetCustomToken(5021, IntToString(nExp));
+    SetCustomToken(5022, IntToString(nFtr));
+    SetCustomToken(5023, IntToString(nBugPts));
+    SetCustomToken(5024, IntToString(nExpPts));
+    SetCustomToken(5025, IntToString(nFtrPts));
+    SetCustomToken(5026, IntToString(nEarned));
+    SetCustomToken(5027, IntToString(nAvail));
+}
+
+// ------------------------------------------------------------
+// DM emote-wand player list (tokens 5001-5010)
+// Call from reply action scripts; tokens are set before E_PLAYER_LIST renders.
+
+void Merit_BuildPage(object oDM)
+{
+    int nOff = GetLocalInt(oDM, &quot;merit_page_off&quot;);
+
+    sqlquery qCount = SqlPrepareQueryCampaign(MERIT_DB, &quot;SELECT COUNT(*) FROM players&quot;);
+    int nTotal = 0;
+    if (SqlStep(qCount)) nTotal = SqlGetInt(qCount, 0);
+    SetLocalInt(oDM, &quot;merit_page_total&quot;, nTotal);
+
+    int nPages = (nTotal + 8) / 9;
+    if (nPages == 0) nPages = 1;
+    int nPage = nOff / 9 + 1;
+    SetCustomToken(5010, &quot;Page &quot; + IntToString(nPage) + &quot; of &quot; + IntToString(nPages));
+
+    int i;
+    for (i = 0; i &lt; 9; i++)
+    {
+        DeleteLocalString(oDM, &quot;merit_slot_&quot; + IntToString(i) + &quot;_cdkey&quot;);
+        DeleteLocalString(oDM, &quot;merit_slot_&quot; + IntToString(i) + &quot;_name&quot;);
+        SetCustomToken(5001 + i, &quot;(empty)&quot;);
+    }
+
+    sqlquery q = SqlPrepareQueryCampaign(MERIT_DB,
+        &quot;SELECT cdkey, name, bugs, exploits, features, merit_spent&quot; +
+        &quot; FROM players ORDER BY last_login DESC LIMIT 9 OFFSET @off&quot;);
+    SqlBindInt(q, &quot;@off&quot;, nOff);
+
+    i = 0;
+    while (SqlStep(q) &amp;&amp; i &lt; 9)
+    {
+        string sCdKey  = SqlGetString(q, 0);
+        string sName   = SqlGetString(q, 1);
+        int nBugs      = SqlGetInt(q, 2);
+        int nExp       = SqlGetInt(q, 3);
+        int nFtr       = SqlGetInt(q, 4);
+        int nSpent     = SqlGetInt(q, 5);
+        int nAvail     = nBugs  * MERIT_BUG_VALUE
+                       + nExp   * MERIT_EXPLOIT_VALUE
+                       + nFtr   * MERIT_FEATURE_VALUE
+                       - nSpent;
+
+        SetLocalString(oDM, &quot;merit_slot_&quot; + IntToString(i) + &quot;_cdkey&quot;, sCdKey);
+        SetLocalString(oDM, &quot;merit_slot_&quot; + IntToString(i) + &quot;_name&quot;,  sName);
+
+        string sLabel = sName
+            + &quot; [D:&quot; + IntToString(nBugs)
+            + &quot; E:&quot; + IntToString(nExp)
+            + &quot; F:&quot; + IntToString(nFtr)
+            + &quot; bal:&quot; + IntToString(nAvail) + &quot;]&quot;;
+        SetCustomToken(5001 + i, sLabel);
+        i++;
+    }
+}
+</code></pre>
+  </main>
+  <footer>generated by <a href="https://github.com/mrprice22/nwn-manager">nwn-manager</a> &mdash; last updated Jun 3, 2026 12:42</footer>
+</body>
+</html>
