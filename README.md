@@ -58,6 +58,37 @@ published at:
 The wiki is generated from `unpacked/` via `nwn-manager wiki` and deployed
 separately; the `wiki/` directory is gitignored.
 
+## Donations Chest sync
+
+The Well of Eru area stocks a Donations Chest on each server reset with random
+bonus items from a pool of obtainable custom items. Items that turn out to be
+unobtainable are tracked on an "illicit" list — players who hold them have them
+reclaimed and are refunded 5× gold. After store or loot fixes, previously illicit
+items may become legitimately accessible and should be returned to the bonus pool.
+
+The sync script automates this:
+
+```sh
+nwn-manager wiki                      # rebuild module-index/ (always do this first)
+python3 bin/sync_donations.py         # graduate accessible items back to bonus pool
+nwn-manager repack                    # compile and install
+```
+
+Use `--dry-run` to preview changes without writing:
+
+```sh
+python3 bin/sync_donations.py --dry-run
+```
+
+The script only removes items from the illicit list (when they become accessible);
+it never adds new ones. The managed data lives in `unpacked/_inc_donations.nss`,
+which is included by `unpacked/welloferuenter.nss`. Do not hand-edit
+`_inc_donations.nss` — run the sync script instead.
+
+If a graduated item is ammunition and should give a stack of 99, add its case
+number to the `GetBonusItemStackSize` switch in `_inc_donations.nss` manually
+after the sync run.
+
 ## Redemption codes
 
 Players redeem codes by typing `Code:<name>` in chat (any channel). The
