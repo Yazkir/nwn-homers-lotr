@@ -23,11 +23,11 @@ internal static class CardCreatureMap
         ["Radiant Olorin"]          = "ds_gandalf001",
         ["Shining Curunir"]         = "ds_alatar",
         // Servants of Sauron
-        ["Gothmog the Burning"]     = "ds_thehighmageofbar",
-        ["Drowned Mouth of Sauron"] = "ds_hoarmouththering",
+        ["Gothmog the Burning"]     = "ds_gothmog",
+        ["Drowned Mouth of Sauron"] = "ds_hoarmouth",
         ["Khamul the Easterling"]   = "ds_creature023",
-        ["Adunaphel the Quiet"]     = "ds_adunaphelther001",
-        ["The Witch-king of Angmar"]= "ds_angmartheevoocat",
+        ["Adunaphel the Quiet"]     = "ds_adunaphel",
+        ["The Witch-king of Angmar"]= "ds_witchking",
         // Orcs of Mordor
         ["Grishnakh"]               = "ds_bandit007",
         ["Shagrat"]                 = "ds_urukai016",
@@ -35,7 +35,7 @@ internal static class CardCreatureMap
         // Uruk-hai
         ["Ugluk"]                   = "ds_urukai020",
         ["Lurtz"]                   = "ds_urukai003",
-        ["Mauhur"]                  = "ds_urukhaifirstborn",
+        ["Mauhur"]                  = "ds_mauhur",
         ["Isengard Executioner"]    = "ds_urukai012",
         ["Isengard Warchief"]       = "ds_urukai013",
         ["Isengard Squire"]         = "ds_urukai001",
@@ -49,25 +49,25 @@ internal static class CardCreatureMap
         ["Meriadoc Brandybuck"]     = "ds_merry",
         // Rohan (ds_eomer is Dwarf placeholder, tune appearance in toolset)
         ["Eomer of the Eastmark"]   = "ds_eomer",
-        ["Eowyn Shieldmaiden"]      = "ds_eowyntheshieldma",
+        ["Eowyn Shieldmaiden"]      = "ds_eowyn",
         // Rangers of the North
-        ["Halbarad"]                = "ds_rangerofthe003",
+        ["Halbarad"]                = "ds_halbarad",
         ["Elladan"]                 = "ds_elladan",
         ["Elrohir"]                 = "ds_elrohir",
         // Wood-elves of Mirkwood
-        ["Silvan Shapeshifter"]     = "ds_bearbeorning001",
-        ["Mirkwood Shade"]          = "ds_mirkwoodforestwa",
+        ["Silvan Shapeshifter"]     = "ds_beorning",
+        ["Mirkwood Shade"]          = "ds_mirkwood",
         ["Thranduil's Scout"]       = "ds_creature018",
-        ["Legolas Greenleaf"]       = "ds_legolasgreenl001",
+        ["Legolas Greenleaf"]       = "ds_legolas",
         // Fellowship / Gondor
-        ["Aragorn Strider"]         = "ds_aragornsonofarat",
+        ["Aragorn Strider"]         = "ds_aragorn",
         ["Boromir"]                 = "ds_creature009",
         ["Faramir"]                 = "ds_creature002",
         ["Denethor"]                = "ds_creature003",
-        ["Beregond"]                = "ds_gondorianguar002",
+        ["Beregond"]                = "ds_beregond",
         ["Gimli Son of Gloin"]      = "ds_gimli",
         ["Galadriel"]               = "ds_galadriel",
-        ["Saruman the White"]       = "ds_sarumanthewhi001",
+        ["Saruman the White"]       = "ds_saruman",
     };
 
     /// <summary>Blueprint resref to spawn for a card; returns empty string if unmapped (spawn will fail visibly).</summary>
