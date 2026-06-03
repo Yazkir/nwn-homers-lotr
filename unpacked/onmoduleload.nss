@@ -14,6 +14,7 @@
 #include "pc_export_inc"
 #include "color"
 #include "nwnx_admin"
+#include "x2_inc_switches"
 
 
 void main()
@@ -26,6 +27,9 @@ pc_export_onmoduleload();
 // Force max HP on every level-up, server-wide.
 NWNX_Administration_SetPlayOption(NWNX_ADMINISTRATION_OPTION_USE_MAX_HITPOINTS, TRUE);
 //----------------------------------------------------------------------------
+
+// Enable tag-based scripting for item events (e.g. Rod of Fast Buffing)
+SetModuleSwitch(MODULE_SWITCH_ENABLE_TAGBASED_SCRIPTS, TRUE);
 
 // Spawn Meaningwave NPCs at their designated waypoints
 ExecuteScript("mw_spawn", GetModule());
