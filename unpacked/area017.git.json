@@ -122,11 +122,11 @@
         },
         "LinkedTo": {
           "type": "cexostring",
-          "value": "brewell2solitare"
+          "value": "respawn"
         },
         "LinkedToFlags": {
           "type": "byte",
-          "value": 1
+          "value": 2
         },
         "LoadScreenID": {
           "type": "word",
@@ -317,8 +317,7 @@
         "Description": {
           "type": "cexolocstring",
           "value": {
-            "0": "How to Play \u2014 Dungeon Solitaire\n\nPull the New Game lever to begin; you become the active player. Your allies appear and line up before you. Five columns of foes stand ahead, most face-down \u2014 examine any figure to read its card.\n\nEach turn, CLICK one of your allies, then choose which enemy column it strikes. Defeat a front enemy to reveal the next behind it. Some allies unleash their power on the whole dungeon instead of attacking one column.\n\nClear every column to WIN. Run out of allies while foes remain and you LOSE. Your score is the cards you have left (win) or the foes that remain (loss).\n\nOnly the active player may act; others may watch. Leave the area for 30 seconds and the board clears for the next challenger.",
-            "id": 4294967295
+            "0": "How to Play — Dungeon Solitaire\n\nPull the New Game lever to begin; you become the active player. Your allies appear and line up before you. Five columns of foes stand ahead, most face-down — examine any figure to read its card.\n\nEach turn, CLICK one of your allies, then choose which enemy column it strikes. Defeat a front enemy to reveal the next behind it. Some allies unleash their power on the whole dungeon instead of attacking one column.\n\nClear every column to WIN. Run out of allies while foes remain and you LOSE. Your score is the cards you have left (win) or the foes that remain (loss).\n\nOnly the active player may act; others may watch. Leave the area for 30 seconds and the board clears for the next challenger."
           }
         },
         "DisarmDC": {
@@ -546,8 +545,7 @@
         "Description": {
           "type": "cexolocstring",
           "value": {
-            "0": "Dungeon Solitaire \u2014 Credits\n\nA solitaire dungeon-crawl card game, themed on Middle-earth for Homer's Quest.\n\n-- GAME DESIGN --\nSteven Hastings\nConceived the game, playtested it on paper, and designed every card, ability, and rule. Design consultant throughout the digital development.\n\n-- DIGITAL DEVELOPMENT (engine) --\nJames Price\nCore engine architecture, all card-effect implementations, and testing of the digital game (DungeonSolitaire.Core, C#).\n\n-- NWN INTEGRATION --\nJames Price (Homer's Quest)\nClaude (Anthropic) \u2014 the in-process Anvil / NWNX:EE plugin (DungeonSolitaire.Nwn) that renders the board with the module's creatures and statues, the attack and choice conversations, and the narrator that speaks the game.\n\n-- AI ASSISTANCE (engine) --\nChatGPT: early development guidance and initial skeleton framework.\nClaude AI: GameEventBus event system, input command pattern (RequestInput / SubmitInput), engine refactoring, and save / replay system.\n\nCards are portrayed by the module's creatures; missing characters use a stand-in.\n\n\u2665  Thank you for playing!  \u2665",
-            "id": 4294967295
+            "0": "Dungeon Solitaire — Credits\n\nA solitaire dungeon-crawl card game, themed on Middle-earth for Homer's Quest.\n\n-- GAME DESIGN --\nSteven Hastings\nConceived the game, playtested it on paper, and designed every card, ability, and rule. Design consultant throughout the digital development.\n\n-- DIGITAL DEVELOPMENT (engine) --\nJames Price\nCore engine architecture, all card-effect implementations, and testing of the digital game (DungeonSolitaire.Core, C#).\n\n-- NWN INTEGRATION --\nJames Price (Homer's Quest)\nClaude (Anthropic) — the in-process Anvil / NWNX:EE plugin (DungeonSolitaire.Nwn) that renders the board with the module's creatures and statues, the attack and choice conversations, and the narrator that speaks the game.\n\n-- AI ASSISTANCE (engine) --\nChatGPT: early development guidance and initial skeleton framework.\nClaude AI: GameEventBus event system, input command pattern (RequestInput / SubmitInput), engine refactoring, and save / replay system.\n\nCards are portrayed by the module's creatures; missing characters use a stand-in.\n\nâ™¥  Thank you for playing!  â™¥"
           }
         },
         "DisarmDC": {
@@ -775,8 +773,7 @@
         "Description": {
           "type": "cexolocstring",
           "value": {
-            "0": "Dungeon Solitaire \u2014 High Scores\n\nNo champions yet. Pull the lever and be the first!",
-            "id": 4294967295
+            "0": "Dungeon Solitaire — High Scores\n\nNo champions yet. Pull the lever and be the first!"
           }
         },
         "DisarmDC": {
@@ -1004,8 +1001,7 @@
         "Description": {
           "type": "cexolocstring",
           "value": {
-            "0": "New Game Lever\n\nPull this lever to start a new game of Dungeon Solitaire. You become the active player until you win, lose, or leave the area. Pull it again during your game to restart.",
-            "id": 4294967295
+            "0": "New Game Lever\n\nPull this lever to start a new game of Dungeon Solitaire. You become the active player until you win, lose, or leave the area. Pull it again during your game to restart."
           }
         },
         "DisarmDC": {
@@ -1233,8 +1229,7 @@
         "Description": {
           "type": "cexolocstring",
           "value": {
-            "0": "The marshalling ground where your allies arrive before each game of Dungeon Solitaire.",
-            "id": 4294967295
+            "0": "The marshalling ground where your allies arrive before each game of Dungeon Solitaire."
           }
         },
         "DisarmDC": {

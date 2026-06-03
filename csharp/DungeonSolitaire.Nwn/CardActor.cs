@@ -54,8 +54,7 @@ internal sealed class CardActor
         c.PlotFlag = true;
         c.Immortal = true;
         c.IsDestroyable = false;
-        if (NwFaction.FromStandardFaction(StandardFaction.Commoner) is { } commoner)
-            c.Faction = commoner;
+        SetInertFaction(c);
 
         bool isEnemy = Card.columnIndex >= 0;
         if (isEnemy)
@@ -73,6 +72,10 @@ internal sealed class CardActor
         // states reflect card health, and snap HP back if the player ever damages the card.
         RefreshHealth();
         c.OnDamaged += RevertDamage;
+        // Attacking a neutral creature triggers an internal AdjustReputation(-100) that
+        // overrides faction neutrality. Clear actions and re-assert the faction so the
+        // creature never retaliates and never appears hostile after an attack.
+        c.OnPhysicalAttacked += IgnoreAttack;
 
         if (playAppearVfx)
             c.ApplyEffect(EffectDuration.Instant, NwEffect.VisualEffect(Vfx.Appear));
@@ -109,8 +112,31 @@ internal sealed class CardActor
 
     private void RevertDamage(CreatureEvents.OnDamaged evt)
     {
-        if (Creature is { IsValid: true } c && c.HP != DesiredHp)
-            c.HP = DesiredHp;
+        if (Creature is not { IsValid: true } c) return;
+        if (c.HP != DesiredHp) c.HP = DesiredHp;
+        // Re-assert neutral faction in case the damage tick re-triggered hostility.
+        SetInertFaction(c);
+        c.ClearActionQueue();
+    }
+
+    private void IgnoreAttack(CreatureEvents.OnPhysicalAttacked evt)
+    {
+        if (Creature is not { IsValid: true } c) return;
+        SetInertFaction(c);
+        c.ClearActionQueue();
+    }
+
+    /// <summary>
+    /// Sets the creature to the Commoner (neutral) faction so it never appears hostile.
+    /// Falls back to Merchant faction if Commoner isn't resolvable. Blueprint factions
+    /// (often Hostile for enemy NPCs) are overridden here so cards are never auto-attacked.
+    /// </summary>
+    private static void SetInertFaction(NwCreature c)
+    {
+        NwFaction? faction = NwFaction.FromStandardFaction(StandardFaction.Commoner)
+            ?? NwFaction.FromStandardFaction(StandardFaction.Merchant);
+        if (faction is not null)
+            c.Faction = faction;
     }
 
     public void Destroy()

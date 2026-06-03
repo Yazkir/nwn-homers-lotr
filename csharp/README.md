@@ -107,13 +107,17 @@ referenced, but **compile-only** (`ExcludeAssets="runtime"`): the plugin calls
 `NWScript.SetCustomToken` directly, while the Anvil host supplies the assembly at
 runtime, so it is not copied to the output.
 
-## Deploy (server runs the `nwnxee/unified` container)
+## Deploy (server runs the `nwndotnet/anvil` container)
 
-1. Ensure the server boots the Anvil managed host (the unified image's NWNX_DotNET
-   plugin loading Anvil). Anvil plugins live under `<server-home>/anvil/Plugins/`.
-2. Copy the build output into a plugin folder:
+1. The server must boot the Anvil managed host. The plain `nwnxee/unified` image
+   does **not** ship Anvil — use the `nwndotnet/anvil` image (set in
+   `../server.env` as `NWN_IMAGE`, with `NWNX_DOTNET_SKIP=n`). Anvil plugins live
+   under `<server-home>/anvil/Plugins/`.
+2. Copy the build output into a plugin folder. **The folder name must match the
+   main assembly's filename** (`DungeonSolitaire.Nwn`) — Anvil looks for
+   `<folder>/<folder>.dll` and silently skips the folder otherwise:
    ```bash
-   DEST=~/.local/state/nwnxee-homer/anvil/Plugins/DungeonSolitaire
+   DEST=~/.local/state/nwnxee-homer/anvil/Plugins/DungeonSolitaire.Nwn
    mkdir -p "$DEST"
    cp bin/Release/net8.0/DungeonSolitaire.Nwn.dll  "$DEST"/
    cp bin/Release/net8.0/DungeonSolitaire.Core.dll "$DEST"/
