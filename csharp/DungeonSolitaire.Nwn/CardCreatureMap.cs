@@ -78,64 +78,77 @@ internal static class CardCreatureMap
         => card?.name != null && ByName.TryGetValue(card.name, out string? rr) ? rr : Placeholder;
 
     /// <summary>
-    /// Display name for the spawned NPC: the card name with its current life in
-    /// parentheses, e.g. "Lurtz (HP 3/6)". Enemies show current/max; allies (no
-    /// in-play damage) show their max. The NWN health bar / "badly wounded" tint is
-    /// driven separately by the creature's HP (see CardActor.RefreshHealth).
+    /// Display name for the spawned NPC.
+    /// Enemies (in a column): "Cardname (HP current/max) EffectName" — survivor effect name, falling back to death.
+    /// Allies (in hand): "Cardname (ATK #) EffectName" — attack effect name.
+    /// The NWN health bar / "badly wounded" tint is driven separately by the creature's HP (see CardActor.RefreshHealth).
     /// </summary>
     public static string BuildName(Card card)
     {
         bool isEnemy = card.columnIndex >= 0;
-        return isEnemy
-            ? $"{card.name} (HP {card.currentHealth}/{card.maxHealth})"
-            : $"{card.name} (HP {card.maxHealth})";
+        if (isEnemy)
+        {
+            string eff = card.survivorEffect?.name ?? card.deathEffect?.name ?? "";
+            string suffix = eff.Length > 0 ? $" {eff}" : "";
+            return $"{card.name} (HP {card.currentHealth}/{card.maxHealth}){suffix}";
+        }
+        else
+        {
+            string eff = card.attackEffect?.name ?? "";
+            string suffix = eff.Length > 0 ? $" {eff}" : "";
+            return $"{card.name} (ATK {card.baseAttack}){suffix}";
+        }
     }
 
     /// <summary>
     /// One-line label for this card as a row in the secondary-choice popup menu.
-    /// <paramref name="asEnemy"/> mirrors InputRequest.ShowCardsAsEnemies — show the
-    /// enemy-style current/max HP rather than the ally-style attack line.
+    /// <paramref name="asEnemy"/> is the sole determinant of role — callers like
+    /// SelectCardFromGraveyard pass false even for cards whose columnIndex is still set,
+    /// so we do not fall back to columnIndex here.
     /// </summary>
     public static string ChoiceLabel(Card card, bool asEnemy)
     {
-        bool enemy = asEnemy || card.columnIndex >= 0;
-        return enemy
-            ? $"{card.name}  (HP {card.currentHealth}/{card.maxHealth}, Atk {card.baseAttack})"
-            : $"{card.name}  (Atk {card.baseAttack}, HP {card.maxHealth})";
+        if (asEnemy)
+        {
+            string eff = card.survivorEffect?.name ?? card.deathEffect?.name ?? "";
+            string suffix = eff.Length > 0 ? $" {eff}" : "";
+            return $"{card.name} (HP {card.currentHealth}/{card.maxHealth}){suffix}";
+        }
+        else
+        {
+            string eff = card.attackEffect?.name ?? "";
+            string suffix = eff.Length > 0 ? $" {eff}" : "";
+            return $"{card.name} (ATK {card.baseAttack}){suffix}";
+        }
     }
 
     /// <summary>
-    /// Full card text for the spawned NPC's description. Shown when the player
-    /// examines the creature — this replaces the printed card face.
+    /// Full card text for the spawned NPC's description. Shown when the player examines
+    /// the creature. Only the effects relevant to the card's current role are shown.
+    /// Enemies: survivor and/or death effect. Allies: attack effect only.
+    /// Format: "EffectName: effect description"
     /// </summary>
     public static string BuildDescription(Card card)
     {
         var sb = new StringBuilder();
-        sb.Append(card.name);
-        if (!string.IsNullOrWhiteSpace(card.flavorType) && card.flavorType != "default")
-            sb.Append("  —  ").Append(card.flavorType);
-        sb.Append('\n');
-
-        // Allies (in hand) read as attackers; enemies (in a column) read as defenders.
         bool isEnemy = card.columnIndex >= 0;
-        if (isEnemy)
-            sb.Append($"HP {card.currentHealth}/{card.maxHealth}    Attack {card.baseAttack}    Reward {card.reward}\n");
+
+        if (!isEnemy)
+        {
+            if (card.attackEffect is { } atk && !string.IsNullOrWhiteSpace(atk.name))
+                sb.Append(atk.name).Append(": ").Append(atk.description);
+        }
         else
-            sb.Append($"Attack {card.baseAttack}    HP {card.maxHealth}\n");
+        {
+            if (card.survivorEffect is { } sur && !string.IsNullOrWhiteSpace(sur.name))
+                sb.Append(sur.name).Append(": ").Append(sur.description);
+            if (card.deathEffect is { } dth && !string.IsNullOrWhiteSpace(dth.name))
+            {
+                if (sb.Length > 0) sb.Append('\n');
+                sb.Append(dth.name).Append(": ").Append(dth.description);
+            }
+        }
 
-        AppendEffect(sb, "Attack", card.attackEffect);
-        AppendEffect(sb, "Survivor", card.survivorEffect);
-        AppendEffect(sb, "Death", card.deathEffect);
         return sb.ToString();
-    }
-
-    private static void AppendEffect(StringBuilder sb, string slot, Effect? eff)
-    {
-        if (eff == null || string.IsNullOrWhiteSpace(eff.name)) return;
-        sb.Append('\n').Append(slot).Append(": ").Append(eff.name);
-        if (eff.triggerWhen == TriggerWhen.InsteadOfAttack) sb.Append(" (instead of attacking)");
-        else if (eff.triggerWhen == TriggerWhen.PreAttack)   sb.Append(" (before attack)");
-        if (!string.IsNullOrWhiteSpace(eff.description))
-            sb.Append('\n').Append("  ").Append(eff.description);
     }
 }
