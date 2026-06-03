@@ -14,68 +14,65 @@ namespace DungeonSolitaire.Nwn;
 /// </summary>
 internal static class CardCreatureMap
 {
-    /// <summary>Old Tagget — placeholder appearance for characters not in the module (Frodo, Merry, …).</summary>
-    public const string Placeholder = "old";
-
     /// <summary>Generic statue placeable spawned for face-down (hidden) cards. See unpacked/ds_facedown.utp.json.</summary>
     public const string FaceDownStatue = "ds_facedown";
 
     private static readonly Dictionary<string, string> ByName = new()
     {
         // Maiar
-        ["Radiant Olorin"]          = "gandalf001",        // Gandalf the Gray (Olorin)
-        ["Shining Curunir"]         = "alatar",            // Alatar the Blue
+        ["Radiant Olorin"]          = "ds_gandalf001",
+        ["Shining Curunir"]         = "ds_alatar",
         // Servants of Sauron
-        ["Gothmog the Burning"]     = "thehighmageofbar",  // Gothmog Lord of Barad-Dur
-        ["Drowned Mouth of Sauron"] = "hoarmouththering",  // Hoarmouth the Ringwraith
-        ["Khamul the Easterling"]   = "creature023",       // Rancid Skinner ... of Khamul
-        ["Adunaphel the Quiet"]     = "adunaphelther001",
-        ["The Witch-king of Angmar"]= "angmartheevoocat",
-        // Orcs of Mordor (thematic substitutes)
-        ["Grishnakh"]               = "bandit007",         // Groodok the Skinner
-        ["Shagrat"]                 = "urukai016",         // Mordor Orc Lieutenant Soldier
-        ["Gorbag"]                  = "fiendofmorgul",
+        ["Gothmog the Burning"]     = "ds_thehighmageofbar",
+        ["Drowned Mouth of Sauron"] = "ds_hoarmouththering",
+        ["Khamul the Easterling"]   = "ds_creature023",
+        ["Adunaphel the Quiet"]     = "ds_adunaphelther001",
+        ["The Witch-king of Angmar"]= "ds_angmartheevoocat",
+        // Orcs of Mordor
+        ["Grishnakh"]               = "ds_bandit007",
+        ["Shagrat"]                 = "ds_urukai016",
+        ["Gorbag"]                  = "ds_fiendofmorgul",
         // Uruk-hai
-        ["Ugluk"]                   = "urukai020",
-        ["Lurtz"]                   = "urukai003",          // Urukai Captain
-        ["Mauhur"]                  = "urukhaifirstborn",
-        ["Isengard Executioner"]    = "urukai012",          // Uruk Hai Slayer
-        ["Isengard Warchief"]       = "urukai013",          // Marshall of the White Hand
-        ["Isengard Squire"]         = "urukai001",          // Urukai Trooper
-        ["Grima Wormtongue"]        = Placeholder,
-        // Hobbits / Shire
-        ["Bill the Pony"]           = "hobbit001",
-        ["Bilbo Baggins"]           = "bilbobaggins",
-        ["Samwise Gamgee"]          = "samwise",
-        ["Frodo Baggins"]           = Placeholder,
-        ["Peregrin Took"]           = Placeholder,
-        ["Meriadoc Brandybuck"]     = Placeholder,
-        // Rohan
-        ["Eomer of the Eastmark"]   = Placeholder,
-        ["Eowyn Shieldmaiden"]      = "eowyntheshieldma",
+        ["Ugluk"]                   = "ds_urukai020",
+        ["Lurtz"]                   = "ds_urukai003",
+        ["Mauhur"]                  = "ds_urukhaifirstborn",
+        ["Isengard Executioner"]    = "ds_urukai012",
+        ["Isengard Warchief"]       = "ds_urukai013",
+        ["Isengard Squire"]         = "ds_urukai001",
+        // Hobbits / Shire (ds_grima/frodo/merry/pippin are Dwarf placeholders, tune appearance in toolset)
+        ["Grima Wormtongue"]        = "ds_grima",
+        ["Bill the Pony"]           = "ds_hobbit001",
+        ["Bilbo Baggins"]           = "ds_bilbobaggins",
+        ["Samwise Gamgee"]          = "ds_samwise",
+        ["Frodo Baggins"]           = "ds_frodo",
+        ["Peregrin Took"]           = "ds_pippin",
+        ["Meriadoc Brandybuck"]     = "ds_merry",
+        // Rohan (ds_eomer is Dwarf placeholder, tune appearance in toolset)
+        ["Eomer of the Eastmark"]   = "ds_eomer",
+        ["Eowyn Shieldmaiden"]      = "ds_eowyntheshieldma",
         // Rangers of the North
-        ["Halbarad"]                = "rangerofthe003",     // Greater Ranger of the North
-        ["Elladan"]                 = "elfranger016",
-        ["Elrohir"]                 = "elfranger016",
+        ["Halbarad"]                = "ds_rangerofthe003",
+        ["Elladan"]                 = "ds_elladan",
+        ["Elrohir"]                 = "ds_elrohir",
         // Wood-elves of Mirkwood
-        ["Silvan Shapeshifter"]     = "bearbeorning001",    // Beorning (Shifted)
-        ["Mirkwood Shade"]          = "mirkwoodforestwa",   // Mirkwood Forest Walker
-        ["Thranduil's Scout"]       = "creature018",        // Thranduil's Defender
-        ["Legolas Greenleaf"]       = "legolasgreenl001",
+        ["Silvan Shapeshifter"]     = "ds_bearbeorning001",
+        ["Mirkwood Shade"]          = "ds_mirkwoodforestwa",
+        ["Thranduil's Scout"]       = "ds_creature018",
+        ["Legolas Greenleaf"]       = "ds_legolasgreenl001",
         // Fellowship / Gondor
-        ["Aragorn Strider"]         = "aragornsonofarat",
-        ["Boromir"]                 = "creature009",
-        ["Faramir"]                 = "creature002",
-        ["Denethor"]                = "creature003",
-        ["Beregond"]                = "gondorianguar002",   // Gondorian Guardsman
-        ["Gimli Son of Gloin"]      = "gimli",
-        ["Galadriel"]               = "galadriel",
-        ["Saruman the White"]       = "sarumanthewhi001",
+        ["Aragorn Strider"]         = "ds_aragornsonofarat",
+        ["Boromir"]                 = "ds_creature009",
+        ["Faramir"]                 = "ds_creature002",
+        ["Denethor"]                = "ds_creature003",
+        ["Beregond"]                = "ds_gondorianguar002",
+        ["Gimli Son of Gloin"]      = "ds_gimli",
+        ["Galadriel"]               = "ds_galadriel",
+        ["Saruman the White"]       = "ds_sarumanthewhi001",
     };
 
-    /// <summary>Blueprint resref to spawn for a card; falls back to Old Tagget if unmapped.</summary>
+    /// <summary>Blueprint resref to spawn for a card; returns empty string if unmapped (spawn will fail visibly).</summary>
     public static string Resolve(Card card)
-        => card?.name != null && ByName.TryGetValue(card.name, out string? rr) ? rr : Placeholder;
+        => card?.name != null && ByName.TryGetValue(card.name, out string? rr) ? rr : "";
 
     /// <summary>
     /// Display name for the spawned NPC.

@@ -52,11 +52,12 @@ internal sealed class CardActor
         c.Description = CardCreatureMap.BuildDescription(Card);
 
         // Inert "card" creature: never dies, never wanders, never fights, never drops loot.
+        // Blueprints are pre-set to Merchant faction with no event scripts, so no runtime
+        // faction override is needed here.
         c.PlotFlag = true;
         c.Immortal = true;
         c.IsDestroyable = false;
         c.Lootable = false;
-        SetInertFaction(c);
         StripCombatAi(c);
 
         bool isEnemy = Card.columnIndex >= 0;
@@ -75,9 +76,6 @@ internal sealed class CardActor
         // states reflect card health, and snap HP back if the player ever damages the card.
         RefreshHealth();
         c.OnDamaged += RevertDamage;
-        // Attacking a neutral creature triggers an internal AdjustReputation(-100) that
-        // overrides faction neutrality. Clear actions and re-assert the faction so the
-        // creature never retaliates and never appears hostile after an attack.
         c.OnPhysicalAttacked += IgnoreAttack;
 
         if (playAppearVfx)
@@ -117,43 +115,13 @@ internal sealed class CardActor
     {
         if (Creature is not { IsValid: true } c) return;
         if (c.HP != DesiredHp) c.HP = DesiredHp;
-        // Re-assert neutral faction in case the damage tick re-triggered hostility.
-        SetInertFaction(c);
         c.ClearActionQueue();
     }
 
     private void IgnoreAttack(CreatureEvents.OnPhysicalAttacked evt)
     {
         if (Creature is not { IsValid: true } c) return;
-        SetInertFaction(c);
         c.ClearActionQueue();
-    }
-
-    /// <summary>
-    /// Sets the creature to the Commoner (neutral) faction so it never appears hostile,
-    /// then repairs the Commoner–PC reputation for every online player. Blueprint factions
-    /// (often Hostile for enemy NPCs) are overridden here so cards are never auto-attacked.
-    /// Reputation repair is needed because attacking any Commoner-faction NPC anywhere in
-    /// the module permanently damages the global Commoner↔PC reputation, making these card
-    /// creatures appear hostile from spawn even though their faction is set correctly.
-    /// </summary>
-    private static void SetInertFaction(NwCreature c)
-    {
-        NwFaction? faction = NwFaction.FromStandardFaction(StandardFaction.Commoner)
-            ?? NwFaction.FromStandardFaction(StandardFaction.Merchant);
-        if (faction is null) return;
-        c.Faction = faction;
-
-        // Repair reputation with each online PC so the card never appears hostile.
-        // AdjustReputation adjusts Commoner's view of the PC faction; GetReputation
-        // returns that same value so we can bring it to exactly 50 (neutral).
-        foreach (NwPlayer player in NwModule.Instance.Players)
-        {
-            NwCreature? pc = player.ControlledCreature;
-            if (pc?.IsValid != true) continue;
-            int rep = NWScript.GetReputation(c.ObjectId, pc.ObjectId);
-            if (rep < 50) NWScript.AdjustReputation(c.ObjectId, pc.ObjectId, 50 - rep);
-        }
     }
 
     /// <summary>
