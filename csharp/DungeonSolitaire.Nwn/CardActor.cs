@@ -1,5 +1,6 @@
 using Anvil.API;
 using Anvil.API.Events;
+using NWN.Core;
 using NwEffect = Anvil.API.Effect;
 
 namespace DungeonSolitaire.Nwn;
@@ -50,11 +51,13 @@ internal sealed class CardActor
         c.Name = CardCreatureMap.BuildName(Card);
         c.Description = CardCreatureMap.BuildDescription(Card);
 
-        // Inert "card" creature: never dies, never wanders, never fights.
+        // Inert "card" creature: never dies, never wanders, never fights, never drops loot.
         c.PlotFlag = true;
         c.Immortal = true;
         c.IsDestroyable = false;
+        c.Lootable = false;
         SetInertFaction(c);
+        StripCombatAi(c);
 
         bool isEnemy = Card.columnIndex >= 0;
         if (isEnemy)
@@ -127,16 +130,49 @@ internal sealed class CardActor
     }
 
     /// <summary>
-    /// Sets the creature to the Commoner (neutral) faction so it never appears hostile.
-    /// Falls back to Merchant faction if Commoner isn't resolvable. Blueprint factions
+    /// Sets the creature to the Commoner (neutral) faction so it never appears hostile,
+    /// then repairs the Commoner–PC reputation for every online player. Blueprint factions
     /// (often Hostile for enemy NPCs) are overridden here so cards are never auto-attacked.
+    /// Reputation repair is needed because attacking any Commoner-faction NPC anywhere in
+    /// the module permanently damages the global Commoner↔PC reputation, making these card
+    /// creatures appear hostile from spawn even though their faction is set correctly.
     /// </summary>
     private static void SetInertFaction(NwCreature c)
     {
         NwFaction? faction = NwFaction.FromStandardFaction(StandardFaction.Commoner)
             ?? NwFaction.FromStandardFaction(StandardFaction.Merchant);
-        if (faction is not null)
-            c.Faction = faction;
+        if (faction is null) return;
+        c.Faction = faction;
+
+        // Repair reputation with each online PC so the card never appears hostile.
+        // AdjustReputation adjusts Commoner's view of the PC faction; GetReputation
+        // returns that same value so we can bring it to exactly 50 (neutral).
+        foreach (NwPlayer player in NwModule.Instance.Players)
+        {
+            NwCreature? pc = player.ControlledCreature;
+            if (pc?.IsValid != true) continue;
+            int rep = NWScript.GetReputation(c.ObjectId, pc.ObjectId);
+            if (rep < 50) NWScript.AdjustReputation(c.ObjectId, pc.ObjectId, 50 - rep);
+        }
+    }
+
+    /// <summary>
+    /// Clears the NWScript event scripts that drive combat AI (heartbeat, perception,
+    /// combat round). Blueprint creatures — especially those in Good, Neutral, Evil, or
+    /// Hostile factions — would otherwise perceive the player as an enemy and attack.
+    /// Anvil event hooks (OnPhysicalAttacked, OnDamaged) live in NWNX's event layer and
+    /// are unaffected by clearing these NWScript slots.
+    /// </summary>
+    private static void StripCombatAi(NwCreature c)
+    {
+        // NWN SetEventScript event-type integers for creature slots.
+        const int EvtHeartbeat  = 0; // EVENT_SCRIPT_CREATURE_ON_HEARTBEAT
+        const int EvtNotice     = 1; // EVENT_SCRIPT_CREATURE_ON_NOTICE (perception)
+        const int EvtEndCombat  = 6; // EVENT_SCRIPT_CREATURE_ON_END_COMBATROUND
+        uint id = c.ObjectId;
+        NWScript.SetEventScript(id, EvtHeartbeat, "");
+        NWScript.SetEventScript(id, EvtNotice, "");
+        NWScript.SetEventScript(id, EvtEndCombat, "");
     }
 
     public void Destroy()
