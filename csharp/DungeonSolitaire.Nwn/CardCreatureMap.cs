@@ -14,6 +14,9 @@ namespace DungeonSolitaire.Nwn;
 /// </summary>
 internal static class CardCreatureMap
 {
+    /// <summary>Blueprint for the invisible narrator NPC used to drive game conversations.</summary>
+    public const string Narrator = "ds_gimli";
+
     /// <summary>Generic statue placeable spawned for face-down (hidden) cards. See unpacked/ds_facedown.utp.json.</summary>
     public const string FaceDownStatue = "ds_facedown";
 

@@ -317,7 +317,7 @@ internal sealed class DsSession : IGameEventListener
             existing.Location = at;     // co-locate with the PC so ActionStartConversation never walks
             return existing;
         }
-        NwCreature? c = NwCreature.Create(CardCreatureMap.Placeholder, at, false, "ds_narrator");
+        NwCreature? c = NwCreature.Create(CardCreatureMap.Narrator, at, false, "ds_narrator");
         _narrator = c;
         if (c != null)
         {
