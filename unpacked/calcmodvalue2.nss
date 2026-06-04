@@ -15,12 +15,12 @@ void main()
     if (iNewValue > iCurrentValue)
         {
         iValue = iNewValue - iCurrentValue;
-        iDiff = 8; //iValue is amount to pay
+        iDiff = 1; //iValue is amount to pay
         }
     else if (iNewValue < iCurrentValue)
         {
         iValue = iCurrentValue - iNewValue;
-        iDiff = -8; //iValue is refund
+        iDiff = -1; //iValue is refund
         };
     SetLocalInt(oPC, "MODIFY_VALUE", iValue);
     SetLocalInt(oPC, "MODIFY_DIFF", iDiff);

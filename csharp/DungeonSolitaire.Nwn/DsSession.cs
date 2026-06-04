@@ -32,7 +32,7 @@ internal sealed class DsSession : IGameEventListener
     private int? _pendingColumn;   // column stashed by the attack conversation, consumed on the next SelectColumn
     private bool _recorded;        // guards one-time high-score recording at game over
     private int _choicePage;       // current page of the secondary-choice popup menu
-    private NwCreature? _narrator; // invisible speaker the secondary-choice popup is spoken by
+    private NwPlaceable? _narrator; // floor-paint placeable (DS_SpawnIn) used as the narrator
 
     public DsSession(NwPlayer activePlayer, BoardView board, MainThreadDispatcher dispatcher,
                      HighScoreStore scores, System.Action onEnded)
@@ -55,11 +55,9 @@ internal sealed class DsSession : IGameEventListener
         Board.OnAllySpawned += OnAllyCreatureSpawned;
         Board.Sync(_engine);
 
-        // Bring the narrator on stage and relay the engine's GameLogger commentary
-        // through it as spoken talk. Start() runs on the main thread, so creating
-        // the narrator here is safe. The hook fires on the engine thread (see
-        // OnEngineLog), and Teardown() clears it again.
-        if (ActivePlayer.ControlledCreature?.Location is { } here) EnsureNarrator(here);
+        // Locate the narrator placeable and relay the engine's GameLogger commentary
+        // through it as spoken talk. Start() runs on the main thread, so this is safe.
+        GetNarrator();
         GameLogger.Log = OnEngineLog;
 
         Announce($"{ActivePlayerName} sits down to a game of Dungeon Solitaire.");
@@ -94,8 +92,7 @@ internal sealed class DsSession : IGameEventListener
         try { _engine?.SubmitInput(GameCommand.Confirm); } catch { /* not waiting */ }
         try { _engine?.AcknowledgeEffect(); } catch { /* not waiting */ }
         _thread = null;
-        if (_narrator is { IsValid: true }) _narrator.Destroy();
-        _narrator = null;
+        _narrator = null; // DS_SpawnIn is a permanent area object — not destroyed
         Board.Clear();
     }
 
@@ -289,7 +286,8 @@ internal sealed class DsSession : IGameEventListener
 
         RefreshChoiceTokens(req!);
 
-        NwCreature speaker = EnsureNarrator(pc.Location!);
+        NwGameObject? speaker = GetNarrator();
+        if (speaker == null) { Log.Warn("[DungeonSolitaire] narrator (DS_SpawnIn) not found — choice menu unavailable"); return; }
         ActivePlayer.ActionStartConversation(speaker, DsConfig.ChoiceDialog, true, false);
     }
 
@@ -310,38 +308,16 @@ internal sealed class DsSession : IGameEventListener
         NWScript.SetCustomToken(DsConfig.ChoiceNextPageToken, hasNext ? "(more options…)" : "");
     }
 
-    private NwCreature EnsureNarrator(Location at)
+    /// <summary>
+    /// Returns the permanent narrator placeable (DS_SpawnIn floor paint in area017),
+    /// caching it after the first lookup. Sets its name to "The Dungeon" on first find.
+    /// </summary>
+    private NwPlaceable? GetNarrator()
     {
-        if (_narrator is { IsValid: true } existing)
-        {
-            existing.Location = at;     // co-locate with the PC so ActionStartConversation never walks
-            return existing;
-        }
-        NwCreature? c = NwCreature.Create(CardCreatureMap.Narrator, at, false, "ds_narrator");
-        _narrator = c;
-        if (c != null)
-        {
-            c.Name = "The Dungeon";
-            c.PlotFlag = true;
-            c.Immortal = true;
-            c.DialogResRef = "";  // narrator is never directly conversed with via blueprint lookup
-
-            // Strip combat AI so the narrator never perceives or reacts to the player.
-            const int EvtHeartbeat = 0;
-            const int EvtNotice    = 1;
-            const int EvtEndCombat = 6;
-            uint id = c.ObjectId;
-            NWScript.SetEventScript(id, EvtHeartbeat, "");
-            NWScript.SetEventScript(id, EvtNotice,    "");
-            NWScript.SetEventScript(id, EvtEndCombat, "");
-
-            // Improved invisibility cannot be defeated by True Seeing or Detect Invisibility.
-            c.ApplyEffect(EffectDuration.Permanent, NwEffect.Invisibility(InvisibilityType.Improved));
-            // Paralyse so it can never wander or aggro; SpeakString and being targeted by
-            // ActionStartConversation (player action) both work fine while paralysed.
-            c.ApplyEffect(EffectDuration.Permanent, NwEffect.CutsceneParalyze());
-        }
-        return c!;
+        if (_narrator is { IsValid: true }) return _narrator;
+        _narrator = NwObject.FindObjectsWithTag<NwPlaceable>("DS_SpawnIn").FirstOrDefault();
+        if (_narrator != null) _narrator.Name = "The Dungeon";
+        return _narrator;
     }
 
     // ── Choice handshake (called on the main thread from DsManager's ds_ch* handlers) ──

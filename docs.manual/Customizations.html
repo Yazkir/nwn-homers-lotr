@@ -104,7 +104,11 @@
         <li><a href="#spells">Spell Changes</a></li>
         <li><a href="#progression">Character Progression</a></li>
         <li><a href="#death">Death, Dying &amp; Respawn</a></li>
-        <li><a href="#appearance">Appearance &amp; Crafting</a></li>
+        <li><a href="#appearance">Appearance &amp; Crafting</a>
+          <ol style="margin:0.2em 0 0 0;">
+            <li><a href="#forge">Forge of Wonders</a></li>
+          </ol>
+        </li>
         <li><a href="#items">Custom Gameplay Items</a></li>
         <li><a href="#systems">Notable Custom Systems</a></li>
         <li><a href="#stock">Not Changed (Stock Standard)</a></li>
@@ -283,7 +287,7 @@ return; your state is saved across the logout, so there is no relog trick to rec
 <!-- ============================================================ -->
 <div class="section-header" id="appearance">
   <h2>Appearance &amp; Crafting</h2>
-  <p class="section-sub">Free, permanent cosmetic changes — your own body and your gear.</p>
+  <p class="section-sub">Free cosmetic changes to your character and gear, plus paid enchanting at the Forge of Wonders.</p>
 </div>
 
 <h3>Player Appearance &amp; Alignment</h3>
@@ -298,6 +302,53 @@ qualify for builds like a monk/barbarian or a paladin/blackguard.</p>
 <p>Armor and weapon appearance can be remodelled with the CEP crafting system (the Craft Armor /
 Craft Weapon options in conversation). There is <strong>no fail chance</strong> — every appearance
 change succeeds automatically, regardless of your skill ranks.</p>
+
+<h3 id="forge">Forge of Wonders — Item Enchanting</h3>
+<p>The <strong>Forge of Wonders</strong> in Moria lets you permanently add or replace magical
+properties on any equippable item, for a gold cost equal to the increase in the item's assessed
+value.</p>
+
+<div class="tip-box">
+  <p><strong>How it works:</strong> Place <em>exactly one item</em> on the Anvil of Wonder
+  placeable in the forge room, then speak to <strong>Belinus the Smith</strong>. Pick the
+  property you want from his menus; he calculates the cost (or refund) before you confirm. When
+  an existing property of the same type is already on the item it is <em>replaced</em>, not
+  stacked.</p>
+</div>
+
+<p><strong>Access:</strong> The Forge of Wonders is in <a href="../areas/area057.html">Moria: Forge of
+Wonders</a>. To reach it you need the
+<a href="../items/forgekey.html"><strong>Forgekey</strong></a> — dropped by
+<strong>The Balrog of Moria</strong> (found in The Abyss of Moria and in Moria proper). Once you
+have it, use the Legendary travel menu to teleport directly to the forge.</p>
+
+<p><strong>Available enchantments:</strong></p>
+<table class="data change-table">
+  <thead><tr><th>Property</th><th>Options / Max</th></tr></thead>
+  <tbody>
+    <tr><td>AC Bonus</td><td>+1 to +8</td></tr>
+    <tr><td>Attack Bonus</td><td>+1 to +8</td></tr>
+    <tr><td>Damage Bonus</td><td>Fire, Cold, Acid, Slashing, Bludgeoning, or Piercing; up to 2d8</td></tr>
+    <tr><td>Haste</td><td>—</td></tr>
+    <tr><td>Keen</td><td>—</td></tr>
+    <tr><td>Massive Criticals</td><td>+1 to +8 (via the bonus-amount sub-menu)</td></tr>
+    <tr><td>Mighty</td><td>—</td></tr>
+    <tr><td>Improved Magic Resistance</td><td>10%</td></tr>
+    <tr><td>Skill Bonus</td><td>Any of the 27 skills (amount via sub-menu)</td></tr>
+    <tr><td>Vampiric Regeneration</td><td>+1 to +8</td></tr>
+    <tr><td>Freedom of Movement</td><td>—</td></tr>
+    <tr><td>Darkvision</td><td>—</td></tr>
+    <tr><td>Light</td><td>—</td></tr>
+    <tr><td>Unlimited Ammo</td><td>Basic, +1 to +5, 1d6 Cold, 1d6 Fire, 1d6 Light</td></tr>
+    <tr><td>Remove All Properties</td><td>Strips all magical properties; refunds gold equal to the item's current value</td></tr>
+  </tbody>
+</table>
+
+<div class="tip-box">
+  <p><strong>Persistence:</strong> Enchantments added at the forge are permanent and survive
+  bank strongbox storage — <code>StoreCampaignObject</code> serializes the full item including
+  all item properties.</p>
+</div>
 
 <hr>
 

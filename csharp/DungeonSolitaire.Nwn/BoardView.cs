@@ -56,6 +56,13 @@ internal sealed class BoardView
     // ── Reconciliation ─────────────────────────────────────────────────────────
     public void Sync(GameEngine engine)
     {
+        // Destroy any ds_card objects in the world that are not owned by this board.
+        // These are orphans left by a prior session's engine thread that raced past Teardown.
+        foreach (NwCreature c in NwObject.FindObjectsWithTag<NwCreature>("ds_card").ToList())
+            if (_actors.Values.All(a => a.Obj?.ObjectId != c.ObjectId)) c.Destroy();
+        foreach (NwPlaceable p in NwObject.FindObjectsWithTag<NwPlaceable>("ds_card").ToList())
+            if (_actors.Values.All(a => a.Obj?.ObjectId != p.ObjectId)) p.Destroy();
+
         var desired = new Dictionary<Card, (Location loc, bool statue, bool ally)>();
 
         for (int col = 0; col < engine.EnemyColumns.Count && col < DsConfig.ColumnCount; col++)
