@@ -1,0 +1,348 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Customizations</title>
+  <link rel="stylesheet" href="../assets/style.css">
+</head>
+<body>
+  <main>
+  <style>
+    .mw-layout {
+      display: flex;
+      gap: 2.5em;
+      align-items: flex-start;
+    }
+    .mw-toc-pane {
+      flex: 0 0 220px;
+      position: sticky;
+      top: 1.5em;
+      max-height: calc(100vh - 3em);
+      overflow-y: auto;
+    }
+    .mw-content {
+      flex: 1;
+      min-width: 0;
+    }
+    @media (max-width: 700px) {
+      .mw-layout { flex-direction: column; }
+      .mw-toc-pane { position: static; max-height: none; flex: none; width: 100%; }
+    }
+
+    .toc {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      padding: 1em 1.2em;
+    }
+    .toc h2 {
+      font-size: 1em;
+      margin: 0 0 0.5em;
+      border: none;
+      padding: 0;
+      color: var(--muted);
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+    }
+    .toc ol { margin: 0; padding-left: 1.3em; }
+    .toc li { margin: 0.2em 0; }
+    .toc a { color: var(--link); }
+
+    .section-header {
+      background: rgba(107,58,28,0.08);
+      border-left: 4px solid var(--accent);
+      padding: 0.5em 1em;
+      margin: 2em 0 0.8em;
+      border-radius: 0 4px 4px 0;
+    }
+    .section-header h2 { margin: 0; border: none; padding: 0; }
+    .section-header .section-sub { font-size: 0.88em; color: var(--muted); margin: 0.2em 0 0; }
+
+    .tip-box {
+      background: rgba(30,30,60,0.07);
+      border-left: 4px solid var(--accent-soft);
+      border-radius: 0 4px 4px 0;
+      padding: 0.7em 1.1em;
+      margin: 0.8em 0 1em;
+      font-size: 0.93em;
+    }
+    .tip-box p { margin: 0.3em 0; }
+
+    .stock-box {
+      background: rgba(40,90,50,0.08);
+      border: 1px solid var(--accent-soft);
+      border-left: 4px solid #3a7d44;
+      border-radius: 0 4px 4px 0;
+      padding: 0.8em 1.2em;
+      margin: 0.8em 0 1em;
+    }
+    .stock-box dt { font-weight: 600; margin-top: 0.6em; }
+    .stock-box dt:first-child { margin-top: 0; }
+    .stock-box dd { margin: 0.15em 0 0 0; color: var(--muted); font-size: 0.93em; }
+
+    .change-table td, .change-table th { font-size: 0.92em; vertical-align: top; }
+    .change-table th { white-space: nowrap; }
+
+    h2, h3 { scroll-margin-top: 1.5em; }
+  </style>
+  <div class="mw-layout">
+  <aside class="mw-toc-pane">
+    <nav class="toc" aria-label="Page contents">
+      <h2>Contents</h2>
+      <ol>
+        <li><a href="#spells">Spell Changes</a></li>
+        <li><a href="#progression">Character Progression</a></li>
+        <li><a href="#death">Death, Dying &amp; Respawn</a></li>
+        <li><a href="#spellfail">Spell-Failure Zones</a></li>
+        <li><a href="#appearance">Appearance &amp; Crafting</a></li>
+        <li><a href="#items">Custom Gameplay Items</a></li>
+        <li><a href="#systems">Notable Custom Systems</a></li>
+        <li><a href="#stock">Not Changed (Stock Standard)</a></li>
+      </ol>
+    </nav>
+  </aside>
+  <div class="mw-content">
+
+<h1>Customizations — Homer's LOTR</h1>
+
+<p>This module is built on stock Neverwinter Nights rules (plus CEP 2 content), but a
+number of spells, mechanics, and systems have been deliberately changed. This page is the
+full reference for <strong>what has — and has not — been modified</strong> relative to a
+vanilla NWN game. The short, in-game version lives in your journal under
+<em>Server&nbsp;Info → Module Customizations</em>; everything below expands on it with the
+specifics drawn directly from the module's scripts.</p>
+
+<div class="tip-box">
+  <p>If you are looking for <em>where to play</em> rather than <em>how the rules differ</em>,
+  see the <a href="../manual/LevelingGuide.html">Leveling Guide</a> and the
+  <a href="../manual/QuestGuide.html">Quest Guide</a>.</p>
+</div>
+
+<hr>
+
+<!-- ============================================================ -->
+<div class="section-header" id="spells">
+  <h2>Spell Changes</h2>
+  <p class="section-sub">Epic spells are dramatically stronger than stock NWN, a few utility spells are re-tuned, and one is disabled outright.</p>
+</div>
+
+<h3>Epic Spell Enhancements</h3>
+<p>The epic spells have been rebuilt to feel genuinely epic. Several summon and ward
+effects <strong>cannot be dispelled</strong>.</p>
+
+<table class="data change-table">
+  <thead><tr><th>Spell</th><th>This module</th></tr></thead>
+  <tbody>
+    <tr><td>Dragon Knight</td><td>Summons a level-60 Fighter Red Dragon (CR 123, 540 HP, Str/Dex/Con/Cha 40). 30-round duration. Cannot be dispelled.</td></tr>
+    <tr><td>Mummy Dust</td><td>Summons a dual-class level-60 undead warrior (CR 212, 520 HP). 30-hour duration. Cannot be dispelled.</td></tr>
+    <tr><td>Epic Ward</td><td>Damage Reduction 60/+20. Cannot be dispelled. Duration scales with caster level.</td></tr>
+    <tr><td>Hellball</td><td>10d20 of <em>each</em> damage type (Acid, Electrical, Fire, Sonic) over a massive area. Reflex save for partial reduction; knocks down targets if total damage exceeds 200.</td></tr>
+    <tr><td>Greater Ruin</td><td>Up to 5000 damage (10d20 ×25) to a single target. Fortitude save for partial reduction.</td></tr>
+    <tr><td>Curse Song (Bard)</td><td>Fully custom scaling across 30+ tiers based on Perform skill and level. At the highest ranks: −15 attack, −15 AC, −7 all saves, −18 all skills, and 98 sonic damage in a colossal radius.</td></tr>
+  </tbody>
+</table>
+
+<h3>Other Spell Changes</h3>
+<ul>
+  <li><strong>Summon Creature I–IX</strong> — fixed duration of 24 hours; no longer scales with caster level.</li>
+  <li><strong>Time Stop</strong> — <strong>disabled</strong>. It cannot be cast.</li>
+</ul>
+
+<hr>
+
+<!-- ============================================================ -->
+<div class="section-header" id="progression">
+  <h2>Character Progression</h2>
+  <p class="section-sub">Predictable hit points and an extended level ceiling past the normal cap of 40.</p>
+</div>
+
+<h3>Maximum Hit Points on Level-Up</h3>
+<p>Every character gains <strong>maximum hit points on every level-up</strong>, server-wide —
+no hit-die roll, no bad rolls. Your HP per level is always the top of your class hit die plus
+Constitution. (Set at module load via the administration <em>max hit points</em> play option.)</p>
+
+<h3>Legendary Levels: 41–60</h3>
+<p>Standard NWN stops at level 40. Once you reach 40 you may continue to <strong>level 60</strong>
+through the Legendary Leveling system — speak to the <strong>Legendary Leveler</strong> NPC in the
+Legendary Leveling area (reachable from the <a href="../areas/thewelloferu.html">Well of Eru</a>).</p>
+
+<table class="data change-table">
+  <thead><tr><th>On each Legendary level you DO gain</th><th>On each Legendary level you do NOT gain</th></tr></thead>
+  <tbody>
+    <tr>
+      <td>
+        <ul style="margin:0;padding-left:1.1em;">
+          <li>Skill points</li>
+          <li>Hit points (from your highest-class hit die)</li>
+          <li>Ability score increases (at standard intervals)</li>
+          <li>One selectable feat per level</li>
+        </ul>
+      </td>
+      <td>
+        <ul style="margin:0;padding-left:1.1em;">
+          <li>Caster level increases (spell power is frozen at 40)</li>
+          <li>New spell slots or spell levels</li>
+          <li>Class progression (no new class features, BAB, or saving-throw gains)</li>
+        </ul>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+<p>In short, Legendary levels make you <em>tougher and more versatile</em> through raw stats and
+feats, but do not increase spellcasting power. The XP cost climbs steeply — from roughly 49,000
+for level 41 to over 3,000,000 for level 60 (about 17.5M XP total to reach 60). See the
+<a href="../manual/LevelingGuide.html">Leveling Guide</a> for where to earn it.</p>
+
+<hr>
+
+<!-- ============================================================ -->
+<div class="section-header" id="death">
+  <h2>Death, Dying &amp; Respawn</h2>
+  <p class="section-sub">A bleed-out window when you drop, a death-marker amulet, and a light respawn penalty with no XP loss.</p>
+</div>
+
+<h3>Bleeding Out</h3>
+<p>When you fall to 0 HP or below you begin <strong>bleeding</strong> rather than dying instantly.
+You lose 1 HP every round (6 seconds) and <strong>die at −20 HP</strong> (twice the vanilla −10
+threshold), giving allies a longer window to reach you. Each bleeding round there is a
+<strong>10% chance to stabilize</strong>; once stabilized you begin slowly healing back instead of
+bleeding. (Expect the usual pained voice-lines while you are down.)</p>
+
+<h3>The Death Amulet</h3>
+<p>When you die, a <strong>death amulet</strong> is placed in your inventory (any previous one is
+removed first), your death location is recorded, and your character is immediately saved so the
+amulet survives even an instant logout. The amulet is removed automatically when you respawn.</p>
+
+<h3>Respawn Penalty</h3>
+<p>Pressing the respawn button returns you to your bind point with:</p>
+<ul>
+  <li><strong>5 HP</strong> (not the vanilla 1 HP), then a full effect clear.</li>
+  <li><strong>No XP loss</strong> — the XP penalty is disabled entirely.</li>
+  <li><strong>A 10% gold penalty</strong> — that gold is dropped at your place of death in a bag
+      that <em>anyone</em> can loot, so a quick recovery run can get it back.</li>
+</ul>
+<p>Up to four of your equipped items may also be dropped on death; those are lootable only by you.</p>
+
+<hr>
+
+<!-- ============================================================ -->
+<div class="section-header" id="spellfail">
+  <h2>Spell-Failure Zones</h2>
+  <p class="section-sub">Some areas suppress spellcasting — and the effect now correctly persists through rest.</p>
+</div>
+
+<p>Certain areas (such as parts of the <a href="../areas/thewelloferu.html">Well of Eru</a>) are
+<strong>spell-failure zones</strong>. On entering one, a permanent spell-failure effect is applied
+to you; on leaving, it is removed. Vanilla NWN has no area-wide caster-suppression mechanic like
+this.</p>
+
+<div class="tip-box">
+  <p><strong>Persistence through rest.</strong> Resting normally clears temporary effects, which
+  used to let players cast freely inside these zones after a rest. That is fixed: if you are flagged
+  as being inside a spell-failure zone, the effect is <strong>re-applied after you finish or cancel a
+  rest</strong>. To cast normally again, leave the zone.</p>
+</div>
+
+<hr>
+
+<!-- ============================================================ -->
+<div class="section-header" id="appearance">
+  <h2>Appearance &amp; Crafting</h2>
+  <p class="section-sub">Free, permanent cosmetic changes — your own body and your gear.</p>
+</div>
+
+<h3>Player Appearance</h3>
+<p>Talk to one of the <strong>cows in Bree</strong> to open an appearance menu with
+<strong>315+ creature forms</strong>. The change is <strong>free and permanent</strong> until you
+change it again.</p>
+
+<h3>Item Appearance Crafting</h3>
+<p>Armor and weapon appearance can be remodelled with the CEP crafting system (the Craft Armor /
+Craft Weapon options in conversation). There is <strong>no fail chance</strong> — every appearance
+change succeeds automatically, regardless of your skill ranks.</p>
+
+<hr>
+
+<!-- ============================================================ -->
+<div class="section-header" id="items">
+  <h2>Custom Gameplay Items</h2>
+  <p class="section-sub">Items that add mechanics the base game does not have.</p>
+</div>
+
+<h3>Rod of Fast Buffing</h3>
+<p>Sold at the <a href="../stores/wellshop.html">Well-Mart</a> at the Well of Eru, the
+<strong>Rod of Fast Buffing</strong> lets casters batch their pre-combat buffs into a single action:</p>
+<ul>
+  <li><strong>Store spells</strong> by casting buff spells <em>at the rod</em> — each one is remembered, in order.</li>
+  <li><strong>Activate the rod</strong> (out of combat) to re-cast every stored spell on yourself, one after another, in one go.</li>
+  <li>The rod <strong>cannot be used in combat</strong> — it is a setup tool, not an in-fight panic button.</li>
+</ul>
+<p>This is a big quality-of-life upgrade for buff-heavy casters who would otherwise click through a
+dozen spells before every fight.</p>
+
+<hr>
+
+<!-- ============================================================ -->
+<div class="section-header" id="systems">
+  <h2>Notable Custom Systems</h2>
+  <p class="section-sub">Larger persistent systems layered on top of the base game.</p>
+</div>
+
+<h3>Banking &amp; Family Accounts</h3>
+<p>Bank NPCs (in Bree, Minas Tirith, and elsewhere) let you deposit and withdraw <strong>gold and
+XP</strong>. Beyond a personal balance, a <strong>family account</strong> is shared across every
+character on your account, so you can pool gold and pass items between your own characters. XP
+banking is capped so it cannot be used to over-level past the module's ceiling.</p>
+
+<h3>Merit Reward System</h3>
+<p>DMs can award <strong>merit points</strong> for contributions like bug reports, exploit reports,
+and feature ideas. Points accumulate persistently and are redeemed for rewards at the
+Keeper-of-Records NPC. It is a community-recognition system with no vanilla equivalent.</p>
+
+<h3>MeaningWave Philosopher Guides</h3>
+<p>Eight philosopher NPCs are scattered across Middle-earth. Answer each one's questions to unlock
+them as a powerful summonable companion that persists between sessions. See the dedicated
+<a href="../manual/MeaningWave.html">MeaningWave: A Guide to the Guides</a> for routes and details.</p>
+
+<h3>Dynamic Merchants</h3>
+<p>Many stores use a dynamic-merchant system: their stock and pricing can vary by a customer's
+<strong>race, class, or faction</strong>, and prices are subject to <strong>haggling</strong>. The
+same shopfront may show different wares to different adventurers.</p>
+
+<h3>Dungeon Solitaire</h3>
+<p>A custom card-game-style encounter arena: a sequence of drawn challenges with its own creatures
+and dialogue, distinct from the open-world encounter zones.</p>
+
+<hr>
+
+<!-- ============================================================ -->
+<div class="section-header" id="stock">
+  <h2>Not Changed (Stock Standard)</h2>
+  <p class="section-sub">Things that are <em>commonly</em> house-ruled on other servers but are left exactly as the base ruleset defines them here. If you have played elsewhere, do not assume these are altered.</p>
+</div>
+
+<div class="stock-box">
+  <dl style="margin:0;">
+    <dt>True Seeing</dt>
+    <dd>Works exactly as written — penetrates all illusions and invisibility. No nerfs.</dd>
+
+    <dt>Stealth / Hide</dt>
+    <dd>Standard mechanics. No custom detection bonuses or penalties beyond what the ruleset provides.</dd>
+
+    <dt>Subraces</dt>
+    <dd>There is <strong>no subrace system</strong>. All characters use the standard NWN races with their default racial bonuses only.</dd>
+
+    <dt>Feats, skills, BAB &amp; saves</dt>
+    <dd>Standard progression up to level 40. (Legendary levels 41–60 add feats, skills, HP, and ability scores, but do not change how the base mechanics work — see <a href="#progression">Character Progression</a>.)</dd>
+
+    <dt>Resting</dt>
+    <dd>You can rest anywhere that is not in active combat. (Resting does <em>not</em> bypass the <a href="#spellfail">spell-failure zones</a>.)</dd>
+  </dl>
+</div>
+
+  </div><!-- .mw-content -->
+  </div><!-- .mw-layout -->
+  </main>
+</body>
+</html>
