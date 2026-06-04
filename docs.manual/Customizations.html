@@ -368,7 +368,7 @@ staffed by a smith NPC; place exactly one item on the nearby anvil, then speak t
     <tr><td>Bonus Feat</td><td>19 feats — <a href="#forge-feats">see list</a></td><td>—</td><td>27 feats — <a href="#forge-feats">see list</a></td></tr>
     <tr><td>Light</td><td>—</td><td>yes</td><td>yes</td></tr>
     <tr><td>Unlimited Ammo</td><td>yes</td><td>yes</td><td>yes</td></tr>
-    <tr><td>Remove All Properties</td><td colspan="3">Strips all magical properties; refunds <strong>80%</strong> of the gold value added by forge enchantments (the increase over the item's value when first placed on this forge — the base item value is not refunded)</td></tr>
+    <tr><td>Remove All Properties</td><td colspan="3">Strips all magical properties after a confirmation step showing the refund amount. Returns the gold invested at this forge — <strong>80%</strong> of each GP payment made while enchanting is tracked per-item (<code>FORGE_GP_INVESTED</code>) and refunded in full on disenchant. Items never enchanted here receive 0 gold.</td></tr>
   </tbody>
 </table>
 
@@ -459,7 +459,7 @@ does not count toward your character's normal feat count. Only Moria lacks this 
 <div class="tip-box">
   <p><strong>Persistence:</strong> Enchantments added at the forge are permanent and survive
   bank strongbox storage — <code>StoreCampaignObject</code> serializes the full item including
-  all item properties and the forge's tracked base value used for disenchant refund calculations.</p>
+  all item properties and the forge's GP-invested refund reserve (<code>FORGE_GP_INVESTED</code>).</p>
 </div>
 
 <hr>
