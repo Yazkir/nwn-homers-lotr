@@ -368,7 +368,7 @@ staffed by a smith NPC; place exactly one item on the nearby anvil, then speak t
     <tr><td>Bonus Feat</td><td>19 feats — <a href="#forge-feats">see list</a></td><td>—</td><td>27 feats — <a href="#forge-feats">see list</a></td></tr>
     <tr><td>Light</td><td>—</td><td>yes</td><td>yes</td></tr>
     <tr><td>Unlimited Ammo</td><td>yes</td><td>yes</td><td>yes</td></tr>
-    <tr><td>Remove All Properties</td><td colspan="3">Strips all magical properties after a confirmation step showing the refund amount. Returns the gold invested at this forge — <strong>80%</strong> of each GP payment made while enchanting is tracked per-item (<code>FORGE_GP_INVESTED</code>) and refunded in full on disenchant. Items never enchanted here receive 0 gold.</td></tr>
+    <tr><td>Remove All Properties</td><td colspan="3">Strips all magical properties after a confirmation step showing the refund amount. Returns <strong>80% of gold invested</strong> at this forge (tracked per-item in <code>FORGE_GP_INVESTED</code>) <strong>plus up to 50% of the item's original assessed value</strong> (capped at <strong>60,000 gp</strong>, matching the Well-Mart's maximum payout). The original value is snapshotted in <code>FORGE_BASE_VALUE</code> on first anvil contact. Items with no original value and no forge investment receive 0 gold.</td></tr>
   </tbody>
 </table>
 

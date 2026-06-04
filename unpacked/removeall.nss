@@ -2,7 +2,10 @@ void main()
 {
     object oPC = GetPCSpeaker();
     object oItem = GetLocalObject(oPC, "MODIFY_ITEM");
-    int iRefund = GetLocalInt(oItem, "FORGE_GP_INVESTED");
+    int iBaseValue = GetLocalInt(oItem, "FORGE_BASE_VALUE");
+    int iBaseRefund = iBaseValue * 50 / 100;
+    if (iBaseRefund > 60000) iBaseRefund = 60000;
+    int iRefund = GetLocalInt(oItem, "FORGE_GP_INVESTED") + iBaseRefund;
 
     itemproperty ip = GetFirstItemProperty(oItem);
     while (GetIsItemPropertyValid(ip))

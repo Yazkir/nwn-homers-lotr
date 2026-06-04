@@ -189,6 +189,11 @@ int StartingConditional()
             object oNext = GetNextItemInInventory(oAnvil);
             if (oNext == OBJECT_INVALID)
                 {
+                if (!GetLocalInt(oItem, "FORGE_BASE_SET"))
+                    {
+                    SetLocalInt(oItem, "FORGE_BASE_VALUE", GetGoldPieceValue(oItem));
+                    SetLocalInt(oItem, "FORGE_BASE_SET", TRUE);
+                    }
                 SetLocalObject(GetPCSpeaker(), "MODIFY_ITEM", oItem);
                 SetTokens(oItem);
                 return TRUE;
