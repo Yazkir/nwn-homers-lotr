@@ -69,13 +69,11 @@ void main()
                             + IntToString(n)
                             + " on item");
 
-            if(0 != nSpellId //if there was a valid spell id stored
-               && 1 <= GetHasSpell(nSpellId, oPC)) //and the caster has access to the spell
+            // GetHasSpell() returns 0 for domain spells (e.g. Cat's Grace on a Cleric)
+            // even when memorized, so we skip that check and let the engine handle
+            // missing slots gracefully.
+            if(0 != nSpellId)
             {
-                //Store cast action. The key here is to set cheatcasting
-                //to false and level to 0. This will cause the caster
-                //to cast the spell himself using the first available
-                //slot.
                 AssignCommand(oPC,
                 ActionCastSpellAtObject(nSpellId
                                         , oPC

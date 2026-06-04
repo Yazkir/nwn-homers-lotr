@@ -1,5 +1,7 @@
 void main()
 {
-    effect eFail = EffectSpellFailure(EFFECT_TYPE_SPELL_FAILURE);
-    ApplyEffectToObject(DURATION_TYPE_PERMANENT, eFail, GetEnteringObject());
+    object oEntering = GetEnteringObject();
+    SetLocalInt(oEntering, "SPFAIL_ZONE", 1);
+    ApplyEffectToObject(DURATION_TYPE_PERMANENT,
+        EffectSpellFailure(EFFECT_TYPE_SPELL_FAILURE), oEntering);
 }
