@@ -64,11 +64,14 @@ internal sealed class CardActor
         if (isEnemy)
         {
             // Freeze revealed enemies in place so they read as a board, not combatants.
+            // Also clear the conversation the blueprint sets — paralysed enemies must not be talkable.
+            c.DialogResRef = "";
             c.ApplyEffect(EffectDuration.Permanent, NwEffect.CutsceneParalyze());
         }
         else
         {
             // Allies are clickable to start the attack conversation.
+            // Blueprint already has ds_attack set; redundantly assert it here for robustness.
             c.DialogResRef = DsConfig.AttackDialog;
         }
 

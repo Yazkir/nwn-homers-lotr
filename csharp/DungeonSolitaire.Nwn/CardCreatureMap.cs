@@ -1,3 +1,4 @@
+using Anvil.API;
 using System.Text;
 
 namespace DungeonSolitaire.Nwn;
@@ -15,7 +16,7 @@ namespace DungeonSolitaire.Nwn;
 internal static class CardCreatureMap
 {
     /// <summary>Blueprint for the invisible narrator NPC used to drive game conversations.</summary>
-    public const string Narrator = "ds_gimli";
+    public const string Narrator = "ds_narrator";
 
     /// <summary>Generic statue placeable spawned for face-down (hidden) cards. See unpacked/ds_facedown.utp.json.</summary>
     public const string FaceDownStatue = "ds_facedown";
@@ -77,10 +78,19 @@ internal static class CardCreatureMap
     public static string Resolve(Card card)
         => card?.name != null && ByName.TryGetValue(card.name, out string? rr) ? rr : "";
 
+    // Colours for each effect role — distinct from NWN's default blue-purple name colour.
+    private static readonly Color AttackColor   = new Color(220,  80,  80, 255); // red
+    private static readonly Color SurvivorColor = new Color(255, 200,  50, 255); // gold
+    private static readonly Color DeathColor    = new Color(180,  80, 220, 255); // purple
+
+    private static string ColoredEff(string name, Color color)
+        => name.Length == 0 ? "" : " " + name.ColorString(color);
+
     /// <summary>
     /// Display name for the spawned NPC.
-    /// Enemies (in a column): "Cardname (HP current/max) EffectName" — survivor effect name, falling back to death.
+    /// Enemies (in a column): "Cardname (HP current/max, Reward N) EffectName" — survivor effect name, falling back to death.
     /// Allies (in hand): "Cardname (ATK #) EffectName" — attack effect name.
+    /// Effect names are coloured by type: attack=red, survivor=gold, death=purple.
     /// The NWN health bar / "badly wounded" tint is driven separately by the creature's HP (see CardActor.RefreshHealth).
     /// </summary>
     public static string BuildName(Card card)
@@ -88,15 +98,15 @@ internal static class CardCreatureMap
         bool isEnemy = card.columnIndex >= 0;
         if (isEnemy)
         {
-            string eff = card.survivorEffect?.name ?? card.deathEffect?.name ?? "";
-            string suffix = eff.Length > 0 ? $" {eff}" : "";
-            return $"{card.name} (HP {card.currentHealth}/{card.maxHealth}){suffix}";
+            string effSuffix = card.survivorEffect?.name is { Length: > 0 } sur
+                ? ColoredEff(sur, SurvivorColor)
+                : ColoredEff(card.deathEffect?.name ?? "", DeathColor);
+            return $"{card.name} (HP {card.currentHealth}/{card.maxHealth}, Reward {card.reward}){effSuffix}";
         }
         else
         {
-            string eff = card.attackEffect?.name ?? "";
-            string suffix = eff.Length > 0 ? $" {eff}" : "";
-            return $"{card.name} (ATK {card.baseAttack}){suffix}";
+            string effSuffix = ColoredEff(card.attackEffect?.name ?? "", AttackColor);
+            return $"{card.name} (ATK {card.baseAttack}){effSuffix}";
         }
     }
 
@@ -110,15 +120,15 @@ internal static class CardCreatureMap
     {
         if (asEnemy)
         {
-            string eff = card.survivorEffect?.name ?? card.deathEffect?.name ?? "";
-            string suffix = eff.Length > 0 ? $" {eff}" : "";
-            return $"{card.name} (HP {card.currentHealth}/{card.maxHealth}){suffix}";
+            string effSuffix = card.survivorEffect?.name is { Length: > 0 } sur
+                ? ColoredEff(sur, SurvivorColor)
+                : ColoredEff(card.deathEffect?.name ?? "", DeathColor);
+            return $"{card.name} (HP {card.currentHealth}/{card.maxHealth}, Reward {card.reward}){effSuffix}";
         }
         else
         {
-            string eff = card.attackEffect?.name ?? "";
-            string suffix = eff.Length > 0 ? $" {eff}" : "";
-            return $"{card.name} (ATK {card.baseAttack}){suffix}";
+            string effSuffix = ColoredEff(card.attackEffect?.name ?? "", AttackColor);
+            return $"{card.name} (ATK {card.baseAttack}){effSuffix}";
         }
     }
 

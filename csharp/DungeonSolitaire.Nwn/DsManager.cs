@@ -22,8 +22,8 @@ internal sealed class DsManager
     private NwArea? _area;
     private DsSession? _session;
 
-    // Conversation context, set when a PC starts talking to an ally NPC.
-    private NwPlayer? _speaker;
+    // Last PC who initiated an ally conversation (used only for the watching-player message).
+    private NwPlayer? _lastSpeaker;
 
     // Abandonment tracking for the active player.
     private double _awaySeconds;
@@ -130,12 +130,16 @@ internal sealed class DsManager
     // ── Attack conversation (ds_attack) ──────────────────────────────────────────
     private void OnAllyConversation(CreatureEvents.OnConversation evt)
     {
-        _speaker = evt.PlayerSpeaker;
-        if (_session is { IsAlive: true } && _speaker != null && _speaker != _session.ActivePlayer)
-            _speaker.SendServerMessage("You are only watching this game of Dungeon Solitaire.", ColorConstants.Orange);
+        _lastSpeaker = evt.PlayerSpeaker;
+        if (_session is { IsAlive: true } && _lastSpeaker != null && _lastSpeaker != _session.ActivePlayer)
+            _lastSpeaker.SendServerMessage("You are only watching this game of Dungeon Solitaire.", ColorConstants.Orange);
     }
 
-    private bool ActiveSpeaker => _session is { IsAlive: true } && _speaker != null && _speaker == _session.ActivePlayer;
+    // ActiveSpeaker() is called from conversation condition/action scripts. OnConversation
+    // fires synchronously before any dialog conditions are evaluated, so _lastSpeaker is
+    // always set by the time this runs.
+    private bool ActiveSpeaker()
+        => _session is { IsAlive: true } && _lastSpeaker != null && _lastSpeaker == _session.ActivePlayer;
 
     // Per-column conversation handlers. Distinct script names (rather than script
     // parameters) keep the .dlg portable — no module here uses dialog ScriptParams.
@@ -153,7 +157,7 @@ internal sealed class DsManager
 
     private ScriptHandleResult ColumnCondition(CallInfo info, int col0)
     {
-        if (!ActiveSpeaker || _session == null) return ScriptHandleResult.False;
+        if (!ActiveSpeaker() || _session == null) return ScriptHandleResult.False;
         if (info.ObjectSelf is not NwCreature ally) return ScriptHandleResult.False;
         if (!_session.IsAwaitingAlly) return ScriptHandleResult.False;
         Card? card = _session.CardForCreature(ally);
@@ -163,14 +167,14 @@ internal sealed class DsManager
 
     private void ColumnChosen(CallInfo info, int col0)
     {
-        if (!ActiveSpeaker || _session == null || info.ObjectSelf is not NwCreature ally) return;
+        if (!ActiveSpeaker() || _session == null || info.ObjectSelf is not NwCreature ally) return;
         _session.SubmitAttack(ally, col0);
     }
 
     [ScriptHandler("ds_atkaoe")]
     public ScriptHandleResult UnleashAvailable(CallInfo info)
     {
-        if (!ActiveSpeaker || _session == null) return ScriptHandleResult.False;
+        if (!ActiveSpeaker() || _session == null) return ScriptHandleResult.False;
         if (info.ObjectSelf is not NwCreature ally) return ScriptHandleResult.False;
         if (!_session.IsAwaitingAlly) return ScriptHandleResult.False;
         Card? card = _session.CardForCreature(ally);
@@ -180,7 +184,7 @@ internal sealed class DsManager
     [ScriptHandler("ds_atkaoedo")]
     public void UnleashChosen(CallInfo info)
     {
-        if (!ActiveSpeaker || _session == null || info.ObjectSelf is not NwCreature ally) return;
+        if (!ActiveSpeaker() || _session == null || info.ObjectSelf is not NwCreature ally) return;
         _session.SubmitUnleash(ally);
     }
 

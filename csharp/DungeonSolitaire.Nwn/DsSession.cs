@@ -324,9 +324,22 @@ internal sealed class DsSession : IGameEventListener
             c.Name = "The Dungeon";
             c.PlotFlag = true;
             c.Immortal = true;
-            if (NwFaction.FromStandardFaction(StandardFaction.Commoner) is { } commoner)
-                c.Faction = commoner;
-            c.ApplyEffect(EffectDuration.Permanent, NwEffect.Invisibility(InvisibilityType.Normal));
+            c.DialogResRef = "";  // narrator is never directly conversed with via blueprint lookup
+
+            // Strip combat AI so the narrator never perceives or reacts to the player.
+            const int EvtHeartbeat = 0;
+            const int EvtNotice    = 1;
+            const int EvtEndCombat = 6;
+            uint id = c.ObjectId;
+            NWScript.SetEventScript(id, EvtHeartbeat, "");
+            NWScript.SetEventScript(id, EvtNotice,    "");
+            NWScript.SetEventScript(id, EvtEndCombat, "");
+
+            // Improved invisibility cannot be defeated by True Seeing or Detect Invisibility.
+            c.ApplyEffect(EffectDuration.Permanent, NwEffect.Invisibility(InvisibilityType.Improved));
+            // Paralyse so it can never wander or aggro; SpeakString and being targeted by
+            // ActionStartConversation (player action) both work fine while paralysed.
+            c.ApplyEffect(EffectDuration.Permanent, NwEffect.CutsceneParalyze());
         }
         return c!;
     }
