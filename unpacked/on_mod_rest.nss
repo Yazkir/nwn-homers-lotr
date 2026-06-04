@@ -9,10 +9,10 @@ void main()
         AssignCommand(oPC, ActionStartConversation(oPC, "emotewand", TRUE));
         return;
     }
-    if ((nEvent == REST_EVENTTYPE_REST_FINISHED || nEvent == REST_EVENTTYPE_REST_CANCELLED) &&
-        GetLocalInt(oPC, "SPFAIL_ZONE"))
-    {
-        ApplyEffectToObject(DURATION_TYPE_PERMANENT,
-            EffectSpellFailure(EFFECT_TYPE_SPELL_FAILURE), oPC);
-    }
+    // REST_CANCELLED does not clear effects, so no reapplication needed there.
+    // REST_FINISHED (from ForceRest) fires synchronously mid-ForceRest, before
+    // ForceRest clears effects — DelayCommand ensures we run after the wipe.
+    if (nEvent == REST_EVENTTYPE_REST_FINISHED && GetLocalInt(oPC, "SPFAIL_ZONE"))
+        DelayCommand(0.1f, ApplyEffectToObject(DURATION_TYPE_PERMANENT,
+            EffectSpellFailure(100), oPC));
 }
