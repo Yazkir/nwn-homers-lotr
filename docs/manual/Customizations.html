@@ -390,7 +390,7 @@ staffed by a smith NPC; place exactly one item on the nearby anvil, then speak t
     <tr><td>Damage Resistance</td><td>5–10 per round</td><td>—</td><td>5–15 per round</td></tr>
     <tr><td>Damage Reduction</td><td>/+1 to /+5, soak 5–30</td><td>—</td><td>/+1 to /+10, soak 5–50</td></tr>
     <tr><td>Damage Immunity</td><td>—</td><td>—</td><td>5–10% by type</td></tr>
-    <tr><td>Improved Magic Resistance</td><td>10–20%</td><td>10%</td><td>10–22%</td></tr>
+    <tr><td>Spell Resistance</td><td>SR 10–20</td><td>SR 10</td><td>SR 10–22</td></tr>
     <tr><td>Improved Saving Throws</td><td>—</td><td>—</td><td>Fort / Reflex / Will / All</td></tr>
     <tr><td>On-Hit Properties</td><td>Blindness, Deafness, Doom, Silence, Sleep, Slow; DC 14–20</td><td>—</td><td>Full set (Stun, Hold, Fear, etc.); DC 14–26</td></tr>
     <tr><td>Miscellaneous Immunity</td><td>—</td><td>—</td><td>Fear, Disease, Paralysis, Poison, Level Drain</td></tr>
@@ -399,15 +399,88 @@ staffed by a smith NPC; place exactly one item on the nearby anvil, then speak t
     <tr><td>Mighty</td><td>yes</td><td>yes</td><td>yes</td></tr>
     <tr><td>Massive Criticals</td><td>yes</td><td>yes</td><td>yes</td></tr>
     <tr><td>Darkvision</td><td>—</td><td>yes</td><td>yes</td></tr>
-    <tr><td>Skill Bonus</td><td>Selected skills</td><td>All 27 skills</td><td>All 27 skills</td></tr>
+    <tr><td>Skill Bonus</td><td>16 skills — <a href="#forge-skills">see list</a></td><td>20 skills — <a href="#forge-skills">see list</a></td><td>20 skills — <a href="#forge-skills">see list</a></td></tr>
     <tr><td>Vampiric Regeneration</td><td>yes</td><td>yes</td><td>yes</td></tr>
     <tr><td>Freedom of Movement</td><td>yes</td><td>yes</td><td>yes</td></tr>
     <tr><td>Weight Reduction</td><td>10–40%</td><td>—</td><td>10–80%</td></tr>
     <tr><td>Arcane Spell Failure</td><td>—</td><td>—</td><td>−10% to −30%</td></tr>
-    <tr><td>Bonus Feat</td><td>yes</td><td>—</td><td>yes</td></tr>
+    <tr><td>Bonus Feat</td><td>19 feats — <a href="#forge-feats">see list</a></td><td>—</td><td>27 feats — <a href="#forge-feats">see list</a></td></tr>
     <tr><td>Light</td><td>—</td><td>yes</td><td>yes</td></tr>
     <tr><td>Unlimited Ammo</td><td>yes</td><td>yes</td><td>yes</td></tr>
     <tr><td>Remove All Properties</td><td colspan="3">Strips all magical properties; refunds gold equal to the item's current value</td></tr>
+  </tbody>
+</table>
+
+<div class="tip-box">
+  <p><strong>Spell Resistance note:</strong> SR is a flat numeric threshold, not a percentage.
+  When a spell targets you, the caster rolls 1d20 + caster level against your SR — if they meet
+  or beat it the spell lands normally, otherwise it fails. SR 10–22 is bypassed easily by any
+  high-level caster, so this is a modest defence at best.</p>
+</div>
+
+<h4 id="forge-skills">Skill Bonus — available skills</h4>
+<p>The bonus amount (how many ranks to add) is selected from a sub-menu after picking the skill.
+Not every NWN skill is offered.</p>
+<table class="data change-table">
+  <thead><tr><th>Skill</th><th>Tagget's (Mid)</th><th>Moria &amp; Castle (High)</th></tr></thead>
+  <tbody>
+    <tr><td>Animal Empathy</td><td>yes</td><td>yes</td></tr>
+    <tr><td>Appraise</td><td>yes</td><td>yes</td></tr>
+    <tr><td>Bluff</td><td>yes</td><td>yes</td></tr>
+    <tr><td>Concentration</td><td>yes</td><td>yes</td></tr>
+    <tr><td>Craft Armor</td><td>yes</td><td>yes</td></tr>
+    <tr><td>Craft Trap</td><td>yes</td><td>yes</td></tr>
+    <tr><td>Craft Weapon</td><td>yes</td><td>yes</td></tr>
+    <tr><td>Disable Trap</td><td>yes</td><td>yes</td></tr>
+    <tr><td>Heal</td><td>yes</td><td>yes</td></tr>
+    <tr><td>Hide</td><td>—</td><td>yes</td></tr>
+    <tr><td>Intimidate</td><td>yes</td><td>yes</td></tr>
+    <tr><td>Listen</td><td>—</td><td>yes</td></tr>
+    <tr><td>Open Lock</td><td>—</td><td>yes</td></tr>
+    <tr><td>Parry</td><td>yes</td><td>yes</td></tr>
+    <tr><td>Perform</td><td>yes</td><td>yes</td></tr>
+    <tr><td>Persuade</td><td>yes</td><td>yes</td></tr>
+    <tr><td>Pick Pocket</td><td>yes</td><td>yes</td></tr>
+    <tr><td>Search</td><td>—</td><td>yes</td></tr>
+    <tr><td>Set Trap</td><td>yes</td><td>yes</td></tr>
+    <tr><td>Taunt</td><td>—</td><td>yes</td></tr>
+    <tr><td>Tumble</td><td>yes</td><td>—</td></tr>
+  </tbody>
+</table>
+
+<h4 id="forge-feats">Bonus Feat — available feats</h4>
+<p>The feat is added as an item property — it is active only while the item is equipped, and
+does not count toward your character's normal feat count. Only Moria lacks this option entirely.</p>
+<table class="data change-table">
+  <thead><tr><th>Feat</th><th>Tagget's (Mid)</th><th>Castle (High-full)</th></tr></thead>
+  <tbody>
+    <tr><td>Alertness</td><td>—</td><td>yes</td></tr>
+    <tr><td>Ambidexterity</td><td>yes</td><td>yes</td></tr>
+    <tr><td>Armor Proficiency — Heavy</td><td>—</td><td>yes</td></tr>
+    <tr><td>Armor Proficiency — Light</td><td>yes</td><td>yes</td></tr>
+    <tr><td>Armor Proficiency — Medium</td><td>—</td><td>yes</td></tr>
+    <tr><td>Cleave</td><td>yes</td><td>yes</td></tr>
+    <tr><td>Combat Casting</td><td>yes</td><td>yes</td></tr>
+    <tr><td>Dodge</td><td>—</td><td>yes</td></tr>
+    <tr><td>Extra Turning</td><td>—</td><td>yes</td></tr>
+    <tr><td>Improved Critical — Unarmed</td><td>yes</td><td>yes</td></tr>
+    <tr><td>Knockdown</td><td>yes</td><td>yes</td></tr>
+    <tr><td>Point Blank Shot</td><td>yes</td><td>yes</td></tr>
+    <tr><td>Power Attack</td><td>—</td><td>yes</td></tr>
+    <tr><td>Spell Focus — Abjuration</td><td>yes</td><td>yes</td></tr>
+    <tr><td>Spell Focus — Conjuration</td><td>yes</td><td>yes</td></tr>
+    <tr><td>Spell Focus — Divination</td><td>yes</td><td>yes</td></tr>
+    <tr><td>Spell Focus — Enchantment</td><td>yes</td><td>yes</td></tr>
+    <tr><td>Spell Focus — Evocation</td><td>yes</td><td>yes</td></tr>
+    <tr><td>Spell Focus — Illusion</td><td>yes</td><td>yes</td></tr>
+    <tr><td>Spell Focus — Necromancy</td><td>yes</td><td>yes</td></tr>
+    <tr><td>Spell Penetration</td><td>yes</td><td>yes</td></tr>
+    <tr><td>Two-Weapon Fighting</td><td>yes</td><td>yes</td></tr>
+    <tr><td>Weapon Finesse</td><td>yes</td><td>yes</td></tr>
+    <tr><td>Weapon Proficiency — Exotic</td><td>—</td><td>yes</td></tr>
+    <tr><td>Weapon Proficiency — Martial</td><td>yes</td><td>yes</td></tr>
+    <tr><td>Weapon Proficiency — Simple</td><td>yes</td><td>yes</td></tr>
+    <tr><td>Weapon Specialization — Unarmed</td><td>—</td><td>yes</td></tr>
   </tbody>
 </table>
 
@@ -506,6 +579,6 @@ Solitaire</a> — which can also be played stand-alone on any computer with the 
   </main>
 
   </main>
-  <footer>generated by <a href="https://github.com/mrprice22/nwn-manager">nwn-manager</a> &mdash; last updated Jun 4, 2026 11:40</footer>
+  <footer>generated by <a href="https://github.com/mrprice22/nwn-manager">nwn-manager</a> &mdash; last updated Jun 4, 2026 12:23</footer>
 </body>
 </html>
