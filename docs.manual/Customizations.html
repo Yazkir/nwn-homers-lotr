@@ -68,6 +68,17 @@
     }
     .tip-box p { margin: 0.3em 0; }
 
+    .warn-box {
+      background: rgba(179,38,30,0.07);
+      border-left: 4px solid #b3261e;
+      border-radius: 0 4px 4px 0;
+      padding: 0.7em 1.1em;
+      margin: 0.8em 0 1em;
+      font-size: 0.93em;
+    }
+    .warn-box p { margin: 0.3em 0; }
+    .warn-box strong { color: #b3261e; }
+
     .stock-box {
       background: rgba(40,90,50,0.08);
       border: 1px solid var(--accent-soft);
@@ -93,7 +104,6 @@
         <li><a href="#spells">Spell Changes</a></li>
         <li><a href="#progression">Character Progression</a></li>
         <li><a href="#death">Death, Dying &amp; Respawn</a></li>
-        <li><a href="#spellfail">Spell-Failure Zones</a></li>
         <li><a href="#appearance">Appearance &amp; Crafting</a></li>
         <li><a href="#items">Custom Gameplay Items</a></li>
         <li><a href="#systems">Notable Custom Systems</a></li>
@@ -133,20 +143,63 @@ effects <strong>cannot be dispelled</strong>.</p>
 <table class="data change-table">
   <thead><tr><th>Spell</th><th>This module</th></tr></thead>
   <tbody>
-    <tr><td>Dragon Knight</td><td>Summons a level-60 Fighter Red Dragon (CR 123, 540 HP, Str/Dex/Con/Cha 40). 30-round duration. Cannot be dispelled.</td></tr>
-    <tr><td>Mummy Dust</td><td>Summons a dual-class level-60 undead warrior (CR 212, 520 HP). 30-hour duration. Cannot be dispelled.</td></tr>
-    <tr><td>Epic Ward</td><td>Damage Reduction 60/+20. Cannot be dispelled. Duration scales with caster level.</td></tr>
+    <tr><td>Dragon Knight</td><td>Summons the <a href="../creatures/epicdragonknight.html">Epic Dragon Knight</a> — a level-60 Fighter Red Dragon (CR 123, 540 HP, Str/Dex/Con/Cha 40). 30-round duration. Cannot be dispelled.</td></tr>
+    <tr><td>Mummy Dust</td><td>Summons the <a href="../creatures/mummyreaper.html">Epic Mummy Reaper</a> — a dual-class level-60 undead warrior (CR 212, 520 HP). 30-hour duration. Cannot be dispelled.</td></tr>
+    <tr><td>Epic Ward</td><td>Damage Reduction 60/+20. Cannot be dispelled. <strong>Duration = 1 round per caster level</strong> (so ~40 rounds / 4 minutes at the level-40 caster cap). It also expires early once it has absorbed <strong>35 × caster level</strong> total damage (≈ 1,400 at caster level 40), whichever comes first.</td></tr>
     <tr><td>Hellball</td><td>10d20 of <em>each</em> damage type (Acid, Electrical, Fire, Sonic) over a massive area. Reflex save for partial reduction; knocks down targets if total damage exceeds 200.</td></tr>
-    <tr><td>Greater Ruin</td><td>Up to 5000 damage (10d20 ×25) to a single target. Fortitude save for partial reduction.</td></tr>
-    <tr><td>Curse Song (Bard)</td><td>Fully custom scaling across 30+ tiers based on Perform skill and level. At the highest ranks: −15 attack, −15 AC, −7 all saves, −18 all skills, and 98 sonic damage in a colossal radius.</td></tr>
+    <tr><td>Greater Ruin</td><td><strong>500d20</strong> damage to a single target (roughly 500–10,000, averaging ~5,250). Fortitude save (DC&nbsp;= your epic spell save DC). On a <em>successful</em> save the damage is <strong>divided by 300</strong> — i.e. cut to a few dozen points, effectively negligible rather than merely halved.</td></tr>
+    <tr><td>Curse Song (Bard)</td><td>Fully custom debuff that scales with your Perform skill <em>and</em> Bard level across 23 tiers, in a colossal-radius (30&nbsp;ft) sphere. At the top tier: −15 attack, −10 damage, −7 all saves, −15 AC, −18 all skills, and 98 sonic damage. See the <a href="#cursesong-table">full Curse Song ladder</a> below.</td></tr>
+  </tbody>
+</table>
+
+<h3 id="cursesong-table">Curse Song Ladder (Bard)</h3>
+<p>Curse Song is not a single formula but a ladder of 23 tiers. You reach a tier only when you
+meet <em>both</em> its Perform-skill rank <em>and</em> its Bard-level requirement; the song then
+applies every penalty on that row to enemies in a 30&nbsp;ft (colossal-radius) sphere. The lowest
+tier kicks in at Perform&nbsp;1 / Bard&nbsp;1. Base duration is 15 rounds — the
+<strong>Lingering Song</strong> feat adds +15 rounds, and <strong>Lasting Impression</strong>
+multiplies the duration ×15.</p>
+
+<table class="data change-table">
+  <thead><tr>
+    <th>Perform ≥</th><th>Bard lvl ≥</th><th>Attack</th><th>Damage</th><th>Will</th><th>Fort</th><th>Reflex</th><th>Sonic dmg</th><th>AC</th><th>Skills</th>
+  </tr></thead>
+  <tbody>
+    <tr><td>80</td><td>30</td><td>−15</td><td>−10</td><td>−7</td><td>−7</td><td>−7</td><td>98</td><td>−15</td><td>−18</td></tr>
+    <tr><td>75</td><td>29</td><td>−13</td><td>−8</td><td>−5</td><td>−5</td><td>−5</td><td>56</td><td>−10</td><td>−17</td></tr>
+    <tr><td>60</td><td>28</td><td>−10</td><td>−6</td><td>−4</td><td>−4</td><td>−4</td><td>44</td><td>−8</td><td>−16</td></tr>
+    <tr><td>55</td><td>27</td><td>−8</td><td>−6</td><td>−4</td><td>−4</td><td>−4</td><td>42</td><td>−8</td><td>−15</td></tr>
+    <tr><td>50</td><td>26</td><td>−7</td><td>−6</td><td>−3</td><td>−2</td><td>−2</td><td>40</td><td>−6</td><td>−14</td></tr>
+    <tr><td>45</td><td>25</td><td>−7</td><td>−5</td><td>−3</td><td>−2</td><td>−2</td><td>38</td><td>−6</td><td>−13</td></tr>
+    <tr><td>40</td><td>24</td><td>−6</td><td>−5</td><td>−3</td><td>−2</td><td>−2</td><td>36</td><td>−5</td><td>−12</td></tr>
+    <tr><td>35</td><td>23</td><td>−6</td><td>−5</td><td>−3</td><td>−2</td><td>−2</td><td>34</td><td>−5</td><td>−11</td></tr>
+    <tr><td>30</td><td>22</td><td>−6</td><td>−5</td><td>−3</td><td>−2</td><td>−2</td><td>32</td><td>−5</td><td>−10</td></tr>
+    <tr><td>25</td><td>21</td><td>−6</td><td>−5</td><td>−3</td><td>−2</td><td>−2</td><td>30</td><td>−5</td><td>−9</td></tr>
+    <tr><td>20</td><td>20</td><td>−6</td><td>−5</td><td>−3</td><td>−2</td><td>−2</td><td>28</td><td>−5</td><td>−8</td></tr>
+    <tr><td>15</td><td>19</td><td>−5</td><td>−4</td><td>−3</td><td>−2</td><td>−2</td><td>26</td><td>−5</td><td>−7</td></tr>
+    <tr><td>12</td><td>18</td><td>−5</td><td>−4</td><td>−3</td><td>−2</td><td>−2</td><td>24</td><td>−5</td><td>−6</td></tr>
+    <tr><td>10</td><td>17</td><td>−5</td><td>−4</td><td>−3</td><td>−2</td><td>−2</td><td>22</td><td>−5</td><td>−5</td></tr>
+    <tr><td>9</td><td>16</td><td>−4</td><td>−4</td><td>−3</td><td>−2</td><td>−2</td><td>20</td><td>−5</td><td>−4</td></tr>
+    <tr><td>8</td><td>15</td><td>−4</td><td>−4</td><td>−2</td><td>−2</td><td>−2</td><td>16</td><td>−4</td><td>−3</td></tr>
+    <tr><td>7</td><td>14</td><td>−4</td><td>−4</td><td>−1</td><td>−1</td><td>−1</td><td>16</td><td>−3</td><td>−2</td></tr>
+    <tr><td>6</td><td>12</td><td>−4</td><td>−3</td><td>−1</td><td>−1</td><td>−1</td><td>8</td><td>−2</td><td>−2</td></tr>
+    <tr><td>5</td><td>8</td><td>−3</td><td>−3</td><td>−1</td><td>−1</td><td>−1</td><td>8</td><td>0</td><td>−1</td></tr>
+    <tr><td>4</td><td>6</td><td>−2</td><td>−3</td><td>−1</td><td>−1</td><td>−1</td><td>0</td><td>0</td><td>−1</td></tr>
+    <tr><td>2</td><td>3</td><td>−2</td><td>−3</td><td>−1</td><td>−1</td><td>0</td><td>0</td><td>0</td><td>0</td></tr>
+    <tr><td>1</td><td>2</td><td>−1</td><td>−2</td><td>−1</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td></tr>
+    <tr><td>1</td><td>1</td><td>−1</td><td>−1</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td></tr>
   </tbody>
 </table>
 
 <h3>Other Spell Changes</h3>
 <ul>
   <li><strong>Summon Creature I–IX</strong> — fixed duration of 24 hours; no longer scales with caster level.</li>
-  <li><strong>Time Stop</strong> — <strong>disabled</strong>. It cannot be cast.</li>
 </ul>
+
+<div class="warn-box">
+  <p><strong>Time Stop is disabled.</strong> It cannot be cast on this server — attempting to cast it
+  does nothing.</p>
+</div>
 
 <hr>
 
@@ -164,7 +217,9 @@ Constitution. (Set at module load via the administration <em>max hit points</em>
 <h3>Legendary Levels: 41–60</h3>
 <p>Standard NWN stops at level 40. Once you reach 40 you may continue to <strong>level 60</strong>
 through the Legendary Leveling system — speak to the <strong>Legendary Leveler</strong> NPC in the
-Legendary Leveling area (reachable from the <a href="../areas/thewelloferu.html">Well of Eru</a>).</p>
+Legendary Leveling area (reachable from the <a href="../areas/thewelloferu.html">Well of Eru</a>).
+It is built on the
+<a href="https://neverwintervault.org/project/nwn1/script/higher-ground-legendary-level-system-levels-41-60-v21-hgll" target="_blank" rel="noopener">Higher Ground Legendary Level System (HGLL)</a>.</p>
 
 <table class="data change-table">
   <thead><tr><th>On each Legendary level you DO gain</th><th>On each Legendary level you do NOT gain</th></tr></thead>
@@ -199,7 +254,7 @@ for level 41 to over 3,000,000 for level 60 (about 17.5M XP total to reach 60). 
 <!-- ============================================================ -->
 <div class="section-header" id="death">
   <h2>Death, Dying &amp; Respawn</h2>
-  <p class="section-sub">A bleed-out window when you drop, a death-marker amulet, and a light respawn penalty with no XP loss.</p>
+  <p class="section-sub">A bleed-out window when you drop, and a light respawn penalty with no XP loss.</p>
 </div>
 
 <h3>Bleeding Out</h3>
@@ -209,10 +264,10 @@ threshold), giving allies a longer window to reach you. Each bleeding round ther
 <strong>10% chance to stabilize</strong>; once stabilized you begin slowly healing back instead of
 bleeding. (Expect the usual pained voice-lines while you are down.)</p>
 
-<h3>The Death Amulet</h3>
-<p>When you die, a <strong>death amulet</strong> is placed in your inventory (any previous one is
-removed first), your death location is recorded, and your character is immediately saved so the
-amulet survives even an instant logout. The amulet is removed automatically when you respawn.</p>
+<h3>You Cannot Log Out of Death</h3>
+<p><strong>Logging out and back in does not restore health or spells — and it does not escape
+death.</strong> If you disconnect while dead or bleeding, you are still dead or bleeding when you
+return; your state is saved across the logout, so there is no relog trick to recover.</p>
 
 <h3>Respawn Penalty</h3>
 <p>Pressing the respawn button returns you to your bind point with:</p>
@@ -222,27 +277,6 @@ amulet survives even an instant logout. The amulet is removed automatically when
   <li><strong>A 10% gold penalty</strong> — that gold is dropped at your place of death in a bag
       that <em>anyone</em> can loot, so a quick recovery run can get it back.</li>
 </ul>
-<p>Up to four of your equipped items may also be dropped on death; those are lootable only by you.</p>
-
-<hr>
-
-<!-- ============================================================ -->
-<div class="section-header" id="spellfail">
-  <h2>Spell-Failure Zones</h2>
-  <p class="section-sub">Some areas suppress spellcasting — and the effect now correctly persists through rest.</p>
-</div>
-
-<p>Certain areas (such as parts of the <a href="../areas/thewelloferu.html">Well of Eru</a>) are
-<strong>spell-failure zones</strong>. On entering one, a permanent spell-failure effect is applied
-to you; on leaving, it is removed. Vanilla NWN has no area-wide caster-suppression mechanic like
-this.</p>
-
-<div class="tip-box">
-  <p><strong>Persistence through rest.</strong> Resting normally clears temporary effects, which
-  used to let players cast freely inside these zones after a rest. That is fixed: if you are flagged
-  as being inside a spell-failure zone, the effect is <strong>re-applied after you finish or cancel a
-  rest</strong>. To cast normally again, leave the zone.</p>
-</div>
 
 <hr>
 
@@ -252,10 +286,13 @@ this.</p>
   <p class="section-sub">Free, permanent cosmetic changes — your own body and your gear.</p>
 </div>
 
-<h3>Player Appearance</h3>
-<p>Talk to one of the <strong>cows in Bree</strong> to open an appearance menu with
-<strong>315+ creature forms</strong>. The change is <strong>free and permanent</strong> until you
-change it again.</p>
+<h3>Player Appearance &amp; Alignment</h3>
+<p>Visit the <a href="../areas/appearancechange.html"><strong>Appearance Changer and Character
+Modifying Area</strong></a> in Bree to open an appearance menu with <strong>315+ creature
+forms</strong>. The change is <strong>free and permanent</strong> until you change it again.</p>
+<p>The same area also lets you <strong>change your alignment</strong> (good/evil and law/chaos). This
+is how you set up otherwise-impossible <strong>class combinations</strong> — shift your alignment to
+qualify for builds like a monk/barbarian or a paladin/blackguard.</p>
 
 <h3>Item Appearance Crafting</h3>
 <p>Armor and weapon appearance can be remodelled with the CEP crafting system (the Craft Armor /
@@ -279,7 +316,8 @@ change succeeds automatically, regardless of your skill ranks.</p>
   <li>The rod <strong>cannot be used in combat</strong> — it is a setup tool, not an in-fight panic button.</li>
 </ul>
 <p>This is a big quality-of-life upgrade for buff-heavy casters who would otherwise click through a
-dozen spells before every fight.</p>
+dozen spells before every fight. Based on the
+<a href="https://neverwintervault.org/project/nwn1/prefab/item/rod-fast-buffing" target="_blank" rel="noopener">Rod of Fast Buffing</a> prefab from the Neverwinter Vault.</p>
 
 <hr>
 
@@ -305,14 +343,18 @@ Keeper-of-Records NPC. It is a community-recognition system with no vanilla equi
 them as a powerful summonable companion that persists between sessions. See the dedicated
 <a href="../manual/MeaningWave.html">MeaningWave: A Guide to the Guides</a> for routes and details.</p>
 
-<h3>Dynamic Merchants</h3>
-<p>Many stores use a dynamic-merchant system: their stock and pricing can vary by a customer's
-<strong>race, class, or faction</strong>, and prices are subject to <strong>haggling</strong>. The
-same shopfront may show different wares to different adventurers.</p>
+<h3>Instant Resting &amp; the Rest Menu</h3>
+<p>Resting is fully custom. There is <strong>no rest cooldown</strong> — you can rest whenever you
+are not in active combat, and each rest is an <strong>instant full rest</strong> (HP and spells
+restored immediately, no waiting). Resting opens a <strong>custom rest menu</strong> that also lets
+you take other actions from the same place, including <strong>teleporting</strong> to key
+destinations and <strong>summoning henchmen and Legend companions</strong>.</p>
 
 <h3>Dungeon Solitaire</h3>
 <p>A custom card-game-style encounter arena: a sequence of drawn challenges with its own creatures
-and dialogue, distinct from the open-world encounter zones.</p>
+and dialogue, distinct from the open-world encounter zones. It is an in-game port of
+<a href="https://github.com/mrprice22/Dungeon-Solitaire" target="_blank" rel="noopener">Dungeon
+Solitaire</a> — which can also be played stand-alone on any computer with the .NET framework.</p>
 
 <hr>
 
@@ -336,8 +378,8 @@ and dialogue, distinct from the open-world encounter zones.</p>
     <dt>Feats, skills, BAB &amp; saves</dt>
     <dd>Standard progression up to level 40. (Legendary levels 41–60 add feats, skills, HP, and ability scores, but do not change how the base mechanics work — see <a href="#progression">Character Progression</a>.)</dd>
 
-    <dt>Resting</dt>
-    <dd>You can rest anywhere that is not in active combat. (Resting does <em>not</em> bypass the <a href="#spellfail">spell-failure zones</a>.)</dd>
+    <dt>Critical hits &amp; Devastating Critical</dt>
+    <dd>Critical threat ranges, confirmation rolls, and the <strong>Devastating Critical</strong> feat all work exactly as stock NWN — no nerfs, caps, or house rules.</dd>
   </dl>
 </div>
 
