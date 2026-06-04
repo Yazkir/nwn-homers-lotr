@@ -343,43 +343,71 @@ Craft Weapon options in conversation). There is <strong>no fail chance</strong> 
 change succeeds automatically, regardless of your skill ranks.</p>
 
 <h3 id="forge">Forge of Wonders — Item Enchanting</h3>
-<p>The <strong>Forge of Wonders</strong> in Moria lets you permanently add or replace magical
-properties on any equippable item, for a gold cost equal to the increase in the item's assessed
-value.</p>
+<p>Three Forge of Wonders locations let you permanently add or replace magical properties on any
+equippable item, for a gold cost equal to the increase in the item's assessed value. Each forge is
+staffed by a smith NPC; place exactly one item on the nearby anvil, then speak to the smith.</p>
 
 <div class="tip-box">
-  <p><strong>How it works:</strong> Place <em>exactly one item</em> on the Anvil of Wonder
-  placeable in the forge room, then speak to <strong>Belinus the Smith</strong>. Pick the
-  property you want from his menus; he calculates the cost (or refund) before you confirm. When
-  an existing property of the same type is already on the item it is <em>replaced</em>, not
-  stacked.</p>
+  <p><strong>How it works:</strong> Place <em>exactly one item</em> on the anvil placeable in
+  the forge room, then speak to the smith. Pick the property you want from the menus; the smith
+  calculates the cost (or refund) before you confirm. When an existing property of the same type
+  is already on the item it is <em>replaced</em>, not stacked.</p>
 </div>
 
-<p><strong>Access:</strong> The Forge of Wonders is in <a href="../areas/area057.html">Moria: Forge of
-Wonders</a>. To reach it you need the
-<a href="../items/forgekey.html"><strong>Forgekey</strong></a> — dropped by
-<strong>The Balrog of Moria</strong> (found in The Abyss of Moria and in Moria proper). Once you
-have it, use the Legendary travel menu to teleport directly to the forge.</p>
-
-<p><strong>Available enchantments:</strong></p>
 <table class="data change-table">
-  <thead><tr><th>Property</th><th>Options / Max</th></tr></thead>
+  <thead><tr><th>Forge</th><th>Location</th><th>Access</th><th>Tier</th></tr></thead>
   <tbody>
-    <tr><td>AC Bonus</td><td>+1 to +8</td></tr>
-    <tr><td>Attack Bonus</td><td>+1 to +8</td></tr>
-    <tr><td>Damage Bonus</td><td>Fire, Cold, Acid, Slashing, Bludgeoning, or Piercing; up to 2d8</td></tr>
-    <tr><td>Haste</td><td>—</td></tr>
-    <tr><td>Keen</td><td>—</td></tr>
-    <tr><td>Massive Criticals</td><td>+1 to +8 (via the bonus-amount sub-menu)</td></tr>
-    <tr><td>Mighty</td><td>—</td></tr>
-    <tr><td>Improved Magic Resistance</td><td>10%</td></tr>
-    <tr><td>Skill Bonus</td><td>Any of the 27 skills (amount via sub-menu)</td></tr>
-    <tr><td>Vampiric Regeneration</td><td>+1 to +8</td></tr>
-    <tr><td>Freedom of Movement</td><td>—</td></tr>
-    <tr><td>Darkvision</td><td>—</td></tr>
-    <tr><td>Light</td><td>—</td></tr>
-    <tr><td>Unlimited Ammo</td><td>Basic, +1 to +5, 1d6 Cold, 1d6 Fire, 1d6 Light</td></tr>
-    <tr><td>Remove All Properties</td><td>Strips all magical properties; refunds gold equal to the item's current value</td></tr>
+    <tr>
+      <td>Moria Forge of Wonders</td>
+      <td><a href="../areas/area057.html">Moria: Forge of Wonders</a></td>
+      <td><a href="../items/forgekey.html">Forgekey</a> (dropped by the Balrog of Moria) + Legendary travel menu</td>
+      <td>High</td>
+    </tr>
+    <tr>
+      <td>Tagget's Smith Shop</td>
+      <td><a href="../areas/taggetssmithshop.html">Taggets Smith Shop</a> (Bree)</td>
+      <td>Open to all — no key required</td>
+      <td>Mid</td>
+    </tr>
+    <tr>
+      <td>Castle of Homeless</td>
+      <td><a href="../areas/castlehomelessgr.html">Castle of Homeless</a></td>
+      <td><strong>DM-only</strong> — not currently accessible to players; used for testing and validation. Will be relocated at a future date.</td>
+      <td>High (full)</td>
+    </tr>
+  </tbody>
+</table>
+
+<p><strong>Available enchantments by tier:</strong></p>
+<table class="data change-table">
+  <thead><tr><th>Property</th><th>Mid (Tagget's)</th><th>High (Moria)</th><th>High-full (Castle)</th></tr></thead>
+  <tbody>
+    <tr><td>AC Bonus</td><td>+1 to +5</td><td>+1 to +8</td><td>+1 to +8</td></tr>
+    <tr><td>Attack Bonus</td><td>+1 to +5</td><td>+1 to +8</td><td>+1 to +8</td></tr>
+    <tr><td>Enhancement Bonus</td><td>+1 to +5</td><td>—</td><td>+1 to +8</td></tr>
+    <tr><td>Ability Bonus (all 6 stats)</td><td>+1 to +8</td><td>—</td><td>+1 to +8</td></tr>
+    <tr><td>Damage Bonus</td><td>Fire, Cold, Acid, Slashing, Elec; up to 1d6</td><td>Fire, Cold, Acid, Slash, Bludg, Pierce; up to 2d8</td><td>Same as Moria</td></tr>
+    <tr><td>Damage Resistance</td><td>5–10 per round</td><td>—</td><td>5–15 per round</td></tr>
+    <tr><td>Damage Reduction</td><td>/+1 to /+5, soak 5–30</td><td>—</td><td>/+1 to /+10, soak 5–50</td></tr>
+    <tr><td>Damage Immunity</td><td>—</td><td>—</td><td>5–10% by type</td></tr>
+    <tr><td>Improved Magic Resistance</td><td>10–20%</td><td>10%</td><td>10–22%</td></tr>
+    <tr><td>Improved Saving Throws</td><td>—</td><td>—</td><td>Fort / Reflex / Will / All</td></tr>
+    <tr><td>On-Hit Properties</td><td>Blindness, Deafness, Doom, Silence, Sleep, Slow; DC 14–20</td><td>—</td><td>Full set (Stun, Hold, Fear, etc.); DC 14–26</td></tr>
+    <tr><td>Miscellaneous Immunity</td><td>—</td><td>—</td><td>Fear, Disease, Paralysis, Poison, Level Drain</td></tr>
+    <tr><td>Haste</td><td>yes</td><td>yes</td><td>yes</td></tr>
+    <tr><td>Keen</td><td>yes</td><td>yes</td><td>yes</td></tr>
+    <tr><td>Mighty</td><td>yes</td><td>yes</td><td>yes</td></tr>
+    <tr><td>Massive Criticals</td><td>yes</td><td>yes</td><td>yes</td></tr>
+    <tr><td>Darkvision</td><td>—</td><td>yes</td><td>yes</td></tr>
+    <tr><td>Skill Bonus</td><td>Selected skills</td><td>All 27 skills</td><td>All 27 skills</td></tr>
+    <tr><td>Vampiric Regeneration</td><td>yes</td><td>yes</td><td>yes</td></tr>
+    <tr><td>Freedom of Movement</td><td>yes</td><td>yes</td><td>yes</td></tr>
+    <tr><td>Weight Reduction</td><td>10–40%</td><td>—</td><td>10–80%</td></tr>
+    <tr><td>Arcane Spell Failure</td><td>—</td><td>—</td><td>−10% to −30%</td></tr>
+    <tr><td>Bonus Feat</td><td>yes</td><td>—</td><td>yes</td></tr>
+    <tr><td>Light</td><td>—</td><td>yes</td><td>yes</td></tr>
+    <tr><td>Unlimited Ammo</td><td>yes</td><td>yes</td><td>yes</td></tr>
+    <tr><td>Remove All Properties</td><td colspan="3">Strips all magical properties; refunds gold equal to the item's current value</td></tr>
   </tbody>
 </table>
 
@@ -478,6 +506,6 @@ Solitaire</a> — which can also be played stand-alone on any computer with the 
   </main>
 
   </main>
-  <footer>generated by <a href="https://github.com/mrprice22/nwn-manager">nwn-manager</a> &mdash; last updated Jun 4, 2026 10:31</footer>
+  <footer>generated by <a href="https://github.com/mrprice22/nwn-manager">nwn-manager</a> &mdash; last updated Jun 4, 2026 11:40</footer>
 </body>
 </html>
