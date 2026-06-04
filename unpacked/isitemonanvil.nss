@@ -189,10 +189,13 @@ int StartingConditional()
             object oNext = GetNextItemInInventory(oAnvil);
             if (oNext == OBJECT_INVALID)
                 {
-                //Debug
-                int iValue = GetGoldPieceValue(oItem);
-                 //Real
                 SetLocalObject(GetPCSpeaker(), "MODIFY_ITEM", oItem);
+                // Record value at first forge contact so disenchant refund only covers forge-added value
+                if (!GetLocalInt(oItem, "FORGE_BASE_SET"))
+                    {
+                    SetLocalInt(oItem, "FORGE_BASE_VALUE", GetGoldPieceValue(oItem));
+                    SetLocalInt(oItem, "FORGE_BASE_SET", TRUE);
+                    }
                 SetTokens(oItem);
                 return TRUE;
                 }
