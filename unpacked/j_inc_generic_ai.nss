@@ -1,3 +1,4 @@
+#include "j_inc_equip_best"
 // j_int_generic_ai/nw_i0_generic. Revamped and restarted!
 // The format of this file is:
 
@@ -5712,7 +5713,7 @@ void EquipAppropriateWeapons(object oTarget, int iInt)
         }
         // If all else fails...TRY most damaging melee weapon.
         if(!iPrimary && !iTwoHanded)
-            ActionEquipMostDamagingMelee(oTarget, TRUE);
+            EquipBestMeleeWeapon(oTarget);
     }
 }
 

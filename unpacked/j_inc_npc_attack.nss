@@ -22,6 +22,7 @@
 
 // Include the constants for the combat, spawn integers ETC.
 #include "j_inc_constants"
+#include "j_inc_equip_best"
 
 // Hostile amount
 const int HOSTILE                       = -100;// Reputation to change to
@@ -347,7 +348,7 @@ void EquipWeaponsDuration(float fDuration, int iRanged = FALSE)
     else
     {
         // Equip any most damaging (don't use oVersus, incase it doesn't arm anything)
-        ActionEquipMostDamagingMelee();
+        EquipBestMeleeWeapon();
     }
     // Delay the un-equip
     DelayCommand(fDuration, RemoveWeapons());

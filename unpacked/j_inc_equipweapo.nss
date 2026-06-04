@@ -1,3 +1,5 @@
+#include "j_inc_equip_best"
+
 // Equip the weapon appropriate to enemy and position
 // You can use nState to use shields or whatever. Need to make a section to cover that.
 void EquipAppropriateWeapons(object oTarget);
@@ -76,6 +78,6 @@ void EquipAppropriateWeapons(object oTarget)
         }
         // If all else fails...TRY most damaging melee weapon.
         if(!iPrimary && !iTwoHanded)
-            ActionEquipMostDamagingMelee(oTarget, TRUE);
+            EquipBestMeleeWeapon(oTarget);
     }
 }

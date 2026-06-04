@@ -1,3 +1,4 @@
+#include "j_inc_equip_best"
 /************************ [Include - Basic AI] *********************************
     Filename: J_INC_BASIC
 ************************* [Include - Basic AI] *********************************
@@ -417,7 +418,7 @@ void Combat_AttackMelee(object oTarget)
 {
     // Equip best
     ClearAllActions();
-    ActionEquipMostDamagingMelee(oTarget);
+    EquipBestMeleeWeapon(oTarget);
 
     // Attack with feat if we can hit them
     int iRandom = 5 + d10();
