@@ -320,54 +320,57 @@ staffed by a smith NPC; place exactly one item on the nearby anvil, then speak t
   <thead><tr><th>Forge</th><th>Location</th><th>Access</th><th>Tier</th></tr></thead>
   <tbody>
     <tr>
+      <td>Tagget's Smith Shop</td>
+      <td><a href="../areas/taggetssmithshop.html">Taggets Smith Shop</a> (Bree)</td>
+      <td>Open to all — no key required</td>
+      <td>Low</td>
+    </tr>
+    <tr>
+      <td>Rivendell Smithy</td>
+      <td><a href="../areas/thesmithyofriven.html">The Smithy of Rivendell</a></td>
+      <td><strong>Elrond's Writ</strong> must be in your inventory to access the forge option</td>
+      <td>Mid</td>
+    </tr>
+    <tr>
       <td>Moria Forge of Wonders</td>
       <td><a href="../areas/area057.html">Moria: Forge of Wonders</a></td>
       <td><a href="../items/forgekey.html">Forgekey</a> (dropped by the Balrog of Moria) + Legendary travel menu</td>
       <td>High</td>
-    </tr>
-    <tr>
-      <td>Tagget's Smith Shop</td>
-      <td><a href="../areas/taggetssmithshop.html">Taggets Smith Shop</a> (Bree)</td>
-      <td>Open to all — no key required</td>
-      <td>Mid</td>
-    </tr>
-    <tr>
-      <td>Castle of Homeless</td>
-      <td><a href="../areas/castlehomelessgr.html">Castle of Homeless</a></td>
-      <td><strong>DM-only</strong> — not currently accessible to players; used for testing and validation. Will be relocated at a future date.</td>
-      <td>High (full)</td>
     </tr>
   </tbody>
 </table>
 
 <p><strong>Available enchantments by tier:</strong></p>
 <table class="data change-table">
-  <thead><tr><th>Property</th><th>Mid (Tagget's)</th><th>High (Moria)</th><th>High-full (Castle)</th></tr></thead>
+  <thead><tr><th>Property</th><th>Low (Tagget's)</th><th>Mid (Rivendell)</th><th>High (Moria)</th></tr></thead>
   <tbody>
-    <tr><td>AC Bonus</td><td>+1 to +5</td><td>+1 to +8</td><td>+1 to +8</td></tr>
-    <tr><td>Attack Bonus</td><td>+1 to +5</td><td>+1 to +8</td><td>+1 to +8</td></tr>
-    <tr><td>Enhancement Bonus</td><td>+1 to +5</td><td>—</td><td>+1 to +8</td></tr>
-    <tr><td>Ability Bonus (all 6 stats)</td><td>+1 to +8</td><td>—</td><td>+1 to +8</td></tr>
-    <tr><td>Damage Bonus</td><td>Fire, Cold, Acid, Slashing, Elec; up to 1d6</td><td>Fire, Cold, Acid, Slash, Bludg, Pierce; up to 2d8</td><td>Same as Moria</td></tr>
-    <tr><td>Damage Resistance</td><td>5–10 per round</td><td>—</td><td>5–15 per round</td></tr>
-    <tr><td>Damage Reduction</td><td>/+1 to /+5, soak 5–30</td><td>—</td><td>/+1 to /+10, soak 5–50</td></tr>
-    <tr><td>Damage Immunity</td><td>—</td><td>—</td><td>5% or 10% — Fire, Cold, Acid, Lightning, Sonic, Slashing, Piercing, Bludgeoning</td></tr>
-    <tr><td>Spell Resistance</td><td>SR 10–20</td><td>SR 10</td><td>SR 10–22</td></tr>
-    <tr><td>Improved Saving Throws</td><td>—</td><td>—</td><td>Fort / Reflex / Will / All</td></tr>
-    <tr><td>On-Hit Properties</td><td>Blindness, Deafness, Doom, Silence, Sleep, Slow; DC 14–20</td><td>—</td><td>Full set (Stun, Hold, Fear, etc.); DC 14–26</td></tr>
+    <tr><td>AC Bonus</td><td>+1 to +5</td><td>+5 to +10</td><td>+1 to +16</td></tr>
+    <tr><td>Attack Bonus</td><td>+1 to +5</td><td>+5 to +10</td><td>+1 to +16</td></tr>
+    <tr><td>Enhancement Bonus</td><td>+1 to +5</td><td>+5 to +10</td><td>+1 to +16</td></tr>
+    <tr><td>Ability Bonus (all 6 stats)</td><td>+1 to +8</td><td>+5 to +10</td><td>+1 to +16</td></tr>
+    <tr><td>Mighty <sup title="Adds STR modifier to ranged weapon damage rolls">†</sup></td><td>+1 to +5</td><td>+5 to +10</td><td>+1 to +16</td></tr>
+    <tr><td>Damage Bonus — types</td><td>Slashing, Acid, Cold, Lightning, Fire, Sonic</td><td>All 8 types</td><td>All 8 types</td></tr>
+    <tr><td>Damage Bonus — dice</td><td>1, 2, 3, 1d4, 1d6</td><td>1d8, 1d10, 1d12</td><td>2d6, 2d8, 2d10</td></tr>
+    <tr><td>Massive Criticals <sup title="Extra damage added on a critical hit">†</sup></td><td>1, 2, 3, 1d4, 1d6</td><td>1d8, 1d10, 1d12</td><td>2d6, 2d8, 2d10</td></tr>
+    <tr><td>Damage Resistance — amount</td><td>5, 10 per round</td><td>15, 20 per round</td><td>25 per round</td></tr>
+    <tr><td>Damage Resistance — types</td><td colspan="3">All 8 types (Slashing, Piercing, Bludgeoning, Fire, Cold, Acid, Lightning, Sonic) at all tiers</td></tr>
+    <tr><td>Damage Immunity — %</td><td>—</td><td>5%</td><td>10%, 25%, 50%</td></tr>
+    <tr><td>Damage Immunity — types</td><td>—</td><td>Fire, Cold, Acid, Lightning, Sonic</td><td>All 8 types</td></tr>
+    <tr><td>Damage Reduction</td><td>/+1 to /+5, soak 5–30</td><td>/+1 to /+7, soak 5–35</td><td>/+1 to /+10, soak 5–50</td></tr>
+    <tr><td>Spell Resistance</td><td>SR 10–20</td><td>SR 14–22</td><td>SR 10–32</td></tr>
+    <tr><td>Improved Saving Throws</td><td>—</td><td>Fort / Reflex / Will</td><td>Fort / Reflex / Will / All</td></tr>
+    <tr><td>On-Hit Properties</td><td>6 types; DC 14–20</td><td>8 types; DC 14–22</td><td>Full set; DC 14–26</td></tr>
     <tr><td>Miscellaneous Immunity</td><td>—</td><td>—</td><td>Fear, Disease, Paralysis, Poison, Level Drain</td></tr>
     <tr><td>Haste</td><td>yes</td><td>yes</td><td>yes</td></tr>
     <tr><td>Keen</td><td>yes</td><td>yes</td><td>yes</td></tr>
-    <tr><td>Mighty <sup title="Adds STR modifier to ranged weapon damage rolls">†</sup></td><td>+1 to +5</td><td>+1 to +8</td><td>+1 to +8</td></tr>
-    <tr><td>Massive Criticals <sup title="Extra damage added on a critical hit">†</sup></td><td>1, 2, 3, 1d4, 1d6</td><td>1d12, 2d6, 2d8</td><td>1d12, 2d6, 2d8</td></tr>
     <tr><td>Darkvision</td><td>—</td><td>yes</td><td>yes</td></tr>
-    <tr><td>Skill Bonus</td><td>16 skills — <a href="#forge-skills">see list</a></td><td>20 skills — <a href="#forge-skills">see list</a></td><td>20 skills — <a href="#forge-skills">see list</a></td></tr>
+    <tr><td>Light</td><td>—</td><td>yes</td><td>yes</td></tr>
     <tr><td>Vampiric Regeneration</td><td>yes</td><td>yes</td><td>yes</td></tr>
     <tr><td>Freedom of Movement</td><td>yes</td><td>yes</td><td>yes</td></tr>
-    <tr><td>Weight Reduction</td><td>10–40%</td><td>—</td><td>10–80%</td></tr>
+    <tr><td>Weight Reduction</td><td>10–40%</td><td>10–60%</td><td>10–80%</td></tr>
     <tr><td>Arcane Spell Failure</td><td>—</td><td>—</td><td>−10% to −30%</td></tr>
-    <tr><td>Bonus Feat</td><td>19 feats — <a href="#forge-feats">see list</a></td><td>—</td><td>27 feats — <a href="#forge-feats">see list</a></td></tr>
-    <tr><td>Light</td><td>—</td><td>yes</td><td>yes</td></tr>
+    <tr><td>Skill Bonus</td><td>16 skills — <a href="#forge-skills">see list</a></td><td>20 skills — <a href="#forge-skills">see list</a></td><td>20 skills — <a href="#forge-skills">see list</a></td></tr>
+    <tr><td>Bonus Feat</td><td>19 feats — <a href="#forge-feats">see list</a></td><td>22 feats — <a href="#forge-feats">see list</a></td><td>27 feats — <a href="#forge-feats">see list</a></td></tr>
     <tr><td>Unlimited Ammo</td><td>yes</td><td>yes</td><td>yes</td></tr>
     <tr><td>Remove All Properties</td><td colspan="3">Strips all magical properties after a confirmation step showing the refund amount. Returns <strong>80% of gold invested</strong> at this forge (tracked per-item in <code>FORGE_GP_INVESTED</code>) <strong>plus up to 50% of the item's original assessed value</strong> (capped at <strong>60,000 gp</strong>, matching the Well-Mart's maximum payout). The original value is snapshotted in <code>FORGE_BASE_VALUE</code> on first anvil contact. Items with no original value and no forge investment receive 0 gold.</td></tr>
   </tbody>
@@ -377,83 +380,87 @@ staffed by a smith NPC; place exactly one item on the nearby anvil, then speak t
   <p><strong>Mighty</strong> adds your Strength modifier to ranged weapon damage rolls — essential
   for archer builds that want STR to contribute to bow damage. The number you pick is the cap on
   how much of your STR modifier gets applied; pick a value at or above your expected STR modifier.
-  Tagget's caps at +5; Moria and Castle go up to +8.</p>
+  Low (Tagget's) caps at +5; Mid (Rivendell) +5–+10; High (Moria) up to +16.</p>
   <p><strong>Massive Criticals</strong> adds a fixed extra damage roll on every critical hit.
-  The tiers differ by forge: Tagget's offers flat values (1, 2, 3) and small dice (1d4, 1d6) —
-  good for lower-level items. Moria and Castle only offer larger dice (1d12, 2d6, 2d8) — no flat
-  or small-dice options at those forges.</p>
+  Each forge tier offers an exclusive dice band: Low uses flat values and small dice (1, 2, 3,
+  1d4, 1d6); Mid uses medium dice (1d8, 1d10, 1d12); High uses large dice (2d6, 2d8, 2d10).
+  Go to the appropriate forge for the size you want — higher tiers do not repeat lower dice.</p>
+  <p><strong>Damage Bonus and Damage Resistance</strong> follow the same exclusive-tier pattern:
+  Low soaks 5 or 10 per round; Mid soaks 15 or 20; High soaks 25. Damage Immunity likewise
+  escalates: Low has none; Mid offers 5% on energy types; High offers 10%, 25%, or 50% on all
+  eight damage types.</p>
 </div>
 
 <div class="tip-box">
   <p><strong>Spell Resistance note:</strong> SR is a flat numeric threshold, not a percentage.
   When a spell targets you, the caster rolls 1d20 + caster level against your SR — if they meet
-  or beat it the spell lands normally, otherwise it fails. SR 10–22 is bypassed easily by any
-  high-level caster, so this is a modest defence at best.</p>
+  or beat it the spell lands normally, otherwise it fails. SR 10–32 at the High forge is the
+  game maximum; even at SR 32 a high-level caster will sometimes break through.</p>
 </div>
 
 <h4 id="forge-skills">Skill Bonus — available skills</h4>
 <p>The bonus amount (how many ranks to add) is selected from a sub-menu after picking the skill.
 Not every NWN skill is offered.</p>
 <table class="data change-table">
-  <thead><tr><th>Skill</th><th>Tagget's (Mid)</th><th>Moria &amp; Castle (High)</th></tr></thead>
+  <thead><tr><th>Skill</th><th>Low (Tagget's)</th><th>Mid (Rivendell)</th><th>High (Moria)</th></tr></thead>
   <tbody>
-    <tr><td>Animal Empathy</td><td>yes</td><td>yes</td></tr>
-    <tr><td>Appraise</td><td>yes</td><td>yes</td></tr>
-    <tr><td>Bluff</td><td>yes</td><td>yes</td></tr>
-    <tr><td>Concentration</td><td>yes</td><td>yes</td></tr>
-    <tr><td>Craft Armor</td><td>yes</td><td>yes</td></tr>
-    <tr><td>Craft Trap</td><td>yes</td><td>yes</td></tr>
-    <tr><td>Craft Weapon</td><td>yes</td><td>yes</td></tr>
-    <tr><td>Disable Trap</td><td>yes</td><td>yes</td></tr>
-    <tr><td>Heal</td><td>yes</td><td>yes</td></tr>
-    <tr><td>Hide</td><td>—</td><td>yes</td></tr>
-    <tr><td>Intimidate</td><td>yes</td><td>yes</td></tr>
-    <tr><td>Listen</td><td>—</td><td>yes</td></tr>
-    <tr><td>Open Lock</td><td>—</td><td>yes</td></tr>
-    <tr><td>Parry</td><td>yes</td><td>yes</td></tr>
-    <tr><td>Perform</td><td>yes</td><td>yes</td></tr>
-    <tr><td>Persuade</td><td>yes</td><td>yes</td></tr>
-    <tr><td>Pick Pocket</td><td>yes</td><td>yes</td></tr>
-    <tr><td>Search</td><td>—</td><td>yes</td></tr>
-    <tr><td>Set Trap</td><td>yes</td><td>yes</td></tr>
-    <tr><td>Taunt</td><td>—</td><td>yes</td></tr>
-    <tr><td>Tumble</td><td>yes</td><td>—</td></tr>
+    <tr><td>Animal Empathy</td><td>yes</td><td>yes</td><td>yes</td></tr>
+    <tr><td>Appraise</td><td>yes</td><td>yes</td><td>yes</td></tr>
+    <tr><td>Bluff</td><td>yes</td><td>yes</td><td>yes</td></tr>
+    <tr><td>Concentration</td><td>yes</td><td>yes</td><td>yes</td></tr>
+    <tr><td>Craft Armor</td><td>yes</td><td>yes</td><td>yes</td></tr>
+    <tr><td>Craft Trap</td><td>yes</td><td>yes</td><td>yes</td></tr>
+    <tr><td>Craft Weapon</td><td>yes</td><td>yes</td><td>yes</td></tr>
+    <tr><td>Disable Trap</td><td>yes</td><td>yes</td><td>yes</td></tr>
+    <tr><td>Heal</td><td>yes</td><td>yes</td><td>yes</td></tr>
+    <tr><td>Hide</td><td>—</td><td>yes</td><td>yes</td></tr>
+    <tr><td>Intimidate</td><td>yes</td><td>yes</td><td>yes</td></tr>
+    <tr><td>Listen</td><td>—</td><td>yes</td><td>yes</td></tr>
+    <tr><td>Open Lock</td><td>—</td><td>yes</td><td>yes</td></tr>
+    <tr><td>Parry</td><td>yes</td><td>yes</td><td>yes</td></tr>
+    <tr><td>Perform</td><td>yes</td><td>yes</td><td>yes</td></tr>
+    <tr><td>Persuade</td><td>yes</td><td>yes</td><td>yes</td></tr>
+    <tr><td>Pick Pocket</td><td>yes</td><td>yes</td><td>yes</td></tr>
+    <tr><td>Search</td><td>—</td><td>yes</td><td>yes</td></tr>
+    <tr><td>Set Trap</td><td>yes</td><td>yes</td><td>yes</td></tr>
+    <tr><td>Taunt</td><td>—</td><td>yes</td><td>yes</td></tr>
+    <tr><td>Tumble</td><td>yes</td><td>—</td><td>—</td></tr>
   </tbody>
 </table>
 
 <h4 id="forge-feats">Bonus Feat — available feats</h4>
 <p>The feat is added as an item property — it is active only while the item is equipped, and
-does not count toward your character's normal feat count. Only Moria lacks this option entirely.</p>
+does not count toward your character's normal feat count.</p>
 <table class="data change-table">
-  <thead><tr><th>Feat</th><th>Tagget's (Mid)</th><th>Castle (High-full)</th></tr></thead>
+  <thead><tr><th>Feat</th><th>Low (Tagget's)</th><th>Mid (Rivendell)</th><th>High (Moria)</th></tr></thead>
   <tbody>
-    <tr><td>Alertness</td><td>—</td><td>yes</td></tr>
-    <tr><td>Ambidexterity</td><td>yes</td><td>yes</td></tr>
-    <tr><td>Armor Proficiency — Heavy</td><td>—</td><td>yes</td></tr>
-    <tr><td>Armor Proficiency — Light</td><td>yes</td><td>yes</td></tr>
-    <tr><td>Armor Proficiency — Medium</td><td>—</td><td>yes</td></tr>
-    <tr><td>Cleave</td><td>yes</td><td>yes</td></tr>
-    <tr><td>Combat Casting</td><td>yes</td><td>yes</td></tr>
-    <tr><td>Dodge</td><td>—</td><td>yes</td></tr>
-    <tr><td>Extra Turning</td><td>—</td><td>yes</td></tr>
-    <tr><td>Improved Critical — Unarmed</td><td>yes</td><td>yes</td></tr>
-    <tr><td>Knockdown</td><td>yes</td><td>yes</td></tr>
-    <tr><td>Point Blank Shot</td><td>yes</td><td>yes</td></tr>
-    <tr><td>Power Attack</td><td>—</td><td>yes</td></tr>
-    <tr><td>Spell Focus — Abjuration</td><td>yes</td><td>yes</td></tr>
-    <tr><td>Spell Focus — Conjuration</td><td>yes</td><td>yes</td></tr>
-    <tr><td>Spell Focus — Divination</td><td>yes</td><td>yes</td></tr>
-    <tr><td>Spell Focus — Enchantment</td><td>yes</td><td>yes</td></tr>
-    <tr><td>Spell Focus — Evocation</td><td>yes</td><td>yes</td></tr>
-    <tr><td>Spell Focus — Illusion</td><td>yes</td><td>yes</td></tr>
-    <tr><td>Spell Focus — Necromancy</td><td>yes</td><td>yes</td></tr>
-    <tr><td>Spell Penetration</td><td>yes</td><td>yes</td></tr>
-    <tr><td>Two-Weapon Fighting</td><td>yes</td><td>yes</td></tr>
-    <tr><td>Weapon Finesse</td><td>yes</td><td>yes</td></tr>
-    <tr><td>Weapon Proficiency — Exotic</td><td>—</td><td>yes</td></tr>
-    <tr><td>Weapon Proficiency — Martial</td><td>yes</td><td>yes</td></tr>
-    <tr><td>Weapon Proficiency — Simple</td><td>yes</td><td>yes</td></tr>
-    <tr><td>Weapon Specialization — Unarmed</td><td>—</td><td>yes</td></tr>
+    <tr><td>Alertness</td><td>—</td><td>—</td><td>yes</td></tr>
+    <tr><td>Ambidexterity</td><td>yes</td><td>yes</td><td>yes</td></tr>
+    <tr><td>Armor Proficiency — Heavy</td><td>—</td><td>yes</td><td>yes</td></tr>
+    <tr><td>Armor Proficiency — Light</td><td>yes</td><td>yes</td><td>yes</td></tr>
+    <tr><td>Armor Proficiency — Medium</td><td>—</td><td>yes</td><td>yes</td></tr>
+    <tr><td>Cleave</td><td>yes</td><td>yes</td><td>yes</td></tr>
+    <tr><td>Combat Casting</td><td>yes</td><td>yes</td><td>yes</td></tr>
+    <tr><td>Dodge</td><td>—</td><td>—</td><td>yes</td></tr>
+    <tr><td>Extra Turning</td><td>—</td><td>—</td><td>yes</td></tr>
+    <tr><td>Improved Critical — Unarmed</td><td>yes</td><td>yes</td><td>yes</td></tr>
+    <tr><td>Knockdown</td><td>yes</td><td>yes</td><td>yes</td></tr>
+    <tr><td>Point Blank Shot</td><td>yes</td><td>yes</td><td>yes</td></tr>
+    <tr><td>Power Attack</td><td>—</td><td>—</td><td>yes</td></tr>
+    <tr><td>Spell Focus — Abjuration</td><td>yes</td><td>yes</td><td>yes</td></tr>
+    <tr><td>Spell Focus — Conjuration</td><td>yes</td><td>yes</td><td>yes</td></tr>
+    <tr><td>Spell Focus — Divination</td><td>yes</td><td>yes</td><td>yes</td></tr>
+    <tr><td>Spell Focus — Enchantment</td><td>yes</td><td>yes</td><td>yes</td></tr>
+    <tr><td>Spell Focus — Evocation</td><td>yes</td><td>yes</td><td>yes</td></tr>
+    <tr><td>Spell Focus — Illusion</td><td>yes</td><td>yes</td><td>yes</td></tr>
+    <tr><td>Spell Focus — Necromancy</td><td>yes</td><td>yes</td><td>yes</td></tr>
+    <tr><td>Spell Penetration</td><td>yes</td><td>yes</td><td>yes</td></tr>
+    <tr><td>Two-Weapon Fighting</td><td>yes</td><td>yes</td><td>yes</td></tr>
+    <tr><td>Weapon Finesse</td><td>yes</td><td>yes</td><td>yes</td></tr>
+    <tr><td>Weapon Proficiency — Exotic</td><td>—</td><td>yes</td><td>yes</td></tr>
+    <tr><td>Weapon Proficiency — Martial</td><td>yes</td><td>yes</td><td>yes</td></tr>
+    <tr><td>Weapon Proficiency — Simple</td><td>yes</td><td>yes</td><td>yes</td></tr>
+    <tr><td>Weapon Specialization — Unarmed</td><td>—</td><td>—</td><td>yes</td></tr>
   </tbody>
 </table>
 
