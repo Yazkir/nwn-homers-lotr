@@ -46,8 +46,8 @@
   <main>
 <h1>Conversation: <code>kimli_forge</code></h1>
 <dl class="meta">
-<dt>NPC lines</dt><dd>34</dd>
-<dt>PC replies</dt><dd>225</dd>
+<dt>NPC lines</dt><dd>35</dd>
+<dt>PC replies</dt><dd>233</dd>
 <dt>NumWords</dt><dd>585</dd>
 <dt>OnEnd</dt><dd><code>nw_walk_wp</code></dd>
 <dt>OnAbort</dt><dd><code>nw_walk_wp</code></dd>
@@ -258,7 +258,8 @@
 <tr><td><code>setdam1d8</code></td><td>action</td><td>✓</td><td></td></tr>
 <tr><td><code>setdam1d10</code></td><td>action</td><td>✓</td><td></td></tr>
 <tr><td><code>setdamresist20</code></td><td>action</td><td>✓</td><td></td></tr>
-<tr><td><code>setpropen</code></td><td>action</td><td>✓</td><td></td></tr></tbody></table>
+<tr><td><code>setpropen</code></td><td>action</td><td>✓</td><td></td></tr>
+<tr><td><code>setskilltumble</code></td><td>action</td><td>✓</td><td></td></tr></tbody></table>
 <h2>Custom tokens</h2><p class="muted">These runtime tokens are filled by NWScript via <code>SetCustomToken(N, text)</code>. The scripts listed set each token; the actual value depends on game state at runtime.</p><table class="data"><thead><tr><th>Token</th><th>Set by script(s)</th></tr></thead><tbody><tr><td><code>&lt;CUSTOM100&gt;</code></td><td><a href="../scripts/isitemonanvil.html">isitemonanvil</a>, <a href="../scripts/smach_sc001.html">smach_sc001</a></td></tr>
 <tr><td><code>&lt;CUSTOM101&gt;</code></td><td><a href="../scripts/bankbalance.html">bankbalance</a>, <a href="../scripts/calcmodvalue2.html">calcmodvalue2</a>, <a href="../scripts/calcremoverefund.html">calcremoverefund</a>, <a href="../scripts/smach_configure.html">smach_configure</a></td></tr>
 <tr><td><code>&lt;CUSTOM102&gt;</code></td><td><a href="../scripts/isitemonanvil.html">isitemonanvil</a></td></tr></tbody></table>
@@ -785,27 +786,6 @@
 <div class="dlg-tree-ref entry-ref">↩ <a href="#e24">entry #24</a> <span class="dlg-link-preview">“Now choose the damage amount.”</span></div>
 </div>
 </details>
-<details class="dlg-tree-node reply" open>
-<summary><span class="dlg-id">reply #159</span> <span class="dlg-action">→ <code>setdamacid</code></span> <a class="dlg-anchor" href="#r159" title="jump to flat reply #159">¶</a></summary>
-<div class="dlg-text">Acid.</div>
-<div class="dlg-tree-children">
-<div class="dlg-tree-ref entry-ref">↩ <a href="#e24">entry #24</a> <span class="dlg-link-preview">“Now choose the damage amount.”</span></div>
-</div>
-</details>
-<details class="dlg-tree-node reply" open>
-<summary><span class="dlg-id">reply #158</span> <span class="dlg-action">→ <code>setdamelectric</code></span> <a class="dlg-anchor" href="#r158" title="jump to flat reply #158">¶</a></summary>
-<div class="dlg-text">Lightning.</div>
-<div class="dlg-tree-children">
-<div class="dlg-tree-ref entry-ref">↩ <a href="#e24">entry #24</a> <span class="dlg-link-preview">“Now choose the damage amount.”</span></div>
-</div>
-</details>
-<details class="dlg-tree-node reply" open>
-<summary><span class="dlg-id">reply #157</span> <span class="dlg-action">→ <code>setdamsonic</code></span> <a class="dlg-anchor" href="#r157" title="jump to flat reply #157">¶</a></summary>
-<div class="dlg-text">Sonic.</div>
-<div class="dlg-tree-children">
-<div class="dlg-tree-ref entry-ref">↩ <a href="#e24">entry #24</a> <span class="dlg-link-preview">“Now choose the damage amount.”</span></div>
-</div>
-</details>
 </div>
 </details>
 </div>
@@ -819,7 +799,7 @@
 <div class="dlg-text">Please tell me what damage type you would like immunity from.</div>
 <div class="dlg-tree-children">
 <details class="dlg-tree-node reply" open>
-<summary><span class="dlg-id">reply #153</span> <span class="dlg-action">→ <code>setdamslash</code></span> <small class="muted">(if <code>forge_never</code>)</small> <a class="dlg-anchor" href="#r153" title="jump to flat reply #153">¶</a></summary>
+<summary><span class="dlg-id">reply #153</span> <span class="dlg-action">→ <code>setdamslash</code></span> <a class="dlg-anchor" href="#r153" title="jump to flat reply #153">¶</a></summary>
 <div class="dlg-text">Slashing.</div>
 <div class="dlg-tree-children">
 <details class="dlg-tree-node entry" open>
@@ -845,14 +825,14 @@
 </div>
 </details>
 <details class="dlg-tree-node reply" open>
-<summary><span class="dlg-id">reply #152</span> <span class="dlg-action">→ <code>setdampierce</code></span> <small class="muted">(if <code>forge_never</code>)</small> <a class="dlg-anchor" href="#r152" title="jump to flat reply #152">¶</a></summary>
+<summary><span class="dlg-id">reply #152</span> <span class="dlg-action">→ <code>setdampierce</code></span> <a class="dlg-anchor" href="#r152" title="jump to flat reply #152">¶</a></summary>
 <div class="dlg-text">Piercing.</div>
 <div class="dlg-tree-children">
 <div class="dlg-tree-ref entry-ref">↩ <a href="#e22">entry #22</a> <span class="dlg-link-preview">“Now choose the immunity level.”</span></div>
 </div>
 </details>
 <details class="dlg-tree-node reply" open>
-<summary><span class="dlg-id">reply #151</span> <span class="dlg-action">→ <code>setdambludg</code></span> <small class="muted">(if <code>forge_never</code>)</small> <a class="dlg-anchor" href="#r151" title="jump to flat reply #151">¶</a></summary>
+<summary><span class="dlg-id">reply #151</span> <span class="dlg-action">→ <code>setdambludg</code></span> <a class="dlg-anchor" href="#r151" title="jump to flat reply #151">¶</a></summary>
 <div class="dlg-text">Bludgeoning.</div>
 <div class="dlg-tree-children">
 <div class="dlg-tree-ref entry-ref">↩ <a href="#e22">entry #22</a> <span class="dlg-link-preview">“Now choose the immunity level.”</span></div>
@@ -872,27 +852,6 @@
 <div class="dlg-tree-ref entry-ref">↩ <a href="#e22">entry #22</a> <span class="dlg-link-preview">“Now choose the immunity level.”</span></div>
 </div>
 </details>
-<details class="dlg-tree-node reply" open>
-<summary><span class="dlg-id">reply #148</span> <span class="dlg-action">→ <code>setdamacid</code></span> <a class="dlg-anchor" href="#r148" title="jump to flat reply #148">¶</a></summary>
-<div class="dlg-text">Acid.</div>
-<div class="dlg-tree-children">
-<div class="dlg-tree-ref entry-ref">↩ <a href="#e22">entry #22</a> <span class="dlg-link-preview">“Now choose the immunity level.”</span></div>
-</div>
-</details>
-<details class="dlg-tree-node reply" open>
-<summary><span class="dlg-id">reply #147</span> <span class="dlg-action">→ <code>setdamelectric</code></span> <a class="dlg-anchor" href="#r147" title="jump to flat reply #147">¶</a></summary>
-<div class="dlg-text">Lightning.</div>
-<div class="dlg-tree-children">
-<div class="dlg-tree-ref entry-ref">↩ <a href="#e22">entry #22</a> <span class="dlg-link-preview">“Now choose the immunity level.”</span></div>
-</div>
-</details>
-<details class="dlg-tree-node reply" open>
-<summary><span class="dlg-id">reply #146</span> <span class="dlg-action">→ <code>setdamsonic</code></span> <a class="dlg-anchor" href="#r146" title="jump to flat reply #146">¶</a></summary>
-<div class="dlg-text">Sonic.</div>
-<div class="dlg-tree-children">
-<div class="dlg-tree-ref entry-ref">↩ <a href="#e22">entry #22</a> <span class="dlg-link-preview">“Now choose the immunity level.”</span></div>
-</div>
-</details>
 </div>
 </details>
 </div>
@@ -906,27 +865,13 @@
 <div class="dlg-text">What weapon enhancement level is necessary to get past the damage reduction?</div>
 <div class="dlg-tree-children">
 <details class="dlg-tree-node reply" open>
-<summary><span class="dlg-id">reply #134</span> <span class="dlg-action">→ <code>setdamreduct1</code></span> <a class="dlg-anchor" href="#r134" title="jump to flat reply #134">¶</a></summary>
-<div class="dlg-text">+1</div>
+<summary><span class="dlg-id">reply #130</span> <span class="dlg-action">→ <code>setdamreduct5</code></span> <a class="dlg-anchor" href="#r130" title="jump to flat reply #130">¶</a></summary>
+<div class="dlg-text">+5</div>
 <div class="dlg-tree-children">
 <details class="dlg-tree-node entry" open>
 <summary><span class="dlg-id">entry #20</span> <a class="dlg-anchor" href="#e20" title="jump to flat entry #20">¶</a></summary>
 <div class="dlg-text">How much damage should be absorbed?</div>
 <div class="dlg-tree-children">
-<details class="dlg-tree-node reply" open>
-<summary><span class="dlg-id">reply #144</span> <span class="dlg-action">→ <code>setdamsoak05</code></span> <a class="dlg-anchor" href="#r144" title="jump to flat reply #144">¶</a></summary>
-<div class="dlg-text">5</div>
-<div class="dlg-tree-children">
-<div class="dlg-tree-ref entry-ref">↩ <a href="#e27">entry #27</a> <span class="dlg-link-preview">“Please wait while I calculate the cost of this modification.”</span></div>
-</div>
-</details>
-<details class="dlg-tree-node reply" open>
-<summary><span class="dlg-id">reply #143</span> <span class="dlg-action">→ <code>setdamsoak10</code></span> <a class="dlg-anchor" href="#r143" title="jump to flat reply #143">¶</a></summary>
-<div class="dlg-text">10</div>
-<div class="dlg-tree-children">
-<div class="dlg-tree-ref entry-ref">↩ <a href="#e27">entry #27</a> <span class="dlg-link-preview">“Please wait while I calculate the cost of this modification.”</span></div>
-</div>
-</details>
 <details class="dlg-tree-node reply" open>
 <summary><span class="dlg-id">reply #142</span> <span class="dlg-action">→ <code>setdamsoak15</code></span> <a class="dlg-anchor" href="#r142" title="jump to flat reply #142">¶</a></summary>
 <div class="dlg-text">15</div>
@@ -948,71 +893,8 @@
 <div class="dlg-tree-ref entry-ref">↩ <a href="#e27">entry #27</a> <span class="dlg-link-preview">“Please wait while I calculate the cost of this modification.”</span></div>
 </div>
 </details>
-<details class="dlg-tree-node reply" open>
-<summary><span class="dlg-id">reply #139</span> <span class="dlg-action">→ <code>setdamsoak30</code></span> <a class="dlg-anchor" href="#r139" title="jump to flat reply #139">¶</a></summary>
-<div class="dlg-text">30</div>
-<div class="dlg-tree-children">
-<div class="dlg-tree-ref entry-ref">↩ <a href="#e27">entry #27</a> <span class="dlg-link-preview">“Please wait while I calculate the cost of this modification.”</span></div>
 </div>
 </details>
-<details class="dlg-tree-node reply" open>
-<summary><span class="dlg-id">reply #138</span> <span class="dlg-action">→ <code>setdamsoak35</code></span> <a class="dlg-anchor" href="#r138" title="jump to flat reply #138">¶</a></summary>
-<div class="dlg-text">35</div>
-<div class="dlg-tree-children">
-<div class="dlg-tree-ref entry-ref">↩ <a href="#e27">entry #27</a> <span class="dlg-link-preview">“Please wait while I calculate the cost of this modification.”</span></div>
-</div>
-</details>
-<details class="dlg-tree-node reply" open>
-<summary><span class="dlg-id">reply #137</span> <span class="dlg-action">→ <code>setdamsoak40</code></span> <small class="muted">(if <code>forge_never</code>)</small> <a class="dlg-anchor" href="#r137" title="jump to flat reply #137">¶</a></summary>
-<div class="dlg-text">40</div>
-<div class="dlg-tree-children">
-<div class="dlg-tree-ref entry-ref">↩ <a href="#e27">entry #27</a> <span class="dlg-link-preview">“Please wait while I calculate the cost of this modification.”</span></div>
-</div>
-</details>
-<details class="dlg-tree-node reply" open>
-<summary><span class="dlg-id">reply #136</span> <span class="dlg-action">→ <code>setdamsoak45</code></span> <small class="muted">(if <code>forge_never</code>)</small> <a class="dlg-anchor" href="#r136" title="jump to flat reply #136">¶</a></summary>
-<div class="dlg-text">45</div>
-<div class="dlg-tree-children">
-<div class="dlg-tree-ref entry-ref">↩ <a href="#e27">entry #27</a> <span class="dlg-link-preview">“Please wait while I calculate the cost of this modification.”</span></div>
-</div>
-</details>
-<details class="dlg-tree-node reply" open>
-<summary><span class="dlg-id">reply #135</span> <span class="dlg-action">→ <code>setdamsoak50</code></span> <small class="muted">(if <code>forge_never</code>)</small> <a class="dlg-anchor" href="#r135" title="jump to flat reply #135">¶</a></summary>
-<div class="dlg-text">50</div>
-<div class="dlg-tree-children">
-<div class="dlg-tree-ref entry-ref">↩ <a href="#e27">entry #27</a> <span class="dlg-link-preview">“Please wait while I calculate the cost of this modification.”</span></div>
-</div>
-</details>
-</div>
-</details>
-</div>
-</details>
-<details class="dlg-tree-node reply" open>
-<summary><span class="dlg-id">reply #133</span> <span class="dlg-action">→ <code>setdamreduct2</code></span> <a class="dlg-anchor" href="#r133" title="jump to flat reply #133">¶</a></summary>
-<div class="dlg-text">+2</div>
-<div class="dlg-tree-children">
-<div class="dlg-tree-ref entry-ref">↩ <a href="#e20">entry #20</a> <span class="dlg-link-preview">“How much damage should be absorbed?”</span></div>
-</div>
-</details>
-<details class="dlg-tree-node reply" open>
-<summary><span class="dlg-id">reply #132</span> <span class="dlg-action">→ <code>setdamreduct3</code></span> <a class="dlg-anchor" href="#r132" title="jump to flat reply #132">¶</a></summary>
-<div class="dlg-text">+3</div>
-<div class="dlg-tree-children">
-<div class="dlg-tree-ref entry-ref">↩ <a href="#e20">entry #20</a> <span class="dlg-link-preview">“How much damage should be absorbed?”</span></div>
-</div>
-</details>
-<details class="dlg-tree-node reply" open>
-<summary><span class="dlg-id">reply #131</span> <span class="dlg-action">→ <code>setdamreduct4</code></span> <a class="dlg-anchor" href="#r131" title="jump to flat reply #131">¶</a></summary>
-<div class="dlg-text">+4</div>
-<div class="dlg-tree-children">
-<div class="dlg-tree-ref entry-ref">↩ <a href="#e20">entry #20</a> <span class="dlg-link-preview">“How much damage should be absorbed?”</span></div>
-</div>
-</details>
-<details class="dlg-tree-node reply" open>
-<summary><span class="dlg-id">reply #130</span> <span class="dlg-action">→ <code>setdamreduct5</code></span> <a class="dlg-anchor" href="#r130" title="jump to flat reply #130">¶</a></summary>
-<div class="dlg-text">+5</div>
-<div class="dlg-tree-children">
-<div class="dlg-tree-ref entry-ref">↩ <a href="#e20">entry #20</a> <span class="dlg-link-preview">“How much damage should be absorbed?”</span></div>
 </div>
 </details>
 <details class="dlg-tree-node reply" open>
@@ -1030,21 +912,21 @@
 </div>
 </details>
 <details class="dlg-tree-node reply" open>
-<summary><span class="dlg-id">reply #127</span> <span class="dlg-action">→ <code>setdamreduct8</code></span> <small class="muted">(if <code>forge_never</code>)</small> <a class="dlg-anchor" href="#r127" title="jump to flat reply #127">¶</a></summary>
+<summary><span class="dlg-id">reply #127</span> <span class="dlg-action">→ <code>setdamreduct8</code></span> <a class="dlg-anchor" href="#r127" title="jump to flat reply #127">¶</a></summary>
 <div class="dlg-text">+8</div>
 <div class="dlg-tree-children">
 <div class="dlg-tree-ref entry-ref">↩ <a href="#e20">entry #20</a> <span class="dlg-link-preview">“How much damage should be absorbed?”</span></div>
 </div>
 </details>
 <details class="dlg-tree-node reply" open>
-<summary><span class="dlg-id">reply #126</span> <span class="dlg-action">→ <code>setdamreduct9</code></span> <small class="muted">(if <code>forge_never</code>)</small> <a class="dlg-anchor" href="#r126" title="jump to flat reply #126">¶</a></summary>
+<summary><span class="dlg-id">reply #126</span> <span class="dlg-action">→ <code>setdamreduct9</code></span> <a class="dlg-anchor" href="#r126" title="jump to flat reply #126">¶</a></summary>
 <div class="dlg-text">+9</div>
 <div class="dlg-tree-children">
 <div class="dlg-tree-ref entry-ref">↩ <a href="#e20">entry #20</a> <span class="dlg-link-preview">“How much damage should be absorbed?”</span></div>
 </div>
 </details>
 <details class="dlg-tree-node reply" open>
-<summary><span class="dlg-id">reply #125</span> <span class="dlg-action">→ <code>setdamreduct10</code></span> <small class="muted">(if <code>forge_never</code>)</small> <a class="dlg-anchor" href="#r125" title="jump to flat reply #125">¶</a></summary>
+<summary><span class="dlg-id">reply #125</span> <span class="dlg-action">→ <code>setdamreduct10</code></span> <a class="dlg-anchor" href="#r125" title="jump to flat reply #125">¶</a></summary>
 <div class="dlg-text">+10</div>
 <div class="dlg-tree-children">
 <div class="dlg-tree-ref entry-ref">↩ <a href="#e20">entry #20</a> <span class="dlg-link-preview">“How much damage should be absorbed?”</span></div>
@@ -1126,27 +1008,6 @@
 <details class="dlg-tree-node reply" open>
 <summary><span class="dlg-id">reply #116</span> <span class="dlg-action">→ <code>setdamcold</code></span> <a class="dlg-anchor" href="#r116" title="jump to flat reply #116">¶</a></summary>
 <div class="dlg-text">Cold.</div>
-<div class="dlg-tree-children">
-<div class="dlg-tree-ref entry-ref">↩ <a href="#e18">entry #18</a> <span class="dlg-link-preview">“How much damage should be resisted each round?”</span></div>
-</div>
-</details>
-<details class="dlg-tree-node reply" open>
-<summary><span class="dlg-id">reply #115</span> <span class="dlg-action">→ <code>setdamacid</code></span> <a class="dlg-anchor" href="#r115" title="jump to flat reply #115">¶</a></summary>
-<div class="dlg-text">Acid.</div>
-<div class="dlg-tree-children">
-<div class="dlg-tree-ref entry-ref">↩ <a href="#e18">entry #18</a> <span class="dlg-link-preview">“How much damage should be resisted each round?”</span></div>
-</div>
-</details>
-<details class="dlg-tree-node reply" open>
-<summary><span class="dlg-id">reply #114</span> <span class="dlg-action">→ <code>setdamelectric</code></span> <a class="dlg-anchor" href="#r114" title="jump to flat reply #114">¶</a></summary>
-<div class="dlg-text">Lightning.</div>
-<div class="dlg-tree-children">
-<div class="dlg-tree-ref entry-ref">↩ <a href="#e18">entry #18</a> <span class="dlg-link-preview">“How much damage should be resisted each round?”</span></div>
-</div>
-</details>
-<details class="dlg-tree-node reply" open>
-<summary><span class="dlg-id">reply #113</span> <span class="dlg-action">→ <code>setdamsonic</code></span> <a class="dlg-anchor" href="#r113" title="jump to flat reply #113">¶</a></summary>
-<div class="dlg-text">Sonic.</div>
 <div class="dlg-tree-children">
 <div class="dlg-tree-ref entry-ref">↩ <a href="#e18">entry #18</a> <span class="dlg-link-preview">“How much damage should be resisted each round?”</span></div>
 </div>
@@ -1641,140 +1502,201 @@
 <summary><span class="dlg-id">reply #49</span> <span class="dlg-action">→ <code>setskillanempath</code></span> <a class="dlg-anchor" href="#r49" title="jump to flat reply #49">¶</a></summary>
 <div class="dlg-text">Animal Empathy.</div>
 <div class="dlg-tree-children">
-<div class="dlg-tree-ref entry-ref">↩ <a href="#e26">entry #26</a> <span class="dlg-link-preview">“Now, please select the bonus amount.”</span></div>
+<details class="dlg-tree-node entry" open>
+<summary><span class="dlg-id">entry #34</span> <a class="dlg-anchor" href="#e34" title="jump to flat entry #34">¶</a></summary>
+<div class="dlg-text">Now, please select the bonus amount.</div>
+<div class="dlg-tree-children">
+<details class="dlg-tree-node reply" open>
+<summary><span class="dlg-id">reply #225</span> <span class="dlg-action">→ <code>setplus0</code></span> <a class="dlg-anchor" href="#r225" title="jump to flat reply #225">¶</a></summary>
+<div class="dlg-text">Remove the existing bonus.</div>
+<div class="dlg-tree-children">
+<div class="dlg-tree-ref entry-ref">↩ <a href="#e27">entry #27</a> <span class="dlg-link-preview">“Please wait while I calculate the cost of this modification.”</span></div>
+</div>
+</details>
+<details class="dlg-tree-node reply" open>
+<summary><span class="dlg-id">reply #226</span> <span class="dlg-action">→ <code>setplus10</code></span> <a class="dlg-anchor" href="#r226" title="jump to flat reply #226">¶</a></summary>
+<div class="dlg-text">+10</div>
+<div class="dlg-tree-children">
+<div class="dlg-tree-ref entry-ref">↩ <a href="#e27">entry #27</a> <span class="dlg-link-preview">“Please wait while I calculate the cost of this modification.”</span></div>
+</div>
+</details>
+<details class="dlg-tree-node reply" open>
+<summary><span class="dlg-id">reply #227</span> <span class="dlg-action">→ <code>setplus9</code></span> <a class="dlg-anchor" href="#r227" title="jump to flat reply #227">¶</a></summary>
+<div class="dlg-text">+9</div>
+<div class="dlg-tree-children">
+<div class="dlg-tree-ref entry-ref">↩ <a href="#e27">entry #27</a> <span class="dlg-link-preview">“Please wait while I calculate the cost of this modification.”</span></div>
+</div>
+</details>
+<details class="dlg-tree-node reply" open>
+<summary><span class="dlg-id">reply #228</span> <span class="dlg-action">→ <code>setplus8</code></span> <a class="dlg-anchor" href="#r228" title="jump to flat reply #228">¶</a></summary>
+<div class="dlg-text">+8</div>
+<div class="dlg-tree-children">
+<div class="dlg-tree-ref entry-ref">↩ <a href="#e27">entry #27</a> <span class="dlg-link-preview">“Please wait while I calculate the cost of this modification.”</span></div>
+</div>
+</details>
+<details class="dlg-tree-node reply" open>
+<summary><span class="dlg-id">reply #229</span> <span class="dlg-action">→ <code>setplus7</code></span> <a class="dlg-anchor" href="#r229" title="jump to flat reply #229">¶</a></summary>
+<div class="dlg-text">+7</div>
+<div class="dlg-tree-children">
+<div class="dlg-tree-ref entry-ref">↩ <a href="#e27">entry #27</a> <span class="dlg-link-preview">“Please wait while I calculate the cost of this modification.”</span></div>
+</div>
+</details>
+<details class="dlg-tree-node reply" open>
+<summary><span class="dlg-id">reply #230</span> <span class="dlg-action">→ <code>setplus6</code></span> <a class="dlg-anchor" href="#r230" title="jump to flat reply #230">¶</a></summary>
+<div class="dlg-text">+6</div>
+<div class="dlg-tree-children">
+<div class="dlg-tree-ref entry-ref">↩ <a href="#e27">entry #27</a> <span class="dlg-link-preview">“Please wait while I calculate the cost of this modification.”</span></div>
+</div>
+</details>
+<details class="dlg-tree-node reply" open>
+<summary><span class="dlg-id">reply #231</span> <span class="dlg-action">→ <code>setplus5</code></span> <a class="dlg-anchor" href="#r231" title="jump to flat reply #231">¶</a></summary>
+<div class="dlg-text">+5</div>
+<div class="dlg-tree-children">
+<div class="dlg-tree-ref entry-ref">↩ <a href="#e27">entry #27</a> <span class="dlg-link-preview">“Please wait while I calculate the cost of this modification.”</span></div>
+</div>
+</details>
+</div>
+</details>
 </div>
 </details>
 <details class="dlg-tree-node reply" open>
 <summary><span class="dlg-id">reply #48</span> <span class="dlg-action">→ <code>setskillappraise</code></span> <a class="dlg-anchor" href="#r48" title="jump to flat reply #48">¶</a></summary>
 <div class="dlg-text">Appraise.</div>
 <div class="dlg-tree-children">
-<div class="dlg-tree-ref entry-ref">↩ <a href="#e26">entry #26</a> <span class="dlg-link-preview">“Now, please select the bonus amount.”</span></div>
+<div class="dlg-tree-ref entry-ref">↩ <a href="#e34">entry #34</a> <span class="dlg-link-preview">“Now, please select the bonus amount.”</span></div>
 </div>
 </details>
 <details class="dlg-tree-node reply" open>
 <summary><span class="dlg-id">reply #47</span> <span class="dlg-action">→ <code>setskillbluff</code></span> <a class="dlg-anchor" href="#r47" title="jump to flat reply #47">¶</a></summary>
 <div class="dlg-text">Bluff.</div>
 <div class="dlg-tree-children">
-<div class="dlg-tree-ref entry-ref">↩ <a href="#e26">entry #26</a> <span class="dlg-link-preview">“Now, please select the bonus amount.”</span></div>
+<div class="dlg-tree-ref entry-ref">↩ <a href="#e34">entry #34</a> <span class="dlg-link-preview">“Now, please select the bonus amount.”</span></div>
 </div>
 </details>
 <details class="dlg-tree-node reply" open>
 <summary><span class="dlg-id">reply #46</span> <span class="dlg-action">→ <code>setskillconcentr</code></span> <a class="dlg-anchor" href="#r46" title="jump to flat reply #46">¶</a></summary>
 <div class="dlg-text">Concentration.</div>
 <div class="dlg-tree-children">
-<div class="dlg-tree-ref entry-ref">↩ <a href="#e26">entry #26</a> <span class="dlg-link-preview">“Now, please select the bonus amount.”</span></div>
+<div class="dlg-tree-ref entry-ref">↩ <a href="#e34">entry #34</a> <span class="dlg-link-preview">“Now, please select the bonus amount.”</span></div>
 </div>
 </details>
 <details class="dlg-tree-node reply" open>
 <summary><span class="dlg-id">reply #45</span> <span class="dlg-action">→ <code>setskillcraftarm</code></span> <a class="dlg-anchor" href="#r45" title="jump to flat reply #45">¶</a></summary>
 <div class="dlg-text">Craft Armor.</div>
 <div class="dlg-tree-children">
-<div class="dlg-tree-ref entry-ref">↩ <a href="#e26">entry #26</a> <span class="dlg-link-preview">“Now, please select the bonus amount.”</span></div>
+<div class="dlg-tree-ref entry-ref">↩ <a href="#e34">entry #34</a> <span class="dlg-link-preview">“Now, please select the bonus amount.”</span></div>
 </div>
 </details>
 <details class="dlg-tree-node reply" open>
 <summary><span class="dlg-id">reply #44</span> <span class="dlg-action">→ <code>setskillcrafttrp</code></span> <a class="dlg-anchor" href="#r44" title="jump to flat reply #44">¶</a></summary>
 <div class="dlg-text">Craft Trap.</div>
 <div class="dlg-tree-children">
-<div class="dlg-tree-ref entry-ref">↩ <a href="#e26">entry #26</a> <span class="dlg-link-preview">“Now, please select the bonus amount.”</span></div>
+<div class="dlg-tree-ref entry-ref">↩ <a href="#e34">entry #34</a> <span class="dlg-link-preview">“Now, please select the bonus amount.”</span></div>
 </div>
 </details>
 <details class="dlg-tree-node reply" open>
 <summary><span class="dlg-id">reply #43</span> <span class="dlg-action">→ <code>setskillcraftwpn</code></span> <a class="dlg-anchor" href="#r43" title="jump to flat reply #43">¶</a></summary>
 <div class="dlg-text">Craft Weapon.</div>
 <div class="dlg-tree-children">
-<div class="dlg-tree-ref entry-ref">↩ <a href="#e26">entry #26</a> <span class="dlg-link-preview">“Now, please select the bonus amount.”</span></div>
+<div class="dlg-tree-ref entry-ref">↩ <a href="#e34">entry #34</a> <span class="dlg-link-preview">“Now, please select the bonus amount.”</span></div>
 </div>
 </details>
 <details class="dlg-tree-node reply" open>
 <summary><span class="dlg-id">reply #42</span> <span class="dlg-action">→ <code>setskilldisabtrp</code></span> <a class="dlg-anchor" href="#r42" title="jump to flat reply #42">¶</a></summary>
 <div class="dlg-text">Disable Trap.</div>
 <div class="dlg-tree-children">
-<div class="dlg-tree-ref entry-ref">↩ <a href="#e26">entry #26</a> <span class="dlg-link-preview">“Now, please select the bonus amount.”</span></div>
+<div class="dlg-tree-ref entry-ref">↩ <a href="#e34">entry #34</a> <span class="dlg-link-preview">“Now, please select the bonus amount.”</span></div>
 </div>
 </details>
 <details class="dlg-tree-node reply" open>
 <summary><span class="dlg-id">reply #41</span> <span class="dlg-action">→ <code>setskillheal</code></span> <a class="dlg-anchor" href="#r41" title="jump to flat reply #41">¶</a></summary>
 <div class="dlg-text">Heal.</div>
 <div class="dlg-tree-children">
-<div class="dlg-tree-ref entry-ref">↩ <a href="#e26">entry #26</a> <span class="dlg-link-preview">“Now, please select the bonus amount.”</span></div>
+<div class="dlg-tree-ref entry-ref">↩ <a href="#e34">entry #34</a> <span class="dlg-link-preview">“Now, please select the bonus amount.”</span></div>
 </div>
 </details>
 <details class="dlg-tree-node reply" open>
 <summary><span class="dlg-id">reply #40</span> <span class="dlg-action">→ <code>setskillhide</code></span> <a class="dlg-anchor" href="#r40" title="jump to flat reply #40">¶</a></summary>
 <div class="dlg-text">Hide.</div>
 <div class="dlg-tree-children">
-<div class="dlg-tree-ref entry-ref">↩ <a href="#e26">entry #26</a> <span class="dlg-link-preview">“Now, please select the bonus amount.”</span></div>
+<div class="dlg-tree-ref entry-ref">↩ <a href="#e34">entry #34</a> <span class="dlg-link-preview">“Now, please select the bonus amount.”</span></div>
 </div>
 </details>
 <details class="dlg-tree-node reply" open>
 <summary><span class="dlg-id">reply #39</span> <span class="dlg-action">→ <code>setskillintimidt</code></span> <a class="dlg-anchor" href="#r39" title="jump to flat reply #39">¶</a></summary>
 <div class="dlg-text">Intimidate.</div>
 <div class="dlg-tree-children">
-<div class="dlg-tree-ref entry-ref">↩ <a href="#e26">entry #26</a> <span class="dlg-link-preview">“Now, please select the bonus amount.”</span></div>
+<div class="dlg-tree-ref entry-ref">↩ <a href="#e34">entry #34</a> <span class="dlg-link-preview">“Now, please select the bonus amount.”</span></div>
 </div>
 </details>
 <details class="dlg-tree-node reply" open>
 <summary><span class="dlg-id">reply #38</span> <span class="dlg-action">→ <code>setskilllisten</code></span> <a class="dlg-anchor" href="#r38" title="jump to flat reply #38">¶</a></summary>
 <div class="dlg-text">Listen.</div>
 <div class="dlg-tree-children">
-<div class="dlg-tree-ref entry-ref">↩ <a href="#e26">entry #26</a> <span class="dlg-link-preview">“Now, please select the bonus amount.”</span></div>
+<div class="dlg-tree-ref entry-ref">↩ <a href="#e34">entry #34</a> <span class="dlg-link-preview">“Now, please select the bonus amount.”</span></div>
 </div>
 </details>
 <details class="dlg-tree-node reply" open>
 <summary><span class="dlg-id">reply #37</span> <span class="dlg-action">→ <code>setskillopenlock</code></span> <a class="dlg-anchor" href="#r37" title="jump to flat reply #37">¶</a></summary>
 <div class="dlg-text">Open Lock.</div>
 <div class="dlg-tree-children">
-<div class="dlg-tree-ref entry-ref">↩ <a href="#e26">entry #26</a> <span class="dlg-link-preview">“Now, please select the bonus amount.”</span></div>
+<div class="dlg-tree-ref entry-ref">↩ <a href="#e34">entry #34</a> <span class="dlg-link-preview">“Now, please select the bonus amount.”</span></div>
 </div>
 </details>
 <details class="dlg-tree-node reply" open>
 <summary><span class="dlg-id">reply #36</span> <span class="dlg-action">→ <code>setskillparry</code></span> <a class="dlg-anchor" href="#r36" title="jump to flat reply #36">¶</a></summary>
 <div class="dlg-text">Parry.</div>
 <div class="dlg-tree-children">
-<div class="dlg-tree-ref entry-ref">↩ <a href="#e26">entry #26</a> <span class="dlg-link-preview">“Now, please select the bonus amount.”</span></div>
+<div class="dlg-tree-ref entry-ref">↩ <a href="#e34">entry #34</a> <span class="dlg-link-preview">“Now, please select the bonus amount.”</span></div>
 </div>
 </details>
 <details class="dlg-tree-node reply" open>
 <summary><span class="dlg-id">reply #35</span> <span class="dlg-action">→ <code>setskillperform</code></span> <a class="dlg-anchor" href="#r35" title="jump to flat reply #35">¶</a></summary>
 <div class="dlg-text">Perform.</div>
 <div class="dlg-tree-children">
-<div class="dlg-tree-ref entry-ref">↩ <a href="#e26">entry #26</a> <span class="dlg-link-preview">“Now, please select the bonus amount.”</span></div>
+<div class="dlg-tree-ref entry-ref">↩ <a href="#e34">entry #34</a> <span class="dlg-link-preview">“Now, please select the bonus amount.”</span></div>
 </div>
 </details>
 <details class="dlg-tree-node reply" open>
 <summary><span class="dlg-id">reply #34</span> <span class="dlg-action">→ <code>setskillpersuade</code></span> <a class="dlg-anchor" href="#r34" title="jump to flat reply #34">¶</a></summary>
 <div class="dlg-text">Persuade.</div>
 <div class="dlg-tree-children">
-<div class="dlg-tree-ref entry-ref">↩ <a href="#e26">entry #26</a> <span class="dlg-link-preview">“Now, please select the bonus amount.”</span></div>
+<div class="dlg-tree-ref entry-ref">↩ <a href="#e34">entry #34</a> <span class="dlg-link-preview">“Now, please select the bonus amount.”</span></div>
 </div>
 </details>
 <details class="dlg-tree-node reply" open>
 <summary><span class="dlg-id">reply #33</span> <span class="dlg-action">→ <code>setskillpickpokt</code></span> <a class="dlg-anchor" href="#r33" title="jump to flat reply #33">¶</a></summary>
 <div class="dlg-text">Pick Pocket.</div>
 <div class="dlg-tree-children">
-<div class="dlg-tree-ref entry-ref">↩ <a href="#e26">entry #26</a> <span class="dlg-link-preview">“Now, please select the bonus amount.”</span></div>
+<div class="dlg-tree-ref entry-ref">↩ <a href="#e34">entry #34</a> <span class="dlg-link-preview">“Now, please select the bonus amount.”</span></div>
 </div>
 </details>
 <details class="dlg-tree-node reply" open>
 <summary><span class="dlg-id">reply #32</span> <span class="dlg-action">→ <code>setskillsearch</code></span> <a class="dlg-anchor" href="#r32" title="jump to flat reply #32">¶</a></summary>
 <div class="dlg-text">Search.</div>
 <div class="dlg-tree-children">
-<div class="dlg-tree-ref entry-ref">↩ <a href="#e26">entry #26</a> <span class="dlg-link-preview">“Now, please select the bonus amount.”</span></div>
+<div class="dlg-tree-ref entry-ref">↩ <a href="#e34">entry #34</a> <span class="dlg-link-preview">“Now, please select the bonus amount.”</span></div>
 </div>
 </details>
 <details class="dlg-tree-node reply" open>
 <summary><span class="dlg-id">reply #31</span> <span class="dlg-action">→ <code>setskillsettrap</code></span> <a class="dlg-anchor" href="#r31" title="jump to flat reply #31">¶</a></summary>
 <div class="dlg-text">Set Trap.</div>
 <div class="dlg-tree-children">
-<div class="dlg-tree-ref entry-ref">↩ <a href="#e26">entry #26</a> <span class="dlg-link-preview">“Now, please select the bonus amount.”</span></div>
+<div class="dlg-tree-ref entry-ref">↩ <a href="#e34">entry #34</a> <span class="dlg-link-preview">“Now, please select the bonus amount.”</span></div>
 </div>
 </details>
 <details class="dlg-tree-node reply" open>
 <summary><span class="dlg-id">reply #30</span> <span class="dlg-action">→ <code>setskilltaunt</code></span> <a class="dlg-anchor" href="#r30" title="jump to flat reply #30">¶</a></summary>
 <div class="dlg-text">Taunt.</div>
 <div class="dlg-tree-children">
-<div class="dlg-tree-ref entry-ref">↩ <a href="#e26">entry #26</a> <span class="dlg-link-preview">“Now, please select the bonus amount.”</span></div>
+<div class="dlg-tree-ref entry-ref">↩ <a href="#e34">entry #34</a> <span class="dlg-link-preview">“Now, please select the bonus amount.”</span></div>
+</div>
+</details>
+<details class="dlg-tree-node reply" open>
+<summary><span class="dlg-id">reply #232</span> <span class="dlg-action">→ <code>setskilltumble</code></span> <a class="dlg-anchor" href="#r232" title="jump to flat reply #232">¶</a></summary>
+<div class="dlg-text">Tumble.</div>
+<div class="dlg-tree-children">
+<div class="dlg-tree-ref entry-ref">↩ <a href="#e34">entry #34</a> <span class="dlg-link-preview">“Now, please select the bonus amount.”</span></div>
 </div>
 </details>
 </div>
@@ -2028,7 +1950,7 @@
 <div class="dlg-node entry" id="e5"><div class="dlg-head"><span class="dlg-id">entry #5</span></div><div class="dlg-text">Select the ammo type.</div><ul class="dlg-links"><li><a href="#r15">→ reply #15</a> <span class="dlg-link-preview">“Basic.”</span></li><li><a href="#r14">→ reply #14</a> <span class="dlg-link-preview">“+1”</span></li><li><a href="#r13">→ reply #13</a> <span class="dlg-link-preview">“+2”</span></li><li><a href="#r12">→ reply #12</a> <span class="dlg-link-preview">“+3”</span></li><li><a href="#r11">→ reply #11</a> <span class="dlg-link-preview">“+4”</span></li><li><a href="#r10">→ reply #10</a> <span class="dlg-link-preview">“+5”</span></li><li><a href="#r9">→ reply #9</a> <span class="dlg-link-preview">“1d6 Cold.”</span></li><li><a href="#r8">→ reply #8</a> <span class="dlg-link-preview">“1d6 Fire.”</span></li><li><a href="#r7">→ reply #7</a> <span class="dlg-link-preview">“1d6 Light.”</span></li></ul></div>
 <div class="dlg-node entry" id="e6"><div class="dlg-head"><span class="dlg-id">entry #6</span></div><div class="dlg-text">Please select the modifier.</div><ul class="dlg-links"><li><a href="#r19">→ reply #19</a> <span class="dlg-link-preview">“Minus 30%.”</span></li><li><a href="#r18">→ reply #18</a> <span class="dlg-link-preview">“Minus 20%.”</span></li><li><a href="#r17">→ reply #17</a> <span class="dlg-link-preview">“Minus 10%.”</span></li></ul></div>
 <div class="dlg-node entry" id="e7"><div class="dlg-head"><span class="dlg-id">entry #7</span></div><div class="dlg-text">Choose the amount of the reduction.</div><ul class="dlg-links"><li><a href="#r25">→ reply #25</a> <span class="dlg-link-preview">“10%.”</span></li><li><a href="#r24">→ reply #24</a> <span class="dlg-link-preview">“20%.”</span></li><li><a href="#r23">→ reply #23</a> <span class="dlg-link-preview">“40%.”</span></li><li><a href="#r22">→ reply #22</a> <span class="dlg-link-preview">“60%.”</span></li><li><a href="#r21">→ reply #21</a> <span class="dlg-link-preview">“80%.”</span> <small class="muted">(if <code>forge_never</code>)</small></li></ul></div>
-<div class="dlg-node entry" id="e8"><div class="dlg-head"><span class="dlg-id">entry #8</span></div><div class="dlg-text">Now please select the skill to be enhanced.</div><ul class="dlg-links"><li><a href="#r49">→ reply #49</a> <span class="dlg-link-preview">“Animal Empathy.”</span></li><li><a href="#r48">→ reply #48</a> <span class="dlg-link-preview">“Appraise.”</span></li><li><a href="#r47">→ reply #47</a> <span class="dlg-link-preview">“Bluff.”</span></li><li><a href="#r46">→ reply #46</a> <span class="dlg-link-preview">“Concentration.”</span></li><li><a href="#r45">→ reply #45</a> <span class="dlg-link-preview">“Craft Armor.”</span></li><li><a href="#r44">→ reply #44</a> <span class="dlg-link-preview">“Craft Trap.”</span></li><li><a href="#r43">→ reply #43</a> <span class="dlg-link-preview">“Craft Weapon.”</span></li><li><a href="#r42">→ reply #42</a> <span class="dlg-link-preview">“Disable Trap.”</span></li><li><a href="#r41">→ reply #41</a> <span class="dlg-link-preview">“Heal.”</span></li><li><a href="#r40">→ reply #40</a> <span class="dlg-link-preview">“Hide.”</span></li><li><a href="#r39">→ reply #39</a> <span class="dlg-link-preview">“Intimidate.”</span></li><li><a href="#r38">→ reply #38</a> <span class="dlg-link-preview">“Listen.”</span></li><li><a href="#r37">→ reply #37</a> <span class="dlg-link-preview">“Open Lock.”</span></li><li><a href="#r36">→ reply #36</a> <span class="dlg-link-preview">“Parry.”</span></li><li><a href="#r35">→ reply #35</a> <span class="dlg-link-preview">“Perform.”</span></li><li><a href="#r34">→ reply #34</a> <span class="dlg-link-preview">“Persuade.”</span></li><li><a href="#r33">→ reply #33</a> <span class="dlg-link-preview">“Pick Pocket.”</span></li><li><a href="#r32">→ reply #32</a> <span class="dlg-link-preview">“Search.”</span></li><li><a href="#r31">→ reply #31</a> <span class="dlg-link-preview">“Set Trap.”</span></li><li><a href="#r30">→ reply #30</a> <span class="dlg-link-preview">“Taunt.”</span></li></ul></div>
+<div class="dlg-node entry" id="e8"><div class="dlg-head"><span class="dlg-id">entry #8</span></div><div class="dlg-text">Now please select the skill to be enhanced.</div><ul class="dlg-links"><li><a href="#r49">→ reply #49</a> <span class="dlg-link-preview">“Animal Empathy.”</span></li><li><a href="#r48">→ reply #48</a> <span class="dlg-link-preview">“Appraise.”</span></li><li><a href="#r47">→ reply #47</a> <span class="dlg-link-preview">“Bluff.”</span></li><li><a href="#r46">→ reply #46</a> <span class="dlg-link-preview">“Concentration.”</span></li><li><a href="#r45">→ reply #45</a> <span class="dlg-link-preview">“Craft Armor.”</span></li><li><a href="#r44">→ reply #44</a> <span class="dlg-link-preview">“Craft Trap.”</span></li><li><a href="#r43">→ reply #43</a> <span class="dlg-link-preview">“Craft Weapon.”</span></li><li><a href="#r42">→ reply #42</a> <span class="dlg-link-preview">“Disable Trap.”</span></li><li><a href="#r41">→ reply #41</a> <span class="dlg-link-preview">“Heal.”</span></li><li><a href="#r40">→ reply #40</a> <span class="dlg-link-preview">“Hide.”</span></li><li><a href="#r39">→ reply #39</a> <span class="dlg-link-preview">“Intimidate.”</span></li><li><a href="#r38">→ reply #38</a> <span class="dlg-link-preview">“Listen.”</span></li><li><a href="#r37">→ reply #37</a> <span class="dlg-link-preview">“Open Lock.”</span></li><li><a href="#r36">→ reply #36</a> <span class="dlg-link-preview">“Parry.”</span></li><li><a href="#r35">→ reply #35</a> <span class="dlg-link-preview">“Perform.”</span></li><li><a href="#r34">→ reply #34</a> <span class="dlg-link-preview">“Persuade.”</span></li><li><a href="#r33">→ reply #33</a> <span class="dlg-link-preview">“Pick Pocket.”</span></li><li><a href="#r32">→ reply #32</a> <span class="dlg-link-preview">“Search.”</span></li><li><a href="#r31">→ reply #31</a> <span class="dlg-link-preview">“Set Trap.”</span></li><li><a href="#r30">→ reply #30</a> <span class="dlg-link-preview">“Taunt.”</span></li><li><a href="#r232">→ reply #232</a> <span class="dlg-link-preview">“Tumble.”</span></li></ul></div>
 <div class="dlg-node entry" id="e9"><div class="dlg-head"><span class="dlg-id">entry #9</span></div><div class="dlg-text">What effect would you like when hitting with the weapon?</div><ul class="dlg-links"><li><a href="#r74">→ reply #74</a> <span class="dlg-link-preview">“Ability Drain”</span></li><li><a href="#r61">→ reply #61</a> <span class="dlg-link-preview">“Blindness.”</span></li><li><a href="#r60">→ reply #60</a> <span class="dlg-link-preview">“Confusion.”</span></li><li><a href="#r59">→ reply #59</a> <span class="dlg-link-preview">“Daze.”</span></li><li><a href="#r58">→ reply #58</a> <span class="dlg-link-preview">“Deafness.”</span></li><li><a href="#r57">→ reply #57</a> <span class="dlg-link-preview">“Doom.”</span></li><li><a href="#r56">→ reply #56</a> <span class="dlg-link-preview">“Fear.”</span></li><li><a href="#r55">→ reply #55</a> <span class="dlg-link-preview">“Hold.”</span></li><li><a href="#r54">→ reply #54</a> <span class="dlg-link-preview">“Silence.”</span></li><li><a href="#r53">→ reply #53</a> <span class="dlg-link-preview">“Sleep.”</span></li><li><a href="#r52">→ reply #52</a> <span class="dlg-link-preview">“Slow.”</span></li><li><a href="#r51">→ reply #51</a> <span class="dlg-link-preview">“Stun.”</span></li></ul></div>
 <div class="dlg-node entry" id="e10"><div class="dlg-head"><span class="dlg-id">entry #10</span></div><div class="dlg-text">What saving throw is necessary to avoid the effect?</div><ul class="dlg-links"><li><a href="#r68">→ reply #68</a> <span class="dlg-link-preview">“14”</span></li><li><a href="#r67">→ reply #67</a> <span class="dlg-link-preview">“16”</span></li><li><a href="#r66">→ reply #66</a> <span class="dlg-link-preview">“18”</span></li><li><a href="#r65">→ reply #65</a> <span class="dlg-link-preview">“20”</span></li><li><a href="#r64">→ reply #64</a> <span class="dlg-link-preview">“22”</span></li><li><a href="#r63">→ reply #63</a> <span class="dlg-link-preview">“24”</span> <small class="muted">(if <code>forge_never</code>)</small></li><li><a href="#r62">→ reply #62</a> <span class="dlg-link-preview">“26”</span> <small class="muted">(if <code>forge_never</code>)</small></li></ul></div>
 <div class="dlg-node entry" id="e11"><div class="dlg-head"><span class="dlg-id">entry #11</span></div><div class="dlg-text">Select the probability and duration.</div><ul class="dlg-links"><li><a href="#r73">→ reply #73</a> <span class="dlg-link-preview">“75% / 1 round”</span></li><li><a href="#r72">→ reply #72</a> <span class="dlg-link-preview">“50% / 2 rounds”</span></li><li><a href="#r71">→ reply #71</a> <span class="dlg-link-preview">“25% / 3 rounds”</span></li><li><a href="#r70">→ reply #70</a> <span class="dlg-link-preview">“10% / 4 rounds”</span></li><li><a href="#r69">→ reply #69</a> <span class="dlg-link-preview">“5% / 5 rounds”</span></li></ul></div>
@@ -2037,13 +1959,13 @@
 <div class="dlg-node entry" id="e14"><div class="dlg-head"><span class="dlg-id">entry #14</span></div><div class="dlg-text">Select an immunity type.</div><ul class="dlg-links"><li><a href="#r92">→ reply #92</a> <span class="dlg-link-preview">“Disease.”</span></li><li><a href="#r91">→ reply #91</a> <span class="dlg-link-preview">“Fear.”</span></li><li><a href="#r90">→ reply #90</a> <span class="dlg-link-preview">“Level/Ability Drain”</span></li><li><a href="#r89">→ reply #89</a> <span class="dlg-link-preview">“Paralysis”</span></li><li><a href="#r88">→ reply #88</a> <span class="dlg-link-preview">“Poison”</span></li></ul></div>
 <div class="dlg-node entry" id="e15"><div class="dlg-head"><span class="dlg-id">entry #15</span></div><div class="dlg-text">Please choose the saving throw type.</div><ul class="dlg-links"><li><a href="#r101">→ reply #101</a> <span class="dlg-link-preview">“Fortitude.”</span></li><li><a href="#r100">→ reply #100</a> <span class="dlg-link-preview">“Reflex.”</span></li><li><a href="#r99">→ reply #99</a> <span class="dlg-link-preview">“Will.”</span></li><li><a href="#r98">→ reply #98</a> <span class="dlg-link-preview">“All of the above.”</span> <small class="muted">(if <code>forge_never</code>)</small></li></ul></div>
 <div class="dlg-node entry" id="e16"><div class="dlg-head"><span class="dlg-id">entry #16</span></div><div class="dlg-text">Please choose the spell resistance level.</div><ul class="dlg-links"><li><a href="#r109">→ reply #109</a> <span class="dlg-link-preview">“SR 10”</span> <small class="muted">(if <code>forge_never</code>)</small></li><li><a href="#r108">→ reply #108</a> <span class="dlg-link-preview">“SR 12”</span> <small class="muted">(if <code>forge_never</code>)</small></li><li><a href="#r107">→ reply #107</a> <span class="dlg-link-preview">“SR 14”</span></li><li><a href="#r106">→ reply #106</a> <span class="dlg-link-preview">“SR 16”</span></li><li><a href="#r105">→ reply #105</a> <span class="dlg-link-preview">“SR 18”</span></li><li><a href="#r104">→ reply #104</a> <span class="dlg-link-preview">“SR 20”</span></li><li><a href="#r103">→ reply #103</a> <span class="dlg-link-preview">“SR 22”</span></li></ul></div>
-<div class="dlg-node entry" id="e17"><div class="dlg-head"><span class="dlg-id">entry #17</span></div><div class="dlg-text">Please tell me what damage type you would like resistance against.</div><ul class="dlg-links"><li><a href="#r120">→ reply #120</a> <span class="dlg-link-preview">“Slashing.”</span></li><li><a href="#r119">→ reply #119</a> <span class="dlg-link-preview">“Piercing.”</span></li><li><a href="#r118">→ reply #118</a> <span class="dlg-link-preview">“Bludgeoning.”</span></li><li><a href="#r117">→ reply #117</a> <span class="dlg-link-preview">“Fire.”</span></li><li><a href="#r116">→ reply #116</a> <span class="dlg-link-preview">“Cold.”</span></li><li><a href="#r115">→ reply #115</a> <span class="dlg-link-preview">“Acid.”</span></li><li><a href="#r114">→ reply #114</a> <span class="dlg-link-preview">“Lightning.”</span></li><li><a href="#r113">→ reply #113</a> <span class="dlg-link-preview">“Sonic.”</span></li></ul></div>
+<div class="dlg-node entry" id="e17"><div class="dlg-head"><span class="dlg-id">entry #17</span></div><div class="dlg-text">Please tell me what damage type you would like resistance against.</div><ul class="dlg-links"><li><a href="#r120">→ reply #120</a> <span class="dlg-link-preview">“Slashing.”</span></li><li><a href="#r119">→ reply #119</a> <span class="dlg-link-preview">“Piercing.”</span></li><li><a href="#r118">→ reply #118</a> <span class="dlg-link-preview">“Bludgeoning.”</span></li><li><a href="#r117">→ reply #117</a> <span class="dlg-link-preview">“Fire.”</span></li><li><a href="#r116">→ reply #116</a> <span class="dlg-link-preview">“Cold.”</span></li></ul></div>
 <div class="dlg-node entry" id="e18"><div class="dlg-head"><span class="dlg-id">entry #18</span></div><div class="dlg-text">How much damage should be resisted each round?</div><ul class="dlg-links"><li><a href="#r123">→ reply #123</a> <span class="dlg-link-preview">“5”</span> <small class="muted">(if <code>forge_never</code>)</small></li><li><a href="#r122">→ reply #122</a> <span class="dlg-link-preview">“10”</span> <small class="muted">(if <code>forge_never</code>)</small></li><li><a href="#r121">→ reply #121</a> <span class="dlg-link-preview">“15”</span></li><li><a href="#r223">→ reply #223</a> <span class="dlg-link-preview">“20”</span></li></ul></div>
-<div class="dlg-node entry" id="e19"><div class="dlg-head"><span class="dlg-id">entry #19</span></div><div class="dlg-text">What weapon enhancement level is necessary to get past the damage reduction?</div><ul class="dlg-links"><li><a href="#r134">→ reply #134</a> <span class="dlg-link-preview">“+1”</span></li><li><a href="#r133">→ reply #133</a> <span class="dlg-link-preview">“+2”</span></li><li><a href="#r132">→ reply #132</a> <span class="dlg-link-preview">“+3”</span></li><li><a href="#r131">→ reply #131</a> <span class="dlg-link-preview">“+4”</span></li><li><a href="#r130">→ reply #130</a> <span class="dlg-link-preview">“+5”</span></li><li><a href="#r129">→ reply #129</a> <span class="dlg-link-preview">“+6”</span></li><li><a href="#r128">→ reply #128</a> <span class="dlg-link-preview">“+7”</span></li><li><a href="#r127">→ reply #127</a> <span class="dlg-link-preview">“+8”</span> <small class="muted">(if <code>forge_never</code>)</small></li><li><a href="#r126">→ reply #126</a> <span class="dlg-link-preview">“+9”</span> <small class="muted">(if <code>forge_never</code>)</small></li><li><a href="#r125">→ reply #125</a> <span class="dlg-link-preview">“+10”</span> <small class="muted">(if <code>forge_never</code>)</small></li></ul></div>
-<div class="dlg-node entry" id="e20"><div class="dlg-head"><span class="dlg-id">entry #20</span></div><div class="dlg-text">How much damage should be absorbed?</div><ul class="dlg-links"><li><a href="#r144">→ reply #144</a> <span class="dlg-link-preview">“5”</span></li><li><a href="#r143">→ reply #143</a> <span class="dlg-link-preview">“10”</span></li><li><a href="#r142">→ reply #142</a> <span class="dlg-link-preview">“15”</span></li><li><a href="#r141">→ reply #141</a> <span class="dlg-link-preview">“20”</span></li><li><a href="#r140">→ reply #140</a> <span class="dlg-link-preview">“25”</span></li><li><a href="#r139">→ reply #139</a> <span class="dlg-link-preview">“30”</span></li><li><a href="#r138">→ reply #138</a> <span class="dlg-link-preview">“35”</span></li><li><a href="#r137">→ reply #137</a> <span class="dlg-link-preview">“40”</span> <small class="muted">(if <code>forge_never</code>)</small></li><li><a href="#r136">→ reply #136</a> <span class="dlg-link-preview">“45”</span> <small class="muted">(if <code>forge_never</code>)</small></li><li><a href="#r135">→ reply #135</a> <span class="dlg-link-preview">“50”</span> <small class="muted">(if <code>forge_never</code>)</small></li></ul></div>
-<div class="dlg-node entry" id="e21"><div class="dlg-head"><span class="dlg-id">entry #21</span></div><div class="dlg-text">Please tell me what damage type you would like immunity from.</div><ul class="dlg-links"><li><a href="#r153">→ reply #153</a> <span class="dlg-link-preview">“Slashing.”</span> <small class="muted">(if <code>forge_never</code>)</small></li><li><a href="#r152">→ reply #152</a> <span class="dlg-link-preview">“Piercing.”</span> <small class="muted">(if <code>forge_never</code>)</small></li><li><a href="#r151">→ reply #151</a> <span class="dlg-link-preview">“Bludgeoning.”</span> <small class="muted">(if <code>forge_never</code>)</small></li><li><a href="#r150">→ reply #150</a> <span class="dlg-link-preview">“Fire.”</span></li><li><a href="#r149">→ reply #149</a> <span class="dlg-link-preview">“Cold.”</span></li><li><a href="#r148">→ reply #148</a> <span class="dlg-link-preview">“Acid.”</span></li><li><a href="#r147">→ reply #147</a> <span class="dlg-link-preview">“Lightning.”</span></li><li><a href="#r146">→ reply #146</a> <span class="dlg-link-preview">“Sonic.”</span></li></ul></div>
+<div class="dlg-node entry" id="e19"><div class="dlg-head"><span class="dlg-id">entry #19</span></div><div class="dlg-text">What weapon enhancement level is necessary to get past the damage reduction?</div><ul class="dlg-links"><li><a href="#r130">→ reply #130</a> <span class="dlg-link-preview">“+5”</span></li><li><a href="#r129">→ reply #129</a> <span class="dlg-link-preview">“+6”</span></li><li><a href="#r128">→ reply #128</a> <span class="dlg-link-preview">“+7”</span></li><li><a href="#r127">→ reply #127</a> <span class="dlg-link-preview">“+8”</span></li><li><a href="#r126">→ reply #126</a> <span class="dlg-link-preview">“+9”</span></li><li><a href="#r125">→ reply #125</a> <span class="dlg-link-preview">“+10”</span></li></ul></div>
+<div class="dlg-node entry" id="e20"><div class="dlg-head"><span class="dlg-id">entry #20</span></div><div class="dlg-text">How much damage should be absorbed?</div><ul class="dlg-links"><li><a href="#r142">→ reply #142</a> <span class="dlg-link-preview">“15”</span></li><li><a href="#r141">→ reply #141</a> <span class="dlg-link-preview">“20”</span></li><li><a href="#r140">→ reply #140</a> <span class="dlg-link-preview">“25”</span></li></ul></div>
+<div class="dlg-node entry" id="e21"><div class="dlg-head"><span class="dlg-id">entry #21</span></div><div class="dlg-text">Please tell me what damage type you would like immunity from.</div><ul class="dlg-links"><li><a href="#r153">→ reply #153</a> <span class="dlg-link-preview">“Slashing.”</span></li><li><a href="#r152">→ reply #152</a> <span class="dlg-link-preview">“Piercing.”</span></li><li><a href="#r151">→ reply #151</a> <span class="dlg-link-preview">“Bludgeoning.”</span></li><li><a href="#r150">→ reply #150</a> <span class="dlg-link-preview">“Fire.”</span></li><li><a href="#r149">→ reply #149</a> <span class="dlg-link-preview">“Cold.”</span></li></ul></div>
 <div class="dlg-node entry" id="e22"><div class="dlg-head"><span class="dlg-id">entry #22</span></div><div class="dlg-text">Now choose the immunity level.</div><ul class="dlg-links"><li><a href="#r155">→ reply #155</a> <span class="dlg-link-preview">“5%”</span></li><li><a href="#r154">→ reply #154</a> <span class="dlg-link-preview">“10%”</span> <small class="muted">(if <code>forge_never</code>)</small></li></ul></div>
-<div class="dlg-node entry" id="e23"><div class="dlg-head"><span class="dlg-id">entry #23</span></div><div class="dlg-text">Please tell me what damage type you would like.</div><ul class="dlg-links"><li><a href="#r164">→ reply #164</a> <span class="dlg-link-preview">“Slashing.”</span></li><li><a href="#r163">→ reply #163</a> <span class="dlg-link-preview">“Piercing.”</span></li><li><a href="#r162">→ reply #162</a> <span class="dlg-link-preview">“Bludgeoning.”</span></li><li><a href="#r161">→ reply #161</a> <span class="dlg-link-preview">“Fire.”</span></li><li><a href="#r160">→ reply #160</a> <span class="dlg-link-preview">“Cold.”</span></li><li><a href="#r159">→ reply #159</a> <span class="dlg-link-preview">“Acid.”</span></li><li><a href="#r158">→ reply #158</a> <span class="dlg-link-preview">“Lightning.”</span></li><li><a href="#r157">→ reply #157</a> <span class="dlg-link-preview">“Sonic.”</span></li></ul></div>
+<div class="dlg-node entry" id="e23"><div class="dlg-head"><span class="dlg-id">entry #23</span></div><div class="dlg-text">Please tell me what damage type you would like.</div><ul class="dlg-links"><li><a href="#r164">→ reply #164</a> <span class="dlg-link-preview">“Slashing.”</span></li><li><a href="#r163">→ reply #163</a> <span class="dlg-link-preview">“Piercing.”</span></li><li><a href="#r162">→ reply #162</a> <span class="dlg-link-preview">“Bludgeoning.”</span></li><li><a href="#r161">→ reply #161</a> <span class="dlg-link-preview">“Fire.”</span></li><li><a href="#r160">→ reply #160</a> <span class="dlg-link-preview">“Cold.”</span></li></ul></div>
 <div class="dlg-node entry" id="e24"><div class="dlg-head"><span class="dlg-id">entry #24</span></div><div class="dlg-text">Now choose the damage amount.</div><ul class="dlg-links"><li><a href="#r167">→ reply #167</a> <span class="dlg-link-preview">“1d12”</span></li><li><a href="#r166">→ reply #166</a> <span class="dlg-link-preview">“2d6”</span> <small class="muted">(if <code>forge_never</code>)</small></li><li><a href="#r165">→ reply #165</a> <span class="dlg-link-preview">“2d8”</span> <small class="muted">(if <code>forge_never</code>)</small></li><li><a href="#r221">→ reply #221</a> <span class="dlg-link-preview">“1d8”</span></li><li><a href="#r222">→ reply #222</a> <span class="dlg-link-preview">“1d10”</span></li></ul></div>
 <div class="dlg-node entry" id="e25"><div class="dlg-head"><span class="dlg-id">entry #25</span></div><div class="dlg-text">Choose the bonus feat you would like.</div><ul class="dlg-links"><li><a href="#r195">→ reply #195</a> <span class="dlg-link-preview">“Alertness.”</span> <small class="muted">(if <code>forge_never</code>)</small></li><li><a href="#r194">→ reply #194</a> <span class="dlg-link-preview">“Ambidexterity.”</span></li><li><a href="#r193">→ reply #193</a> <span class="dlg-link-preview">“Armor Prof. Heavy.”</span></li><li><a href="#r192">→ reply #192</a> <span class="dlg-link-preview">“Armor Prof. Medium.”</span></li><li><a href="#r191">→ reply #191</a> <span class="dlg-link-preview">“Armor Prof. Light.”</span></li><li><a href="#r190">→ reply #190</a> <span class="dlg-link-preview">“Cleave.”</span></li><li><a href="#r189">→ reply #189</a> <span class="dlg-link-preview">“Combat Casting.”</span></li><li><a href="#r188">→ reply #188</a> <span class="dlg-link-preview">“Dodge.”</span> <small class="muted">(if <code>forge_never</code>)</small></li><li><a href="#r187">→ reply #187</a> <span class="dlg-link-preview">“Extra Turning.”</span> <small class="muted">(if <code>forge_never</code>)</small></li><li><a href="#r186">→ reply #186</a> <span class="dlg-link-preview">“Imp. Critical Unarmed.”</span></li><li><a href="#r185">→ reply #185</a> <span class="dlg-link-preview">“Knockdown.”</span></li><li><a href="#r184">→ reply #184</a> <span class="dlg-link-preview">“Point Blank Shot.”</span></li><li><a href="#r183">→ reply #183</a> <span class="dlg-link-preview">“Power Attack.”</span> <small class="muted">(if <code>forge_never</code>)</small></li><li><a href="#r182">→ reply #182</a> <span class="dlg-link-preview">“Spell Focus Abjuration.”</span></li><li><a href="#r181">→ reply #181</a> <span class="dlg-link-preview">“Spell Focus Conjuration.”</span></li><li><a href="#r180">→ reply #180</a> <span class="dlg-link-preview">“Spell Focus Divination.”</span></li><li><a href="#r179">→ reply #179</a> <span class="dlg-link-preview">“Spell Focus Enchantment.”</span></li><li><a href="#r178">→ reply #178</a> <span class="dlg-link-preview">“Spell Focus Evocation.”</span></li><li><a href="#r177">→ reply #177</a> <span class="dlg-link-preview">“Spell Focus Illusion.”</span></li><li><a href="#r176">→ reply #176</a> <span class="dlg-link-preview">“Spell Focus Necromancy.”</span></li><li><a href="#r175">→ reply #175</a> <span class="dlg-link-preview">“Spell Penetration.”</span></li><li><a href="#r174">→ reply #174</a> <span class="dlg-link-preview">“Two Weapon Fighting.”</span></li><li><a href="#r173">→ reply #173</a> <span class="dlg-link-preview">“Weapon Finesse.”</span></li><li><a href="#r172">→ reply #172</a> <span class="dlg-link-preview">“Weapon Prof. Exotic.”</span></li><li><a href="#r171">→ reply #171</a> <span class="dlg-link-preview">“Weapon Prof. Martial.”</span></li><li><a href="#r170">→ reply #170</a> <span class="dlg-link-preview">“Weapon Prof. Simple.”</span></li><li><a href="#r169">→ reply #169</a> <span class="dlg-link-preview">“Weapon Spec. Unarmed.”</span> <small class="muted">(if <code>forge_never</code>)</small></li></ul></div>
 <div class="dlg-node entry" id="e26"><div class="dlg-head"><span class="dlg-id">entry #26</span></div><div class="dlg-text">Now, please select the bonus amount.</div><ul class="dlg-links"><li><a href="#r205">→ reply #205</a> <span class="dlg-link-preview">“+1”</span> <small class="muted">(if <code>forge_never</code>)</small></li><li><a href="#r204">→ reply #204</a> <span class="dlg-link-preview">“+2”</span> <small class="muted">(if <code>forge_never</code>)</small></li><li><a href="#r203">→ reply #203</a> <span class="dlg-link-preview">“+3”</span> <small class="muted">(if <code>forge_never</code>)</small></li><li><a href="#r202">→ reply #202</a> <span class="dlg-link-preview">“+4”</span> <small class="muted">(if <code>forge_never</code>)</small></li><li><a href="#r201">→ reply #201</a> <span class="dlg-link-preview">“+5”</span></li><li><a href="#r200">→ reply #200</a> <span class="dlg-link-preview">“+6”</span></li><li><a href="#r199">→ reply #199</a> <span class="dlg-link-preview">“+7”</span></li><li><a href="#r198">→ reply #198</a> <span class="dlg-link-preview">“+8”</span></li><li><a href="#r197">→ reply #197</a> <span class="dlg-link-preview">“Remove the existing bonus.”</span></li><li><a href="#r219">→ reply #219</a> <span class="dlg-link-preview">“+9”</span></li><li><a href="#r220">→ reply #220</a> <span class="dlg-link-preview">“+10”</span></li></ul></div>
@@ -2054,6 +1976,7 @@
 <div class="dlg-node entry" id="e31"><div class="dlg-head"><span class="dlg-id">entry #31</span></div><div class="dlg-text">This modification will cost you <span class="custom-token" title="SetCustomToken(101, ...) called in: bankbalance, calcmodvalue2, calcremoverefund, smach_configure">&lt;CUSTOM101&gt;<sup class="token-setters">[<a href="../scripts/bankbalance.html">bankbalance</a>, <a href="../scripts/calcmodvalue2.html">calcmodvalue2</a>, <a href="../scripts/calcremoverefund.html">calcremoverefund</a>, <a href="../scripts/smach_configure.html">smach_configure</a>]</sup></span> gold.</div><ul class="dlg-links"><li><a href="#r209">→ reply #209</a> <span class="dlg-link-preview">“Sorry, I don&#x27;t seem to have enough gold.”</span></li></ul></div>
 <div class="dlg-node entry" id="e32"><div class="dlg-head"><span class="dlg-id">entry #32</span></div><div class="dlg-text">Select the ability to be enhanced.</div><ul class="dlg-links"><li><a href="#r216">→ reply #216</a> <span class="dlg-link-preview">“Strength.”</span></li><li><a href="#r215">→ reply #215</a> <span class="dlg-link-preview">“Dexterity.”</span></li><li><a href="#r214">→ reply #214</a> <span class="dlg-link-preview">“Constitution.”</span></li><li><a href="#r213">→ reply #213</a> <span class="dlg-link-preview">“Intelligence.”</span></li><li><a href="#r212">→ reply #212</a> <span class="dlg-link-preview">“Wisdom”</span></li><li><a href="#r211">→ reply #211</a> <span class="dlg-link-preview">“Charisma.”</span></li></ul></div>
 <div class="dlg-node entry" id="e33"><div class="dlg-head"><span class="dlg-id">entry #33</span> <span class="dlg-action">→ <code>calcremoverefund</code></span></div><div class="dlg-text">I must warn ye — stripping all magical properties from this <span class="custom-token" title="SetCustomToken(102, ...) called in: isitemonanvil">&lt;CUSTOM102&gt;<sup class="token-setters">[<a href="../scripts/isitemonanvil.html">isitemonanvil</a>]</sup></span> cannot be undone. Every enchantment will be lost. For what ye have invested at this forge, I can return <span class="custom-token" title="SetCustomToken(101, ...) called in: bankbalance, calcmodvalue2, calcremoverefund, smach_configure">&lt;CUSTOM101&gt;<sup class="token-setters">[<a href="../scripts/bankbalance.html">bankbalance</a>, <a href="../scripts/calcmodvalue2.html">calcmodvalue2</a>, <a href="../scripts/calcremoverefund.html">calcremoverefund</a>, <a href="../scripts/smach_configure.html">smach_configure</a>]</sup></span> gold. Do ye wish to proceed?</div><ul class="dlg-links"><li><a href="#r217">→ reply #217</a> <span class="dlg-link-preview">“Yes, strip all magical properties.”</span></li><li><a href="#r218">→ reply #218</a> <span class="dlg-link-preview">“No, leave it as it is.”</span></li></ul></div>
+<div class="dlg-node entry" id="e34"><div class="dlg-head"><span class="dlg-id">entry #34</span></div><div class="dlg-text">Now, please select the bonus amount.</div><ul class="dlg-links"><li><a href="#r225">→ reply #225</a> <span class="dlg-link-preview">“Remove the existing bonus.”</span></li><li><a href="#r226">→ reply #226</a> <span class="dlg-link-preview">“+10”</span></li><li><a href="#r227">→ reply #227</a> <span class="dlg-link-preview">“+9”</span></li><li><a href="#r228">→ reply #228</a> <span class="dlg-link-preview">“+8”</span></li><li><a href="#r229">→ reply #229</a> <span class="dlg-link-preview">“+7”</span></li><li><a href="#r230">→ reply #230</a> <span class="dlg-link-preview">“+6”</span></li><li><a href="#r231">→ reply #231</a> <span class="dlg-link-preview">“+5”</span></li></ul></div>
 <h2>PC replies — flat index</h2>
 <div class="dlg-node reply" id="r0"><div class="dlg-head"><span class="dlg-id">reply #0</span></div><div class="dlg-text">Goodbye.</div></div>
 <div class="dlg-node reply" id="r1"><div class="dlg-head"><span class="dlg-id">reply #1</span></div><div class="dlg-text">Modify the item on the anvil.</div><ul class="dlg-links"><li><a href="#e2">→ entry #2</a> <span class="dlg-link-preview">“Are you sure you want to modify the ?”</span> <small class="muted">(if <code>isitemonanvil</code>)</small></li><li><a href="#e1">→ entry #1</a> <span class="dlg-link-preview">“Please place exactly one item on the anvil, then speak to me again.”</span></li></ul></div>
@@ -2085,26 +2008,26 @@
 <div class="dlg-node reply" id="r27"><div class="dlg-head"><span class="dlg-id">reply #27</span> <span class="dlg-action">→ <code>setpropvampiric</code></span></div><div class="dlg-text">Vampiric Regeneration.</div><ul class="dlg-links"><li><a href="#e26">→ child</a> <span class="dlg-link-preview">“Now, please select the bonus amount.”</span></li></ul></div>
 <div class="dlg-node reply" id="r28"><div class="dlg-head"><span class="dlg-id">reply #28</span> <span class="dlg-action">→ <code>setpropattack</code></span></div><div class="dlg-text">Attack Bonus.</div><ul class="dlg-links"><li><a href="#e26">→ child</a> <span class="dlg-link-preview">“Now, please select the bonus amount.”</span></li></ul></div>
 <div class="dlg-node reply" id="r29"><div class="dlg-head"><span class="dlg-id">reply #29</span> <span class="dlg-action">→ <code>setpropskilbonus</code></span></div><div class="dlg-text">Skill Bonus.</div><ul class="dlg-links"><li><a href="#e8">→ entry #8</a> <span class="dlg-link-preview">“Now please select the skill to be enhanced.”</span></li></ul></div>
-<div class="dlg-node reply" id="r30"><div class="dlg-head"><span class="dlg-id">reply #30</span> <span class="dlg-action">→ <code>setskilltaunt</code></span></div><div class="dlg-text">Taunt.</div><ul class="dlg-links"><li><a href="#e26">→ child</a> <span class="dlg-link-preview">“Now, please select the bonus amount.”</span></li></ul></div>
-<div class="dlg-node reply" id="r31"><div class="dlg-head"><span class="dlg-id">reply #31</span> <span class="dlg-action">→ <code>setskillsettrap</code></span></div><div class="dlg-text">Set Trap.</div><ul class="dlg-links"><li><a href="#e26">→ child</a> <span class="dlg-link-preview">“Now, please select the bonus amount.”</span></li></ul></div>
-<div class="dlg-node reply" id="r32"><div class="dlg-head"><span class="dlg-id">reply #32</span> <span class="dlg-action">→ <code>setskillsearch</code></span></div><div class="dlg-text">Search.</div><ul class="dlg-links"><li><a href="#e26">→ child</a> <span class="dlg-link-preview">“Now, please select the bonus amount.”</span></li></ul></div>
-<div class="dlg-node reply" id="r33"><div class="dlg-head"><span class="dlg-id">reply #33</span> <span class="dlg-action">→ <code>setskillpickpokt</code></span></div><div class="dlg-text">Pick Pocket.</div><ul class="dlg-links"><li><a href="#e26">→ child</a> <span class="dlg-link-preview">“Now, please select the bonus amount.”</span></li></ul></div>
-<div class="dlg-node reply" id="r34"><div class="dlg-head"><span class="dlg-id">reply #34</span> <span class="dlg-action">→ <code>setskillpersuade</code></span></div><div class="dlg-text">Persuade.</div><ul class="dlg-links"><li><a href="#e26">→ child</a> <span class="dlg-link-preview">“Now, please select the bonus amount.”</span></li></ul></div>
-<div class="dlg-node reply" id="r35"><div class="dlg-head"><span class="dlg-id">reply #35</span> <span class="dlg-action">→ <code>setskillperform</code></span></div><div class="dlg-text">Perform.</div><ul class="dlg-links"><li><a href="#e26">→ child</a> <span class="dlg-link-preview">“Now, please select the bonus amount.”</span></li></ul></div>
-<div class="dlg-node reply" id="r36"><div class="dlg-head"><span class="dlg-id">reply #36</span> <span class="dlg-action">→ <code>setskillparry</code></span></div><div class="dlg-text">Parry.</div><ul class="dlg-links"><li><a href="#e26">→ child</a> <span class="dlg-link-preview">“Now, please select the bonus amount.”</span></li></ul></div>
-<div class="dlg-node reply" id="r37"><div class="dlg-head"><span class="dlg-id">reply #37</span> <span class="dlg-action">→ <code>setskillopenlock</code></span></div><div class="dlg-text">Open Lock.</div><ul class="dlg-links"><li><a href="#e26">→ child</a> <span class="dlg-link-preview">“Now, please select the bonus amount.”</span></li></ul></div>
-<div class="dlg-node reply" id="r38"><div class="dlg-head"><span class="dlg-id">reply #38</span> <span class="dlg-action">→ <code>setskilllisten</code></span></div><div class="dlg-text">Listen.</div><ul class="dlg-links"><li><a href="#e26">→ child</a> <span class="dlg-link-preview">“Now, please select the bonus amount.”</span></li></ul></div>
-<div class="dlg-node reply" id="r39"><div class="dlg-head"><span class="dlg-id">reply #39</span> <span class="dlg-action">→ <code>setskillintimidt</code></span></div><div class="dlg-text">Intimidate.</div><ul class="dlg-links"><li><a href="#e26">→ child</a> <span class="dlg-link-preview">“Now, please select the bonus amount.”</span></li></ul></div>
-<div class="dlg-node reply" id="r40"><div class="dlg-head"><span class="dlg-id">reply #40</span> <span class="dlg-action">→ <code>setskillhide</code></span></div><div class="dlg-text">Hide.</div><ul class="dlg-links"><li><a href="#e26">→ child</a> <span class="dlg-link-preview">“Now, please select the bonus amount.”</span></li></ul></div>
-<div class="dlg-node reply" id="r41"><div class="dlg-head"><span class="dlg-id">reply #41</span> <span class="dlg-action">→ <code>setskillheal</code></span></div><div class="dlg-text">Heal.</div><ul class="dlg-links"><li><a href="#e26">→ child</a> <span class="dlg-link-preview">“Now, please select the bonus amount.”</span></li></ul></div>
-<div class="dlg-node reply" id="r42"><div class="dlg-head"><span class="dlg-id">reply #42</span> <span class="dlg-action">→ <code>setskilldisabtrp</code></span></div><div class="dlg-text">Disable Trap.</div><ul class="dlg-links"><li><a href="#e26">→ child</a> <span class="dlg-link-preview">“Now, please select the bonus amount.”</span></li></ul></div>
-<div class="dlg-node reply" id="r43"><div class="dlg-head"><span class="dlg-id">reply #43</span> <span class="dlg-action">→ <code>setskillcraftwpn</code></span></div><div class="dlg-text">Craft Weapon.</div><ul class="dlg-links"><li><a href="#e26">→ child</a> <span class="dlg-link-preview">“Now, please select the bonus amount.”</span></li></ul></div>
-<div class="dlg-node reply" id="r44"><div class="dlg-head"><span class="dlg-id">reply #44</span> <span class="dlg-action">→ <code>setskillcrafttrp</code></span></div><div class="dlg-text">Craft Trap.</div><ul class="dlg-links"><li><a href="#e26">→ child</a> <span class="dlg-link-preview">“Now, please select the bonus amount.”</span></li></ul></div>
-<div class="dlg-node reply" id="r45"><div class="dlg-head"><span class="dlg-id">reply #45</span> <span class="dlg-action">→ <code>setskillcraftarm</code></span></div><div class="dlg-text">Craft Armor.</div><ul class="dlg-links"><li><a href="#e26">→ child</a> <span class="dlg-link-preview">“Now, please select the bonus amount.”</span></li></ul></div>
-<div class="dlg-node reply" id="r46"><div class="dlg-head"><span class="dlg-id">reply #46</span> <span class="dlg-action">→ <code>setskillconcentr</code></span></div><div class="dlg-text">Concentration.</div><ul class="dlg-links"><li><a href="#e26">→ child</a> <span class="dlg-link-preview">“Now, please select the bonus amount.”</span></li></ul></div>
-<div class="dlg-node reply" id="r47"><div class="dlg-head"><span class="dlg-id">reply #47</span> <span class="dlg-action">→ <code>setskillbluff</code></span></div><div class="dlg-text">Bluff.</div><ul class="dlg-links"><li><a href="#e26">→ child</a> <span class="dlg-link-preview">“Now, please select the bonus amount.”</span></li></ul></div>
-<div class="dlg-node reply" id="r48"><div class="dlg-head"><span class="dlg-id">reply #48</span> <span class="dlg-action">→ <code>setskillappraise</code></span></div><div class="dlg-text">Appraise.</div><ul class="dlg-links"><li><a href="#e26">→ child</a> <span class="dlg-link-preview">“Now, please select the bonus amount.”</span></li></ul></div>
-<div class="dlg-node reply" id="r49"><div class="dlg-head"><span class="dlg-id">reply #49</span> <span class="dlg-action">→ <code>setskillanempath</code></span></div><div class="dlg-text">Animal Empathy.</div><ul class="dlg-links"><li><a href="#e26">→ child</a> <span class="dlg-link-preview">“Now, please select the bonus amount.”</span></li></ul></div>
+<div class="dlg-node reply" id="r30"><div class="dlg-head"><span class="dlg-id">reply #30</span> <span class="dlg-action">→ <code>setskilltaunt</code></span></div><div class="dlg-text">Taunt.</div><ul class="dlg-links"><li><a href="#e34">→ entry #34</a> <span class="dlg-link-preview">“Now, please select the bonus amount.”</span></li></ul></div>
+<div class="dlg-node reply" id="r31"><div class="dlg-head"><span class="dlg-id">reply #31</span> <span class="dlg-action">→ <code>setskillsettrap</code></span></div><div class="dlg-text">Set Trap.</div><ul class="dlg-links"><li><a href="#e34">→ entry #34</a> <span class="dlg-link-preview">“Now, please select the bonus amount.”</span></li></ul></div>
+<div class="dlg-node reply" id="r32"><div class="dlg-head"><span class="dlg-id">reply #32</span> <span class="dlg-action">→ <code>setskillsearch</code></span></div><div class="dlg-text">Search.</div><ul class="dlg-links"><li><a href="#e34">→ entry #34</a> <span class="dlg-link-preview">“Now, please select the bonus amount.”</span></li></ul></div>
+<div class="dlg-node reply" id="r33"><div class="dlg-head"><span class="dlg-id">reply #33</span> <span class="dlg-action">→ <code>setskillpickpokt</code></span></div><div class="dlg-text">Pick Pocket.</div><ul class="dlg-links"><li><a href="#e34">→ entry #34</a> <span class="dlg-link-preview">“Now, please select the bonus amount.”</span></li></ul></div>
+<div class="dlg-node reply" id="r34"><div class="dlg-head"><span class="dlg-id">reply #34</span> <span class="dlg-action">→ <code>setskillpersuade</code></span></div><div class="dlg-text">Persuade.</div><ul class="dlg-links"><li><a href="#e34">→ entry #34</a> <span class="dlg-link-preview">“Now, please select the bonus amount.”</span></li></ul></div>
+<div class="dlg-node reply" id="r35"><div class="dlg-head"><span class="dlg-id">reply #35</span> <span class="dlg-action">→ <code>setskillperform</code></span></div><div class="dlg-text">Perform.</div><ul class="dlg-links"><li><a href="#e34">→ entry #34</a> <span class="dlg-link-preview">“Now, please select the bonus amount.”</span></li></ul></div>
+<div class="dlg-node reply" id="r36"><div class="dlg-head"><span class="dlg-id">reply #36</span> <span class="dlg-action">→ <code>setskillparry</code></span></div><div class="dlg-text">Parry.</div><ul class="dlg-links"><li><a href="#e34">→ entry #34</a> <span class="dlg-link-preview">“Now, please select the bonus amount.”</span></li></ul></div>
+<div class="dlg-node reply" id="r37"><div class="dlg-head"><span class="dlg-id">reply #37</span> <span class="dlg-action">→ <code>setskillopenlock</code></span></div><div class="dlg-text">Open Lock.</div><ul class="dlg-links"><li><a href="#e34">→ entry #34</a> <span class="dlg-link-preview">“Now, please select the bonus amount.”</span></li></ul></div>
+<div class="dlg-node reply" id="r38"><div class="dlg-head"><span class="dlg-id">reply #38</span> <span class="dlg-action">→ <code>setskilllisten</code></span></div><div class="dlg-text">Listen.</div><ul class="dlg-links"><li><a href="#e34">→ entry #34</a> <span class="dlg-link-preview">“Now, please select the bonus amount.”</span></li></ul></div>
+<div class="dlg-node reply" id="r39"><div class="dlg-head"><span class="dlg-id">reply #39</span> <span class="dlg-action">→ <code>setskillintimidt</code></span></div><div class="dlg-text">Intimidate.</div><ul class="dlg-links"><li><a href="#e34">→ entry #34</a> <span class="dlg-link-preview">“Now, please select the bonus amount.”</span></li></ul></div>
+<div class="dlg-node reply" id="r40"><div class="dlg-head"><span class="dlg-id">reply #40</span> <span class="dlg-action">→ <code>setskillhide</code></span></div><div class="dlg-text">Hide.</div><ul class="dlg-links"><li><a href="#e34">→ entry #34</a> <span class="dlg-link-preview">“Now, please select the bonus amount.”</span></li></ul></div>
+<div class="dlg-node reply" id="r41"><div class="dlg-head"><span class="dlg-id">reply #41</span> <span class="dlg-action">→ <code>setskillheal</code></span></div><div class="dlg-text">Heal.</div><ul class="dlg-links"><li><a href="#e34">→ entry #34</a> <span class="dlg-link-preview">“Now, please select the bonus amount.”</span></li></ul></div>
+<div class="dlg-node reply" id="r42"><div class="dlg-head"><span class="dlg-id">reply #42</span> <span class="dlg-action">→ <code>setskilldisabtrp</code></span></div><div class="dlg-text">Disable Trap.</div><ul class="dlg-links"><li><a href="#e34">→ entry #34</a> <span class="dlg-link-preview">“Now, please select the bonus amount.”</span></li></ul></div>
+<div class="dlg-node reply" id="r43"><div class="dlg-head"><span class="dlg-id">reply #43</span> <span class="dlg-action">→ <code>setskillcraftwpn</code></span></div><div class="dlg-text">Craft Weapon.</div><ul class="dlg-links"><li><a href="#e34">→ entry #34</a> <span class="dlg-link-preview">“Now, please select the bonus amount.”</span></li></ul></div>
+<div class="dlg-node reply" id="r44"><div class="dlg-head"><span class="dlg-id">reply #44</span> <span class="dlg-action">→ <code>setskillcrafttrp</code></span></div><div class="dlg-text">Craft Trap.</div><ul class="dlg-links"><li><a href="#e34">→ entry #34</a> <span class="dlg-link-preview">“Now, please select the bonus amount.”</span></li></ul></div>
+<div class="dlg-node reply" id="r45"><div class="dlg-head"><span class="dlg-id">reply #45</span> <span class="dlg-action">→ <code>setskillcraftarm</code></span></div><div class="dlg-text">Craft Armor.</div><ul class="dlg-links"><li><a href="#e34">→ entry #34</a> <span class="dlg-link-preview">“Now, please select the bonus amount.”</span></li></ul></div>
+<div class="dlg-node reply" id="r46"><div class="dlg-head"><span class="dlg-id">reply #46</span> <span class="dlg-action">→ <code>setskillconcentr</code></span></div><div class="dlg-text">Concentration.</div><ul class="dlg-links"><li><a href="#e34">→ entry #34</a> <span class="dlg-link-preview">“Now, please select the bonus amount.”</span></li></ul></div>
+<div class="dlg-node reply" id="r47"><div class="dlg-head"><span class="dlg-id">reply #47</span> <span class="dlg-action">→ <code>setskillbluff</code></span></div><div class="dlg-text">Bluff.</div><ul class="dlg-links"><li><a href="#e34">→ entry #34</a> <span class="dlg-link-preview">“Now, please select the bonus amount.”</span></li></ul></div>
+<div class="dlg-node reply" id="r48"><div class="dlg-head"><span class="dlg-id">reply #48</span> <span class="dlg-action">→ <code>setskillappraise</code></span></div><div class="dlg-text">Appraise.</div><ul class="dlg-links"><li><a href="#e34">→ entry #34</a> <span class="dlg-link-preview">“Now, please select the bonus amount.”</span></li></ul></div>
+<div class="dlg-node reply" id="r49"><div class="dlg-head"><span class="dlg-id">reply #49</span> <span class="dlg-action">→ <code>setskillanempath</code></span></div><div class="dlg-text">Animal Empathy.</div><ul class="dlg-links"><li><a href="#e34">→ entry #34</a> <span class="dlg-link-preview">“Now, please select the bonus amount.”</span></li></ul></div>
 <div class="dlg-node reply" id="r50"><div class="dlg-head"><span class="dlg-id">reply #50</span> <span class="dlg-action">→ <code>setproponhit</code></span></div><div class="dlg-text">On Hit Properties.</div><ul class="dlg-links"><li><a href="#e9">→ entry #9</a> <span class="dlg-link-preview">“What effect would you like when hitting with the weapon?”</span></li></ul></div>
 <div class="dlg-node reply" id="r51"><div class="dlg-head"><span class="dlg-id">reply #51</span> <span class="dlg-action">→ <code>setonhitstun</code></span></div><div class="dlg-text">Stun.</div><ul class="dlg-links"><li><a href="#e10">→ child</a> <span class="dlg-link-preview">“What saving throw is necessary to avoid the effect?”</span></li></ul></div>
 <div class="dlg-node reply" id="r52"><div class="dlg-head"><span class="dlg-id">reply #52</span> <span class="dlg-action">→ <code>setonhitslow</code></span></div><div class="dlg-text">Slow.</div><ul class="dlg-links"><li><a href="#e10">→ child</a> <span class="dlg-link-preview">“What saving throw is necessary to avoid the effect?”</span></li></ul></div>
@@ -2280,7 +2203,15 @@
 <div class="dlg-node reply" id="r222"><div class="dlg-head"><span class="dlg-id">reply #222</span> <span class="dlg-action">→ <code>setdam1d10</code></span></div><div class="dlg-text">1d10</div><ul class="dlg-links"><li><a href="#e27">→ entry #27</a> <span class="dlg-link-preview">“Please wait while I calculate the cost of this modification.”</span></li></ul></div>
 <div class="dlg-node reply" id="r223"><div class="dlg-head"><span class="dlg-id">reply #223</span> <span class="dlg-action">→ <code>setdamresist20</code></span></div><div class="dlg-text">20</div><ul class="dlg-links"><li><a href="#e27">→ entry #27</a> <span class="dlg-link-preview">“Please wait while I calculate the cost of this modification.”</span></li></ul></div>
 <div class="dlg-node reply" id="r224"><div class="dlg-head"><span class="dlg-id">reply #224</span> <span class="dlg-action">→ <code>setpropen</code></span></div><div class="dlg-text">Enhancement Bonus.</div><ul class="dlg-links"><li><a href="#e26">→ entry #26</a> <span class="dlg-link-preview">“Now, please select the bonus amount.”</span></li></ul></div>
+<div class="dlg-node reply" id="r225"><div class="dlg-head"><span class="dlg-id">reply #225</span> <span class="dlg-action">→ <code>setplus0</code></span></div><div class="dlg-text">Remove the existing bonus.</div><ul class="dlg-links"><li><a href="#e27">→ entry #27</a> <span class="dlg-link-preview">“Please wait while I calculate the cost of this modification.”</span></li></ul></div>
+<div class="dlg-node reply" id="r226"><div class="dlg-head"><span class="dlg-id">reply #226</span> <span class="dlg-action">→ <code>setplus10</code></span></div><div class="dlg-text">+10</div><ul class="dlg-links"><li><a href="#e27">→ entry #27</a> <span class="dlg-link-preview">“Please wait while I calculate the cost of this modification.”</span></li></ul></div>
+<div class="dlg-node reply" id="r227"><div class="dlg-head"><span class="dlg-id">reply #227</span> <span class="dlg-action">→ <code>setplus9</code></span></div><div class="dlg-text">+9</div><ul class="dlg-links"><li><a href="#e27">→ entry #27</a> <span class="dlg-link-preview">“Please wait while I calculate the cost of this modification.”</span></li></ul></div>
+<div class="dlg-node reply" id="r228"><div class="dlg-head"><span class="dlg-id">reply #228</span> <span class="dlg-action">→ <code>setplus8</code></span></div><div class="dlg-text">+8</div><ul class="dlg-links"><li><a href="#e27">→ entry #27</a> <span class="dlg-link-preview">“Please wait while I calculate the cost of this modification.”</span></li></ul></div>
+<div class="dlg-node reply" id="r229"><div class="dlg-head"><span class="dlg-id">reply #229</span> <span class="dlg-action">→ <code>setplus7</code></span></div><div class="dlg-text">+7</div><ul class="dlg-links"><li><a href="#e27">→ entry #27</a> <span class="dlg-link-preview">“Please wait while I calculate the cost of this modification.”</span></li></ul></div>
+<div class="dlg-node reply" id="r230"><div class="dlg-head"><span class="dlg-id">reply #230</span> <span class="dlg-action">→ <code>setplus6</code></span></div><div class="dlg-text">+6</div><ul class="dlg-links"><li><a href="#e27">→ entry #27</a> <span class="dlg-link-preview">“Please wait while I calculate the cost of this modification.”</span></li></ul></div>
+<div class="dlg-node reply" id="r231"><div class="dlg-head"><span class="dlg-id">reply #231</span> <span class="dlg-action">→ <code>setplus5</code></span></div><div class="dlg-text">+5</div><ul class="dlg-links"><li><a href="#e27">→ entry #27</a> <span class="dlg-link-preview">“Please wait while I calculate the cost of this modification.”</span></li></ul></div>
+<div class="dlg-node reply" id="r232"><div class="dlg-head"><span class="dlg-id">reply #232</span> <span class="dlg-action">→ <code>setskilltumble</code></span></div><div class="dlg-text">Tumble.</div><ul class="dlg-links"><li><a href="#e34">→ entry #34</a> <span class="dlg-link-preview">“Now, please select the bonus amount.”</span></li></ul></div>
   </main>
-  <footer>generated by <a href="https://github.com/mrprice22/nwn-manager">nwn-manager</a> &mdash; last updated Jun 4, 2026 19:57</footer>
+  <footer>generated by <a href="https://github.com/mrprice22/nwn-manager">nwn-manager</a> &mdash; last updated Jun 4, 2026 22:31</footer>
 </body>
 </html>
