@@ -46,8 +46,8 @@
   <main>
 <h1>Conversation: <code>rivspec</code></h1>
 <dl class="meta">
-<dt>NPC lines</dt><dd>1</dd>
-<dt>PC replies</dt><dd>2</dd>
+<dt>NPC lines</dt><dd>3</dd>
+<dt>PC replies</dt><dd>3</dd>
 <dt>NumWords</dt><dd>31</dd>
 <dt>OnEnd</dt><dd><code>nw_walk_wp</code></dd>
 <dt>OnAbort</dt><dd><code>nw_walk_wp</code></dd>
@@ -56,7 +56,10 @@
 <li><span class="badge">creature</span> NPC <a href="../creatures/elrebrier__v2.html">Thrulith Xilow</a> — in <a href="../areas/thesmithyofriven.html">The Smithy of Rivendell</a></li>
 </ul>
 <h2>Scripts referenced</h2>
-<table class="data"><thead><tr><th>Script</th><th>Slot</th><th>In module</th><th>Notes</th></tr></thead><tbody><tr><td><code>at_018</code></td><td>action</td><td>✓</td><td></td></tr></tbody></table>
+<table class="data"><thead><tr><th>Script</th><th>Slot</th><th>In module</th><th>Notes</th></tr></thead><tbody><tr><td><code>kimli_forge</code></td><td>action</td><td>✓</td><td>starts: <a href="kimli_forge.html">kimli_forge</a></td></tr>
+<tr><td><code>at_018</code></td><td>action</td><td>✓</td><td></td></tr>
+<tr><td><code>kimli_haswrit</code></td><td>active</td><td>✓</td><td></td></tr></tbody></table>
+<h2>Items checked</h2><p class="muted">These items' tags are checked via <code>GetItemPossessedBy</code> in this conversation's scripts:</p><ul><li><a href="../items/elrondswrit.html">Elrond&#x27;s Writ</a></li></ul>
 <h2>Starting entries</h2><ul>
 <li><a href="#e0">entry #0</a> — Good Morrow, Tis a pleasure to meet you M&#x27;. I am a collector of rare and special…</li>
 </ul>
@@ -75,15 +78,32 @@
 <summary><span class="dlg-id">reply #0</span> <a class="dlg-anchor" href="#r0" title="jump to flat reply #0">¶</a></summary>
 <div class="dlg-text">No thank you, maybe another time.</div>
 </details>
+<details class="dlg-tree-node reply" open>
+<summary><span class="dlg-id">reply #2</span> <a class="dlg-anchor" href="#r2" title="jump to flat reply #2">¶</a></summary>
+<div class="dlg-text">I&#x27;d like to use the Forge of Wonders.</div>
+<div class="dlg-tree-children">
+<details class="dlg-tree-node entry" open>
+<summary><span class="dlg-id">entry #1</span> <span class="dlg-action">→ <code>kimli_forge</code></span> <small class="muted">(if <code>kimli_haswrit</code>)</small> <a class="dlg-anchor" href="#e1" title="jump to flat entry #1">¶</a></summary>
+<div class="dlg-text">The Lord Elrond has given his blessing to this forge. Place your item on the anvil yonder, and I shall attend to it.</div>
+</details>
+<details class="dlg-tree-node entry" open>
+<summary><span class="dlg-id">entry #2</span> <a class="dlg-anchor" href="#e2" title="jump to flat entry #2">¶</a></summary>
+<div class="dlg-text">This forge burns only by Elrond&#x27;s grace. You will need his Writ before I may work your items.</div>
+</details>
+</div>
+</details>
 </div>
 </details>
 </div>
 <h2>NPC lines (entries) — flat index</h2>
-<div class="dlg-node entry" id="e0"><div class="dlg-head"><span class="dlg-id">entry #0</span></div><div class="dlg-text">Good Morrow, Tis a pleasure to meet you M&#x27;&lt;Lord/Lady&gt;. I am a collector of rare and specialty items. Would you care to see them?</div><ul class="dlg-links"><li><a href="#r1">→ reply #1</a> <span class="dlg-link-preview">“I would be most interested.”</span></li><li><a href="#r0">→ reply #0</a> <span class="dlg-link-preview">“No thank you, maybe another time.”</span></li></ul></div>
+<div class="dlg-node entry" id="e0"><div class="dlg-head"><span class="dlg-id">entry #0</span></div><div class="dlg-text">Good Morrow, Tis a pleasure to meet you M&#x27;&lt;Lord/Lady&gt;. I am a collector of rare and specialty items. Would you care to see them?</div><ul class="dlg-links"><li><a href="#r1">→ reply #1</a> <span class="dlg-link-preview">“I would be most interested.”</span></li><li><a href="#r0">→ reply #0</a> <span class="dlg-link-preview">“No thank you, maybe another time.”</span></li><li><a href="#r2">→ reply #2</a> <span class="dlg-link-preview">“I&#x27;d like to use the Forge of Wonders.”</span></li></ul></div>
+<div class="dlg-node entry" id="e1"><div class="dlg-head"><span class="dlg-id">entry #1</span> <span class="dlg-action">→ <code>kimli_forge</code></span></div><div class="dlg-text">The Lord Elrond has given his blessing to this forge. Place your item on the anvil yonder, and I shall attend to it.</div></div>
+<div class="dlg-node entry" id="e2"><div class="dlg-head"><span class="dlg-id">entry #2</span></div><div class="dlg-text">This forge burns only by Elrond&#x27;s grace. You will need his Writ before I may work your items.</div></div>
 <h2>PC replies — flat index</h2>
 <div class="dlg-node reply" id="r0"><div class="dlg-head"><span class="dlg-id">reply #0</span></div><div class="dlg-text">No thank you, maybe another time.</div></div>
 <div class="dlg-node reply" id="r1"><div class="dlg-head"><span class="dlg-id">reply #1</span> <span class="dlg-action">→ <code>at_018</code></span></div><div class="dlg-text">I would be most interested.</div></div>
+<div class="dlg-node reply" id="r2"><div class="dlg-head"><span class="dlg-id">reply #2</span></div><div class="dlg-text">I&#x27;d like to use the Forge of Wonders.</div><ul class="dlg-links"><li><a href="#e1">→ entry #1</a> <span class="dlg-link-preview">“The Lord Elrond has given his blessing to this forge. Place your item on the anv…”</span> <small class="muted">(if <code>kimli_haswrit</code>)</small></li><li><a href="#e2">→ entry #2</a> <span class="dlg-link-preview">“This forge burns only by Elrond&#x27;s grace. You will need his Writ before I may wor…”</span></li></ul></div>
   </main>
-  <footer>generated by <a href="https://github.com/mrprice22/nwn-manager">nwn-manager</a> &mdash; last updated Jun 4, 2026 16:41</footer>
+  <footer>generated by <a href="https://github.com/mrprice22/nwn-manager">nwn-manager</a> &mdash; last updated Jun 4, 2026 19:57</footer>
 </body>
 </html>
