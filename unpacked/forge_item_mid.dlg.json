@@ -421,7 +421,7 @@
               "__struct_id": 1,
               "Active": {
                 "type": "resref",
-                "value": "sc_never"
+                "value": ""
               },
               "Index": {
                 "type": "dword",
@@ -451,7 +451,7 @@
               "__struct_id": 3,
               "Active": {
                 "type": "resref",
-                "value": "isweapon"
+                "value": ""
               },
               "Index": {
                 "type": "dword",
@@ -466,7 +466,7 @@
               "__struct_id": 4,
               "Active": {
                 "type": "resref",
-                "value": "ismeleeweapon"
+                "value": ""
               },
               "Index": {
                 "type": "dword",
@@ -485,21 +485,6 @@
               },
               "Index": {
                 "type": "dword",
-                "value": 111
-              },
-              "IsChild": {
-                "type": "byte",
-                "value": 0
-              }
-            },
-            {
-              "__struct_id": 6,
-              "Active": {
-                "type": "resref",
-                "value": "ismeleeweapon"
-              },
-              "Index": {
-                "type": "dword",
                 "value": 99
               },
               "IsChild": {
@@ -508,7 +493,7 @@
               }
             },
             {
-              "__struct_id": 7,
+              "__struct_id": 6,
               "Active": {
                 "type": "resref",
                 "value": ""
@@ -523,7 +508,7 @@
               }
             },
             {
-              "__struct_id": 8,
+              "__struct_id": 7,
               "Active": {
                 "type": "resref",
                 "value": ""
@@ -538,7 +523,7 @@
               }
             },
             {
-              "__struct_id": 9,
+              "__struct_id": 8,
               "Active": {
                 "type": "resref",
                 "value": ""
@@ -553,14 +538,29 @@
               }
             },
             {
-              "__struct_id": 10,
+              "__struct_id": 9,
               "Active": {
                 "type": "resref",
-                "value": "returnfalse"
+                "value": ""
               },
               "Index": {
                 "type": "dword",
                 "value": 71
+              },
+              "IsChild": {
+                "type": "byte",
+                "value": 0
+              }
+            },
+            {
+              "__struct_id": 10,
+              "Active": {
+                "type": "resref",
+                "value": ""
+              },
+              "Index": {
+                "type": "dword",
+                "value": 63
               },
               "IsChild": {
                 "type": "byte",
@@ -575,7 +575,7 @@
               },
               "Index": {
                 "type": "dword",
-                "value": 64
+                "value": 62
               },
               "IsChild": {
                 "type": "byte",
@@ -586,37 +586,7 @@
               "__struct_id": 12,
               "Active": {
                 "type": "resref",
-                "value": "ismeleeweapon"
-              },
-              "Index": {
-                "type": "dword",
-                "value": 63
-              },
-              "IsChild": {
-                "type": "byte",
-                "value": 0
-              }
-            },
-            {
-              "__struct_id": 13,
-              "Active": {
-                "type": "resref",
-                "value": "isweapon"
-              },
-              "Index": {
-                "type": "dword",
-                "value": 62
-              },
-              "IsChild": {
-                "type": "byte",
-                "value": 0
-              }
-            },
-            {
-              "__struct_id": 14,
-              "Active": {
-                "type": "resref",
-                "value": "israngedweapon"
+                "value": ""
               },
               "Index": {
                 "type": "dword",
@@ -628,10 +598,10 @@
               }
             },
             {
-              "__struct_id": 15,
+              "__struct_id": 13,
               "Active": {
                 "type": "resref",
-                "value": "ismeleeweapon"
+                "value": ""
               },
               "Index": {
                 "type": "dword",
@@ -643,7 +613,7 @@
               }
             },
             {
-              "__struct_id": 16,
+              "__struct_id": 14,
               "Active": {
                 "type": "resref",
                 "value": ""
@@ -658,10 +628,10 @@
               }
             },
             {
-              "__struct_id": 17,
+              "__struct_id": 15,
               "Active": {
                 "type": "resref",
-                "value": "israngedweapon"
+                "value": ""
               },
               "Index": {
                 "type": "dword",
@@ -673,10 +643,10 @@
               }
             },
             {
-              "__struct_id": 18,
+              "__struct_id": 16,
               "Active": {
                 "type": "resref",
-                "value": "ismeleeweapon"
+                "value": ""
               },
               "Index": {
                 "type": "dword",
@@ -688,7 +658,7 @@
               }
             },
             {
-              "__struct_id": 19,
+              "__struct_id": 17,
               "Active": {
                 "type": "resref",
                 "value": ""
@@ -703,7 +673,7 @@
               }
             },
             {
-              "__struct_id": 20,
+              "__struct_id": 18,
               "Active": {
                 "type": "resref",
                 "value": ""
@@ -711,6 +681,21 @@
               "Index": {
                 "type": "dword",
                 "value": 6
+              },
+              "IsChild": {
+                "type": "byte",
+                "value": 0
+              }
+            },
+            {
+              "__struct_id": 19,
+              "Active": {
+                "type": "resref",
+                "value": ""
+              },
+              "Index": {
+                "type": "dword",
+                "value": 176
               },
               "IsChild": {
                 "type": "byte",
@@ -1269,6 +1254,81 @@
               "Index": {
                 "type": "dword",
                 "value": 23
+              },
+              "IsChild": {
+                "type": "byte",
+                "value": 0
+              }
+            },
+            {
+              "__struct_id": 16,
+              "Active": {
+                "type": "resref",
+                "value": ""
+              },
+              "Index": {
+                "type": "dword",
+                "value": 164
+              },
+              "IsChild": {
+                "type": "byte",
+                "value": 0
+              }
+            },
+            {
+              "__struct_id": 17,
+              "Active": {
+                "type": "resref",
+                "value": ""
+              },
+              "Index": {
+                "type": "dword",
+                "value": 165
+              },
+              "IsChild": {
+                "type": "byte",
+                "value": 0
+              }
+            },
+            {
+              "__struct_id": 18,
+              "Active": {
+                "type": "resref",
+                "value": ""
+              },
+              "Index": {
+                "type": "dword",
+                "value": 166
+              },
+              "IsChild": {
+                "type": "byte",
+                "value": 0
+              }
+            },
+            {
+              "__struct_id": 19,
+              "Active": {
+                "type": "resref",
+                "value": ""
+              },
+              "Index": {
+                "type": "dword",
+                "value": 167
+              },
+              "IsChild": {
+                "type": "byte",
+                "value": 0
+              }
+            },
+            {
+              "__struct_id": 20,
+              "Active": {
+                "type": "resref",
+                "value": ""
+              },
+              "Index": {
+                "type": "dword",
+                "value": 168
               },
               "IsChild": {
                 "type": "byte",
@@ -2146,7 +2206,7 @@
               },
               "Index": {
                 "type": "dword",
-                "value": 84
+                "value": 82
               },
               "IsChild": {
                 "type": "byte",
@@ -2176,82 +2236,7 @@
               },
               "Index": {
                 "type": "dword",
-                "value": 82
-              },
-              "IsChild": {
-                "type": "byte",
-                "value": 0
-              }
-            },
-            {
-              "__struct_id": 3,
-              "Active": {
-                "type": "resref",
-                "value": ""
-              },
-              "Index": {
-                "type": "dword",
-                "value": 81
-              },
-              "IsChild": {
-                "type": "byte",
-                "value": 0
-              }
-            },
-            {
-              "__struct_id": 4,
-              "Active": {
-                "type": "resref",
-                "value": ""
-              },
-              "Index": {
-                "type": "dword",
-                "value": 80
-              },
-              "IsChild": {
-                "type": "byte",
-                "value": 0
-              }
-            },
-            {
-              "__struct_id": 5,
-              "Active": {
-                "type": "resref",
-                "value": ""
-              },
-              "Index": {
-                "type": "dword",
-                "value": 79
-              },
-              "IsChild": {
-                "type": "byte",
-                "value": 0
-              }
-            },
-            {
-              "__struct_id": 6,
-              "Active": {
-                "type": "resref",
-                "value": ""
-              },
-              "Index": {
-                "type": "dword",
-                "value": 78
-              },
-              "IsChild": {
-                "type": "byte",
-                "value": 0
-              }
-            },
-            {
-              "__struct_id": 7,
-              "Active": {
-                "type": "resref",
-                "value": ""
-              },
-              "Index": {
-                "type": "dword",
-                "value": 77
+                "value": 84
               },
               "IsChild": {
                 "type": "byte",
@@ -2509,7 +2494,7 @@
               },
               "Index": {
                 "type": "dword",
-                "value": 98
+                "value": 96
               },
               "IsChild": {
                 "type": "byte",
@@ -2539,52 +2524,7 @@
               },
               "Index": {
                 "type": "dword",
-                "value": 96
-              },
-              "IsChild": {
-                "type": "byte",
-                "value": 0
-              }
-            },
-            {
-              "__struct_id": 3,
-              "Active": {
-                "type": "resref",
-                "value": ""
-              },
-              "Index": {
-                "type": "dword",
-                "value": 95
-              },
-              "IsChild": {
-                "type": "byte",
-                "value": 0
-              }
-            },
-            {
-              "__struct_id": 4,
-              "Active": {
-                "type": "resref",
-                "value": ""
-              },
-              "Index": {
-                "type": "dword",
-                "value": 94
-              },
-              "IsChild": {
-                "type": "byte",
-                "value": 0
-              }
-            },
-            {
-              "__struct_id": 5,
-              "Active": {
-                "type": "resref",
-                "value": ""
-              },
-              "Index": {
-                "type": "dword",
-                "value": 93
+                "value": 98
               },
               "IsChild": {
                 "type": "byte",
@@ -2641,7 +2581,7 @@
               "__struct_id": 0,
               "Active": {
                 "type": "resref",
-                "value": "sc_never"
+                "value": ""
               },
               "Index": {
                 "type": "dword",
@@ -2660,7 +2600,7 @@
               },
               "Index": {
                 "type": "dword",
-                "value": 104
+                "value": 169
               },
               "IsChild": {
                 "type": "byte",
@@ -2675,52 +2615,7 @@
               },
               "Index": {
                 "type": "dword",
-                "value": 103
-              },
-              "IsChild": {
-                "type": "byte",
-                "value": 0
-              }
-            },
-            {
-              "__struct_id": 3,
-              "Active": {
-                "type": "resref",
-                "value": ""
-              },
-              "Index": {
-                "type": "dword",
-                "value": 102
-              },
-              "IsChild": {
-                "type": "byte",
-                "value": 0
-              }
-            },
-            {
-              "__struct_id": 4,
-              "Active": {
-                "type": "resref",
-                "value": ""
-              },
-              "Index": {
-                "type": "dword",
-                "value": 101
-              },
-              "IsChild": {
-                "type": "byte",
-                "value": 0
-              }
-            },
-            {
-              "__struct_id": 5,
-              "Active": {
-                "type": "resref",
-                "value": ""
-              },
-              "Index": {
-                "type": "dword",
-                "value": 100
+                "value": 170
               },
               "IsChild": {
                 "type": "byte",
@@ -4413,6 +4308,173 @@
           "type": "cexolocstring",
           "value": {
             "0": "Arrr, this'll strip EVERY magical property from yer <CUSTOM100>! Based on what ye've put in here, ye'll be refunded <CUSTOM101> gold. There be no undoing this! Are ye certain?"
+          }
+        }
+      },
+      {
+        "__struct_id": 38,
+        "Animation": {
+          "type": "dword",
+          "value": 0
+        },
+        "AnimLoop": {
+          "type": "byte",
+          "value": 1
+        },
+        "Comment": {
+          "type": "cexostring",
+          "value": ""
+        },
+        "Delay": {
+          "type": "dword",
+          "value": 4294967295
+        },
+        "Quest": {
+          "type": "cexostring",
+          "value": ""
+        },
+        "RepliesList": {
+          "type": "list",
+          "value": [
+            {
+              "__struct_id": 0,
+              "Active": {
+                "type": "resref",
+                "value": ""
+              },
+              "Index": {
+                "type": "dword",
+                "value": 171
+              },
+              "IsChild": {
+                "type": "byte",
+                "value": 0
+              }
+            },
+            {
+              "__struct_id": 1,
+              "Active": {
+                "type": "resref",
+                "value": ""
+              },
+              "Index": {
+                "type": "dword",
+                "value": 172
+              },
+              "IsChild": {
+                "type": "byte",
+                "value": 0
+              }
+            }
+          ]
+        },
+        "Script": {
+          "type": "resref",
+          "value": ""
+        },
+        "Sound": {
+          "type": "resref",
+          "value": ""
+        },
+        "Speaker": {
+          "type": "cexostring",
+          "value": ""
+        },
+        "Text": {
+          "type": "cexolocstring",
+          "value": {
+            "0": "Choose the immunity level."
+          }
+        }
+      },
+      {
+        "__struct_id": 39,
+        "Animation": {
+          "type": "dword",
+          "value": 0
+        },
+        "AnimLoop": {
+          "type": "byte",
+          "value": 1
+        },
+        "Comment": {
+          "type": "cexostring",
+          "value": ""
+        },
+        "Delay": {
+          "type": "dword",
+          "value": 4294967295
+        },
+        "Quest": {
+          "type": "cexostring",
+          "value": ""
+        },
+        "RepliesList": {
+          "type": "list",
+          "value": [
+            {
+              "__struct_id": 0,
+              "Active": {
+                "type": "resref",
+                "value": ""
+              },
+              "Index": {
+                "type": "dword",
+                "value": 173
+              },
+              "IsChild": {
+                "type": "byte",
+                "value": 0
+              }
+            },
+            {
+              "__struct_id": 1,
+              "Active": {
+                "type": "resref",
+                "value": ""
+              },
+              "Index": {
+                "type": "dword",
+                "value": 174
+              },
+              "IsChild": {
+                "type": "byte",
+                "value": 0
+              }
+            },
+            {
+              "__struct_id": 2,
+              "Active": {
+                "type": "resref",
+                "value": ""
+              },
+              "Index": {
+                "type": "dword",
+                "value": 175
+              },
+              "IsChild": {
+                "type": "byte",
+                "value": 0
+              }
+            }
+          ]
+        },
+        "Script": {
+          "type": "resref",
+          "value": ""
+        },
+        "Sound": {
+          "type": "resref",
+          "value": ""
+        },
+        "Speaker": {
+          "type": "cexostring",
+          "value": ""
+        },
+        "Text": {
+          "type": "cexolocstring",
+          "value": {
+            "0": "What damage type would you like immunity from?"
           }
         }
       }
@@ -14354,6 +14416,695 @@
           "type": "cexolocstring",
           "value": {
             "0": "No, leave my <CUSTOM100> as it is."
+          }
+        }
+      },
+      {
+        "__struct_id": 164,
+        "Active": {
+          "type": "resref",
+          "value": ""
+        },
+        "EntriesList": {
+          "type": "list",
+          "value": [
+            {
+              "__struct_id": 0,
+              "Active": {
+                "type": "resref",
+                "value": ""
+              },
+              "Index": {
+                "type": "dword",
+                "value": 30
+              },
+              "IsChild": {
+                "type": "byte",
+                "value": 0
+              }
+            }
+          ]
+        },
+        "IsChild": {
+          "type": "byte",
+          "value": 0
+        },
+        "Quest": {
+          "type": "cexostring",
+          "value": ""
+        },
+        "QuestEntry": {
+          "type": "dword",
+          "value": 0
+        },
+        "Script": {
+          "type": "resref",
+          "value": "setskillhide"
+        },
+        "Sound": {
+          "type": "resref",
+          "value": ""
+        },
+        "Text": {
+          "type": "cexolocstring",
+          "value": {
+            "0": "Hide."
+          }
+        }
+      },
+      {
+        "__struct_id": 165,
+        "Active": {
+          "type": "resref",
+          "value": ""
+        },
+        "EntriesList": {
+          "type": "list",
+          "value": [
+            {
+              "__struct_id": 0,
+              "Active": {
+                "type": "resref",
+                "value": ""
+              },
+              "Index": {
+                "type": "dword",
+                "value": 30
+              },
+              "IsChild": {
+                "type": "byte",
+                "value": 0
+              }
+            }
+          ]
+        },
+        "IsChild": {
+          "type": "byte",
+          "value": 0
+        },
+        "Quest": {
+          "type": "cexostring",
+          "value": ""
+        },
+        "QuestEntry": {
+          "type": "dword",
+          "value": 0
+        },
+        "Script": {
+          "type": "resref",
+          "value": "setskilllisten"
+        },
+        "Sound": {
+          "type": "resref",
+          "value": ""
+        },
+        "Text": {
+          "type": "cexolocstring",
+          "value": {
+            "0": "Listen."
+          }
+        }
+      },
+      {
+        "__struct_id": 166,
+        "Active": {
+          "type": "resref",
+          "value": ""
+        },
+        "EntriesList": {
+          "type": "list",
+          "value": [
+            {
+              "__struct_id": 0,
+              "Active": {
+                "type": "resref",
+                "value": ""
+              },
+              "Index": {
+                "type": "dword",
+                "value": 30
+              },
+              "IsChild": {
+                "type": "byte",
+                "value": 0
+              }
+            }
+          ]
+        },
+        "IsChild": {
+          "type": "byte",
+          "value": 0
+        },
+        "Quest": {
+          "type": "cexostring",
+          "value": ""
+        },
+        "QuestEntry": {
+          "type": "dword",
+          "value": 0
+        },
+        "Script": {
+          "type": "resref",
+          "value": "setskillopenlock"
+        },
+        "Sound": {
+          "type": "resref",
+          "value": ""
+        },
+        "Text": {
+          "type": "cexolocstring",
+          "value": {
+            "0": "Open Lock."
+          }
+        }
+      },
+      {
+        "__struct_id": 167,
+        "Active": {
+          "type": "resref",
+          "value": ""
+        },
+        "EntriesList": {
+          "type": "list",
+          "value": [
+            {
+              "__struct_id": 0,
+              "Active": {
+                "type": "resref",
+                "value": ""
+              },
+              "Index": {
+                "type": "dword",
+                "value": 30
+              },
+              "IsChild": {
+                "type": "byte",
+                "value": 0
+              }
+            }
+          ]
+        },
+        "IsChild": {
+          "type": "byte",
+          "value": 0
+        },
+        "Quest": {
+          "type": "cexostring",
+          "value": ""
+        },
+        "QuestEntry": {
+          "type": "dword",
+          "value": 0
+        },
+        "Script": {
+          "type": "resref",
+          "value": "setskillsearch"
+        },
+        "Sound": {
+          "type": "resref",
+          "value": ""
+        },
+        "Text": {
+          "type": "cexolocstring",
+          "value": {
+            "0": "Search."
+          }
+        }
+      },
+      {
+        "__struct_id": 168,
+        "Active": {
+          "type": "resref",
+          "value": ""
+        },
+        "EntriesList": {
+          "type": "list",
+          "value": [
+            {
+              "__struct_id": 0,
+              "Active": {
+                "type": "resref",
+                "value": ""
+              },
+              "Index": {
+                "type": "dword",
+                "value": 30
+              },
+              "IsChild": {
+                "type": "byte",
+                "value": 0
+              }
+            }
+          ]
+        },
+        "IsChild": {
+          "type": "byte",
+          "value": 0
+        },
+        "Quest": {
+          "type": "cexostring",
+          "value": ""
+        },
+        "QuestEntry": {
+          "type": "dword",
+          "value": 0
+        },
+        "Script": {
+          "type": "resref",
+          "value": "setskilltaunt"
+        },
+        "Sound": {
+          "type": "resref",
+          "value": ""
+        },
+        "Text": {
+          "type": "cexolocstring",
+          "value": {
+            "0": "Taunt."
+          }
+        }
+      },
+      {
+        "__struct_id": 169,
+        "Active": {
+          "type": "resref",
+          "value": ""
+        },
+        "EntriesList": {
+          "type": "list",
+          "value": [
+            {
+              "__struct_id": 0,
+              "Active": {
+                "type": "resref",
+                "value": ""
+              },
+              "Index": {
+                "type": "dword",
+                "value": 22
+              },
+              "IsChild": {
+                "type": "byte",
+                "value": 0
+              }
+            }
+          ]
+        },
+        "IsChild": {
+          "type": "byte",
+          "value": 0
+        },
+        "Quest": {
+          "type": "cexostring",
+          "value": ""
+        },
+        "QuestEntry": {
+          "type": "dword",
+          "value": 0
+        },
+        "Script": {
+          "type": "resref",
+          "value": "setdambludg"
+        },
+        "Sound": {
+          "type": "resref",
+          "value": ""
+        },
+        "Text": {
+          "type": "cexolocstring",
+          "value": {
+            "0": "Bludgeoning."
+          }
+        }
+      },
+      {
+        "__struct_id": 170,
+        "Active": {
+          "type": "resref",
+          "value": ""
+        },
+        "EntriesList": {
+          "type": "list",
+          "value": [
+            {
+              "__struct_id": 0,
+              "Active": {
+                "type": "resref",
+                "value": ""
+              },
+              "Index": {
+                "type": "dword",
+                "value": 22
+              },
+              "IsChild": {
+                "type": "byte",
+                "value": 0
+              }
+            }
+          ]
+        },
+        "IsChild": {
+          "type": "byte",
+          "value": 0
+        },
+        "Quest": {
+          "type": "cexostring",
+          "value": ""
+        },
+        "QuestEntry": {
+          "type": "dword",
+          "value": 0
+        },
+        "Script": {
+          "type": "resref",
+          "value": "setdampierce"
+        },
+        "Sound": {
+          "type": "resref",
+          "value": ""
+        },
+        "Text": {
+          "type": "cexolocstring",
+          "value": {
+            "0": "Piercing."
+          }
+        }
+      },
+      {
+        "__struct_id": 171,
+        "Active": {
+          "type": "resref",
+          "value": ""
+        },
+        "EntriesList": {
+          "type": "list",
+          "value": [
+            {
+              "__struct_id": 0,
+              "Active": {
+                "type": "resref",
+                "value": ""
+              },
+              "Index": {
+                "type": "dword",
+                "value": 31
+              },
+              "IsChild": {
+                "type": "byte",
+                "value": 0
+              }
+            }
+          ]
+        },
+        "IsChild": {
+          "type": "byte",
+          "value": 0
+        },
+        "Quest": {
+          "type": "cexostring",
+          "value": ""
+        },
+        "QuestEntry": {
+          "type": "dword",
+          "value": 0
+        },
+        "Script": {
+          "type": "resref",
+          "value": "setdamimmun05"
+        },
+        "Sound": {
+          "type": "resref",
+          "value": ""
+        },
+        "Text": {
+          "type": "cexolocstring",
+          "value": {
+            "0": "5%"
+          }
+        }
+      },
+      {
+        "__struct_id": 172,
+        "Active": {
+          "type": "resref",
+          "value": ""
+        },
+        "EntriesList": {
+          "type": "list",
+          "value": [
+            {
+              "__struct_id": 0,
+              "Active": {
+                "type": "resref",
+                "value": ""
+              },
+              "Index": {
+                "type": "dword",
+                "value": 31
+              },
+              "IsChild": {
+                "type": "byte",
+                "value": 0
+              }
+            }
+          ]
+        },
+        "IsChild": {
+          "type": "byte",
+          "value": 0
+        },
+        "Quest": {
+          "type": "cexostring",
+          "value": ""
+        },
+        "QuestEntry": {
+          "type": "dword",
+          "value": 0
+        },
+        "Script": {
+          "type": "resref",
+          "value": "setdamimmun10"
+        },
+        "Sound": {
+          "type": "resref",
+          "value": ""
+        },
+        "Text": {
+          "type": "cexolocstring",
+          "value": {
+            "0": "10%"
+          }
+        }
+      },
+      {
+        "__struct_id": 173,
+        "Active": {
+          "type": "resref",
+          "value": ""
+        },
+        "EntriesList": {
+          "type": "list",
+          "value": [
+            {
+              "__struct_id": 0,
+              "Active": {
+                "type": "resref",
+                "value": ""
+              },
+              "Index": {
+                "type": "dword",
+                "value": 38
+              },
+              "IsChild": {
+                "type": "byte",
+                "value": 0
+              }
+            }
+          ]
+        },
+        "IsChild": {
+          "type": "byte",
+          "value": 0
+        },
+        "Quest": {
+          "type": "cexostring",
+          "value": ""
+        },
+        "QuestEntry": {
+          "type": "dword",
+          "value": 0
+        },
+        "Script": {
+          "type": "resref",
+          "value": "setdamslash"
+        },
+        "Sound": {
+          "type": "resref",
+          "value": ""
+        },
+        "Text": {
+          "type": "cexolocstring",
+          "value": {
+            "0": "Slashing."
+          }
+        }
+      },
+      {
+        "__struct_id": 174,
+        "Active": {
+          "type": "resref",
+          "value": ""
+        },
+        "EntriesList": {
+          "type": "list",
+          "value": [
+            {
+              "__struct_id": 0,
+              "Active": {
+                "type": "resref",
+                "value": ""
+              },
+              "Index": {
+                "type": "dword",
+                "value": 38
+              },
+              "IsChild": {
+                "type": "byte",
+                "value": 0
+              }
+            }
+          ]
+        },
+        "IsChild": {
+          "type": "byte",
+          "value": 0
+        },
+        "Quest": {
+          "type": "cexostring",
+          "value": ""
+        },
+        "QuestEntry": {
+          "type": "dword",
+          "value": 0
+        },
+        "Script": {
+          "type": "resref",
+          "value": "setdambludg"
+        },
+        "Sound": {
+          "type": "resref",
+          "value": ""
+        },
+        "Text": {
+          "type": "cexolocstring",
+          "value": {
+            "0": "Bludgeoning."
+          }
+        }
+      },
+      {
+        "__struct_id": 175,
+        "Active": {
+          "type": "resref",
+          "value": ""
+        },
+        "EntriesList": {
+          "type": "list",
+          "value": [
+            {
+              "__struct_id": 0,
+              "Active": {
+                "type": "resref",
+                "value": ""
+              },
+              "Index": {
+                "type": "dword",
+                "value": 38
+              },
+              "IsChild": {
+                "type": "byte",
+                "value": 0
+              }
+            }
+          ]
+        },
+        "IsChild": {
+          "type": "byte",
+          "value": 0
+        },
+        "Quest": {
+          "type": "cexostring",
+          "value": ""
+        },
+        "QuestEntry": {
+          "type": "dword",
+          "value": 0
+        },
+        "Script": {
+          "type": "resref",
+          "value": "setdampierce"
+        },
+        "Sound": {
+          "type": "resref",
+          "value": ""
+        },
+        "Text": {
+          "type": "cexolocstring",
+          "value": {
+            "0": "Piercing."
+          }
+        }
+      },
+      {
+        "__struct_id": 176,
+        "Active": {
+          "type": "resref",
+          "value": ""
+        },
+        "EntriesList": {
+          "type": "list",
+          "value": [
+            {
+              "__struct_id": 0,
+              "Active": {
+                "type": "resref",
+                "value": ""
+              },
+              "Index": {
+                "type": "dword",
+                "value": 39
+              },
+              "IsChild": {
+                "type": "byte",
+                "value": 0
+              }
+            }
+          ]
+        },
+        "IsChild": {
+          "type": "byte",
+          "value": 0
+        },
+        "Quest": {
+          "type": "cexostring",
+          "value": ""
+        },
+        "QuestEntry": {
+          "type": "dword",
+          "value": 0
+        },
+        "Script": {
+          "type": "resref",
+          "value": "setpropdamimmun"
+        },
+        "Sound": {
+          "type": "resref",
+          "value": ""
+        },
+        "Text": {
+          "type": "cexolocstring",
+          "value": {
+            "0": "Damage Immunity."
           }
         }
       }
