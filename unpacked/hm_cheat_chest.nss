@@ -32,6 +32,8 @@ void main()
     if (GetItemPossessedBy(oPC, "Maghicaepic")        == OBJECT_INVALID) CreateItemOnObject("jubmaghica001",    oPC);
     if (GetItemPossessedBy(oPC, "SmashsSword")        == OBJECT_INVALID) CreateItemOnObject("item061",          oPC);
     if (GetItemPossessedBy(oPC, "x0_misc_fists")     == OBJECT_INVALID) CreateItemOnObject("x0_misc_fists",    oPC);
+    if (GetItemPossessedBy(oPC, "ElrondsWrit")       == OBJECT_INVALID) CreateItemOnObject("elrondswrit",      oPC);
+    if (GetItemPossessedBy(oPC, "Forgekey")          == OBJECT_INVALID) CreateItemOnObject("forgekey",         oPC);
 
     SendMessageToPC(oPC, "Your items have been placed in your inventory.");
 }
