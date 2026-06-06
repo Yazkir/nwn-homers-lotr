@@ -9,11 +9,15 @@ void ForgeLog(string sMsg)
 void main()
 {
     object oAnvil = GetNearestObjectByTag("pAnvilOfWonder");
-    ForgeLog("forge_id: NPC=" + GetName(OBJECT_SELF) + " anvil=" + (oAnvil != OBJECT_INVALID ? GetTag(oAnvil) : "NOT FOUND"));
+    string sAnvil = "NOT FOUND";
+    if (oAnvil != OBJECT_INVALID) sAnvil = GetTag(oAnvil);
+    ForgeLog("forge_id: NPC=" + GetName(OBJECT_SELF) + " anvil=" + sAnvil);
     if (oAnvil != OBJECT_INVALID)
     {
         object oItem = GetFirstItemInInventory(oAnvil);
-        ForgeLog("forge_id: item on anvil=" + (oItem != OBJECT_INVALID ? GetName(oItem) : "NONE"));
+        string sItem = "NONE";
+        if (oItem != OBJECT_INVALID) sItem = GetName(oItem);
+        ForgeLog("forge_id: item on anvil=" + sItem);
         SetIdentified(oItem, TRUE);
     }
 }
