@@ -1,6 +1,6 @@
 void main()
 {
-object oAnvil = GetNearestObjectByTag("ForgeAnvil");
+object oAnvil = GetNearestObjectByTag("pAnvilOfWonder");
   if (oAnvil != OBJECT_INVALID)
         {
         object oItem = GetFirstItemInInventory(oAnvil);
