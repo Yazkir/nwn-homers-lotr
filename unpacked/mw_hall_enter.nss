@@ -35,6 +35,9 @@ void TrySwap(string sGuide, object oHallArea)
 
 void main()
 {
+    // Keep creatures in their spawn area (anti-kiting); see leash_to_area.nss.
+    ExecuteScript("leash_to_area", OBJECT_SELF);
+
     object oEntering = GetEnteringObject();
     if (!GetIsPC(oEntering)) return;
 

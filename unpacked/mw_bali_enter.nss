@@ -2,5 +2,8 @@
 
 void main()
 {
+    // Keep creatures in their spawn area (anti-kiting); see leash_to_area.nss.
+    ExecuteScript("leash_to_area", OBJECT_SELF);
+
     MWSpawnAtWaypoint("MW_SPAWN_CAMPBELL", "mw_campbell_w");
 }

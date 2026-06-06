@@ -15,6 +15,9 @@
 //:://////////////////////////////////////////////
 void main ()
 {
+    // Record spawn area so the creature can be leashed to it (see leash_to_area.nss).
+    SetLocalLocation(OBJECT_SELF, "spawn", GetLocation(OBJECT_SELF));
+
 SetPlotFlag(OBJECT_SELF,TRUE);
 SetListenPattern(OBJECT_SELF,"*n",1111);
 }

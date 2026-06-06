@@ -85,16 +85,23 @@ PLACEHOLDERS = [
 
 
 def make_inert(bp: dict) -> dict:
-    """Apply Merchant faction, empty inventory, and blank all event scripts."""
+    """Apply Merchant faction, empty inventory, and blank all event scripts.
+
+    ScriptSpawn is set to "leash_spawn" (a no-AI script that only records the
+    creature's spawn area) rather than left blank, so these pieces satisfy the
+    spawn-leash smoke test (tests/check_spawn_leash.py). They never leave
+    area017, so the leash itself is a harmless no-op.
+    """
     bp["FactionID"] = {"type": "word", "value": 3}  # 3 = Merchant
     if "ItemList" in bp:
         bp["ItemList"]["value"] = []
     for field in SCRIPT_FIELDS:
+        value = "leash_spawn" if field == "ScriptSpawn" else ""
         if field in bp:
-            bp[field]["value"] = ""
+            bp[field]["value"] = value
         # If the field isn't present at all, add it (some blueprints omit unused slots)
         else:
-            bp[field] = {"type": "resref", "value": ""}
+            bp[field] = {"type": "resref", "value": value}
     return bp
 
 

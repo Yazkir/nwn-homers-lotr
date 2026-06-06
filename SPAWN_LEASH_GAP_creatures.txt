@@ -1,0 +1,191 @@
+CREATURES WITHOUT A SPAWN-POINT STORED AT OnSpawn
+(rely on the leash_init module-load sweep for their home location)
+Generated: 2026-06-05  |  module: Homer's LOTR VEL v3
+==============================================================================
+
+BACKGROUND
+------------------------------------------------------------------------------
+The area-leash anti-kiting system teleports a creature back to its spawn
+area if a player leads it out (enforced in leash_to_area.nss on every area's
+OnEnter). That requires each creature to have a 'spawn' LocalLocation home.
+
+~507 creatures store 'spawn' themselves at OnSpawn via nw_c2_default9
+(reached through x2_def_spawn, the module default) / nw_c2_omnivore /
+nw_c2_herbivore. Associates (nw_ch_ac9, ww_ch_ac9) are intentionally NOT
+leashed (they follow their PC) and are excluded from this list.
+
+The creatures BELOW use a custom, stock, or blank OnSpawn that never stores
+'spawn', so without intervention they could be kited freely.
+
+HOW THIS WAS ADDRESSED  (final approach)
+------------------------------------------------------------------------------
+Home is recorded at the creature's own OnSpawn -- which always runs in the home
+area, whatever the spawn mechanism (placed at area load, encounter,
+MWSpawnAtWaypoint, any CreateObject). An earlier module-load sweep was scrapped
+because many creatures spawn on area-enter and don't exist at module load.
+
+Each creature below was made to store 'spawn' at OnSpawn:
+  - 15 custom spawn scripts (+ nw_ch_ac9, ww_ch_ac9): the line
+        SetLocalLocation(OBJECT_SELF,"spawn",GetLocation(OBJECT_SELF));
+    was inserted at the top of main().
+  - 8 blank-OnSpawn real monsters: ScriptSpawn set to leash_spawn (a new no-AI,
+    store-only OnSpawn).
+  - 41 ds_* Dungeon-Solitaire pieces: ScriptSpawn set to leash_spawn (surgically;
+    bin/gen-ds-blueprints.py make_inert also updated for future regen).
+  - 10 nw_c2_dropin9 / 1 nw_c2_bat9 / 2 nw_c2_dimdoors (stock, no source):
+    ScriptSpawn set to thin wrappers sp_dropin9 / sp_bat9 / sp_dimdoors that
+    store 'spawn' then ExecuteScript the unchanged stock script.
+
+A build-time gate (tests/smoke-test -> tests/check_spawn_leash.py, run by
+nwn-manager repack) now FAILS the build if any creature lacks both a
+spawn-storing OnSpawn and the NO_LEASH=1 opt-out, so this gap can't silently
+return. To opt a creature OUT (intended travelers), set local int NO_LEASH=1.
+
+THE CREATURES  (grouped by ScriptSpawn)
+==============================================================================
+
+### ScriptSpawn: (blank / no OnSpawn)    (49 creature(s))
+  - ds_adunaphel           tag=AdunaphelTheRingwraith name='Adunaphel The Ringwraith'
+  - ds_alatar              tag=Alatar                 name='Alatar the Blue'
+  - ds_aragorn             tag=AragornSonofArathorn   name='Aragorn Son of Arathorn'
+  - ds_bandit007           tag=NW_BANDIT006           name='Groodok the Skinner'
+  - ds_beorning            tag=BearBeorning           name='Beorning (Shifted)'
+  - ds_beregond            tag=ms_minas2121           name='Epic Gondorian Guardsman'
+  - ds_bilbobaggins        tag=BilboBaggins           name='Bilbo Baggins'
+  - ds_creature002         tag=Faramir                name='Faramir, Prince of Ithillien'
+  - ds_creature003         tag=DenethorStewardofGondor name='Denethor, Steward of Gondor'
+  - ds_creature009         tag=BoromirStewardofGondor name='Boromir, Steward of Gondor'
+  - ds_creature018         tag=ThranduilsDefender     name="Thranduil's Defender"
+  - ds_creature023         tag=Skinner                name='The Rancid Skinner Green Mortal of Khamul'
+  - ds_elladan             tag=NW_ELFRANGER015        name='Elladan'
+  - ds_elrohir             tag=NW_ELFRANGER015        name='Elrohir'
+  - ds_eomer               tag=Gimli                  name='Eomer of the Eastmark'
+  - ds_eowyn               tag=EowyntheShieldmaiden   name='Eowyn the Shieldmaiden'
+  - ds_fiendofmorgul       tag=FiendofMorgul          name='Fiend of Morgul'
+  - ds_frodo               tag=Gimli                  name='Frodo Baggins'
+  - ds_galadriel           tag=Galadriel              name='Galadriel'
+  - ds_gandalf001          tag=Gandalf                name='Gandalf the Gray'
+  - ds_gimli               tag=Gimli                  name='Gimli'
+  - ds_gothmog             tag=LordofBaradDur         name='Gothmog Lord of Barad-Dur'
+  - ds_grima               tag=Gimli                  name='Grima Wormtongue'
+  - ds_halbarad            tag=Rangerofthe            name='Greater Ranger of the North'
+  - ds_hoarmouth           tag=HoarmouthTheRingwraith name='Hoarmouth The Ringwraith'
+  - ds_hobbit001           tag=Hobbit                 name='Hobbit'
+  - ds_legolas             tag=LegolasGreenleaf       name='Legolas Greenleaf -  Silvan Prince of Mirkwood'
+  - ds_mauhur              tag=ms_iseno3              name='Uruk Hai First Born'
+  - ds_merry               tag=Gimli                  name='Meriadoc Brandybuck'
+  - ds_mirkwood            tag=MirkwoodForestWalker   name='Mirkwood Forest Walker'
+  - ds_narrator            tag=ds_narrator            name=''
+  - ds_pippin              tag=Gimli                  name='Peregrin Took'
+  - ds_samwise             tag=Samwise                name='Samwise Gamgee'
+  - ds_saruman             tag=ms_orth17              name='Saruman the White'
+  - ds_urukai001           tag=Urukait                name='Urukai Trooper'
+  - ds_urukai003           tag=Urukaic                name='Urukai Captain'
+  - ds_urukai012           tag=ms_gund34              name='Uruk Hai Slayer'
+  - ds_urukai013           tag=ms_orth5               name='Marshall of the White Hand'
+  - ds_urukai016           tag=ms_mordor25            name='Mordor Orc Lieutenant Soldier'
+  - ds_urukai020           tag=ms_orth16              name='Ugluk, Leader Of The Uruk Hai'
+  - ds_witchking           tag=AngmartheEvoocator     name='Angmar the Evocator'
+  - epicdragonknight       tag=epicdragonknight       name='Epic Dragon Knight'
+  - gelatinouscube         tag=GelatinousCube         name='Gelatinous Cube'
+  - mummyreaper            tag=mummyreaper            name='Epic Mummy Reaper'
+  - petrock                tag=petrock                name='Pet Rock'
+  - petrock001             tag=Scare                  name='Hamatula Servant'
+  - ppis_individual        tag=ppis_individual        name='Storage Creature'
+  - scarecrowfeind         tag=PetMagma               name='Pet Pack Penguin'
+  - swampsluge             tag=SwampSluge             name='Swamp Sludge'
+
+### ScriptSpawn: _dm_subrace_lis1    (1 creature(s))
+  - dmsubracehelper        tag=DM_SUBRACE_HELPER      name='DM Subrace Helper'
+
+### ScriptSpawn: bank_tellerspawn    (1 creature(s))
+  - bankteller             tag=BankTeller             name='Bank Teller'
+
+### ScriptSpawn: bbs_scribe_spawn    (1 creature(s))
+  - bbs_scribe_bp          tag=BBS_SCRIBE             name='Scribe'  [Created by Serban Oprescu
+serban@pixelsharp.com
+http://www.pixelsharp.com/projects/nwn/
+Version 1.1, August 9, 2002]
+
+### ScriptSpawn: bdm_merch_spawn    (1 creature(s))
+  - shopkeep001            tag=NW_SHOPKEEP            name='Shop Keeper'
+
+### ScriptSpawn: beespawn    (1 creature(s))
+  - killerbees             tag=KillerBees             name='Killer Bees'
+        areas: Mirkwood: Central
+
+### ScriptSpawn: burn_onspawn    (1 creature(s))
+  - kallristundead         tag=kallristundead         name='Burning Skeleton'
+        areas: Kallrist Crypt
+
+### ScriptSpawn: j_ai_spelltrig1    (1 creature(s))
+  - jass_spelltrig         tag=jass_spelltrig         name='Spell Trigger'  [This is an AI spell trigger creature.
+
+DO NOT EDIT!
+
+This is specifically made to be unkillable, unselectable, unseen and so forth. Players won't know about its exsistance much.]
+
+### ScriptSpawn: kpb_banker_spawn    (2 creature(s))
+  - banker                 tag=Banker                 name='Banker'
+        areas: Bank of Bree 
+  - banker002              tag=Banker                 name='Banker'
+
+### ScriptSpawn: m3q4_d14_cook_1    (1 creature(s))
+  - m3q4_d14_cook          tag=M3Q4_D14_COOK          name=''  [Clothed & armed.]
+
+### ScriptSpawn: m3q4h_yuanti_9    (1 creature(s))
+  - m3q4h_yuanti           tag=M3Q4H_YUANTI           name=''
+
+### ScriptSpawn: nazspawn    (1 creature(s))
+  - creature007            tag=Khamul                 name='Khamûl The Ringwraith'
+        areas: Carn Dum: Throne
+
+### ScriptSpawn: nw_c2_bat9    (1 creature(s))
+  - bat001                 tag=NW_BAT                 name='Vampire Bat'
+        areas: Gap of Rohan
+
+### ScriptSpawn: nw_c2_dimdoors    (2 creature(s))
+  - blinkdog001            tag=NW_BLINKDOG            name='A Spotted Wild Dog'
+        areas: Mindalf, Wold North, Wold South
+  - spidphase001           tag=NW_SPIDPHASE           name='A Death Weeper Spider'
+        areas: Mirkwood: Central East, Mirkwood: Central South, Mirkwood: North
+
+### ScriptSpawn: nw_c2_dropin9    (10 creature(s))
+  - drgblue004             tag=TheIceQueen            name='The Ice Queen'
+        areas: Ice Queen: Nest
+  - drgsilv003             tag=NW_DRGSILV002          name='Mech. Dragon'
+  - imp001                 tag=NW_IMP                 name='Lesser Lava Imp'
+  - spiddire001            tag=NW_SPIDDIRE            name='Sword Spider'
+        areas: Mirkwood: Central East, Mirkwood: Central South, Mirkwood: North
+  - spiderboss001          tag=NW_SPIDERBOSS          name='Spider-Queen'  [Boss Monster]
+        areas: Mirkwood: Central, Mirkwood: Central East, Mirkwood: Central South, Mirkwood: East, Mirkwood: North, Mirkwood: West, The Secret Pass of Mordor
+  - spidgiant001           tag=NW_SPIDGIANT           name='Giant Spider'
+        areas: Mirkwood: Central, Mirkwood: Central East, Mirkwood: Central South, Mirkwood: East, Mirkwood: North, Mirkwood: West, Old Forest, Old Road, The Secret Pass of Mordor
+  - spidgiant002           tag=NW_SPIDGIANTfwb        name='White Widow'
+        areas: Old Forest
+  - spidswrd001            tag=NW_SPIDSWRD            name='Black Spear Spider'
+        areas: Mirkwood: Central East, Mirkwood: Central South, Mirkwood: North
+  - spidwra001             tag=LavaClimber            name='Lava Climber'
+        areas: Mirkwood: Central, Mirkwood: East, Mirkwood: West, The Secret Pass of Mordor
+  - zep_spidgiant          tag=ZEP_SPIDGIANT          name=''
+        areas: Old Forest:  Withywindle Path
+
+### ScriptSpawn: sit    (1 creature(s))
+  - thecursedone002        tag=TheCursedOne           name='Heir of Haldor'
+        areas: Dimholt: The Forgotten King
+
+### ScriptSpawn: spawn_fellbeast    (1 creature(s))
+  - badass                 tag=balsum                 name='Fell Beast'
+        areas: Kallrist Crypt
+
+### ScriptSpawn: spawn_invpurge    (1 creature(s))
+  - darkconjurer           tag=DarkConjurer           name='Dark Conjurer'
+        areas: Dol Guldur
+
+### ScriptSpawn: tr_spawn    (2 creature(s))
+  - lvl_alig_trai002       tag=lvl_alig_trainer       name='Alignment Adjuster'
+        areas: Appearance Changer and Character Modifying Area
+  - lvl_alig_trainer       tag=lvl_alig_trainer       name='Alignment Adjuster'
+
+==============================================================================
+TOTAL non-associate creatures relying on the load-sweep fallback: 79

@@ -3,6 +3,9 @@
 
 void main()
 {
+    // Record spawn area so the creature can be leashed to it (see leash_to_area.nss).
+    SetLocalLocation(OBJECT_SELF, "spawn", GetLocation(OBJECT_SELF));
+
     SetListenPattern(OBJECT_SELF, "**deposit ** gold**", 20);
     SetListenPattern(OBJECT_SELF, "**withdraw ** gold**", 21);
     SetListenPattern(OBJECT_SELF, "**balance**", 22);

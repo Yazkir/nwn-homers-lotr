@@ -21,6 +21,9 @@ void TrashObject(object oObject)
 
 void main()
 {
+    // Keep creatures in their spawn area (anti-kiting); see leash_to_area.nss.
+    ExecuteScript("leash_to_area", OBJECT_SELF);
+
 
 /* bypass if currently in-progress (blocked) or ClearTrash is disabled */
 if ((GetLocalInt(OBJECT_SELF, "CT_IN_PROGRESS") != 1) &&

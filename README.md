@@ -223,6 +223,67 @@ folder before any hak and is not distributed to clients via nwsync.
    short-circuit). Reverting them is optional; `git revert` the relevant commit
    if you want exact parity with the original.
 
+## Area leashing (creatures locked to spawn area)
+
+Players must not be able to lead a creature — especially a boss — out of its home
+area and across the module to fight other bosses (an exploit). To prevent this,
+**every non-associate creature is locked to the area it spawned in**: if it ends
+up in any other area it is teleported straight back to its spawn point. No
+heartbeat is involved.
+
+Two pieces (NWN has no per-creature "changed area" event):
+
+- **`leash_to_area.nss`** — the enforcement. Runs on every area's **OnEnter**.
+  When a creature enters an area that isn't its home, it does
+  `ClearAllActions()` + `JumpToLocation(home)`. It is wired directly on areas
+  whose OnEnter was empty, and **chained** (`ExecuteScript("leash_to_area", OBJECT_SELF)`)
+  from the shared OnEnter scripts the other areas already use (`d_cleartrash`,
+  `s_cleartrash`, `ent`, `map`, the `mw_*_enter` Meaningwave scripts, etc.).
+- **Home is recorded at OnSpawn.** Each creature stores its `"spawn"`
+  LocalLocation when it spawns — which always happens in its home area, whatever
+  the spawn mechanism (placed at area load, encounter, `MWSpawnAtWaypoint`, or
+  any `CreateObject`). The module default `x2_def_spawn` → `nw_c2_default9` does
+  this. Creatures that used a custom/blank/stock OnSpawn that didn't were fixed:
+  the storage line was added to their spawn script, or they were pointed at
+  `leash_spawn` (a no-AI store-only OnSpawn) or a thin `sp_*` wrapper that stores
+  then runs the stock script (`sp_dropin9` → `nw_c2_dropin9`, `sp_bat9`,
+  `sp_dimdoors`). (Note: area events can't establish a true home — by the time
+  OnEnter sees a creature it may already have been kited — which is why this is
+  done at OnSpawn, not at module load.)
+
+Within-area teleports (e.g. Dimension Door) never cross an area boundary, so they
+never fire area OnEnter and never trip the leash.
+
+**Adding new creatures — usually nothing to do.** As long as a new creature's
+OnSpawn reaches `nw_c2_default9` / `x2_def_spawn` (the module default) it is
+covered. If you write a *custom* OnSpawn that doesn't, add one line so it can be
+leashed:
+
+```nss
+SetLocalLocation(OBJECT_SELF, "spawn", GetLocation(OBJECT_SELF));
+```
+
+**Exempting a creature that is meant to travel** (escort NPCs, ambient
+wanderers, scripted plot movers): set local int **`NO_LEASH = 1`** on its
+blueprint `VarTable` (applies to all instances) or on a specific `.git` instance.
+It may then cross area boundaries freely.
+
+**Associates** (henchmen, summons, familiars, animal companions, dominated) are
+never leashed — they have a master and follow their PC. They still store `"spawn"`
+at OnSpawn (harmless), so they satisfy the build check below.
+
+### Build-time guard
+
+The invariant — *every creature blueprint must either store a `"spawn"` home at
+OnSpawn or set `NO_LEASH = 1`* — is enforced by **`tests/check_spawn_leash.py`**,
+run via **`tests/smoke-test`**. `nwn-manager repack` runs `tests/smoke-test`
+before packing and **aborts the build (no `.mod` built or installed)** if any
+creature lacks both. The check scans `unpacked/` directly (it computes which
+spawn scripts store `"spawn"`, following `ExecuteScript` chains), so a newly added
+creature with a blank or non-storing OnSpawn fails the repack until it is given a
+storing OnSpawn or flagged `NO_LEASH=1`. (`nwn-manager` is module-agnostic — it
+only knows to run `tests/smoke-test`; the checks live in this repo.)
+
 ## Dungeon Solitaire
 
 The module embeds a playable port of the card game **Dungeon Solitaire**

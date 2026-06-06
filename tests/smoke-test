@@ -1,0 +1,15 @@
+#!/usr/bin/env bash
+# Build-time smoke tests for Homer's LOTR, run by `nwn-manager repack` before
+# packing (non-zero exit aborts the repack and blocks install). Add module
+# checks here; each must exit non-zero on failure.
+#
+# nwn-manager invokes this generically: it only knows to run tests/smoke-test
+# from the project root. The actual test logic lives in this repo.
+set -euo pipefail
+
+HERE="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+
+echo "[smoke-test] spawn-leash coverage…"
+python3 "$HERE/check_spawn_leash.py"
+
+echo "[smoke-test] all checks passed."

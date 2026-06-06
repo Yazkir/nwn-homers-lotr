@@ -12,6 +12,9 @@
 
 void main()
 {
+    // Record spawn area so the creature can be leashed to it (see leash_to_area.nss).
+    SetLocalLocation(OBJECT_SELF, "spawn", GetLocation(OBJECT_SELF));
+
     effect eVis = EffectVisualEffect(VFX_DUR_GHOSTLY_VISAGE);
     ApplyEffectToObject(DURATION_TYPE_PERMANENT, eVis, OBJECT_SELF);
 
