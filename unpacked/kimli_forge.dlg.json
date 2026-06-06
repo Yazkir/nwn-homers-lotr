@@ -48,7 +48,7 @@
               "__struct_id": 0,
               "Active": {
                 "type": "resref",
-                "value": ""
+                "value": "kimli_haswrit"
               },
               "Index": {
                 "type": "dword",
@@ -61,6 +61,21 @@
             },
             {
               "__struct_id": 1,
+              "Active": {
+                "type": "resref",
+                "value": "kimli_nowrit"
+              },
+              "Index": {
+                "type": "dword",
+                "value": 233
+              },
+              "IsChild": {
+                "type": "byte",
+                "value": 0
+              }
+            },
+            {
+              "__struct_id": 2,
               "Active": {
                 "type": "resref",
                 "value": ""
@@ -4935,6 +4950,51 @@
           "type": "cexolocstring",
           "value": {
             "0": "Now, please select the bonus amount."
+          }
+        }
+      },
+      {
+        "__struct_id": 35,
+        "Animation": {
+          "type": "dword",
+          "value": 0
+        },
+        "AnimLoop": {
+          "type": "byte",
+          "value": 1
+        },
+        "Comment": {
+          "type": "cexostring",
+          "value": ""
+        },
+        "Delay": {
+          "type": "dword",
+          "value": 4294967295
+        },
+        "Quest": {
+          "type": "cexostring",
+          "value": ""
+        },
+        "RepliesList": {
+          "type": "list",
+          "value": []
+        },
+        "Script": {
+          "type": "resref",
+          "value": ""
+        },
+        "Sound": {
+          "type": "resref",
+          "value": ""
+        },
+        "Speaker": {
+          "type": "cexostring",
+          "value": ""
+        },
+        "Text": {
+          "type": "cexolocstring",
+          "value": {
+            "0": "This forge burns only by Elrond's grace. You will need his Writ before I may work your items."
           }
         }
       }
@@ -18897,6 +18957,63 @@
           "type": "cexolocstring",
           "value": {
             "0": "Tumble."
+          }
+        }
+      },
+      {
+        "__struct_id": 233,
+        "Animation": {
+          "type": "dword",
+          "value": 0
+        },
+        "AnimLoop": {
+          "type": "byte",
+          "value": 1
+        },
+        "Comment": {
+          "type": "cexostring",
+          "value": ""
+        },
+        "Delay": {
+          "type": "dword",
+          "value": 4294967295
+        },
+        "EntriesList": {
+          "type": "list",
+          "value": [
+            {
+              "__struct_id": 0,
+              "Active": {
+                "type": "resref",
+                "value": ""
+              },
+              "Index": {
+                "type": "dword",
+                "value": 35
+              },
+              "IsChild": {
+                "type": "byte",
+                "value": 0
+              }
+            }
+          ]
+        },
+        "Quest": {
+          "type": "cexostring",
+          "value": ""
+        },
+        "Script": {
+          "type": "resref",
+          "value": ""
+        },
+        "Sound": {
+          "type": "resref",
+          "value": ""
+        },
+        "Text": {
+          "type": "cexolocstring",
+          "value": {
+            "0": "Why can I not use this forge?"
           }
         }
       }

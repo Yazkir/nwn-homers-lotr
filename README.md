@@ -268,9 +268,15 @@ wanderers, scripted plot movers): set local int **`NO_LEASH = 1`** on its
 blueprint `VarTable` (applies to all instances) or on a specific `.git` instance.
 It may then cross area boundaries freely.
 
-**Associates** (henchmen, summons, familiars, animal companions, dominated) are
-never leashed — they have a master and follow their PC. They still store `"spawn"`
-at OnSpawn (harmless), so they satisfy the build check below.
+**Associates are never leashed — they keep following their PC.** The enforcement
+script returns early for any creature with a valid `GetMaster`, which covers
+henchmen, summoned creatures, familiars, animal companions and dominated
+creatures. Concretely: **Meaningwave guides** (added as engine henchmen via
+`AddHenchman`, see `mw_unlock_inc.nss`) and **summoned creatures** such as the
+**Epic Dragon Knight** (`EffectSummonCreature("epicdragonknight",…)` in
+`x2_s2_dragknght.nss`) follow the player across areas normally. They still store
+`"spawn"` at OnSpawn (harmless — never enforced because of the master check), so
+they satisfy the build check below.
 
 ### Build-time guard
 
