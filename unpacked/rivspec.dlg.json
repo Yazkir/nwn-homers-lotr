@@ -52,7 +52,7 @@
               },
               "Index": {
                 "type": "dword",
-                "value": 1
+                "value": 2
               },
               "IsChild": {
                 "type": "byte",
@@ -68,21 +68,6 @@
               "Index": {
                 "type": "dword",
                 "value": 0
-              },
-              "IsChild": {
-                "type": "byte",
-                "value": 0
-              }
-            },
-            {
-              "__struct_id": 2,
-              "Active": {
-                "type": "resref",
-                "value": ""
-              },
-              "Index": {
-                "type": "dword",
-                "value": 2
               },
               "IsChild": {
                 "type": "byte",
@@ -134,11 +119,27 @@
         },
         "RepliesList": {
           "type": "list",
-          "value": []
+          "value": [
+            {
+              "__struct_id": 0,
+              "Active": {
+                "type": "resref",
+                "value": ""
+              },
+              "Index": {
+                "type": "dword",
+                "value": 3
+              },
+              "IsChild": {
+                "type": "byte",
+                "value": 0
+              }
+            }
+          ]
         },
         "Script": {
           "type": "resref",
-          "value": "kimli_forge"
+          "value": ""
         },
         "Sound": {
           "type": "resref",
@@ -360,6 +361,47 @@
           "type": "cexolocstring",
           "value": {
             "0": "I'd like to use the Forge of Wonders."
+          }
+        }
+      },
+      {
+        "__struct_id": 3,
+        "Animation": {
+          "type": "dword",
+          "value": 0
+        },
+        "AnimLoop": {
+          "type": "byte",
+          "value": 1
+        },
+        "Comment": {
+          "type": "cexostring",
+          "value": ""
+        },
+        "Delay": {
+          "type": "dword",
+          "value": 4294967295
+        },
+        "EntriesList": {
+          "type": "list",
+          "value": []
+        },
+        "Quest": {
+          "type": "cexostring",
+          "value": ""
+        },
+        "Script": {
+          "type": "resref",
+          "value": "kimli_forge"
+        },
+        "Sound": {
+          "type": "resref",
+          "value": ""
+        },
+        "Text": {
+          "type": "cexolocstring",
+          "value": {
+            "0": "I'll place my item on the anvil now."
           }
         }
       }

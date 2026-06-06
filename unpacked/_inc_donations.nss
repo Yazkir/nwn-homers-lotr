@@ -3,7 +3,7 @@
 // AUTO-MANAGED by bin/sync_donations.py — do not hand-edit the generated sections.
 
 // Number of items in the bonus pool (cases 0..BONUS_POOL_SIZE-1).
-const int BONUS_POOL_SIZE = 193;
+const int BONUS_POOL_SIZE = 198;
 
 // Returns 99 for ammunition items, 1 for everything else.
 int GetBonusItemStackSize(int n)
@@ -224,6 +224,11 @@ string GetBonusItemResref(int n)
         case 190:  return "nw_waxmgr004";             // Axe of the Culling
         case 191:  return "maceofthedarkpri";         // Mace of the Dark Priestess
         case 192:  return "008";                      // Boots of the Mirkwood Elf
+        case 193:  return "hideofthefore";            // Hide of the Forest Spirit
+        case 194:  return "lavaplate";                // Lava Plate
+        case 195:  return "040";                      // Ring of the Red Warrior
+        case 196:  return "goreshovel";               // Goreshovel
+        case 197:  return "garbofthewhitebe";         // Garb of the White Ninja
     }
     return "";
 }
@@ -239,16 +244,9 @@ int IsIllicitDonationsItem(string sResRef)
     if (sResRef == "epicring")   return TRUE;
     if (sResRef == "staffoftheram5")   return TRUE;
     if (sResRef == "hindosdoom4")   return TRUE;
-    if (sResRef == "garbofthewhitebe")   return TRUE;
-    if (sResRef == "item063")   return TRUE;
-    if (sResRef == "item014")   return TRUE;
     if (sResRef == "mordorbowmana001")   return TRUE;
-    if (sResRef == "040")   return TRUE;
-    if (sResRef == "theword001")   return TRUE;
     if (sResRef == "shadowstaff")   return TRUE;
-    if (sResRef == "orcstatbuff")   return TRUE;
     if (sResRef == "marilithscimitar")   return TRUE;
-    if (sResRef == "goreshovel")   return TRUE;
     if (sResRef == "longswordofweath")   return TRUE;
     if (sResRef == "theeyeofmadusa")   return TRUE;
     if (sResRef == "ls_angurvadal")   return TRUE;
@@ -259,8 +257,6 @@ int IsIllicitDonationsItem(string sResRef)
     if (sResRef == "009")   return TRUE;
     if (sResRef == "crownofweathe004")   return TRUE;
     if (sResRef == "145")   return TRUE;
-    if (sResRef == "item097")   return TRUE;
-    if (sResRef == "lavaplate")   return TRUE;
     if (sResRef == "arrowofhaldir")   return TRUE;
     if (sResRef == "armhe011")   return TRUE;
     if (sResRef == "glamhkama2")   return TRUE;
@@ -280,11 +276,9 @@ int IsIllicitDonationsItem(string sResRef)
     if (sResRef == "item001")   return TRUE;
     if (sResRef == "arrowofthranduil")   return TRUE;
     if (sResRef == "runehammer5")   return TRUE;
-    if (sResRef == "hideofthefore")   return TRUE;
     if (sResRef == "fistoftheninja")   return TRUE;
     if (sResRef == "warhammerofth001")   return TRUE;
     if (sResRef == "ringofdangersens")   return TRUE;
     if (sResRef == "wammar048")   return TRUE;
-    if (sResRef == "cloakofmist")   return TRUE;
     return FALSE;
 }
