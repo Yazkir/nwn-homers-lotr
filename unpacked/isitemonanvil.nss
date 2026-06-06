@@ -1,3 +1,11 @@
+void ForgeLog(string sMsg)
+{
+    if (!GetLocalInt(GetModule(), "FORGE_DEBUG")) return;
+    string sLine = "[FORGE] " + sMsg;
+    WriteTimestampedLogEntry(sLine);
+    SendMessageToAllDMs(sLine);
+}
+
 void SetTokens(object oItem)
 {
     SetCustomToken(100, GetName(oItem));
@@ -177,28 +185,32 @@ void SetTokens(object oItem)
 
 int StartingConditional()
 {
+    object oPC = GetPCSpeaker();
     object oAnvil = GetNearestObjectByTag("pAnvilOfWonder");
-    //Look for anvil object
-    if (oAnvil != OBJECT_INVALID)
-        {
-        //Make sure an item is on the anvil
-        object oItem = GetFirstItemInInventory(oAnvil);
-        if (oItem != OBJECT_INVALID)
-            {
-            //Make sure no extra items are on the anvil
-            object oNext = GetNextItemInInventory(oAnvil);
-            if (oNext == OBJECT_INVALID)
-                {
-                if (!GetLocalInt(oItem, "FORGE_BASE_SET"))
-                    {
-                    SetLocalInt(oItem, "FORGE_BASE_VALUE", GetGoldPieceValue(oItem));
-                    SetLocalInt(oItem, "FORGE_BASE_SET", TRUE);
-                    }
-                SetLocalObject(GetPCSpeaker(), "MODIFY_ITEM", oItem);
-                SetTokens(oItem);
-                return TRUE;
-                }
-            }
-        }
-   return FALSE;
+    if (oAnvil == OBJECT_INVALID)
+    {
+        ForgeLog("isitemonanvil: PC=" + GetName(oPC) + " anvil NOT FOUND — returning FALSE");
+        return FALSE;
+    }
+    object oItem = GetFirstItemInInventory(oAnvil);
+    if (oItem == OBJECT_INVALID)
+    {
+        ForgeLog("isitemonanvil: PC=" + GetName(oPC) + " anvil found but NO ITEM on it — returning FALSE");
+        return FALSE;
+    }
+    object oNext = GetNextItemInInventory(oAnvil);
+    if (oNext != OBJECT_INVALID)
+    {
+        ForgeLog("isitemonanvil: PC=" + GetName(oPC) + " MULTIPLE ITEMS on anvil — returning FALSE");
+        return FALSE;
+    }
+    ForgeLog("isitemonanvil: PC=" + GetName(oPC) + " item='" + GetName(oItem) + "' value=" + IntToString(GetGoldPieceValue(oItem)) + " — returning TRUE");
+    if (!GetLocalInt(oItem, "FORGE_BASE_SET"))
+    {
+        SetLocalInt(oItem, "FORGE_BASE_VALUE", GetGoldPieceValue(oItem));
+        SetLocalInt(oItem, "FORGE_BASE_SET", TRUE);
+    }
+    SetLocalObject(oPC, "MODIFY_ITEM", oItem);
+    SetTokens(oItem);
+    return TRUE;
 }
