@@ -80,4 +80,10 @@ void main()
     AddJournalQuestEntry("modcustoms", 1, oPC, FALSE, FALSE);
 
     DelayCommand(1.0, HgllPostEnter(oPC));
+
+    // Build stamp: nwn-manager generates "nwnmgr_bstamp" at repack with the module's
+    // last-edited timestamp + git revision. Resolved at runtime, so it safely no-ops
+    // in dev builds where the script isn't packed. Delayed so it lands after the
+    // login flood and the merit login message (3s).
+    DelayCommand(5.0, ExecuteScript("nwnmgr_bstamp", oPC));
 }
