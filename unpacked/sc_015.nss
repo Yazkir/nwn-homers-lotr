@@ -11,7 +11,7 @@ int StartingConditional()
 {
 
 	// Make sure the PC speaker has these items in their inventory
-	if(!CheckPartyForItem(GetPCSpeaker(), "ADwarfHead"))
+	if(!CheckPartyForItem(GetPCSpeaker(), "MutantsHead"))
 		return FALSE;
 	if(!CheckPartyForItem(GetPCSpeaker(), "HelmoftheWarlord"))
 		return FALSE;

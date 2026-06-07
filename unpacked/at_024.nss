@@ -9,10 +9,19 @@
 
 void main()
 {
-    // Give the speaker some XP
-    RewardPartyXP(2000, GetPCSpeaker());
+    object oPC = GetPCSpeaker();
 
-    // Give the speaker the items
-    CreateItemOnObject("elrondswrit", GetPCSpeaker(), 1);
+    // at_026 sets this flag only after confirming and destroying both items.
+    // Guard here so the dialog reaching this node can't grant a reward if
+    // at_026 returned early due to missing items.
+    if (!GetLocalInt(oPC, "elrond_gave_items"))
+    {
+        FloatingTextStringOnCreature(
+            "Oops! You must present both quest items to receive Elrond's Writ.", oPC, FALSE);
+        return;
+    }
+    DeleteLocalInt(oPC, "elrond_gave_items");
 
+    RewardPartyXP(2000, oPC);
+    CreateItemOnObject("elrondswrit", oPC, 1);
 }
