@@ -5,11 +5,21 @@
 #
 # nwn-manager invokes this generically: it only knows to run tests/smoke-test
 # from the project root. The actual test logic lives in this repo.
-set -euo pipefail
+# NOTE: no `-e` — each check reports ok:/fail: and we accumulate rc, so one
+# failure doesn't hide the others. A non-zero exit still aborts the repack.
+set -uo pipefail
 
 HERE="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+rc=0
 
-echo "[smoke-test] spawn-leash coverage…"
-python3 "$HERE/check_spawn_leash.py"
+# Each check prints "ok: <name>" or "fail: <name>" so nwn-manager can report an
+# "X/Y smoke tests passed" count. The "running:" line shows progress in verbose.
+echo "[smoke-test] running: spawn-leash coverage…"
+if python3 "$HERE/check_spawn_leash.py"; then
+  echo "ok: spawn-leash coverage"
+else
+  echo "fail: spawn-leash coverage"
+  rc=1
+fi
 
-echo "[smoke-test] all checks passed."
+exit $rc
