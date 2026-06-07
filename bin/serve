@@ -111,9 +111,10 @@ import re, sys
 txt = open(sys.argv[1]).read()
 txt = re.sub(r'(always-roll-max-hitpoints-on-levelup\s*=\s*)false', r'\1true', txt, count=1)
 txt = re.sub(r'(\t\tsticky-modes\s*=\s*)false', r'\1true', txt, count=1)
+txt = re.sub(r'(max-ability-bonus\s*=\s*)\d+', r'\124', txt, count=1)
 open(sys.argv[1], 'w').write(txt)
 PYEOF
-  echo "[serve] patched settings.tml: sticky-modes=true, always-roll-max-hitpoints-on-levelup=true"
+  echo "[serve] patched settings.tml: sticky-modes=true, always-roll-max-hitpoints-on-levelup=true, max-ability-bonus=24"
 fi
 
 podman run --rm --name "$NWN_CONTAINER_NAME" \
