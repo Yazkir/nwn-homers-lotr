@@ -46,13 +46,15 @@
   <main>
 <h1>Conversation: <code>forge_item_mid</code></h1>
 <dl class="meta">
-<dt>NPC lines</dt><dd>40</dd>
-<dt>PC replies</dt><dd>177</dd>
+<dt>NPC lines</dt><dd>42</dd>
+<dt>PC replies</dt><dd>182</dd>
 <dt>NumWords</dt><dd>616</dd>
 <dt>OnEnd</dt><dd><code>nw_walk_wp</code></dd>
 <dt>OnAbort</dt><dd><code>nw_walk_wp</code></dd>
 </dl>
-<h2>Triggered by</h2><p class="muted">No caller found in static analysis. May be invoked from runtime-only code paths (string-built resrefs, etc.).</p>
+<h2>Triggered by</h2><ul class="dlg-callers">
+<li><span class="badge">creature</span> NPC <a href="../creatures/old__v5.html">Old Tagget</a> — in <a href="../areas/taggetssmithshop.html">Taggets Smith Shop</a></li>
+</ul>
 <h2>Scripts referenced</h2>
 <table class="data"><thead><tr><th>Script</th><th>Slot</th><th>In module</th><th>Notes</th></tr></thead><tbody><tr><td><code>removeallitems</code></td><td>action</td><td>✓</td><td></td></tr>
 <tr><td><code>sc_never</code></td><td>active</td><td>✓</td><td></td></tr>
@@ -204,18 +206,27 @@
 <tr><td><code>setskilltaunt</code></td><td>action</td><td>✓</td><td></td></tr>
 <tr><td><code>setdamimmun05</code></td><td>action</td><td>✓</td><td></td></tr>
 <tr><td><code>setdamimmun10</code></td><td>action</td><td>✓</td><td></td></tr>
-<tr><td><code>setpropdamimmun</code></td><td>action</td><td>✓</td><td></td></tr></tbody></table>
+<tr><td><code>setpropdamimmun</code></td><td>action</td><td>✓</td><td></td></tr>
+<tr><td><code>bdm_cnv_opn_stor</code></td><td>action</td><td>✓</td><td></td></tr></tbody></table>
 <h2>Custom tokens</h2><p class="muted">These runtime tokens are filled by NWScript via <code>SetCustomToken(N, text)</code>. The scripts listed set each token; the actual value depends on game state at runtime.</p><table class="data"><thead><tr><th>Token</th><th>Set by script(s)</th></tr></thead><tbody><tr><td><code>&lt;CUSTOM100&gt;</code></td><td><a href="../scripts/isitemonanvil.html">isitemonanvil</a>, <a href="../scripts/smach_sc001.html">smach_sc001</a></td></tr>
 <tr><td><code>&lt;CUSTOM101&gt;</code></td><td><a href="../scripts/bankbalance.html">bankbalance</a>, <a href="../scripts/calcmodvalue2.html">calcmodvalue2</a>, <a href="../scripts/calcremoverefund.html">calcremoverefund</a>, <a href="../scripts/smach_configure.html">smach_configure</a></td></tr>
 <tr><td><code>&lt;CUSTOM102&gt;</code></td><td><a href="../scripts/isitemonanvil.html">isitemonanvil</a></td></tr></tbody></table>
 <h2>Starting entries</h2><ul>
-<li><a href="#e0">entry #0</a> — Arg, if it be items yer wantin me to forge, put one on thar anvil, and I&#x27;ll.....…</li>
+<li><a href="#e0">entry #0</a> — Hey there , what can this ol&#x27; dwarf do fer ya?</li>
 </ul>
 <h2>Conversation flow</h2>
 <p class="muted">Each starting entry is expanded recursively. Repeated nodes (cycles, shared continuations) appear inline as <code>↩ link</code> backrefs to the first occurrence.</p>
 <div class="dlg-tree">
 <details class="dlg-tree-node entry" open>
 <summary><span class="dlg-id">entry #0</span> <span class="dlg-action">→ <code>removeallitems</code></span> <a class="dlg-anchor" href="#e0" title="jump to flat entry #0">¶</a></summary>
+<div class="dlg-text">Hey there &lt;Lad/Lass&gt;, what can this ol&#x27; dwarf do fer ya?</div>
+<div class="dlg-tree-children">
+<details class="dlg-tree-node reply" open>
+<summary><span class="dlg-id">reply #177</span> <a class="dlg-anchor" href="#r177" title="jump to flat reply #177">¶</a></summary>
+<div class="dlg-text">I&#x27;d like to use yer forge.</div>
+<div class="dlg-tree-children">
+<details class="dlg-tree-node entry" open>
+<summary><span class="dlg-id">entry #40</span> <a class="dlg-anchor" href="#e40" title="jump to flat entry #40">¶</a></summary>
 <div class="dlg-text">Arg, if it be items yer wantin me to forge, put one on thar anvil, and I&#x27;ll............ fix......them</div>
 <div class="dlg-tree-children">
 <details class="dlg-tree-node reply" open>
@@ -1369,8 +1380,36 @@
 </div>
 </details>
 </div>
+</details>
+<details class="dlg-tree-node reply" open>
+<summary><span class="dlg-id">reply #178</span> <span class="dlg-action">→ <code>bdm_cnv_opn_stor</code></span> <a class="dlg-anchor" href="#r178" title="jump to flat reply #178">¶</a></summary>
+<div class="dlg-text">I&#x27;d like to see what you have in stock.</div>
+</details>
+<details class="dlg-tree-node reply" open>
+<summary><span class="dlg-id">reply #179</span> <a class="dlg-anchor" href="#r179" title="jump to flat reply #179">¶</a></summary>
+<div class="dlg-text">Can you tell me of any rumors circulating.</div>
+<div class="dlg-tree-children">
+<details class="dlg-tree-node entry" open>
+<summary><span class="dlg-id">entry #41</span> <a class="dlg-anchor" href="#e41" title="jump to flat entry #41">¶</a></summary>
+<div class="dlg-text">There be rumors all over these parts. Hard to split the dung pile from the gems if ya take my meanin. But I do know that the graveyard at the top o&#x27; the hill on outskirts of town is under some sort of bewitchment. Ya best steer clear of the South West after nightfall.</div>
+<div class="dlg-tree-children">
+<details class="dlg-tree-node reply" open>
+<summary><span class="dlg-id">reply #181</span> <a class="dlg-anchor" href="#r181" title="jump to flat reply #181">¶</a></summary>
+<div class="dlg-text">Thanks, I&#x27;ll keep that in mind.</div>
+</details>
+</div>
+</details>
+</div>
+</details>
+<details class="dlg-tree-node reply" open>
+<summary><span class="dlg-id">reply #180</span> <a class="dlg-anchor" href="#r180" title="jump to flat reply #180">¶</a></summary>
+<div class="dlg-text">Nothing, goodbye.</div>
+</details>
+</div>
+</details>
+</div>
 <h2>NPC lines (entries) — flat index</h2>
-<div class="dlg-node entry" id="e0"><div class="dlg-head"><span class="dlg-id">entry #0</span> <span class="dlg-action">→ <code>removeallitems</code></span></div><div class="dlg-text">Arg, if it be items yer wantin me to forge, put one on thar anvil, and I&#x27;ll............ fix......them</div><ul class="dlg-links"><li><a href="#r1">→ reply #1</a> <span class="dlg-link-preview">“I wanna change the item in the forge”</span></li><li><a href="#r0">→ reply #0</a> <span class="dlg-link-preview">“Nothing, Goodbye.”</span></li></ul></div>
+<div class="dlg-node entry" id="e0"><div class="dlg-head"><span class="dlg-id">entry #0</span> <span class="dlg-action">→ <code>removeallitems</code></span></div><div class="dlg-text">Hey there &lt;Lad/Lass&gt;, what can this ol&#x27; dwarf do fer ya?</div><ul class="dlg-links"><li><a href="#r177">→ reply #177</a> <span class="dlg-link-preview">“I&#x27;d like to use yer forge.”</span></li><li><a href="#r178">→ reply #178</a> <span class="dlg-link-preview">“I&#x27;d like to see what you have in stock.”</span></li><li><a href="#r179">→ reply #179</a> <span class="dlg-link-preview">“Can you tell me of any rumors circulating.”</span></li><li><a href="#r180">→ reply #180</a> <span class="dlg-link-preview">“Nothing, goodbye.”</span></li></ul></div>
 <div class="dlg-node entry" id="e1"><div class="dlg-head"><span class="dlg-id">entry #1</span></div><div class="dlg-text">Arg, I can only be changing one item at a time. Just one, har har har.</div><ul class="dlg-links"><li><a href="#r2">→ reply #2</a></li></ul></div>
 <div class="dlg-node entry" id="e2"><div class="dlg-head"><span class="dlg-id">entry #2</span></div><div class="dlg-text">Either the item quality is to good for me to modify, or there is not just 1 item on the forge.</div><ul class="dlg-links"><li><a href="#r3">→ reply #3</a> <span class="dlg-link-preview">“I understand.”</span></li></ul></div>
 <div class="dlg-node entry" id="e3"><div class="dlg-head"><span class="dlg-id">entry #3</span></div><div class="dlg-text">Are ye sure ye want to be changin&#x27; the <span class="custom-token" title="SetCustomToken(100, ...) called in: isitemonanvil, smach_sc001">&lt;CUSTOM100&gt;<sup class="token-setters">[<a href="../scripts/isitemonanvil.html">isitemonanvil</a>, <a href="../scripts/smach_sc001.html">smach_sc001</a>]</sup></span>?</div><ul class="dlg-links"><li><a href="#r5">→ reply #5</a> <span class="dlg-link-preview">“Yes.”</span></li><li><a href="#r4">→ reply #4</a> <span class="dlg-link-preview">“No.”</span></li></ul></div>
@@ -1410,6 +1449,8 @@
 <div class="dlg-node entry" id="e37"><div class="dlg-head"><span class="dlg-id">entry #37</span> <span class="dlg-action">→ <code>calcremoverefund</code></span></div><div class="dlg-text">Arrr, this&#x27;ll strip EVERY magical property from yer <span class="custom-token" title="SetCustomToken(100, ...) called in: isitemonanvil, smach_sc001">&lt;CUSTOM100&gt;<sup class="token-setters">[<a href="../scripts/isitemonanvil.html">isitemonanvil</a>, <a href="../scripts/smach_sc001.html">smach_sc001</a>]</sup></span>! Based on what ye&#x27;ve put in here, ye&#x27;ll be refunded <span class="custom-token" title="SetCustomToken(101, ...) called in: bankbalance, calcmodvalue2, calcremoverefund, smach_configure">&lt;CUSTOM101&gt;<sup class="token-setters">[<a href="../scripts/bankbalance.html">bankbalance</a>, <a href="../scripts/calcmodvalue2.html">calcmodvalue2</a>, <a href="../scripts/calcremoverefund.html">calcremoverefund</a>, <a href="../scripts/smach_configure.html">smach_configure</a>]</sup></span> gold. There be no undoing this! Are ye certain?</div><ul class="dlg-links"><li><a href="#r162">→ reply #162</a> <span class="dlg-link-preview">“Aye, strip all magical properties from my .”</span></li><li><a href="#r163">→ reply #163</a> <span class="dlg-link-preview">“No, leave my  as it is.”</span></li></ul></div>
 <div class="dlg-node entry" id="e38"><div class="dlg-head"><span class="dlg-id">entry #38</span></div><div class="dlg-text">Choose the immunity level.</div><ul class="dlg-links"><li><a href="#r171">→ reply #171</a> <span class="dlg-link-preview">“5%”</span></li><li><a href="#r172">→ reply #172</a> <span class="dlg-link-preview">“10%”</span></li></ul></div>
 <div class="dlg-node entry" id="e39"><div class="dlg-head"><span class="dlg-id">entry #39</span></div><div class="dlg-text">What damage type would you like immunity from?</div><ul class="dlg-links"><li><a href="#r173">→ reply #173</a> <span class="dlg-link-preview">“Slashing.”</span></li><li><a href="#r174">→ reply #174</a> <span class="dlg-link-preview">“Bludgeoning.”</span></li><li><a href="#r175">→ reply #175</a> <span class="dlg-link-preview">“Piercing.”</span></li></ul></div>
+<div class="dlg-node entry" id="e40"><div class="dlg-head"><span class="dlg-id">entry #40</span></div><div class="dlg-text">Arg, if it be items yer wantin me to forge, put one on thar anvil, and I&#x27;ll............ fix......them</div><ul class="dlg-links"><li><a href="#r1">→ reply #1</a> <span class="dlg-link-preview">“I wanna change the item in the forge”</span></li><li><a href="#r0">→ reply #0</a> <span class="dlg-link-preview">“Nothing, Goodbye.”</span></li></ul></div>
+<div class="dlg-node entry" id="e41"><div class="dlg-head"><span class="dlg-id">entry #41</span></div><div class="dlg-text">There be rumors all over these parts. Hard to split the dung pile from the gems if ya take my meanin. But I do know that the graveyard at the top o&#x27; the hill on outskirts of town is under some sort of bewitchment. Ya best steer clear of the South West after nightfall.</div><ul class="dlg-links"><li><a href="#r181">→ reply #181</a> <span class="dlg-link-preview">“Thanks, I&#x27;ll keep that in mind.”</span></li></ul></div>
 <h2>PC replies — flat index</h2>
 <div class="dlg-node reply" id="r0"><div class="dlg-head"><span class="dlg-id">reply #0</span></div><div class="dlg-text">Nothing, Goodbye.</div></div>
 <div class="dlg-node reply" id="r1"><div class="dlg-head"><span class="dlg-id">reply #1</span> <span class="dlg-action">→ <code>forge_id</code></span></div><div class="dlg-text">I wanna change the item in the forge</div><ul class="dlg-links"><li><a href="#e3">→ entry #3</a> <span class="dlg-link-preview">“Are ye sure ye want to be changin&#x27; the ?”</span> <small class="muted">(if <code>isitemonanvil</code>)</small></li><li><a href="#e2">→ entry #2</a> <span class="dlg-link-preview">“Either the item quality is to good for me to modify, or there is not just 1 item…”</span> <small class="muted">(if <code>forge_sc_lvl21</code>)</small></li><li><a href="#e1">→ entry #1</a> <span class="dlg-link-preview">“Arg, I can only be changing one item at a time. Just one, har har har.”</span></li></ul></div>
@@ -1588,7 +1629,12 @@
 <div class="dlg-node reply" id="r174"><div class="dlg-head"><span class="dlg-id">reply #174</span> <span class="dlg-action">→ <code>setdambludg</code></span></div><div class="dlg-text">Bludgeoning.</div><ul class="dlg-links"><li><a href="#e38">→ entry #38</a> <span class="dlg-link-preview">“Choose the immunity level.”</span></li></ul></div>
 <div class="dlg-node reply" id="r175"><div class="dlg-head"><span class="dlg-id">reply #175</span> <span class="dlg-action">→ <code>setdampierce</code></span></div><div class="dlg-text">Piercing.</div><ul class="dlg-links"><li><a href="#e38">→ entry #38</a> <span class="dlg-link-preview">“Choose the immunity level.”</span></li></ul></div>
 <div class="dlg-node reply" id="r176"><div class="dlg-head"><span class="dlg-id">reply #176</span> <span class="dlg-action">→ <code>setpropdamimmun</code></span></div><div class="dlg-text">Damage Immunity.</div><ul class="dlg-links"><li><a href="#e39">→ entry #39</a> <span class="dlg-link-preview">“What damage type would you like immunity from?”</span></li></ul></div>
+<div class="dlg-node reply" id="r177"><div class="dlg-head"><span class="dlg-id">reply #177</span></div><div class="dlg-text">I&#x27;d like to use yer forge.</div><ul class="dlg-links"><li><a href="#e40">→ entry #40</a> <span class="dlg-link-preview">“Arg, if it be items yer wantin me to forge, put one on thar anvil, and I&#x27;ll.....…”</span></li></ul></div>
+<div class="dlg-node reply" id="r178"><div class="dlg-head"><span class="dlg-id">reply #178</span> <span class="dlg-action">→ <code>bdm_cnv_opn_stor</code></span></div><div class="dlg-text">I&#x27;d like to see what you have in stock.</div></div>
+<div class="dlg-node reply" id="r179"><div class="dlg-head"><span class="dlg-id">reply #179</span></div><div class="dlg-text">Can you tell me of any rumors circulating.</div><ul class="dlg-links"><li><a href="#e41">→ entry #41</a> <span class="dlg-link-preview">“There be rumors all over these parts. Hard to split the dung pile from the gems…”</span></li></ul></div>
+<div class="dlg-node reply" id="r180"><div class="dlg-head"><span class="dlg-id">reply #180</span></div><div class="dlg-text">Nothing, goodbye.</div></div>
+<div class="dlg-node reply" id="r181"><div class="dlg-head"><span class="dlg-id">reply #181</span></div><div class="dlg-text">Thanks, I&#x27;ll keep that in mind.</div></div>
   </main>
-  <footer>generated by <a href="https://github.com/mrprice22/nwn-manager">nwn-manager</a> &mdash; last updated Jun 4, 2026 23:18</footer>
+  <footer>generated by <a href="https://github.com/mrprice22/nwn-manager">nwn-manager</a> &mdash; last updated Jun 6, 2026 22:07</footer>
 </body>
 </html>

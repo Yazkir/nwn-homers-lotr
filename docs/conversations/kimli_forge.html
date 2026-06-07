@@ -46,15 +46,19 @@
   <main>
 <h1>Conversation: <code>kimli_forge</code></h1>
 <dl class="meta">
-<dt>NPC lines</dt><dd>35</dd>
-<dt>PC replies</dt><dd>233</dd>
+<dt>NPC lines</dt><dd>36</dd>
+<dt>PC replies</dt><dd>234</dd>
 <dt>NumWords</dt><dd>585</dd>
 <dt>OnEnd</dt><dd><code>nw_walk_wp</code></dd>
 <dt>OnAbort</dt><dd><code>nw_walk_wp</code></dd>
 </dl>
-<h2>Triggered by</h2><p class="muted">No caller found in static analysis. May be invoked from runtime-only code paths (string-built resrefs, etc.).</p>
+<h2>Triggered by</h2><ul class="dlg-callers">
+<li><span class="badge">creature</span> NPC <a href="../creatures/elrebrier__v2.html">Thrulith Xilow</a> — in <a href="../areas/thesmithyofriven.html">The Smithy of Rivendell</a></li>
+</ul>
 <h2>Scripts referenced</h2>
 <table class="data"><thead><tr><th>Script</th><th>Slot</th><th>In module</th><th>Notes</th></tr></thead><tbody><tr><td><code>removeallitems</code></td><td>action</td><td>✓</td><td></td></tr>
+<tr><td><code>kimli_haswrit</code></td><td>active</td><td>✓</td><td></td></tr>
+<tr><td><code>kimli_nowrit</code></td><td>active</td><td>✓</td><td></td></tr>
 <tr><td><code>ismeleeweapon</code></td><td>active</td><td>✓</td><td></td></tr>
 <tr><td><code>isweapon</code></td><td>active</td><td>✓</td><td></td></tr>
 <tr><td><code>israngedweapon</code></td><td>active</td><td>✓</td><td></td></tr>
@@ -260,6 +264,7 @@
 <tr><td><code>setdamresist20</code></td><td>action</td><td>✓</td><td></td></tr>
 <tr><td><code>setpropen</code></td><td>action</td><td>✓</td><td></td></tr>
 <tr><td><code>setskilltumble</code></td><td>action</td><td>✓</td><td></td></tr></tbody></table>
+<h2>Items checked</h2><p class="muted">These items' tags are checked via <code>GetItemPossessedBy</code> in this conversation's scripts:</p><ul><li><a href="../items/elrondswrit.html">Elrond&#x27;s Writ</a></li></ul>
 <h2>Custom tokens</h2><p class="muted">These runtime tokens are filled by NWScript via <code>SetCustomToken(N, text)</code>. The scripts listed set each token; the actual value depends on game state at runtime.</p><table class="data"><thead><tr><th>Token</th><th>Set by script(s)</th></tr></thead><tbody><tr><td><code>&lt;CUSTOM100&gt;</code></td><td><a href="../scripts/isitemonanvil.html">isitemonanvil</a>, <a href="../scripts/smach_sc001.html">smach_sc001</a></td></tr>
 <tr><td><code>&lt;CUSTOM101&gt;</code></td><td><a href="../scripts/bankbalance.html">bankbalance</a>, <a href="../scripts/calcmodvalue2.html">calcmodvalue2</a>, <a href="../scripts/calcremoverefund.html">calcremoverefund</a>, <a href="../scripts/smach_configure.html">smach_configure</a></td></tr>
 <tr><td><code>&lt;CUSTOM102&gt;</code></td><td><a href="../scripts/isitemonanvil.html">isitemonanvil</a></td></tr></tbody></table>
@@ -274,7 +279,7 @@
 <div class="dlg-text">Greetings my &lt;lord/lady&gt;. What can I do for you?</div>
 <div class="dlg-tree-children">
 <details class="dlg-tree-node reply" open>
-<summary><span class="dlg-id">reply #1</span> <a class="dlg-anchor" href="#r1" title="jump to flat reply #1">¶</a></summary>
+<summary><span class="dlg-id">reply #1</span> <small class="muted">(if <code>kimli_haswrit</code>)</small> <a class="dlg-anchor" href="#r1" title="jump to flat reply #1">¶</a></summary>
 <div class="dlg-text">Modify the item on the anvil.</div>
 <div class="dlg-tree-children">
 <details class="dlg-tree-node entry" open>
@@ -1937,12 +1942,22 @@
 </details>
 </div>
 </details>
+<details class="dlg-tree-node reply" open>
+<summary><span class="dlg-id">reply #233</span> <small class="muted">(if <code>kimli_nowrit</code>)</small> <a class="dlg-anchor" href="#r233" title="jump to flat reply #233">¶</a></summary>
+<div class="dlg-text">Why can I not use this forge?</div>
+<div class="dlg-tree-children">
+<details class="dlg-tree-node entry" open>
+<summary><span class="dlg-id">entry #35</span> <a class="dlg-anchor" href="#e35" title="jump to flat entry #35">¶</a></summary>
+<div class="dlg-text">This forge burns only by Elrond&#x27;s grace. You will need his Writ before I may work your items.</div>
+</details>
+</div>
+</details>
 <div class="dlg-tree-ref reply-ref">↩ <a href="#r0">reply #0</a> <span class="dlg-link-preview">“Goodbye.”</span></div>
 </div>
 </details>
 </div>
 <h2>NPC lines (entries) — flat index</h2>
-<div class="dlg-node entry" id="e0"><div class="dlg-head"><span class="dlg-id">entry #0</span> <span class="dlg-action">→ <code>removeallitems</code></span></div><div class="dlg-text">Greetings my &lt;lord/lady&gt;. What can I do for you?</div><ul class="dlg-links"><li><a href="#r1">→ reply #1</a> <span class="dlg-link-preview">“Modify the item on the anvil.”</span></li><li><a href="#r0">→ reply #0</a> <span class="dlg-link-preview">“Goodbye.”</span></li></ul></div>
+<div class="dlg-node entry" id="e0"><div class="dlg-head"><span class="dlg-id">entry #0</span> <span class="dlg-action">→ <code>removeallitems</code></span></div><div class="dlg-text">Greetings my &lt;lord/lady&gt;. What can I do for you?</div><ul class="dlg-links"><li><a href="#r1">→ reply #1</a> <span class="dlg-link-preview">“Modify the item on the anvil.”</span> <small class="muted">(if <code>kimli_haswrit</code>)</small></li><li><a href="#r233">→ reply #233</a> <span class="dlg-link-preview">“Why can I not use this forge?”</span> <small class="muted">(if <code>kimli_nowrit</code>)</small></li><li><a href="#r0">→ reply #0</a> <span class="dlg-link-preview">“Goodbye.”</span></li></ul></div>
 <div class="dlg-node entry" id="e1"><div class="dlg-head"><span class="dlg-id">entry #1</span></div><div class="dlg-text">Please place exactly one item on the anvil, then speak to me again.</div><ul class="dlg-links"><li><a href="#r2">→ reply #2</a></li></ul></div>
 <div class="dlg-node entry" id="e2"><div class="dlg-head"><span class="dlg-id">entry #2</span></div><div class="dlg-text">Are you sure you want to modify the <span class="custom-token" title="SetCustomToken(100, ...) called in: isitemonanvil, smach_sc001">&lt;CUSTOM100&gt;<sup class="token-setters">[<a href="../scripts/isitemonanvil.html">isitemonanvil</a>, <a href="../scripts/smach_sc001.html">smach_sc001</a>]</sup></span>?</div><ul class="dlg-links"><li><a href="#r4">→ reply #4</a> <span class="dlg-link-preview">“Yes.”</span></li><li><a href="#r3">→ reply #3</a> <span class="dlg-link-preview">“No.”</span></li></ul></div>
 <div class="dlg-node entry" id="e3"><div class="dlg-head"><span class="dlg-id">entry #3</span></div><div class="dlg-text">Is there anything else?</div><ul class="dlg-links"><li><a href="#r1">→ child</a> <span class="dlg-link-preview">“Modify the item on the anvil.”</span></li><li><a href="#r0">→ child</a> <span class="dlg-link-preview">“Goodbye.”</span></li></ul></div>
@@ -1977,6 +1992,7 @@
 <div class="dlg-node entry" id="e32"><div class="dlg-head"><span class="dlg-id">entry #32</span></div><div class="dlg-text">Select the ability to be enhanced.</div><ul class="dlg-links"><li><a href="#r216">→ reply #216</a> <span class="dlg-link-preview">“Strength.”</span></li><li><a href="#r215">→ reply #215</a> <span class="dlg-link-preview">“Dexterity.”</span></li><li><a href="#r214">→ reply #214</a> <span class="dlg-link-preview">“Constitution.”</span></li><li><a href="#r213">→ reply #213</a> <span class="dlg-link-preview">“Intelligence.”</span></li><li><a href="#r212">→ reply #212</a> <span class="dlg-link-preview">“Wisdom”</span></li><li><a href="#r211">→ reply #211</a> <span class="dlg-link-preview">“Charisma.”</span></li></ul></div>
 <div class="dlg-node entry" id="e33"><div class="dlg-head"><span class="dlg-id">entry #33</span> <span class="dlg-action">→ <code>calcremoverefund</code></span></div><div class="dlg-text">I must warn ye — stripping all magical properties from this <span class="custom-token" title="SetCustomToken(102, ...) called in: isitemonanvil">&lt;CUSTOM102&gt;<sup class="token-setters">[<a href="../scripts/isitemonanvil.html">isitemonanvil</a>]</sup></span> cannot be undone. Every enchantment will be lost. For what ye have invested at this forge, I can return <span class="custom-token" title="SetCustomToken(101, ...) called in: bankbalance, calcmodvalue2, calcremoverefund, smach_configure">&lt;CUSTOM101&gt;<sup class="token-setters">[<a href="../scripts/bankbalance.html">bankbalance</a>, <a href="../scripts/calcmodvalue2.html">calcmodvalue2</a>, <a href="../scripts/calcremoverefund.html">calcremoverefund</a>, <a href="../scripts/smach_configure.html">smach_configure</a>]</sup></span> gold. Do ye wish to proceed?</div><ul class="dlg-links"><li><a href="#r217">→ reply #217</a> <span class="dlg-link-preview">“Yes, strip all magical properties.”</span></li><li><a href="#r218">→ reply #218</a> <span class="dlg-link-preview">“No, leave it as it is.”</span></li></ul></div>
 <div class="dlg-node entry" id="e34"><div class="dlg-head"><span class="dlg-id">entry #34</span></div><div class="dlg-text">Now, please select the bonus amount.</div><ul class="dlg-links"><li><a href="#r225">→ reply #225</a> <span class="dlg-link-preview">“Remove the existing bonus.”</span></li><li><a href="#r226">→ reply #226</a> <span class="dlg-link-preview">“+10”</span></li><li><a href="#r227">→ reply #227</a> <span class="dlg-link-preview">“+9”</span></li><li><a href="#r228">→ reply #228</a> <span class="dlg-link-preview">“+8”</span></li><li><a href="#r229">→ reply #229</a> <span class="dlg-link-preview">“+7”</span></li><li><a href="#r230">→ reply #230</a> <span class="dlg-link-preview">“+6”</span></li><li><a href="#r231">→ reply #231</a> <span class="dlg-link-preview">“+5”</span></li></ul></div>
+<div class="dlg-node entry" id="e35"><div class="dlg-head"><span class="dlg-id">entry #35</span></div><div class="dlg-text">This forge burns only by Elrond&#x27;s grace. You will need his Writ before I may work your items.</div></div>
 <h2>PC replies — flat index</h2>
 <div class="dlg-node reply" id="r0"><div class="dlg-head"><span class="dlg-id">reply #0</span></div><div class="dlg-text">Goodbye.</div></div>
 <div class="dlg-node reply" id="r1"><div class="dlg-head"><span class="dlg-id">reply #1</span></div><div class="dlg-text">Modify the item on the anvil.</div><ul class="dlg-links"><li><a href="#e2">→ entry #2</a> <span class="dlg-link-preview">“Are you sure you want to modify the ?”</span> <small class="muted">(if <code>isitemonanvil</code>)</small></li><li><a href="#e1">→ entry #1</a> <span class="dlg-link-preview">“Please place exactly one item on the anvil, then speak to me again.”</span></li></ul></div>
@@ -2211,7 +2227,8 @@
 <div class="dlg-node reply" id="r230"><div class="dlg-head"><span class="dlg-id">reply #230</span> <span class="dlg-action">→ <code>setplus6</code></span></div><div class="dlg-text">+6</div><ul class="dlg-links"><li><a href="#e27">→ entry #27</a> <span class="dlg-link-preview">“Please wait while I calculate the cost of this modification.”</span></li></ul></div>
 <div class="dlg-node reply" id="r231"><div class="dlg-head"><span class="dlg-id">reply #231</span> <span class="dlg-action">→ <code>setplus5</code></span></div><div class="dlg-text">+5</div><ul class="dlg-links"><li><a href="#e27">→ entry #27</a> <span class="dlg-link-preview">“Please wait while I calculate the cost of this modification.”</span></li></ul></div>
 <div class="dlg-node reply" id="r232"><div class="dlg-head"><span class="dlg-id">reply #232</span> <span class="dlg-action">→ <code>setskilltumble</code></span></div><div class="dlg-text">Tumble.</div><ul class="dlg-links"><li><a href="#e34">→ entry #34</a> <span class="dlg-link-preview">“Now, please select the bonus amount.”</span></li></ul></div>
+<div class="dlg-node reply" id="r233"><div class="dlg-head"><span class="dlg-id">reply #233</span></div><div class="dlg-text">Why can I not use this forge?</div><ul class="dlg-links"><li><a href="#e35">→ entry #35</a> <span class="dlg-link-preview">“This forge burns only by Elrond&#x27;s grace. You will need his Writ before I may wor…”</span></li></ul></div>
   </main>
-  <footer>generated by <a href="https://github.com/mrprice22/nwn-manager">nwn-manager</a> &mdash; last updated Jun 4, 2026 23:18</footer>
+  <footer>generated by <a href="https://github.com/mrprice22/nwn-manager">nwn-manager</a> &mdash; last updated Jun 6, 2026 22:07</footer>
 </body>
 </html>

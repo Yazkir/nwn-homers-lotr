@@ -46,8 +46,8 @@
   <main>
 <h1>Conversation: <code>newrivvault</code></h1>
 <dl class="meta">
-<dt>NPC lines</dt><dd>2</dd>
-<dt>PC replies</dt><dd>2</dd>
+<dt>NPC lines</dt><dd>4</dd>
+<dt>PC replies</dt><dd>3</dd>
 <dt>NumWords</dt><dd>68</dd>
 <dt>OnEnd</dt><dd><code>nw_walk_wp</code></dd>
 <dt>OnAbort</dt><dd><code>nw_walk_wp</code></dd>
@@ -55,6 +55,10 @@
 <h2>Triggered by</h2><ul class="dlg-callers">
 <li><span class="badge">creature</span> NPC <a href="../creatures/elrebrier.html">Elrebrier Yanicen</a> — in <a href="../areas/thesmithyofriven.html">The Smithy of Rivendell</a></li>
 </ul>
+<h2>Scripts referenced</h2>
+<table class="data"><thead><tr><th>Script</th><th>Slot</th><th>In module</th><th>Notes</th></tr></thead><tbody><tr><td><code>at_018</code></td><td>action</td><td>✓</td><td></td></tr>
+<tr><td><code>kimli_haswrit</code></td><td>active</td><td>✓</td><td></td></tr></tbody></table>
+<h2>Items checked</h2><p class="muted">These items' tags are checked via <code>GetItemPossessedBy</code> in this conversation's scripts:</p><ul><li><a href="../items/elrondswrit.html">Elrond&#x27;s Writ</a></li></ul>
 <h2>Starting entries</h2><ul>
 <li><a href="#e0">entry #0</a> — Good morrow  , how may I be of assistance?</li>
 </ul>
@@ -74,6 +78,20 @@
 <div class="dlg-text">Yes, this is true. Unfortunately, the vault has been closed to outsiders at the behest of Lord Elrond.</div>
 <div class="dlg-tree-children">
 <details class="dlg-tree-node reply" open>
+<summary><span class="dlg-id">reply #2</span> <a class="dlg-anchor" href="#r2" title="jump to flat reply #2">¶</a></summary>
+<div class="dlg-text">I bear Elrond&#x27;s Writ. Allow me entrance to the vault.</div>
+<div class="dlg-tree-children">
+<details class="dlg-tree-node entry" open>
+<summary><span class="dlg-id">entry #2</span> <span class="dlg-action">→ <code>at_018</code></span> <small class="muted">(if <code>kimli_haswrit</code>)</small> <a class="dlg-anchor" href="#e2" title="jump to flat entry #2">¶</a></summary>
+<div class="dlg-text">The seal of Lord Elrond, of course. The vault is yours to browse, M&#x27;&lt;Lord/Lady&gt;.</div>
+</details>
+<details class="dlg-tree-node entry" open>
+<summary><span class="dlg-id">entry #3</span> <a class="dlg-anchor" href="#e3" title="jump to flat entry #3">¶</a></summary>
+<div class="dlg-text">I see no such seal. By Lord Elrond&#x27;s word, the vault remains closed to you.</div>
+</details>
+</div>
+</details>
+<details class="dlg-tree-node reply" open>
 <summary><span class="dlg-id">reply #1</span> <a class="dlg-anchor" href="#r1" title="jump to flat reply #1">¶</a></summary>
 <div class="dlg-text">Very well then, I shall continue on with my journey.</div>
 </details>
@@ -86,11 +104,14 @@
 </div>
 <h2>NPC lines (entries) — flat index</h2>
 <div class="dlg-node entry" id="e0"><div class="dlg-head"><span class="dlg-id">entry #0</span></div><div class="dlg-text">Good morrow &lt;Sir/Madam&gt; &lt;Race&gt;, how may I be of assistance?</div><ul class="dlg-links"><li><a href="#r0">→ reply #0</a> <span class="dlg-link-preview">“Greetings, I am . Legend has it that you oversee a wondrous vault full of marvel…”</span></li></ul></div>
-<div class="dlg-node entry" id="e1"><div class="dlg-head"><span class="dlg-id">entry #1</span></div><div class="dlg-text">Yes, this is true. Unfortunately, the vault has been closed to outsiders at the behest of Lord Elrond.</div><ul class="dlg-links"><li><a href="#r1">→ reply #1</a> <span class="dlg-link-preview">“Very well then, I shall continue on with my journey.”</span></li></ul></div>
+<div class="dlg-node entry" id="e1"><div class="dlg-head"><span class="dlg-id">entry #1</span></div><div class="dlg-text">Yes, this is true. Unfortunately, the vault has been closed to outsiders at the behest of Lord Elrond.</div><ul class="dlg-links"><li><a href="#r2">→ reply #2</a> <span class="dlg-link-preview">“I bear Elrond&#x27;s Writ. Allow me entrance to the vault.”</span></li><li><a href="#r1">→ reply #1</a> <span class="dlg-link-preview">“Very well then, I shall continue on with my journey.”</span></li></ul></div>
+<div class="dlg-node entry" id="e2"><div class="dlg-head"><span class="dlg-id">entry #2</span> <span class="dlg-action">→ <code>at_018</code></span></div><div class="dlg-text">The seal of Lord Elrond, of course. The vault is yours to browse, M&#x27;&lt;Lord/Lady&gt;.</div></div>
+<div class="dlg-node entry" id="e3"><div class="dlg-head"><span class="dlg-id">entry #3</span></div><div class="dlg-text">I see no such seal. By Lord Elrond&#x27;s word, the vault remains closed to you.</div></div>
 <h2>PC replies — flat index</h2>
 <div class="dlg-node reply" id="r0"><div class="dlg-head"><span class="dlg-id">reply #0</span></div><div class="dlg-text">Greetings, I am &lt;FullName&gt;. Legend has it that you oversee a wondrous vault full of marvelous items for which a weary traveller such as myself could put to good use.</div><ul class="dlg-links"><li><a href="#e1">→ entry #1</a> <span class="dlg-link-preview">“Yes, this is true. Unfortunately, the vault has been closed to outsiders at the…”</span></li></ul></div>
 <div class="dlg-node reply" id="r1"><div class="dlg-head"><span class="dlg-id">reply #1</span></div><div class="dlg-text">Very well then, I shall continue on with my journey.</div></div>
+<div class="dlg-node reply" id="r2"><div class="dlg-head"><span class="dlg-id">reply #2</span></div><div class="dlg-text">I bear Elrond&#x27;s Writ. Allow me entrance to the vault.</div><ul class="dlg-links"><li><a href="#e2">→ entry #2</a> <span class="dlg-link-preview">“The seal of Lord Elrond, of course. The vault is yours to browse, M&#x27;.”</span> <small class="muted">(if <code>kimli_haswrit</code>)</small></li><li><a href="#e3">→ entry #3</a> <span class="dlg-link-preview">“I see no such seal. By Lord Elrond&#x27;s word, the vault remains closed to you.”</span></li></ul></div>
   </main>
-  <footer>generated by <a href="https://github.com/mrprice22/nwn-manager">nwn-manager</a> &mdash; last updated Jun 4, 2026 23:18</footer>
+  <footer>generated by <a href="https://github.com/mrprice22/nwn-manager">nwn-manager</a> &mdash; last updated Jun 6, 2026 22:07</footer>
 </body>
 </html>
