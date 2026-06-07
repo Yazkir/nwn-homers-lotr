@@ -357,14 +357,29 @@
           "type": "list",
           "value": [
             {
-              "__struct_id": 0,
+              "__struct_id": 24,
               "Active": {
                 "type": "resref",
                 "value": ""
               },
               "Index": {
                 "type": "dword",
-                "value": 210
+                "value": 224
+              },
+              "IsChild": {
+                "type": "byte",
+                "value": 0
+              }
+            },
+            {
+              "__struct_id": 18,
+              "Active": {
+                "type": "resref",
+                "value": "isweapon"
+              },
+              "Index": {
+                "type": "dword",
+                "value": 28
               },
               "IsChild": {
                 "type": "byte",
@@ -387,14 +402,14 @@
               }
             },
             {
-              "__struct_id": 2,
+              "__struct_id": 0,
               "Active": {
                 "type": "resref",
                 "value": ""
               },
               "Index": {
                 "type": "dword",
-                "value": 168
+                "value": 210
               },
               "IsChild": {
                 "type": "byte",
@@ -410,21 +425,6 @@
               "Index": {
                 "type": "dword",
                 "value": 156
-              },
-              "IsChild": {
-                "type": "byte",
-                "value": 0
-              }
-            },
-            {
-              "__struct_id": 4,
-              "Active": {
-                "type": "resref",
-                "value": ""
-              },
-              "Index": {
-                "type": "dword",
-                "value": 145
               },
               "IsChild": {
                 "type": "byte",
@@ -462,89 +462,14 @@
               }
             },
             {
-              "__struct_id": 7,
+              "__struct_id": 4,
               "Active": {
                 "type": "resref",
                 "value": ""
               },
               "Index": {
                 "type": "dword",
-                "value": 111
-              },
-              "IsChild": {
-                "type": "byte",
-                "value": 0
-              }
-            },
-            {
-              "__struct_id": 8,
-              "Active": {
-                "type": "resref",
-                "value": ""
-              },
-              "Index": {
-                "type": "dword",
-                "value": 110
-              },
-              "IsChild": {
-                "type": "byte",
-                "value": 0
-              }
-            },
-            {
-              "__struct_id": 9,
-              "Active": {
-                "type": "resref",
-                "value": ""
-              },
-              "Index": {
-                "type": "dword",
-                "value": 102
-              },
-              "IsChild": {
-                "type": "byte",
-                "value": 0
-              }
-            },
-            {
-              "__struct_id": 10,
-              "Active": {
-                "type": "resref",
-                "value": ""
-              },
-              "Index": {
-                "type": "dword",
-                "value": 97
-              },
-              "IsChild": {
-                "type": "byte",
-                "value": 0
-              }
-            },
-            {
-              "__struct_id": 11,
-              "Active": {
-                "type": "resref",
-                "value": "ismeleeweapon"
-              },
-              "Index": {
-                "type": "dword",
-                "value": 96
-              },
-              "IsChild": {
-                "type": "byte",
-                "value": 0
-              }
-            },
-            {
-              "__struct_id": 12,
-              "Active": {
-                "type": "resref",
-                "value": ""
-              },
-              "Index": {
-                "type": "dword",
-                "value": 95
+                "value": 145
               },
               "IsChild": {
                 "type": "byte",
@@ -582,21 +507,6 @@
               }
             },
             {
-              "__struct_id": 15,
-              "Active": {
-                "type": "resref",
-                "value": "forge_never"
-              },
-              "Index": {
-                "type": "dword",
-                "value": 87
-              },
-              "IsChild": {
-                "type": "byte",
-                "value": 0
-              }
-            },
-            {
               "__struct_id": 16,
               "Active": {
                 "type": "resref",
@@ -612,14 +522,14 @@
               }
             },
             {
-              "__struct_id": 17,
+              "__struct_id": 11,
               "Active": {
                 "type": "resref",
-                "value": ""
+                "value": "ismeleeweapon"
               },
               "Index": {
                 "type": "dword",
-                "value": 29
+                "value": 96
               },
               "IsChild": {
                 "type": "byte",
@@ -627,14 +537,14 @@
               }
             },
             {
-              "__struct_id": 18,
+              "__struct_id": 8,
               "Active": {
                 "type": "resref",
-                "value": "isweapon"
+                "value": ""
               },
               "Index": {
                 "type": "dword",
-                "value": 28
+                "value": 110
               },
               "IsChild": {
                 "type": "byte",
@@ -672,14 +582,14 @@
               }
             },
             {
-              "__struct_id": 21,
+              "__struct_id": 7,
               "Active": {
                 "type": "resref",
                 "value": ""
               },
               "Index": {
                 "type": "dword",
-                "value": 20
+                "value": 111
               },
               "IsChild": {
                 "type": "byte",
@@ -687,14 +597,74 @@
               }
             },
             {
-              "__struct_id": 22,
+              "__struct_id": 12,
               "Active": {
                 "type": "resref",
-                "value": "forge_never"
+                "value": ""
               },
               "Index": {
                 "type": "dword",
-                "value": 16
+                "value": 95
+              },
+              "IsChild": {
+                "type": "byte",
+                "value": 0
+              }
+            },
+            {
+              "__struct_id": 17,
+              "Active": {
+                "type": "resref",
+                "value": ""
+              },
+              "Index": {
+                "type": "dword",
+                "value": 29
+              },
+              "IsChild": {
+                "type": "byte",
+                "value": 0
+              }
+            },
+            {
+              "__struct_id": 2,
+              "Active": {
+                "type": "resref",
+                "value": ""
+              },
+              "Index": {
+                "type": "dword",
+                "value": 168
+              },
+              "IsChild": {
+                "type": "byte",
+                "value": 0
+              }
+            },
+            {
+              "__struct_id": 9,
+              "Active": {
+                "type": "resref",
+                "value": ""
+              },
+              "Index": {
+                "type": "dword",
+                "value": 102
+              },
+              "IsChild": {
+                "type": "byte",
+                "value": 0
+              }
+            },
+            {
+              "__struct_id": 10,
+              "Active": {
+                "type": "resref",
+                "value": ""
+              },
+              "Index": {
+                "type": "dword",
+                "value": 97
               },
               "IsChild": {
                 "type": "byte",
@@ -717,14 +687,14 @@
               }
             },
             {
-              "__struct_id": 24,
+              "__struct_id": 21,
               "Active": {
                 "type": "resref",
                 "value": ""
               },
               "Index": {
                 "type": "dword",
-                "value": 224
+                "value": 20
               },
               "IsChild": {
                 "type": "byte",
@@ -4768,7 +4738,7 @@
         "Text": {
           "type": "cexolocstring",
           "value": {
-            "0": "I must warn ye — stripping all magical properties from this <CUSTOM102> cannot be undone. Every enchantment will be lost. For what ye have invested at this forge, I can return <CUSTOM101> gold. Do ye wish to proceed?"
+            "0": "I must warn ye \u2014 stripping all magical properties from this <CUSTOM102> cannot be undone. Every enchantment will be lost. For what ye have invested at this forge, I can return <CUSTOM101> gold. Do ye wish to proceed?"
           }
         }
       },
@@ -5346,6 +5316,10 @@
           "value": {
             "0": "Unlimited Ammo."
           }
+        },
+        "Active": {
+          "type": "resref",
+          "value": "israngedweapon"
         }
       },
       {
@@ -6680,6 +6654,10 @@
           "value": {
             "0": "Attack Bonus."
           }
+        },
+        "Active": {
+          "type": "resref",
+          "value": "isweapon"
         }
       },
       {
@@ -7934,6 +7912,10 @@
           "value": {
             "0": "On Hit Properties."
           }
+        },
+        "Active": {
+          "type": "resref",
+          "value": "isweapon"
         }
       },
       {
@@ -10537,6 +10519,10 @@
           "value": {
             "0": "Mighty."
           }
+        },
+        "Active": {
+          "type": "resref",
+          "value": "israngedweapon"
         }
       },
       {
@@ -10598,6 +10584,10 @@
           "value": {
             "0": "Massive Criticals"
           }
+        },
+        "Active": {
+          "type": "resref",
+          "value": "isweapon"
         }
       },
       {
@@ -10720,6 +10710,10 @@
           "value": {
             "0": "Keen."
           }
+        },
+        "Active": {
+          "type": "resref",
+          "value": "isweapon"
         }
       },
       {
@@ -14344,6 +14338,10 @@
           "value": {
             "0": "Damage Bonus."
           }
+        },
+        "Active": {
+          "type": "resref",
+          "value": "isweapon"
         }
       },
       {
@@ -16772,6 +16770,10 @@
           "value": {
             "0": "Armour Bonus."
           }
+        },
+        "Active": {
+          "type": "resref",
+          "value": "isnotweapon"
         }
       },
       {
@@ -18489,6 +18491,10 @@
           "value": {
             "0": "Enhancement Bonus."
           }
+        },
+        "Active": {
+          "type": "resref",
+          "value": "isweapon"
         }
       },
       {

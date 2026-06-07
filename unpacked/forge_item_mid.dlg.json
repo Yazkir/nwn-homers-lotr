@@ -417,44 +417,14 @@
           "type": "list",
           "value": [
             {
-              "__struct_id": 0,
+              "__struct_id": 4,
               "Active": {
                 "type": "resref",
                 "value": ""
               },
               "Index": {
                 "type": "dword",
-                "value": 155
-              },
-              "IsChild": {
-                "type": "byte",
-                "value": 0
-              }
-            },
-            {
-              "__struct_id": 1,
-              "Active": {
-                "type": "resref",
-                "value": ""
-              },
-              "Index": {
-                "type": "dword",
-                "value": 144
-              },
-              "IsChild": {
-                "type": "byte",
-                "value": 0
-              }
-            },
-            {
-              "__struct_id": 2,
-              "Active": {
-                "type": "resref",
-                "value": ""
-              },
-              "Index": {
-                "type": "dword",
-                "value": 133
+                "value": 131
               },
               "IsChild": {
                 "type": "byte",
@@ -477,14 +447,29 @@
               }
             },
             {
-              "__struct_id": 4,
+              "__struct_id": 2,
               "Active": {
                 "type": "resref",
                 "value": ""
               },
               "Index": {
                 "type": "dword",
-                "value": 131
+                "value": 133
+              },
+              "IsChild": {
+                "type": "byte",
+                "value": 0
+              }
+            },
+            {
+              "__struct_id": 0,
+              "Active": {
+                "type": "resref",
+                "value": ""
+              },
+              "Index": {
+                "type": "dword",
+                "value": 155
               },
               "IsChild": {
                 "type": "byte",
@@ -537,44 +522,14 @@
               }
             },
             {
-              "__struct_id": 8,
+              "__struct_id": 18,
               "Active": {
                 "type": "resref",
                 "value": ""
               },
               "Index": {
                 "type": "dword",
-                "value": 75
-              },
-              "IsChild": {
-                "type": "byte",
-                "value": 0
-              }
-            },
-            {
-              "__struct_id": 9,
-              "Active": {
-                "type": "resref",
-                "value": ""
-              },
-              "Index": {
-                "type": "dword",
-                "value": 71
-              },
-              "IsChild": {
-                "type": "byte",
-                "value": 0
-              }
-            },
-            {
-              "__struct_id": 10,
-              "Active": {
-                "type": "resref",
-                "value": ""
-              },
-              "Index": {
-                "type": "dword",
-                "value": 63
+                "value": 176
               },
               "IsChild": {
                 "type": "byte",
@@ -627,6 +582,66 @@
               }
             },
             {
+              "__struct_id": 10,
+              "Active": {
+                "type": "resref",
+                "value": ""
+              },
+              "Index": {
+                "type": "dword",
+                "value": 63
+              },
+              "IsChild": {
+                "type": "byte",
+                "value": 0
+              }
+            },
+            {
+              "__struct_id": 8,
+              "Active": {
+                "type": "resref",
+                "value": ""
+              },
+              "Index": {
+                "type": "dword",
+                "value": 75
+              },
+              "IsChild": {
+                "type": "byte",
+                "value": 0
+              }
+            },
+            {
+              "__struct_id": 16,
+              "Active": {
+                "type": "resref",
+                "value": ""
+              },
+              "Index": {
+                "type": "dword",
+                "value": 11
+              },
+              "IsChild": {
+                "type": "byte",
+                "value": 0
+              }
+            },
+            {
+              "__struct_id": 0,
+              "Active": {
+                "type": "resref",
+                "value": ""
+              },
+              "Index": {
+                "type": "dword",
+                "value": 182
+              },
+              "IsChild": {
+                "type": "byte",
+                "value": 0
+              }
+            },
+            {
               "__struct_id": 14,
               "Active": {
                 "type": "resref",
@@ -657,21 +672,6 @@
               }
             },
             {
-              "__struct_id": 16,
-              "Active": {
-                "type": "resref",
-                "value": ""
-              },
-              "Index": {
-                "type": "dword",
-                "value": 11
-              },
-              "IsChild": {
-                "type": "byte",
-                "value": 0
-              }
-            },
-            {
               "__struct_id": 17,
               "Active": {
                 "type": "resref",
@@ -687,14 +687,14 @@
               }
             },
             {
-              "__struct_id": 18,
+              "__struct_id": 9,
               "Active": {
                 "type": "resref",
                 "value": ""
               },
               "Index": {
                 "type": "dword",
-                "value": 176
+                "value": 71
               },
               "IsChild": {
                 "type": "byte",
@@ -5330,6 +5330,10 @@
           "value": {
             "0": "Unlimited Ammo."
           }
+        },
+        "Active": {
+          "type": "resref",
+          "value": "israngedweapon"
         }
       },
       {
@@ -6969,6 +6973,10 @@
           "value": {
             "0": "On Hit Properties."
           }
+        },
+        "Active": {
+          "type": "resref",
+          "value": "isweapon"
         }
       },
       {
@@ -8295,6 +8303,10 @@
           "value": {
             "0": "Mighty."
           }
+        },
+        "Active": {
+          "type": "resref",
+          "value": "israngedweapon"
         }
       },
       {
@@ -8356,6 +8368,10 @@
           "value": {
             "0": "Massive Criticals"
           }
+        },
+        "Active": {
+          "type": "resref",
+          "value": "isweapon"
         }
       },
       {
@@ -8417,6 +8433,10 @@
           "value": {
             "0": "Keen."
           }
+        },
+        "Active": {
+          "type": "resref",
+          "value": "isweapon"
         }
       },
       {
@@ -10561,6 +10581,10 @@
           "value": {
             "0": "Damage Bonus."
           }
+        },
+        "Active": {
+          "type": "resref",
+          "value": "isweapon"
         }
       },
       {
@@ -12505,6 +12529,10 @@
           "value": {
             "0": "Enhancement Bonus."
           }
+        },
+        "Active": {
+          "type": "resref",
+          "value": "isweapon"
         }
       },
       {
@@ -12566,6 +12594,10 @@
           "value": {
             "0": "Attack Bonus."
           }
+        },
+        "Active": {
+          "type": "resref",
+          "value": "isweapon"
         }
       },
       {
@@ -12623,6 +12655,10 @@
           "value": {
             "0": "Armour Bonus."
           }
+        },
+        "Active": {
+          "type": "resref",
+          "value": "isnotweapon"
         }
       },
       {
@@ -15569,6 +15605,67 @@
         "AnimLoop": {
           "type": "byte",
           "value": 1
+        }
+      },
+      {
+        "__struct_id": 182,
+        "AnimLoop": {
+          "type": "byte",
+          "value": 1
+        },
+        "Animation": {
+          "type": "dword",
+          "value": 0
+        },
+        "Comment": {
+          "type": "cexostring",
+          "value": ""
+        },
+        "Delay": {
+          "type": "dword",
+          "value": 4294967295
+        },
+        "EntriesList": {
+          "type": "list",
+          "value": [
+            {
+              "__struct_id": 0,
+              "Active": {
+                "type": "resref",
+                "value": ""
+              },
+              "Index": {
+                "type": "dword",
+                "value": 31
+              },
+              "IsChild": {
+                "type": "byte",
+                "value": 1
+              },
+              "LinkComment": {
+                "type": "cexostring",
+                "value": ""
+              }
+            }
+          ]
+        },
+        "Quest": {
+          "type": "cexostring",
+          "value": ""
+        },
+        "Script": {
+          "type": "resref",
+          "value": "setpropfreedom"
+        },
+        "Sound": {
+          "type": "resref",
+          "value": ""
+        },
+        "Text": {
+          "type": "cexolocstring",
+          "value": {
+            "0": "Freedom of Movement."
+          }
         }
       }
     ]
