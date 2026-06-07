@@ -52,11 +52,7 @@
               },
               "Index": {
                 "type": "dword",
-                "value": 1
-              },
-              "IsChild": {
-                "type": "byte",
-                "value": 0
+                "value": 177
               }
             },
             {
@@ -67,11 +63,29 @@
               },
               "Index": {
                 "type": "dword",
-                "value": 0
+                "value": 178
+              }
+            },
+            {
+              "__struct_id": 2,
+              "Active": {
+                "type": "resref",
+                "value": ""
               },
-              "IsChild": {
-                "type": "byte",
-                "value": 0
+              "Index": {
+                "type": "dword",
+                "value": 179
+              }
+            },
+            {
+              "__struct_id": 3,
+              "Active": {
+                "type": "resref",
+                "value": ""
+              },
+              "Index": {
+                "type": "dword",
+                "value": 180
               }
             }
           ]
@@ -91,7 +105,7 @@
         "Text": {
           "type": "cexolocstring",
           "value": {
-            "0": "Arg, if it be items yer wantin me to forge, put one on thar anvil, and I'll............ fix......them"
+            "0": "Hey there <Lad/Lass>, what can this ol' dwarf do fer ya?"
           }
         }
       },
@@ -4476,6 +4490,123 @@
           "value": {
             "0": "What damage type would you like immunity from?"
           }
+        }
+      },
+      {
+        "__struct_id": 40,
+        "Comment": {
+          "type": "cexostring",
+          "value": ""
+        },
+        "Delay": {
+          "type": "dword",
+          "value": 4294967295
+        },
+        "Quest": {
+          "type": "cexostring",
+          "value": ""
+        },
+        "QuestEntry": {
+          "type": "dword",
+          "value": 0
+        },
+        "Script": {
+          "type": "resref",
+          "value": ""
+        },
+        "Sound": {
+          "type": "resref",
+          "value": ""
+        },
+        "Text": {
+          "type": "cexolocstring",
+          "value": {
+            "0": "Arg, if it be items yer wantin me to forge, put one on thar anvil, and I'll............ fix......them"
+          }
+        },
+        "Animation": {
+          "type": "dword",
+          "value": 0
+        },
+        "RepliesList": {
+          "type": "list",
+          "value": [
+            {
+              "__struct_id": 0,
+              "Active": {
+                "type": "resref",
+                "value": ""
+              },
+              "Index": {
+                "type": "dword",
+                "value": 1
+              }
+            },
+            {
+              "__struct_id": 1,
+              "Active": {
+                "type": "resref",
+                "value": ""
+              },
+              "Index": {
+                "type": "dword",
+                "value": 0
+              }
+            }
+          ]
+        }
+      },
+      {
+        "__struct_id": 41,
+        "Comment": {
+          "type": "cexostring",
+          "value": ""
+        },
+        "Delay": {
+          "type": "dword",
+          "value": 4294967295
+        },
+        "Quest": {
+          "type": "cexostring",
+          "value": ""
+        },
+        "QuestEntry": {
+          "type": "dword",
+          "value": 0
+        },
+        "Script": {
+          "type": "resref",
+          "value": ""
+        },
+        "Sound": {
+          "type": "resref",
+          "value": ""
+        },
+        "Text": {
+          "type": "cexolocstring",
+          "value": {
+            "0": "There be rumors all over these parts. Hard to split the dung pile from the gems if ya take my meanin. But I do know that the graveyard at the top o' the hill on outskirts of town is under some sort of bewitchment. Ya best steer clear of the South West after nightfall."
+          }
+        },
+        "Animation": {
+          "type": "dword",
+          "value": 0
+        },
+        "RepliesList": {
+          "type": "list",
+          "value": [
+            {
+              "__struct_id": 0,
+              "Active": {
+                "type": "resref",
+                "value": ""
+              },
+              "Index": {
+                "type": "dword",
+                "value": 181
+              }
+            }
+          ]
         }
       }
     ]
@@ -15106,6 +15237,243 @@
           "value": {
             "0": "Damage Immunity."
           }
+        }
+      },
+      {
+        "__struct_id": 177,
+        "Comment": {
+          "type": "cexostring",
+          "value": ""
+        },
+        "Delay": {
+          "type": "dword",
+          "value": 4294967295
+        },
+        "Quest": {
+          "type": "cexostring",
+          "value": ""
+        },
+        "QuestEntry": {
+          "type": "dword",
+          "value": 0
+        },
+        "Script": {
+          "type": "resref",
+          "value": ""
+        },
+        "Sound": {
+          "type": "resref",
+          "value": ""
+        },
+        "Text": {
+          "type": "cexolocstring",
+          "value": {
+            "0": "I'd like to use yer forge."
+          }
+        },
+        "Animation": {
+          "type": "dword",
+          "value": 0
+        },
+        "EntriesList": {
+          "type": "list",
+          "value": [
+            {
+              "__struct_id": 0,
+              "Active": {
+                "type": "resref",
+                "value": ""
+              },
+              "Index": {
+                "type": "dword",
+                "value": 40
+              },
+              "IsChild": {
+                "type": "byte",
+                "value": 0
+              }
+            }
+          ]
+        }
+      },
+      {
+        "__struct_id": 178,
+        "Comment": {
+          "type": "cexostring",
+          "value": ""
+        },
+        "Delay": {
+          "type": "dword",
+          "value": 4294967295
+        },
+        "Quest": {
+          "type": "cexostring",
+          "value": ""
+        },
+        "QuestEntry": {
+          "type": "dword",
+          "value": 0
+        },
+        "Script": {
+          "type": "resref",
+          "value": "bdm_cnv_opn_stor"
+        },
+        "Sound": {
+          "type": "resref",
+          "value": ""
+        },
+        "Text": {
+          "type": "cexolocstring",
+          "value": {
+            "0": "I'd like to see what you have in stock."
+          }
+        },
+        "Animation": {
+          "type": "dword",
+          "value": 0
+        },
+        "EntriesList": {
+          "type": "list",
+          "value": []
+        }
+      },
+      {
+        "__struct_id": 179,
+        "Comment": {
+          "type": "cexostring",
+          "value": ""
+        },
+        "Delay": {
+          "type": "dword",
+          "value": 4294967295
+        },
+        "Quest": {
+          "type": "cexostring",
+          "value": ""
+        },
+        "QuestEntry": {
+          "type": "dword",
+          "value": 0
+        },
+        "Script": {
+          "type": "resref",
+          "value": ""
+        },
+        "Sound": {
+          "type": "resref",
+          "value": ""
+        },
+        "Text": {
+          "type": "cexolocstring",
+          "value": {
+            "0": "Can you tell me of any rumors circulating."
+          }
+        },
+        "Animation": {
+          "type": "dword",
+          "value": 0
+        },
+        "EntriesList": {
+          "type": "list",
+          "value": [
+            {
+              "__struct_id": 0,
+              "Active": {
+                "type": "resref",
+                "value": ""
+              },
+              "Index": {
+                "type": "dword",
+                "value": 41
+              },
+              "IsChild": {
+                "type": "byte",
+                "value": 0
+              }
+            }
+          ]
+        }
+      },
+      {
+        "__struct_id": 180,
+        "Comment": {
+          "type": "cexostring",
+          "value": ""
+        },
+        "Delay": {
+          "type": "dword",
+          "value": 4294967295
+        },
+        "Quest": {
+          "type": "cexostring",
+          "value": ""
+        },
+        "QuestEntry": {
+          "type": "dword",
+          "value": 0
+        },
+        "Script": {
+          "type": "resref",
+          "value": ""
+        },
+        "Sound": {
+          "type": "resref",
+          "value": ""
+        },
+        "Text": {
+          "type": "cexolocstring",
+          "value": {
+            "0": "Nothing, goodbye."
+          }
+        },
+        "Animation": {
+          "type": "dword",
+          "value": 0
+        },
+        "EntriesList": {
+          "type": "list",
+          "value": []
+        }
+      },
+      {
+        "__struct_id": 181,
+        "Comment": {
+          "type": "cexostring",
+          "value": ""
+        },
+        "Delay": {
+          "type": "dword",
+          "value": 4294967295
+        },
+        "Quest": {
+          "type": "cexostring",
+          "value": ""
+        },
+        "QuestEntry": {
+          "type": "dword",
+          "value": 0
+        },
+        "Script": {
+          "type": "resref",
+          "value": ""
+        },
+        "Sound": {
+          "type": "resref",
+          "value": ""
+        },
+        "Text": {
+          "type": "cexolocstring",
+          "value": {
+            "0": "Thanks, I'll keep that in mind."
+          }
+        },
+        "Animation": {
+          "type": "dword",
+          "value": 0
+        },
+        "EntriesList": {
+          "type": "list",
+          "value": []
         }
       }
     ]
