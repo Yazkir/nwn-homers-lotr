@@ -1,6 +1,6 @@
 void main()
 {
-    object oPC = GetLastUsedBy();
+    object oPC = GetLastSpeaker();
     AdjustReputation(oPC, GetObjectByTag("Goodfaction"), 1000);
     AdjustReputation(oPC, GetObjectByTag("Evilfaction"), -100);
     AdjustReputation(oPC, GetObjectByTag("Neutralfaction"), -100);
