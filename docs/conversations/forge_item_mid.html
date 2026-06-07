@@ -47,7 +47,7 @@
 <h1>Conversation: <code>forge_item_mid</code></h1>
 <dl class="meta">
 <dt>NPC lines</dt><dd>42</dd>
-<dt>PC replies</dt><dd>182</dd>
+<dt>PC replies</dt><dd>183</dd>
 <dt>NumWords</dt><dd>616</dd>
 <dt>OnEnd</dt><dd><code>nw_walk_wp</code></dd>
 <dt>OnAbort</dt><dd><code>nw_walk_wp</code></dd>
@@ -207,7 +207,8 @@
 <tr><td><code>setdamimmun05</code></td><td>action</td><td>✓</td><td></td></tr>
 <tr><td><code>setdamimmun10</code></td><td>action</td><td>✓</td><td></td></tr>
 <tr><td><code>setpropdamimmun</code></td><td>action</td><td>✓</td><td></td></tr>
-<tr><td><code>bdm_cnv_opn_stor</code></td><td>action</td><td>✓</td><td></td></tr></tbody></table>
+<tr><td><code>bdm_cnv_opn_stor</code></td><td>action</td><td>✓</td><td></td></tr>
+<tr><td><code>setpropfreedom</code></td><td>action</td><td>✓</td><td></td></tr></tbody></table>
 <h2>Custom tokens</h2><p class="muted">These runtime tokens are filled by NWScript via <code>SetCustomToken(N, text)</code>. The scripts listed set each token; the actual value depends on game state at runtime.</p><table class="data"><thead><tr><th>Token</th><th>Set by script(s)</th></tr></thead><tbody><tr><td><code>&lt;CUSTOM100&gt;</code></td><td><a href="../scripts/isitemonanvil.html">isitemonanvil</a>, <a href="../scripts/smach_sc001.html">smach_sc001</a></td></tr>
 <tr><td><code>&lt;CUSTOM101&gt;</code></td><td><a href="../scripts/bankbalance.html">bankbalance</a>, <a href="../scripts/calcmodvalue2.html">calcmodvalue2</a>, <a href="../scripts/calcremoverefund.html">calcremoverefund</a>, <a href="../scripts/smach_configure.html">smach_configure</a></td></tr>
 <tr><td><code>&lt;CUSTOM102&gt;</code></td><td><a href="../scripts/isitemonanvil.html">isitemonanvil</a></td></tr></tbody></table>
@@ -246,16 +247,132 @@
 <div class="dlg-text">What type of modification would you like?</div>
 <div class="dlg-tree-children">
 <details class="dlg-tree-node reply" open>
-<summary><span class="dlg-id">reply #155</span> <span class="dlg-action">→ <code>setpropability</code></span> <a class="dlg-anchor" href="#r155" title="jump to flat reply #155">¶</a></summary>
-<div class="dlg-text">Ability Bonus.</div>
+<summary><span class="dlg-id">reply #131</span> <span class="dlg-action">→ <code>setpropen</code></span> <a class="dlg-anchor" href="#r131" title="jump to flat reply #131">¶</a></summary>
+<div class="dlg-text">Enhancement Bonus.</div>
 <div class="dlg-tree-children">
 <details class="dlg-tree-node entry" open>
-<summary><span class="dlg-id">entry #36</span> <a class="dlg-anchor" href="#e36" title="jump to flat entry #36">¶</a></summary>
-<div class="dlg-text">Select the ability to be enhanced.</div>
+<summary><span class="dlg-id">entry #30</span> <a class="dlg-anchor" href="#e30" title="jump to flat entry #30">¶</a></summary>
+<div class="dlg-text">Now, please select the bonus amount.</div>
 <div class="dlg-tree-children">
 <details class="dlg-tree-node reply" open>
-<summary><span class="dlg-id">reply #161</span> <span class="dlg-action">→ <code>setabilitystr2</code></span> <a class="dlg-anchor" href="#r161" title="jump to flat reply #161">¶</a></summary>
-<div class="dlg-text">Strength.</div>
+<summary><span class="dlg-id">reply #150</span> <span class="dlg-action">→ <code>setplus1</code></span> <a class="dlg-anchor" href="#r150" title="jump to flat reply #150">¶</a></summary>
+<div class="dlg-text">+1</div>
+<div class="dlg-tree-children">
+<details class="dlg-tree-node entry" open>
+<summary><span class="dlg-id">entry #31</span> <span class="dlg-action">→ <code>calcmodvalue1</code></span> <a class="dlg-anchor" href="#e31" title="jump to flat entry #31">¶</a></summary>
+<div class="dlg-text">Please wait while I calculate the cost of this modification.</div>
+<div class="dlg-tree-children">
+<details class="dlg-tree-node reply" open>
+<summary><span class="dlg-id">reply #151</span> <span class="dlg-action">→ <code>calcmodvalue2</code></span> <a class="dlg-anchor" href="#r151" title="jump to flat reply #151">¶</a></summary>
+<div class="dlg-text"><em>(no text)</em></div>
+<div class="dlg-tree-children">
+<details class="dlg-tree-node entry" open>
+<summary><span class="dlg-id">entry #35</span> <small class="muted">(if <code>cannotafford</code>)</small> <a class="dlg-anchor" href="#e35" title="jump to flat entry #35">¶</a></summary>
+<div class="dlg-text">This modification will cost you <span class="custom-token" title="SetCustomToken(101, ...) called in: bankbalance, calcmodvalue2, calcremoverefund, smach_configure">&lt;CUSTOM101&gt;<sup class="token-setters">[<a href="../scripts/bankbalance.html">bankbalance</a>, <a href="../scripts/calcmodvalue2.html">calcmodvalue2</a>, <a href="../scripts/calcremoverefund.html">calcremoverefund</a>, <a href="../scripts/smach_configure.html">smach_configure</a>]</sup></span> gold.</div>
+<div class="dlg-tree-children">
+<details class="dlg-tree-node reply" open>
+<summary><span class="dlg-id">reply #154</span> <a class="dlg-anchor" href="#r154" title="jump to flat reply #154">¶</a></summary>
+<div class="dlg-text">Sorry, I don&#x27;t seem to have enough gold.</div>
+<div class="dlg-tree-children">
+<details class="dlg-tree-node entry" open>
+<summary><span class="dlg-id">entry #4</span> <a class="dlg-anchor" href="#e4" title="jump to flat entry #4">¶</a></summary>
+<div class="dlg-text">Is there anything else?</div>
+<div class="dlg-tree-children">
+<div class="dlg-tree-ref reply-ref">↩ <a href="#r1">reply #1</a> <span class="dlg-link-preview">“I wanna change the item in the forge”</span></div>
+<details class="dlg-tree-node reply" open>
+<summary><span class="dlg-id">reply #0</span> <a class="dlg-anchor" href="#r0" title="jump to flat reply #0">¶</a></summary>
+<div class="dlg-text">Nothing, Goodbye.</div>
+</details>
+</div>
+</details>
+</div>
+</details>
+</div>
+</details>
+<details class="dlg-tree-node entry" open>
+<summary><span class="dlg-id">entry #34</span> <small class="muted">(if <code>isamttopay</code>)</small> <a class="dlg-anchor" href="#e34" title="jump to flat entry #34">¶</a></summary>
+<div class="dlg-text">This modification will cost you <span class="custom-token" title="SetCustomToken(101, ...) called in: bankbalance, calcmodvalue2, calcremoverefund, smach_configure">&lt;CUSTOM101&gt;<sup class="token-setters">[<a href="../scripts/bankbalance.html">bankbalance</a>, <a href="../scripts/calcmodvalue2.html">calcmodvalue2</a>, <a href="../scripts/calcremoverefund.html">calcremoverefund</a>, <a href="../scripts/smach_configure.html">smach_configure</a>]</sup></span> gold.</div>
+<div class="dlg-tree-children">
+<details class="dlg-tree-node reply" open>
+<summary><span class="dlg-id">reply #153</span> <span class="dlg-action">→ <code>modifyitem</code></span> <a class="dlg-anchor" href="#r153" title="jump to flat reply #153">¶</a></summary>
+<div class="dlg-text">Please go ahead.</div>
+<div class="dlg-tree-children">
+<div class="dlg-tree-ref entry-ref">↩ <a href="#e4">entry #4</a> <span class="dlg-link-preview">“Is there anything else?”</span></div>
+</div>
+</details>
+<details class="dlg-tree-node reply" open>
+<summary><span class="dlg-id">reply #152</span> <a class="dlg-anchor" href="#r152" title="jump to flat reply #152">¶</a></summary>
+<div class="dlg-text">I&#x27;ve changed my mind.</div>
+<div class="dlg-tree-children">
+<div class="dlg-tree-ref entry-ref">↩ <a href="#e4">entry #4</a> <span class="dlg-link-preview">“Is there anything else?”</span></div>
+</div>
+</details>
+</div>
+</details>
+<details class="dlg-tree-node entry" open>
+<summary><span class="dlg-id">entry #33</span> <small class="muted">(if <code>isamtrefund</code>)</small> <a class="dlg-anchor" href="#e33" title="jump to flat entry #33">¶</a></summary>
+<div class="dlg-text">This modification will give you a refund of <span class="custom-token" title="SetCustomToken(101, ...) called in: bankbalance, calcmodvalue2, calcremoverefund, smach_configure">&lt;CUSTOM101&gt;<sup class="token-setters">[<a href="../scripts/bankbalance.html">bankbalance</a>, <a href="../scripts/calcmodvalue2.html">calcmodvalue2</a>, <a href="../scripts/calcremoverefund.html">calcremoverefund</a>, <a href="../scripts/smach_configure.html">smach_configure</a>]</sup></span> gold.</div>
+<div class="dlg-tree-children">
+<div class="dlg-tree-ref reply-ref">↩ <a href="#r153">reply #153</a> <span class="dlg-link-preview">“Please go ahead.”</span></div>
+<div class="dlg-tree-ref reply-ref">↩ <a href="#r152">reply #152</a> <span class="dlg-link-preview">“I&#x27;ve changed my mind.”</span></div>
+</div>
+</details>
+<details class="dlg-tree-node entry" open>
+<summary><span class="dlg-id">entry #32</span> <a class="dlg-anchor" href="#e32" title="jump to flat entry #32">¶</a></summary>
+<div class="dlg-text">There is no charge for this modification.</div>
+<div class="dlg-tree-children">
+<div class="dlg-tree-ref reply-ref">↩ <a href="#r153">reply #153</a> <span class="dlg-link-preview">“Please go ahead.”</span></div>
+<div class="dlg-tree-ref reply-ref">↩ <a href="#r152">reply #152</a> <span class="dlg-link-preview">“I&#x27;ve changed my mind.”</span></div>
+</div>
+</details>
+</div>
+</details>
+</div>
+</details>
+</div>
+</details>
+<details class="dlg-tree-node reply" open>
+<summary><span class="dlg-id">reply #149</span> <span class="dlg-action">→ <code>setplus2</code></span> <a class="dlg-anchor" href="#r149" title="jump to flat reply #149">¶</a></summary>
+<div class="dlg-text">+2</div>
+<div class="dlg-tree-children">
+<div class="dlg-tree-ref entry-ref">↩ <a href="#e31">entry #31</a> <span class="dlg-link-preview">“Please wait while I calculate the cost of this modification.”</span></div>
+</div>
+</details>
+<details class="dlg-tree-node reply" open>
+<summary><span class="dlg-id">reply #148</span> <span class="dlg-action">→ <code>setplus3</code></span> <a class="dlg-anchor" href="#r148" title="jump to flat reply #148">¶</a></summary>
+<div class="dlg-text">+3</div>
+<div class="dlg-tree-children">
+<div class="dlg-tree-ref entry-ref">↩ <a href="#e31">entry #31</a> <span class="dlg-link-preview">“Please wait while I calculate the cost of this modification.”</span></div>
+</div>
+</details>
+<details class="dlg-tree-node reply" open>
+<summary><span class="dlg-id">reply #147</span> <span class="dlg-action">→ <code>setplus4</code></span> <a class="dlg-anchor" href="#r147" title="jump to flat reply #147">¶</a></summary>
+<div class="dlg-text">+4</div>
+<div class="dlg-tree-children">
+<div class="dlg-tree-ref entry-ref">↩ <a href="#e31">entry #31</a> <span class="dlg-link-preview">“Please wait while I calculate the cost of this modification.”</span></div>
+</div>
+</details>
+<details class="dlg-tree-node reply" open>
+<summary><span class="dlg-id">reply #146</span> <span class="dlg-action">→ <code>setplus5</code></span> <a class="dlg-anchor" href="#r146" title="jump to flat reply #146">¶</a></summary>
+<div class="dlg-text">+5</div>
+<div class="dlg-tree-children">
+<div class="dlg-tree-ref entry-ref">↩ <a href="#e31">entry #31</a> <span class="dlg-link-preview">“Please wait while I calculate the cost of this modification.”</span></div>
+</div>
+</details>
+</div>
+</details>
+</div>
+</details>
+<details class="dlg-tree-node reply" open>
+<summary><span class="dlg-id">reply #132</span> <span class="dlg-action">→ <code>setpropattack</code></span> <a class="dlg-anchor" href="#r132" title="jump to flat reply #132">¶</a></summary>
+<div class="dlg-text">Attack Bonus.</div>
+<div class="dlg-tree-children">
+<div class="dlg-tree-ref entry-ref">↩ <a href="#e30">entry #30</a> <span class="dlg-link-preview">“Now, please select the bonus amount.”</span></div>
+</div>
+</details>
+<details class="dlg-tree-node reply" open>
+<summary><span class="dlg-id">reply #133</span> <span class="dlg-action">→ <code>setpropac</code></span> <a class="dlg-anchor" href="#r133" title="jump to flat reply #133">¶</a></summary>
+<div class="dlg-text">Armour Bonus.</div>
 <div class="dlg-tree-children">
 <details class="dlg-tree-node entry" open>
 <summary><span class="dlg-id">entry #24</span> <a class="dlg-anchor" href="#e24" title="jump to flat entry #24">¶</a></summary>
@@ -281,17 +398,7 @@
 <summary><span class="dlg-id">reply #143</span> <a class="dlg-anchor" href="#r143" title="jump to flat reply #143">¶</a></summary>
 <div class="dlg-text">Sorry, I don&#x27;t seem to have enough gold.</div>
 <div class="dlg-tree-children">
-<details class="dlg-tree-node entry" open>
-<summary><span class="dlg-id">entry #4</span> <a class="dlg-anchor" href="#e4" title="jump to flat entry #4">¶</a></summary>
-<div class="dlg-text">Is there anything else?</div>
-<div class="dlg-tree-children">
-<div class="dlg-tree-ref reply-ref">↩ <a href="#r1">reply #1</a> <span class="dlg-link-preview">“I wanna change the item in the forge”</span></div>
-<details class="dlg-tree-node reply" open>
-<summary><span class="dlg-id">reply #0</span> <a class="dlg-anchor" href="#r0" title="jump to flat reply #0">¶</a></summary>
-<div class="dlg-text">Nothing, Goodbye.</div>
-</details>
-</div>
-</details>
+<div class="dlg-tree-ref entry-ref">↩ <a href="#e4">entry #4</a> <span class="dlg-link-preview">“Is there anything else?”</span></div>
 </div>
 </details>
 </div>
@@ -300,20 +407,8 @@
 <summary><span class="dlg-id">entry #28</span> <small class="muted">(if <code>isamttopay</code>)</small> <a class="dlg-anchor" href="#e28" title="jump to flat entry #28">¶</a></summary>
 <div class="dlg-text">This modification will cost you <span class="custom-token" title="SetCustomToken(101, ...) called in: bankbalance, calcmodvalue2, calcremoverefund, smach_configure">&lt;CUSTOM101&gt;<sup class="token-setters">[<a href="../scripts/bankbalance.html">bankbalance</a>, <a href="../scripts/calcmodvalue2.html">calcmodvalue2</a>, <a href="../scripts/calcremoverefund.html">calcremoverefund</a>, <a href="../scripts/smach_configure.html">smach_configure</a>]</sup></span> gold.</div>
 <div class="dlg-tree-children">
-<details class="dlg-tree-node reply" open>
-<summary><span class="dlg-id">reply #153</span> <span class="dlg-action">→ <code>modifyitem</code></span> <a class="dlg-anchor" href="#r153" title="jump to flat reply #153">¶</a></summary>
-<div class="dlg-text">Please go ahead.</div>
-<div class="dlg-tree-children">
-<div class="dlg-tree-ref entry-ref">↩ <a href="#e4">entry #4</a> <span class="dlg-link-preview">“Is there anything else?”</span></div>
-</div>
-</details>
-<details class="dlg-tree-node reply" open>
-<summary><span class="dlg-id">reply #152</span> <a class="dlg-anchor" href="#r152" title="jump to flat reply #152">¶</a></summary>
-<div class="dlg-text">I&#x27;ve changed my mind.</div>
-<div class="dlg-tree-children">
-<div class="dlg-tree-ref entry-ref">↩ <a href="#e4">entry #4</a> <span class="dlg-link-preview">“Is there anything else?”</span></div>
-</div>
-</details>
+<div class="dlg-tree-ref reply-ref">↩ <a href="#r153">reply #153</a> <span class="dlg-link-preview">“Please go ahead.”</span></div>
+<div class="dlg-tree-ref reply-ref">↩ <a href="#r152">reply #152</a> <span class="dlg-link-preview">“I&#x27;ve changed my mind.”</span></div>
 </div>
 </details>
 <details class="dlg-tree-node entry" open>
@@ -354,55 +449,7 @@
 <summary><span class="dlg-id">reply #138</span> <span class="dlg-action">→ <code>setplus2</code></span> <a class="dlg-anchor" href="#r138" title="jump to flat reply #138">¶</a></summary>
 <div class="dlg-text">+2</div>
 <div class="dlg-tree-children">
-<details class="dlg-tree-node entry" open>
-<summary><span class="dlg-id">entry #31</span> <span class="dlg-action">→ <code>calcmodvalue1</code></span> <a class="dlg-anchor" href="#e31" title="jump to flat entry #31">¶</a></summary>
-<div class="dlg-text">Please wait while I calculate the cost of this modification.</div>
-<div class="dlg-tree-children">
-<details class="dlg-tree-node reply" open>
-<summary><span class="dlg-id">reply #151</span> <span class="dlg-action">→ <code>calcmodvalue2</code></span> <a class="dlg-anchor" href="#r151" title="jump to flat reply #151">¶</a></summary>
-<div class="dlg-text"><em>(no text)</em></div>
-<div class="dlg-tree-children">
-<details class="dlg-tree-node entry" open>
-<summary><span class="dlg-id">entry #35</span> <small class="muted">(if <code>cannotafford</code>)</small> <a class="dlg-anchor" href="#e35" title="jump to flat entry #35">¶</a></summary>
-<div class="dlg-text">This modification will cost you <span class="custom-token" title="SetCustomToken(101, ...) called in: bankbalance, calcmodvalue2, calcremoverefund, smach_configure">&lt;CUSTOM101&gt;<sup class="token-setters">[<a href="../scripts/bankbalance.html">bankbalance</a>, <a href="../scripts/calcmodvalue2.html">calcmodvalue2</a>, <a href="../scripts/calcremoverefund.html">calcremoverefund</a>, <a href="../scripts/smach_configure.html">smach_configure</a>]</sup></span> gold.</div>
-<div class="dlg-tree-children">
-<details class="dlg-tree-node reply" open>
-<summary><span class="dlg-id">reply #154</span> <a class="dlg-anchor" href="#r154" title="jump to flat reply #154">¶</a></summary>
-<div class="dlg-text">Sorry, I don&#x27;t seem to have enough gold.</div>
-<div class="dlg-tree-children">
-<div class="dlg-tree-ref entry-ref">↩ <a href="#e4">entry #4</a> <span class="dlg-link-preview">“Is there anything else?”</span></div>
-</div>
-</details>
-</div>
-</details>
-<details class="dlg-tree-node entry" open>
-<summary><span class="dlg-id">entry #34</span> <small class="muted">(if <code>isamttopay</code>)</small> <a class="dlg-anchor" href="#e34" title="jump to flat entry #34">¶</a></summary>
-<div class="dlg-text">This modification will cost you <span class="custom-token" title="SetCustomToken(101, ...) called in: bankbalance, calcmodvalue2, calcremoverefund, smach_configure">&lt;CUSTOM101&gt;<sup class="token-setters">[<a href="../scripts/bankbalance.html">bankbalance</a>, <a href="../scripts/calcmodvalue2.html">calcmodvalue2</a>, <a href="../scripts/calcremoverefund.html">calcremoverefund</a>, <a href="../scripts/smach_configure.html">smach_configure</a>]</sup></span> gold.</div>
-<div class="dlg-tree-children">
-<div class="dlg-tree-ref reply-ref">↩ <a href="#r153">reply #153</a> <span class="dlg-link-preview">“Please go ahead.”</span></div>
-<div class="dlg-tree-ref reply-ref">↩ <a href="#r152">reply #152</a> <span class="dlg-link-preview">“I&#x27;ve changed my mind.”</span></div>
-</div>
-</details>
-<details class="dlg-tree-node entry" open>
-<summary><span class="dlg-id">entry #33</span> <small class="muted">(if <code>isamtrefund</code>)</small> <a class="dlg-anchor" href="#e33" title="jump to flat entry #33">¶</a></summary>
-<div class="dlg-text">This modification will give you a refund of <span class="custom-token" title="SetCustomToken(101, ...) called in: bankbalance, calcmodvalue2, calcremoverefund, smach_configure">&lt;CUSTOM101&gt;<sup class="token-setters">[<a href="../scripts/bankbalance.html">bankbalance</a>, <a href="../scripts/calcmodvalue2.html">calcmodvalue2</a>, <a href="../scripts/calcremoverefund.html">calcremoverefund</a>, <a href="../scripts/smach_configure.html">smach_configure</a>]</sup></span> gold.</div>
-<div class="dlg-tree-children">
-<div class="dlg-tree-ref reply-ref">↩ <a href="#r153">reply #153</a> <span class="dlg-link-preview">“Please go ahead.”</span></div>
-<div class="dlg-tree-ref reply-ref">↩ <a href="#r152">reply #152</a> <span class="dlg-link-preview">“I&#x27;ve changed my mind.”</span></div>
-</div>
-</details>
-<details class="dlg-tree-node entry" open>
-<summary><span class="dlg-id">entry #32</span> <a class="dlg-anchor" href="#e32" title="jump to flat entry #32">¶</a></summary>
-<div class="dlg-text">There is no charge for this modification.</div>
-<div class="dlg-tree-children">
-<div class="dlg-tree-ref reply-ref">↩ <a href="#r153">reply #153</a> <span class="dlg-link-preview">“Please go ahead.”</span></div>
-<div class="dlg-tree-ref reply-ref">↩ <a href="#r152">reply #152</a> <span class="dlg-link-preview">“I&#x27;ve changed my mind.”</span></div>
-</div>
-</details>
-</div>
-</details>
-</div>
-</details>
+<div class="dlg-tree-ref entry-ref">↩ <a href="#e31">entry #31</a> <span class="dlg-link-preview">“Please wait while I calculate the cost of this modification.”</span></div>
 </div>
 </details>
 <details class="dlg-tree-node reply" open>
@@ -426,15 +473,23 @@
 <div class="dlg-tree-ref entry-ref">↩ <a href="#e31">entry #31</a> <span class="dlg-link-preview">“Please wait while I calculate the cost of this modification.”</span></div>
 </div>
 </details>
+</div>
+</details>
+</div>
+</details>
 <details class="dlg-tree-node reply" open>
-<summary><span class="dlg-id">reply #134</span> <span class="dlg-action">→ <code>setplus0</code></span> <a class="dlg-anchor" href="#r134" title="jump to flat reply #134">¶</a></summary>
-<div class="dlg-text">Remove the existing bonus.</div>
+<summary><span class="dlg-id">reply #155</span> <span class="dlg-action">→ <code>setpropability</code></span> <a class="dlg-anchor" href="#r155" title="jump to flat reply #155">¶</a></summary>
+<div class="dlg-text">Ability Bonus.</div>
 <div class="dlg-tree-children">
-<div class="dlg-tree-ref entry-ref">↩ <a href="#e31">entry #31</a> <span class="dlg-link-preview">“Please wait while I calculate the cost of this modification.”</span></div>
-</div>
-</details>
-</div>
-</details>
+<details class="dlg-tree-node entry" open>
+<summary><span class="dlg-id">entry #36</span> <a class="dlg-anchor" href="#e36" title="jump to flat entry #36">¶</a></summary>
+<div class="dlg-text">Select the ability to be enhanced.</div>
+<div class="dlg-tree-children">
+<details class="dlg-tree-node reply" open>
+<summary><span class="dlg-id">reply #161</span> <span class="dlg-action">→ <code>setabilitystr2</code></span> <a class="dlg-anchor" href="#r161" title="jump to flat reply #161">¶</a></summary>
+<div class="dlg-text">Strength.</div>
+<div class="dlg-tree-children">
+<div class="dlg-tree-ref entry-ref">↩ <a href="#e24">entry #24</a> <span class="dlg-link-preview">“Now, please select the bonus amount.”</span></div>
 </div>
 </details>
 <details class="dlg-tree-node reply" open>
@@ -474,81 +529,6 @@
 </details>
 </div>
 </details>
-</div>
-</details>
-<details class="dlg-tree-node reply" open>
-<summary><span class="dlg-id">reply #144</span> <span class="dlg-action">→ <code>setpropac</code></span> <a class="dlg-anchor" href="#r144" title="jump to flat reply #144">¶</a></summary>
-<div class="dlg-text">Armour Bonus.</div>
-<div class="dlg-tree-children">
-<details class="dlg-tree-node entry" open>
-<summary><span class="dlg-id">entry #30</span> <a class="dlg-anchor" href="#e30" title="jump to flat entry #30">¶</a></summary>
-<div class="dlg-text">Now, please select the bonus amount.</div>
-<div class="dlg-tree-children">
-<details class="dlg-tree-node reply" open>
-<summary><span class="dlg-id">reply #150</span> <span class="dlg-action">→ <code>setplus1</code></span> <a class="dlg-anchor" href="#r150" title="jump to flat reply #150">¶</a></summary>
-<div class="dlg-text">+1</div>
-<div class="dlg-tree-children">
-<div class="dlg-tree-ref entry-ref">↩ <a href="#e31">entry #31</a> <span class="dlg-link-preview">“Please wait while I calculate the cost of this modification.”</span></div>
-</div>
-</details>
-<details class="dlg-tree-node reply" open>
-<summary><span class="dlg-id">reply #149</span> <span class="dlg-action">→ <code>setplus2</code></span> <a class="dlg-anchor" href="#r149" title="jump to flat reply #149">¶</a></summary>
-<div class="dlg-text">+2</div>
-<div class="dlg-tree-children">
-<div class="dlg-tree-ref entry-ref">↩ <a href="#e31">entry #31</a> <span class="dlg-link-preview">“Please wait while I calculate the cost of this modification.”</span></div>
-</div>
-</details>
-<details class="dlg-tree-node reply" open>
-<summary><span class="dlg-id">reply #148</span> <span class="dlg-action">→ <code>setplus3</code></span> <a class="dlg-anchor" href="#r148" title="jump to flat reply #148">¶</a></summary>
-<div class="dlg-text">+3</div>
-<div class="dlg-tree-children">
-<div class="dlg-tree-ref entry-ref">↩ <a href="#e31">entry #31</a> <span class="dlg-link-preview">“Please wait while I calculate the cost of this modification.”</span></div>
-</div>
-</details>
-<details class="dlg-tree-node reply" open>
-<summary><span class="dlg-id">reply #147</span> <span class="dlg-action">→ <code>setplus4</code></span> <a class="dlg-anchor" href="#r147" title="jump to flat reply #147">¶</a></summary>
-<div class="dlg-text">+4</div>
-<div class="dlg-tree-children">
-<div class="dlg-tree-ref entry-ref">↩ <a href="#e31">entry #31</a> <span class="dlg-link-preview">“Please wait while I calculate the cost of this modification.”</span></div>
-</div>
-</details>
-<details class="dlg-tree-node reply" open>
-<summary><span class="dlg-id">reply #146</span> <span class="dlg-action">→ <code>setplus5</code></span> <a class="dlg-anchor" href="#r146" title="jump to flat reply #146">¶</a></summary>
-<div class="dlg-text">+5</div>
-<div class="dlg-tree-children">
-<div class="dlg-tree-ref entry-ref">↩ <a href="#e31">entry #31</a> <span class="dlg-link-preview">“Please wait while I calculate the cost of this modification.”</span></div>
-</div>
-</details>
-<details class="dlg-tree-node reply" open>
-<summary><span class="dlg-id">reply #145</span> <span class="dlg-action">→ <code>setplus0</code></span> <a class="dlg-anchor" href="#r145" title="jump to flat reply #145">¶</a></summary>
-<div class="dlg-text">Remove the existing bonus.</div>
-<div class="dlg-tree-children">
-<div class="dlg-tree-ref entry-ref">↩ <a href="#e31">entry #31</a> <span class="dlg-link-preview">“Please wait while I calculate the cost of this modification.”</span></div>
-</div>
-</details>
-</div>
-</details>
-</div>
-</details>
-<details class="dlg-tree-node reply" open>
-<summary><span class="dlg-id">reply #133</span> <span class="dlg-action">→ <code>setpropac</code></span> <a class="dlg-anchor" href="#r133" title="jump to flat reply #133">¶</a></summary>
-<div class="dlg-text">Armour Bonus.</div>
-<div class="dlg-tree-children">
-<div class="dlg-tree-ref entry-ref">↩ <a href="#e24">entry #24</a> <span class="dlg-link-preview">“Now, please select the bonus amount.”</span></div>
-</div>
-</details>
-<details class="dlg-tree-node reply" open>
-<summary><span class="dlg-id">reply #132</span> <span class="dlg-action">→ <code>setpropattack</code></span> <a class="dlg-anchor" href="#r132" title="jump to flat reply #132">¶</a></summary>
-<div class="dlg-text">Attack Bonus.</div>
-<div class="dlg-tree-children">
-<div class="dlg-tree-ref entry-ref">↩ <a href="#e30">entry #30</a> <span class="dlg-link-preview">“Now, please select the bonus amount.”</span></div>
-</div>
-</details>
-<details class="dlg-tree-node reply" open>
-<summary><span class="dlg-id">reply #131</span> <span class="dlg-action">→ <code>setpropen</code></span> <a class="dlg-anchor" href="#r131" title="jump to flat reply #131">¶</a></summary>
-<div class="dlg-text">Enhancement Bonus.</div>
-<div class="dlg-tree-children">
-<div class="dlg-tree-ref entry-ref">↩ <a href="#e30">entry #30</a> <span class="dlg-link-preview">“Now, please select the bonus amount.”</span></div>
 </div>
 </details>
 <details class="dlg-tree-node reply" open>
@@ -750,50 +730,55 @@
 </div>
 </details>
 <details class="dlg-tree-node reply" open>
-<summary><span class="dlg-id">reply #75</span> <span class="dlg-action">→ <code>setprophaste</code></span> <a class="dlg-anchor" href="#r75" title="jump to flat reply #75">¶</a></summary>
-<div class="dlg-text">Haste.</div>
+<summary><span class="dlg-id">reply #176</span> <span class="dlg-action">→ <code>setpropdamimmun</code></span> <a class="dlg-anchor" href="#r176" title="jump to flat reply #176">¶</a></summary>
+<div class="dlg-text">Damage Immunity.</div>
+<div class="dlg-tree-children">
+<details class="dlg-tree-node entry" open>
+<summary><span class="dlg-id">entry #39</span> <a class="dlg-anchor" href="#e39" title="jump to flat entry #39">¶</a></summary>
+<div class="dlg-text">What damage type would you like immunity from?</div>
+<div class="dlg-tree-children">
+<details class="dlg-tree-node reply" open>
+<summary><span class="dlg-id">reply #173</span> <span class="dlg-action">→ <code>setdamslash</code></span> <a class="dlg-anchor" href="#r173" title="jump to flat reply #173">¶</a></summary>
+<div class="dlg-text">Slashing.</div>
+<div class="dlg-tree-children">
+<details class="dlg-tree-node entry" open>
+<summary><span class="dlg-id">entry #38</span> <a class="dlg-anchor" href="#e38" title="jump to flat entry #38">¶</a></summary>
+<div class="dlg-text">Choose the immunity level.</div>
+<div class="dlg-tree-children">
+<details class="dlg-tree-node reply" open>
+<summary><span class="dlg-id">reply #171</span> <span class="dlg-action">→ <code>setdamimmun05</code></span> <a class="dlg-anchor" href="#r171" title="jump to flat reply #171">¶</a></summary>
+<div class="dlg-text">5%</div>
 <div class="dlg-tree-children">
 <div class="dlg-tree-ref entry-ref">↩ <a href="#e31">entry #31</a> <span class="dlg-link-preview">“Please wait while I calculate the cost of this modification.”</span></div>
 </div>
 </details>
 <details class="dlg-tree-node reply" open>
-<summary><span class="dlg-id">reply #71</span> <a class="dlg-anchor" href="#r71" title="jump to flat reply #71">¶</a></summary>
-<div class="dlg-text">I&#x27;d like to rename the object.</div>
-<div class="dlg-tree-children">
-<details class="dlg-tree-node entry" open>
-<summary><span class="dlg-id">entry #15</span> <a class="dlg-anchor" href="#e15" title="jump to flat entry #15">¶</a></summary>
-<div class="dlg-text">Please choose one of the following names:</div>
-<div class="dlg-tree-children">
-<details class="dlg-tree-node reply" open>
-<summary><span class="dlg-id">reply #74</span> <span class="dlg-action">→ <code>renameitem1</code></span> <a class="dlg-anchor" href="#r74" title="jump to flat reply #74">¶</a></summary>
-<div class="dlg-text"><span class="custom-token" title="SetCustomToken(101, ...) called in: bankbalance, calcmodvalue2, calcremoverefund, smach_configure">&lt;CUSTOM101&gt;<sup class="token-setters">[<a href="../scripts/bankbalance.html">bankbalance</a>, <a href="../scripts/calcmodvalue2.html">calcmodvalue2</a>, <a href="../scripts/calcremoverefund.html">calcremoverefund</a>, <a href="../scripts/smach_configure.html">smach_configure</a>]</sup></span> of <span class="custom-token" title="SetCustomToken(102, ...) called in: isitemonanvil">&lt;CUSTOM102&gt;<sup class="token-setters">[<a href="../scripts/isitemonanvil.html">isitemonanvil</a>]</sup></span>.</div>
-<div class="dlg-tree-children">
-<details class="dlg-tree-node entry" open>
-<summary><span class="dlg-id">entry #16</span> <a class="dlg-anchor" href="#e16" title="jump to flat entry #16">¶</a></summary>
-<div class="dlg-text">It would seem that NWN doesn&#x27;t have a function for renaming items. If they do ever add one, I will use it here. </div>
-</details>
-</div>
-</details>
-<details class="dlg-tree-node reply" open>
-<summary><span class="dlg-id">reply #73</span> <a class="dlg-anchor" href="#r73" title="jump to flat reply #73">¶</a></summary>
-<div class="dlg-text"><span class="custom-token" title="SetCustomToken(102, ...) called in: isitemonanvil">&lt;CUSTOM102&gt;<sup class="token-setters">[<a href="../scripts/isitemonanvil.html">isitemonanvil</a>]</sup></span>&#x27;s <span class="custom-token" title="SetCustomToken(101, ...) called in: bankbalance, calcmodvalue2, calcremoverefund, smach_configure">&lt;CUSTOM101&gt;<sup class="token-setters">[<a href="../scripts/bankbalance.html">bankbalance</a>, <a href="../scripts/calcmodvalue2.html">calcmodvalue2</a>, <a href="../scripts/calcremoverefund.html">calcremoverefund</a>, <a href="../scripts/smach_configure.html">smach_configure</a>]</sup></span>.</div>
-</details>
-<details class="dlg-tree-node reply" open>
-<summary><span class="dlg-id">reply #72</span> <a class="dlg-anchor" href="#r72" title="jump to flat reply #72">¶</a></summary>
-<div class="dlg-text">On second thoughts, maybe I&#x27;ll stick with the current name.</div>
-<div class="dlg-tree-children">
-<div class="dlg-tree-ref entry-ref">↩ <a href="#e4">entry #4</a> <span class="dlg-link-preview">“Is there anything else?”</span></div>
-</div>
-</details>
-</div>
-</details>
-</div>
-</details>
-<details class="dlg-tree-node reply" open>
-<summary><span class="dlg-id">reply #63</span> <span class="dlg-action">→ <code>setpropkeen</code></span> <a class="dlg-anchor" href="#r63" title="jump to flat reply #63">¶</a></summary>
-<div class="dlg-text">Keen.</div>
+<summary><span class="dlg-id">reply #172</span> <span class="dlg-action">→ <code>setdamimmun10</code></span> <a class="dlg-anchor" href="#r172" title="jump to flat reply #172">¶</a></summary>
+<div class="dlg-text">10%</div>
 <div class="dlg-tree-children">
 <div class="dlg-tree-ref entry-ref">↩ <a href="#e31">entry #31</a> <span class="dlg-link-preview">“Please wait while I calculate the cost of this modification.”</span></div>
+</div>
+</details>
+</div>
+</details>
+</div>
+</details>
+<details class="dlg-tree-node reply" open>
+<summary><span class="dlg-id">reply #174</span> <span class="dlg-action">→ <code>setdambludg</code></span> <a class="dlg-anchor" href="#r174" title="jump to flat reply #174">¶</a></summary>
+<div class="dlg-text">Bludgeoning.</div>
+<div class="dlg-tree-children">
+<div class="dlg-tree-ref entry-ref">↩ <a href="#e38">entry #38</a> <span class="dlg-link-preview">“Choose the immunity level.”</span></div>
+</div>
+</details>
+<details class="dlg-tree-node reply" open>
+<summary><span class="dlg-id">reply #175</span> <span class="dlg-action">→ <code>setdampierce</code></span> <a class="dlg-anchor" href="#r175" title="jump to flat reply #175">¶</a></summary>
+<div class="dlg-text">Piercing.</div>
+<div class="dlg-tree-children">
+<div class="dlg-tree-ref entry-ref">↩ <a href="#e38">entry #38</a> <span class="dlg-link-preview">“Choose the immunity level.”</span></div>
+</div>
+</details>
+</div>
+</details>
 </div>
 </details>
 <details class="dlg-tree-node reply" open>
@@ -987,6 +972,34 @@
 </details>
 </div>
 </details>
+</div>
+</details>
+<details class="dlg-tree-node reply" open>
+<summary><span class="dlg-id">reply #63</span> <span class="dlg-action">→ <code>setpropkeen</code></span> <a class="dlg-anchor" href="#r63" title="jump to flat reply #63">¶</a></summary>
+<div class="dlg-text">Keen.</div>
+<div class="dlg-tree-children">
+<div class="dlg-tree-ref entry-ref">↩ <a href="#e31">entry #31</a> <span class="dlg-link-preview">“Please wait while I calculate the cost of this modification.”</span></div>
+</div>
+</details>
+<details class="dlg-tree-node reply" open>
+<summary><span class="dlg-id">reply #75</span> <span class="dlg-action">→ <code>setprophaste</code></span> <a class="dlg-anchor" href="#r75" title="jump to flat reply #75">¶</a></summary>
+<div class="dlg-text">Haste.</div>
+<div class="dlg-tree-children">
+<div class="dlg-tree-ref entry-ref">↩ <a href="#e31">entry #31</a> <span class="dlg-link-preview">“Please wait while I calculate the cost of this modification.”</span></div>
+</div>
+</details>
+<details class="dlg-tree-node reply" open>
+<summary><span class="dlg-id">reply #11</span> <span class="dlg-action">→ <code>setpropvampiric</code></span> <a class="dlg-anchor" href="#r11" title="jump to flat reply #11">¶</a></summary>
+<div class="dlg-text">Vampiric Regeneration.</div>
+<div class="dlg-tree-children">
+<div class="dlg-tree-ref entry-ref">↩ <a href="#e30">entry #30</a> <span class="dlg-link-preview">“Now, please select the bonus amount.”</span></div>
+</div>
+</details>
+<details class="dlg-tree-node reply" open>
+<summary><span class="dlg-id">reply #182</span> <span class="dlg-action">→ <code>setpropfreedom</code></span> <a class="dlg-anchor" href="#r182" title="jump to flat reply #182">¶</a></summary>
+<div class="dlg-text">Freedom of Movement.</div>
+<div class="dlg-tree-children">
+<div class="dlg-tree-ref entry-ref">↩ <a href="#e31">entry #31</a> <span class="dlg-link-preview">“Please wait while I calculate the cost of this modification.”</span></div>
 </div>
 </details>
 <details class="dlg-tree-node reply" open>
@@ -1224,13 +1237,6 @@
 </div>
 </details>
 <details class="dlg-tree-node reply" open>
-<summary><span class="dlg-id">reply #11</span> <span class="dlg-action">→ <code>setpropvampiric</code></span> <a class="dlg-anchor" href="#r11" title="jump to flat reply #11">¶</a></summary>
-<div class="dlg-text">Vampiric Regeneration.</div>
-<div class="dlg-tree-children">
-<div class="dlg-tree-ref entry-ref">↩ <a href="#e30">entry #30</a> <span class="dlg-link-preview">“Now, please select the bonus amount.”</span></div>
-</div>
-</details>
-<details class="dlg-tree-node reply" open>
 <summary><span class="dlg-id">reply #7</span> <span class="dlg-action">→ <code>setpropwgtreduc</code></span> <a class="dlg-anchor" href="#r7" title="jump to flat reply #7">¶</a></summary>
 <div class="dlg-text">Weight Reduction.</div>
 <div class="dlg-tree-children">
@@ -1257,84 +1263,6 @@
 <div class="dlg-text">40%.</div>
 <div class="dlg-tree-children">
 <div class="dlg-tree-ref entry-ref">↩ <a href="#e31">entry #31</a> <span class="dlg-link-preview">“Please wait while I calculate the cost of this modification.”</span></div>
-</div>
-</details>
-</div>
-</details>
-</div>
-</details>
-<details class="dlg-tree-node reply" open>
-<summary><span class="dlg-id">reply #6</span> <a class="dlg-anchor" href="#r6" title="jump to flat reply #6">¶</a></summary>
-<div class="dlg-text">Remove all magical properties from the item.</div>
-<div class="dlg-tree-children">
-<details class="dlg-tree-node entry" open>
-<summary><span class="dlg-id">entry #37</span> <span class="dlg-action">→ <code>calcremoverefund</code></span> <a class="dlg-anchor" href="#e37" title="jump to flat entry #37">¶</a></summary>
-<div class="dlg-text">Arrr, this&#x27;ll strip EVERY magical property from yer <span class="custom-token" title="SetCustomToken(100, ...) called in: isitemonanvil, smach_sc001">&lt;CUSTOM100&gt;<sup class="token-setters">[<a href="../scripts/isitemonanvil.html">isitemonanvil</a>, <a href="../scripts/smach_sc001.html">smach_sc001</a>]</sup></span>! Based on what ye&#x27;ve put in here, ye&#x27;ll be refunded <span class="custom-token" title="SetCustomToken(101, ...) called in: bankbalance, calcmodvalue2, calcremoverefund, smach_configure">&lt;CUSTOM101&gt;<sup class="token-setters">[<a href="../scripts/bankbalance.html">bankbalance</a>, <a href="../scripts/calcmodvalue2.html">calcmodvalue2</a>, <a href="../scripts/calcremoverefund.html">calcremoverefund</a>, <a href="../scripts/smach_configure.html">smach_configure</a>]</sup></span> gold. There be no undoing this! Are ye certain?</div>
-<div class="dlg-tree-children">
-<details class="dlg-tree-node reply" open>
-<summary><span class="dlg-id">reply #162</span> <span class="dlg-action">→ <code>removeall</code></span> <a class="dlg-anchor" href="#r162" title="jump to flat reply #162">¶</a></summary>
-<div class="dlg-text">Aye, strip all magical properties from my <span class="custom-token" title="SetCustomToken(100, ...) called in: isitemonanvil, smach_sc001">&lt;CUSTOM100&gt;<sup class="token-setters">[<a href="../scripts/isitemonanvil.html">isitemonanvil</a>, <a href="../scripts/smach_sc001.html">smach_sc001</a>]</sup></span>.</div>
-<div class="dlg-tree-children">
-<div class="dlg-tree-ref entry-ref">↩ <a href="#e4">entry #4</a> <span class="dlg-link-preview">“Is there anything else?”</span></div>
-</div>
-</details>
-<details class="dlg-tree-node reply" open>
-<summary><span class="dlg-id">reply #163</span> <a class="dlg-anchor" href="#r163" title="jump to flat reply #163">¶</a></summary>
-<div class="dlg-text">No, leave my <span class="custom-token" title="SetCustomToken(100, ...) called in: isitemonanvil, smach_sc001">&lt;CUSTOM100&gt;<sup class="token-setters">[<a href="../scripts/isitemonanvil.html">isitemonanvil</a>, <a href="../scripts/smach_sc001.html">smach_sc001</a>]</sup></span> as it is.</div>
-<div class="dlg-tree-children">
-<div class="dlg-tree-ref entry-ref">↩ <a href="#e4">entry #4</a> <span class="dlg-link-preview">“Is there anything else?”</span></div>
-</div>
-</details>
-</div>
-</details>
-</div>
-</details>
-<details class="dlg-tree-node reply" open>
-<summary><span class="dlg-id">reply #176</span> <span class="dlg-action">→ <code>setpropdamimmun</code></span> <a class="dlg-anchor" href="#r176" title="jump to flat reply #176">¶</a></summary>
-<div class="dlg-text">Damage Immunity.</div>
-<div class="dlg-tree-children">
-<details class="dlg-tree-node entry" open>
-<summary><span class="dlg-id">entry #39</span> <a class="dlg-anchor" href="#e39" title="jump to flat entry #39">¶</a></summary>
-<div class="dlg-text">What damage type would you like immunity from?</div>
-<div class="dlg-tree-children">
-<details class="dlg-tree-node reply" open>
-<summary><span class="dlg-id">reply #173</span> <span class="dlg-action">→ <code>setdamslash</code></span> <a class="dlg-anchor" href="#r173" title="jump to flat reply #173">¶</a></summary>
-<div class="dlg-text">Slashing.</div>
-<div class="dlg-tree-children">
-<details class="dlg-tree-node entry" open>
-<summary><span class="dlg-id">entry #38</span> <a class="dlg-anchor" href="#e38" title="jump to flat entry #38">¶</a></summary>
-<div class="dlg-text">Choose the immunity level.</div>
-<div class="dlg-tree-children">
-<details class="dlg-tree-node reply" open>
-<summary><span class="dlg-id">reply #171</span> <span class="dlg-action">→ <code>setdamimmun05</code></span> <a class="dlg-anchor" href="#r171" title="jump to flat reply #171">¶</a></summary>
-<div class="dlg-text">5%</div>
-<div class="dlg-tree-children">
-<div class="dlg-tree-ref entry-ref">↩ <a href="#e31">entry #31</a> <span class="dlg-link-preview">“Please wait while I calculate the cost of this modification.”</span></div>
-</div>
-</details>
-<details class="dlg-tree-node reply" open>
-<summary><span class="dlg-id">reply #172</span> <span class="dlg-action">→ <code>setdamimmun10</code></span> <a class="dlg-anchor" href="#r172" title="jump to flat reply #172">¶</a></summary>
-<div class="dlg-text">10%</div>
-<div class="dlg-tree-children">
-<div class="dlg-tree-ref entry-ref">↩ <a href="#e31">entry #31</a> <span class="dlg-link-preview">“Please wait while I calculate the cost of this modification.”</span></div>
-</div>
-</details>
-</div>
-</details>
-</div>
-</details>
-<details class="dlg-tree-node reply" open>
-<summary><span class="dlg-id">reply #174</span> <span class="dlg-action">→ <code>setdambludg</code></span> <a class="dlg-anchor" href="#r174" title="jump to flat reply #174">¶</a></summary>
-<div class="dlg-text">Bludgeoning.</div>
-<div class="dlg-tree-children">
-<div class="dlg-tree-ref entry-ref">↩ <a href="#e38">entry #38</a> <span class="dlg-link-preview">“Choose the immunity level.”</span></div>
-</div>
-</details>
-<details class="dlg-tree-node reply" open>
-<summary><span class="dlg-id">reply #175</span> <span class="dlg-action">→ <code>setdampierce</code></span> <a class="dlg-anchor" href="#r175" title="jump to flat reply #175">¶</a></summary>
-<div class="dlg-text">Piercing.</div>
-<div class="dlg-tree-children">
-<div class="dlg-tree-ref entry-ref">↩ <a href="#e38">entry #38</a> <span class="dlg-link-preview">“Choose the immunity level.”</span></div>
 </div>
 </details>
 </div>
@@ -1414,7 +1342,7 @@
 <div class="dlg-node entry" id="e2"><div class="dlg-head"><span class="dlg-id">entry #2</span></div><div class="dlg-text">Either the item quality is to good for me to modify, or there is not just 1 item on the forge.</div><ul class="dlg-links"><li><a href="#r3">→ reply #3</a> <span class="dlg-link-preview">“I understand.”</span></li></ul></div>
 <div class="dlg-node entry" id="e3"><div class="dlg-head"><span class="dlg-id">entry #3</span></div><div class="dlg-text">Are ye sure ye want to be changin&#x27; the <span class="custom-token" title="SetCustomToken(100, ...) called in: isitemonanvil, smach_sc001">&lt;CUSTOM100&gt;<sup class="token-setters">[<a href="../scripts/isitemonanvil.html">isitemonanvil</a>, <a href="../scripts/smach_sc001.html">smach_sc001</a>]</sup></span>?</div><ul class="dlg-links"><li><a href="#r5">→ reply #5</a> <span class="dlg-link-preview">“Yes.”</span></li><li><a href="#r4">→ reply #4</a> <span class="dlg-link-preview">“No.”</span></li></ul></div>
 <div class="dlg-node entry" id="e4"><div class="dlg-head"><span class="dlg-id">entry #4</span></div><div class="dlg-text">Is there anything else?</div><ul class="dlg-links"><li><a href="#r1">→ child</a> <span class="dlg-link-preview">“I wanna change the item in the forge”</span></li><li><a href="#r0">→ child</a> <span class="dlg-link-preview">“Nothing, Goodbye.”</span></li></ul></div>
-<div class="dlg-node entry" id="e5"><div class="dlg-head"><span class="dlg-id">entry #5</span></div><div class="dlg-text">What type of modification would you like?</div><ul class="dlg-links"><li><a href="#r155">→ reply #155</a> <span class="dlg-link-preview">“Ability Bonus.”</span></li><li><a href="#r144">→ reply #144</a> <span class="dlg-link-preview">“Armour Bonus.”</span></li><li><a href="#r133">→ reply #133</a> <span class="dlg-link-preview">“Armour Bonus.”</span></li><li><a href="#r132">→ reply #132</a> <span class="dlg-link-preview">“Attack Bonus.”</span></li><li><a href="#r131">→ reply #131</a> <span class="dlg-link-preview">“Enhancement Bonus.”</span></li><li><a href="#r99">→ reply #99</a> <span class="dlg-link-preview">“Damage Bonus.”</span></li><li><a href="#r87">→ reply #87</a> <span class="dlg-link-preview">“Damage Reduction.”</span></li><li><a href="#r76">→ reply #76</a> <span class="dlg-link-preview">“Damage Resistance.”</span></li><li><a href="#r75">→ reply #75</a> <span class="dlg-link-preview">“Haste.”</span></li><li><a href="#r71">→ reply #71</a> <span class="dlg-link-preview">“I&#x27;d like to rename the object.”</span></li><li><a href="#r63">→ reply #63</a> <span class="dlg-link-preview">“Keen.”</span></li><li><a href="#r62">→ reply #62</a> <span class="dlg-link-preview">“Massive Criticals”</span></li><li><a href="#r61">→ reply #61</a> <span class="dlg-link-preview">“Mighty.”</span></li><li><a href="#r39">→ reply #39</a> <span class="dlg-link-preview">“On Hit Properties.”</span></li><li><a href="#r22">→ reply #22</a> <span class="dlg-link-preview">“Skill Bonus.”</span></li><li><a href="#r12">→ reply #12</a> <span class="dlg-link-preview">“Unlimited Ammo.”</span></li><li><a href="#r11">→ reply #11</a> <span class="dlg-link-preview">“Vampiric Regeneration.”</span></li><li><a href="#r7">→ reply #7</a> <span class="dlg-link-preview">“Weight Reduction.”</span></li><li><a href="#r6">→ reply #6</a> <span class="dlg-link-preview">“Remove all magical properties from the item.”</span></li><li><a href="#r176">→ reply #176</a> <span class="dlg-link-preview">“Damage Immunity.”</span></li></ul></div>
+<div class="dlg-node entry" id="e5"><div class="dlg-head"><span class="dlg-id">entry #5</span></div><div class="dlg-text">What type of modification would you like?</div><ul class="dlg-links"><li><a href="#r131">→ reply #131</a> <span class="dlg-link-preview">“Enhancement Bonus.”</span></li><li><a href="#r132">→ reply #132</a> <span class="dlg-link-preview">“Attack Bonus.”</span></li><li><a href="#r133">→ reply #133</a> <span class="dlg-link-preview">“Armour Bonus.”</span></li><li><a href="#r155">→ reply #155</a> <span class="dlg-link-preview">“Ability Bonus.”</span></li><li><a href="#r99">→ reply #99</a> <span class="dlg-link-preview">“Damage Bonus.”</span></li><li><a href="#r87">→ reply #87</a> <span class="dlg-link-preview">“Damage Reduction.”</span></li><li><a href="#r76">→ reply #76</a> <span class="dlg-link-preview">“Damage Resistance.”</span></li><li><a href="#r176">→ reply #176</a> <span class="dlg-link-preview">“Damage Immunity.”</span></li><li><a href="#r62">→ reply #62</a> <span class="dlg-link-preview">“Massive Criticals”</span></li><li><a href="#r61">→ reply #61</a> <span class="dlg-link-preview">“Mighty.”</span></li><li><a href="#r39">→ reply #39</a> <span class="dlg-link-preview">“On Hit Properties.”</span></li><li><a href="#r63">→ reply #63</a> <span class="dlg-link-preview">“Keen.”</span></li><li><a href="#r75">→ reply #75</a> <span class="dlg-link-preview">“Haste.”</span></li><li><a href="#r11">→ reply #11</a> <span class="dlg-link-preview">“Vampiric Regeneration.”</span></li><li><a href="#r182">→ reply #182</a> <span class="dlg-link-preview">“Freedom of Movement.”</span></li><li><a href="#r22">→ reply #22</a> <span class="dlg-link-preview">“Skill Bonus.”</span></li><li><a href="#r12">→ reply #12</a> <span class="dlg-link-preview">“Unlimited Ammo.”</span></li><li><a href="#r7">→ reply #7</a> <span class="dlg-link-preview">“Weight Reduction.”</span></li></ul></div>
 <div class="dlg-node entry" id="e6"><div class="dlg-head"><span class="dlg-id">entry #6</span></div><div class="dlg-text">Choose the amount of the reduction.</div><ul class="dlg-links"><li><a href="#r10">→ reply #10</a> <span class="dlg-link-preview">“10%.”</span></li><li><a href="#r9">→ reply #9</a> <span class="dlg-link-preview">“20%.”</span></li><li><a href="#r8">→ reply #8</a> <span class="dlg-link-preview">“40%.”</span></li></ul></div>
 <div class="dlg-node entry" id="e7"><div class="dlg-head"><span class="dlg-id">entry #7</span></div><div class="dlg-text">Select the ammo type.</div><ul class="dlg-links"><li><a href="#r21">→ reply #21</a> <span class="dlg-link-preview">“Basic.”</span></li><li><a href="#r20">→ reply #20</a> <span class="dlg-link-preview">“+1”</span></li><li><a href="#r19">→ reply #19</a> <span class="dlg-link-preview">“+2”</span></li><li><a href="#r18">→ reply #18</a> <span class="dlg-link-preview">“+3”</span></li><li><a href="#r17">→ reply #17</a> <span class="dlg-link-preview">“+4”</span></li><li><a href="#r16">→ reply #16</a> <span class="dlg-link-preview">“+5”</span></li><li><a href="#r15">→ reply #15</a> <span class="dlg-link-preview">“1d6 Cold.”</span></li><li><a href="#r14">→ reply #14</a> <span class="dlg-link-preview">“1d6 Fire.”</span></li><li><a href="#r13">→ reply #13</a> <span class="dlg-link-preview">“1d6 Electrical.”</span></li></ul></div>
 <div class="dlg-node entry" id="e8"><div class="dlg-head"><span class="dlg-id">entry #8</span></div><div class="dlg-text">Now please select the skill to be enhanced.</div><ul class="dlg-links"><li><a href="#r38">→ reply #38</a> <span class="dlg-link-preview">“Animal Empathy.”</span></li><li><a href="#r37">→ reply #37</a> <span class="dlg-link-preview">“Appraise.”</span></li><li><a href="#r36">→ reply #36</a> <span class="dlg-link-preview">“Bluff.”</span></li><li><a href="#r35">→ reply #35</a> <span class="dlg-link-preview">“Concentration.”</span></li><li><a href="#r34">→ reply #34</a> <span class="dlg-link-preview">“Craft Armor.”</span></li><li><a href="#r33">→ reply #33</a> <span class="dlg-link-preview">“Craft Trap.”</span></li><li><a href="#r32">→ reply #32</a> <span class="dlg-link-preview">“Craft Weapon.”</span></li><li><a href="#r31">→ reply #31</a> <span class="dlg-link-preview">“Disable Trap.”</span></li><li><a href="#r30">→ reply #30</a> <span class="dlg-link-preview">“Heal.”</span></li><li><a href="#r29">→ reply #29</a> <span class="dlg-link-preview">“Intimidate.”</span></li><li><a href="#r28">→ reply #28</a> <span class="dlg-link-preview">“Parry.”</span></li><li><a href="#r27">→ reply #27</a> <span class="dlg-link-preview">“Perform.”</span></li><li><a href="#r26">→ reply #26</a> <span class="dlg-link-preview">“Persuade.”</span></li><li><a href="#r25">→ reply #25</a> <span class="dlg-link-preview">“Pick Pocket.”</span></li><li><a href="#r24">→ reply #24</a> <span class="dlg-link-preview">“Set Trap.”</span></li><li><a href="#r23">→ reply #23</a> <span class="dlg-link-preview">“Tumble.”</span></li><li><a href="#r164">→ reply #164</a> <span class="dlg-link-preview">“Hide.”</span></li><li><a href="#r165">→ reply #165</a> <span class="dlg-link-preview">“Listen.”</span></li><li><a href="#r166">→ reply #166</a> <span class="dlg-link-preview">“Open Lock.”</span></li><li><a href="#r167">→ reply #167</a> <span class="dlg-link-preview">“Search.”</span></li><li><a href="#r168">→ reply #168</a> <span class="dlg-link-preview">“Taunt.”</span></li></ul></div>
@@ -1433,13 +1361,13 @@
 <div class="dlg-node entry" id="e21"><div class="dlg-head"><span class="dlg-id">entry #21</span></div><div class="dlg-text">Please tell me what damage type you would like.</div><ul class="dlg-links"><li><a href="#r105">→ reply #105</a> <span class="dlg-link-preview">“Slashing.”</span></li><li><a href="#r169">→ reply #169</a> <span class="dlg-link-preview">“Bludgeoning.”</span></li><li><a href="#r170">→ reply #170</a> <span class="dlg-link-preview">“Piercing.”</span></li></ul></div>
 <div class="dlg-node entry" id="e22"><div class="dlg-head"><span class="dlg-id">entry #22</span></div><div class="dlg-text">Now choose the damage amount.</div><ul class="dlg-links"><li><a href="#r110">→ reply #110</a> <span class="dlg-link-preview">“1”</span></li><li><a href="#r109">→ reply #109</a> <span class="dlg-link-preview">“2”</span></li><li><a href="#r108">→ reply #108</a> <span class="dlg-link-preview">“3”</span></li><li><a href="#r107">→ reply #107</a> <span class="dlg-link-preview">“1d4”</span></li><li><a href="#r106">→ reply #106</a> <span class="dlg-link-preview">“1d6”</span></li></ul></div>
 <div class="dlg-node entry" id="e23"><div class="dlg-head"><span class="dlg-id">entry #23</span></div><div class="dlg-text">Choose the bonus feat you would like.</div><ul class="dlg-links"><li><a href="#r130">→ reply #130</a> <span class="dlg-link-preview">“Ambidexterity.”</span></li><li><a href="#r129">→ reply #129</a> <span class="dlg-link-preview">“Armor Prof. Light.”</span></li><li><a href="#r128">→ reply #128</a> <span class="dlg-link-preview">“Cleave.”</span></li><li><a href="#r127">→ reply #127</a> <span class="dlg-link-preview">“Combat Casting.”</span></li><li><a href="#r126">→ reply #126</a> <span class="dlg-link-preview">“Imp. Critical Unarmed.”</span></li><li><a href="#r125">→ reply #125</a> <span class="dlg-link-preview">“Knockdown.”</span></li><li><a href="#r124">→ reply #124</a> <span class="dlg-link-preview">“Point Blank Shot.”</span></li><li><a href="#r123">→ reply #123</a> <span class="dlg-link-preview">“Spell Focus Abjuration.”</span></li><li><a href="#r122">→ reply #122</a> <span class="dlg-link-preview">“Spell Focus Conjuration.”</span></li><li><a href="#r121">→ reply #121</a> <span class="dlg-link-preview">“Spell Focus Divination.”</span></li><li><a href="#r120">→ reply #120</a> <span class="dlg-link-preview">“Spell Focus Enchantment.”</span></li><li><a href="#r119">→ reply #119</a> <span class="dlg-link-preview">“Spell Focus Evocation.”</span></li><li><a href="#r118">→ reply #118</a> <span class="dlg-link-preview">“Spell Focus Illusion.”</span></li><li><a href="#r117">→ reply #117</a> <span class="dlg-link-preview">“Spell Focus Necromancy.”</span></li><li><a href="#r116">→ reply #116</a> <span class="dlg-link-preview">“Spell Penetration.”</span></li><li><a href="#r115">→ reply #115</a> <span class="dlg-link-preview">“Two Weapon Fighting.”</span></li><li><a href="#r114">→ reply #114</a> <span class="dlg-link-preview">“Weapon Finesse.”</span></li><li><a href="#r113">→ reply #113</a> <span class="dlg-link-preview">“Weapon Prof. Martial.”</span></li><li><a href="#r112">→ reply #112</a> <span class="dlg-link-preview">“Weapon Prof. Simple.”</span></li></ul></div>
-<div class="dlg-node entry" id="e24"><div class="dlg-head"><span class="dlg-id">entry #24</span></div><div class="dlg-text">Now, please select the bonus amount.</div><ul class="dlg-links"><li><a href="#r139">→ reply #139</a> <span class="dlg-link-preview">“+1”</span></li><li><a href="#r138">→ reply #138</a> <span class="dlg-link-preview">“+2”</span></li><li><a href="#r137">→ reply #137</a> <span class="dlg-link-preview">“+3”</span></li><li><a href="#r136">→ reply #136</a> <span class="dlg-link-preview">“+4”</span></li><li><a href="#r135">→ reply #135</a> <span class="dlg-link-preview">“+5”</span></li><li><a href="#r134">→ reply #134</a> <span class="dlg-link-preview">“Remove the existing bonus.”</span></li></ul></div>
+<div class="dlg-node entry" id="e24"><div class="dlg-head"><span class="dlg-id">entry #24</span></div><div class="dlg-text">Now, please select the bonus amount.</div><ul class="dlg-links"><li><a href="#r139">→ reply #139</a> <span class="dlg-link-preview">“+1”</span></li><li><a href="#r138">→ reply #138</a> <span class="dlg-link-preview">“+2”</span></li><li><a href="#r137">→ reply #137</a> <span class="dlg-link-preview">“+3”</span></li><li><a href="#r136">→ reply #136</a> <span class="dlg-link-preview">“+4”</span></li><li><a href="#r135">→ reply #135</a> <span class="dlg-link-preview">“+5”</span></li></ul></div>
 <div class="dlg-node entry" id="e25"><div class="dlg-head"><span class="dlg-id">entry #25</span> <span class="dlg-action">→ <code>calcmodvalue1</code></span></div><div class="dlg-text">Please wait while I calculate the cost of this modification.</div><ul class="dlg-links"><li><a href="#r140">→ reply #140</a></li></ul></div>
 <div class="dlg-node entry" id="e26"><div class="dlg-head"><span class="dlg-id">entry #26</span></div><div class="dlg-text">There is no charge for this modification.</div><ul class="dlg-links"><li><a href="#r153">→ child</a> <span class="dlg-link-preview">“Please go ahead.”</span></li><li><a href="#r152">→ child</a> <span class="dlg-link-preview">“I&#x27;ve changed my mind.”</span></li></ul></div>
 <div class="dlg-node entry" id="e27"><div class="dlg-head"><span class="dlg-id">entry #27</span></div><div class="dlg-text">This modification will give you a refund of <span class="custom-token" title="SetCustomToken(101, ...) called in: bankbalance, calcmodvalue2, calcremoverefund, smach_configure">&lt;CUSTOM101&gt;<sup class="token-setters">[<a href="../scripts/bankbalance.html">bankbalance</a>, <a href="../scripts/calcmodvalue2.html">calcmodvalue2</a>, <a href="../scripts/calcremoverefund.html">calcremoverefund</a>, <a href="../scripts/smach_configure.html">smach_configure</a>]</sup></span> gold.</div><ul class="dlg-links"><li><a href="#r142">→ reply #142</a> <span class="dlg-link-preview">“Please go ahead.”</span></li><li><a href="#r141">→ reply #141</a> <span class="dlg-link-preview">“I&#x27;ve changed my mind.”</span></li></ul></div>
 <div class="dlg-node entry" id="e28"><div class="dlg-head"><span class="dlg-id">entry #28</span></div><div class="dlg-text">This modification will cost you <span class="custom-token" title="SetCustomToken(101, ...) called in: bankbalance, calcmodvalue2, calcremoverefund, smach_configure">&lt;CUSTOM101&gt;<sup class="token-setters">[<a href="../scripts/bankbalance.html">bankbalance</a>, <a href="../scripts/calcmodvalue2.html">calcmodvalue2</a>, <a href="../scripts/calcremoverefund.html">calcremoverefund</a>, <a href="../scripts/smach_configure.html">smach_configure</a>]</sup></span> gold.</div><ul class="dlg-links"><li><a href="#r153">→ child</a> <span class="dlg-link-preview">“Please go ahead.”</span></li><li><a href="#r152">→ child</a> <span class="dlg-link-preview">“I&#x27;ve changed my mind.”</span></li></ul></div>
 <div class="dlg-node entry" id="e29"><div class="dlg-head"><span class="dlg-id">entry #29</span></div><div class="dlg-text">This modification will cost you <span class="custom-token" title="SetCustomToken(101, ...) called in: bankbalance, calcmodvalue2, calcremoverefund, smach_configure">&lt;CUSTOM101&gt;<sup class="token-setters">[<a href="../scripts/bankbalance.html">bankbalance</a>, <a href="../scripts/calcmodvalue2.html">calcmodvalue2</a>, <a href="../scripts/calcremoverefund.html">calcremoverefund</a>, <a href="../scripts/smach_configure.html">smach_configure</a>]</sup></span> gold.</div><ul class="dlg-links"><li><a href="#r143">→ reply #143</a> <span class="dlg-link-preview">“Sorry, I don&#x27;t seem to have enough gold.”</span></li></ul></div>
-<div class="dlg-node entry" id="e30"><div class="dlg-head"><span class="dlg-id">entry #30</span></div><div class="dlg-text">Now, please select the bonus amount.</div><ul class="dlg-links"><li><a href="#r150">→ reply #150</a> <span class="dlg-link-preview">“+1”</span></li><li><a href="#r149">→ reply #149</a> <span class="dlg-link-preview">“+2”</span></li><li><a href="#r148">→ reply #148</a> <span class="dlg-link-preview">“+3”</span></li><li><a href="#r147">→ reply #147</a> <span class="dlg-link-preview">“+4”</span></li><li><a href="#r146">→ reply #146</a> <span class="dlg-link-preview">“+5”</span></li><li><a href="#r145">→ reply #145</a> <span class="dlg-link-preview">“Remove the existing bonus.”</span></li></ul></div>
+<div class="dlg-node entry" id="e30"><div class="dlg-head"><span class="dlg-id">entry #30</span></div><div class="dlg-text">Now, please select the bonus amount.</div><ul class="dlg-links"><li><a href="#r150">→ reply #150</a> <span class="dlg-link-preview">“+1”</span></li><li><a href="#r149">→ reply #149</a> <span class="dlg-link-preview">“+2”</span></li><li><a href="#r148">→ reply #148</a> <span class="dlg-link-preview">“+3”</span></li><li><a href="#r147">→ reply #147</a> <span class="dlg-link-preview">“+4”</span></li><li><a href="#r146">→ reply #146</a> <span class="dlg-link-preview">“+5”</span></li></ul></div>
 <div class="dlg-node entry" id="e31"><div class="dlg-head"><span class="dlg-id">entry #31</span> <span class="dlg-action">→ <code>calcmodvalue1</code></span></div><div class="dlg-text">Please wait while I calculate the cost of this modification.</div><ul class="dlg-links"><li><a href="#r151">→ reply #151</a></li></ul></div>
 <div class="dlg-node entry" id="e32"><div class="dlg-head"><span class="dlg-id">entry #32</span></div><div class="dlg-text">There is no charge for this modification.</div><ul class="dlg-links"><li><a href="#r153">→ child</a> <span class="dlg-link-preview">“Please go ahead.”</span></li><li><a href="#r152">→ child</a> <span class="dlg-link-preview">“I&#x27;ve changed my mind.”</span></li></ul></div>
 <div class="dlg-node entry" id="e33"><div class="dlg-head"><span class="dlg-id">entry #33</span></div><div class="dlg-text">This modification will give you a refund of <span class="custom-token" title="SetCustomToken(101, ...) called in: bankbalance, calcmodvalue2, calcremoverefund, smach_configure">&lt;CUSTOM101&gt;<sup class="token-setters">[<a href="../scripts/bankbalance.html">bankbalance</a>, <a href="../scripts/calcmodvalue2.html">calcmodvalue2</a>, <a href="../scripts/calcremoverefund.html">calcremoverefund</a>, <a href="../scripts/smach_configure.html">smach_configure</a>]</sup></span> gold.</div><ul class="dlg-links"><li><a href="#r153">→ reply #153</a> <span class="dlg-link-preview">“Please go ahead.”</span></li><li><a href="#r152">→ reply #152</a> <span class="dlg-link-preview">“I&#x27;ve changed my mind.”</span></li></ul></div>
@@ -1634,7 +1562,8 @@
 <div class="dlg-node reply" id="r179"><div class="dlg-head"><span class="dlg-id">reply #179</span></div><div class="dlg-text">Can you tell me of any rumors circulating.</div><ul class="dlg-links"><li><a href="#e41">→ entry #41</a> <span class="dlg-link-preview">“There be rumors all over these parts. Hard to split the dung pile from the gems…”</span></li></ul></div>
 <div class="dlg-node reply" id="r180"><div class="dlg-head"><span class="dlg-id">reply #180</span></div><div class="dlg-text">Nothing, goodbye.</div></div>
 <div class="dlg-node reply" id="r181"><div class="dlg-head"><span class="dlg-id">reply #181</span></div><div class="dlg-text">Thanks, I&#x27;ll keep that in mind.</div></div>
+<div class="dlg-node reply" id="r182"><div class="dlg-head"><span class="dlg-id">reply #182</span> <span class="dlg-action">→ <code>setpropfreedom</code></span></div><div class="dlg-text">Freedom of Movement.</div><ul class="dlg-links"><li><a href="#e31">→ child</a> <span class="dlg-link-preview">“Please wait while I calculate the cost of this modification.”</span></li></ul></div>
   </main>
-  <footer>generated by <a href="https://github.com/mrprice22/nwn-manager">nwn-manager</a> &mdash; last updated Jun 6, 2026 22:07</footer>
+  <footer>generated by <a href="https://github.com/mrprice22/nwn-manager">nwn-manager</a> &mdash; last updated Jun 7, 2026 13:30</footer>
 </body>
 </html>
