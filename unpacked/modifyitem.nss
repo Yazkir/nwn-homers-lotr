@@ -22,6 +22,16 @@ void main()
         return;
         }
 
+    //No refunds: refuse any change that would lower the item's assessed value.
+    //The forges only enchant an item upward — never pay out for a downgrade.
+    if (iDiff == -1)
+        {
+        SpeakString("I shape metal forward, not back — I'll not unmake the work "
+            + "already in this piece for a handful of coin. Choose an enchantment "
+            + "that betters it, or take it as it is.");
+        return;
+        }
+
     if (iDiff == 1 && GetGold(oPC) < iValue)
         {
         SpeakString("Oops.. looks like you don't have the gold for this.");
@@ -34,8 +44,6 @@ void main()
         SetLocalInt(oItem, "FORGE_GP_INVESTED",
             GetLocalInt(oItem, "FORGE_GP_INVESTED") + (iValue * 80 / 100));
         }
-    else if (iDiff == -1)
-        GiveGoldToCreature(oPC, iValue);
 
     //Modify item
     itemproperty ip = GetNewProperty(oItem);
