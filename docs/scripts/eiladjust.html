@@ -47,11 +47,12 @@
   <main>
 <h1>Script: <code>eiladjust</code></h1><pre class="nss-source"><code>void main()
 {
-        object oPC = GetLastUsedBy();
-
-        AdjustReputation(oPC, GetObjectByTag(&quot;Goodfaction&quot;),-100);
-        AdjustReputation(oPC, GetObjectByTag(&quot;Evilfaction&quot;),1000);
-        AdjustReputation(oPC, GetObjectByTag(&quot;Neutralfaction&quot;),-100);
+    object oPC = GetLastUsedBy();
+    AdjustReputation(oPC, GetObjectByTag(&quot;Goodfaction&quot;), -100);
+    AdjustReputation(oPC, GetObjectByTag(&quot;Evilfaction&quot;), 1000);
+    AdjustReputation(oPC, GetObjectByTag(&quot;Neutralfaction&quot;), -100);
+    ApplyEffectToObject(DURATION_TYPE_INSTANT, EffectVisualEffect(VFX_FNF_LOS_EVIL_20), oPC);
+    ApplyEffectToObject(DURATION_TYPE_INSTANT, EffectVisualEffect(VFX_IMP_HEAD_EVIL), oPC);
 }
 </code></pre>
   </main>

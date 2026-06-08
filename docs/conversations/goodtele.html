@@ -76,7 +76,8 @@
 <tr><td><code>fornostenter</code></td><td><em class="muted">unresolved</em></td><td><code>fornostjump</code></td><td><a href="#r12">reply #12</a></td></tr>
 <tr><td><code>breeenter</code></td><td><a href="../areas/bree.html">Bree</a></td><td><code>breetele</code></td><td><a href="#r13">reply #13</a></td></tr></tbody></table>
 <h2>Scripts referenced</h2>
-<table class="data"><thead><tr><th>Script</th><th>Slot</th><th>In module</th><th>Notes</th></tr></thead><tbody><tr><td><code>_homerglad</code></td><td>action</td><td>✓</td><td>teleports to: <code>GladWP2</code> (<a href="../areas/area015.html">Arena - Gladiator</a>)</td></tr>
+<table class="data"><thead><tr><th>Script</th><th>Slot</th><th>In module</th><th>Notes</th></tr></thead><tbody><tr><td><code>well_good_align</code></td><td>action</td><td>✓</td><td></td></tr>
+<tr><td><code>_homerglad</code></td><td>action</td><td>✓</td><td>teleports to: <code>GladWP2</code> (<a href="../areas/area015.html">Arena - Gladiator</a>)</td></tr>
 <tr><td><code>_homerbattle</code></td><td>action</td><td>✓</td><td>teleports to: <code>battle</code> (<a href="../areas/area019.html">Arena - Team</a>)</td></tr>
 <tr><td><code>arenaenter</code></td><td>action</td><td>✓</td><td>teleports to: <code>tour2</code> (<a href="../areas/arena001.html">Arena</a>)</td></tr>
 <tr><td><code>gondortele</code></td><td>action</td><td>✓</td><td>teleports to: <code>minashome</code> (<a href="../areas/minastirithgates.html">Minas Tirith: Gates</a>)</td></tr>
@@ -90,14 +91,14 @@
 <tr><td><code>fornostjump</code></td><td>action</td><td>✓</td><td>teleports to: <code>fornostenter</code></td></tr>
 <tr><td><code>breetele</code></td><td>action</td><td>✓</td><td>teleports to: <code>breeenter</code> (<a href="../areas/bree.html">Bree</a>)</td></tr></tbody></table>
 <h2>Starting entries</h2><ul>
-<li><a href="#e0">entry #0</a> — Weclome ! Where do you wish to go?</li>
+<li><a href="#e0">entry #0</a> — By seeking my guidance, , you stand with the Free Peoples — your allegiance is s…</li>
 </ul>
 <h2>Conversation flow</h2>
 <p class="muted">Each starting entry is expanded recursively. Repeated nodes (cycles, shared continuations) appear inline as <code>↩ link</code> backrefs to the first occurrence.</p>
 <div class="dlg-tree">
 <details class="dlg-tree-node entry" open>
-<summary><span class="dlg-id">entry #0</span> <a class="dlg-anchor" href="#e0" title="jump to flat entry #0">¶</a></summary>
-<div class="dlg-text">Weclome &lt;FullName&gt;! Where do you wish to go?</div>
+<summary><span class="dlg-id">entry #0</span> <span class="dlg-action">→ <code>well_good_align</code></span> <a class="dlg-anchor" href="#e0" title="jump to flat entry #0">¶</a></summary>
+<div class="dlg-text">By seeking my guidance, &lt;FullName&gt;, you stand with the Free Peoples — your allegiance is set. Return to the Guardian of Darkness to change sides. Where do you wish to travel?</div>
 <div class="dlg-tree-children">
 <details class="dlg-tree-node reply" open>
 <summary><span class="dlg-id">reply #13</span> <span class="dlg-action">→ <code>breetele</code></span> <a class="dlg-anchor" href="#r13" title="jump to flat reply #13">¶</a></summary>
@@ -159,7 +160,7 @@
 </details>
 </div>
 <h2>NPC lines (entries) — flat index</h2>
-<div class="dlg-node entry" id="e0"><div class="dlg-head"><span class="dlg-id">entry #0</span></div><div class="dlg-text">Weclome &lt;FullName&gt;! Where do you wish to go?</div><ul class="dlg-links"><li><a href="#r13">→ reply #13</a> <span class="dlg-link-preview">“Bree.”</span></li><li><a href="#r12">→ reply #12</a> <span class="dlg-link-preview">“Fornost.”</span></li><li><a href="#r11">→ reply #11</a> <span class="dlg-link-preview">“Tharbad.”</span></li><li><a href="#r10">→ reply #10</a> <span class="dlg-link-preview">“Lake Town.”</span></li><li><a href="#r9">→ reply #9</a> <span class="dlg-link-preview">“Edoras.”</span></li><li><a href="#r8">→ reply #8</a> <span class="dlg-link-preview">“Lonely Mountain.”</span></li><li><a href="#r7">→ reply #7</a> <span class="dlg-link-preview">“Lothlorien.”</span></li><li><a href="#r6">→ reply #6</a> <span class="dlg-link-preview">“Rivendell.”</span></li><li><a href="#r5">→ reply #5</a> <span class="dlg-link-preview">“Helms Deep.”</span></li><li><a href="#r4">→ reply #4</a> <span class="dlg-link-preview">“Gondor.”</span></li><li><a href="#r3">→ reply #3</a> <span class="dlg-link-preview">“Arena.”</span></li><li><a href="#r2">→ reply #2</a> <span class="dlg-link-preview">“Arena - Team.”</span></li><li><a href="#r1">→ reply #1</a> <span class="dlg-link-preview">“Arena - Gladiator.”</span></li><li><a href="#r0">→ reply #0</a> <span class="dlg-link-preview">“Exit.”</span></li></ul></div>
+<div class="dlg-node entry" id="e0"><div class="dlg-head"><span class="dlg-id">entry #0</span> <span class="dlg-action">→ <code>well_good_align</code></span></div><div class="dlg-text">By seeking my guidance, &lt;FullName&gt;, you stand with the Free Peoples — your allegiance is set. Return to the Guardian of Darkness to change sides. Where do you wish to travel?</div><ul class="dlg-links"><li><a href="#r13">→ reply #13</a> <span class="dlg-link-preview">“Bree.”</span></li><li><a href="#r12">→ reply #12</a> <span class="dlg-link-preview">“Fornost.”</span></li><li><a href="#r11">→ reply #11</a> <span class="dlg-link-preview">“Tharbad.”</span></li><li><a href="#r10">→ reply #10</a> <span class="dlg-link-preview">“Lake Town.”</span></li><li><a href="#r9">→ reply #9</a> <span class="dlg-link-preview">“Edoras.”</span></li><li><a href="#r8">→ reply #8</a> <span class="dlg-link-preview">“Lonely Mountain.”</span></li><li><a href="#r7">→ reply #7</a> <span class="dlg-link-preview">“Lothlorien.”</span></li><li><a href="#r6">→ reply #6</a> <span class="dlg-link-preview">“Rivendell.”</span></li><li><a href="#r5">→ reply #5</a> <span class="dlg-link-preview">“Helms Deep.”</span></li><li><a href="#r4">→ reply #4</a> <span class="dlg-link-preview">“Gondor.”</span></li><li><a href="#r3">→ reply #3</a> <span class="dlg-link-preview">“Arena.”</span></li><li><a href="#r2">→ reply #2</a> <span class="dlg-link-preview">“Arena - Team.”</span></li><li><a href="#r1">→ reply #1</a> <span class="dlg-link-preview">“Arena - Gladiator.”</span></li><li><a href="#r0">→ reply #0</a> <span class="dlg-link-preview">“Exit.”</span></li></ul></div>
 <h2>PC replies — flat index</h2>
 <div class="dlg-node reply" id="r0"><div class="dlg-head"><span class="dlg-id">reply #0</span></div><div class="dlg-text">Exit.</div></div>
 <div class="dlg-node reply" id="r1"><div class="dlg-head"><span class="dlg-id">reply #1</span> <span class="dlg-action">→ <code>_homerglad</code></span></div><div class="dlg-text">Arena - Gladiator.</div></div>
