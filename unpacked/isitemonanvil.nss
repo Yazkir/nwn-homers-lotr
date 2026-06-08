@@ -211,6 +211,9 @@ int StartingConditional()
         SetLocalInt(oItem, "FORGE_BASE_SET", TRUE);
     }
     SetLocalObject(oPC, "MODIFY_ITEM", oItem);
+    // Per-forge value ceiling: read from the anvil's area (0 = uncapped).
+    // FORGE_MAX_VALUE is set on each forge area's local vars (low 250k / mid 500k / high 750k).
+    SetLocalInt(oPC, "MODIFY_MAX", GetLocalInt(GetArea(oAnvil), "FORGE_MAX_VALUE"));
     SetTokens(oItem);
     return TRUE;
 }

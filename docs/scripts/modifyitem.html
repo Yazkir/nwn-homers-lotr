@@ -55,6 +55,20 @@ void main()
     int iValue = GetLocalInt(oPC, &quot;MODIFY_VALUE&quot;);
     int iDiff = GetLocalInt(oPC, &quot;MODIFY_DIFF&quot;);
     object oItem = GetLocalObject(oPC, &quot;MODIFY_ITEM&quot;);
+
+    //Per-forge value ceiling: refuse enchants that would raise the item&#x27;s
+    //assessed value past this forge&#x27;s cap (0 = uncapped). Only value-increasing
+    //enchants (iDiff == 1) can breach it; refunds/no-change pass through.
+    //Prospective new value = current value + quoted cost (MODIFY_VALUE).
+    int iMax = GetLocalInt(oPC, &quot;MODIFY_MAX&quot;);
+    if (iMax &gt; 0 &amp;&amp; iDiff == 1 &amp;&amp; GetGoldPieceValue(oItem) + iValue &gt; iMax)
+        {
+        SpeakString(&quot;I&#x27;m sorry — my forge cannot work this piece any further. I &quot;
+            + &quot;dare not raise its worth past &quot; + IntToString(iMax) + &quot; gold. Take &quot;
+            + &quot;it to a greater forge if you would push it beyond that.&quot;);
+        return;
+        }
+
     if (iDiff == 1 &amp;&amp; GetGold(oPC) &lt; iValue)
         {
         SpeakString(&quot;Oops.. looks like you don&#x27;t have the gold for this.&quot;);

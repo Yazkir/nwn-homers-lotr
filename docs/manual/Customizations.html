@@ -353,7 +353,9 @@ change succeeds automatically, regardless of your skill ranks.</p>
 <h3 id="forge">Forge of Wonders — Item Enchanting</h3>
 <p>Three Forge of Wonders locations let you permanently add or replace magical properties on any
 equippable item, for a gold cost equal to the increase in the item's assessed value. Each forge is
-staffed by a smith NPC; place exactly one item on the nearby anvil, then speak to the smith.</p>
+staffed by a smith NPC; place exactly one item on the nearby anvil, then speak to the smith.
+Each tier also enforces a <strong>maximum item value</strong>: a forge will refuse to apply any
+enchantment that would raise an item's assessed value past that tier's ceiling.</p>
 
 <div class="tip-box">
   <p><strong>How it works:</strong> Place <em>exactly one item</em> on the anvil placeable in
@@ -363,28 +365,42 @@ staffed by a smith NPC; place exactly one item on the nearby anvil, then speak t
 </div>
 
 <table class="data change-table">
-  <thead><tr><th>Forge</th><th>Location</th><th>Access</th><th>Tier</th></tr></thead>
+  <thead><tr><th>Forge</th><th>Location</th><th>Access</th><th>Tier</th><th>Max item value</th></tr></thead>
   <tbody>
     <tr>
       <td>Tagget's Smith Shop</td>
       <td><a href="../areas/taggetssmithshop.html">Taggets Smith Shop</a> (Bree)</td>
       <td>Open to all — no key required</td>
       <td>Low</td>
+      <td>250,000 gp</td>
     </tr>
     <tr>
       <td>Rivendell Smithy</td>
       <td><a href="../areas/thesmithyofriven.html">The Smithy of Rivendell</a></td>
       <td><strong>Elrond's Writ</strong> must be in your inventory to access the forge option</td>
       <td>Mid</td>
+      <td>500,000 gp</td>
     </tr>
     <tr>
       <td>Moria Forge of Wonders</td>
       <td><a href="../areas/area057.html">Moria: Forge of Wonders</a></td>
       <td><a href="../items/forgekey.html">Forgekey</a> (dropped by the Balrog of Moria) + Legendary travel menu</td>
       <td>High</td>
+      <td>750,000 gp</td>
     </tr>
   </tbody>
 </table>
+
+<div class="tip-box">
+  <p><strong>Maximum item value:</strong> each forge refuses to apply an enchantment that would
+  raise the item's assessed gold value past its tier ceiling — <strong>250,000 gp</strong> at
+  Tagget's (Low), <strong>500,000 gp</strong> at Rivendell (Mid), and <strong>750,000 gp</strong>
+  at the Moria Forge (High). The refusal is graceful: the smith tells you the item is already as
+  fine as that forge can make it and <em>no gold is charged</em>. To push an item further, take it
+  to a higher-tier forge — each forge enforces only its own ceiling, so a higher tier does not
+  raise the lower limits. Value-<em>reducing</em> changes (replacing a property with a weaker one
+  for a refund) are still allowed even at or above the cap.</p>
+</div>
 
 <p><strong>Available enchantments by tier:</strong></p>
 <table class="data change-table">
