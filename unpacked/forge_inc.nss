@@ -233,28 +233,42 @@ int ForgeIsItemIllegal(object oItem)
     return ForgeItemDeviatesFromBlueprint(oItem);
 }
 
+// TRUE when oItem was already handled by the current revert-all pass on oPC
+// (item-local FORGE_RVT_SKIP carries the pass's run stamp). Stale stamps from
+// earlier passes don't match, so nothing is skipped forever.
+int ForgeRevertSeen(object oItem, object oPC)
+{
+    return GetLocalInt(oItem, "FORGE_RVT_SKIP")
+        == GetLocalInt(oPC, "FORGE_RVT_RUN");
+}
+
 // First illegal item on the PC: equipped slots, then inventory, descending
-// one level into containers (bags can't nest in NWN).
-object ForgeFindIllegalItem(object oPC)
+// one level into containers (bags can't nest in NWN). bSkipMarked skips items
+// already handled by the current revert-all pass (see ForgeRevertSeen) — they
+// still count as illegal everywhere else.
+object ForgeFindIllegalItem(object oPC, int bSkipMarked = FALSE)
 {
     int nSlot;
     for (nSlot = 0; nSlot < NUM_INVENTORY_SLOTS; nSlot++)
     {
         object oItem = GetItemInSlot(nSlot, oPC);
-        if (GetIsObjectValid(oItem) && ForgeIsItemIllegal(oItem))
+        if (GetIsObjectValid(oItem) && ForgeIsItemIllegal(oItem)
+            && !(bSkipMarked && ForgeRevertSeen(oItem, oPC)))
             return oItem;
     }
     object oItem = GetFirstItemInInventory(oPC);
     while (GetIsObjectValid(oItem))
     {
-        if (ForgeIsItemIllegal(oItem))
+        if (ForgeIsItemIllegal(oItem)
+            && !(bSkipMarked && ForgeRevertSeen(oItem, oPC)))
             return oItem;
         if (GetHasInventory(oItem))
         {
             object oInBag = GetFirstItemInInventory(oItem);
             while (GetIsObjectValid(oInBag))
             {
-                if (ForgeIsItemIllegal(oInBag))
+                if (ForgeIsItemIllegal(oInBag)
+                    && !(bSkipMarked && ForgeRevertSeen(oInBag, oPC)))
                     return oInBag;
                 oInBag = GetNextItemInInventory(oItem);
             }
@@ -262,6 +276,52 @@ object ForgeFindIllegalItem(object oPC)
         oItem = GetNextItemInInventory(oPC);
     }
     return OBJECT_INVALID;
+}
+
+// Replace oItem with a pristine copy of its stock blueprint, created on oPC.
+// New item is created first so a missing blueprint never costs the player
+// the original. Returns the new item, or OBJECT_INVALID when the blueprint
+// is unknown (item left untouched). Equipped originals land the replacement
+// in the backpack.
+object ForgeRevertToBlueprint(object oItem, object oPC)
+{
+    if (!GetIsObjectValid(oItem))
+        return OBJECT_INVALID;
+    string sResRef = GetResRef(oItem);
+    object oNew = CreateItemOnObject(sResRef, oPC);
+    if (!GetIsObjectValid(oNew))
+    {
+        ForgeLog("RevertToBlueprint: no blueprint for resref '" + sResRef
+            + "' (item '" + GetName(oItem) + "')");
+        return OBJECT_INVALID;
+    }
+    SetIdentified(oNew, TRUE);
+    ForgeLog("RevertToBlueprint: '" + GetName(oItem) + "' -> stock '"
+        + GetName(oNew) + "' (resref " + sResRef + ") for " + GetName(oPC));
+    DestroyObject(oItem);
+    return oNew;
+}
+
+// Revert every illegal item on the PC to its stock blueprint. Returns how
+// many could NOT be reverted (no known blueprint); those stay illegal.
+// Every visited item is stamped with this pass's run id BEFORE the revert,
+// so the loop terminates even if DestroyObject is deferred past the rescan.
+int ForgeRevertAllIllegal(object oPC)
+{
+    int nRun = GetLocalInt(oPC, "FORGE_RVT_RUN") + 1;
+    SetLocalInt(oPC, "FORGE_RVT_RUN", nRun);
+    int nFail = 0;
+    int nGuard = 0;
+    object oBad = ForgeFindIllegalItem(oPC, TRUE);
+    while (GetIsObjectValid(oBad) && nGuard < 100)
+    {
+        nGuard++;
+        SetLocalInt(oBad, "FORGE_RVT_SKIP", nRun);
+        if (!GetIsObjectValid(ForgeRevertToBlueprint(oBad, oPC)))
+            nFail++;
+        oBad = ForgeFindIllegalItem(oPC, TRUE);
+    }
+    return nFail;
 }
 
 // Player-facing summary of what still makes oItem unlawful (for the Forge

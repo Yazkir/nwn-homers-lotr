@@ -5100,24 +5100,6 @@
           "type": "cexostring",
           "value": ""
         },
-        "Script": {
-          "type": "resref",
-          "value": "forge_dis_anvil"
-        },
-        "Sound": {
-          "type": "resref",
-          "value": ""
-        },
-        "Text": {
-          "type": "cexolocstring",
-          "value": {
-            "0": "Which enchantment shall I strike from the <CUSTOM100>? Mind you — the magic is lost forever, and I pay nothing for unmaking."
-          }
-        },
-        "Speaker": {
-          "type": "cexostring",
-          "value": ""
-        },
         "RepliesList": {
           "type": "list",
           "value": [
@@ -5257,6 +5239,24 @@
               }
             }
           ]
+        },
+        "Script": {
+          "type": "resref",
+          "value": "forge_dis_anvil"
+        },
+        "Sound": {
+          "type": "resref",
+          "value": ""
+        },
+        "Speaker": {
+          "type": "cexostring",
+          "value": ""
+        },
+        "Text": {
+          "type": "cexolocstring",
+          "value": {
+            "0": "Which enchantment shall I strike from the <CUSTOM100>? Mind you — the magic is lost forever, and I pay nothing for unmaking."
+          }
         }
       },
       {
@@ -5278,24 +5278,6 @@
           "value": 4294967295
         },
         "Quest": {
-          "type": "cexostring",
-          "value": ""
-        },
-        "Script": {
-          "type": "resref",
-          "value": ""
-        },
-        "Sound": {
-          "type": "resref",
-          "value": ""
-        },
-        "Text": {
-          "type": "cexolocstring",
-          "value": {
-            "0": "Strike the <CUSTOM6118> from it? There is no refund and no undoing."
-          }
-        },
-        "Speaker": {
           "type": "cexostring",
           "value": ""
         },
@@ -5333,6 +5315,24 @@
               }
             }
           ]
+        },
+        "Script": {
+          "type": "resref",
+          "value": ""
+        },
+        "Sound": {
+          "type": "resref",
+          "value": ""
+        },
+        "Speaker": {
+          "type": "cexostring",
+          "value": ""
+        },
+        "Text": {
+          "type": "cexolocstring",
+          "value": {
+            "0": "Strike the <CUSTOM6118> from it? There is no refund and no undoing."
+          }
         }
       }
     ]
@@ -5675,6 +5675,10 @@
       },
       {
         "__struct_id": 6,
+        "Active": {
+          "type": "resref",
+          "value": "israngedweapon"
+        },
         "Animation": {
           "type": "dword",
           "value": 0
@@ -5728,10 +5732,6 @@
           "value": {
             "0": "Unlimited Ammo."
           }
-        },
-        "Active": {
-          "type": "resref",
-          "value": "israngedweapon"
         }
       },
       {
@@ -7009,6 +7009,10 @@
       },
       {
         "__struct_id": 28,
+        "Active": {
+          "type": "resref",
+          "value": "isweapon"
+        },
         "Animation": {
           "type": "dword",
           "value": 0
@@ -7066,10 +7070,6 @@
           "value": {
             "0": "Attack Bonus."
           }
-        },
-        "Active": {
-          "type": "resref",
-          "value": "isweapon"
         }
       },
       {
@@ -8271,6 +8271,10 @@
       },
       {
         "__struct_id": 50,
+        "Active": {
+          "type": "resref",
+          "value": "isweapon"
+        },
         "Animation": {
           "type": "dword",
           "value": 0
@@ -8324,10 +8328,6 @@
           "value": {
             "0": "On Hit Properties."
           }
-        },
-        "Active": {
-          "type": "resref",
-          "value": "isweapon"
         }
       },
       {
@@ -10874,6 +10874,10 @@
       },
       {
         "__struct_id": 93,
+        "Active": {
+          "type": "resref",
+          "value": "israngedweapon"
+        },
         "Animation": {
           "type": "dword",
           "value": 0
@@ -10931,14 +10935,14 @@
           "value": {
             "0": "Mighty."
           }
-        },
-        "Active": {
-          "type": "resref",
-          "value": "israngedweapon"
         }
       },
       {
         "__struct_id": 94,
+        "Active": {
+          "type": "resref",
+          "value": "isweapon"
+        },
         "Animation": {
           "type": "dword",
           "value": 0
@@ -10996,10 +11000,6 @@
           "value": {
             "0": "Massive Criticals"
           }
-        },
-        "Active": {
-          "type": "resref",
-          "value": "isweapon"
         }
       },
       {
@@ -11065,6 +11065,10 @@
       },
       {
         "__struct_id": 96,
+        "Active": {
+          "type": "resref",
+          "value": "isweapon"
+        },
         "Animation": {
           "type": "dword",
           "value": 0
@@ -11122,10 +11126,6 @@
           "value": {
             "0": "Keen."
           }
-        },
-        "Active": {
-          "type": "resref",
-          "value": "isweapon"
         }
       },
       {
@@ -14697,6 +14697,10 @@
       },
       {
         "__struct_id": 156,
+        "Active": {
+          "type": "resref",
+          "value": "isweapon"
+        },
         "Animation": {
           "type": "dword",
           "value": 0
@@ -14750,10 +14754,6 @@
           "value": {
             "0": "Damage Bonus."
           }
-        },
-        "Active": {
-          "type": "resref",
-          "value": "isweapon"
         }
       },
       {
@@ -17129,6 +17129,10 @@
       },
       {
         "__struct_id": 196,
+        "Active": {
+          "type": "resref",
+          "value": "isnotweapon"
+        },
         "Animation": {
           "type": "dword",
           "value": 0
@@ -17182,10 +17186,6 @@
           "value": {
             "0": "Armour Bonus."
           }
-        },
-        "Active": {
-          "type": "resref",
-          "value": "isnotweapon"
         }
       },
       {
@@ -18459,10 +18459,6 @@
           "type": "dword",
           "value": 4294967295
         },
-        "Quest": {
-          "type": "cexostring",
-          "value": ""
-        },
         "EntriesList": {
           "type": "list",
           "value": [
@@ -18486,6 +18482,10 @@
               }
             }
           ]
+        },
+        "Quest": {
+          "type": "cexostring",
+          "value": ""
         },
         "Script": {
           "type": "resref",
@@ -18520,10 +18520,6 @@
           "type": "dword",
           "value": 4294967295
         },
-        "Quest": {
-          "type": "cexostring",
-          "value": ""
-        },
         "EntriesList": {
           "type": "list",
           "value": [
@@ -18547,6 +18543,10 @@
               }
             }
           ]
+        },
+        "Quest": {
+          "type": "cexostring",
+          "value": ""
         },
         "Script": {
           "type": "resref",
@@ -18850,6 +18850,10 @@
       },
       {
         "__struct_id": 224,
+        "Active": {
+          "type": "resref",
+          "value": "isweapon"
+        },
         "Animation": {
           "type": "dword",
           "value": 0
@@ -18903,14 +18907,26 @@
           "value": {
             "0": "Enhancement Bonus."
           }
-        },
-        "Active": {
-          "type": "resref",
-          "value": "isweapon"
         }
       },
       {
         "__struct_id": 225,
+        "Animation": {
+          "type": "dword",
+          "value": 0
+        },
+        "AnimLoop": {
+          "type": "byte",
+          "value": 1
+        },
+        "Comment": {
+          "type": "cexostring",
+          "value": ""
+        },
+        "Delay": {
+          "type": "dword",
+          "value": 4294967295
+        },
         "EntriesList": {
           "type": "list",
           "value": [
@@ -18952,7 +18968,10 @@
           "value": {
             "0": "Remove the existing bonus."
           }
-        },
+        }
+      },
+      {
+        "__struct_id": 226,
         "Animation": {
           "type": "dword",
           "value": 0
@@ -18968,10 +18987,7 @@
         "Delay": {
           "type": "dword",
           "value": 4294967295
-        }
-      },
-      {
-        "__struct_id": 226,
+        },
         "EntriesList": {
           "type": "list",
           "value": [
@@ -19013,7 +19029,10 @@
           "value": {
             "0": "+10"
           }
-        },
+        }
+      },
+      {
+        "__struct_id": 227,
         "Animation": {
           "type": "dword",
           "value": 0
@@ -19029,10 +19048,7 @@
         "Delay": {
           "type": "dword",
           "value": 4294967295
-        }
-      },
-      {
-        "__struct_id": 227,
+        },
         "EntriesList": {
           "type": "list",
           "value": [
@@ -19074,7 +19090,10 @@
           "value": {
             "0": "+9"
           }
-        },
+        }
+      },
+      {
+        "__struct_id": 228,
         "Animation": {
           "type": "dword",
           "value": 0
@@ -19090,10 +19109,7 @@
         "Delay": {
           "type": "dword",
           "value": 4294967295
-        }
-      },
-      {
-        "__struct_id": 228,
+        },
         "EntriesList": {
           "type": "list",
           "value": [
@@ -19135,7 +19151,10 @@
           "value": {
             "0": "+8"
           }
-        },
+        }
+      },
+      {
+        "__struct_id": 229,
         "Animation": {
           "type": "dword",
           "value": 0
@@ -19151,10 +19170,7 @@
         "Delay": {
           "type": "dword",
           "value": 4294967295
-        }
-      },
-      {
-        "__struct_id": 229,
+        },
         "EntriesList": {
           "type": "list",
           "value": [
@@ -19196,7 +19212,10 @@
           "value": {
             "0": "+7"
           }
-        },
+        }
+      },
+      {
+        "__struct_id": 230,
         "Animation": {
           "type": "dword",
           "value": 0
@@ -19212,10 +19231,7 @@
         "Delay": {
           "type": "dword",
           "value": 4294967295
-        }
-      },
-      {
-        "__struct_id": 230,
+        },
         "EntriesList": {
           "type": "list",
           "value": [
@@ -19257,7 +19273,10 @@
           "value": {
             "0": "+6"
           }
-        },
+        }
+      },
+      {
+        "__struct_id": 231,
         "Animation": {
           "type": "dword",
           "value": 0
@@ -19273,10 +19292,7 @@
         "Delay": {
           "type": "dword",
           "value": 4294967295
-        }
-      },
-      {
-        "__struct_id": 231,
+        },
         "EntriesList": {
           "type": "list",
           "value": [
@@ -19318,7 +19334,10 @@
           "value": {
             "0": "+5"
           }
-        },
+        }
+      },
+      {
+        "__struct_id": 232,
         "Animation": {
           "type": "dword",
           "value": 0
@@ -19334,10 +19353,7 @@
         "Delay": {
           "type": "dword",
           "value": 4294967295
-        }
-      },
-      {
-        "__struct_id": 232,
+        },
         "EntriesList": {
           "type": "list",
           "value": [
@@ -19379,22 +19395,6 @@
           "value": {
             "0": "Tumble."
           }
-        },
-        "Animation": {
-          "type": "dword",
-          "value": 0
-        },
-        "AnimLoop": {
-          "type": "byte",
-          "value": 1
-        },
-        "Comment": {
-          "type": "cexostring",
-          "value": ""
-        },
-        "Delay": {
-          "type": "dword",
-          "value": 4294967295
         }
       },
       {
@@ -19777,24 +19777,6 @@
           "type": "dword",
           "value": 4294967295
         },
-        "Quest": {
-          "type": "cexostring",
-          "value": ""
-        },
-        "Script": {
-          "type": "resref",
-          "value": "forge_dis_p0"
-        },
-        "Sound": {
-          "type": "resref",
-          "value": ""
-        },
-        "Text": {
-          "type": "cexolocstring",
-          "value": {
-            "0": "<CUSTOM6110>"
-          }
-        },
         "EntriesList": {
           "type": "list",
           "value": [
@@ -19814,6 +19796,24 @@
               }
             }
           ]
+        },
+        "Quest": {
+          "type": "cexostring",
+          "value": ""
+        },
+        "Script": {
+          "type": "resref",
+          "value": "forge_dis_p0"
+        },
+        "Sound": {
+          "type": "resref",
+          "value": ""
+        },
+        "Text": {
+          "type": "cexolocstring",
+          "value": {
+            "0": "<CUSTOM6110>"
+          }
         }
       },
       {
@@ -19834,24 +19834,6 @@
           "type": "dword",
           "value": 4294967295
         },
-        "Quest": {
-          "type": "cexostring",
-          "value": ""
-        },
-        "Script": {
-          "type": "resref",
-          "value": "forge_dis_p1"
-        },
-        "Sound": {
-          "type": "resref",
-          "value": ""
-        },
-        "Text": {
-          "type": "cexolocstring",
-          "value": {
-            "0": "<CUSTOM6111>"
-          }
-        },
         "EntriesList": {
           "type": "list",
           "value": [
@@ -19875,6 +19857,24 @@
               }
             }
           ]
+        },
+        "Quest": {
+          "type": "cexostring",
+          "value": ""
+        },
+        "Script": {
+          "type": "resref",
+          "value": "forge_dis_p1"
+        },
+        "Sound": {
+          "type": "resref",
+          "value": ""
+        },
+        "Text": {
+          "type": "cexolocstring",
+          "value": {
+            "0": "<CUSTOM6111>"
+          }
         }
       },
       {
@@ -19895,24 +19895,6 @@
           "type": "dword",
           "value": 4294967295
         },
-        "Quest": {
-          "type": "cexostring",
-          "value": ""
-        },
-        "Script": {
-          "type": "resref",
-          "value": "forge_dis_p2"
-        },
-        "Sound": {
-          "type": "resref",
-          "value": ""
-        },
-        "Text": {
-          "type": "cexolocstring",
-          "value": {
-            "0": "<CUSTOM6112>"
-          }
-        },
         "EntriesList": {
           "type": "list",
           "value": [
@@ -19936,6 +19918,24 @@
               }
             }
           ]
+        },
+        "Quest": {
+          "type": "cexostring",
+          "value": ""
+        },
+        "Script": {
+          "type": "resref",
+          "value": "forge_dis_p2"
+        },
+        "Sound": {
+          "type": "resref",
+          "value": ""
+        },
+        "Text": {
+          "type": "cexolocstring",
+          "value": {
+            "0": "<CUSTOM6112>"
+          }
         }
       },
       {
@@ -19956,24 +19956,6 @@
           "type": "dword",
           "value": 4294967295
         },
-        "Quest": {
-          "type": "cexostring",
-          "value": ""
-        },
-        "Script": {
-          "type": "resref",
-          "value": "forge_dis_p3"
-        },
-        "Sound": {
-          "type": "resref",
-          "value": ""
-        },
-        "Text": {
-          "type": "cexolocstring",
-          "value": {
-            "0": "<CUSTOM6113>"
-          }
-        },
         "EntriesList": {
           "type": "list",
           "value": [
@@ -19997,6 +19979,24 @@
               }
             }
           ]
+        },
+        "Quest": {
+          "type": "cexostring",
+          "value": ""
+        },
+        "Script": {
+          "type": "resref",
+          "value": "forge_dis_p3"
+        },
+        "Sound": {
+          "type": "resref",
+          "value": ""
+        },
+        "Text": {
+          "type": "cexolocstring",
+          "value": {
+            "0": "<CUSTOM6113>"
+          }
         }
       },
       {
@@ -20017,24 +20017,6 @@
           "type": "dword",
           "value": 4294967295
         },
-        "Quest": {
-          "type": "cexostring",
-          "value": ""
-        },
-        "Script": {
-          "type": "resref",
-          "value": "forge_dis_p4"
-        },
-        "Sound": {
-          "type": "resref",
-          "value": ""
-        },
-        "Text": {
-          "type": "cexolocstring",
-          "value": {
-            "0": "<CUSTOM6114>"
-          }
-        },
         "EntriesList": {
           "type": "list",
           "value": [
@@ -20058,6 +20040,24 @@
               }
             }
           ]
+        },
+        "Quest": {
+          "type": "cexostring",
+          "value": ""
+        },
+        "Script": {
+          "type": "resref",
+          "value": "forge_dis_p4"
+        },
+        "Sound": {
+          "type": "resref",
+          "value": ""
+        },
+        "Text": {
+          "type": "cexolocstring",
+          "value": {
+            "0": "<CUSTOM6114>"
+          }
         }
       },
       {
@@ -20078,24 +20078,6 @@
           "type": "dword",
           "value": 4294967295
         },
-        "Quest": {
-          "type": "cexostring",
-          "value": ""
-        },
-        "Script": {
-          "type": "resref",
-          "value": "forge_dis_p5"
-        },
-        "Sound": {
-          "type": "resref",
-          "value": ""
-        },
-        "Text": {
-          "type": "cexolocstring",
-          "value": {
-            "0": "<CUSTOM6115>"
-          }
-        },
         "EntriesList": {
           "type": "list",
           "value": [
@@ -20119,6 +20101,24 @@
               }
             }
           ]
+        },
+        "Quest": {
+          "type": "cexostring",
+          "value": ""
+        },
+        "Script": {
+          "type": "resref",
+          "value": "forge_dis_p5"
+        },
+        "Sound": {
+          "type": "resref",
+          "value": ""
+        },
+        "Text": {
+          "type": "cexolocstring",
+          "value": {
+            "0": "<CUSTOM6115>"
+          }
         }
       },
       {
@@ -20139,24 +20139,6 @@
           "type": "dword",
           "value": 4294967295
         },
-        "Quest": {
-          "type": "cexostring",
-          "value": ""
-        },
-        "Script": {
-          "type": "resref",
-          "value": "forge_dis_p6"
-        },
-        "Sound": {
-          "type": "resref",
-          "value": ""
-        },
-        "Text": {
-          "type": "cexolocstring",
-          "value": {
-            "0": "<CUSTOM6116>"
-          }
-        },
         "EntriesList": {
           "type": "list",
           "value": [
@@ -20180,6 +20162,24 @@
               }
             }
           ]
+        },
+        "Quest": {
+          "type": "cexostring",
+          "value": ""
+        },
+        "Script": {
+          "type": "resref",
+          "value": "forge_dis_p6"
+        },
+        "Sound": {
+          "type": "resref",
+          "value": ""
+        },
+        "Text": {
+          "type": "cexolocstring",
+          "value": {
+            "0": "<CUSTOM6116>"
+          }
         }
       },
       {
@@ -20200,24 +20200,6 @@
           "type": "dword",
           "value": 4294967295
         },
-        "Quest": {
-          "type": "cexostring",
-          "value": ""
-        },
-        "Script": {
-          "type": "resref",
-          "value": "forge_dis_p7"
-        },
-        "Sound": {
-          "type": "resref",
-          "value": ""
-        },
-        "Text": {
-          "type": "cexolocstring",
-          "value": {
-            "0": "<CUSTOM6117>"
-          }
-        },
         "EntriesList": {
           "type": "list",
           "value": [
@@ -20241,6 +20223,24 @@
               }
             }
           ]
+        },
+        "Quest": {
+          "type": "cexostring",
+          "value": ""
+        },
+        "Script": {
+          "type": "resref",
+          "value": "forge_dis_p7"
+        },
+        "Sound": {
+          "type": "resref",
+          "value": ""
+        },
+        "Text": {
+          "type": "cexolocstring",
+          "value": {
+            "0": "<CUSTOM6117>"
+          }
         }
       },
       {
@@ -20261,6 +20261,10 @@
           "type": "dword",
           "value": 4294967295
         },
+        "EntriesList": {
+          "type": "list",
+          "value": []
+        },
         "Quest": {
           "type": "cexostring",
           "value": ""
@@ -20278,10 +20282,6 @@
           "value": {
             "0": "Never mind."
           }
-        },
-        "EntriesList": {
-          "type": "list",
-          "value": []
         }
       },
       {
@@ -20302,24 +20302,6 @@
           "type": "dword",
           "value": 4294967295
         },
-        "Quest": {
-          "type": "cexostring",
-          "value": ""
-        },
-        "Script": {
-          "type": "resref",
-          "value": "forge_dis_go"
-        },
-        "Sound": {
-          "type": "resref",
-          "value": ""
-        },
-        "Text": {
-          "type": "cexolocstring",
-          "value": {
-            "0": "Yes, strike it. The magic is forfeit."
-          }
-        },
         "EntriesList": {
           "type": "list",
           "value": [
@@ -20343,6 +20325,24 @@
               }
             }
           ]
+        },
+        "Quest": {
+          "type": "cexostring",
+          "value": ""
+        },
+        "Script": {
+          "type": "resref",
+          "value": "forge_dis_go"
+        },
+        "Sound": {
+          "type": "resref",
+          "value": ""
+        },
+        "Text": {
+          "type": "cexolocstring",
+          "value": {
+            "0": "Yes, strike it. The magic is forfeit."
+          }
         }
       },
       {
@@ -20363,24 +20363,6 @@
           "type": "dword",
           "value": 4294967295
         },
-        "Quest": {
-          "type": "cexostring",
-          "value": ""
-        },
-        "Script": {
-          "type": "resref",
-          "value": ""
-        },
-        "Sound": {
-          "type": "resref",
-          "value": ""
-        },
-        "Text": {
-          "type": "cexolocstring",
-          "value": {
-            "0": "No, leave it be."
-          }
-        },
         "EntriesList": {
           "type": "list",
           "value": [
@@ -20404,6 +20386,24 @@
               }
             }
           ]
+        },
+        "Quest": {
+          "type": "cexostring",
+          "value": ""
+        },
+        "Script": {
+          "type": "resref",
+          "value": ""
+        },
+        "Sound": {
+          "type": "resref",
+          "value": ""
+        },
+        "Text": {
+          "type": "cexolocstring",
+          "value": {
+            "0": "No, leave it be."
+          }
         }
       },
       {
@@ -20424,24 +20424,6 @@
           "type": "dword",
           "value": 4294967295
         },
-        "Quest": {
-          "type": "cexostring",
-          "value": ""
-        },
-        "Script": {
-          "type": "resref",
-          "value": ""
-        },
-        "Sound": {
-          "type": "resref",
-          "value": ""
-        },
-        "Text": {
-          "type": "cexolocstring",
-          "value": {
-            "0": "Strip an enchantment from the item on the anvil. (no refund)"
-          }
-        },
         "EntriesList": {
           "type": "list",
           "value": [
@@ -20461,6 +20443,24 @@
               }
             }
           ]
+        },
+        "Quest": {
+          "type": "cexostring",
+          "value": ""
+        },
+        "Script": {
+          "type": "resref",
+          "value": ""
+        },
+        "Sound": {
+          "type": "resref",
+          "value": ""
+        },
+        "Text": {
+          "type": "cexolocstring",
+          "value": {
+            "0": "Strip an enchantment from the item on the anvil. (no refund)"
+          }
         }
       }
     ]
