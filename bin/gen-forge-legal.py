@@ -59,6 +59,12 @@ def gval(struct, field, default=None):
     return f["value"] if isinstance(f, dict) and "value" in f else default
 
 
+# Cosmetic property type excluded from all forge counting and fingerprinting:
+# weapon visual effects (Bree appearance station). Mirrors forge_inc.nss's
+# ForgeIsCosmeticProp and the emitted ForgeLegalFingerprint.
+PROP_VISUALEFFECT = 83
+
+
 def normalize_prop(p):
     t = gval(p, "PropertyName", 0)
     s = gval(p, "Subtype", 0)
@@ -71,7 +77,9 @@ def normalize_prop(p):
 
 
 def fingerprint(resref, props):
-    return resref.lower() + "|" + ",".join(sorted(normalize_prop(p) for p in props))
+    return resref.lower() + "|" + ",".join(sorted(
+        normalize_prop(p) for p in props
+        if gval(p, "PropertyName", 0) != PROP_VISUALEFFECT))
 
 
 def item_props(struct):
@@ -185,7 +193,10 @@ def main():
     lines.append("    itemproperty ip = GetFirstItemProperty(oItem);")
     lines.append("    while (GetIsItemPropertyValid(ip))")
     lines.append("    {")
-    lines.append("        if (GetItemPropertyDurationType(ip) == DURATION_TYPE_PERMANENT)")
+    lines.append("        // Cosmetic visual effects (Bree appearance station) are excluded,")
+    lines.append("        // matching forge_inc's ForgeIsCosmeticProp and the generator.")
+    lines.append("        if (GetItemPropertyDurationType(ip) == DURATION_TYPE_PERMANENT")
+    lines.append("            && GetItemPropertyType(ip) != ITEM_PROPERTY_VISUALEFFECT)")
     lines.append("        {")
     lines.append("            int nP1 = GetItemPropertyParam1(ip);")
     lines.append("            int nPV;")

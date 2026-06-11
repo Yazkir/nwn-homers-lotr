@@ -24,6 +24,15 @@ void ForgeLog(string sMsg)
     SendMessageToAllDMs(sLine);
 }
 
+// Cosmetic properties (weapon visual effects from the Bree appearance
+// station, see inc_emotewand AddItemPropertyVisualEffect) are not
+// enchantments: never counted, compared, listed or fingerprinted by the
+// forge system. forge_legal_inc's ForgeLegalFingerprint mirrors this rule.
+int ForgeIsCosmeticProp(itemproperty ip)
+{
+    return GetItemPropertyType(ip) == ITEM_PROPERTY_VISUALEFFECT;
+}
+
 // Hidden inventory placeable (in the prison) used to host temporary item
 // copies so valuations never transit a player-visible inventory or fire
 // OnAcquireItem hooks. Falls back to OBJECT_SELF when it has an inventory.
@@ -65,7 +74,8 @@ int ForgeCountProps(object oItem)
     itemproperty ip = GetFirstItemProperty(oItem);
     while (GetIsItemPropertyValid(ip))
     {
-        if (GetItemPropertyDurationType(ip) == DURATION_TYPE_PERMANENT)
+        if (GetItemPropertyDurationType(ip) == DURATION_TYPE_PERMANENT
+            && !ForgeIsCosmeticProp(ip))
             nCount++;
         ip = GetNextItemProperty(oItem);
     }
@@ -98,7 +108,8 @@ itemproperty ForgeGetPermPropByIndex(object oItem, int nIndex)
     itemproperty ip = GetFirstItemProperty(oItem);
     while (GetIsItemPropertyValid(ip))
     {
-        if (GetItemPropertyDurationType(ip) == DURATION_TYPE_PERMANENT)
+        if (GetItemPropertyDurationType(ip) == DURATION_TYPE_PERMANENT
+            && !ForgeIsCosmeticProp(ip))
         {
             if (nCount == nIndex)
                 return ip;
@@ -192,7 +203,8 @@ int ForgeItemDeviatesFromBlueprint(object oItem)
         itemproperty ip = GetFirstItemProperty(oItem);
         while (!bDeviates && GetIsItemPropertyValid(ip))
         {
-            if (GetItemPropertyDurationType(ip) == DURATION_TYPE_PERMANENT)
+            if (GetItemPropertyDurationType(ip) == DURATION_TYPE_PERMANENT
+                && !ForgeIsCosmeticProp(ip))
             {
                 int bMatched = FALSE;
                 for (i = 0; i < nStock && !bMatched; i++)
