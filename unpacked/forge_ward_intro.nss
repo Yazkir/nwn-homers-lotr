@@ -8,4 +8,5 @@ void main()
     object oBad = ForgeFindIllegalItem(oPC);
     SetLocalObject(oPC, "FORGE_ILLEGAL_ITEM", oBad);
     ForgeDisenchantSetup(oPC, oBad);
+    SetCustomToken(6119, ForgeLegalStatus(oBad));
 }

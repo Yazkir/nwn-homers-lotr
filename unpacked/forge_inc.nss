@@ -264,6 +264,35 @@ object ForgeFindIllegalItem(object oPC)
     return OBJECT_INVALID;
 }
 
+// Player-facing summary of what still makes oItem unlawful (for the Forge
+// Warden's dialog), or a confirmation that it is now within the law.
+string ForgeLegalStatus(object oItem)
+{
+    if (!GetIsObjectValid(oItem))
+        return "";
+    int nProps = ForgeCountProps(oItem);
+    int nValue = ForgeItemValue(oItem);
+    int bProps = nProps > FORGE_LEGAL_MAX_PROPS;
+    int bValue = nValue > FORGE_LEGAL_MAX_VALUE;
+    if (!bProps && !bValue)
+        return "It is within the law now: " + IntToString(nProps)
+            + " enchantments of the " + IntToString(FORGE_LEGAL_MAX_PROPS)
+            + " allowed, and a worth of " + IntToString(nValue)
+            + " gold under the lawful " + IntToString(FORGE_LEGAL_MAX_VALUE) + ".";
+    string s = "";
+    if (bProps)
+        s += "It still bears " + IntToString(nProps) + " enchantments where the "
+            + "law allows but " + IntToString(FORGE_LEGAL_MAX_PROPS) + ".";
+    if (bValue)
+    {
+        if (s != "") s += " And i";
+        else s += "I";
+        s += "ts worth, " + IntToString(nValue) + " gold, still exceeds the lawful "
+            + IntToString(FORGE_LEGAL_MAX_VALUE) + ".";
+    }
+    return s;
+}
+
 // Prime the disenchant sub-conversation: target item on the PC, property
 // count, and one custom token per listed property slot.
 void ForgeDisenchantSetup(object oPC, object oTarget)
@@ -309,4 +338,8 @@ void ForgeJailIfIllegal(object oPC)
         + "unlawful enchantment. The Valar take notice...", oPC, FALSE);
     location lJail = GetLocation(oWP);
     DelayCommand(1.0, AssignCommand(oPC, JumpToLocation(lJail)));
+    // Spoken hint after arrival so the player knows which jailer applies.
+    DelayCommand(3.0, AssignCommand(oPC, SpeakString("The forged enchantments "
+        + "on my " + GetName(oBad) + " are beyond the law. I should speak with "
+        + "the FORGE WARDEN to make my gear lawful again.")));
 }

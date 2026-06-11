@@ -311,6 +311,35 @@ object ForgeFindIllegalItem(object oPC)
     return OBJECT_INVALID;
 }
 
+// Player-facing summary of what still makes oItem unlawful (for the Forge
+// Warden&#x27;s dialog), or a confirmation that it is now within the law.
+string ForgeLegalStatus(object oItem)
+{
+    if (!GetIsObjectValid(oItem))
+        return &quot;&quot;;
+    int nProps = ForgeCountProps(oItem);
+    int nValue = ForgeItemValue(oItem);
+    int bProps = nProps &gt; FORGE_LEGAL_MAX_PROPS;
+    int bValue = nValue &gt; FORGE_LEGAL_MAX_VALUE;
+    if (!bProps &amp;&amp; !bValue)
+        return &quot;It is within the law now: &quot; + IntToString(nProps)
+            + &quot; enchantments of the &quot; + IntToString(FORGE_LEGAL_MAX_PROPS)
+            + &quot; allowed, and a worth of &quot; + IntToString(nValue)
+            + &quot; gold under the lawful &quot; + IntToString(FORGE_LEGAL_MAX_VALUE) + &quot;.&quot;;
+    string s = &quot;&quot;;
+    if (bProps)
+        s += &quot;It still bears &quot; + IntToString(nProps) + &quot; enchantments where the &quot;
+            + &quot;law allows but &quot; + IntToString(FORGE_LEGAL_MAX_PROPS) + &quot;.&quot;;
+    if (bValue)
+    {
+        if (s != &quot;&quot;) s += &quot; And i&quot;;
+        else s += &quot;I&quot;;
+        s += &quot;ts worth, &quot; + IntToString(nValue) + &quot; gold, still exceeds the lawful &quot;
+            + IntToString(FORGE_LEGAL_MAX_VALUE) + &quot;.&quot;;
+    }
+    return s;
+}
+
 // Prime the disenchant sub-conversation: target item on the PC, property
 // count, and one custom token per listed property slot.
 void ForgeDisenchantSetup(object oPC, object oTarget)
@@ -356,6 +385,10 @@ void ForgeJailIfIllegal(object oPC)
         + &quot;unlawful enchantment. The Valar take notice...&quot;, oPC, FALSE);
     location lJail = GetLocation(oWP);
     DelayCommand(1.0, AssignCommand(oPC, JumpToLocation(lJail)));
+    // Spoken hint after arrival so the player knows which jailer applies.
+    DelayCommand(3.0, AssignCommand(oPC, SpeakString(&quot;The forged enchantments &quot;
+        + &quot;on my &quot; + GetName(oBad) + &quot; are beyond the law. I should speak with &quot;
+        + &quot;the FORGE WARDEN to make my gear lawful again.&quot;)));
 }
 </code></pre>
   </main>

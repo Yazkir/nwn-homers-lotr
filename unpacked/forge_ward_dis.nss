@@ -5,5 +5,7 @@
 void main()
 {
     object oPC = GetPCSpeaker();
-    ForgeDisenchantSetup(oPC, GetLocalObject(oPC, "FORGE_ILLEGAL_ITEM"));
+    object oItem = GetLocalObject(oPC, "FORGE_ILLEGAL_ITEM");
+    ForgeDisenchantSetup(oPC, oItem);
+    SetCustomToken(6119, ForgeLegalStatus(oItem));
 }

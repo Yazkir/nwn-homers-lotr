@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="utf-8">
-  <title>Script forge_ward_dis</title>
+  <title>Script forge_ward_c_lgl</title>
   <link rel="stylesheet" href="../assets/style.css">
   <link rel="stylesheet" href="../assets/theme.css">
   <link rel="icon" href="../assets/favicon.png">
@@ -45,16 +45,14 @@
     </nav>
   </header>
   <main>
-<h1>Script: <code>forge_ward_dis</code></h1><pre class="nss-source"><code>// Forge Warden disenchant menu entry script: target the confiscation-flagged
-// item (set by forge_ward_intro) rather than an anvil item.
+<h1>Script: <code>forge_ward_c_lgl</code></h1><pre class="nss-source"><code>// Forge Warden gate: TRUE when the item under the warden&#x27;s hammer
+// (FORGE_DIS_ITEM) has become lawful — stop offering further removals.
 #include &quot;forge_inc&quot;
 
-void main()
+int StartingConditional()
 {
-    object oPC = GetPCSpeaker();
-    object oItem = GetLocalObject(oPC, &quot;FORGE_ILLEGAL_ITEM&quot;);
-    ForgeDisenchantSetup(oPC, oItem);
-    SetCustomToken(6119, ForgeLegalStatus(oItem));
+    object oItem = GetLocalObject(GetPCSpeaker(), &quot;FORGE_DIS_ITEM&quot;);
+    return GetIsObjectValid(oItem) &amp;&amp; !ForgeIsItemIllegal(oItem);
 }
 </code></pre>
   </main>

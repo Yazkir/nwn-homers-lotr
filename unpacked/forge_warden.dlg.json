@@ -52,7 +52,7 @@
         "Text": {
           "type": "cexolocstring",
           "value": {
-            "0": "Hold, prisoner. The <CUSTOM100> you carry bears unlawful enchantment — more power bound into one piece than any honest forge of Middle-earth may grant. You will go no further until it is stripped back within the law. Submit it to me, and I will unmake what was wrongly made. There is no refund for stolen power."
+            "0": "Hold, prisoner. The <CUSTOM100> you carry bears unlawful enchantment — more power bound into one piece than any honest forge of Middle-earth may grant. <CUSTOM6119> You will go no further until it is stripped back within the law. Submit it to me, and I will unmake what was wrongly made. There is no refund for stolen power."
           }
         },
         "Speaker": {
@@ -219,7 +219,7 @@
         "Text": {
           "type": "cexolocstring",
           "value": {
-            "0": "Which enchantment shall I strike from the <CUSTOM100>? The magic is lost forever, and the law pays nothing for unmaking."
+            "0": "Which enchantment shall I strike from the <CUSTOM100>? <CUSTOM6119> The magic is lost forever, and the law pays nothing for unmaking."
           }
         },
         "Speaker": {
@@ -522,12 +522,88 @@
             }
           ]
         }
+      },
+      {
+        "__struct_id": 5,
+        "Animation": {
+          "type": "dword",
+          "value": 0
+        },
+        "AnimLoop": {
+          "type": "byte",
+          "value": 1
+        },
+        "Comment": {
+          "type": "cexostring",
+          "value": ""
+        },
+        "Delay": {
+          "type": "dword",
+          "value": 4294967295
+        },
+        "Quest": {
+          "type": "cexostring",
+          "value": ""
+        },
+        "Script": {
+          "type": "resref",
+          "value": "forge_ward_dis"
+        },
+        "Sound": {
+          "type": "resref",
+          "value": ""
+        },
+        "Text": {
+          "type": "cexolocstring",
+          "value": {
+            "0": "It is done. The <CUSTOM100> stands lawful once more, and I will unmake no more of it. <CUSTOM6119>"
+          }
+        },
+        "Speaker": {
+          "type": "cexostring",
+          "value": ""
+        },
+        "RepliesList": {
+          "type": "list",
+          "value": [
+            {
+              "__struct_id": 0,
+              "Active": {
+                "type": "resref",
+                "value": ""
+              },
+              "Index": {
+                "type": "dword",
+                "value": 17
+              },
+              "IsChild": {
+                "type": "byte",
+                "value": 0
+              }
+            },
+            {
+              "__struct_id": 1,
+              "Active": {
+                "type": "resref",
+                "value": ""
+              },
+              "Index": {
+                "type": "dword",
+                "value": 18
+              },
+              "IsChild": {
+                "type": "byte",
+                "value": 0
+              }
+            }
+          ]
+        }
       }
     ]
   },
   "NumWords": {
     "type": "dword",
-    "value": 250
+    "value": 320
   },
   "PreventZoomIn": {
     "type": "byte",
@@ -1259,6 +1335,21 @@
               "__struct_id": 0,
               "Active": {
                 "type": "resref",
+                "value": "forge_ward_c_lgl"
+              },
+              "Index": {
+                "type": "dword",
+                "value": 5
+              },
+              "IsChild": {
+                "type": "byte",
+                "value": 0
+              }
+            },
+            {
+              "__struct_id": 1,
+              "Active": {
+                "type": "resref",
                 "value": ""
               },
               "Index": {
@@ -1474,6 +1565,127 @@
           "type": "cexolocstring",
           "value": {
             "0": "Good day, Warden."
+          }
+        },
+        "EntriesList": {
+          "type": "list",
+          "value": []
+        }
+      },
+      {
+        "__struct_id": 17,
+        "Animation": {
+          "type": "dword",
+          "value": 0
+        },
+        "AnimLoop": {
+          "type": "byte",
+          "value": 1
+        },
+        "Comment": {
+          "type": "cexostring",
+          "value": ""
+        },
+        "Delay": {
+          "type": "dword",
+          "value": 4294967295
+        },
+        "Quest": {
+          "type": "cexostring",
+          "value": ""
+        },
+        "Script": {
+          "type": "resref",
+          "value": ""
+        },
+        "Sound": {
+          "type": "resref",
+          "value": ""
+        },
+        "Text": {
+          "type": "cexolocstring",
+          "value": {
+            "0": "What of the rest of my gear?"
+          }
+        },
+        "EntriesList": {
+          "type": "list",
+          "value": [
+            {
+              "__struct_id": 0,
+              "Active": {
+                "type": "resref",
+                "value": "forge_ward_c_il"
+              },
+              "Index": {
+                "type": "dword",
+                "value": 0
+              },
+              "IsChild": {
+                "type": "byte",
+                "value": 1
+              },
+              "LinkComment": {
+                "type": "cexostring",
+                "value": ""
+              }
+            },
+            {
+              "__struct_id": 1,
+              "Active": {
+                "type": "resref",
+                "value": ""
+              },
+              "Index": {
+                "type": "dword",
+                "value": 1
+              },
+              "IsChild": {
+                "type": "byte",
+                "value": 1
+              },
+              "LinkComment": {
+                "type": "cexostring",
+                "value": ""
+              }
+            }
+          ]
+        }
+      },
+      {
+        "__struct_id": 18,
+        "Animation": {
+          "type": "dword",
+          "value": 0
+        },
+        "AnimLoop": {
+          "type": "byte",
+          "value": 1
+        },
+        "Comment": {
+          "type": "cexostring",
+          "value": ""
+        },
+        "Delay": {
+          "type": "dword",
+          "value": 4294967295
+        },
+        "Quest": {
+          "type": "cexostring",
+          "value": ""
+        },
+        "Script": {
+          "type": "resref",
+          "value": ""
+        },
+        "Sound": {
+          "type": "resref",
+          "value": ""
+        },
+        "Text": {
+          "type": "cexolocstring",
+          "value": {
+            "0": "That is all. Good day, Warden."
           }
         },
         "EntriesList": {
