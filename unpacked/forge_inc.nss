@@ -24,13 +24,17 @@ void ForgeLog(string sMsg)
     SendMessageToAllDMs(sLine);
 }
 
-// Cosmetic properties (weapon visual effects from the Bree appearance
-// station, see inc_emotewand AddItemPropertyVisualEffect) are not
-// enchantments: never counted, compared, listed or fingerprinted by the
-// forge system. forge_legal_inc's ForgeLegalFingerprint mirrors this rule.
+// Cosmetic properties are not enchantments: never counted, compared, listed
+// or fingerprinted by the forge system. Covers weapon visual effects (Bree
+// appearance station, see inc_emotewand AddItemPropertyVisualEffect) and
+// Light of any color/brightness (Continual Flame, gems of power, the forge's
+// own Light enchant — illumination only, no combat bonus). forge_legal_inc's
+// ForgeLegalFingerprint mirrors this rule.
 int ForgeIsCosmeticProp(itemproperty ip)
 {
-    return GetItemPropertyType(ip) == ITEM_PROPERTY_VISUALEFFECT;
+    int nType = GetItemPropertyType(ip);
+    return nType == ITEM_PROPERTY_VISUALEFFECT
+        || nType == ITEM_PROPERTY_LIGHT;
 }
 
 // Hidden inventory placeable (in the prison) used to host temporary item

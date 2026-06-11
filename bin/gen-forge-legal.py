@@ -59,10 +59,11 @@ def gval(struct, field, default=None):
     return f["value"] if isinstance(f, dict) and "value" in f else default
 
 
-# Cosmetic property type excluded from all forge counting and fingerprinting:
-# weapon visual effects (Bree appearance station). Mirrors forge_inc.nss's
+# Cosmetic property types excluded from all forge counting and fingerprinting:
+# weapon visual effects (Bree appearance station) and Light of any color or
+# brightness (Continual Flame, gems of power). Mirrors forge_inc.nss's
 # ForgeIsCosmeticProp and the emitted ForgeLegalFingerprint.
-PROP_VISUALEFFECT = 83
+COSMETIC_PROPS = {83, 44}  # ITEM_PROPERTY_VISUALEFFECT, ITEM_PROPERTY_LIGHT
 
 
 def normalize_prop(p):
@@ -79,7 +80,7 @@ def normalize_prop(p):
 def fingerprint(resref, props):
     return resref.lower() + "|" + ",".join(sorted(
         normalize_prop(p) for p in props
-        if gval(p, "PropertyName", 0) != PROP_VISUALEFFECT))
+        if gval(p, "PropertyName", 0) not in COSMETIC_PROPS))
 
 
 def item_props(struct):
@@ -193,10 +194,12 @@ def main():
     lines.append("    itemproperty ip = GetFirstItemProperty(oItem);")
     lines.append("    while (GetIsItemPropertyValid(ip))")
     lines.append("    {")
-    lines.append("        // Cosmetic visual effects (Bree appearance station) are excluded,")
-    lines.append("        // matching forge_inc's ForgeIsCosmeticProp and the generator.")
+    lines.append("        // Cosmetic props (visual effects, Light) are excluded, matching")
+    lines.append("        // forge_inc's ForgeIsCosmeticProp and the generator.")
+    lines.append("        int nPropType = GetItemPropertyType(ip);")
     lines.append("        if (GetItemPropertyDurationType(ip) == DURATION_TYPE_PERMANENT")
-    lines.append("            && GetItemPropertyType(ip) != ITEM_PROPERTY_VISUALEFFECT)")
+    lines.append("            && nPropType != ITEM_PROPERTY_VISUALEFFECT")
+    lines.append("            && nPropType != ITEM_PROPERTY_LIGHT)")
     lines.append("        {")
     lines.append("            int nP1 = GetItemPropertyParam1(ip);")
     lines.append("            int nPV;")
