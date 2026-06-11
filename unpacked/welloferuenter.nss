@@ -5,6 +5,7 @@
 //     * Loot from a randomly selected evil-side city (Guardian of Darkness list)
 //     * Two random bonus items drawn from the obtainable custom item pool
 #include "_inc_donations"
+#include "forge_inc"
 
 // Creates an item and immediately identifies it.
 object CreateIDItem(string sResRef, object oTarget, int nStackSize = 1)
@@ -194,7 +195,12 @@ void main()
     }
 
     if (!GetIsDM(oPC) && GetIsPC(oPC))
+    {
         ScanForIllicitItems(oPC);
+        // Illegally forged gear (tampered + over 6 props / 750k value) lands
+        // the bearer in the Pit Prison until the Forge Warden strips it legal.
+        ForgeJailIfIllegal(oPC);
+    }
 
     StockDonationsChest();
 }

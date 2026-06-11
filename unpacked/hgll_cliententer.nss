@@ -8,6 +8,7 @@
 
 #include "pers_state_inc"
 #include "merit_db"
+#include "forge_inc"
 
 // Death amulet check + persistent state restore. Delayed so the engine's
 // own post-login passes (inventory hydration, spellbook sync, "fresh PC"
@@ -86,4 +87,9 @@ void main()
     // in dev builds where the script isn't packed. Delayed so it lands after the
     // login flood and the merit login message (3s).
     DelayCommand(5.0, ExecuteScript("nwnmgr_bstamp", oPC));
+
+    // Contraband sweep: illegally forged gear jails the bearer on login too,
+    // so skipping the Well of Eru doesn't dodge the check. Delayed so the
+    // inventory is fully hydrated before we scan it.
+    DelayCommand(6.0, ForgeJailIfIllegal(oPC));
 }
