@@ -89,6 +89,42 @@ If a graduated item is ammunition and should give a stack of 99, add its case
 number to the `GetBonusItemStackSize` switch in `_inc_donations.nss` manually
 after the sync run.
 
+## Forge legal-variant whitelist
+
+The Forge contraband system (`unpacked/forge_inc.nss`) jails players who carry
+items that exceed the legal caps (6 properties / 750,000 gp) **and** deviate
+from their stock blueprint. But the module legitimately places many such items:
+stores, creature loot, and containers embedded in area files carry full item
+structs whose properties differ from the `.uti` blueprint of the same resref
+(see `module-index/item_tag_conflicts.json`). Without a guard, a player who
+buys or loots one of those would be jailed for a crime they didn't commit.
+
+The whitelist closes that gap: a generator scans `unpacked/` for every embedded
+item variant that deviates from (or lacks) a module blueprint and writes
+`unpacked/forge_legal_inc.nss`, which `ForgeIsItemIllegal` consults before
+jailing. Matching is by resref **plus a full property fingerprint**, so forging
+extra enchantments onto a whitelisted item still gets caught.
+
+```sh
+python3 bin/gen-forge-legal.py    # regenerate unpacked/forge_legal_inc.nss
+nwn-manager repack                # compile and install
+```
+
+Use `--dry-run` to preview the entries without writing. Re-run the generator
+whenever store inventories, creature loot, or placed container items are added
+or edited, and commit the regenerated include — it is module source, not a
+build artifact. Do not hand-edit `forge_legal_inc.nss`.
+
+**Fallback for false positives:** a jailed player can dispute the charge in
+the Forge Warden conversation. The contested item is sequestered (no refund)
+into the DM-review chest in the House of Homer (tag `ZEP_CR_QUARANTINE`, the
+same chest the Well of Eru's illicit-item scan uses), with a `[FORGE DISPUTE]`
+log line recording the account, character, item resref, and value. A DM
+returns the item if the claim holds. If a dispute turns out to be a genuine
+false positive, fix it permanently by re-running the generator (or
+investigating why the fingerprint didn't match — see the normalization notes
+in `bin/gen-forge-legal.py`).
+
 ## Redemption codes
 
 Players redeem codes by typing `Code:<name>` in chat (any channel). The

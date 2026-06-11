@@ -7,6 +7,10 @@
 // Reserved custom tokens: 6110-6117 disenchant slot names, 6118 picked name
 // (forge already uses 100-103).
 
+// Generated whitelist of legally-placed item variants (ForgeIsKnownLegalVariant,
+// ForgeLegalFingerprint) — regenerate with bin/gen-forge-legal.py.
+#include "forge_legal_inc"
+
 const int FORGE_LEGAL_MAX_PROPS = 6;
 const int FORGE_LEGAL_MAX_VALUE = 750000;
 const string FORGE_VAULT_TAG = "FORGE_VAULT";
@@ -230,7 +234,19 @@ int ForgeIsItemIllegal(object oItem)
         return FALSE;
     if (nValue < 0)
         return FALSE; // no valuation infrastructure — never jail blind
-    return ForgeItemDeviatesFromBlueprint(oItem);
+    if (!ForgeItemDeviatesFromBlueprint(oItem))
+        return FALSE;
+    // Deviating from blueprint is fine when the deviation matches an item the
+    // module itself places (embedded store stock, creature loot, container
+    // contents) — those are legally obtainable, not player-forged.
+    if (ForgeIsKnownLegalVariant(oItem))
+    {
+        ForgeLog("IsItemIllegal: '" + GetName(oItem) + "' (" + GetResRef(oItem)
+            + ") deviates but matches a known legal variant — allowed. fp="
+            + ForgeLegalFingerprint(oItem));
+        return FALSE;
+    }
+    return TRUE;
 }
 
 // TRUE when oItem was already handled by the current revert-all pass on oPC
@@ -375,6 +391,37 @@ void ForgeDisenchantSetup(object oPC, object oTarget)
     }
 }
 
+// Sequester a contested item for DM review: stored in the craftdb quarantine
+// queue (same keys welloferuenter.nss uses), so it lands in the DM-review
+// chest (ZEP_CR_QUARANTINE, House of Homer) on next open. No refund — a DM
+// returns the item if the player's claim holds.
+void ForgeQuarantineDisputedItem(object oItem, object oPC)
+{
+    if (!GetIsObjectValid(oItem) || !GetIsObjectValid(oPC))
+        return;
+    string sName = GetName(oItem);
+    // Value the item BEFORE StoreCampaignObject/DestroyObject invalidate it.
+    string sLog = "[FORGE DISPUTE] Item '" + sName + "' (resref: "
+        + GetResRef(oItem) + ", props " + IntToString(ForgeCountProps(oItem))
+        + ", value " + IntToString(ForgeItemValue(oItem))
+        + ") sequestered from " + GetName(oPC) + " (account: "
+        + GetPCPlayerName(oPC) + ") pending DM review.";
+
+    int nQ = GetCampaignInt("craftdb", "quarantine_count");
+    StoreCampaignObject("craftdb", "quarantine_" + IntToString(nQ), oItem);
+    SetCampaignString("craftdb", "quarantine_" + IntToString(nQ) + "_info", sLog);
+    SetCampaignInt("craftdb", "quarantine_count", nQ + 1);
+    DestroyObject(oItem);
+
+    WriteTimestampedLogEntry(sLog);
+    SendMessageToAllDMs(sLog);
+    SendMessageToPC(oPC, "[Forge Warden] Your '" + sName + "' has been "
+        + "sequestered under seal in the House of Homer pending DM review. "
+        + "If your claim of lawful provenance holds, it will be returned to "
+        + "you; if not, it is forfeit. No compensation is owed while the "
+        + "matter is under judgment.");
+}
+
 // Jail the PC in the Pit Prison if they carry illegally forged gear.
 void ForgeJailIfIllegal(object oPC)
 {
@@ -387,7 +434,8 @@ void ForgeJailIfIllegal(object oPC)
     ForgeLog("Jailing " + GetName(oPC) + " for item '" + GetName(oBad)
         + "' (resref " + GetResRef(oBad) + ", props "
         + IntToString(ForgeCountProps(oBad)) + ", value "
-        + IntToString(ForgeItemValue(oBad)) + ")");
+        + IntToString(ForgeItemValue(oBad)) + ", fp="
+        + ForgeLegalFingerprint(oBad) + ")");
     object oWP = GetWaypointByTag("jailed");
     if (!GetIsObjectValid(oWP))
     {
@@ -401,5 +449,5 @@ void ForgeJailIfIllegal(object oPC)
     // Spoken hint after arrival so the player knows which jailer applies.
     DelayCommand(3.0, AssignCommand(oPC, SpeakString("The forged enchantments "
         + "on my " + GetName(oBad) + " are beyond the law. I should speak with "
-        + "the FORGE WARDEN to make my gear lawful again.")));
+        + "a FORGE WARDEN to make my gear lawful again.")));
 }

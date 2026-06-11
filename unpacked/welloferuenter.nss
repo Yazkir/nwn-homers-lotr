@@ -198,7 +198,7 @@ void main()
     {
         ScanForIllicitItems(oPC);
         // Illegally forged gear (tampered + over 6 props / 750k value) lands
-        // the bearer in the Pit Prison until the Forge Warden strips it legal.
+        // the bearer in the Pit Prison until a Forge Warden strips it legal.
         ForgeJailIfIllegal(oPC);
     }
 
