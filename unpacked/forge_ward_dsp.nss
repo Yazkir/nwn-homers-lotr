@@ -9,8 +9,9 @@ void main()
 {
     object oPC = GetPCSpeaker();
     object oItem = GetLocalObject(oPC, "FORGE_ILLEGAL_ITEM");
-    if (!GetIsObjectValid(oItem))
-        oItem = ForgeFindIllegalItem(oPC); // belt and braces
+    // Stale/recycled handle guard: only sequester something this PC holds.
+    if (!ForgePCHolds(oPC, oItem))
+        oItem = ForgeFindIllegalItem(oPC);
     if (!GetIsObjectValid(oItem))
         return;
     ForgeQuarantineDisputedItem(oItem, oPC);

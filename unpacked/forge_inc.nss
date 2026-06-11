@@ -265,6 +265,19 @@ int ForgeIsItemIllegal(object oItem)
     return TRUE;
 }
 
+// TRUE when oItem exists and sits in oPC's inventory or equipment (one
+// container level deep — bags can't nest). Guards warden scripts against
+// stale cached handles whose object id the engine may have recycled.
+int ForgePCHolds(object oPC, object oItem)
+{
+    if (!GetIsObjectValid(oItem))
+        return FALSE;
+    object oPoss = GetItemPossessor(oItem);
+    if (oPoss == oPC)
+        return TRUE;
+    return GetIsObjectValid(oPoss) && GetItemPossessor(oPoss) == oPC;
+}
+
 // TRUE when oItem was already handled by the current revert-all pass on oPC
 // (item-local FORGE_RVT_SKIP carries the pass's run stamp). Stale stamps from
 // earlier passes don't match, so nothing is skipped forever.

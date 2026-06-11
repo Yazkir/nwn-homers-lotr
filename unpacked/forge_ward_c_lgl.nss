@@ -4,6 +4,7 @@
 
 int StartingConditional()
 {
-    object oItem = GetLocalObject(GetPCSpeaker(), "FORGE_DIS_ITEM");
-    return GetIsObjectValid(oItem) && !ForgeIsItemIllegal(oItem);
+    object oPC = GetPCSpeaker();
+    object oItem = GetLocalObject(oPC, "FORGE_DIS_ITEM");
+    return ForgePCHolds(oPC, oItem) && !ForgeIsItemIllegal(oItem);
 }
