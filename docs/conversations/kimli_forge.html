@@ -47,8 +47,8 @@
   <main>
 <h1>Conversation: <code>kimli_forge</code></h1>
 <dl class="meta">
-<dt>NPC lines</dt><dd>37</dd>
-<dt>PC replies</dt><dd>239</dd>
+<dt>NPC lines</dt><dd>39</dd>
+<dt>PC replies</dt><dd>251</dd>
 <dt>NumWords</dt><dd>585</dd>
 <dt>OnEnd</dt><dd><code>nw_walk_wp</code></dd>
 <dt>OnAbort</dt><dd><code>nw_walk_wp</code></dd>
@@ -60,13 +60,22 @@
 <table class="data"><thead><tr><th>Script</th><th>Slot</th><th>In module</th><th>Notes</th></tr></thead><tbody><tr><td><code>removeallitems</code></td><td>action</td><td>✓</td><td></td></tr>
 <tr><td><code>kimli_haswrit</code></td><td>active</td><td>✓</td><td></td></tr>
 <tr><td><code>kimli_nowrit</code></td><td>active</td><td>✓</td><td></td></tr>
+<tr><td><code>isitemonanvil</code></td><td>active</td><td>✓</td><td></td></tr>
 <tr><td><code>isweapon</code></td><td>active</td><td>✓</td><td></td></tr>
 <tr><td><code>ismeleeweapon</code></td><td>active</td><td>✓</td><td></td></tr>
 <tr><td><code>israngedweapon</code></td><td>active</td><td>✓</td><td></td></tr>
 <tr><td><code>forge_never</code></td><td>active</td><td>✓</td><td></td></tr>
 <tr><td><code>calcmodvalue1</code></td><td>action</td><td>✓</td><td></td></tr>
-<tr><td><code>calcremoverefund</code></td><td>action</td><td>✓</td><td></td></tr>
-<tr><td><code>isitemonanvil</code></td><td>active</td><td>✓</td><td></td></tr>
+<tr><td><code>calcremoverefund</code></td><td>action</td><td>?</td><td></td></tr>
+<tr><td><code>forge_dis_anvil</code></td><td>action</td><td>✓</td><td></td></tr>
+<tr><td><code>forge_dis_c0</code></td><td>active</td><td>✓</td><td></td></tr>
+<tr><td><code>forge_dis_c1</code></td><td>active</td><td>✓</td><td></td></tr>
+<tr><td><code>forge_dis_c2</code></td><td>active</td><td>✓</td><td></td></tr>
+<tr><td><code>forge_dis_c3</code></td><td>active</td><td>✓</td><td></td></tr>
+<tr><td><code>forge_dis_c4</code></td><td>active</td><td>✓</td><td></td></tr>
+<tr><td><code>forge_dis_c5</code></td><td>active</td><td>✓</td><td></td></tr>
+<tr><td><code>forge_dis_c6</code></td><td>active</td><td>✓</td><td></td></tr>
+<tr><td><code>forge_dis_c7</code></td><td>active</td><td>✓</td><td></td></tr>
 <tr><td><code>setpropunlimammo</code></td><td>action</td><td>✓</td><td></td></tr>
 <tr><td><code>setammolight</code></td><td>action</td><td>✓</td><td></td></tr>
 <tr><td><code>setammofire</code></td><td>action</td><td>✓</td><td></td></tr>
@@ -257,18 +266,36 @@
 <tr><td><code>setabilitycon2</code></td><td>action</td><td>✓</td><td></td></tr>
 <tr><td><code>setabilitydex2</code></td><td>action</td><td>✓</td><td></td></tr>
 <tr><td><code>setabilitystr2</code></td><td>action</td><td>✓</td><td></td></tr>
-<tr><td><code>removeall</code></td><td>action</td><td>✓</td><td></td></tr>
+<tr><td><code>removeall</code></td><td>action</td><td>?</td><td></td></tr>
 <tr><td><code>setplus9</code></td><td>action</td><td>✓</td><td></td></tr>
 <tr><td><code>setplus10</code></td><td>action</td><td>✓</td><td></td></tr>
 <tr><td><code>setdam1d8</code></td><td>action</td><td>✓</td><td></td></tr>
 <tr><td><code>setdam1d10</code></td><td>action</td><td>✓</td><td></td></tr>
 <tr><td><code>setdamresist20</code></td><td>action</td><td>✓</td><td></td></tr>
 <tr><td><code>setpropen</code></td><td>action</td><td>✓</td><td></td></tr>
-<tr><td><code>setskilltumble</code></td><td>action</td><td>✓</td><td></td></tr></tbody></table>
+<tr><td><code>setskilltumble</code></td><td>action</td><td>✓</td><td></td></tr>
+<tr><td><code>forge_dis_p0</code></td><td>action</td><td>✓</td><td></td></tr>
+<tr><td><code>forge_dis_p1</code></td><td>action</td><td>✓</td><td></td></tr>
+<tr><td><code>forge_dis_p2</code></td><td>action</td><td>✓</td><td></td></tr>
+<tr><td><code>forge_dis_p3</code></td><td>action</td><td>✓</td><td></td></tr>
+<tr><td><code>forge_dis_p4</code></td><td>action</td><td>✓</td><td></td></tr>
+<tr><td><code>forge_dis_p5</code></td><td>action</td><td>✓</td><td></td></tr>
+<tr><td><code>forge_dis_p6</code></td><td>action</td><td>✓</td><td></td></tr>
+<tr><td><code>forge_dis_p7</code></td><td>action</td><td>✓</td><td></td></tr>
+<tr><td><code>forge_dis_go</code></td><td>action</td><td>✓</td><td></td></tr></tbody></table>
 <h2>Items checked</h2><p class="muted">These items' tags are checked via <code>GetItemPossessedBy</code> in this conversation's scripts:</p><ul><li><a href="../items/elrondswrit.html">Elrond&#x27;s Writ</a></li></ul>
-<h2>Custom tokens</h2><p class="muted">These runtime tokens are filled by NWScript via <code>SetCustomToken(N, text)</code>. The scripts listed set each token; the actual value depends on game state at runtime.</p><table class="data"><thead><tr><th>Token</th><th>Set by script(s)</th></tr></thead><tbody><tr><td><code>&lt;CUSTOM100&gt;</code></td><td><a href="../scripts/isitemonanvil.html">isitemonanvil</a>, <a href="../scripts/smach_sc001.html">smach_sc001</a></td></tr>
-<tr><td><code>&lt;CUSTOM101&gt;</code></td><td><a href="../scripts/bankbalance.html">bankbalance</a>, <a href="../scripts/calcmodvalue2.html">calcmodvalue2</a>, <a href="../scripts/calcremoverefund.html">calcremoverefund</a>, <a href="../scripts/smach_configure.html">smach_configure</a></td></tr>
-<tr><td><code>&lt;CUSTOM102&gt;</code></td><td><a href="../scripts/isitemonanvil.html">isitemonanvil</a></td></tr></tbody></table>
+<h2>Custom tokens</h2><p class="muted">These runtime tokens are filled by NWScript via <code>SetCustomToken(N, text)</code>. The scripts listed set each token; the actual value depends on game state at runtime.</p><table class="data"><thead><tr><th>Token</th><th>Set by script(s)</th></tr></thead><tbody><tr><td><code>&lt;CUSTOM100&gt;</code></td><td><a href="../scripts/forge_inc.html">forge_inc</a>, <a href="../scripts/isitemonanvil.html">isitemonanvil</a>, <a href="../scripts/smach_sc001.html">smach_sc001</a></td></tr>
+<tr><td><code>&lt;CUSTOM101&gt;</code></td><td><a href="../scripts/bankbalance.html">bankbalance</a>, <a href="../scripts/calcmodvalue2.html">calcmodvalue2</a>, <a href="../scripts/smach_configure.html">smach_configure</a></td></tr>
+<tr><td><code>&lt;CUSTOM102&gt;</code></td><td><a href="../scripts/isitemonanvil.html">isitemonanvil</a></td></tr>
+<tr><td><code>&lt;CUSTOM6110&gt;</code></td><td><em class="muted">not found in static analysis</em></td></tr>
+<tr><td><code>&lt;CUSTOM6111&gt;</code></td><td><em class="muted">not found in static analysis</em></td></tr>
+<tr><td><code>&lt;CUSTOM6112&gt;</code></td><td><em class="muted">not found in static analysis</em></td></tr>
+<tr><td><code>&lt;CUSTOM6113&gt;</code></td><td><em class="muted">not found in static analysis</em></td></tr>
+<tr><td><code>&lt;CUSTOM6114&gt;</code></td><td><em class="muted">not found in static analysis</em></td></tr>
+<tr><td><code>&lt;CUSTOM6115&gt;</code></td><td><em class="muted">not found in static analysis</em></td></tr>
+<tr><td><code>&lt;CUSTOM6116&gt;</code></td><td><em class="muted">not found in static analysis</em></td></tr>
+<tr><td><code>&lt;CUSTOM6117&gt;</code></td><td><em class="muted">not found in static analysis</em></td></tr>
+<tr><td><code>&lt;CUSTOM6118&gt;</code></td><td><a href="../scripts/forge_dis_p0.html">forge_dis_p0</a>, <a href="../scripts/forge_dis_p1.html">forge_dis_p1</a>, <a href="../scripts/forge_dis_p2.html">forge_dis_p2</a>, <a href="../scripts/forge_dis_p3.html">forge_dis_p3</a>, <a href="../scripts/forge_dis_p4.html">forge_dis_p4</a>, <a href="../scripts/forge_dis_p5.html">forge_dis_p5</a>, <a href="../scripts/forge_dis_p6.html">forge_dis_p6</a>, <a href="../scripts/forge_dis_p7.html">forge_dis_p7</a></td></tr></tbody></table>
 <h2>Starting entries</h2><ul>
 <li><a href="#e0">entry #0</a> — Greetings my . What can I do for you?</li>
 </ul>
@@ -285,7 +312,7 @@
 <div class="dlg-tree-children">
 <details class="dlg-tree-node entry" open>
 <summary><span class="dlg-id">entry #2</span> <small class="muted">(if <code>isitemonanvil</code>)</small> <a class="dlg-anchor" href="#e2" title="jump to flat entry #2">¶</a></summary>
-<div class="dlg-text">Are you sure you want to modify the <span class="custom-token" title="SetCustomToken(100, ...) called in: isitemonanvil, smach_sc001">&lt;CUSTOM100&gt;<sup class="token-setters">[<a href="../scripts/isitemonanvil.html">isitemonanvil</a>, <a href="../scripts/smach_sc001.html">smach_sc001</a>]</sup></span>?</div>
+<div class="dlg-text">Are you sure you want to modify the <span class="custom-token" title="SetCustomToken(100, ...) called in: forge_inc, isitemonanvil, smach_sc001">&lt;CUSTOM100&gt;<sup class="token-setters">[<a href="../scripts/forge_inc.html">forge_inc</a>, <a href="../scripts/isitemonanvil.html">isitemonanvil</a>, <a href="../scripts/smach_sc001.html">smach_sc001</a>]</sup></span>?</div>
 <div class="dlg-tree-children">
 <details class="dlg-tree-node reply" open>
 <summary><span class="dlg-id">reply #4</span> <a class="dlg-anchor" href="#r4" title="jump to flat reply #4">¶</a></summary>
@@ -317,7 +344,7 @@
 <div class="dlg-tree-children">
 <details class="dlg-tree-node entry" open>
 <summary><span class="dlg-id">entry #31</span> <small class="muted">(if <code>cannotafford</code>)</small> <a class="dlg-anchor" href="#e31" title="jump to flat entry #31">¶</a></summary>
-<div class="dlg-text">This modification will cost you <span class="custom-token" title="SetCustomToken(101, ...) called in: bankbalance, calcmodvalue2, calcremoverefund, smach_configure">&lt;CUSTOM101&gt;<sup class="token-setters">[<a href="../scripts/bankbalance.html">bankbalance</a>, <a href="../scripts/calcmodvalue2.html">calcmodvalue2</a>, <a href="../scripts/calcremoverefund.html">calcremoverefund</a>, <a href="../scripts/smach_configure.html">smach_configure</a>]</sup></span> gold.</div>
+<div class="dlg-text">This modification will cost you <span class="custom-token" title="SetCustomToken(101, ...) called in: bankbalance, calcmodvalue2, smach_configure">&lt;CUSTOM101&gt;<sup class="token-setters">[<a href="../scripts/bankbalance.html">bankbalance</a>, <a href="../scripts/calcmodvalue2.html">calcmodvalue2</a>, <a href="../scripts/smach_configure.html">smach_configure</a>]</sup></span> gold.</div>
 <div class="dlg-tree-children">
 <details class="dlg-tree-node reply" open>
 <summary><span class="dlg-id">reply #209</span> <a class="dlg-anchor" href="#r209" title="jump to flat reply #209">¶</a></summary>
@@ -332,6 +359,97 @@
 <summary><span class="dlg-id">reply #0</span> <a class="dlg-anchor" href="#r0" title="jump to flat reply #0">¶</a></summary>
 <div class="dlg-text">Goodbye.</div>
 </details>
+<details class="dlg-tree-node reply" open>
+<summary><span class="dlg-id">reply #250</span> <small class="muted">(if <code>isitemonanvil</code>)</small> <a class="dlg-anchor" href="#r250" title="jump to flat reply #250">¶</a></summary>
+<div class="dlg-text">Strip an enchantment from the item on the anvil. (no refund)</div>
+<div class="dlg-tree-children">
+<details class="dlg-tree-node entry" open>
+<summary><span class="dlg-id">entry #37</span> <span class="dlg-action">→ <code>forge_dis_anvil</code></span> <a class="dlg-anchor" href="#e37" title="jump to flat entry #37">¶</a></summary>
+<div class="dlg-text">Which enchantment shall I strike from the <span class="custom-token" title="SetCustomToken(100, ...) called in: forge_inc, isitemonanvil, smach_sc001">&lt;CUSTOM100&gt;<sup class="token-setters">[<a href="../scripts/forge_inc.html">forge_inc</a>, <a href="../scripts/isitemonanvil.html">isitemonanvil</a>, <a href="../scripts/smach_sc001.html">smach_sc001</a>]</sup></span>? Mind you — the magic is lost forever, and I pay nothing for unmaking.</div>
+<div class="dlg-tree-children">
+<details class="dlg-tree-node reply" open>
+<summary><span class="dlg-id">reply #239</span> <span class="dlg-action">→ <code>forge_dis_p0</code></span> <small class="muted">(if <code>forge_dis_c0</code>)</small> <a class="dlg-anchor" href="#r239" title="jump to flat reply #239">¶</a></summary>
+<div class="dlg-text"><span class="custom-token custom-token-unknown" title="SetCustomToken(6110, ...) — no setter found in static analysis">&lt;CUSTOM6110&gt;</span></div>
+<div class="dlg-tree-children">
+<details class="dlg-tree-node entry" open>
+<summary><span class="dlg-id">entry #38</span> <a class="dlg-anchor" href="#e38" title="jump to flat entry #38">¶</a></summary>
+<div class="dlg-text">Strike the <span class="custom-token" title="SetCustomToken(6118, ...) called in: forge_dis_p0, forge_dis_p1, forge_dis_p2, forge_dis_p3, forge_dis_p4, forge_dis_p5, forge_dis_p6, forge_dis_p7">&lt;CUSTOM6118&gt;<sup class="token-setters">[<a href="../scripts/forge_dis_p0.html">forge_dis_p0</a>, <a href="../scripts/forge_dis_p1.html">forge_dis_p1</a>, <a href="../scripts/forge_dis_p2.html">forge_dis_p2</a>, <a href="../scripts/forge_dis_p3.html">forge_dis_p3</a>, <a href="../scripts/forge_dis_p4.html">forge_dis_p4</a>, <a href="../scripts/forge_dis_p5.html">forge_dis_p5</a>, <a href="../scripts/forge_dis_p6.html">forge_dis_p6</a>, <a href="../scripts/forge_dis_p7.html">forge_dis_p7</a>]</sup></span> from it? There is no refund and no undoing.</div>
+<div class="dlg-tree-children">
+<details class="dlg-tree-node reply" open>
+<summary><span class="dlg-id">reply #248</span> <span class="dlg-action">→ <code>forge_dis_go</code></span> <a class="dlg-anchor" href="#r248" title="jump to flat reply #248">¶</a></summary>
+<div class="dlg-text">Yes, strike it. The magic is forfeit.</div>
+<div class="dlg-tree-children">
+<div class="dlg-tree-ref entry-ref">↩ <a href="#e37">entry #37</a> <span class="dlg-link-preview">“Which enchantment shall I strike from the ? Mind you — the magic is lost forever…”</span></div>
+</div>
+</details>
+<details class="dlg-tree-node reply" open>
+<summary><span class="dlg-id">reply #249</span> <a class="dlg-anchor" href="#r249" title="jump to flat reply #249">¶</a></summary>
+<div class="dlg-text">No, leave it be.</div>
+<div class="dlg-tree-children">
+<div class="dlg-tree-ref entry-ref">↩ <a href="#e37">entry #37</a> <span class="dlg-link-preview">“Which enchantment shall I strike from the ? Mind you — the magic is lost forever…”</span></div>
+</div>
+</details>
+</div>
+</details>
+</div>
+</details>
+<details class="dlg-tree-node reply" open>
+<summary><span class="dlg-id">reply #240</span> <span class="dlg-action">→ <code>forge_dis_p1</code></span> <small class="muted">(if <code>forge_dis_c1</code>)</small> <a class="dlg-anchor" href="#r240" title="jump to flat reply #240">¶</a></summary>
+<div class="dlg-text"><span class="custom-token custom-token-unknown" title="SetCustomToken(6111, ...) — no setter found in static analysis">&lt;CUSTOM6111&gt;</span></div>
+<div class="dlg-tree-children">
+<div class="dlg-tree-ref entry-ref">↩ <a href="#e38">entry #38</a> <span class="dlg-link-preview">“Strike the  from it? There is no refund and no undoing.”</span></div>
+</div>
+</details>
+<details class="dlg-tree-node reply" open>
+<summary><span class="dlg-id">reply #241</span> <span class="dlg-action">→ <code>forge_dis_p2</code></span> <small class="muted">(if <code>forge_dis_c2</code>)</small> <a class="dlg-anchor" href="#r241" title="jump to flat reply #241">¶</a></summary>
+<div class="dlg-text"><span class="custom-token custom-token-unknown" title="SetCustomToken(6112, ...) — no setter found in static analysis">&lt;CUSTOM6112&gt;</span></div>
+<div class="dlg-tree-children">
+<div class="dlg-tree-ref entry-ref">↩ <a href="#e38">entry #38</a> <span class="dlg-link-preview">“Strike the  from it? There is no refund and no undoing.”</span></div>
+</div>
+</details>
+<details class="dlg-tree-node reply" open>
+<summary><span class="dlg-id">reply #242</span> <span class="dlg-action">→ <code>forge_dis_p3</code></span> <small class="muted">(if <code>forge_dis_c3</code>)</small> <a class="dlg-anchor" href="#r242" title="jump to flat reply #242">¶</a></summary>
+<div class="dlg-text"><span class="custom-token custom-token-unknown" title="SetCustomToken(6113, ...) — no setter found in static analysis">&lt;CUSTOM6113&gt;</span></div>
+<div class="dlg-tree-children">
+<div class="dlg-tree-ref entry-ref">↩ <a href="#e38">entry #38</a> <span class="dlg-link-preview">“Strike the  from it? There is no refund and no undoing.”</span></div>
+</div>
+</details>
+<details class="dlg-tree-node reply" open>
+<summary><span class="dlg-id">reply #243</span> <span class="dlg-action">→ <code>forge_dis_p4</code></span> <small class="muted">(if <code>forge_dis_c4</code>)</small> <a class="dlg-anchor" href="#r243" title="jump to flat reply #243">¶</a></summary>
+<div class="dlg-text"><span class="custom-token custom-token-unknown" title="SetCustomToken(6114, ...) — no setter found in static analysis">&lt;CUSTOM6114&gt;</span></div>
+<div class="dlg-tree-children">
+<div class="dlg-tree-ref entry-ref">↩ <a href="#e38">entry #38</a> <span class="dlg-link-preview">“Strike the  from it? There is no refund and no undoing.”</span></div>
+</div>
+</details>
+<details class="dlg-tree-node reply" open>
+<summary><span class="dlg-id">reply #244</span> <span class="dlg-action">→ <code>forge_dis_p5</code></span> <small class="muted">(if <code>forge_dis_c5</code>)</small> <a class="dlg-anchor" href="#r244" title="jump to flat reply #244">¶</a></summary>
+<div class="dlg-text"><span class="custom-token custom-token-unknown" title="SetCustomToken(6115, ...) — no setter found in static analysis">&lt;CUSTOM6115&gt;</span></div>
+<div class="dlg-tree-children">
+<div class="dlg-tree-ref entry-ref">↩ <a href="#e38">entry #38</a> <span class="dlg-link-preview">“Strike the  from it? There is no refund and no undoing.”</span></div>
+</div>
+</details>
+<details class="dlg-tree-node reply" open>
+<summary><span class="dlg-id">reply #245</span> <span class="dlg-action">→ <code>forge_dis_p6</code></span> <small class="muted">(if <code>forge_dis_c6</code>)</small> <a class="dlg-anchor" href="#r245" title="jump to flat reply #245">¶</a></summary>
+<div class="dlg-text"><span class="custom-token custom-token-unknown" title="SetCustomToken(6116, ...) — no setter found in static analysis">&lt;CUSTOM6116&gt;</span></div>
+<div class="dlg-tree-children">
+<div class="dlg-tree-ref entry-ref">↩ <a href="#e38">entry #38</a> <span class="dlg-link-preview">“Strike the  from it? There is no refund and no undoing.”</span></div>
+</div>
+</details>
+<details class="dlg-tree-node reply" open>
+<summary><span class="dlg-id">reply #246</span> <span class="dlg-action">→ <code>forge_dis_p7</code></span> <small class="muted">(if <code>forge_dis_c7</code>)</small> <a class="dlg-anchor" href="#r246" title="jump to flat reply #246">¶</a></summary>
+<div class="dlg-text"><span class="custom-token custom-token-unknown" title="SetCustomToken(6117, ...) — no setter found in static analysis">&lt;CUSTOM6117&gt;</span></div>
+<div class="dlg-tree-children">
+<div class="dlg-tree-ref entry-ref">↩ <a href="#e38">entry #38</a> <span class="dlg-link-preview">“Strike the  from it? There is no refund and no undoing.”</span></div>
+</div>
+</details>
+<details class="dlg-tree-node reply" open>
+<summary><span class="dlg-id">reply #247</span> <a class="dlg-anchor" href="#r247" title="jump to flat reply #247">¶</a></summary>
+<div class="dlg-text">Never mind.</div>
+</details>
+</div>
+</details>
+</div>
+</details>
 </div>
 </details>
 </div>
@@ -340,7 +458,7 @@
 </details>
 <details class="dlg-tree-node entry" open>
 <summary><span class="dlg-id">entry #30</span> <small class="muted">(if <code>isamttopay</code>)</small> <a class="dlg-anchor" href="#e30" title="jump to flat entry #30">¶</a></summary>
-<div class="dlg-text">This modification will cost you <span class="custom-token" title="SetCustomToken(101, ...) called in: bankbalance, calcmodvalue2, calcremoverefund, smach_configure">&lt;CUSTOM101&gt;<sup class="token-setters">[<a href="../scripts/bankbalance.html">bankbalance</a>, <a href="../scripts/calcmodvalue2.html">calcmodvalue2</a>, <a href="../scripts/calcremoverefund.html">calcremoverefund</a>, <a href="../scripts/smach_configure.html">smach_configure</a>]</sup></span> gold.</div>
+<div class="dlg-text">This modification will cost you <span class="custom-token" title="SetCustomToken(101, ...) called in: bankbalance, calcmodvalue2, smach_configure">&lt;CUSTOM101&gt;<sup class="token-setters">[<a href="../scripts/bankbalance.html">bankbalance</a>, <a href="../scripts/calcmodvalue2.html">calcmodvalue2</a>, <a href="../scripts/smach_configure.html">smach_configure</a>]</sup></span> gold.</div>
 <div class="dlg-tree-children">
 <details class="dlg-tree-node reply" open>
 <summary><span class="dlg-id">reply #208</span> <span class="dlg-action">→ <code>modifyitem</code></span> <a class="dlg-anchor" href="#r208" title="jump to flat reply #208">¶</a></summary>
@@ -360,7 +478,7 @@
 </details>
 <details class="dlg-tree-node entry" open>
 <summary><span class="dlg-id">entry #29</span> <small class="muted">(if <code>isamtrefund</code>)</small> <a class="dlg-anchor" href="#e29" title="jump to flat entry #29">¶</a></summary>
-<div class="dlg-text">This modification will give you a refund of <span class="custom-token" title="SetCustomToken(101, ...) called in: bankbalance, calcmodvalue2, calcremoverefund, smach_configure">&lt;CUSTOM101&gt;<sup class="token-setters">[<a href="../scripts/bankbalance.html">bankbalance</a>, <a href="../scripts/calcmodvalue2.html">calcmodvalue2</a>, <a href="../scripts/calcremoverefund.html">calcremoverefund</a>, <a href="../scripts/smach_configure.html">smach_configure</a>]</sup></span> gold.</div>
+<div class="dlg-text">This modification will give you a refund of <span class="custom-token" title="SetCustomToken(101, ...) called in: bankbalance, calcmodvalue2, smach_configure">&lt;CUSTOM101&gt;<sup class="token-setters">[<a href="../scripts/bankbalance.html">bankbalance</a>, <a href="../scripts/calcmodvalue2.html">calcmodvalue2</a>, <a href="../scripts/smach_configure.html">smach_configure</a>]</sup></span> gold.</div>
 <div class="dlg-tree-children">
 <div class="dlg-tree-ref reply-ref">↩ <a href="#r208">reply #208</a> <span class="dlg-link-preview">“Please go ahead.”</span></div>
 <div class="dlg-tree-ref reply-ref">↩ <a href="#r207">reply #207</a> <span class="dlg-link-preview">“I&#x27;ve changed my mind.”</span></div>
@@ -1874,14 +1992,15 @@
 </div>
 </details>
 <div class="dlg-tree-ref reply-ref">↩ <a href="#r0">reply #0</a> <span class="dlg-link-preview">“Goodbye.”</span></div>
+<div class="dlg-tree-ref reply-ref">↩ <a href="#r250">reply #250</a> <span class="dlg-link-preview">“Strip an enchantment from the item on the anvil. (no refund)”</span> <small class="muted">(if <code>isitemonanvil</code>)</small></div>
 </div>
 </details>
 </div>
 <h2>NPC lines (entries) — flat index</h2>
-<div class="dlg-node entry" id="e0"><div class="dlg-head"><span class="dlg-id">entry #0</span> <span class="dlg-action">→ <code>removeallitems</code></span></div><div class="dlg-text">Greetings my &lt;lord/lady&gt;. What can I do for you?</div><ul class="dlg-links"><li><a href="#r1">→ reply #1</a> <span class="dlg-link-preview">“Modify the item on the anvil.”</span> <small class="muted">(if <code>kimli_haswrit</code>)</small></li><li><a href="#r233">→ reply #233</a> <span class="dlg-link-preview">“Why can I not use this forge?”</span> <small class="muted">(if <code>kimli_nowrit</code>)</small></li><li><a href="#r0">→ reply #0</a> <span class="dlg-link-preview">“Goodbye.”</span></li></ul></div>
+<div class="dlg-node entry" id="e0"><div class="dlg-head"><span class="dlg-id">entry #0</span> <span class="dlg-action">→ <code>removeallitems</code></span></div><div class="dlg-text">Greetings my &lt;lord/lady&gt;. What can I do for you?</div><ul class="dlg-links"><li><a href="#r1">→ reply #1</a> <span class="dlg-link-preview">“Modify the item on the anvil.”</span> <small class="muted">(if <code>kimli_haswrit</code>)</small></li><li><a href="#r233">→ reply #233</a> <span class="dlg-link-preview">“Why can I not use this forge?”</span> <small class="muted">(if <code>kimli_nowrit</code>)</small></li><li><a href="#r0">→ reply #0</a> <span class="dlg-link-preview">“Goodbye.”</span></li><li><a href="#r250">→ reply #250</a> <span class="dlg-link-preview">“Strip an enchantment from the item on the anvil. (no refund)”</span> <small class="muted">(if <code>isitemonanvil</code>)</small></li></ul></div>
 <div class="dlg-node entry" id="e1"><div class="dlg-head"><span class="dlg-id">entry #1</span></div><div class="dlg-text">Please place exactly one item on the anvil, then speak to me again.</div><ul class="dlg-links"><li><a href="#r2">→ reply #2</a></li></ul></div>
-<div class="dlg-node entry" id="e2"><div class="dlg-head"><span class="dlg-id">entry #2</span></div><div class="dlg-text">Are you sure you want to modify the <span class="custom-token" title="SetCustomToken(100, ...) called in: isitemonanvil, smach_sc001">&lt;CUSTOM100&gt;<sup class="token-setters">[<a href="../scripts/isitemonanvil.html">isitemonanvil</a>, <a href="../scripts/smach_sc001.html">smach_sc001</a>]</sup></span>?</div><ul class="dlg-links"><li><a href="#r4">→ reply #4</a> <span class="dlg-link-preview">“Yes.”</span></li><li><a href="#r3">→ reply #3</a> <span class="dlg-link-preview">“No.”</span></li></ul></div>
-<div class="dlg-node entry" id="e3"><div class="dlg-head"><span class="dlg-id">entry #3</span></div><div class="dlg-text">Is there anything else?</div><ul class="dlg-links"><li><a href="#r1">→ child</a> <span class="dlg-link-preview">“Modify the item on the anvil.”</span></li><li><a href="#r0">→ child</a> <span class="dlg-link-preview">“Goodbye.”</span></li></ul></div>
+<div class="dlg-node entry" id="e2"><div class="dlg-head"><span class="dlg-id">entry #2</span></div><div class="dlg-text">Are you sure you want to modify the <span class="custom-token" title="SetCustomToken(100, ...) called in: forge_inc, isitemonanvil, smach_sc001">&lt;CUSTOM100&gt;<sup class="token-setters">[<a href="../scripts/forge_inc.html">forge_inc</a>, <a href="../scripts/isitemonanvil.html">isitemonanvil</a>, <a href="../scripts/smach_sc001.html">smach_sc001</a>]</sup></span>?</div><ul class="dlg-links"><li><a href="#r4">→ reply #4</a> <span class="dlg-link-preview">“Yes.”</span></li><li><a href="#r3">→ reply #3</a> <span class="dlg-link-preview">“No.”</span></li></ul></div>
+<div class="dlg-node entry" id="e3"><div class="dlg-head"><span class="dlg-id">entry #3</span></div><div class="dlg-text">Is there anything else?</div><ul class="dlg-links"><li><a href="#r1">→ child</a> <span class="dlg-link-preview">“Modify the item on the anvil.”</span></li><li><a href="#r0">→ child</a> <span class="dlg-link-preview">“Goodbye.”</span></li><li><a href="#r250">→ child</a> <span class="dlg-link-preview">“Strip an enchantment from the item on the anvil. (no refund)”</span> <small class="muted">(if <code>isitemonanvil</code>)</small></li></ul></div>
 <div class="dlg-node entry" id="e4"><div class="dlg-head"><span class="dlg-id">entry #4</span></div><div class="dlg-text">What type of modification would you like?</div><ul class="dlg-links"><li><a href="#r224">→ reply #224</a> <span class="dlg-link-preview">“Enhancement Bonus.”</span></li><li><a href="#r28">→ reply #28</a> <span class="dlg-link-preview">“Attack Bonus.”</span> <small class="muted">(if <code>isweapon</code>)</small></li><li><a href="#r196">→ reply #196</a> <span class="dlg-link-preview">“Armour Bonus.”</span></li><li><a href="#r210">→ reply #210</a> <span class="dlg-link-preview">“Ability Bonus.”</span></li><li><a href="#r156">→ reply #156</a> <span class="dlg-link-preview">“Damage Bonus.”</span> <small class="muted">(if <code>ismeleeweapon</code>)</small></li><li><a href="#r124">→ reply #124</a> <span class="dlg-link-preview">“Damage Reduction.”</span></li><li><a href="#r112">→ reply #112</a> <span class="dlg-link-preview">“Damage Resistance.”</span></li><li><a href="#r145">→ reply #145</a> <span class="dlg-link-preview">“Damage Immunity.”</span></li><li><a href="#r94">→ reply #94</a> <span class="dlg-link-preview">“Massive Criticals”</span> <small class="muted">(if <code>isweapon</code>)</small></li><li><a href="#r93">→ reply #93</a> <span class="dlg-link-preview">“Mighty.”</span> <small class="muted">(if <code>israngedweapon</code>)</small></li><li><a href="#r50">→ reply #50</a> <span class="dlg-link-preview">“On Hit Properties.”</span> <small class="muted">(if <code>ismeleeweapon</code>)</small></li><li><a href="#r96">→ reply #96</a> <span class="dlg-link-preview">“Keen.”</span> <small class="muted">(if <code>ismeleeweapon</code>)</small></li><li><a href="#r110">→ reply #110</a> <span class="dlg-link-preview">“Haste.”</span></li><li><a href="#r27">→ reply #27</a> <span class="dlg-link-preview">“Vampiric Regeneration.”</span> <small class="muted">(if <code>ismeleeweapon</code>)</small></li><li><a href="#r26">→ reply #26</a> <span class="dlg-link-preview">“Freedom of Movement.”</span></li><li><a href="#r111">→ reply #111</a> <span class="dlg-link-preview">“Darkvision.”</span></li><li><a href="#r95">→ reply #95</a> <span class="dlg-link-preview">“Light.”</span></li><li><a href="#r29">→ reply #29</a> <span class="dlg-link-preview">“Skill Bonus.”</span></li><li><a href="#r168">→ reply #168</a> <span class="dlg-link-preview">“Bonus Feat.”</span></li><li><a href="#r102">→ reply #102</a> <span class="dlg-link-preview">“Spell Resistance.”</span></li><li><a href="#r97">→ reply #97</a> <span class="dlg-link-preview">“Improved Saving Throws.”</span></li><li><a href="#r6">→ reply #6</a> <span class="dlg-link-preview">“Unlimited Ammo.”</span> <small class="muted">(if <code>israngedweapon</code>)</small></li><li><a href="#r20">→ reply #20</a> <span class="dlg-link-preview">“Weight Reduction.”</span></li></ul></div>
 <div class="dlg-node entry" id="e5"><div class="dlg-head"><span class="dlg-id">entry #5</span></div><div class="dlg-text">Select the ammo type.</div><ul class="dlg-links"><li><a href="#r15">→ reply #15</a> <span class="dlg-link-preview">“Basic.”</span></li><li><a href="#r14">→ reply #14</a> <span class="dlg-link-preview">“+1”</span></li><li><a href="#r13">→ reply #13</a> <span class="dlg-link-preview">“+2”</span></li><li><a href="#r12">→ reply #12</a> <span class="dlg-link-preview">“+3”</span></li><li><a href="#r11">→ reply #11</a> <span class="dlg-link-preview">“+4”</span></li><li><a href="#r10">→ reply #10</a> <span class="dlg-link-preview">“+5”</span></li><li><a href="#r9">→ reply #9</a> <span class="dlg-link-preview">“1d6 Cold.”</span></li><li><a href="#r8">→ reply #8</a> <span class="dlg-link-preview">“1d6 Fire.”</span></li><li><a href="#r7">→ reply #7</a> <span class="dlg-link-preview">“1d6 Light.”</span></li></ul></div>
 <div class="dlg-node entry" id="e6"><div class="dlg-head"><span class="dlg-id">entry #6</span></div><div class="dlg-text">Please select the modifier.</div><ul class="dlg-links"><li><a href="#r19">→ reply #19</a> <span class="dlg-link-preview">“Minus 30%.”</span></li><li><a href="#r18">→ reply #18</a> <span class="dlg-link-preview">“Minus 20%.”</span></li><li><a href="#r17">→ reply #17</a> <span class="dlg-link-preview">“Minus 10%.”</span></li></ul></div>
@@ -1907,14 +2026,16 @@
 <div class="dlg-node entry" id="e26"><div class="dlg-head"><span class="dlg-id">entry #26</span></div><div class="dlg-text">Now, please select the bonus amount.</div><ul class="dlg-links"><li><a href="#r205">→ reply #205</a> <span class="dlg-link-preview">“+1”</span> <small class="muted">(if <code>forge_never</code>)</small></li><li><a href="#r204">→ reply #204</a> <span class="dlg-link-preview">“+2”</span> <small class="muted">(if <code>forge_never</code>)</small></li><li><a href="#r203">→ reply #203</a> <span class="dlg-link-preview">“+3”</span> <small class="muted">(if <code>forge_never</code>)</small></li><li><a href="#r202">→ reply #202</a> <span class="dlg-link-preview">“+4”</span> <small class="muted">(if <code>forge_never</code>)</small></li><li><a href="#r201">→ reply #201</a> <span class="dlg-link-preview">“+5”</span></li><li><a href="#r200">→ reply #200</a> <span class="dlg-link-preview">“+6”</span></li><li><a href="#r199">→ reply #199</a> <span class="dlg-link-preview">“+7”</span></li><li><a href="#r198">→ reply #198</a> <span class="dlg-link-preview">“+8”</span></li><li><a href="#r219">→ reply #219</a> <span class="dlg-link-preview">“+9”</span></li><li><a href="#r220">→ reply #220</a> <span class="dlg-link-preview">“+10”</span></li></ul></div>
 <div class="dlg-node entry" id="e27"><div class="dlg-head"><span class="dlg-id">entry #27</span> <span class="dlg-action">→ <code>calcmodvalue1</code></span></div><div class="dlg-text">Please wait while I calculate the cost of this modification.</div><ul class="dlg-links"><li><a href="#r206">→ reply #206</a></li></ul></div>
 <div class="dlg-node entry" id="e28"><div class="dlg-head"><span class="dlg-id">entry #28</span></div><div class="dlg-text">There is no charge for this modification.</div><ul class="dlg-links"><li><a href="#r208">→ child</a> <span class="dlg-link-preview">“Please go ahead.”</span></li><li><a href="#r207">→ child</a> <span class="dlg-link-preview">“I&#x27;ve changed my mind.”</span></li></ul></div>
-<div class="dlg-node entry" id="e29"><div class="dlg-head"><span class="dlg-id">entry #29</span></div><div class="dlg-text">This modification will give you a refund of <span class="custom-token" title="SetCustomToken(101, ...) called in: bankbalance, calcmodvalue2, calcremoverefund, smach_configure">&lt;CUSTOM101&gt;<sup class="token-setters">[<a href="../scripts/bankbalance.html">bankbalance</a>, <a href="../scripts/calcmodvalue2.html">calcmodvalue2</a>, <a href="../scripts/calcremoverefund.html">calcremoverefund</a>, <a href="../scripts/smach_configure.html">smach_configure</a>]</sup></span> gold.</div><ul class="dlg-links"><li><a href="#r208">→ reply #208</a> <span class="dlg-link-preview">“Please go ahead.”</span></li><li><a href="#r207">→ reply #207</a> <span class="dlg-link-preview">“I&#x27;ve changed my mind.”</span></li></ul></div>
-<div class="dlg-node entry" id="e30"><div class="dlg-head"><span class="dlg-id">entry #30</span></div><div class="dlg-text">This modification will cost you <span class="custom-token" title="SetCustomToken(101, ...) called in: bankbalance, calcmodvalue2, calcremoverefund, smach_configure">&lt;CUSTOM101&gt;<sup class="token-setters">[<a href="../scripts/bankbalance.html">bankbalance</a>, <a href="../scripts/calcmodvalue2.html">calcmodvalue2</a>, <a href="../scripts/calcremoverefund.html">calcremoverefund</a>, <a href="../scripts/smach_configure.html">smach_configure</a>]</sup></span> gold.</div><ul class="dlg-links"><li><a href="#r208">→ child</a> <span class="dlg-link-preview">“Please go ahead.”</span></li><li><a href="#r207">→ child</a> <span class="dlg-link-preview">“I&#x27;ve changed my mind.”</span></li></ul></div>
-<div class="dlg-node entry" id="e31"><div class="dlg-head"><span class="dlg-id">entry #31</span></div><div class="dlg-text">This modification will cost you <span class="custom-token" title="SetCustomToken(101, ...) called in: bankbalance, calcmodvalue2, calcremoverefund, smach_configure">&lt;CUSTOM101&gt;<sup class="token-setters">[<a href="../scripts/bankbalance.html">bankbalance</a>, <a href="../scripts/calcmodvalue2.html">calcmodvalue2</a>, <a href="../scripts/calcremoverefund.html">calcremoverefund</a>, <a href="../scripts/smach_configure.html">smach_configure</a>]</sup></span> gold.</div><ul class="dlg-links"><li><a href="#r209">→ reply #209</a> <span class="dlg-link-preview">“Sorry, I don&#x27;t seem to have enough gold.”</span></li></ul></div>
+<div class="dlg-node entry" id="e29"><div class="dlg-head"><span class="dlg-id">entry #29</span></div><div class="dlg-text">This modification will give you a refund of <span class="custom-token" title="SetCustomToken(101, ...) called in: bankbalance, calcmodvalue2, smach_configure">&lt;CUSTOM101&gt;<sup class="token-setters">[<a href="../scripts/bankbalance.html">bankbalance</a>, <a href="../scripts/calcmodvalue2.html">calcmodvalue2</a>, <a href="../scripts/smach_configure.html">smach_configure</a>]</sup></span> gold.</div><ul class="dlg-links"><li><a href="#r208">→ reply #208</a> <span class="dlg-link-preview">“Please go ahead.”</span></li><li><a href="#r207">→ reply #207</a> <span class="dlg-link-preview">“I&#x27;ve changed my mind.”</span></li></ul></div>
+<div class="dlg-node entry" id="e30"><div class="dlg-head"><span class="dlg-id">entry #30</span></div><div class="dlg-text">This modification will cost you <span class="custom-token" title="SetCustomToken(101, ...) called in: bankbalance, calcmodvalue2, smach_configure">&lt;CUSTOM101&gt;<sup class="token-setters">[<a href="../scripts/bankbalance.html">bankbalance</a>, <a href="../scripts/calcmodvalue2.html">calcmodvalue2</a>, <a href="../scripts/smach_configure.html">smach_configure</a>]</sup></span> gold.</div><ul class="dlg-links"><li><a href="#r208">→ child</a> <span class="dlg-link-preview">“Please go ahead.”</span></li><li><a href="#r207">→ child</a> <span class="dlg-link-preview">“I&#x27;ve changed my mind.”</span></li></ul></div>
+<div class="dlg-node entry" id="e31"><div class="dlg-head"><span class="dlg-id">entry #31</span></div><div class="dlg-text">This modification will cost you <span class="custom-token" title="SetCustomToken(101, ...) called in: bankbalance, calcmodvalue2, smach_configure">&lt;CUSTOM101&gt;<sup class="token-setters">[<a href="../scripts/bankbalance.html">bankbalance</a>, <a href="../scripts/calcmodvalue2.html">calcmodvalue2</a>, <a href="../scripts/smach_configure.html">smach_configure</a>]</sup></span> gold.</div><ul class="dlg-links"><li><a href="#r209">→ reply #209</a> <span class="dlg-link-preview">“Sorry, I don&#x27;t seem to have enough gold.”</span></li></ul></div>
 <div class="dlg-node entry" id="e32"><div class="dlg-head"><span class="dlg-id">entry #32</span></div><div class="dlg-text">Select the ability to be enhanced.</div><ul class="dlg-links"><li><a href="#r216">→ reply #216</a> <span class="dlg-link-preview">“Strength.”</span></li><li><a href="#r215">→ reply #215</a> <span class="dlg-link-preview">“Dexterity.”</span></li><li><a href="#r214">→ reply #214</a> <span class="dlg-link-preview">“Constitution.”</span></li><li><a href="#r213">→ reply #213</a> <span class="dlg-link-preview">“Intelligence.”</span></li><li><a href="#r212">→ reply #212</a> <span class="dlg-link-preview">“Wisdom”</span></li><li><a href="#r211">→ reply #211</a> <span class="dlg-link-preview">“Charisma.”</span></li></ul></div>
-<div class="dlg-node entry" id="e33"><div class="dlg-head"><span class="dlg-id">entry #33</span> <span class="dlg-action">→ <code>calcremoverefund</code></span></div><div class="dlg-text">I must warn ye — stripping all magical properties from this <span class="custom-token" title="SetCustomToken(102, ...) called in: isitemonanvil">&lt;CUSTOM102&gt;<sup class="token-setters">[<a href="../scripts/isitemonanvil.html">isitemonanvil</a>]</sup></span> cannot be undone. Every enchantment will be lost. For what ye have invested at this forge, I can return <span class="custom-token" title="SetCustomToken(101, ...) called in: bankbalance, calcmodvalue2, calcremoverefund, smach_configure">&lt;CUSTOM101&gt;<sup class="token-setters">[<a href="../scripts/bankbalance.html">bankbalance</a>, <a href="../scripts/calcmodvalue2.html">calcmodvalue2</a>, <a href="../scripts/calcremoverefund.html">calcremoverefund</a>, <a href="../scripts/smach_configure.html">smach_configure</a>]</sup></span> gold. Do ye wish to proceed?</div><ul class="dlg-links"><li><a href="#r217">→ reply #217</a> <span class="dlg-link-preview">“Yes, strip all magical properties.”</span></li><li><a href="#r218">→ reply #218</a> <span class="dlg-link-preview">“No, leave it as it is.”</span></li></ul></div>
+<div class="dlg-node entry" id="e33"><div class="dlg-head"><span class="dlg-id">entry #33</span> <span class="dlg-action">→ <code>calcremoverefund</code></span></div><div class="dlg-text">I must warn ye — stripping all magical properties from this <span class="custom-token" title="SetCustomToken(102, ...) called in: isitemonanvil">&lt;CUSTOM102&gt;<sup class="token-setters">[<a href="../scripts/isitemonanvil.html">isitemonanvil</a>]</sup></span> cannot be undone. Every enchantment will be lost. For what ye have invested at this forge, I can return <span class="custom-token" title="SetCustomToken(101, ...) called in: bankbalance, calcmodvalue2, smach_configure">&lt;CUSTOM101&gt;<sup class="token-setters">[<a href="../scripts/bankbalance.html">bankbalance</a>, <a href="../scripts/calcmodvalue2.html">calcmodvalue2</a>, <a href="../scripts/smach_configure.html">smach_configure</a>]</sup></span> gold. Do ye wish to proceed?</div><ul class="dlg-links"><li><a href="#r217">→ reply #217</a> <span class="dlg-link-preview">“Yes, strip all magical properties.”</span></li><li><a href="#r218">→ reply #218</a> <span class="dlg-link-preview">“No, leave it as it is.”</span></li></ul></div>
 <div class="dlg-node entry" id="e34"><div class="dlg-head"><span class="dlg-id">entry #34</span></div><div class="dlg-text">Now, please select the bonus amount.</div><ul class="dlg-links"><li><a href="#r226">→ reply #226</a> <span class="dlg-link-preview">“+10”</span></li><li><a href="#r227">→ reply #227</a> <span class="dlg-link-preview">“+9”</span></li><li><a href="#r228">→ reply #228</a> <span class="dlg-link-preview">“+8”</span></li><li><a href="#r229">→ reply #229</a> <span class="dlg-link-preview">“+7”</span></li><li><a href="#r230">→ reply #230</a> <span class="dlg-link-preview">“+6”</span></li><li><a href="#r231">→ reply #231</a> <span class="dlg-link-preview">“+5”</span></li></ul></div>
 <div class="dlg-node entry" id="e35"><div class="dlg-head"><span class="dlg-id">entry #35</span></div><div class="dlg-text">This forge burns only by Elrond&#x27;s grace. You will need his Writ before I may work your items.</div></div>
 <div class="dlg-node entry" id="e36"><div class="dlg-head"><span class="dlg-id">entry #36</span></div><div class="dlg-text">Now, please select the bonus amount.</div><ul class="dlg-links"><li><a href="#r234">→ reply #234</a> <span class="dlg-link-preview">“+4”</span></li><li><a href="#r235">→ reply #235</a> <span class="dlg-link-preview">“+5”</span></li><li><a href="#r236">→ reply #236</a> <span class="dlg-link-preview">“+6”</span></li><li><a href="#r237">→ reply #237</a> <span class="dlg-link-preview">“+7”</span></li><li><a href="#r238">→ reply #238</a> <span class="dlg-link-preview">“+8”</span></li></ul></div>
+<div class="dlg-node entry" id="e37"><div class="dlg-head"><span class="dlg-id">entry #37</span> <span class="dlg-action">→ <code>forge_dis_anvil</code></span></div><div class="dlg-text">Which enchantment shall I strike from the <span class="custom-token" title="SetCustomToken(100, ...) called in: forge_inc, isitemonanvil, smach_sc001">&lt;CUSTOM100&gt;<sup class="token-setters">[<a href="../scripts/forge_inc.html">forge_inc</a>, <a href="../scripts/isitemonanvil.html">isitemonanvil</a>, <a href="../scripts/smach_sc001.html">smach_sc001</a>]</sup></span>? Mind you — the magic is lost forever, and I pay nothing for unmaking.</div><ul class="dlg-links"><li><a href="#r239">→ reply #239</a> <small class="muted">(if <code>forge_dis_c0</code>)</small></li><li><a href="#r240">→ reply #240</a> <small class="muted">(if <code>forge_dis_c1</code>)</small></li><li><a href="#r241">→ reply #241</a> <small class="muted">(if <code>forge_dis_c2</code>)</small></li><li><a href="#r242">→ reply #242</a> <small class="muted">(if <code>forge_dis_c3</code>)</small></li><li><a href="#r243">→ reply #243</a> <small class="muted">(if <code>forge_dis_c4</code>)</small></li><li><a href="#r244">→ reply #244</a> <small class="muted">(if <code>forge_dis_c5</code>)</small></li><li><a href="#r245">→ reply #245</a> <small class="muted">(if <code>forge_dis_c6</code>)</small></li><li><a href="#r246">→ reply #246</a> <small class="muted">(if <code>forge_dis_c7</code>)</small></li><li><a href="#r247">→ reply #247</a> <span class="dlg-link-preview">“Never mind.”</span></li></ul></div>
+<div class="dlg-node entry" id="e38"><div class="dlg-head"><span class="dlg-id">entry #38</span></div><div class="dlg-text">Strike the <span class="custom-token" title="SetCustomToken(6118, ...) called in: forge_dis_p0, forge_dis_p1, forge_dis_p2, forge_dis_p3, forge_dis_p4, forge_dis_p5, forge_dis_p6, forge_dis_p7">&lt;CUSTOM6118&gt;<sup class="token-setters">[<a href="../scripts/forge_dis_p0.html">forge_dis_p0</a>, <a href="../scripts/forge_dis_p1.html">forge_dis_p1</a>, <a href="../scripts/forge_dis_p2.html">forge_dis_p2</a>, <a href="../scripts/forge_dis_p3.html">forge_dis_p3</a>, <a href="../scripts/forge_dis_p4.html">forge_dis_p4</a>, <a href="../scripts/forge_dis_p5.html">forge_dis_p5</a>, <a href="../scripts/forge_dis_p6.html">forge_dis_p6</a>, <a href="../scripts/forge_dis_p7.html">forge_dis_p7</a>]</sup></span> from it? There is no refund and no undoing.</div><ul class="dlg-links"><li><a href="#r248">→ reply #248</a> <span class="dlg-link-preview">“Yes, strike it. The magic is forfeit.”</span></li><li><a href="#r249">→ reply #249</a> <span class="dlg-link-preview">“No, leave it be.”</span></li></ul></div>
 <h2>PC replies — flat index</h2>
 <div class="dlg-node reply" id="r0"><div class="dlg-head"><span class="dlg-id">reply #0</span></div><div class="dlg-text">Goodbye.</div></div>
 <div class="dlg-node reply" id="r1"><div class="dlg-head"><span class="dlg-id">reply #1</span></div><div class="dlg-text">Modify the item on the anvil.</div><ul class="dlg-links"><li><a href="#e2">→ entry #2</a> <span class="dlg-link-preview">“Are you sure you want to modify the ?”</span> <small class="muted">(if <code>isitemonanvil</code>)</small></li><li><a href="#e1">→ entry #1</a> <span class="dlg-link-preview">“Please place exactly one item on the anvil, then speak to me again.”</span></li></ul></div>
@@ -2155,6 +2276,18 @@
 <div class="dlg-node reply" id="r236"><div class="dlg-head"><span class="dlg-id">reply #236</span> <span class="dlg-action">→ <code>setplus6</code></span></div><div class="dlg-text">+6</div><ul class="dlg-links"><li><a href="#e27">→ child</a> <span class="dlg-link-preview">“Please wait while I calculate the cost of this modification.”</span></li></ul></div>
 <div class="dlg-node reply" id="r237"><div class="dlg-head"><span class="dlg-id">reply #237</span> <span class="dlg-action">→ <code>setplus7</code></span></div><div class="dlg-text">+7</div><ul class="dlg-links"><li><a href="#e27">→ child</a> <span class="dlg-link-preview">“Please wait while I calculate the cost of this modification.”</span></li></ul></div>
 <div class="dlg-node reply" id="r238"><div class="dlg-head"><span class="dlg-id">reply #238</span> <span class="dlg-action">→ <code>setplus8</code></span></div><div class="dlg-text">+8</div><ul class="dlg-links"><li><a href="#e27">→ child</a> <span class="dlg-link-preview">“Please wait while I calculate the cost of this modification.”</span></li></ul></div>
+<div class="dlg-node reply" id="r239"><div class="dlg-head"><span class="dlg-id">reply #239</span> <span class="dlg-action">→ <code>forge_dis_p0</code></span></div><div class="dlg-text"><span class="custom-token custom-token-unknown" title="SetCustomToken(6110, ...) — no setter found in static analysis">&lt;CUSTOM6110&gt;</span></div><ul class="dlg-links"><li><a href="#e38">→ entry #38</a> <span class="dlg-link-preview">“Strike the  from it? There is no refund and no undoing.”</span></li></ul></div>
+<div class="dlg-node reply" id="r240"><div class="dlg-head"><span class="dlg-id">reply #240</span> <span class="dlg-action">→ <code>forge_dis_p1</code></span></div><div class="dlg-text"><span class="custom-token custom-token-unknown" title="SetCustomToken(6111, ...) — no setter found in static analysis">&lt;CUSTOM6111&gt;</span></div><ul class="dlg-links"><li><a href="#e38">→ child</a> <span class="dlg-link-preview">“Strike the  from it? There is no refund and no undoing.”</span></li></ul></div>
+<div class="dlg-node reply" id="r241"><div class="dlg-head"><span class="dlg-id">reply #241</span> <span class="dlg-action">→ <code>forge_dis_p2</code></span></div><div class="dlg-text"><span class="custom-token custom-token-unknown" title="SetCustomToken(6112, ...) — no setter found in static analysis">&lt;CUSTOM6112&gt;</span></div><ul class="dlg-links"><li><a href="#e38">→ child</a> <span class="dlg-link-preview">“Strike the  from it? There is no refund and no undoing.”</span></li></ul></div>
+<div class="dlg-node reply" id="r242"><div class="dlg-head"><span class="dlg-id">reply #242</span> <span class="dlg-action">→ <code>forge_dis_p3</code></span></div><div class="dlg-text"><span class="custom-token custom-token-unknown" title="SetCustomToken(6113, ...) — no setter found in static analysis">&lt;CUSTOM6113&gt;</span></div><ul class="dlg-links"><li><a href="#e38">→ child</a> <span class="dlg-link-preview">“Strike the  from it? There is no refund and no undoing.”</span></li></ul></div>
+<div class="dlg-node reply" id="r243"><div class="dlg-head"><span class="dlg-id">reply #243</span> <span class="dlg-action">→ <code>forge_dis_p4</code></span></div><div class="dlg-text"><span class="custom-token custom-token-unknown" title="SetCustomToken(6114, ...) — no setter found in static analysis">&lt;CUSTOM6114&gt;</span></div><ul class="dlg-links"><li><a href="#e38">→ child</a> <span class="dlg-link-preview">“Strike the  from it? There is no refund and no undoing.”</span></li></ul></div>
+<div class="dlg-node reply" id="r244"><div class="dlg-head"><span class="dlg-id">reply #244</span> <span class="dlg-action">→ <code>forge_dis_p5</code></span></div><div class="dlg-text"><span class="custom-token custom-token-unknown" title="SetCustomToken(6115, ...) — no setter found in static analysis">&lt;CUSTOM6115&gt;</span></div><ul class="dlg-links"><li><a href="#e38">→ child</a> <span class="dlg-link-preview">“Strike the  from it? There is no refund and no undoing.”</span></li></ul></div>
+<div class="dlg-node reply" id="r245"><div class="dlg-head"><span class="dlg-id">reply #245</span> <span class="dlg-action">→ <code>forge_dis_p6</code></span></div><div class="dlg-text"><span class="custom-token custom-token-unknown" title="SetCustomToken(6116, ...) — no setter found in static analysis">&lt;CUSTOM6116&gt;</span></div><ul class="dlg-links"><li><a href="#e38">→ child</a> <span class="dlg-link-preview">“Strike the  from it? There is no refund and no undoing.”</span></li></ul></div>
+<div class="dlg-node reply" id="r246"><div class="dlg-head"><span class="dlg-id">reply #246</span> <span class="dlg-action">→ <code>forge_dis_p7</code></span></div><div class="dlg-text"><span class="custom-token custom-token-unknown" title="SetCustomToken(6117, ...) — no setter found in static analysis">&lt;CUSTOM6117&gt;</span></div><ul class="dlg-links"><li><a href="#e38">→ child</a> <span class="dlg-link-preview">“Strike the  from it? There is no refund and no undoing.”</span></li></ul></div>
+<div class="dlg-node reply" id="r247"><div class="dlg-head"><span class="dlg-id">reply #247</span></div><div class="dlg-text">Never mind.</div></div>
+<div class="dlg-node reply" id="r248"><div class="dlg-head"><span class="dlg-id">reply #248</span> <span class="dlg-action">→ <code>forge_dis_go</code></span></div><div class="dlg-text">Yes, strike it. The magic is forfeit.</div><ul class="dlg-links"><li><a href="#e37">→ child</a> <span class="dlg-link-preview">“Which enchantment shall I strike from the ? Mind you — the magic is lost forever…”</span></li></ul></div>
+<div class="dlg-node reply" id="r249"><div class="dlg-head"><span class="dlg-id">reply #249</span></div><div class="dlg-text">No, leave it be.</div><ul class="dlg-links"><li><a href="#e37">→ child</a> <span class="dlg-link-preview">“Which enchantment shall I strike from the ? Mind you — the magic is lost forever…”</span></li></ul></div>
+<div class="dlg-node reply" id="r250"><div class="dlg-head"><span class="dlg-id">reply #250</span></div><div class="dlg-text">Strip an enchantment from the item on the anvil. (no refund)</div><ul class="dlg-links"><li><a href="#e37">→ entry #37</a> <span class="dlg-link-preview">“Which enchantment shall I strike from the ? Mind you — the magic is lost forever…”</span></li></ul></div>
   </main>
   <footer>generated by <a href="https://github.com/mrprice22/nwn-manager">nwn-manager</a> &mdash; <span id="wiki-generated-at"></span></footer>
 </body>

@@ -314,18 +314,22 @@ change succeeds automatically, regardless of your skill ranks.</p>
 <p>Three Forge of Wonders locations let you permanently add or replace magical properties on any
 equippable item, for a gold cost equal to the increase in the item's assessed value. Each forge is
 staffed by a smith NPC; place exactly one item on the nearby anvil, then speak to the smith.
-Each tier also enforces a <strong>maximum item value</strong>: a forge will refuse to apply any
-enchantment that would raise an item's assessed value past that tier's ceiling.</p>
+Each tier also enforces a <strong>maximum item value</strong> and a <strong>maximum number of
+enchantments</strong>: a forge will refuse to apply any enchantment that would raise an item's
+assessed value past that tier's ceiling, or push the item past that tier's property limit.</p>
 
 <div class="tip-box">
   <p><strong>How it works:</strong> Place <em>exactly one item</em> on the anvil placeable in
   the forge room, then speak to the smith. Pick the property you want from the menus; the smith
-  calculates the cost (or refund) before you confirm. When an existing property of the same type
+  calculates the cost before you confirm. When an existing property of the same type
   is already on the item it is <em>replaced</em>, not stacked.</p>
+  <p><strong>Pricing is on the item's true value:</strong> the cost is always computed as if the
+  item were fully identified and unrestricted — leaving an item unidentified (or any other trick
+  that zeroes its sell value) no longer discounts the enchantment or slips past the value caps.</p>
 </div>
 
 <table class="data change-table">
-  <thead><tr><th>Forge</th><th>Location</th><th>Access</th><th>Tier</th><th>Max item value</th></tr></thead>
+  <thead><tr><th>Forge</th><th>Location</th><th>Access</th><th>Tier</th><th>Max item value</th><th>Max properties</th></tr></thead>
   <tbody>
     <tr>
       <td>Tagget's Smith Shop</td>
@@ -333,6 +337,7 @@ enchantment that would raise an item's assessed value past that tier's ceiling.<
       <td>Open to all — no key required</td>
       <td>Low</td>
       <td>250,000 gp</td>
+      <td>4</td>
     </tr>
     <tr>
       <td>Rivendell Smithy</td>
@@ -340,6 +345,7 @@ enchantment that would raise an item's assessed value past that tier's ceiling.<
       <td><strong>Elrond's Writ</strong> must be in your inventory to access the forge option</td>
       <td>Mid</td>
       <td>500,000 gp</td>
+      <td>5</td>
     </tr>
     <tr>
       <td>Moria Forge of Wonders</td>
@@ -347,6 +353,7 @@ enchantment that would raise an item's assessed value past that tier's ceiling.<
       <td><a href="../items/forgekey.html">Forgekey</a> (dropped by the Balrog of Moria) + Legendary travel menu</td>
       <td>High</td>
       <td>750,000 gp</td>
+      <td>6</td>
     </tr>
   </tbody>
 </table>
@@ -361,6 +368,26 @@ enchantment that would raise an item's assessed value past that tier's ceiling.<
   raise the lower limits. The forges only enchant an item <em>upward</em>: a smith will
   <strong>not</strong> apply any change that would lower the item's assessed value (no refunds for
   downgrading a property).</p>
+  <p><strong>Maximum properties:</strong> each forge also caps how many enchantments one item may
+  carry — <strong>4</strong> at Tagget's, <strong>5</strong> at Rivendell, <strong>6</strong> at
+  the Moria Forge. Replacing an existing property of the same type is always allowed; adding a
+  <em>new</em> one past the cap is refused until you have the smith strip an enchantment first.</p>
+</div>
+
+<div class="tip-box">
+  <p><strong>Disenchanting (no refunds):</strong> every forge smith offers
+  <em>"Strip an enchantment from the item on the anvil"</em>. You pick exactly one property from
+  the item's list and the smith destroys it permanently. The magic is simply lost — <strong>no
+  gold is ever paid out</strong> for removed enchantments.</p>
+</div>
+
+<div class="tip-box">
+  <p><strong>⚠ Contraband gear:</strong> an item that has been <em>modified</em> beyond the
+  legal limits — more than <strong>6 enchantments</strong> or <strong>750,000 gp</strong> assessed
+  value — is contraband. Carrying one into the Well of Eru (or logging in with one) lands you in
+  the Pit Prison, where the <strong>Forge Warden</strong> will strip enchantments from it (no
+  refunds) and release you only once your gear is lawful again. Unmodified relics that are
+  naturally that powerful are not affected — only gear forged past the limits.</p>
 </div>
 
 <p><strong>Available enchantments by tier:</strong></p>

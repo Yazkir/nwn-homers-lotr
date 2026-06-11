@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="utf-8">
-  <title>Script calcmodvalue2</title>
+  <title>Script forge_ward_intro</title>
   <link rel="stylesheet" href="../assets/style.css">
   <link rel="stylesheet" href="../assets/theme.css">
   <link rel="icon" href="../assets/favicon.png">
@@ -45,48 +45,16 @@
     </nav>
   </header>
   <main>
-<h1>Script: <code>calcmodvalue2</code></h1><pre class="nss-source"><code>#include &quot;forge_inc&quot;
+<h1>Script: <code>forge_ward_intro</code></h1><pre class="nss-source"><code>// Forge Warden accusation entry: name the offending item and prime the
+// disenchant property list (shared forge_dis_* scripts work off these).
+#include &quot;forge_inc&quot;
 
 void main()
 {
     object oPC = GetPCSpeaker();
-    object oItem = GetLocalObject(oPC, &quot;MODIFY_ITEM&quot;);
-    object oCopy = GetLocalObject(oPC, &quot;MODIFY_COPY&quot;);
-
-    //Value both sides as identified, non-plot copies (ForgeItemValue) so an
-    //unidentified or plot-flagged item can never quote a zero-cost enchant.
-    int iCurrentValue = ForgeItemValue(oItem);
-    int iNewValue = ForgeItemValue(oCopy);
-    DestroyObject(oCopy);
-
-    //Valuation unavailable: quote as a refused downgrade so modifyitem can
-    //never apply the property for free.
-    if (iCurrentValue &lt; 0 || iNewValue &lt; 0)
-    {
-        ForgeLog(&quot;calcmodvalue2: valuation failed for &#x27;&quot; + GetName(oItem)
-            + &quot;&#x27; — refusing&quot;);
-        SetLocalInt(oPC, &quot;MODIFY_VALUE&quot;, 0);
-        SetLocalInt(oPC, &quot;MODIFY_DIFF&quot;, -1);
-        SetCustomToken(101, &quot;0&quot;);
-        return;
-    }
-
-    //Either amount to pay, refund or no change
-    int iValue = 0;
-    int iDiff = 0;
-    if (iNewValue &gt; iCurrentValue)
-        {
-        iValue = iNewValue - iCurrentValue;
-        iDiff = 1; //iValue is amount to pay
-        }
-    else if (iNewValue &lt; iCurrentValue)
-        {
-        iValue = iCurrentValue - iNewValue;
-        iDiff = -1; //iValue is refund
-        };
-    SetLocalInt(oPC, &quot;MODIFY_VALUE&quot;, iValue);
-    SetLocalInt(oPC, &quot;MODIFY_DIFF&quot;, iDiff);
-    SetCustomToken(101, IntToString(iValue));
+    object oBad = ForgeFindIllegalItem(oPC);
+    SetLocalObject(oPC, &quot;FORGE_ILLEGAL_ITEM&quot;, oBad);
+    ForgeDisenchantSetup(oPC, oBad);
 }
 </code></pre>
   </main>

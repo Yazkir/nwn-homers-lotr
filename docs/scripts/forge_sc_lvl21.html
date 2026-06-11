@@ -45,7 +45,9 @@
     </nav>
   </header>
   <main>
-<h1>Script: <code>forge_sc_lvl21</code></h1><pre class="nss-source"><code>int StartingConditional()
+<h1>Script: <code>forge_sc_lvl21</code></h1><pre class="nss-source"><code>#include &quot;forge_inc&quot;
+
+int StartingConditional()
 {
 
 object oAnvil = GetNearestObjectByTag(&quot;pAnvilOfWonder&quot;);
@@ -54,7 +56,7 @@ object oAnvil = GetNearestObjectByTag(&quot;pAnvilOfWonder&quot;);
         object oItem = GetFirstItemInInventory(oAnvil);
         if (oItem != OBJECT_INVALID)
             {
-            if (!(GetGoldPieceValue(oItem) &gt;= 220000)) return FALSE;
+            if (!(ForgeItemValue(oItem) &gt;= 220000)) return FALSE;
             }
          }
 return TRUE;

@@ -1,0 +1,364 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Script forge_inc</title>
+  <link rel="stylesheet" href="../assets/style.css">
+  <link rel="stylesheet" href="../assets/theme.css">
+  <link rel="icon" href="../assets/favicon.png">
+  <script src="../assets/site.js" defer></script>
+</head>
+<body>
+  <header class="site-header">
+    <a class="brand" href="../index.html"><img class="site-header-img" src="../assets/header.png" alt="Home"></a>
+    <nav>
+      <a href="../index.html">Map</a>
+      <a href="../areas/index.html">Areas</a>
+      <div class="nav-dropdown">
+        <span class="nav-dropdown-label">Creatures &#9660;</span>
+        <div class="nav-dropdown-menu">
+          <a href="../creatures/index.html">All Creatures</a>
+          <a href="../creatures/by-area/index.html">By Area</a>
+          <a href="../creatures/by-cr/index.html">By Challenge Rating</a>
+          <a href="../creatures/by-race/index.html">By Race</a>
+        </div>
+      </div>
+      <div class="nav-dropdown">
+        <span class="nav-dropdown-label">Items &#9660;</span>
+        <div class="nav-dropdown-menu">
+          <a href="../items/index.html">Accessible</a>
+          <a href="../items/inaccessible/index.html">Inaccessible</a>
+          <a href="../items/properties/index.html">By Property</a>
+          <a href="../items/search.html">Search</a>
+        </div>
+      </div>
+      <a href="../stores/index.html">Stores</a>
+      <a href="../conversations/index.html">Conversations</a>
+      <a href="../factions.html">Factions</a>
+      <a href="../quests/index.html">Quests</a>
+      <a href="../activity.html">Activity</a>
+      <div class="nav-dropdown"><span class="nav-dropdown-label">Documents &#9660;</span><div class="nav-dropdown-menu"><a href="../manual/Customizations.html">Customizations</a>
+<a href="../manual/LevelingGuide.html">Leveling Guide</a>
+<a href="../manual/MeaningWave.html">MeaningWave: A Guide to the Guides</a>
+<a href="../manual/Quest Ideas.html">Quest Ideas (Draft Concepts)</a>
+<a href="../manual/QuestGuide.html">Quest Guide</a></div></div>
+    </nav>
+  </header>
+  <main>
+<h1>Script: <code>forge_inc</code></h1><dl class="meta"><dt>Teleports to</dt><dd><code>jailed</code> (<a href="../areas/prison.html">0o Pit Prison o0</a>)</dd></dl><pre class="nss-source"><code>// forge_inc.nss — shared helpers for the Forge of Wonders system.
+//
+// Pricing, per-forge caps, legality checks and the disenchant service all go
+// through here. Do NOT #include &quot;itemprocs&quot; from this file (NWScript has no
+// include guards; consumer scripts include both side by side).
+//
+// Reserved custom tokens: 6110-6117 disenchant slot names, 6118 picked name
+// (forge already uses 100-103).
+
+const int FORGE_LEGAL_MAX_PROPS = 6;
+const int FORGE_LEGAL_MAX_VALUE = 750000;
+const string FORGE_VAULT_TAG = &quot;FORGE_VAULT&quot;;
+const int FORGE_DIS_SLOTS = 8;
+
+void ForgeLog(string sMsg)
+{
+    if (!GetLocalInt(GetModule(), &quot;FORGE_DEBUG&quot;)) return;
+    string sLine = &quot;[FORGE] &quot; + sMsg;
+    WriteTimestampedLogEntry(sLine);
+    SendMessageToAllDMs(sLine);
+}
+
+// Hidden inventory placeable (in the prison) used to host temporary item
+// copies so valuations never transit a player-visible inventory or fire
+// OnAcquireItem hooks. Falls back to OBJECT_SELF when it has an inventory.
+object ForgeHolder()
+{
+    object oVault = GetObjectByTag(FORGE_VAULT_TAG);
+    if (GetIsObjectValid(oVault))
+        return oVault;
+    if (GetHasInventory(OBJECT_SELF))
+        return OBJECT_SELF;
+    ForgeLog(&quot;ForgeHolder: FORGE_VAULT missing and OBJECT_SELF has no inventory&quot;);
+    return OBJECT_INVALID;
+}
+
+// True assessed value of an item: priced as an identified, non-plot copy so
+// unidentified/plot status can never discount an enchantment or dodge a cap.
+// Returns -1 when no valuation is possible (callers must refuse, not treat
+// as free).
+int ForgeItemValue(object oItem)
+{
+    if (!GetIsObjectValid(oItem))
+        return -1;
+    object oHolder = ForgeHolder();
+    if (!GetIsObjectValid(oHolder))
+        return -1;
+    object oCopy = CopyItem(oItem, oHolder, TRUE);
+    if (!GetIsObjectValid(oCopy))
+        return -1;
+    SetIdentified(oCopy, TRUE);
+    SetPlotFlag(oCopy, FALSE);
+    int nValue = GetGoldPieceValue(oCopy);
+    DestroyObject(oCopy);
+    return nValue;
+}
+
+int ForgeCountProps(object oItem)
+{
+    int nCount = 0;
+    itemproperty ip = GetFirstItemProperty(oItem);
+    while (GetIsItemPropertyValid(ip))
+    {
+        if (GetItemPropertyDurationType(ip) == DURATION_TYPE_PERMANENT)
+            nCount++;
+        ip = GetNextItemProperty(oItem);
+    }
+    return nCount;
+}
+
+// Same matcher CustomAddProperty (itemprocs) uses to replace-instead-of-add:
+// a property &quot;matches&quot; when types are equal and the new property&#x27;s subtype is
+// -1 (wildcard) or equal. A matching enchant replaces and does not grow the
+// property count.
+int ForgePropMatchesExisting(object oItem, itemproperty ip)
+{
+    int iTyp = GetItemPropertyType(ip);
+    int iSubTyp = GetItemPropertySubType(ip);
+    itemproperty ipLoop = GetFirstItemProperty(oItem);
+    while (GetIsItemPropertyValid(ipLoop))
+    {
+        if (GetItemPropertyType(ipLoop) == iTyp
+            &amp;&amp; (iSubTyp == -1 || GetItemPropertySubType(ipLoop) == iSubTyp))
+            return TRUE;
+        ipLoop = GetNextItemProperty(oItem);
+    }
+    return FALSE;
+}
+
+// Nth (0-based) permanent property, in GetFirstItemProperty order.
+itemproperty ForgeGetPermPropByIndex(object oItem, int nIndex)
+{
+    int nCount = 0;
+    itemproperty ip = GetFirstItemProperty(oItem);
+    while (GetIsItemPropertyValid(ip))
+    {
+        if (GetItemPropertyDurationType(ip) == DURATION_TYPE_PERMANENT)
+        {
+            if (nCount == nIndex)
+                return ip;
+            nCount++;
+        }
+        ip = GetNextItemProperty(oItem);
+    }
+    itemproperty ipInvalid;
+    return ipInvalid;
+}
+
+// Human-readable property label from the 2das, e.g.
+// &quot;Enhancement Bonus: +3&quot; or &quot;Damage Bonus: Fire / 2d6&quot;.
+// Falls back to raw numbers when a 2da lookup comes back empty.
+string ForgePropName(itemproperty ip)
+{
+    int iTyp = GetItemPropertyType(ip);
+    string sName;
+    string sRef = Get2DAString(&quot;itempropdef&quot;, &quot;GameStrRef&quot;, iTyp);
+    if (sRef != &quot;&quot;)
+        sName = GetStringByStrRef(StringToInt(sRef));
+    if (sName == &quot;&quot;)
+        sName = &quot;Property #&quot; + IntToString(iTyp);
+
+    int iSubTyp = GetItemPropertySubType(ip);
+    if (iSubTyp &gt;= 0)
+    {
+        string sSubRes = Get2DAString(&quot;itempropdef&quot;, &quot;SubTypeResRef&quot;, iTyp);
+        if (sSubRes != &quot;&quot;)
+        {
+            string sSubRef = Get2DAString(sSubRes, &quot;Name&quot;, iSubTyp);
+            string sSub = &quot;&quot;;
+            if (sSubRef != &quot;&quot;)
+                sSub = GetStringByStrRef(StringToInt(sSubRef));
+            if (sSub == &quot;&quot;)
+                sSub = IntToString(iSubTyp);
+            sName += &quot;: &quot; + sSub;
+        }
+    }
+
+    int iCostTab = GetItemPropertyCostTable(ip);
+    if (iCostTab &gt;= 0)
+    {
+        string sCostRes = Get2DAString(&quot;iprp_costtable&quot;, &quot;Name&quot;, iCostTab);
+        if (sCostRes != &quot;&quot;)
+        {
+            string sCostRef = Get2DAString(sCostRes, &quot;Name&quot;,
+                GetItemPropertyCostTableValue(ip));
+            string sCost = &quot;&quot;;
+            if (sCostRef != &quot;&quot;)
+                sCost = GetStringByStrRef(StringToInt(sCostRef));
+            if (sCost != &quot;&quot;)
+                sName += &quot; &quot; + sCost;
+        }
+    }
+    return sName;
+}
+
+// Compare oItem&#x27;s permanent properties against its pristine blueprint
+// (instantiated by resref). Order-insensitive multiset compare keyed on
+// (type, subtype, costtablevalue, param1value). Unknown resref counts as
+// deviating — conservative by design.
+int ForgeItemDeviatesFromBlueprint(object oItem)
+{
+    object oHolder = ForgeHolder();
+    if (!GetIsObjectValid(oHolder))
+        return FALSE; // can&#x27;t judge — never jail on infrastructure failure
+
+    string sResRef = GetResRef(oItem);
+    object oStock = CreateItemOnObject(sResRef, oHolder);
+    if (!GetIsObjectValid(oStock))
+    {
+        ForgeLog(&quot;DeviatesFromBlueprint: no blueprint for resref &#x27;&quot; + sResRef
+            + &quot;&#x27; (item &#x27;&quot; + GetName(oItem) + &quot;&#x27;) — treating as deviant&quot;);
+        return TRUE;
+    }
+
+    int bDeviates = FALSE;
+    if (ForgeCountProps(oItem) != ForgeCountProps(oStock))
+        bDeviates = TRUE;
+    else
+    {
+        // Every property on oItem must consume a distinct match on oStock.
+        // Track consumed stock properties by index in a flag string.
+        int nStock = ForgeCountProps(oStock);
+        string sUsed; // one char per stock prop: &quot;0&quot; free, &quot;1&quot; consumed
+        int i;
+        for (i = 0; i &lt; nStock; i++)
+            sUsed += &quot;0&quot;;
+
+        itemproperty ip = GetFirstItemProperty(oItem);
+        while (!bDeviates &amp;&amp; GetIsItemPropertyValid(ip))
+        {
+            if (GetItemPropertyDurationType(ip) == DURATION_TYPE_PERMANENT)
+            {
+                int bMatched = FALSE;
+                for (i = 0; i &lt; nStock &amp;&amp; !bMatched; i++)
+                {
+                    if (GetSubString(sUsed, i, 1) == &quot;0&quot;)
+                    {
+                        itemproperty ipS = ForgeGetPermPropByIndex(oStock, i);
+                        if (GetItemPropertyType(ipS) == GetItemPropertyType(ip)
+                            &amp;&amp; GetItemPropertySubType(ipS) == GetItemPropertySubType(ip)
+                            &amp;&amp; GetItemPropertyCostTableValue(ipS) == GetItemPropertyCostTableValue(ip)
+                            &amp;&amp; GetItemPropertyParam1Value(ipS) == GetItemPropertyParam1Value(ip))
+                        {
+                            sUsed = GetStringLeft(sUsed, i) + &quot;1&quot;
+                                + GetSubString(sUsed, i + 1, nStock - i - 1);
+                            bMatched = TRUE;
+                        }
+                    }
+                }
+                if (!bMatched)
+                    bDeviates = TRUE;
+            }
+            ip = GetNextItemProperty(oItem);
+        }
+    }
+    DestroyObject(oStock);
+    return bDeviates;
+}
+
+// Illegal = exceeds the global legal ceiling (6 properties / 750,000 gp)
+// AND was tampered with (deviates from its stock blueprint). Stock drops
+// above the ceiling stay legal.
+int ForgeIsItemIllegal(object oItem)
+{
+    if (!GetIsObjectValid(oItem))
+        return FALSE;
+    int nValue = ForgeItemValue(oItem);
+    if (ForgeCountProps(oItem) &lt;= FORGE_LEGAL_MAX_PROPS
+        &amp;&amp; nValue &gt;= 0 &amp;&amp; nValue &lt;= FORGE_LEGAL_MAX_VALUE)
+        return FALSE;
+    if (nValue &lt; 0)
+        return FALSE; // no valuation infrastructure — never jail blind
+    return ForgeItemDeviatesFromBlueprint(oItem);
+}
+
+// First illegal item on the PC: equipped slots, then inventory, descending
+// one level into containers (bags can&#x27;t nest in NWN).
+object ForgeFindIllegalItem(object oPC)
+{
+    int nSlot;
+    for (nSlot = 0; nSlot &lt; NUM_INVENTORY_SLOTS; nSlot++)
+    {
+        object oItem = GetItemInSlot(nSlot, oPC);
+        if (GetIsObjectValid(oItem) &amp;&amp; ForgeIsItemIllegal(oItem))
+            return oItem;
+    }
+    object oItem = GetFirstItemInInventory(oPC);
+    while (GetIsObjectValid(oItem))
+    {
+        if (ForgeIsItemIllegal(oItem))
+            return oItem;
+        if (GetHasInventory(oItem))
+        {
+            object oInBag = GetFirstItemInInventory(oItem);
+            while (GetIsObjectValid(oInBag))
+            {
+                if (ForgeIsItemIllegal(oInBag))
+                    return oInBag;
+                oInBag = GetNextItemInInventory(oItem);
+            }
+        }
+        oItem = GetNextItemInInventory(oPC);
+    }
+    return OBJECT_INVALID;
+}
+
+// Prime the disenchant sub-conversation: target item on the PC, property
+// count, and one custom token per listed property slot.
+void ForgeDisenchantSetup(object oPC, object oTarget)
+{
+    SetLocalObject(oPC, &quot;FORGE_DIS_ITEM&quot;, oTarget);
+    int nCount = 0;
+    if (GetIsObjectValid(oTarget))
+    {
+        nCount = ForgeCountProps(oTarget);
+        SetCustomToken(100, GetName(oTarget));
+    }
+    SetLocalInt(oPC, &quot;FORGE_DIS_COUNT&quot;, nCount);
+    int n;
+    for (n = 0; n &lt; FORGE_DIS_SLOTS; n++)
+    {
+        string sLabel = &quot;&quot;;
+        if (n &lt; nCount)
+            sLabel = ForgePropName(ForgeGetPermPropByIndex(oTarget, n));
+        SetCustomToken(6110 + n, sLabel);
+    }
+}
+
+// Jail the PC in the Pit Prison if they carry illegally forged gear.
+void ForgeJailIfIllegal(object oPC)
+{
+    if (!GetIsPC(oPC) || GetIsDM(oPC))
+        return;
+    object oBad = ForgeFindIllegalItem(oPC);
+    if (!GetIsObjectValid(oBad))
+        return;
+    SetLocalObject(oPC, &quot;FORGE_ILLEGAL_ITEM&quot;, oBad);
+    ForgeLog(&quot;Jailing &quot; + GetName(oPC) + &quot; for item &#x27;&quot; + GetName(oBad)
+        + &quot;&#x27; (resref &quot; + GetResRef(oBad) + &quot;, props &quot;
+        + IntToString(ForgeCountProps(oBad)) + &quot;, value &quot;
+        + IntToString(ForgeItemValue(oBad)) + &quot;)&quot;);
+    object oWP = GetWaypointByTag(&quot;jailed&quot;);
+    if (!GetIsObjectValid(oWP))
+    {
+        ForgeLog(&quot;ForgeJailIfIllegal: waypoint &#x27;jailed&#x27; missing!&quot;);
+        return;
+    }
+    FloatingTextStringOnCreature(&quot;The &quot; + GetName(oBad) + &quot; you carry bears &quot;
+        + &quot;unlawful enchantment. The Valar take notice...&quot;, oPC, FALSE);
+    location lJail = GetLocation(oWP);
+    DelayCommand(1.0, AssignCommand(oPC, JumpToLocation(lJail)));
+}
+</code></pre>
+  </main>
+  <footer>generated by <a href="https://github.com/mrprice22/nwn-manager">nwn-manager</a> &mdash; <span id="wiki-generated-at"></span></footer>
+</body>
+</html>

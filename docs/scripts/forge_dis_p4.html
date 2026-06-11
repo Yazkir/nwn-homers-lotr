@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="utf-8">
-  <title>Script calcremoverefund</title>
+  <title>Script forge_dis_p4</title>
   <link rel="stylesheet" href="../assets/style.css">
   <link rel="stylesheet" href="../assets/theme.css">
   <link rel="icon" href="../assets/favicon.png">
@@ -45,14 +45,15 @@
     </nav>
   </header>
   <main>
-<h1>Script: <code>calcremoverefund</code></h1><pre class="nss-source"><code>void main()
+<h1>Script: <code>forge_dis_p4</code></h1><pre class="nss-source"><code>// Pick disenchant slot 4 and stage its name in token 6118 for the confirm.
+#include &quot;forge_inc&quot;
+
+void main()
 {
     object oPC = GetPCSpeaker();
-    object oItem = GetLocalObject(oPC, &quot;MODIFY_ITEM&quot;);
-    int iBaseValue = GetLocalInt(oItem, &quot;FORGE_BASE_VALUE&quot;);
-    int iBaseRefund = iBaseValue * 50 / 100;
-    if (iBaseRefund &gt; 60000) iBaseRefund = 60000;
-    SetCustomToken(101, IntToString(GetLocalInt(oItem, &quot;FORGE_GP_INVESTED&quot;) + iBaseRefund));
+    SetLocalInt(oPC, &quot;FORGE_DIS_PICK&quot;, 4);
+    SetCustomToken(6118, ForgePropName(ForgeGetPermPropByIndex(
+        GetLocalObject(oPC, &quot;FORGE_DIS_ITEM&quot;), 4)));
 }
 </code></pre>
   </main>
