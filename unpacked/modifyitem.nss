@@ -1,3 +1,4 @@
+#include "forge_inc"
 #include "itemprocs"
 
 void main()
@@ -11,14 +12,33 @@ void main()
 
     //Per-forge value ceiling: refuse enchants that would raise the item's
     //assessed value past this forge's cap (0 = uncapped). Only value-increasing
-    //enchants (iDiff == 1) can breach it; refunds/no-change pass through.
+    //enchants (iDiff == 1) can breach it; no-change passes through.
+    //Value is the true identified, non-plot assessment (ForgeItemValue), so
+    //unidentified/plot items can't slip under the cap; a failed valuation
+    //(-1) refuses rather than passing as cheap.
     //Prospective new value = current value + quoted cost (MODIFY_VALUE).
     int iMax = GetLocalInt(oPC, "MODIFY_MAX");
-    if (iMax > 0 && iDiff == 1 && GetGoldPieceValue(oItem) + iValue > iMax)
+    int iCurValue = ForgeItemValue(oItem);
+    if (iMax > 0 && iDiff == 1 && (iCurValue < 0 || iCurValue + iValue > iMax))
         {
         SpeakString("I'm sorry — my forge cannot work this piece any further. I "
             + "dare not raise its worth past " + IntToString(iMax) + " gold. Take "
             + "it to a greater forge if you would push it beyond that.");
+        return;
+        }
+
+    //Per-forge property-count ceiling (0 = uncapped). Replacing an existing
+    //property of the same type doesn't grow the count, so it stays allowed.
+    int iMaxProps = GetLocalInt(oPC, "MODIFY_MAX_PROPS");
+    itemproperty ipNew = GetNewProperty(oItem);
+    if (iMaxProps > 0 && GetIsItemPropertyValid(ipNew)
+        && !ForgePropMatchesExisting(oItem, ipNew)
+        && ForgeCountProps(oItem) >= iMaxProps)
+        {
+        SpeakString("This piece already carries " + IntToString(iMaxProps)
+            + " enchantments — as much power as my forge dares bind into one "
+            + "item. Have me strike an enchantment from it first, or seek a "
+            + "greater forge.");
         return;
         }
 
@@ -46,8 +66,6 @@ void main()
         }
 
     //Modify item
-    itemproperty ip = GetNewProperty(oItem);
-
-    if ( GetIsItemPropertyValid(ip))
-        CustomAddProperty(oItem, ip);
+    if ( GetIsItemPropertyValid(ipNew))
+        CustomAddProperty(oItem, ipNew);
 }

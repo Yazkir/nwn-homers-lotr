@@ -1,13 +1,28 @@
+#include "forge_inc"
+
 void main()
 {
     object oPC = GetPCSpeaker();
     object oItem = GetLocalObject(oPC, "MODIFY_ITEM");
     object oCopy = GetLocalObject(oPC, "MODIFY_COPY");
 
-    //Get values of original item and modified copy, then destroy copy
-    int iCurrentValue = GetGoldPieceValue(oItem);
-    int iNewValue = GetGoldPieceValue(oCopy);
+    //Value both sides as identified, non-plot copies (ForgeItemValue) so an
+    //unidentified or plot-flagged item can never quote a zero-cost enchant.
+    int iCurrentValue = ForgeItemValue(oItem);
+    int iNewValue = ForgeItemValue(oCopy);
     DestroyObject(oCopy);
+
+    //Valuation unavailable: quote as a refused downgrade so modifyitem can
+    //never apply the property for free.
+    if (iCurrentValue < 0 || iNewValue < 0)
+    {
+        ForgeLog("calcmodvalue2: valuation failed for '" + GetName(oItem)
+            + "' — refusing");
+        SetLocalInt(oPC, "MODIFY_VALUE", 0);
+        SetLocalInt(oPC, "MODIFY_DIFF", -1);
+        SetCustomToken(101, "0");
+        return;
+    }
 
     //Either amount to pay, refund or no change
     int iValue = 0;

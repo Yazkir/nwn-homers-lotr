@@ -1,10 +1,4 @@
-void ForgeLog(string sMsg)
-{
-    if (!GetLocalInt(GetModule(), "FORGE_DEBUG")) return;
-    string sLine = "[FORGE] " + sMsg;
-    WriteTimestampedLogEntry(sLine);
-    SendMessageToAllDMs(sLine);
-}
+#include "forge_inc"
 
 void SetTokens(object oItem)
 {
@@ -204,16 +198,18 @@ int StartingConditional()
         ForgeLog("isitemonanvil: PC=" + GetName(oPC) + " MULTIPLE ITEMS on anvil — returning FALSE");
         return FALSE;
     }
-    ForgeLog("isitemonanvil: PC=" + GetName(oPC) + " item='" + GetName(oItem) + "' value=" + IntToString(GetGoldPieceValue(oItem)) + " — returning TRUE");
+    ForgeLog("isitemonanvil: PC=" + GetName(oPC) + " item='" + GetName(oItem) + "' value=" + IntToString(ForgeItemValue(oItem)) + " — returning TRUE");
     if (!GetLocalInt(oItem, "FORGE_BASE_SET"))
     {
-        SetLocalInt(oItem, "FORGE_BASE_VALUE", GetGoldPieceValue(oItem));
+        SetLocalInt(oItem, "FORGE_BASE_VALUE", ForgeItemValue(oItem));
         SetLocalInt(oItem, "FORGE_BASE_SET", TRUE);
     }
     SetLocalObject(oPC, "MODIFY_ITEM", oItem);
-    // Per-forge value ceiling: read from the anvil's area (0 = uncapped).
-    // FORGE_MAX_VALUE is set on each forge area's local vars (low 250k / mid 500k / high 750k).
+    // Per-forge ceilings: read from the anvil's area (0 = uncapped).
+    // FORGE_MAX_VALUE (low 250k / mid 500k / high 750k) and FORGE_MAX_PROPS
+    // (low 4 / mid 5 / high 6) are set on each forge area's local vars.
     SetLocalInt(oPC, "MODIFY_MAX", GetLocalInt(GetArea(oAnvil), "FORGE_MAX_VALUE"));
+    SetLocalInt(oPC, "MODIFY_MAX_PROPS", GetLocalInt(GetArea(oAnvil), "FORGE_MAX_PROPS"));
     SetTokens(oItem);
     return TRUE;
 }
