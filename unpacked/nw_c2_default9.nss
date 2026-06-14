@@ -308,4 +308,7 @@ void main()
 
     }
 
+    // Bestiary kill-tracking: install the OnDamaged/OnDeath wrappers (idempotent).
+    // Also covers x2_def_spawn creatures, which chain to this script.
+    ExecuteScript("bst_install", OBJECT_SELF);
 }

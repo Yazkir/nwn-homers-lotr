@@ -61,6 +61,11 @@ void main()
       AssignCommand(oActivator, ActionStartConversation(oActivator, "mw_mixtape_use", TRUE, FALSE));
       return;
    }
+   if(GetTag(oItem)=="bestiarybook")
+   {
+      AssignCommand(oActivator, ActionStartConversation(oActivator, "bst_book", TRUE));
+      return;
+   }
     //object oItem=GetItemActivated();
     object oUser=GetItemActivator();
     object oOther=GetItemActivatedTarget();

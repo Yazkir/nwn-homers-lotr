@@ -200,6 +200,11 @@ void main()
         // Illegally forged gear (tampered + over 6 props / 750k value) lands
         // the bearer in the Pit Prison until a Forge Warden strips it legal.
         ForgeJailIfIllegal(oPC);
+
+        // Give the Bestiary book once per character (activate it to view your
+        // creature-kill records). Plot item, so it can't be dropped or sold.
+        if (!GetIsObjectValid(GetItemPossessedBy(oPC, "bestiarybook")))
+            CreateItemOnObject("bestiarybook", oPC);
     }
 
     StockDonationsChest();

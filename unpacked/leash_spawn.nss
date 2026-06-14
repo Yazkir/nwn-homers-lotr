@@ -8,4 +8,7 @@
 void main()
 {
     SetLocalLocation(OBJECT_SELF, "spawn", GetLocation(OBJECT_SELF));
+
+    // Bestiary kill-tracking: install the OnDamaged/OnDeath wrappers (idempotent).
+    ExecuteScript("bst_install", OBJECT_SELF);
 }

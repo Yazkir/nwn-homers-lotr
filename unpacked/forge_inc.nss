@@ -37,6 +37,22 @@ int ForgeIsCosmeticProp(itemproperty ip)
         || nType == ITEM_PROPERTY_LIGHT;
 }
 
+// Creature items (natural weapons / hide) are equipped by the engine into the
+// creature slots during polymorph — druid Dragon Shape, wild shape, shifter
+// forms, etc. They carry the form's built-in enchantments, have no stock
+// blueprint, and cannot be forged or disenchanted by a player, so they must
+// never count as contraband. Base item types 69-73 (CSLASHWEAPON, CPIERCWEAPON,
+// CBLUDGWEAPON, CSLSHPRCWEAP, CREATUREITEM).
+int ForgeIsCreatureItem(object oItem)
+{
+    int nBase = GetBaseItemType(oItem);
+    return nBase == BASE_ITEM_CSLASHWEAPON
+        || nBase == BASE_ITEM_CPIERCWEAPON
+        || nBase == BASE_ITEM_CBLUDGWEAPON
+        || nBase == BASE_ITEM_CSLSHPRCWEAP
+        || nBase == BASE_ITEM_CREATUREITEM;
+}
+
 // Hidden inventory placeable (in the prison) used to host temporary item
 // copies so valuations never transit a player-visible inventory or fire
 // OnAcquireItem hooks. Falls back to OBJECT_SELF when it has an inventory.
@@ -244,6 +260,8 @@ int ForgeIsItemIllegal(object oItem)
 {
     if (!GetIsObjectValid(oItem))
         return FALSE;
+    if (ForgeIsCreatureItem(oItem))
+        return FALSE; // polymorph natural weapon/hide — engine-managed, never forged
     int nValue = ForgeItemValue(oItem);
     if (ForgeCountProps(oItem) <= FORGE_LEGAL_MAX_PROPS
         && nValue >= 0 && nValue <= FORGE_LEGAL_MAX_VALUE)

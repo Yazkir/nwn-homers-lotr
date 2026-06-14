@@ -8,6 +8,7 @@
 
 #include "pers_state_inc"
 #include "merit_db"
+#include "bst_db"
 #include "forge_inc"
 
 // Death amulet check + persistent state restore. Delayed so the engine's
@@ -69,6 +70,12 @@ void main()
     Merit_InitDb();
     Merit_RecordLogin(oPC);
     DelayCommand(3.0, Merit_LoginMessage(oPC));
+
+    // Bestiary kill-tracking: ensure the DB exists and force this character's
+    // persistent UUID (stored in the .bic) to be generated, since it is the
+    // per-character identity key for all kill records.
+    Bst_InitDb();
+    GetObjectUUID(oPC);
 
     // Server-info reference journals (Rules/Guilds/Website). Each category's
     // entry 1 has End=1, so these land in the player's Completed section.

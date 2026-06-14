@@ -21,6 +21,11 @@ void main()
     if (GetObjectType(oCre) != OBJECT_TYPE_CREATURE) return;
     if (GetIsPC(oCre) || GetIsDM(oCre) || GetIsDMPossessed(oCre)) return;
 
+    // Bestiary kill-tracking safety net: ensure the OnDamaged/OnDeath wrappers
+    // are installed on any creature entering an area, in case its OnSpawn variant
+    // wasn't one of the hooked ones. Idempotent (guarded by "bst_hooked").
+    ExecuteScript("bst_install", oCre);
+
     // Never leash anything that follows a player: henchmen, summons,
     // familiars, animal companions, dominated creatures all have a master.
     if (GetIsObjectValid(GetMaster(oCre))) return;

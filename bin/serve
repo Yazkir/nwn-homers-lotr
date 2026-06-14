@@ -109,9 +109,19 @@ if [[ -f "$_settings" ]]; then
   python3 - "$_settings" <<'PYEOF'
 import re, sys
 txt = open(sys.argv[1]).read()
-txt = re.sub(r'(always-roll-max-hitpoints-on-levelup\s*=\s*)false', r'\1true', txt, count=1)
-txt = re.sub(r'(\t\tsticky-modes\s*=\s*)false', r'\1true', txt, count=1)
-txt = re.sub(r'(max-ability-bonus\s*=\s*)\d+', r'\124', txt, count=1)
+txt = re.sub(r'(always-roll-max-hitpoints-on-levelup\s*=\s*)false', r'\g<1>true', txt, count=1)
+txt = re.sub(r'(\t\tsticky-modes\s*=\s*)false', r'\g<1>true', txt, count=1)
+
+# Force the item/effect ability-bonus cap to 24 under [ruleset.combat].
+# Self-healing and idempotent: handles a pristine file, an already-24 file, or
+# the corruption a previous buggy patch could leave behind. (The old code used
+# the replacement r'\124', which Python parses as the OCTAL escape \124 = 'T',
+# clobbering the whole line to a lone "T"; use r'\g<1>24' to mean group-1 + 24.)
+txt = re.sub(r'(?m)^\t\tT[ \t]*\r?\n', '', txt)           # drop the stray-'T' artifact
+if re.search(r'(?m)^[ \t]*max-ability-bonus[ \t]*=', txt):
+    txt = re.sub(r'(max-ability-bonus\s*=\s*)\d+', r'\g<1>24', txt, count=1)
+else:                                                     # key missing: insert it
+    txt = re.sub(r'(?m)^(\t\[ruleset\.combat\]\n)', r'\g<1>\t\tmax-ability-bonus = 24\n', txt, count=1)
 open(sys.argv[1], 'w').write(txt)
 PYEOF
   echo "[serve] patched settings.tml: sticky-modes=true, always-roll-max-hitpoints-on-levelup=true, max-ability-bonus=24"
