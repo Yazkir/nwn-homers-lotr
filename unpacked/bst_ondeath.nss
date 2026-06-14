@@ -87,6 +87,26 @@ void main()
             + sCreName + (bParty ? " (Party)." : " (Solo)."));
     }
 
+    // Uncatalogued kill: the creature was slain (and recorded above) but isn't in
+    // the seeded catalogue, so it won't show in the in-game book / wiki "present"
+    // list. Flag it for a DM to add it to the module or refresh the wiki. Logged
+    // once per resref per server session to avoid spam.
+    if (!Bst_InCatalogue(sCan))
+    {
+        object oMod = GetModule();
+        string sGuard = "bst_uncat_" + sCan;
+        if (!GetLocalInt(oMod, sGuard))
+        {
+            SetLocalInt(oMod, sGuard, 1);
+            string sLog = "[Bestiary] Uncatalogued creature slain: '" + sCreName
+                + "' (resref " + sCan + ", CR " + IntToString(FloatToInt(fCR))
+                + ") by " + GetName(oSlayer)
+                + ". Add it to the module or refresh the wiki catalogue.";
+            WriteTimestampedLogEntry(sLog);
+            SendMessageToAllDMs(sLog);
+        }
+    }
+
     // Server-first broadcast for hard creatures.
     if (fCR >= BST_SF_CR && GetIsObjectValid(oSlayer)
         && Bst_RegisterServerFirst(sCan, fCR, GetObjectUUID(oSlayer),
