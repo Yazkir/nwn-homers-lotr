@@ -63,6 +63,9 @@ void main()
     // Record spawn area so the creature can be leashed to it (see leash_to_area.nss).
     SetLocalLocation(OBJECT_SELF, &quot;spawn&quot;, GetLocation(OBJECT_SELF));
 
+    // Bestiary kill-tracking: install the OnDamaged/OnDeath wrappers (idempotent).
+    ExecuteScript(&quot;bst_install&quot;, OBJECT_SELF);
+
     SetAssociateListenPatterns();//Sets up the special henchmen listening patterns
 
     SetAssociateState(NW_ASC_POWER_CASTING);

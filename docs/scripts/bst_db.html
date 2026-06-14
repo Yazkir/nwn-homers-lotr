@@ -147,6 +147,17 @@ void Bst_RecordKill(string sUuid, string sCdkey, string sName, string sResref, i
     SqlStep(q);
 }
 
+// TRUE when sResref exists in the seeded creature catalogue. A kill of a
+// creature NOT in the catalogue (script-spawned, or added since the last wiki
+// refresh) is still recorded, but bst_ondeath logs it for DM review.
+int Bst_InCatalogue(string sResref)
+{
+    sqlquery q = SqlPrepareQueryCampaign(BST_DB,
+        &quot;SELECT 1 FROM catalogue WHERE resref=@r&quot;);
+    SqlBindString(q, &quot;@r&quot;, sResref);
+    return SqlStep(q);
+}
+
 // Total kills (solo+party) of sResref by a character — for the combat-log line.
 int Bst_GetTotal(string sUuid, string sResref)
 {

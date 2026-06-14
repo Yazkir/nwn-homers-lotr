@@ -63,6 +63,9 @@ void main()
         ForgeLog(&quot;disenchant: PC=&quot; + GetName(oPC) + &quot; item=&#x27;&quot; + GetName(oItem)
             + &quot;&#x27; removing [&quot; + ForgePropName(ip) + &quot;]&quot;);
         RemoveItemProperty(oItem, ip);
+        // Disenchanting changes the item&#x27;s legality footprint — drop its &quot;clean&quot;
+        // stamp so the next login contraband scan re-evaluates it.
+        DeleteLocalInt(oItem, &quot;FORGE_CLEAN&quot;);
     }
     // Refresh the list tokens for the re-shown menu.
     ForgeDisenchantSetup(oPC, oItem);

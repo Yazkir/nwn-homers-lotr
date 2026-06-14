@@ -124,6 +124,8 @@ void main()
 //  Sir Elric&#x27;s Simple Creature Respawns additions - SE v1.9
 // -----------------------------------------------------------------------------
     SetLocalLocation(OBJECT_SELF, &quot;spawn&quot;, GetLocation(OBJECT_SELF));
+    // Bestiary kill-tracking: install the OnDamaged/OnDeath wrappers (idempotent).
+    ExecuteScript(&quot;bst_install&quot;, OBJECT_SELF);
     // Set as original placed mobs...
     if(!GetLocalInt(GetModule(), &quot;ORIGINAL_PLACED_MOBS&quot;))
     {

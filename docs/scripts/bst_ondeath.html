@@ -71,9 +71,34 @@ void main()
     float  fCR      = GetChallengeRating(oCre);
     string sCreName = GetName(oCre);
 
-    // Count valid PC contributors recorded by bst_ondamage.
     int nN = GetLocalInt(oCre, &quot;bst_ctrb_n&quot;);
     int i;
+
+    // Always credit the killing blow&#x27;s owning PC. bst_ondamage only records
+    // contributors from OnDamaged, which can miss the killer (one-shot kills
+    // where no non-lethal hit landed, or death via certain effects). Fold the
+    // killer into the contributor list so the kill is still counted. Bst_OwningPC
+    // walks the summon/henchman master chain and returns OBJECT_INVALID for
+    // DMs/non-PCs, so the DM exclusion is preserved.
+    object oKiller = Bst_OwningPC(GetLastKiller());
+    if (GetIsObjectValid(oKiller))
+    {
+        int bSeen = FALSE;
+        for (i = 0; i &lt; nN; i++)
+            if (GetLocalObject(oCre, &quot;bst_ctrb_&quot; + IntToString(i)) == oKiller)
+            {
+                bSeen = TRUE;
+                break;
+            }
+        if (!bSeen)
+        {
+            SetLocalObject(oCre, &quot;bst_ctrb_&quot; + IntToString(nN), oKiller);
+            nN++;
+            SetLocalInt(oCre, &quot;bst_ctrb_n&quot;, nN);
+        }
+    }
+
+    // Count valid PC contributors (bst_ondamage list + the folded-in killer).
     int nValid = 0;
     for (i = 0; i &lt; nN; i++)
     {
@@ -81,7 +106,8 @@ void main()
         if (GetIsObjectValid(m) &amp;&amp; GetIsPC(m) &amp;&amp; !GetIsDM(m)) nValid++;
     }
 
-    // No PC dealt damage (trap, DM, environmental) -&gt; don&#x27;t count; chain &amp; exit.
+    // No PC dealt the killing blow or any damage (trap, DM, environmental) -&gt;
+    // don&#x27;t count; chain &amp; exit.
     if (nValid == 0)
     {
         string sOrigNone = GetLocalString(oCre, &quot;bst_orig_death&quot;);
@@ -91,9 +117,9 @@ void main()
 
     int bParty = (nValid &gt; 1);
 
-    // Pick the slayer for the server-first record: prefer the killing blow&#x27;s
-    // owning PC, else the first valid contributor.
-    object oSlayer = Bst_OwningPC(GetLastKiller());
+    // Slayer for the server-first record: the killing blow&#x27;s owning PC, else the
+    // first valid contributor (resolved in the loop below).
+    object oSlayer = oKiller;
 
     for (i = 0; i &lt; nN; i++)
     {
@@ -107,6 +133,26 @@ void main()
         int nTotal = Bst_GetTotal(sUuid, sCan);
         SendMessageToPC(m, &quot;[Bestiary] You have slain &quot; + IntToString(nTotal) + &quot; &quot;
             + sCreName + (bParty ? &quot; (Party).&quot; : &quot; (Solo).&quot;));
+    }
+
+    // Uncatalogued kill: the creature was slain (and recorded above) but isn&#x27;t in
+    // the seeded catalogue, so it won&#x27;t show in the in-game book / wiki &quot;present&quot;
+    // list. Flag it for a DM to add it to the module or refresh the wiki. Logged
+    // once per resref per server session to avoid spam.
+    if (!Bst_InCatalogue(sCan))
+    {
+        object oMod = GetModule();
+        string sGuard = &quot;bst_uncat_&quot; + sCan;
+        if (!GetLocalInt(oMod, sGuard))
+        {
+            SetLocalInt(oMod, sGuard, 1);
+            string sLog = &quot;[Bestiary] Uncatalogued creature slain: &#x27;&quot; + sCreName
+                + &quot;&#x27; (resref &quot; + sCan + &quot;, CR &quot; + IntToString(FloatToInt(fCR))
+                + &quot;) by &quot; + GetName(oSlayer)
+                + &quot;. Add it to the module or refresh the wiki catalogue.&quot;;
+            WriteTimestampedLogEntry(sLog);
+            SendMessageToAllDMs(sLog);
+        }
     }
 
     // Server-first broadcast for hard creatures.

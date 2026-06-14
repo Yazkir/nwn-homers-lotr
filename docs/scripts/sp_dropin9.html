@@ -57,6 +57,8 @@ void main()
 {
     SetLocalLocation(OBJECT_SELF, &quot;spawn&quot;, GetLocation(OBJECT_SELF));
     ExecuteScript(&quot;nw_c2_dropin9&quot;, OBJECT_SELF);
+    // Bestiary kill-tracking: install the OnDamaged/OnDeath wrappers (idempotent).
+    ExecuteScript(&quot;bst_install&quot;, OBJECT_SELF);
 }
 </code></pre>
   </main>
