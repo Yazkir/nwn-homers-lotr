@@ -19,6 +19,9 @@ void main()
     // Record spawn area so the creature can be leashed to it (see leash_to_area.nss).
     SetLocalLocation(OBJECT_SELF, "spawn", GetLocation(OBJECT_SELF));
 
+    // Bestiary kill-tracking: install the OnDamaged/OnDeath wrappers (idempotent).
+    ExecuteScript("bst_install", OBJECT_SELF);
+
     SetListenPattern(OBJECT_SELF, "**I want to withdraw ** gold**", 17);
     SetListenPattern(OBJECT_SELF, "**I want to deposit ** gold**", 18);
     SetListening(OBJECT_SELF, TRUE);

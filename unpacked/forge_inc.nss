@@ -16,6 +16,21 @@ const int FORGE_LEGAL_MAX_VALUE = 750000;
 const string FORGE_VAULT_TAG = "FORGE_VAULT";
 const int FORGE_DIS_SLOTS = 8;
 
+// Contraband-scan "clean" stamp. An item verified legal by the login scan gets
+// item-local int "FORGE_CLEAN" set to FORGE_CLEAN_VER; future logins skip it,
+// so a repeat login does almost no work. The stamp persists with the item in
+// the player's .bic. BUMP FORGE_CLEAN_VER whenever the legality rules or the
+// forge_legal_inc whitelist change, so every item is re-scanned exactly once
+// after a rules update. Forge masters clear the stamp when they modify an item
+// (see modifyitem.nss / forge_dis_go.nss). Legality is intrinsic to the item,
+// so a clean stamp is valid across owners — trading can't launder gear.
+const int FORGE_CLEAN_VER = 1;
+
+// Tri-state result of ForgeItemLegality.
+const int FORGE_LEG_LEGAL         = 0;  // confirmed within the law
+const int FORGE_LEG_ILLEGAL       = 1;  // tampered + over the ceiling
+const int FORGE_LEG_INDETERMINATE = 2;  // valuation infra unavailable — don't judge
+
 void ForgeLog(string sMsg)
 {
     if (!GetLocalInt(GetModule(), "FORGE_DEBUG")) return;
@@ -71,7 +86,11 @@ object ForgeHolder()
 // unidentified/plot status can never discount an enchantment or dodge a cap.
 // Returns -1 when no valuation is possible (callers must refuse, not treat
 // as free).
-int ForgeItemValue(object oItem)
+// bPerUnit: value a single unit, not the whole stack. GetGoldPieceValue returns
+// the stack's total, so the contraband ceiling (a per-item cap) must pass TRUE —
+// otherwise a tall stack of cheap legal items reads as one over-cap item. The
+// forge pricing callers leave it FALSE (enchanting a stack enchants every unit).
+int ForgeItemValue(object oItem, int bPerUnit = FALSE)
 {
     if (!GetIsObjectValid(oItem))
         return -1;
@@ -81,6 +100,8 @@ int ForgeItemValue(object oItem)
     object oCopy = CopyItem(oItem, oHolder, TRUE);
     if (!GetIsObjectValid(oCopy))
         return -1;
+    if (bPerUnit)
+        SetItemStackSize(oCopy, 1);
     SetIdentified(oCopy, TRUE);
     SetPlotFlag(oCopy, FALSE);
     int nValue = GetGoldPieceValue(oCopy);
@@ -253,34 +274,41 @@ int ForgeItemDeviatesFromBlueprint(object oItem)
     return bDeviates;
 }
 
-// Illegal = exceeds the global legal ceiling (6 properties / 750,000 gp)
-// AND was tampered with (deviates from its stock blueprint). Stock drops
-// above the ceiling stay legal.
-int ForgeIsItemIllegal(object oItem)
+// Tri-state legality verdict. Illegal = exceeds the global legal ceiling
+// (6 properties / 750,000 gp) AND was tampered with (deviates from its stock
+// blueprint). Stock drops above the ceiling stay legal. Returns INDETERMINATE
+// when no valuation is possible — callers must neither jail nor mark such items
+// clean. The single source of truth for legality (ForgeIsItemIllegal and the
+// login scan both go through here).
+int ForgeItemLegality(object oItem)
 {
     if (!GetIsObjectValid(oItem))
-        return FALSE;
+        return FORGE_LEG_LEGAL;
     if (ForgeIsCreatureItem(oItem))
-        return FALSE; // polymorph natural weapon/hide — engine-managed, never forged
-    int nValue = ForgeItemValue(oItem);
-    if (ForgeCountProps(oItem) <= FORGE_LEGAL_MAX_PROPS
-        && nValue >= 0 && nValue <= FORGE_LEGAL_MAX_VALUE)
-        return FALSE;
+        return FORGE_LEG_LEGAL; // polymorph natural weapon/hide — engine-managed, never forged
+    int nValue = ForgeItemValue(oItem, TRUE); // per-unit: the cap is per item, not per stack
     if (nValue < 0)
-        return FALSE; // no valuation infrastructure — never jail blind
+        return FORGE_LEG_INDETERMINATE; // no valuation infrastructure — never judge blind
+    if (ForgeCountProps(oItem) <= FORGE_LEGAL_MAX_PROPS
+        && nValue <= FORGE_LEGAL_MAX_VALUE)
+        return FORGE_LEG_LEGAL;
     if (!ForgeItemDeviatesFromBlueprint(oItem))
-        return FALSE;
+        return FORGE_LEG_LEGAL;
     // Deviating from blueprint is fine when the deviation matches an item the
     // module itself places (embedded store stock, creature loot, container
     // contents) — those are legally obtainable, not player-forged.
     if (ForgeIsKnownLegalVariant(oItem))
     {
-        ForgeLog("IsItemIllegal: '" + GetName(oItem) + "' (" + GetResRef(oItem)
-            + ") deviates but matches a known legal variant — allowed. fp="
-            + ForgeLegalFingerprint(oItem));
-        return FALSE;
+        ForgeLog("ItemLegality: '" + GetName(oItem) + "' (" + GetResRef(oItem)
+            + ") deviates but matches a known legal variant — allowed.");
+        return FORGE_LEG_LEGAL;
     }
-    return TRUE;
+    return FORGE_LEG_ILLEGAL;
+}
+
+int ForgeIsItemIllegal(object oItem)
+{
+    return ForgeItemLegality(oItem) == FORGE_LEG_ILLEGAL;
 }
 
 // TRUE when oItem exists and sits in oPC's inventory or equipment (one
@@ -394,7 +422,7 @@ string ForgeLegalStatus(object oItem)
     if (!GetIsObjectValid(oItem))
         return "";
     int nProps = ForgeCountProps(oItem);
-    int nValue = ForgeItemValue(oItem);
+    int nValue = ForgeItemValue(oItem, TRUE); // per-unit: matches the ForgeIsItemIllegal gate
     int bProps = nProps > FORGE_LEGAL_MAX_PROPS;
     int bValue = nValue > FORGE_LEGAL_MAX_VALUE;
     if (!bProps && !bValue)
@@ -469,12 +497,10 @@ void ForgeQuarantineDisputedItem(object oItem, object oPC)
         + "matter is under judgment.");
 }
 
-// Jail the PC in the Pit Prison if they carry illegally forged gear.
-void ForgeJailIfIllegal(object oPC)
+// Jail oPC in the Pit Prison for carrying the illegal item oBad. Shared by the
+// synchronous ForgeJailIfIllegal and the chunked login scan (forge_scan_step).
+void ForgeJailForItem(object oPC, object oBad)
 {
-    if (!GetIsPC(oPC) || GetIsDM(oPC))
-        return;
-    object oBad = ForgeFindIllegalItem(oPC);
     if (!GetIsObjectValid(oBad))
         return;
     SetLocalObject(oPC, "FORGE_ILLEGAL_ITEM", oBad);
@@ -486,7 +512,7 @@ void ForgeJailIfIllegal(object oPC)
     object oWP = GetWaypointByTag("jailed");
     if (!GetIsObjectValid(oWP))
     {
-        ForgeLog("ForgeJailIfIllegal: waypoint 'jailed' missing!");
+        ForgeLog("ForgeJailForItem: waypoint 'jailed' missing!");
         return;
     }
     FloatingTextStringOnCreature("The " + GetName(oBad) + " you carry bears "
@@ -497,4 +523,54 @@ void ForgeJailIfIllegal(object oPC)
     DelayCommand(3.0, AssignCommand(oPC, SpeakString("The forged enchantments "
         + "on my " + GetName(oBad) + " are beyond the law. I should speak with "
         + "a FORGE WARDEN to make my gear lawful again.")));
+}
+
+// Jail the PC in the Pit Prison if they carry illegally forged gear. Synchronous
+// full scan — kept for callers that need an immediate verdict; the login path
+// uses ForgeBeginScan instead to stay under the instruction cap.
+void ForgeJailIfIllegal(object oPC)
+{
+    if (!GetIsPC(oPC) || GetIsDM(oPC))
+        return;
+    ForgeJailForItem(oPC, ForgeFindIllegalItem(oPC));
+}
+
+// Begin a chunked contraband scan of oPC. Cheaply enumerates equipment, then
+// inventory and one level of bag contents into ordered item-handle locals
+// (FORGE_SCAN_0..N-1, count FORGE_SCAN_N, cursor FORGE_SCAN_I), then kicks off
+// forge_scan_step which evaluates ONE item per delayed step — each step gets a
+// fresh NWScript instruction budget, so a full inventory can't overflow. This
+// enumeration pass does no valuation/blueprint work, so it is cheap even for a
+// large inventory.
+void ForgeBeginScan(object oPC)
+{
+    if (!GetIsPC(oPC) || GetIsDM(oPC))
+        return;
+    int n = 0;
+    int nSlot;
+    for (nSlot = 0; nSlot < NUM_INVENTORY_SLOTS; nSlot++)
+    {
+        object oItem = GetItemInSlot(nSlot, oPC);
+        if (GetIsObjectValid(oItem))
+            SetLocalObject(oPC, "FORGE_SCAN_" + IntToString(n++), oItem);
+    }
+    object oItem = GetFirstItemInInventory(oPC);
+    while (GetIsObjectValid(oItem))
+    {
+        SetLocalObject(oPC, "FORGE_SCAN_" + IntToString(n++), oItem);
+        if (GetHasInventory(oItem))
+        {
+            object oInBag = GetFirstItemInInventory(oItem);
+            while (GetIsObjectValid(oInBag))
+            {
+                SetLocalObject(oPC, "FORGE_SCAN_" + IntToString(n++), oInBag);
+                oInBag = GetNextItemInInventory(oItem);
+            }
+        }
+        oItem = GetNextItemInInventory(oPC);
+    }
+    SetLocalInt(oPC, "FORGE_SCAN_N", n);
+    SetLocalInt(oPC, "FORGE_SCAN_I", 0);
+    if (n > 0)
+        DelayCommand(0.1, ExecuteScript("forge_scan_step", oPC));
 }

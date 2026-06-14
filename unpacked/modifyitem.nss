@@ -67,5 +67,10 @@ void main()
 
     //Modify item
     if ( GetIsItemPropertyValid(ipNew))
+        {
         CustomAddProperty(oItem, ipNew);
+        // Enchanting changes the item's legality footprint — drop its "clean"
+        // stamp so the next login contraband scan re-evaluates it.
+        DeleteLocalInt(oItem, "FORGE_CLEAN");
+        }
 }

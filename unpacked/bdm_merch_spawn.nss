@@ -20,6 +20,9 @@ void main()
     // Record spawn area so the creature can be leashed to it (see leash_to_area.nss).
     SetLocalLocation(OBJECT_SELF, "spawn", GetLocation(OBJECT_SELF));
 
+    // Bestiary kill-tracking: install the OnDamaged/OnDeath wrappers (idempotent).
+    ExecuteScript("bst_install", OBJECT_SELF);
+
 // Bioware behaviors
 SetListeningPatterns();
 WalkWayPoints();

@@ -197,14 +197,19 @@ void main()
     if (!GetIsDM(oPC) && GetIsPC(oPC))
     {
         ScanForIllicitItems(oPC);
-        // Illegally forged gear (tampered + over 6 props / 750k value) lands
-        // the bearer in the Pit Prison until a Forge Warden strips it legal.
-        ForgeJailIfIllegal(oPC);
 
         // Give the Bestiary book once per character (activate it to view your
         // creature-kill records). Plot item, so it can't be dropped or sold.
+        // Granted BEFORE the contraband sweep so a scan failure can never eat
+        // the grant (and harmless if the sweep then jails/teleports the PC).
         if (!GetIsObjectValid(GetItemPossessedBy(oPC, "bestiarybook")))
             CreateItemOnObject("bestiarybook", oPC);
+
+        // Illegally forged gear (tampered + over 6 props / 750k value) lands
+        // the bearer in the Pit Prison until a Forge Warden strips it legal.
+        // Chunked scan (one item per delayed step) so a full inventory can't
+        // blow the script instruction cap; already-verified items are skipped.
+        ForgeBeginScan(oPC);
     }
 
     StockDonationsChest();

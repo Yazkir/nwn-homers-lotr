@@ -62,7 +62,8 @@ separately; the `wiki/` directory is gitignored.
 
 Every creature kill is recorded per **character** (identity = `GetObjectUUID`,
 which persists in the `.bic`, so duplicate character names don't collide) in the
-`bestiarydb` campaign SQLite database (`<NWN_HOME_DIR>/database/bestiary.sqlite3`).
+`bestiarydb` campaign SQLite database (`<NWN_HOME_DIR>/database/bestiarydb.sqlite3`
+— the filename always matches the campaign DB name `BST_DB="bestiarydb"`).
 
 - **Solo vs Party** — a kill is counted as *Party* when more than one PC dealt
   damage to the creature, otherwise *Solo*. Every PC who contributed damage is

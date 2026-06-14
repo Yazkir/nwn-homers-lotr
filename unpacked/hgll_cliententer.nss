@@ -97,6 +97,7 @@ void main()
 
     // Contraband sweep: illegally forged gear jails the bearer on login too,
     // so skipping the Well of Eru doesn't dodge the check. Delayed so the
-    // inventory is fully hydrated before we scan it.
-    DelayCommand(6.0, ForgeJailIfIllegal(oPC));
+    // inventory is fully hydrated before we scan it. Chunked (one item per
+    // delayed step) to stay under the script instruction cap.
+    DelayCommand(6.0, ForgeBeginScan(oPC));
 }
