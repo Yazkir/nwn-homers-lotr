@@ -1,0 +1,137 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Script bst_ondeath</title>
+  <link rel="stylesheet" href="../assets/style.css">
+  <link rel="stylesheet" href="../assets/theme.css">
+  <link rel="icon" href="../assets/favicon.png">
+  <script src="../assets/site.js" defer></script>
+</head>
+<body>
+  <header class="site-header">
+    <a class="brand" href="../index.html"><img class="site-header-img" src="../assets/header.png" alt="Home"></a>
+    <nav>
+      <a href="../index.html">Map</a>
+      <a href="../areas/index.html">Areas</a>
+      <div class="nav-dropdown">
+        <span class="nav-dropdown-label">Creatures &#9660;</span>
+        <div class="nav-dropdown-menu">
+          <a href="../creatures/index.html">All Creatures</a>
+          <a href="../creatures/by-area/index.html">By Area</a>
+          <a href="../creatures/by-cr/index.html">By Challenge Rating</a>
+          <a href="../creatures/by-race/index.html">By Race</a>
+        </div>
+      </div>
+      <div class="nav-dropdown">
+        <span class="nav-dropdown-label">Items &#9660;</span>
+        <div class="nav-dropdown-menu">
+          <a href="../items/index.html">Accessible</a>
+          <a href="../items/inaccessible/index.html">Inaccessible</a>
+          <a href="../items/properties/index.html">By Property</a>
+          <a href="../items/search.html">Search</a>
+        </div>
+      </div>
+      <a href="../stores/index.html">Stores</a>
+      <a href="../conversations/index.html">Conversations</a>
+      <a href="../factions.html">Factions</a>
+      <a href="../quests/index.html">Quests</a>
+      <a href="../activity.html">Activity</a>
+      <div class="nav-dropdown"><span class="nav-dropdown-label">Documents &#9660;</span><div class="nav-dropdown-menu"><a href="../manual/Customizations.html">Customizations</a>
+<a href="../manual/LevelingGuide.html">Leveling Guide</a>
+<a href="../manual/MeaningWave.html">MeaningWave: A Guide to the Guides</a>
+<a href="../manual/Quest Ideas.html">Quest Ideas (Draft Concepts)</a>
+<a href="../manual/QuestGuide.html">Quest Guide</a>
+<a href="../manual/ServerFirsts.html">Server Firsts</a></div></div>
+    </nav>
+  </header>
+  <main>
+<h1>Script: <code>bst_ondeath</code></h1><pre class="nss-source"><code>// bst_ondeath — wrapped creature OnDeath: record the kill, then chain original.
+//
+// Installed by bst_install. Credits every PC that dealt damage to the creature
+// (gathered by bst_ondamage). Solo = exactly one PC contributor; Party = more
+// than one. Sends each contributor a combat-log confirmation, and for hard
+// creatures (CR &gt;= BST_SF_CR) broadcasts a server-first kill. Recording happens
+// BEFORE chaining the original handler so respawn/cleanup can&#x27;t drop the count.
+
+#include &quot;bst_db&quot;
+
+// Walk the master chain to the owning PC; returns OBJECT_INVALID if none is a PC.
+object Bst_OwningPC(object o)
+{
+    while (GetIsObjectValid(GetMaster(o))) o = GetMaster(o);
+    if (GetIsPC(o) &amp;&amp; !GetIsDM(o)) return o;
+    return OBJECT_INVALID;
+}
+
+void main()
+{
+    object oCre     = OBJECT_SELF;
+    string sCan     = Bst_Canonical(GetResRef(oCre));
+    float  fCR      = GetChallengeRating(oCre);
+    string sCreName = GetName(oCre);
+
+    // Count valid PC contributors recorded by bst_ondamage.
+    int nN = GetLocalInt(oCre, &quot;bst_ctrb_n&quot;);
+    int i;
+    int nValid = 0;
+    for (i = 0; i &lt; nN; i++)
+    {
+        object m = GetLocalObject(oCre, &quot;bst_ctrb_&quot; + IntToString(i));
+        if (GetIsObjectValid(m) &amp;&amp; GetIsPC(m) &amp;&amp; !GetIsDM(m)) nValid++;
+    }
+
+    // No PC dealt damage (trap, DM, environmental) -&gt; don&#x27;t count; chain &amp; exit.
+    if (nValid == 0)
+    {
+        string sOrigNone = GetLocalString(oCre, &quot;bst_orig_death&quot;);
+        if (sOrigNone != &quot;&quot;) ExecuteScript(sOrigNone, oCre);
+        return;
+    }
+
+    int bParty = (nValid &gt; 1);
+
+    // Pick the slayer for the server-first record: prefer the killing blow&#x27;s
+    // owning PC, else the first valid contributor.
+    object oSlayer = Bst_OwningPC(GetLastKiller());
+
+    for (i = 0; i &lt; nN; i++)
+    {
+        object m = GetLocalObject(oCre, &quot;bst_ctrb_&quot; + IntToString(i));
+        if (!GetIsObjectValid(m) || !GetIsPC(m) || GetIsDM(m)) continue;
+        if (!GetIsObjectValid(oSlayer)) oSlayer = m;
+
+        string sUuid = GetObjectUUID(m);
+        Bst_RecordKill(sUuid, GetPCPublicCDKey(m), GetName(m), sCan, bParty);
+
+        int nTotal = Bst_GetTotal(sUuid, sCan);
+        SendMessageToPC(m, &quot;[Bestiary] You have slain &quot; + IntToString(nTotal) + &quot; &quot;
+            + sCreName + (bParty ? &quot; (Party).&quot; : &quot; (Solo).&quot;));
+    }
+
+    // Server-first broadcast for hard creatures.
+    if (fCR &gt;= BST_SF_CR &amp;&amp; GetIsObjectValid(oSlayer)
+        &amp;&amp; Bst_RegisterServerFirst(sCan, fCR, GetObjectUUID(oSlayer),
+                                   GetName(oSlayer), GetPCPublicCDKey(oSlayer)))
+    {
+        string sMsg = &quot;[SERVER FIRST] &quot; + GetName(oSlayer)
+            + (bParty ? &quot;&#x27;s party&quot; : &quot;&quot;) + &quot; has slain &quot; + sCreName
+            + &quot; (CR &quot; + IntToString(FloatToInt(fCR))
+            + &quot;) for the first time on the server!&quot;;
+        object oP = GetFirstPC();
+        while (GetIsObjectValid(oP))
+        {
+            SendMessageToPC(oP, sMsg);
+            oP = GetNextPC();
+        }
+    }
+
+    // Chain the creature&#x27;s original OnDeath handler, if any.
+    string sOrig = GetLocalString(oCre, &quot;bst_orig_death&quot;);
+    if (sOrig != &quot;&quot;) ExecuteScript(sOrig, oCre);
+}
+</code></pre>
+  </main>
+  <footer>generated by <a href="https://github.com/mrprice22/nwn-manager">nwn-manager</a> &mdash; <span id="wiki-generated-at"></span></footer>
+</body>
+</html>

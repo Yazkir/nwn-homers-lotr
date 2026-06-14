@@ -41,7 +41,8 @@
 <a href="../manual/LevelingGuide.html">Leveling Guide</a>
 <a href="../manual/MeaningWave.html">MeaningWave: A Guide to the Guides</a>
 <a href="../manual/Quest Ideas.html">Quest Ideas (Draft Concepts)</a>
-<a href="../manual/QuestGuide.html">Quest Guide</a></div></div>
+<a href="../manual/QuestGuide.html">Quest Guide</a>
+<a href="../manual/ServerFirsts.html">Server Firsts</a></div></div>
     </nav>
   </header>
   <main>
@@ -54,6 +55,10 @@
 // Reserved custom tokens: 6110-6117 disenchant slot names, 6118 picked name
 // (forge already uses 100-103).
 
+// Generated whitelist of legally-placed item variants (ForgeIsKnownLegalVariant,
+// ForgeLegalFingerprint) — regenerate with bin/gen-forge-legal.py.
+#include &quot;forge_legal_inc&quot;
+
 const int FORGE_LEGAL_MAX_PROPS = 6;
 const int FORGE_LEGAL_MAX_VALUE = 750000;
 const string FORGE_VAULT_TAG = &quot;FORGE_VAULT&quot;;
@@ -65,6 +70,35 @@ void ForgeLog(string sMsg)
     string sLine = &quot;[FORGE] &quot; + sMsg;
     WriteTimestampedLogEntry(sLine);
     SendMessageToAllDMs(sLine);
+}
+
+// Cosmetic properties are not enchantments: never counted, compared, listed
+// or fingerprinted by the forge system. Covers weapon visual effects (Bree
+// appearance station, see inc_emotewand AddItemPropertyVisualEffect) and
+// Light of any color/brightness (Continual Flame, gems of power, the forge&#x27;s
+// own Light enchant — illumination only, no combat bonus). forge_legal_inc&#x27;s
+// ForgeLegalFingerprint mirrors this rule.
+int ForgeIsCosmeticProp(itemproperty ip)
+{
+    int nType = GetItemPropertyType(ip);
+    return nType == ITEM_PROPERTY_VISUALEFFECT
+        || nType == ITEM_PROPERTY_LIGHT;
+}
+
+// Creature items (natural weapons / hide) are equipped by the engine into the
+// creature slots during polymorph — druid Dragon Shape, wild shape, shifter
+// forms, etc. They carry the form&#x27;s built-in enchantments, have no stock
+// blueprint, and cannot be forged or disenchanted by a player, so they must
+// never count as contraband. Base item types 69-73 (CSLASHWEAPON, CPIERCWEAPON,
+// CBLUDGWEAPON, CSLSHPRCWEAP, CREATUREITEM).
+int ForgeIsCreatureItem(object oItem)
+{
+    int nBase = GetBaseItemType(oItem);
+    return nBase == BASE_ITEM_CSLASHWEAPON
+        || nBase == BASE_ITEM_CPIERCWEAPON
+        || nBase == BASE_ITEM_CBLUDGWEAPON
+        || nBase == BASE_ITEM_CSLSHPRCWEAP
+        || nBase == BASE_ITEM_CREATUREITEM;
 }
 
 // Hidden inventory placeable (in the prison) used to host temporary item
@@ -108,7 +142,8 @@ int ForgeCountProps(object oItem)
     itemproperty ip = GetFirstItemProperty(oItem);
     while (GetIsItemPropertyValid(ip))
     {
-        if (GetItemPropertyDurationType(ip) == DURATION_TYPE_PERMANENT)
+        if (GetItemPropertyDurationType(ip) == DURATION_TYPE_PERMANENT
+            &amp;&amp; !ForgeIsCosmeticProp(ip))
             nCount++;
         ip = GetNextItemProperty(oItem);
     }
@@ -141,7 +176,8 @@ itemproperty ForgeGetPermPropByIndex(object oItem, int nIndex)
     itemproperty ip = GetFirstItemProperty(oItem);
     while (GetIsItemPropertyValid(ip))
     {
-        if (GetItemPropertyDurationType(ip) == DURATION_TYPE_PERMANENT)
+        if (GetItemPropertyDurationType(ip) == DURATION_TYPE_PERMANENT
+            &amp;&amp; !ForgeIsCosmeticProp(ip))
         {
             if (nCount == nIndex)
                 return ip;
@@ -235,7 +271,8 @@ int ForgeItemDeviatesFromBlueprint(object oItem)
         itemproperty ip = GetFirstItemProperty(oItem);
         while (!bDeviates &amp;&amp; GetIsItemPropertyValid(ip))
         {
-            if (GetItemPropertyDurationType(ip) == DURATION_TYPE_PERMANENT)
+            if (GetItemPropertyDurationType(ip) == DURATION_TYPE_PERMANENT
+                &amp;&amp; !ForgeIsCosmeticProp(ip))
             {
                 int bMatched = FALSE;
                 for (i = 0; i &lt; nStock &amp;&amp; !bMatched; i++)
@@ -271,13 +308,40 @@ int ForgeIsItemIllegal(object oItem)
 {
     if (!GetIsObjectValid(oItem))
         return FALSE;
+    if (ForgeIsCreatureItem(oItem))
+        return FALSE; // polymorph natural weapon/hide — engine-managed, never forged
     int nValue = ForgeItemValue(oItem);
     if (ForgeCountProps(oItem) &lt;= FORGE_LEGAL_MAX_PROPS
         &amp;&amp; nValue &gt;= 0 &amp;&amp; nValue &lt;= FORGE_LEGAL_MAX_VALUE)
         return FALSE;
     if (nValue &lt; 0)
         return FALSE; // no valuation infrastructure — never jail blind
-    return ForgeItemDeviatesFromBlueprint(oItem);
+    if (!ForgeItemDeviatesFromBlueprint(oItem))
+        return FALSE;
+    // Deviating from blueprint is fine when the deviation matches an item the
+    // module itself places (embedded store stock, creature loot, container
+    // contents) — those are legally obtainable, not player-forged.
+    if (ForgeIsKnownLegalVariant(oItem))
+    {
+        ForgeLog(&quot;IsItemIllegal: &#x27;&quot; + GetName(oItem) + &quot;&#x27; (&quot; + GetResRef(oItem)
+            + &quot;) deviates but matches a known legal variant — allowed. fp=&quot;
+            + ForgeLegalFingerprint(oItem));
+        return FALSE;
+    }
+    return TRUE;
+}
+
+// TRUE when oItem exists and sits in oPC&#x27;s inventory or equipment (one
+// container level deep — bags can&#x27;t nest). Guards warden scripts against
+// stale cached handles whose object id the engine may have recycled.
+int ForgePCHolds(object oPC, object oItem)
+{
+    if (!GetIsObjectValid(oItem))
+        return FALSE;
+    object oPoss = GetItemPossessor(oItem);
+    if (oPoss == oPC)
+        return TRUE;
+    return GetIsObjectValid(oPoss) &amp;&amp; GetItemPossessor(oPoss) == oPC;
 }
 
 // TRUE when oItem was already handled by the current revert-all pass on oPC
@@ -422,6 +486,37 @@ void ForgeDisenchantSetup(object oPC, object oTarget)
     }
 }
 
+// Sequester a contested item for DM review: stored in the craftdb quarantine
+// queue (same keys welloferuenter.nss uses), so it lands in the DM-review
+// chest (ZEP_CR_QUARANTINE, House of Homer) on next open. No refund — a DM
+// returns the item if the player&#x27;s claim holds.
+void ForgeQuarantineDisputedItem(object oItem, object oPC)
+{
+    if (!GetIsObjectValid(oItem) || !GetIsObjectValid(oPC))
+        return;
+    string sName = GetName(oItem);
+    // Value the item BEFORE StoreCampaignObject/DestroyObject invalidate it.
+    string sLog = &quot;[FORGE DISPUTE] Item &#x27;&quot; + sName + &quot;&#x27; (resref: &quot;
+        + GetResRef(oItem) + &quot;, props &quot; + IntToString(ForgeCountProps(oItem))
+        + &quot;, value &quot; + IntToString(ForgeItemValue(oItem))
+        + &quot;) sequestered from &quot; + GetName(oPC) + &quot; (account: &quot;
+        + GetPCPlayerName(oPC) + &quot;) pending DM review.&quot;;
+
+    int nQ = GetCampaignInt(&quot;craftdb&quot;, &quot;quarantine_count&quot;);
+    StoreCampaignObject(&quot;craftdb&quot;, &quot;quarantine_&quot; + IntToString(nQ), oItem);
+    SetCampaignString(&quot;craftdb&quot;, &quot;quarantine_&quot; + IntToString(nQ) + &quot;_info&quot;, sLog);
+    SetCampaignInt(&quot;craftdb&quot;, &quot;quarantine_count&quot;, nQ + 1);
+    DestroyObject(oItem);
+
+    WriteTimestampedLogEntry(sLog);
+    SendMessageToAllDMs(sLog);
+    SendMessageToPC(oPC, &quot;[Forge Warden] Your &#x27;&quot; + sName + &quot;&#x27; has been &quot;
+        + &quot;sequestered under seal in the House of Homer pending DM review. &quot;
+        + &quot;If your claim of lawful provenance holds, it will be returned to &quot;
+        + &quot;you; if not, it is forfeit. No compensation is owed while the &quot;
+        + &quot;matter is under judgment.&quot;);
+}
+
 // Jail the PC in the Pit Prison if they carry illegally forged gear.
 void ForgeJailIfIllegal(object oPC)
 {
@@ -434,7 +529,8 @@ void ForgeJailIfIllegal(object oPC)
     ForgeLog(&quot;Jailing &quot; + GetName(oPC) + &quot; for item &#x27;&quot; + GetName(oBad)
         + &quot;&#x27; (resref &quot; + GetResRef(oBad) + &quot;, props &quot;
         + IntToString(ForgeCountProps(oBad)) + &quot;, value &quot;
-        + IntToString(ForgeItemValue(oBad)) + &quot;)&quot;);
+        + IntToString(ForgeItemValue(oBad)) + &quot;, fp=&quot;
+        + ForgeLegalFingerprint(oBad) + &quot;)&quot;);
     object oWP = GetWaypointByTag(&quot;jailed&quot;);
     if (!GetIsObjectValid(oWP))
     {
@@ -448,7 +544,7 @@ void ForgeJailIfIllegal(object oPC)
     // Spoken hint after arrival so the player knows which jailer applies.
     DelayCommand(3.0, AssignCommand(oPC, SpeakString(&quot;The forged enchantments &quot;
         + &quot;on my &quot; + GetName(oBad) + &quot; are beyond the law. I should speak with &quot;
-        + &quot;the FORGE WARDEN to make my gear lawful again.&quot;)));
+        + &quot;a FORGE WARDEN to make my gear lawful again.&quot;)));
 }
 </code></pre>
   </main>

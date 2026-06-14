@@ -41,7 +41,8 @@
 <a href="../manual/LevelingGuide.html">Leveling Guide</a>
 <a href="../manual/MeaningWave.html">MeaningWave: A Guide to the Guides</a>
 <a href="../manual/Quest Ideas.html">Quest Ideas (Draft Concepts)</a>
-<a href="../manual/QuestGuide.html">Quest Guide</a></div></div>
+<a href="../manual/QuestGuide.html">Quest Guide</a>
+<a href="../manual/ServerFirsts.html">Server Firsts</a></div></div>
     </nav>
   </header>
   <main>
@@ -245,8 +246,13 @@ void main()
     {
         ScanForIllicitItems(oPC);
         // Illegally forged gear (tampered + over 6 props / 750k value) lands
-        // the bearer in the Pit Prison until the Forge Warden strips it legal.
+        // the bearer in the Pit Prison until a Forge Warden strips it legal.
         ForgeJailIfIllegal(oPC);
+
+        // Give the Bestiary book once per character (activate it to view your
+        // creature-kill records). Plot item, so it can&#x27;t be dropped or sold.
+        if (!GetIsObjectValid(GetItemPossessedBy(oPC, &quot;bestiarybook&quot;)))
+            CreateItemOnObject(&quot;bestiarybook&quot;, oPC);
     }
 
     StockDonationsChest();

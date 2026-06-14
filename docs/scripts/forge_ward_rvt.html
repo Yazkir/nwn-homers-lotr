@@ -41,7 +41,8 @@
 <a href="../manual/LevelingGuide.html">Leveling Guide</a>
 <a href="../manual/MeaningWave.html">MeaningWave: A Guide to the Guides</a>
 <a href="../manual/Quest Ideas.html">Quest Ideas (Draft Concepts)</a>
-<a href="../manual/QuestGuide.html">Quest Guide</a></div></div>
+<a href="../manual/QuestGuide.html">Quest Guide</a>
+<a href="../manual/ServerFirsts.html">Server Firsts</a></div></div>
     </nav>
   </header>
   <main>
@@ -53,6 +54,19 @@ void main()
 {
     object oPC = GetPCSpeaker();
     object oItem = GetLocalObject(oPC, &quot;FORGE_DIS_ITEM&quot;);
+    // Stale/recycled handle guard: never revert something this PC no longer
+    // holds — re-resolve to their current illegal item instead.
+    if (!ForgePCHolds(oPC, oItem))
+    {
+        oItem = ForgeFindIllegalItem(oPC);
+        if (!GetIsObjectValid(oItem))
+        {
+            SetLocalInt(oPC, &quot;FORGE_RVT_OK&quot;, FALSE);
+            return;
+        }
+        SetLocalObject(oPC, &quot;FORGE_ILLEGAL_ITEM&quot;, oItem);
+        SetLocalObject(oPC, &quot;FORGE_DIS_ITEM&quot;, oItem);
+    }
     object oNew = ForgeRevertToBlueprint(oItem, oPC);
     if (GetIsObjectValid(oNew))
     {

@@ -58,6 +58,38 @@ published at:
 The wiki is generated from `unpacked/` via `nwn-manager wiki` and deployed
 separately; the `wiki/` directory is gitignored.
 
+## Bestiary & creature-kill tracking
+
+Every creature kill is recorded per **character** (identity = `GetObjectUUID`,
+which persists in the `.bic`, so duplicate character names don't collide) in the
+`bestiarydb` campaign SQLite database (`<NWN_HOME_DIR>/database/bestiary.sqlite3`).
+
+- **Solo vs Party** — a kill is counted as *Party* when more than one PC dealt
+  damage to the creature, otherwise *Solo*. Every PC who contributed damage is
+  credited (their summons/henchmen count for them via the master chain).
+- **Combat-log confirmation** — after each kill, every contributor gets a message
+  with their running total for that creature and whether it was Solo or Party.
+- **Server First** — the first server-wide kill of any creature with Challenge
+  Rating ≥ 60 is recorded and broadcast to everyone online.
+- **In-game Bestiary** — players receive the **Bestiary of Middle-earth** book
+  (`bestiarybook`, granted on entering the Well of Eru) and *activate* it to open
+  a conversation listing creatures **slain** and **not yet slain**, each paged and
+  sorted by descending CR.
+- **Wiki** — the creatures index gains Kills/Solo/Party columns, each creature
+  page shows a kill block and a Server-First badge, and a generated **Server
+  Firsts** leaderboard appears under the Documents menu.
+
+How it works (no per-creature edits): a single OnDamaged/OnDeath **wrapper** is
+installed on every creature at spawn/area-entry (`bst_install`), which records the
+kill then chains the creature's original handlers (loot, alignment, respawn are
+preserved). Core files: `bst_db.nss` (DB helpers), `bst_install` / `bst_ondamage`
+/ `bst_ondeath`, the `bst_*` menu scripts, `bestiarybook.uti.json`, and the
+`bst_book.dlg.json` conversation (dispatched from `dmfi_activate.nss`).
+
+The wiki seeds the full creature catalogue into the live DB and reads kill stats
+from it; because the server runs in a container, the wiki is pointed at the real
+DB dir with `--db-dir` (see `refresh-homers-lotr-wiki`), not `--log-dir`.
+
 ## Donations Chest sync
 
 The Well of Eru area stocks a Donations Chest on each server reset with random
