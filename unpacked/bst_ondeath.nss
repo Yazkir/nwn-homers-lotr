@@ -23,9 +23,34 @@ void main()
     float  fCR      = GetChallengeRating(oCre);
     string sCreName = GetName(oCre);
 
-    // Count valid PC contributors recorded by bst_ondamage.
     int nN = GetLocalInt(oCre, "bst_ctrb_n");
     int i;
+
+    // Always credit the killing blow's owning PC. bst_ondamage only records
+    // contributors from OnDamaged, which can miss the killer (one-shot kills
+    // where no non-lethal hit landed, or death via certain effects). Fold the
+    // killer into the contributor list so the kill is still counted. Bst_OwningPC
+    // walks the summon/henchman master chain and returns OBJECT_INVALID for
+    // DMs/non-PCs, so the DM exclusion is preserved.
+    object oKiller = Bst_OwningPC(GetLastKiller());
+    if (GetIsObjectValid(oKiller))
+    {
+        int bSeen = FALSE;
+        for (i = 0; i < nN; i++)
+            if (GetLocalObject(oCre, "bst_ctrb_" + IntToString(i)) == oKiller)
+            {
+                bSeen = TRUE;
+                break;
+            }
+        if (!bSeen)
+        {
+            SetLocalObject(oCre, "bst_ctrb_" + IntToString(nN), oKiller);
+            nN++;
+            SetLocalInt(oCre, "bst_ctrb_n", nN);
+        }
+    }
+
+    // Count valid PC contributors (bst_ondamage list + the folded-in killer).
     int nValid = 0;
     for (i = 0; i < nN; i++)
     {
@@ -33,7 +58,8 @@ void main()
         if (GetIsObjectValid(m) && GetIsPC(m) && !GetIsDM(m)) nValid++;
     }
 
-    // No PC dealt damage (trap, DM, environmental) -> don't count; chain & exit.
+    // No PC dealt the killing blow or any damage (trap, DM, environmental) ->
+    // don't count; chain & exit.
     if (nValid == 0)
     {
         string sOrigNone = GetLocalString(oCre, "bst_orig_death");
@@ -43,9 +69,9 @@ void main()
 
     int bParty = (nValid > 1);
 
-    // Pick the slayer for the server-first record: prefer the killing blow's
-    // owning PC, else the first valid contributor.
-    object oSlayer = Bst_OwningPC(GetLastKiller());
+    // Slayer for the server-first record: the killing blow's owning PC, else the
+    // first valid contributor (resolved in the loop below).
+    object oSlayer = oKiller;
 
     for (i = 0; i < nN; i++)
     {
