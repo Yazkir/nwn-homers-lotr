@@ -1,0 +1,95 @@
+#!/usr/bin/env bash
+# Desktop-launcher target: regenerate the Homer's LotR static wiki only
+# (skips the slow .mod unpack step). Use this when only wiki-generation
+# code or templates have changed and the unpacked tree is already current.
+# Pauses at the end so failure output stays visible when launched from the
+# GNOME app grid (no parent shell to read).
+#
+# With --publish: run non-interactively and, after a successful regen, commit
+# the regenerated wiki (docs/) and push it. Used by the post-boot systemd
+# service (homers-lotr-wiki-publish.service) so the daily reboot republishes
+# the FULL site — including creature-index/detail kill counts, which the
+# serve-loop activity refresh does not touch.
+
+set -o pipefail
+
+PUBLISH=0
+for arg in "$@"; do
+  case "$arg" in
+    --publish) PUBLISH=1 ;;
+    *) echo "error: unknown arg: $arg" >&2; exit 2 ;;
+  esac
+done
+
+PROJECT=/var/home/james/GIT/nwn_homers_lotr
+NWN_MANAGER_BIN=/var/home/james/GIT/nwn_manager/bin
+
+export PATH="$HOME/.nimble/bin:$NWN_MANAGER_BIN:$PATH"
+
+pause() { [[ $PUBLISH -eq 1 ]] || read -rp "Press Enter to close..."; }
+
+cd "$PROJECT" || { echo "missing project: $PROJECT"; pause; exit 1; }
+
+# Export TZ from server.env so nwn-wiki labels the activity charts with the
+# correct timezone (e.g. America/Chicago → "GMT-5" / "GMT-4" per DST).
+# shellcheck disable=SC1091
+[[ -f "$PROJECT/server.env" ]] && . "$PROJECT/server.env" && export TZ
+
+# The server runs in a container: --log-dir holds the host-readable logs, but the
+# campaign SQLite DBs (incl. bestiarydb.sqlite3) live under NWN_HOME_DIR/database
+# (the host path bound to the container's database/). Point --db-dir there so the
+# bestiary catalogue is seeded and kill stats are read. NWN_HOME_DIR comes from
+# server.env (sourced above); fall back to the standard NWN user dir.
+DB_DIR="${NWN_HOME_DIR:-$HOME/.local/share/Neverwinter Nights}/database"
+
+nwn-manager wiki \
+  --base-url https://homers-lotr-wiki.jamesprice-slightlyepic.workers.dev/ \
+  --exclude-conv-option "[Admin Options]" \
+  --exclude-conv-option "[Options of the Homeless]" \
+  --log-dir "$HOME/.local/state/nwnxee-homer" \
+  --db-dir "$DB_DIR" \
+  --2da-dir "$PROJECT/hak_2da" \
+  --path-from thewelloferu
+status=$?
+
+echo
+if [[ $status -ne 0 ]]; then
+  echo "[FAILED] exit $status"
+  echo
+  pause
+  exit "$status"
+fi
+echo "[done] wiki regenerated → $PROJECT/docs/index.html"
+
+# ----------------------------------------------------------------- publish ---
+if [[ $PUBLISH -eq 1 ]]; then
+  # Stage the regenerated site. docs/ is the published wiki; module-index/ holds
+  # generated lookup/report JSON (staged only if it's tracked in this repo).
+  git -C "$PROJECT" add -A docs/
+  if git -C "$PROJECT" ls-files --error-unmatch module-index >/dev/null 2>&1; then
+    git -C "$PROJECT" add -A module-index/
+  fi
+
+  if git -C "$PROJECT" diff --cached --quiet; then
+    echo "[publish] no wiki changes to commit"
+  else
+    msg="Full wiki republish (kill counts + all pages): $(date '+%Y-%m-%d %H:%M')"
+    if ! git -C "$PROJECT" commit -q -m "$msg"; then
+      echo "[publish] warn: commit failed" >&2
+    else
+      # Push with retries — the network may still be coming up just after boot.
+      pushed=0
+      for attempt in 1 2 3 4 5; do
+        git -C "$PROJECT" pull --rebase --quiet 2>/dev/null || true
+        if git -C "$PROJECT" push --quiet; then pushed=1; break; fi
+        echo "[publish] push attempt $attempt failed; retrying in 30s..." >&2
+        sleep 30
+      done
+      [[ $pushed -eq 1 ]] && echo "[publish] committed and pushed: $msg" \
+                          || echo "[publish] warn: could not push after retries; commit is local" >&2
+    fi
+  fi
+fi
+
+echo
+pause

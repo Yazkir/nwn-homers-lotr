@@ -1,0 +1,13 @@
+[Unit]
+Description=Daily 03:03 reboot of the Homer's LotR host
+Documentation=file:///var/home/james/GIT/nwn_homers_lotr/README.md
+
+[Timer]
+# 03:03 local — 3 minutes after the Anvil plugin's 03:00 save+shutdown, leaving a
+# budget for ExportAllCharacters to flush. Persistent=true reboots at next boot if
+# the machine was off at the scheduled time.
+OnCalendar=*-*-* 03:03:00
+Persistent=true
+
+[Install]
+WantedBy=timers.target

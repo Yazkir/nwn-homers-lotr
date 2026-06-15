@@ -1,0 +1,11 @@
+[Unit]
+Description=Daily unattended reboot of the Homer's LotR host
+Documentation=file:///var/home/james/GIT/nwn_homers_lotr/README.md
+# The in-game countdown + clean character save + NWN shutdown are handled by the
+# Anvil ServerRestartManager plugin at ANVIL_RESTART_DAILY (03:00). This unit only
+# performs the OS reboot a few minutes later, as root, so no password/polkit prompt
+# is involved. The server auto-starts on boot (XDG autostart + user lingering).
+
+[Service]
+Type=oneshot
+ExecStart=/usr/bin/systemctl reboot

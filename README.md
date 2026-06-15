@@ -450,6 +450,53 @@ bin/backup-homers-lotr --force     # back up now, ignoring the 24h gate
      intend to roll those back too (they're usually fine as-is).
 4. Restart with `bin/serve`.
 
+## Daily restart & reboot
+
+The host reboots itself once a day at **03:00 local** for a clean slate, with
+in-game warnings, a clean character save, and an automatic full wiki republish
+on the way back up. Pieces:
+
+1. **In-game countdown + save + shutdown** — the Anvil plugin service
+   `ServerRestartManager` (`csharp/DungeonSolitaire.Nwn/ServerRestartManager.cs`)
+   reads `ANVIL_RESTART_DAILY` (HH:mm, server-local; set in `server.env`,
+   default `03:00`). It broadcasts warnings at 60/30/15/10/5/1 min, then at T-0
+   runs `ExportAllCharacters()` and `NwServer.ShutdownServer()`. Build/deploy it
+   like the rest of the plugin (see [`csharp/README.md`](csharp/README.md)) — the
+   service ships in the same `DungeonSolitaire.Nwn.dll`. A control file
+   `…/anvil/PluginData/restart-now` triggers an immediate restart for testing.
+2. **Unattended OS reboot** — root systemd units (`systemd/nwn-reboot.{service,timer}`)
+   fire `systemctl reboot` at **03:03** (a 3-min budget after the save). Root-owned,
+   so there is **no password/polkit prompt**. Install once (the only privileged step):
+   ```sh
+   sudo cp systemd/nwn-reboot.service systemd/nwn-reboot.timer /etc/systemd/system/
+   sudo systemctl daemon-reload
+   sudo systemctl enable --now nwn-reboot.timer
+   ```
+3. **Auto-start on boot** — already handled by the XDG autostart entry
+   (`~/.config/autostart/nwn-homers-lotr-server.desktop`) + user lingering; the
+   server comes back without intervention (~5 min).
+4. **Full wiki republish on boot** — `homers-lotr-wiki-publish.service` (user,
+   runs once per boot) calls `bin/refresh-homers-lotr-wiki --publish`, which
+   regenerates the **whole** wiki (so creature-index/detail **kill counts** update,
+   not just the activity pages the serve loop touches), commits, and pushes. The
+   serve-loop activity refresh still handles intra-day activity updates.
+5. **Backup** — moved off its midnight timer into this cycle:
+   `homers-lotr-backup.service` now runs once per boot (24h-sentinel-gated), so the
+   snapshot is taken right after the reboot when state is quiescent.
+
+Install the user services (one-time):
+```sh
+cp systemd/homers-lotr-wiki-publish.service systemd/homers-lotr-backup.service ~/.config/systemd/user/
+systemctl --user daemon-reload
+systemctl --user enable homers-lotr-wiki-publish.service homers-lotr-backup.service
+```
+
+**Activating the plugin change:** the new `ServerRestartManager` only loads when
+the server (re)starts. After deploying the DLL, restart `nwnxee-homer` once (or let
+the next reboot bootstrap it). To test without waiting for 03:00, set
+`ANVIL_RESTART_DAILY` a few minutes ahead in `server.env.local` and restart, or
+`touch …/anvil/PluginData/restart-now` while the server runs.
+
 ## Prerequisites
 
 `nasher`, `nwn_gff`, `nwn_script_comp`, and `python3` (for `wiki`) must be

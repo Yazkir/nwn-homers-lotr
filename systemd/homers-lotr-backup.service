@@ -1,6 +1,10 @@
 [Unit]
 Description=Homer's LotR server state backup (vault + databases + configs) to OneDrive
 Documentation=file:///var/home/james/GIT/nwn_homers_lotr/bin/backup-homers-lotr
+# Runs once per boot. The only routine boot is the daily 03:00 reboot, at which
+# point the server has saved+shut down, so the snapshot is fully consistent. The
+# 24h sentinel in the script keeps it to at most once/day across extra boots.
+After=default.target
 
 [Service]
 Type=oneshot
@@ -8,3 +12,6 @@ Type=oneshot
 ExecStart=/var/home/james/GIT/nwn_homers_lotr/bin/backup-homers-lotr
 Nice=10
 IOSchedulingClass=idle
+
+[Install]
+WantedBy=default.target
