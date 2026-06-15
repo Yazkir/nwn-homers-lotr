@@ -72,6 +72,18 @@ void main()
     float  fCR      = GetChallengeRating(oCre);
     string sCreName = GetName(oCre);
 
+    // A creature that is itself a PC&#x27;s summon/associate (summoned monster from
+    // any spell or feat, familiar, animal companion, henchman) is not a bestiary
+    // target — its death is not a kill. Skip recording AND the uncatalogued log;
+    // just chain the original handler. Enemy-summoned creatures have a non-PC
+    // master, so Bst_OwningPC returns OBJECT_INVALID and they still count.
+    if (GetIsObjectValid(Bst_OwningPC(oCre)))
+    {
+        string sOrigSummon = GetLocalString(oCre, &quot;bst_orig_death&quot;);
+        if (sOrigSummon != &quot;&quot;) ExecuteScript(sOrigSummon, oCre);
+        return;
+    }
+
     int nN = GetLocalInt(oCre, &quot;bst_ctrb_n&quot;);
     int i;
 
