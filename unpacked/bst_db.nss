@@ -7,7 +7,7 @@
 //                  PRIMARY KEY (uuid, resref) — per-character per-creature totals.
 //                  Character identity is GetObjectUUID (persists in the .bic);
 //                  cdkey kept so per-(character,cdkey) aggregation is possible.
-//   server_first (resref PK, cr, first_uuid, first_name, first_cdkey, first_at)
+//   server_first (resref PK, cr, first_uuid, first_name, first_cdkey, first_player_name, first_at)
 //                  one row per hard creature (CR >= BST_SF_CR) first slain server-wide.
 //   catalogue    (resref PK, name, cr) — every creature type, seeded by nwn-wiki.
 //   resref_alias (resref PK, canonical) — maps blueprint/variant resrefs to the
@@ -49,7 +49,13 @@ void Bst_InitDb()
         "first_uuid TEXT," +
         "first_name TEXT," +
         "first_cdkey TEXT," +
+        "first_player_name TEXT," +
         "first_at TEXT NOT NULL DEFAULT (datetime('now')))");
+    SqlStep(q);
+    // Migration: add first_player_name to existing DBs (SqlStep silently ignores the
+    // error if the column already exists — SQLite returns SQLITE_ERROR, NWScript drops it).
+    q = SqlPrepareQueryCampaign(BST_DB,
+        "ALTER TABLE server_first ADD COLUMN first_player_name TEXT");
     SqlStep(q);
 
     q = SqlPrepareQueryCampaign(BST_DB,
@@ -123,7 +129,7 @@ int Bst_GetTotal(string sUuid, string sResref)
 
 // Register the first server-wide kill of a hard creature. Returns TRUE only when
 // this call created the row (i.e. it really was the server first).
-int Bst_RegisterServerFirst(string sResref, float fCR, string sUuid, string sName, string sCdkey)
+int Bst_RegisterServerFirst(string sResref, float fCR, string sUuid, string sName, string sCdkey, string sPlayerName)
 {
     sqlquery qc = SqlPrepareQueryCampaign(BST_DB,
         "SELECT 1 FROM server_first WHERE resref=@r");
@@ -131,13 +137,14 @@ int Bst_RegisterServerFirst(string sResref, float fCR, string sUuid, string sNam
     if (SqlStep(qc)) return FALSE;       // already recorded
 
     sqlquery q = SqlPrepareQueryCampaign(BST_DB,
-        "INSERT INTO server_first(resref,cr,first_uuid,first_name,first_cdkey)" +
-        " VALUES(@r,@c,@u,@n,@k) ON CONFLICT(resref) DO NOTHING");
+        "INSERT INTO server_first(resref,cr,first_uuid,first_name,first_cdkey,first_player_name)" +
+        " VALUES(@r,@c,@u,@n,@k,@pn) ON CONFLICT(resref) DO NOTHING");
     SqlBindString(q, "@r", sResref);
     SqlBindFloat (q, "@c", fCR);
     SqlBindString(q, "@u", sUuid);
     SqlBindString(q, "@n", sName);
     SqlBindString(q, "@k", sCdkey);
+    SqlBindString(q, "@pn", sPlayerName);
     SqlStep(q);
     return TRUE;
 }
