@@ -158,7 +158,8 @@ void main()
     // Server-first broadcast for hard creatures.
     if (fCR &gt;= BST_SF_CR &amp;&amp; GetIsObjectValid(oSlayer)
         &amp;&amp; Bst_RegisterServerFirst(sCan, fCR, GetObjectUUID(oSlayer),
-                                   GetName(oSlayer), GetPCPublicCDKey(oSlayer)))
+                                   GetName(oSlayer), GetPCPublicCDKey(oSlayer),
+                                   GetPCPlayerName(oSlayer)))
     {
         string sMsg = &quot;[SERVER FIRST] &quot; + GetName(oSlayer)
             + (bParty ? &quot;&#x27;s party&quot; : &quot;&quot;) + &quot; has slain &quot; + sCreName
