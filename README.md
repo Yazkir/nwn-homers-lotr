@@ -381,6 +381,75 @@ copy the DLLs into the server's `anvil/Plugins/`), then its GFF assets ship via
 `nwn-manager repack`. **See [`csharp/README.md`](csharp/README.md)** for the full
 how-it-plays, architecture, build, and deploy details.
 
+## Backups
+
+The server's irreplaceable runtime state lives outside git. `bin/backup-homers-lotr`
+snapshots it to OneDrive at most once per day.
+
+**What it captures** (≈2.4 MB compressed):
+
+- `NWN_HOME_DIR/database/*.sqlite3` — bank, bestiary, craft, merits, redemption
+  codes, etc. Captured with the SQLite backup API (`sqlite3 ".backup"`), so each
+  snapshot is consistent even while the live server is writing.
+- `NWN_HOME_DIR/servervault/` — every player `.bic` character.
+- `settings.tml`, `nwn.ini`, `nwnplayer.ini`, `cdkey.ini`, `cryptographic_secret`
+  — captured from **both** `NWN_HOME_DIR` and `NWN_RUN_DIR` (nwserver's
+  `-userdirectory` is `NWN_RUN_DIR`, so the live copy of some configs lives there),
+  mirrored under `home/` and `run/` in the archive.
+- `NWN_RUN_DIR/activity-sessions.json` (+ `.bak`) — player-hours history.
+
+A `MANIFEST.txt` (timestamp, module-source git rev, sha256 of every file) is
+included. Archives land in `~/OneDrive/Games/NWNHomersLOTR/backups/` as
+`homers-lotr-<UTC>.tar.gz`. Retention keeps every backup from the last 30 days
+plus one per month for 12 months.
+
+**Not backed up** (regenerable): `hak/`, `tlk/`, `nwsync/` (rebuild via
+`bin/refresh-nwsync`), compiled `.mod` files (rebuild from the git module source),
+wiki `docs/`, and the Dungeon Solitaire Anvil DLLs (source is in `csharp/`, rebuilt
+via `dotnet build`).
+
+### How it runs
+
+Two triggers, both gated by a shared 24h sentinel (`NWN_RUN_DIR/.backup-last-run`),
+so it runs **at most once per day** no matter how often it's invoked:
+
+1. **systemd user timer** (`systemd/homers-lotr-backup.timer`) — `OnCalendar=daily`,
+   `Persistent=true`, so a backup missed while the machine was off runs at the next
+   login/boot. Runs even when the server isn't.
+2. **serve poll loop** — `bin/serve` passes `--backup-cmd` to `nwn-manager serve`,
+   which runs the backup opportunistically whenever the server goes idle (no players
+   online), getting a snapshot sooner than the daily timer when the server empties.
+
+Upload uses a plain `onedrive --sync --threads 1` (respecting the existing
+`~/.config/onedrive/sync_list`, which includes `Games/NWNHomersLOTR`); it's
+best-effort and never fails the backup. Logs append to `NWN_RUN_DIR/backup.log`.
+
+```sh
+# Install / enable the timer (one-time):
+cp systemd/homers-lotr-backup.* ~/.config/systemd/user/
+systemctl --user daemon-reload
+systemctl --user enable --now homers-lotr-backup.timer
+# Optional: let the timer fire even when not logged in
+loginctl enable-linger "$USER"
+
+# Manual / ad-hoc:
+bin/backup-homers-lotr --dry-run   # show what would be captured
+bin/backup-homers-lotr --force     # back up now, ignoring the 24h gate
+```
+
+### Restore
+
+1. Stop the server: `podman stop -t 8 nwnxee-homer`.
+2. Extract the desired archive: `tar xzf homers-lotr-<UTC>.tar.gz -C /tmp/restore`.
+   (Optionally verify integrity: `cd /tmp/restore && sha256sum -c <(awk '/^sha256:/{f=1;next} f' MANIFEST.txt)`.)
+3. Copy state back:
+   - `home/database/*` → `"$NWN_HOME_DIR/database/"`
+   - `home/servervault/*` → `"$NWN_HOME_DIR/servervault/"`
+   - `run/activity-sessions.json*` → `"$NWN_RUN_DIR/"`
+   - config files from `home/` and `run/` to their respective dirs only if you
+     intend to roll those back too (they're usually fine as-is).
+4. Restart with `bin/serve`.
+
 ## Prerequisites
 
 `nasher`, `nwn_gff`, `nwn_script_comp`, and `python3` (for `wiki`) must be

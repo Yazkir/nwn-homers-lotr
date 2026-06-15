@@ -1,0 +1,199 @@
+#!/usr/bin/env bash
+# backup-homers-lotr — snapshot the irreplaceable Homer's LotR server state to
+# OneDrive, at most once per day.
+#
+# What it captures (none of this lives in git):
+#   NWN_HOME_DIR/database/*.sqlite3   player economy, bestiary, merits, etc.
+#   NWN_HOME_DIR/servervault/         player .bic characters
+#   NWN_HOME_DIR + NWN_RUN_DIR        settings.tml, nwn.ini, nwnplayer.ini,
+#                                     cdkey.ini, cryptographic_secret (live copy
+#                                     of each is whichever dir nwserver wrote it
+#                                     to — we capture both, mirrored)
+#   NWN_RUN_DIR/activity-sessions.json(+.bak)  player-hours history
+#
+# Deliberately NOT captured (regenerable): hak/, tlk/, nwsync/, compiled .mod
+# files (rebuild from the git module source), wiki docs/, .nasher/ cache.
+#
+# Runs are gated by a 24h sentinel so it can be invoked freely from both a
+# systemd timer and the `nwn-manager serve` poll loop without backing up twice.
+#
+# Usage: backup-homers-lotr [--force] [--dry-run]
+set -euo pipefail
+shopt -s nullglob
+
+PROJECT_ROOT=$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)
+ENV_FILE="$PROJECT_ROOT/server.env"
+LOCAL_ENV_FILE="$PROJECT_ROOT/server.env.local"
+
+[[ -f $ENV_FILE ]] || { echo "error: $ENV_FILE not found" >&2; exit 1; }
+# shellcheck disable=SC1090
+. "$ENV_FILE"
+# shellcheck disable=SC1090
+[[ -f $LOCAL_ENV_FILE ]] && . "$LOCAL_ENV_FILE"
+
+# --- config (override via env or server.env) --------------------------------
+: "${BACKUP_DEST:=$HOME/OneDrive/Games/NWNHomersLOTR/backups}"
+: "${BACKUP_SENTINEL:=$NWN_RUN_DIR/.backup-last-run}"
+: "${BACKUP_LOG:=$NWN_RUN_DIR/backup.log}"
+: "${BACKUP_MIN_INTERVAL_SECS:=86400}"      # 24h gate
+: "${BACKUP_KEEP_DAYS:=30}"                 # keep every backup this recent
+: "${BACKUP_KEEP_MONTHS:=12}"               # keep one-per-month this far back
+# A plain `onedrive --sync` (respecting the user's ~/.config/onedrive/sync_list,
+# which already includes Games/NWNHomersLOTR) is used rather than
+# --single-directory: the latter mis-resolves the remote path on this host.
+: "${ONEDRIVE_SYNC_ARGS:=--sync --threads 1}"
+: "${ONEDRIVE_BIN:=}"
+: "${BACKUP_ONEDRIVE_SYNC:=1}"              # 0 to skip the upload step
+
+FORCE=0; DRY_RUN=0
+for a in "$@"; do
+  case "$a" in
+    --force)   FORCE=1 ;;
+    --dry-run) DRY_RUN=1 ;;
+    *) echo "error: unknown arg: $a" >&2; exit 2 ;;
+  esac
+done
+
+log() {
+  local line="[backup] $(date '+%Y-%m-%d %H:%M:%S') $*"
+  echo "$line"
+  { mkdir -p "$(dirname "$BACKUP_LOG")" && echo "$line" >> "$BACKUP_LOG"; } 2>/dev/null || true
+}
+
+# --- once-per-day gate ------------------------------------------------------
+if [[ $FORCE -eq 0 && -f $BACKUP_SENTINEL ]]; then
+  now=$(date +%s); last=$(stat -c %Y "$BACKUP_SENTINEL")
+  age=$(( now - last ))
+  if (( age < BACKUP_MIN_INTERVAL_SECS )); then
+    log "skip: last backup ${age}s ago (< ${BACKUP_MIN_INTERVAL_SECS}s); use --force to override"
+    exit 0
+  fi
+fi
+
+ts=$(date -u +%Y%m%d-%H%M%S)
+stage=$(mktemp -d)
+trap 'rm -rf "$stage"' EXIT
+mkdir -p "$stage/home" "$stage/run"
+
+CONFIG_FILES=(settings.tml nwn.ini nwnplayer.ini cdkey.ini cryptographic_secret)
+
+copy_configs() {  # $1 = source base dir, $2 = stage subdir
+  local src=$1 dst=$2 f
+  for f in "${CONFIG_FILES[@]}"; do
+    [[ -f $src/$f ]] && cp -p "$src/$f" "$dst/$f"
+  done
+}
+
+if [[ $DRY_RUN -eq 1 ]]; then
+  log "DRY RUN — would back up:"
+  log "  DBs:        $(ls "$NWN_HOME_DIR"/database/*.sqlite3 2>/dev/null | wc -l) sqlite files"
+  log "  vault:      $(find "$NWN_HOME_DIR/servervault" -name '*.bic' 2>/dev/null | wc -l) .bic characters"
+  log "  configs:    home + run copies of: ${CONFIG_FILES[*]}"
+  log "  activity:   $NWN_RUN_DIR/activity-sessions.json(+.bak)"
+  log "  dest:       $BACKUP_DEST/homers-lotr-$ts.tar.gz"
+  log "  onedrive:   sync='$BACKUP_ONEDRIVE_SYNC' args='$ONEDRIVE_SYNC_ARGS'"
+  exit 0
+fi
+
+# --- databases: consistent live snapshots via the SQLite backup API --------
+mkdir -p "$stage/home/database"
+for db in "$NWN_HOME_DIR"/database/*.sqlite3; do
+  name=$(basename "$db")
+  if ! sqlite3 "$db" ".backup '$stage/home/database/$name'" 2>/dev/null; then
+    log "warn: sqlite3 .backup failed for $name; falling back to cp"
+    cp -p "$db" "$stage/home/database/$name"
+  fi
+done
+
+# --- player vault -----------------------------------------------------------
+if [[ -d $NWN_HOME_DIR/servervault ]]; then
+  mkdir -p "$stage/home/servervault"
+  rsync -a "$NWN_HOME_DIR/servervault/" "$stage/home/servervault/"
+fi
+
+# --- config files (capture both dirs; live copy is whichever nwserver wrote) -
+copy_configs "$NWN_HOME_DIR" "$stage/home"
+copy_configs "$NWN_RUN_DIR"  "$stage/run"
+
+# --- activity-hours history -------------------------------------------------
+for f in activity-sessions.json activity-sessions.json.bak; do
+  [[ -f $NWN_RUN_DIR/$f ]] && cp -p "$NWN_RUN_DIR/$f" "$stage/run/$f"
+done
+
+# --- manifest ---------------------------------------------------------------
+{
+  echo "Homer's LotR server backup"
+  echo "created_utc: $(date -u +%Y-%m-%dT%H:%M:%SZ)"
+  echo "host: $(hostname)"
+  echo "module_source_rev: $(git -C "$PROJECT_ROOT" rev-parse --short HEAD 2>/dev/null || echo '?')"
+  echo "nwn_home_dir: $NWN_HOME_DIR"
+  echo "nwn_run_dir: $NWN_RUN_DIR"
+  echo
+  echo "sha256:"
+  ( cd "$stage" && find . -type f ! -name MANIFEST.txt -print0 | sort -z \
+      | xargs -0 sha256sum )
+} > "$stage/MANIFEST.txt"
+
+# --- archive ----------------------------------------------------------------
+mkdir -p "$BACKUP_DEST"
+archive="$BACKUP_DEST/homers-lotr-$ts.tar.gz"
+tar czf "$archive" -C "$stage" .
+size=$(du -h "$archive" | cut -f1)
+log "wrote $archive ($size)"
+
+# --- sentinel ---------------------------------------------------------------
+mkdir -p "$(dirname "$BACKUP_SENTINEL")"
+touch "$BACKUP_SENTINEL"
+
+# --- retention: keep last N days + first-of-month for M months --------------
+python3 - "$BACKUP_DEST" "$BACKUP_KEEP_DAYS" "$BACKUP_KEEP_MONTHS" <<'PY'
+import os, re, sys, time
+dest, keep_days, keep_months = sys.argv[1], int(sys.argv[2]), int(sys.argv[3])
+pat = re.compile(r'^homers-lotr-(\d{8})-(\d{6})\.tar\.gz$')
+now = time.time()
+files = []
+for n in os.listdir(dest):
+    m = pat.match(n)
+    if m:
+        files.append((n, m.group(1), m.group(1)[:6]))  # name, YYYYMMDD, YYYYMM
+files.sort(key=lambda x: x[1] + x[0])  # chronological
+recent_cut = now - keep_days * 86400
+# earliest backup of each month (for the monthly tier)
+first_of_month = {}
+for n, ymd, ym in files:
+    first_of_month.setdefault(ym, n)
+months_sorted = sorted(set(ym for _, _, ym in files))
+keep_month_set = set(months_sorted[-keep_months:])
+removed = 0
+for n, ymd, ym in files:
+    path = os.path.join(dest, n)
+    if os.path.getmtime(path) >= recent_cut:
+        continue                                  # within daily window
+    if ym in keep_month_set and first_of_month[ym] == n:
+        continue                                  # monthly keeper
+    os.remove(path); removed += 1
+    print(f"[backup] pruned old backup: {n}")
+PY
+
+# --- upload (best-effort; never fails the backup) ---------------------------
+if [[ ${BACKUP_ONEDRIVE_SYNC:-1} -eq 1 ]]; then
+  od=${ONEDRIVE_BIN:-}
+  if [[ -z $od ]]; then
+    od=$(command -v onedrive || true)
+    [[ -z $od && -x /home/linuxbrew/.linuxbrew/opt/onedrive-cli/bin/onedrive ]] \
+      && od=/home/linuxbrew/.linuxbrew/opt/onedrive-cli/bin/onedrive
+  fi
+  if [[ -n $od ]]; then
+    log "uploading via $od $ONEDRIVE_SYNC_ARGS"
+    # shellcheck disable=SC2086
+    if "$od" $ONEDRIVE_SYNC_ARGS; then
+      log "onedrive sync complete"
+    else
+      log "warn: onedrive sync failed (rc=$?); backup is local-only until next sync"
+    fi
+  else
+    log "warn: onedrive binary not found; backup is local-only until you sync"
+  fi
+fi
+
+log "done"

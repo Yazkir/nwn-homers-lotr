@@ -95,7 +95,8 @@ echo
   nwn-manager serve \
     --log-dir "$NWN_RUN_DIR" \
     --poll-interval 5 \
-    --auto-publish
+    --auto-publish \
+    --backup-cmd "$PROJECT_ROOT/bin/backup-homers-lotr"
 ) &
 _SERVE_PID=$!
 trap 'kill "$_SERVE_PID" 2>/dev/null || true; wait "$_SERVE_PID" 2>/dev/null || true' EXIT INT TERM
