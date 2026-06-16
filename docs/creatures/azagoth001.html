@@ -69,6 +69,7 @@
 <h2>Combat</h2>
 <table class="data"><tr><th>HP</th><td>8,100</td><th>AC</th><td>64 <small class="muted">(10 base + +15 Dex + +30 natural (NaturalAC) + +5 dodge (items) + +4 dodge (haste))</small></td><th>BAB</th><td>+92</td></tr><tr><th>Fort</th><td>+20</td><th>Ref</th><td>+15</td><th>Will</th><td>+10</td></tr><tr><th>Spell Resistance</th><td>28</td><td></td><td></td></tr></table>
 <p class="muted">Saves shown = stored bonus + ability mod + item bonuses (Saving Throw Bonus: Specific); class-table progression and feat bonuses (Great Fortitude, etc.) are applied at runtime.</p>
+<p class="note-retaliation"><strong>Retaliation.</strong> When struck, this creature has a ~20% chance to unleash 5d100 + 100 Negative damage to everything nearby (area of effect). <span class="muted">(<code>OnDamaged</code>: <code>on_dmgd_massharm</code>)</span></p>
 <h3>Equipment combat properties (combined)</h3><table class="data"><tbody><tr><th>AC Bonus (Dodge, items)</th><td>+5</td></tr>
 <tr><th>Charisma Bonus</th><td>+5</td></tr>
 <tr><th>Constitution Bonus</th><td>+5</td></tr>
@@ -142,7 +143,6 @@
 <tr><td>Invisibility Purge</td><td>15</td><td>2/day</td></tr>
 <tr><td>Pulse, Ability Drain Constitution</td><td>0</td><td>5/day</td></tr>
 <tr><td>Pulse, <span class="nwn-dmg nwn-dmg-fire" style="color:#ff0101">Fire</span></td><td>0</td><td>10/day</td></tr></tbody></table>
-<p class="note-retaliation"><strong>Retaliation.</strong> When struck, this creature has a ~20% chance to unleash 5d100 + 100 Negative damage to everything nearby (area of effect). <span class="muted">(<code>OnDamaged</code>: <code>on_dmgd_massharm</code>)</span></p>
 <h2>Scripts</h2>
 <table class="data"><thead><tr><th>Event</th><th>Script</th></tr></thead><tbody><tr><td>ScriptHeartbeat</td><td>tailrake</td></tr>
 <tr><td>ScriptOnNotice</td><td>x2_def_percept</td></tr>
