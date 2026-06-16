@@ -257,9 +257,23 @@ int StartingConditional()
     // Per-forge ceilings: read from the anvil&#x27;s area (0 = uncapped).
     // FORGE_MAX_VALUE (low 250k / mid 500k / high 750k) and FORGE_MAX_PROPS
     // (low 4 / mid 5 / high 6) are set on each forge area&#x27;s local vars.
-    SetLocalInt(oPC, &quot;MODIFY_MAX&quot;, GetLocalInt(GetArea(oAnvil), &quot;FORGE_MAX_VALUE&quot;));
+    int iMaxValue = GetLocalInt(GetArea(oAnvil), &quot;FORGE_MAX_VALUE&quot;);
+    // A high Appraise raises this forge&#x27;s value ceiling for this player (take-20,
+    // up to +500k at an Appraise check of 65). 0 = uncapped forge, left uncapped.
+    if (iMaxValue &gt; 0)
+        iMaxValue += ForgeAppraiseBonus(oPC);
+    SetLocalInt(oPC, &quot;MODIFY_MAX&quot;, iMaxValue);
     SetLocalInt(oPC, &quot;MODIFY_MAX_PROPS&quot;, GetLocalInt(GetArea(oAnvil), &quot;FORGE_MAX_PROPS&quot;));
     SetTokens(oItem);
+    // Show the player where this piece stands before they spend: current worth
+    // (104), this forge&#x27;s cap (105) and the remaining headroom (106). These feed
+    // the forge menu / cost-prompt dialog lines.
+    int iWorth = ForgeItemValue(oItem);
+    SetCustomToken(104, IntToString(iWorth));
+    SetCustomToken(105, iMaxValue &gt; 0 ? IntToString(iMaxValue) : &quot;no&quot;);
+    int iHeadroom = iMaxValue - iWorth;
+    if (iHeadroom &lt; 0) iHeadroom = 0;
+    SetCustomToken(106, iMaxValue &gt; 0 ? IntToString(iHeadroom) : &quot;no&quot;);
     return TRUE;
 }
 </code></pre>

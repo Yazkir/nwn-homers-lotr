@@ -1,0 +1,117 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Script store_appr_inc</title>
+  <link rel="stylesheet" href="../assets/style.css">
+  <link rel="stylesheet" href="../assets/theme.css">
+  <link rel="icon" href="../assets/favicon.png">
+  <script src="../assets/site.js" defer></script>
+</head>
+<body>
+  <header class="site-header">
+    <a class="brand" href="../index.html"><img class="site-header-img" src="../assets/header.png" alt="Home"></a>
+    <nav>
+      <a href="../index.html">Map</a>
+      <a href="../areas/index.html">Areas</a>
+      <div class="nav-dropdown">
+        <span class="nav-dropdown-label">Creatures &#9660;</span>
+        <div class="nav-dropdown-menu">
+          <a href="../creatures/index.html">All Creatures</a>
+          <a href="../creatures/by-area/index.html">By Area</a>
+          <a href="../creatures/by-cr/index.html">By Challenge Rating</a>
+          <a href="../creatures/by-race/index.html">By Race</a>
+          <a href="../creatures/pictures.html">Pictures</a>
+        </div>
+      </div>
+      <div class="nav-dropdown">
+        <span class="nav-dropdown-label">Items &#9660;</span>
+        <div class="nav-dropdown-menu">
+          <a href="../items/index.html">Accessible</a>
+          <a href="../items/inaccessible/index.html">Inaccessible</a>
+          <a href="../items/properties/index.html">By Property</a>
+          <a href="../items/search.html">Search</a>
+        </div>
+      </div>
+      <a href="../stores/index.html">Stores</a>
+      <a href="../conversations/index.html">Conversations</a>
+      <a href="../factions.html">Factions</a>
+      <a href="../quests/index.html">Quests</a>
+      <div class="nav-dropdown"><span class="nav-dropdown-label">Activity &#9660;</span><div class="nav-dropdown-menu"><a href="../activity.html">Player Activity</a>
+<a href="../manual/ServerFirsts.html">Server Firsts</a></div></div>
+      <div class="nav-dropdown"><span class="nav-dropdown-label">Documents &#9660;</span><div class="nav-dropdown-menu"><a href="../manual/Customizations.html">Customizations</a>
+<a href="../manual/LevelingGuide.html">Leveling Guide</a>
+<a href="../manual/MeaningWave.html">MeaningWave: A Guide to the Guides</a>
+<a href="../manual/Quest Ideas.html">Quest Ideas (Draft Concepts)</a>
+<a href="../manual/QuestGuide.html">Quest Guide</a></div></div>
+    </nav>
+  </header>
+  <main>
+<h1>Script: <code>store_appr_inc</code></h1><pre class="nss-source"><code>// store_appr_inc.nss — Appraise-scaled, per-PC store opening.
+//
+// A store&#x27;s MaxBuyPrice (the cap on the gold it will pay a player for any one
+// item) lives on the shared store object, so scaling it in place would leak one
+// player&#x27;s Appraise bonus to everyone else shopping the same store. Instead,
+// OpenStoreAppr opens a throwaway COPY of the store whose cap is scaled by the
+// opening player&#x27;s Appraise — fully per-player, nothing shared. The copy is
+// destroyed when the player closes it (store_appr_cls on STORE_ON_CLOSE), with
+// a delayed fallback in case the close event is missed.
+//
+// Use this in place of OpenStore(...) / gplotAppraiseOpenStore(...) in the
+// conversation/opener scripts of stores that BUY from players. The only added
+// effect is the Appraise-scaled buy cap on capped stores; the store is otherwise
+// opened exactly as before. bAppraisePricing mirrors how the original opener
+// opened the store, so existing buy/sell pricing is preserved:
+//   - openers that used plain OpenStore  -&gt; OpenStoreAppr(oStore, oPC)        (FALSE)
+//   - openers that used gplotAppraiseOpenStore -&gt; OpenStoreAppr(o, oPC, TRUE) (gplot)
+// Uncapped stores (MaxBuyPrice -1) open normally with no copy.
+
+#include &quot;appraise_inc&quot;
+#include &quot;nw_i0_plot&quot;   // gplotAppraiseOpenStore — preserves stock store pricing
+
+// Open oStore for oPC using whichever stock open call the original opener used.
+void StoreOpenAs(object oStore, object oPC, int bAppraisePricing)
+{
+    if (bAppraisePricing)
+        gplotAppraiseOpenStore(oStore, oPC);
+    else
+        OpenStore(oStore, oPC);
+}
+
+void OpenStoreAppr(object oStore, object oPC, int bAppraisePricing = FALSE)
+{
+    if (GetObjectType(oStore) != OBJECT_TYPE_STORE || !GetIsPC(oPC))
+        return;
+
+    int nBase = GetStoreMaxBuyPrice(oStore);
+    // -1 = uncapped: nothing to raise, open the real store directly.
+    if (nBase &lt;= 0)
+    {
+        StoreOpenAs(oStore, oPC, bAppraisePricing);
+        return;
+    }
+
+    // Per-PC throwaway copy. bCopyLocalState=TRUE carries the live store&#x27;s
+    // inventory, local vars and event scripts (e.g. clean_store2 OnOpen).
+    object oCopy = CopyObject(oStore, GetLocation(oStore), OBJECT_INVALID, &quot;&quot;, TRUE);
+    if (!GetIsObjectValid(oCopy))
+    {
+        // Copy failed — never deny the player their store; open the original.
+        StoreOpenAs(oStore, oPC, bAppraisePricing);
+        return;
+    }
+
+    // Raise this player&#x27;s cap: +0 with no Appraise investment, up to +100%
+    // (double) at an Appraise check of 65.
+    SetStoreMaxBuyPrice(oCopy, nBase + AppraiseBonusScaled(oPC, nBase));
+    SetLocalInt(oCopy, &quot;STORE_APPR_COPY&quot;, TRUE);
+    SetEventScript(oCopy, EVENT_SCRIPT_STORE_ON_CLOSE, &quot;store_appr_cls&quot;);
+    StoreOpenAs(oCopy, oPC, bAppraisePricing);
+    // Fallback cleanup if the close event never fires (e.g. client disconnect).
+    DestroyObject(oCopy, 1800.0);
+}
+</code></pre>
+  </main>
+  <footer>generated by <a href="https://github.com/mrprice22/nwn-manager">nwn-manager</a> &mdash; <span id="wiki-generated-at" data-meta-url="../assets/meta.json"></span></footer>
+</body>
+</html>

@@ -47,12 +47,13 @@
     </nav>
   </header>
   <main>
-<h1>Script: <code>openstore065</code></h1><pre class="nss-source"><code>void main()
+<h1>Script: <code>openstore065</code></h1><pre class="nss-source"><code>#include &quot;store_appr_inc&quot;
+void main()
 {
     object oStore = GetNearestObjectByTag(&quot;X2_STOREWEAP003&quot;);
     if (GetObjectType(oStore) == OBJECT_TYPE_STORE)
     {
-        OpenStore(oStore, GetPCSpeaker());
+        OpenStoreAppr(oStore, GetPCSpeaker());
     }
     else
     {

@@ -59,16 +59,53 @@ void main()
     int iDiff = GetLocalInt(oPC, &quot;MODIFY_DIFF&quot;);
     object oItem = GetLocalObject(oPC, &quot;MODIFY_ITEM&quot;);
 
+    //Resolve the pending property up front: the cap below assesses the item
+    //*with this property applied*, not the stale quote from a prior node.
+    itemproperty ipNew = GetNewProperty(oItem);
+
     //Per-forge value ceiling: refuse enchants that would raise the item&#x27;s
-    //assessed value past this forge&#x27;s cap (0 = uncapped). Only value-increasing
-    //enchants (iDiff == 1) can breach it; no-change passes through.
-    //Value is the true identified, non-plot assessment (ForgeItemValue), so
-    //unidentified/plot items can&#x27;t slip under the cap; a failed valuation
-    //(-1) refuses rather than passing as cheap.
-    //Prospective new value = current value + quoted cost (MODIFY_VALUE).
+    //assessed value past this forge&#x27;s cap (0 = uncapped), plus a hard backstop
+    //at the global jailable ceiling so a missing/cleared area var can never let
+    //a forge mint an item the login contraband scan would jail.
+    //We assess the projected value directly — copy the item, add the pending
+    //property, and price the copy (identified, non-plot via ForgeItemValue) —
+    //so enforcement does NOT depend on the MODIFY_VALUE/MODIFY_DIFF locals an
+    //earlier dialog node set; any stale-local path is still capped. A failed
+    //valuation refuses rather than passing as cheap.
     int iMax = GetLocalInt(oPC, &quot;MODIFY_MAX&quot;);
+    // A high Appraise raises both this forge&#x27;s per-tier cap (already folded into
+    // MODIFY_MAX by isitemonanvil) and the global legal backstop below, by the
+    // same amount, so lawful high-Appraise forging never trips the jail scan.
+    int iBonus = ForgeAppraiseBonus(oPC);
     int iCurValue = ForgeItemValue(oItem);
-    if (iMax &gt; 0 &amp;&amp; iDiff == 1 &amp;&amp; (iCurValue &lt; 0 || iCurValue + iValue &gt; iMax))
+    int iProjected = iCurValue;
+    if (GetIsItemPropertyValid(ipNew))
+        {
+        object oHolder = ForgeHolder();
+        object oProbe = GetIsObjectValid(oHolder)
+            ? CopyItem(oItem, oHolder, TRUE) : OBJECT_INVALID;
+        if (GetIsObjectValid(oProbe))
+            {
+            CustomAddProperty(oProbe, ipNew);
+            iProjected = ForgeItemValue(oProbe);
+            DestroyObject(oProbe);
+            }
+        else
+            iProjected = -1;
+        }
+    if (iCurValue &lt; 0 || iProjected &lt; 0)
+        {
+        SpeakString(&quot;I cannot take the measure of this piece just now — try me &quot;
+            + &quot;again in a moment.&quot;);
+        return;
+        }
+    if (iProjected &gt; FORGE_LEGAL_MAX_VALUE + iBonus)
+        {
+        SpeakString(&quot;No forge in these lands may bind so much worth into one &quot;
+            + &quot;piece — that lies beyond what the law allows. I&#x27;ll not do it.&quot;);
+        return;
+        }
+    if (iMax &gt; 0 &amp;&amp; iProjected &gt; iMax)
         {
         SpeakString(&quot;I&#x27;m sorry — my forge cannot work this piece any further. I &quot;
             + &quot;dare not raise its worth past &quot; + IntToString(iMax) + &quot; gold. Take &quot;
@@ -76,19 +113,30 @@ void main()
         return;
         }
 
-    //Per-forge property-count ceiling (0 = uncapped). Replacing an existing
-    //property of the same type doesn&#x27;t grow the count, so it stays allowed.
+    //Per-forge property-count ceiling (0 = uncapped), with a hard backstop at
+    //the global jailable property limit. Replacing an existing property of the
+    //same type doesn&#x27;t grow the count, so it stays allowed.
     int iMaxProps = GetLocalInt(oPC, &quot;MODIFY_MAX_PROPS&quot;);
-    itemproperty ipNew = GetNewProperty(oItem);
-    if (iMaxProps &gt; 0 &amp;&amp; GetIsItemPropertyValid(ipNew)
-        &amp;&amp; !ForgePropMatchesExisting(oItem, ipNew)
-        &amp;&amp; ForgeCountProps(oItem) &gt;= iMaxProps)
+    if (GetIsItemPropertyValid(ipNew)
+        &amp;&amp; !ForgePropMatchesExisting(oItem, ipNew))
         {
-        SpeakString(&quot;This piece already carries &quot; + IntToString(iMaxProps)
-            + &quot; enchantments — as much power as my forge dares bind into one &quot;
-            + &quot;item. Have me strike an enchantment from it first, or seek a &quot;
-            + &quot;greater forge.&quot;);
-        return;
+        int iProps = ForgeCountProps(oItem);
+        if (iProps &gt;= FORGE_LEGAL_MAX_PROPS)
+            {
+            SpeakString(&quot;No forge may bind more than &quot;
+                + IntToString(FORGE_LEGAL_MAX_PROPS) + &quot; enchantments into one &quot;
+                + &quot;piece — that is the limit of the law. Have me strike one from &quot;
+                + &quot;it first.&quot;);
+            return;
+            }
+        if (iMaxProps &gt; 0 &amp;&amp; iProps &gt;= iMaxProps)
+            {
+            SpeakString(&quot;This piece already carries &quot; + IntToString(iMaxProps)
+                + &quot; enchantments — as much power as my forge dares bind into one &quot;
+                + &quot;item. Have me strike an enchantment from it first, or seek a &quot;
+                + &quot;greater forge.&quot;);
+            return;
+            }
         }
 
     //No refunds: refuse any change that would lower the item&#x27;s assessed value.
@@ -121,6 +169,17 @@ void main()
         // Enchanting changes the item&#x27;s legality footprint — drop its &quot;clean&quot;
         // stamp so the next login contraband scan re-evaluates it.
         DeleteLocalInt(oItem, &quot;FORGE_CLEAN&quot;);
+        // If this lawful enchant carried the item above the default global
+        // ceiling (the player&#x27;s Appraise allowed it), record the lawful ceiling
+        // on the item so the contraband scan / Warden never jail it later, even
+        // if the bearer&#x27;s Appraise changes or the item is traded. Keep the
+        // highest ceiling ever applied.
+        if (iProjected &gt; FORGE_LEGAL_MAX_VALUE)
+            {
+            int iCeil = FORGE_LEGAL_MAX_VALUE + iBonus;
+            if (iCeil &gt; GetLocalInt(oItem, FORGE_CEIL))
+                SetLocalInt(oItem, FORGE_CEIL, iCeil);
+            }
         }
 }
 </code></pre>

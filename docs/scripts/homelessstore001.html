@@ -47,13 +47,13 @@
     </nav>
   </header>
   <main>
-<h1>Script: <code>homelessstore001</code></h1><pre class="nss-source"><code>#include &quot;nw_i0_plot&quot;
+<h1>Script: <code>homelessstore001</code></h1><pre class="nss-source"><code>#include &quot;store_appr_inc&quot;
 void main()
 {
     object oStore = GetNearestObjectByTag(&quot;NW_STOREBAR01&quot;);
     if (GetObjectType(oStore) == OBJECT_TYPE_STORE)
     {
-        gplotAppraiseOpenStore(oStore, GetPCSpeaker());
+        OpenStoreAppr(oStore, GetPCSpeaker(), TRUE);
     }
     else
     {

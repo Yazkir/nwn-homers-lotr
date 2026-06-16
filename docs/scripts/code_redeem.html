@@ -65,6 +65,7 @@ string GetCodeExpiration(string sCodeLower)
     if (sCodeLower == &quot;freelegendary&quot;) return &quot;2026-07-01&quot;;
     if (sCodeLower == &quot;defect20260516&quot;) return &quot;2026-05-25&quot;;
     if (sCodeLower == &quot;first100hours&quot;) return &quot;2026-07-01&quot;;
+    if (sCodeLower == &quot;forgingahead&quot;) return &quot;2026-07-15&quot;;
     return &quot;&quot;;
 }
 
@@ -84,6 +85,12 @@ int ApplyCodeBenefit(string sCodeLower, object oPC)
     if (sCodeLower == &quot;first100hours&quot;)
     {
         CreateItemOnObject(&quot;rodoffirst100hou&quot;, oPC);
+        return TRUE;
+    }
+    if (sCodeLower == &quot;forgingahead&quot;)
+    {
+        int i;
+        for (i = 0; i &lt; 3; i++) CreateItemOnObject(&quot;forgekey&quot;, oPC);
         return TRUE;
     }
     return FALSE;

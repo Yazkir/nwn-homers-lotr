@@ -47,14 +47,15 @@
     </nav>
   </header>
   <main>
-<h1>Script: <code>_kiashopopen</code></h1><pre class="nss-source"><code>void main()
+<h1>Script: <code>_kiashopopen</code></h1><pre class="nss-source"><code>#include &quot;store_appr_inc&quot;
+void main()
 {
     object oPlayer;
     object oStore;
 
     oPlayer = GetPCSpeaker();
     oStore = GetNearestObjectByTag(&quot;NW_STOREBAR01&quot;);
-    OpenStore(oStore,oPlayer);
+    OpenStoreAppr(oStore,oPlayer);
 }
 </code></pre>
   </main>

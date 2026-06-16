@@ -89,6 +89,11 @@ void main()
     SetLocalInt(oPC, &quot;MODIFY_VALUE&quot;, iValue);
     SetLocalInt(oPC, &quot;MODIFY_DIFF&quot;, iDiff);
     SetCustomToken(101, IntToString(iValue));
+    // Keep the worth tokens accurate for the cost prompt: 104 = current worth,
+    // 107 = what the piece would be worth after this enchant. (105 = this
+    // forge&#x27;s cap, set on the anvil; isitemonanvil refreshes 104/106 each menu.)
+    SetCustomToken(104, IntToString(iCurrentValue));
+    SetCustomToken(107, IntToString(iNewValue));
 }
 </code></pre>
   </main>
