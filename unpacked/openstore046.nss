@@ -1,9 +1,10 @@
+#include "store_appr_inc"
 void main()
 {
     object oStore = GetNearestObjectByTag("x2_genie_store");
     if (GetObjectType(oStore) == OBJECT_TYPE_STORE)
     {
-        OpenStore(oStore, GetPCSpeaker());
+        OpenStoreAppr(oStore, GetPCSpeaker());
     }
     else
     {

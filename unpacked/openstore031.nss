@@ -1,10 +1,10 @@
-#include "nw_i0_plot"
+#include "store_appr_inc"
 void main()
 {
     object oStore = GetNearestObjectByTag("houseofhealarmor");
     if (GetObjectType(oStore) == OBJECT_TYPE_STORE)
     {
-        gplotAppraiseOpenStore(oStore, GetPCSpeaker());
+        OpenStoreAppr(oStore, GetPCSpeaker(), TRUE);
     }
     else
     {

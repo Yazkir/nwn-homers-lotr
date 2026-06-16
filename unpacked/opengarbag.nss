@@ -1,10 +1,11 @@
+#include "store_appr_inc"
 // #include "nw_i0_plot"
 void main()
 {
     object oStore = GetNearestObjectByTag("cirithmerch");
     if (GetObjectType(oStore) == OBJECT_TYPE_STORE)
     {
-        OpenStore(oStore, GetPCSpeaker());
+        OpenStoreAppr(oStore, GetPCSpeaker());
     }
     else
     {

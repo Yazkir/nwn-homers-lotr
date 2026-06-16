@@ -10,9 +10,30 @@
 // Generated whitelist of legally-placed item variants (ForgeIsKnownLegalVariant,
 // ForgeLegalFingerprint) — regenerate with bin/gen-forge-legal.py.
 #include "forge_legal_inc"
+// Appraise scaling (AppraiseBonusScaled) for the per-player value ceiling.
+#include "appraise_inc"
 
 const int FORGE_LEGAL_MAX_PROPS = 6;
 const int FORGE_LEGAL_MAX_VALUE = 750000;
+
+// Extra item value (gp) a maxed-Appraise player may lawfully forge above the
+// default ceilings: +0 at no Appraise investment, +500,000 at an Appraise check
+// of 65. Applied to each forge's per-tier cap, the global enchant backstop, and
+// the contraband/jail ceiling alike. See appraise_inc.nss.
+const int FORGE_APPRAISE_MAX_BONUS = 500000;
+
+// Item-local int stamped by modifyitem when a forge lawfully enchants an item
+// above the default global ceiling because the player's Appraise allowed it.
+// Its value is the lawful per-item value ceiling that justified the work, so the
+// contraband scan / Forge Warden honor it regardless of who later holds the item
+// (legality stays intrinsic to the item — see FORGE_CLEAN note below).
+const string FORGE_CEIL = "FORGE_CEIL";
+
+// Appraise-extended value bonus for oPC (0..FORGE_APPRAISE_MAX_BONUS).
+int ForgeAppraiseBonus(object oPC)
+{
+    return AppraiseBonusScaled(oPC, FORGE_APPRAISE_MAX_BONUS);
+}
 const string FORGE_VAULT_TAG = "FORGE_VAULT";
 const int FORGE_DIS_SLOTS = 8;
 
@@ -24,7 +45,7 @@ const int FORGE_DIS_SLOTS = 8;
 // after a rules update. Forge masters clear the stamp when they modify an item
 // (see modifyitem.nss / forge_dis_go.nss). Legality is intrinsic to the item,
 // so a clean stamp is valid across owners — trading can't launder gear.
-const int FORGE_CLEAN_VER = 1;
+const int FORGE_CLEAN_VER = 2;
 
 // Tri-state result of ForgeItemLegality.
 const int FORGE_LEG_LEGAL         = 0;  // confirmed within the law
@@ -289,8 +310,15 @@ int ForgeItemLegality(object oItem)
     int nValue = ForgeItemValue(oItem, TRUE); // per-unit: the cap is per item, not per stack
     if (nValue < 0)
         return FORGE_LEG_INDETERMINATE; // no valuation infrastructure — never judge blind
+    // A forge stamps FORGE_CEIL on an item it lawfully enchanted above the
+    // default ceiling because the forger's Appraise allowed it; honor that
+    // higher per-item ceiling for everyone (legality is intrinsic to the item).
+    int nValueCeil = FORGE_LEGAL_MAX_VALUE;
+    int nStamp = GetLocalInt(oItem, FORGE_CEIL);
+    if (nStamp > nValueCeil)
+        nValueCeil = nStamp;
     if (ForgeCountProps(oItem) <= FORGE_LEGAL_MAX_PROPS
-        && nValue <= FORGE_LEGAL_MAX_VALUE)
+        && nValue <= nValueCeil)
         return FORGE_LEG_LEGAL;
     if (!ForgeItemDeviatesFromBlueprint(oItem))
         return FORGE_LEG_LEGAL;
@@ -423,13 +451,19 @@ string ForgeLegalStatus(object oItem)
         return "";
     int nProps = ForgeCountProps(oItem);
     int nValue = ForgeItemValue(oItem, TRUE); // per-unit: matches the ForgeIsItemIllegal gate
+    // Honor any Appraise-extended ceiling stamped on the item (see FORGE_CEIL),
+    // so a lawfully high-value piece reads as within the law, not contraband.
+    int nValueCeil = FORGE_LEGAL_MAX_VALUE;
+    int nStamp = GetLocalInt(oItem, FORGE_CEIL);
+    if (nStamp > nValueCeil)
+        nValueCeil = nStamp;
     int bProps = nProps > FORGE_LEGAL_MAX_PROPS;
-    int bValue = nValue > FORGE_LEGAL_MAX_VALUE;
+    int bValue = nValue > nValueCeil;
     if (!bProps && !bValue)
         return "It is within the law now: " + IntToString(nProps)
             + " enchantments of the " + IntToString(FORGE_LEGAL_MAX_PROPS)
             + " allowed, and a worth of " + IntToString(nValue)
-            + " gold under the lawful " + IntToString(FORGE_LEGAL_MAX_VALUE) + ".";
+            + " gold under the lawful " + IntToString(nValueCeil) + ".";
     string s = "";
     if (bProps)
         s += "It still bears " + IntToString(nProps) + " enchantments where the "
@@ -439,7 +473,7 @@ string ForgeLegalStatus(object oItem)
         if (s != "") s += " And i";
         else s += "I";
         s += "ts worth, " + IntToString(nValue) + " gold, still exceeds the lawful "
-            + IntToString(FORGE_LEGAL_MAX_VALUE) + ".";
+            + IntToString(nValueCeil) + ".";
     }
     return s;
 }

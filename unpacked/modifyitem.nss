@@ -24,6 +24,10 @@ void main()
     //earlier dialog node set; any stale-local path is still capped. A failed
     //valuation refuses rather than passing as cheap.
     int iMax = GetLocalInt(oPC, "MODIFY_MAX");
+    // A high Appraise raises both this forge's per-tier cap (already folded into
+    // MODIFY_MAX by isitemonanvil) and the global legal backstop below, by the
+    // same amount, so lawful high-Appraise forging never trips the jail scan.
+    int iBonus = ForgeAppraiseBonus(oPC);
     int iCurValue = ForgeItemValue(oItem);
     int iProjected = iCurValue;
     if (GetIsItemPropertyValid(ipNew))
@@ -46,7 +50,7 @@ void main()
             + "again in a moment.");
         return;
         }
-    if (iProjected > FORGE_LEGAL_MAX_VALUE)
+    if (iProjected > FORGE_LEGAL_MAX_VALUE + iBonus)
         {
         SpeakString("No forge in these lands may bind so much worth into one "
             + "piece — that lies beyond what the law allows. I'll not do it.");
@@ -116,5 +120,16 @@ void main()
         // Enchanting changes the item's legality footprint — drop its "clean"
         // stamp so the next login contraband scan re-evaluates it.
         DeleteLocalInt(oItem, "FORGE_CLEAN");
+        // If this lawful enchant carried the item above the default global
+        // ceiling (the player's Appraise allowed it), record the lawful ceiling
+        // on the item so the contraband scan / Warden never jail it later, even
+        // if the bearer's Appraise changes or the item is traded. Keep the
+        // highest ceiling ever applied.
+        if (iProjected > FORGE_LEGAL_MAX_VALUE)
+            {
+            int iCeil = FORGE_LEGAL_MAX_VALUE + iBonus;
+            if (iCeil > GetLocalInt(oItem, FORGE_CEIL))
+                SetLocalInt(oItem, FORGE_CEIL, iCeil);
+            }
         }
 }

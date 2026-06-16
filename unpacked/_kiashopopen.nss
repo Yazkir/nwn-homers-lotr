@@ -1,3 +1,4 @@
+#include "store_appr_inc"
 void main()
 {
     object oPlayer;
@@ -5,5 +6,5 @@ void main()
 
     oPlayer = GetPCSpeaker();
     oStore = GetNearestObjectByTag("NW_STOREBAR01");
-    OpenStore(oStore,oPlayer);
+    OpenStoreAppr(oStore,oPlayer);
 }

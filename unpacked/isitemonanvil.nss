@@ -209,6 +209,10 @@ int StartingConditional()
     // FORGE_MAX_VALUE (low 250k / mid 500k / high 750k) and FORGE_MAX_PROPS
     // (low 4 / mid 5 / high 6) are set on each forge area's local vars.
     int iMaxValue = GetLocalInt(GetArea(oAnvil), "FORGE_MAX_VALUE");
+    // A high Appraise raises this forge's value ceiling for this player (take-20,
+    // up to +500k at an Appraise check of 65). 0 = uncapped forge, left uncapped.
+    if (iMaxValue > 0)
+        iMaxValue += ForgeAppraiseBonus(oPC);
     SetLocalInt(oPC, "MODIFY_MAX", iMaxValue);
     SetLocalInt(oPC, "MODIFY_MAX_PROPS", GetLocalInt(GetArea(oAnvil), "FORGE_MAX_PROPS"));
     SetTokens(oItem);

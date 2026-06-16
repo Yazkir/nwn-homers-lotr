@@ -158,6 +158,88 @@ false positive, fix it permanently by re-running the generator (or
 investigating why the fingerprint didn't match — see the normalization notes
 in `bin/gen-forge-legal.py`).
 
+## Appraise-scaled merchants & forge ceilings
+
+A character's **Appraise** skill gives two persistent economy benefits, both
+driven by the shared helper `unpacked/appraise_inc.nss`:
+
+- **Merchants** pay more for items you sell — up to **+100% (double)** the
+  store's max buy cap.
+- **Forges** (see [Forge legal-variant whitelist](#forge-legal-variant-whitelist))
+  let you enchant an item to a higher gold value — up to **+500,000 gp** above
+  the tier ceiling.
+
+The skill is read as a deterministic **"take 20"** (`AppraiseCheck` =
+`20 + GetSkillRank(SKILL_APPRAISE, oPC)`, never a d20 roll). `AppraiseBonusScaled`
+returns 0 below check 21 (so a character with no Appraise investment is no better
+off than the module defaults — they need at least one rank, a +1 Charisma
+modifier, or an Appraise item), then scales linearly to the full bonus at check
+65 (`APPRAISE_FULL_CHECK`).
+
+### Merchant buy-cap scaling
+
+The lever is each store's **MaxBuyPrice** — the cap on the gold it will pay for
+any single item. That cap lives on the (shared) store object, so it can't be
+scaled per-player in place without leaking one player's Appraise bonus to anyone
+else shopping the same store. Instead, `unpacked/store_appr_inc.nss` opens a
+**throwaway copy** of a capped store, scales the copy's `MaxBuyPrice` for the
+opening player, and destroys it on close:
+
+- `OpenStoreAppr(oStore, oPC, bAppraisePricing = FALSE)` — copies the live store
+  (`CopyObject`, carrying its current inventory + `OnOpenStore`), raises the
+  copy's cap by `AppraiseBonusScaled(oPC, baseCap)`, opens the copy, and queues
+  it for destruction.
+- `unpacked/store_appr_cls.nss` is the copy's `STORE_ON_CLOSE` handler — it
+  destroys the copy as soon as the player closes it (a delayed fallback covers a
+  missed close, e.g. a disconnect).
+- Uncapped stores (`MaxBuyPrice == -1`) open directly with **no copy** — there is
+  no cap to scale.
+
+### Wiring a new merchant
+
+Merchant stores are opened from small "opener" scripts (typically wired to an
+NPC conversation node) that look up the store by tag and call `OpenStore`. To
+give a new merchant the Appraise buy-cap bonus:
+
+1. **Give the placed store a finite buy cap.** Set **Max Buy Price** to a
+   non-`-1` value on the *placed store instance* (in the toolset, or the area's
+   `.git.json` StoreList — the instance overrides the `.utm` blueprint). This
+   value is the "unfavorable reaction" baseline that Appraise scales up from.
+   A store left at `-1` (no limit) gets no bonus (nothing to scale).
+2. **Call the wrapper instead of `OpenStore` in the opener:**
+
+   ```nss
+   #include "store_appr_inc"
+   void main()
+   {
+       object oStore = GetNearestObjectByTag("MY_STORE_TAG");
+       if (GetObjectType(oStore) == OBJECT_TYPE_STORE)
+           OpenStoreAppr(oStore, GetPCSpeaker());        // plain open
+   }
+   ```
+
+   If the opener previously used `gplotAppraiseOpenStore` (the stock
+   Appraise-priced open), pass `TRUE` as the third argument to preserve that
+   pricing on top of the cap scaling:
+
+   ```nss
+   OpenStoreAppr(oStore, GetPCSpeaker(), TRUE);          // keep stock appraise pricing
+   ```
+
+3. **Leave non-buying merchants alone.** A store that buys nothing from players
+   needs no change — the cap is irrelevant. (The wrapper is harmless on such
+   stores, but there's no reason to add it.)
+
+The bulk swap of the existing ~104 openers was mechanical: plain `OpenStore(o,
+GetPCSpeaker())` → `OpenStoreAppr(o, GetPCSpeaker())`, and
+`gplotAppraiseOpenStore(o, GetPCSpeaker())` → `OpenStoreAppr(o, GetPCSpeaker(),
+TRUE)`, adding `#include "store_appr_inc"`. Two subsystems were deliberately
+**not** converted because they manage their own pricing: the Bedlamson Dynamic
+Merchant (`bdm_cnv_opn_stor.nss`, persuade-based haggling) and the thief fence
+(`bdm_cnv_steal.nss`).
+
+After adding or editing an opener, recompile (`nwn-manager repack`).
+
 ## Redemption codes
 
 Players redeem codes by typing `Code:<name>` in chat (any channel). The
