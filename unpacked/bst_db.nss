@@ -52,11 +52,16 @@ void Bst_InitDb()
         "first_player_name TEXT," +
         "first_at TEXT NOT NULL DEFAULT (datetime('now')))");
     SqlStep(q);
-    // Migration: add first_player_name to existing DBs (SqlStep silently ignores the
-    // error if the column already exists — SQLite returns SQLITE_ERROR, NWScript drops it).
+    // Migration: add first_player_name to pre-existing DBs. Guard with PRAGMA so the
+    // ALTER is skipped on logins after the column already exists.
     q = SqlPrepareQueryCampaign(BST_DB,
-        "ALTER TABLE server_first ADD COLUMN first_player_name TEXT");
-    SqlStep(q);
+        "SELECT 1 FROM pragma_table_info('server_first') WHERE name='first_player_name'");
+    if (!SqlStep(q))
+    {
+        q = SqlPrepareQueryCampaign(BST_DB,
+            "ALTER TABLE server_first ADD COLUMN first_player_name TEXT");
+        SqlStep(q);
+    }
 
     q = SqlPrepareQueryCampaign(BST_DB,
         "CREATE TABLE IF NOT EXISTS catalogue (" +
