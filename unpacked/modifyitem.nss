@@ -10,16 +10,49 @@ void main()
     int iDiff = GetLocalInt(oPC, "MODIFY_DIFF");
     object oItem = GetLocalObject(oPC, "MODIFY_ITEM");
 
+    //Resolve the pending property up front: the cap below assesses the item
+    //*with this property applied*, not the stale quote from a prior node.
+    itemproperty ipNew = GetNewProperty(oItem);
+
     //Per-forge value ceiling: refuse enchants that would raise the item's
-    //assessed value past this forge's cap (0 = uncapped). Only value-increasing
-    //enchants (iDiff == 1) can breach it; no-change passes through.
-    //Value is the true identified, non-plot assessment (ForgeItemValue), so
-    //unidentified/plot items can't slip under the cap; a failed valuation
-    //(-1) refuses rather than passing as cheap.
-    //Prospective new value = current value + quoted cost (MODIFY_VALUE).
+    //assessed value past this forge's cap (0 = uncapped), plus a hard backstop
+    //at the global jailable ceiling so a missing/cleared area var can never let
+    //a forge mint an item the login contraband scan would jail.
+    //We assess the projected value directly — copy the item, add the pending
+    //property, and price the copy (identified, non-plot via ForgeItemValue) —
+    //so enforcement does NOT depend on the MODIFY_VALUE/MODIFY_DIFF locals an
+    //earlier dialog node set; any stale-local path is still capped. A failed
+    //valuation refuses rather than passing as cheap.
     int iMax = GetLocalInt(oPC, "MODIFY_MAX");
     int iCurValue = ForgeItemValue(oItem);
-    if (iMax > 0 && iDiff == 1 && (iCurValue < 0 || iCurValue + iValue > iMax))
+    int iProjected = iCurValue;
+    if (GetIsItemPropertyValid(ipNew))
+        {
+        object oHolder = ForgeHolder();
+        object oProbe = GetIsObjectValid(oHolder)
+            ? CopyItem(oItem, oHolder, TRUE) : OBJECT_INVALID;
+        if (GetIsObjectValid(oProbe))
+            {
+            CustomAddProperty(oProbe, ipNew);
+            iProjected = ForgeItemValue(oProbe);
+            DestroyObject(oProbe);
+            }
+        else
+            iProjected = -1;
+        }
+    if (iCurValue < 0 || iProjected < 0)
+        {
+        SpeakString("I cannot take the measure of this piece just now — try me "
+            + "again in a moment.");
+        return;
+        }
+    if (iProjected > FORGE_LEGAL_MAX_VALUE)
+        {
+        SpeakString("No forge in these lands may bind so much worth into one "
+            + "piece — that lies beyond what the law allows. I'll not do it.");
+        return;
+        }
+    if (iMax > 0 && iProjected > iMax)
         {
         SpeakString("I'm sorry — my forge cannot work this piece any further. I "
             + "dare not raise its worth past " + IntToString(iMax) + " gold. Take "
@@ -27,19 +60,30 @@ void main()
         return;
         }
 
-    //Per-forge property-count ceiling (0 = uncapped). Replacing an existing
-    //property of the same type doesn't grow the count, so it stays allowed.
+    //Per-forge property-count ceiling (0 = uncapped), with a hard backstop at
+    //the global jailable property limit. Replacing an existing property of the
+    //same type doesn't grow the count, so it stays allowed.
     int iMaxProps = GetLocalInt(oPC, "MODIFY_MAX_PROPS");
-    itemproperty ipNew = GetNewProperty(oItem);
-    if (iMaxProps > 0 && GetIsItemPropertyValid(ipNew)
-        && !ForgePropMatchesExisting(oItem, ipNew)
-        && ForgeCountProps(oItem) >= iMaxProps)
+    if (GetIsItemPropertyValid(ipNew)
+        && !ForgePropMatchesExisting(oItem, ipNew))
         {
-        SpeakString("This piece already carries " + IntToString(iMaxProps)
-            + " enchantments — as much power as my forge dares bind into one "
-            + "item. Have me strike an enchantment from it first, or seek a "
-            + "greater forge.");
-        return;
+        int iProps = ForgeCountProps(oItem);
+        if (iProps >= FORGE_LEGAL_MAX_PROPS)
+            {
+            SpeakString("No forge may bind more than "
+                + IntToString(FORGE_LEGAL_MAX_PROPS) + " enchantments into one "
+                + "piece — that is the limit of the law. Have me strike one from "
+                + "it first.");
+            return;
+            }
+        if (iMaxProps > 0 && iProps >= iMaxProps)
+            {
+            SpeakString("This piece already carries " + IntToString(iMaxProps)
+                + " enchantments — as much power as my forge dares bind into one "
+                + "item. Have me strike an enchantment from it first, or seek a "
+                + "greater forge.");
+            return;
+            }
         }
 
     //No refunds: refuse any change that would lower the item's assessed value.
