@@ -14,8 +14,9 @@
 # Deliberately NOT captured (regenerable): hak/, tlk/, nwsync/, compiled .mod
 # files (rebuild from the git module source), wiki docs/, .nasher/ cache.
 #
-# Runs are gated by a 24h sentinel so it can be invoked freely from both a
-# systemd timer and the `nwn-manager serve` poll loop without backing up twice.
+# Runs are gated by a calendar-date sentinel (at most once per day) so it can
+# be invoked freely from both a systemd service and the `nwn-manager serve`
+# poll loop without backing up twice.
 #
 # Usage: backup-homers-lotr [--force] [--dry-run]
 set -euo pipefail
@@ -35,7 +36,6 @@ LOCAL_ENV_FILE="$PROJECT_ROOT/server.env.local"
 : "${BACKUP_DEST:=$HOME/OneDrive/Games/NWNHomersLOTR/backups}"
 : "${BACKUP_SENTINEL:=$NWN_RUN_DIR/.backup-last-run}"
 : "${BACKUP_LOG:=$NWN_RUN_DIR/backup.log}"
-: "${BACKUP_MIN_INTERVAL_SECS:=86400}"      # 24h gate
 : "${BACKUP_KEEP_DAYS:=30}"                 # keep every backup this recent
 : "${BACKUP_KEEP_MONTHS:=12}"               # keep one-per-month this far back
 # A plain `onedrive --sync` (respecting the user's ~/.config/onedrive/sync_list,
@@ -60,12 +60,12 @@ log() {
   { mkdir -p "$(dirname "$BACKUP_LOG")" && echo "$line" >> "$BACKUP_LOG"; } 2>/dev/null || true
 }
 
-# --- once-per-day gate ------------------------------------------------------
+# --- once-per-calendar-day gate ---------------------------------------------
 if [[ $FORCE -eq 0 && -f $BACKUP_SENTINEL ]]; then
-  now=$(date +%s); last=$(stat -c %Y "$BACKUP_SENTINEL")
-  age=$(( now - last ))
-  if (( age < BACKUP_MIN_INTERVAL_SECS )); then
-    log "skip: last backup ${age}s ago (< ${BACKUP_MIN_INTERVAL_SECS}s); use --force to override"
+  today=$(date +%Y-%m-%d)
+  sentinel_date=$(date -r "$BACKUP_SENTINEL" +%Y-%m-%d)
+  if [[ "$today" == "$sentinel_date" ]]; then
+    log "skip: already backed up today ($today); use --force to override"
     exit 0
   fi
 fi

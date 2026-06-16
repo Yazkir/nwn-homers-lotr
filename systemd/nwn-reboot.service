@@ -8,4 +8,4 @@ Documentation=file:///var/home/james/GIT/nwn_homers_lotr/README.md
 
 [Service]
 Type=oneshot
-ExecStart=/usr/bin/systemctl reboot
+ExecStart=/usr/bin/systemctl reboot --ignore-inhibitors
