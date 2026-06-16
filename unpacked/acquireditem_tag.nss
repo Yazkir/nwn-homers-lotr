@@ -12,4 +12,24 @@ void main()
     }
     BDM_ModuleItemAcquired();
 
+    // Paths of the Dead: acquiring the Flame of the West (Tag "narsil") by
+    // looting it -- rather than receiving it honourably from Aragorn -- records
+    // the "took it by force" path. The honourable grant (q_potd_reward) sets a
+    // transient flag we consume here so it is not double-counted.
+    if (GetTag(oItem) == "narsil")
+    {
+        object oPC = GetModuleItemAcquiredBy();
+        if (GetIsPC(oPC))
+        {
+            if (GetLocalInt(oPC, "potd_honourable"))
+            {
+                DeleteLocalInt(oPC, "potd_honourable");
+            }
+            else if (GetCampaignInt("potd", "granted", oPC) == 0)
+            {
+                SetCampaignInt("potd", "granted", 1, oPC);
+                AddJournalQuestEntry("paths_of_the_dead", 30, oPC, FALSE, FALSE);
+            }
+        }
+    }
 }

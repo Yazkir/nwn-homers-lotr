@@ -13,7 +13,7 @@ object oPlayer = GetFirstPC();
 if (GetIsDead(oBoss))
      while (oPlayer != OBJECT_INVALID)
         {
-        string sMessage = (sBoss + " was killed by "+sPC+" in <c®®®> "+sArea + "</c>");
+        string sMessage = (sBoss + " was killed by "+sPC+" in <cï¿½ï¿½ï¿½> "+sArea + "</c>");
         SendMessageToPC(oPlayer, sMessage);
         oPlayer = GetNextPC();
         }
@@ -24,5 +24,7 @@ CreateObject(OBJECT_TYPE_PLACEABLE, sResRef, lPortal, TRUE);
  effect eVis = EffectVisualEffect(286);
   ApplyEffectToObject(DURATION_TYPE_INSTANT, eVis, oPC);
 
-
+// Paths of the Dead: laying the King of the Dead to rest completes the quest.
+if (GetIsPC(oPC) && GetCampaignInt("potd", "started", oPC))
+    AddJournalQuestEntry("paths_of_the_dead", 50, oPC, FALSE, FALSE);
 }
