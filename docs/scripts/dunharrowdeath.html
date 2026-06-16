@@ -73,7 +73,9 @@ CreateObject(OBJECT_TYPE_PLACEABLE, sResRef, lPortal, TRUE);
  effect eVis = EffectVisualEffect(286);
   ApplyEffectToObject(DURATION_TYPE_INSTANT, eVis, oPC);
 
-
+// Paths of the Dead: laying the King of the Dead to rest completes the quest.
+if (GetIsPC(oPC) &amp;&amp; GetCampaignInt(&quot;potd&quot;, &quot;started&quot;, oPC))
+    AddJournalQuestEntry(&quot;paths_of_the_dead&quot;, 50, oPC, FALSE, FALSE);
 }
 </code></pre>
   </main>
