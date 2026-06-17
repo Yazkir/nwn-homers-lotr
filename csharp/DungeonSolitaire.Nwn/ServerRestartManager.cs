@@ -148,19 +148,34 @@ internal sealed class ServerRestartManager
         Log.Info($"[ServerRestart] broadcast: {message}");
     }
 
-    // Has the [SERVER] NPC shout the message so it lands in the main chat channel
-    // (separate from the server-message / combat-log panel). NPC shouts are server-wide.
-    // Uses AssignCommand so SpeakString runs with proper OBJECT_SELF context in the
-    // engine's action queue, matching how scripted NPC speech works in NWScript.
+    // Spawns a temporary [SERVER] herald at an active player's location and has it
+    // shout. SpeakString/SHOUT is server-wide, but action queues only run in areas
+    // that have at least one player present — so we can't use the static NPC in
+    // House of Homer if that area is empty. Spawning next to any online player
+    // guarantees the area is active and the shout fires immediately.
     private static void Shout(string message)
     {
-        NwCreature? npc = NwObject.FindObjectsWithTag<NwCreature>("SERVER_NPC").FirstOrDefault();
-        if (npc is not { IsValid: true })
+        NwCreature? anchor = NwModule.Instance.Players
+            .Where(p => p.IsValid && p.ControlledCreature?.Area != null)
+            .Select(p => p.ControlledCreature)
+            .FirstOrDefault();
+
+        if (anchor == null)
         {
-            Log.Warn("[ServerRestart] SERVER_NPC not found — shout skipped.");
+            Log.Info("[ServerRestart] No players online — shout skipped.");
             return;
         }
-        NWScript.AssignCommand(npc, () => NWScript.SpeakString(message, NWScript.TALKVOLUME_SHOUT));
+
+        NwCreature? herald = NwCreature.Create("server_npc", anchor.Location);
+        if (herald == null)
+        {
+            Log.Warn("[ServerRestart] Failed to spawn shout herald — server_npc resref missing?");
+            return;
+        }
+
+        NWScript.AssignCommand(herald, () => NWScript.SpeakString(message, NWScript.TALKVOLUME_SHOUT));
+        NWScript.DestroyObject(herald, 2.0f);
+        Log.Info($"[ServerRestart] Shout herald spawned in area {anchor.Area!.Name}.");
     }
 
     private void OnPlayerEnter(ModuleEvents.OnClientEnter evt)
