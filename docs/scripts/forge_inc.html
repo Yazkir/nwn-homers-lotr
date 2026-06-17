@@ -565,6 +565,13 @@ void ForgeQuarantineDisputedItem(object oItem, object oPC)
         + &quot;) sequestered from &quot; + GetName(oPC) + &quot; (account: &quot;
         + GetPCPlayerName(oPC) + &quot;) pending DM review.&quot;;
 
+    // Stamp provenance onto the item itself so it travels with the object into
+    // the quarantine chest snapshot and survives until a DM physically removes
+    // it from the chest. The parallel quarantine_*_info campaign string below
+    // is cleared the moment the chest is first opened (zep_cr_qrestore.nss), so
+    // this local var is the durable record of who submitted the item.
+    SetLocalString(oItem, &quot;QUARANTINE_INFO&quot;, sLog);
+
     int nQ = GetCampaignInt(&quot;craftdb&quot;, &quot;quarantine_count&quot;);
     StoreCampaignObject(&quot;craftdb&quot;, &quot;quarantine_&quot; + IntToString(nQ), oItem);
     SetCampaignString(&quot;craftdb&quot;, &quot;quarantine_&quot; + IntToString(nQ) + &quot;_info&quot;, sLog);
