@@ -25,7 +25,7 @@ Normal production schedule: **server shuts at 03:00, OS reboots at 03:03**.
    ```
 
 one-line version
-  sudo sed -i 's/OnCalendar=.*/OnCalendar=*-*-* 10:18:00/' /etc/systemd/system/nwn-reboot.timer
+  sudo sed -i 's/OnCalendar=.*/OnCalendar=*-*-* 11:33:00/' /etc/systemd/system/nwn-reboot.timer
 
 2. Reload and restart the timer:
    ```bash

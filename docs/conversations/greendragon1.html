@@ -64,14 +64,14 @@
 <tr><td><code>givegdkey2</code></td><td>action</td><td>✓</td><td></td></tr>
 <tr><td><code>givegdkey1</code></td><td>action</td><td>✓</td><td></td></tr></tbody></table>
 <h2>Starting entries</h2><ul>
-<li><a href="#e0">entry #0</a> — Welcome  to the Green Dragon Inn. How may I server you?</li>
+<li><a href="#e0">entry #0</a> — Welcome  to the Green Dragon Inn. How may I serve you?</li>
 </ul>
 <h2>Conversation flow</h2>
 <p class="muted">Each starting entry is expanded recursively. Repeated nodes (cycles, shared continuations) appear inline as <code>↩ link</code> backrefs to the first occurrence.</p>
 <div class="dlg-tree">
 <details class="dlg-tree-node entry" open>
 <summary><span class="dlg-id">entry #0</span> <a class="dlg-anchor" href="#e0" title="jump to flat entry #0">¶</a></summary>
-<div class="dlg-text">Welcome &lt;Sir/Madam&gt; to the Green Dragon Inn. How may I server you?</div>
+<div class="dlg-text">Welcome &lt;Sir/Madam&gt; to the Green Dragon Inn. How may I serve you?</div>
 <div class="dlg-tree-children">
 <details class="dlg-tree-node reply" open>
 <summary><span class="dlg-id">reply #4</span> <a class="dlg-anchor" href="#r4" title="jump to flat reply #4">¶</a></summary>
@@ -129,7 +129,7 @@
 </details>
 </div>
 <h2>NPC lines (entries) — flat index</h2>
-<div class="dlg-node entry" id="e0"><div class="dlg-head"><span class="dlg-id">entry #0</span></div><div class="dlg-text">Welcome &lt;Sir/Madam&gt; to the Green Dragon Inn. How may I server you?</div><ul class="dlg-links"><li><a href="#r4">→ reply #4</a> <span class="dlg-link-preview">“Can I have some healing refreshments?”</span></li><li><a href="#r0">→ reply #0</a> <span class="dlg-link-preview">“I would like to rent a room at your inn.”</span></li></ul></div>
+<div class="dlg-node entry" id="e0"><div class="dlg-head"><span class="dlg-id">entry #0</span></div><div class="dlg-text">Welcome &lt;Sir/Madam&gt; to the Green Dragon Inn. How may I serve you?</div><ul class="dlg-links"><li><a href="#r4">→ reply #4</a> <span class="dlg-link-preview">“Can I have some healing refreshments?”</span></li><li><a href="#r0">→ reply #0</a> <span class="dlg-link-preview">“I would like to rent a room at your inn.”</span></li></ul></div>
 <div class="dlg-node entry" id="e1"><div class="dlg-head"><span class="dlg-id">entry #1</span></div><div class="dlg-text">Very well. We offer two room sizes. A larger one with storage room costs 200 gold pieces, while the smaller room costs only 70 gold pieces. Which one would you like?</div><ul class="dlg-links"><li><a href="#r3">→ reply #3</a> <span class="dlg-link-preview">“The larger room with storage space costing 200 gp, please.”</span> <small class="muted">(if <code>gdragoni1</code>)</small></li><li><a href="#r2">→ reply #2</a> <span class="dlg-link-preview">“The smaller room costing 70 gp, please.”</span> <small class="muted">(if <code>gdragoni2</code>)</small></li><li><a href="#r1">→ reply #1</a> <span class="dlg-link-preview">“Nothing, thank you.”</span></li></ul></div>
 <div class="dlg-node entry" id="e2"><div class="dlg-head"><span class="dlg-id">entry #2</span> <span class="dlg-action">→ <code>givegdkey2</code></span></div><div class="dlg-text">Here you go &lt;Sir/Madam&gt;. Have a nice stay.</div></div>
 <div class="dlg-node entry" id="e3"><div class="dlg-head"><span class="dlg-id">entry #3</span> <span class="dlg-action">→ <code>givegdkey1</code></span></div><div class="dlg-text">Here you go &lt;Sir/Madam&gt;. Have a nice stay.</div></div>
