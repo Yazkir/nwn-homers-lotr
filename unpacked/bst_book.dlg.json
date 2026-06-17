@@ -21,55 +21,311 @@
     "value": [
       {
         "__struct_id": 0,
-        "Animation": { "type": "dword", "value": 0 },
-        "AnimLoop": { "type": "byte", "value": 1 },
-        "Comment": { "type": "cexostring", "value": "E_ROOT" },
-        "Delay": { "type": "dword", "value": 4294967295 },
-        "Quest": { "type": "cexostring", "value": "" },
+        "Animation": {
+          "type": "dword",
+          "value": 0
+        },
+        "AnimLoop": {
+          "type": "byte",
+          "value": 1
+        },
+        "Comment": {
+          "type": "cexostring",
+          "value": "E_ROOT"
+        },
+        "Delay": {
+          "type": "dword",
+          "value": 4294967295
+        },
+        "Quest": {
+          "type": "cexostring",
+          "value": ""
+        },
         "RepliesList": {
           "type": "list",
           "value": [
-            { "__struct_id": 0, "Active": { "type": "resref", "value": "" }, "Index": { "type": "dword", "value": 0 }, "IsChild": { "type": "byte", "value": 0 } },
-            { "__struct_id": 1, "Active": { "type": "resref", "value": "" }, "Index": { "type": "dword", "value": 1 }, "IsChild": { "type": "byte", "value": 0 } },
-            { "__struct_id": 2, "Active": { "type": "resref", "value": "" }, "Index": { "type": "dword", "value": 2 }, "IsChild": { "type": "byte", "value": 0 } }
+            {
+              "__struct_id": 0,
+              "Active": {
+                "type": "resref",
+                "value": ""
+              },
+              "Index": {
+                "type": "dword",
+                "value": 0
+              },
+              "IsChild": {
+                "type": "byte",
+                "value": 0
+              }
+            },
+            {
+              "__struct_id": 1,
+              "Active": {
+                "type": "resref",
+                "value": ""
+              },
+              "Index": {
+                "type": "dword",
+                "value": 1
+              },
+              "IsChild": {
+                "type": "byte",
+                "value": 0
+              }
+            },
+            {
+              "__struct_id": 2,
+              "Active": {
+                "type": "resref",
+                "value": ""
+              },
+              "Index": {
+                "type": "dword",
+                "value": 2
+              },
+              "IsChild": {
+                "type": "byte",
+                "value": 0
+              }
+            }
           ]
         },
-        "Script": { "type": "resref", "value": "" },
-        "Sound": { "type": "resref", "value": "" },
+        "Script": {
+          "type": "resref",
+          "value": ""
+        },
+        "Sound": {
+          "type": "resref",
+          "value": ""
+        },
         "Text": {
           "type": "cexolocstring",
-          "value": { "0": "You open the Bestiary of Middle-earth. Its pages record every beast you have faced. What would you like to review?" }
+          "value": {
+            "0": "You open the Bestiary of Middle-earth. Its pages record every beast you have faced. What would you like to review?"
+          }
         }
       },
       {
         "__struct_id": 1,
-        "Animation": { "type": "dword", "value": 0 },
-        "AnimLoop": { "type": "byte", "value": 1 },
-        "Comment": { "type": "cexostring", "value": "E_LIST" },
-        "Delay": { "type": "dword", "value": 4294967295 },
-        "Quest": { "type": "cexostring", "value": "" },
+        "Animation": {
+          "type": "dword",
+          "value": 0
+        },
+        "AnimLoop": {
+          "type": "byte",
+          "value": 1
+        },
+        "Comment": {
+          "type": "cexostring",
+          "value": "E_LIST"
+        },
+        "Delay": {
+          "type": "dword",
+          "value": 4294967295
+        },
+        "Quest": {
+          "type": "cexostring",
+          "value": ""
+        },
         "RepliesList": {
           "type": "list",
           "value": [
-            { "__struct_id": 0, "Active": { "type": "resref", "value": "bst_has_prev" }, "Index": { "type": "dword", "value": 3 }, "IsChild": { "type": "byte", "value": 0 } },
-            { "__struct_id": 1, "Active": { "type": "resref", "value": "bst_slot_0_vis" }, "Index": { "type": "dword", "value": 4 }, "IsChild": { "type": "byte", "value": 0 } },
-            { "__struct_id": 2, "Active": { "type": "resref", "value": "bst_slot_1_vis" }, "Index": { "type": "dword", "value": 5 }, "IsChild": { "type": "byte", "value": 0 } },
-            { "__struct_id": 3, "Active": { "type": "resref", "value": "bst_slot_2_vis" }, "Index": { "type": "dword", "value": 6 }, "IsChild": { "type": "byte", "value": 0 } },
-            { "__struct_id": 4, "Active": { "type": "resref", "value": "bst_slot_3_vis" }, "Index": { "type": "dword", "value": 7 }, "IsChild": { "type": "byte", "value": 0 } },
-            { "__struct_id": 5, "Active": { "type": "resref", "value": "bst_slot_4_vis" }, "Index": { "type": "dword", "value": 8 }, "IsChild": { "type": "byte", "value": 0 } },
-            { "__struct_id": 6, "Active": { "type": "resref", "value": "bst_slot_5_vis" }, "Index": { "type": "dword", "value": 9 }, "IsChild": { "type": "byte", "value": 0 } },
-            { "__struct_id": 7, "Active": { "type": "resref", "value": "bst_slot_6_vis" }, "Index": { "type": "dword", "value": 10 }, "IsChild": { "type": "byte", "value": 0 } },
-            { "__struct_id": 8, "Active": { "type": "resref", "value": "bst_slot_7_vis" }, "Index": { "type": "dword", "value": 11 }, "IsChild": { "type": "byte", "value": 0 } },
-            { "__struct_id": 9, "Active": { "type": "resref", "value": "bst_slot_8_vis" }, "Index": { "type": "dword", "value": 12 }, "IsChild": { "type": "byte", "value": 0 } },
-            { "__struct_id": 10, "Active": { "type": "resref", "value": "bst_has_next" }, "Index": { "type": "dword", "value": 13 }, "IsChild": { "type": "byte", "value": 0 } },
-            { "__struct_id": 11, "Active": { "type": "resref", "value": "" }, "Index": { "type": "dword", "value": 14 }, "IsChild": { "type": "byte", "value": 0 } }
+            {
+              "__struct_id": 0,
+              "Active": {
+                "type": "resref",
+                "value": "bst_has_prev"
+              },
+              "Index": {
+                "type": "dword",
+                "value": 3
+              },
+              "IsChild": {
+                "type": "byte",
+                "value": 0
+              }
+            },
+            {
+              "__struct_id": 1,
+              "Active": {
+                "type": "resref",
+                "value": "bst_slot_0_vis"
+              },
+              "Index": {
+                "type": "dword",
+                "value": 4
+              },
+              "IsChild": {
+                "type": "byte",
+                "value": 0
+              }
+            },
+            {
+              "__struct_id": 2,
+              "Active": {
+                "type": "resref",
+                "value": "bst_slot_1_vis"
+              },
+              "Index": {
+                "type": "dword",
+                "value": 5
+              },
+              "IsChild": {
+                "type": "byte",
+                "value": 0
+              }
+            },
+            {
+              "__struct_id": 3,
+              "Active": {
+                "type": "resref",
+                "value": "bst_slot_2_vis"
+              },
+              "Index": {
+                "type": "dword",
+                "value": 6
+              },
+              "IsChild": {
+                "type": "byte",
+                "value": 0
+              }
+            },
+            {
+              "__struct_id": 4,
+              "Active": {
+                "type": "resref",
+                "value": "bst_slot_3_vis"
+              },
+              "Index": {
+                "type": "dword",
+                "value": 7
+              },
+              "IsChild": {
+                "type": "byte",
+                "value": 0
+              }
+            },
+            {
+              "__struct_id": 5,
+              "Active": {
+                "type": "resref",
+                "value": "bst_slot_4_vis"
+              },
+              "Index": {
+                "type": "dword",
+                "value": 8
+              },
+              "IsChild": {
+                "type": "byte",
+                "value": 0
+              }
+            },
+            {
+              "__struct_id": 6,
+              "Active": {
+                "type": "resref",
+                "value": "bst_slot_5_vis"
+              },
+              "Index": {
+                "type": "dword",
+                "value": 9
+              },
+              "IsChild": {
+                "type": "byte",
+                "value": 0
+              }
+            },
+            {
+              "__struct_id": 7,
+              "Active": {
+                "type": "resref",
+                "value": "bst_slot_6_vis"
+              },
+              "Index": {
+                "type": "dword",
+                "value": 10
+              },
+              "IsChild": {
+                "type": "byte",
+                "value": 0
+              }
+            },
+            {
+              "__struct_id": 8,
+              "Active": {
+                "type": "resref",
+                "value": "bst_slot_7_vis"
+              },
+              "Index": {
+                "type": "dword",
+                "value": 11
+              },
+              "IsChild": {
+                "type": "byte",
+                "value": 0
+              }
+            },
+            {
+              "__struct_id": 9,
+              "Active": {
+                "type": "resref",
+                "value": "bst_slot_8_vis"
+              },
+              "Index": {
+                "type": "dword",
+                "value": 12
+              },
+              "IsChild": {
+                "type": "byte",
+                "value": 0
+              }
+            },
+            {
+              "__struct_id": 10,
+              "Active": {
+                "type": "resref",
+                "value": "bst_has_next"
+              },
+              "Index": {
+                "type": "dword",
+                "value": 13
+              },
+              "IsChild": {
+                "type": "byte",
+                "value": 0
+              }
+            },
+            {
+              "__struct_id": 11,
+              "Active": {
+                "type": "resref",
+                "value": ""
+              },
+              "Index": {
+                "type": "dword",
+                "value": 14
+              },
+              "IsChild": {
+                "type": "byte",
+                "value": 0
+              }
+            }
           ]
         },
-        "Script": { "type": "resref", "value": "" },
-        "Sound": { "type": "resref", "value": "" },
+        "Script": {
+          "type": "resref",
+          "value": ""
+        },
+        "Sound": {
+          "type": "resref",
+          "value": ""
+        },
         "Text": {
           "type": "cexolocstring",
-          "value": { "0": "<CUSTOM5040>  (<CUSTOM5041>)\n\nEntries are listed by Challenge Rating, highest first." }
+          "value": {
+            "0": "<CUSTOM5040> (<CUSTOM5041>)\n\nEntries are listed by Challenge Rating, highest first."
+          }
         }
       }
     ]
@@ -87,253 +343,842 @@
     "value": [
       {
         "__struct_id": 0,
-        "Animation": { "type": "dword", "value": 0 },
-        "AnimLoop": { "type": "byte", "value": 1 },
-        "Comment": { "type": "cexostring", "value": "R_KILLED" },
-        "Delay": { "type": "dword", "value": 4294967295 },
+        "Animation": {
+          "type": "dword",
+          "value": 0
+        },
+        "AnimLoop": {
+          "type": "byte",
+          "value": 1
+        },
+        "Comment": {
+          "type": "cexostring",
+          "value": "R_KILLED"
+        },
+        "Delay": {
+          "type": "dword",
+          "value": 4294967295
+        },
         "EntriesList": {
           "type": "list",
           "value": [
-            { "__struct_id": 0, "Active": { "type": "resref", "value": "" }, "Index": { "type": "dword", "value": 1 }, "IsChild": { "type": "byte", "value": 0 } }
+            {
+              "__struct_id": 0,
+              "Active": {
+                "type": "resref",
+                "value": ""
+              },
+              "Index": {
+                "type": "dword",
+                "value": 1
+              },
+              "IsChild": {
+                "type": "byte",
+                "value": 0
+              }
+            }
           ]
         },
-        "Quest": { "type": "cexostring", "value": "" },
-        "Script": { "type": "resref", "value": "bst_open_killed" },
-        "Sound": { "type": "resref", "value": "" },
-        "Text": { "type": "cexolocstring", "value": { "0": "Creatures I have slain." } }
+        "Quest": {
+          "type": "cexostring",
+          "value": ""
+        },
+        "Script": {
+          "type": "resref",
+          "value": "bst_open_killed"
+        },
+        "Sound": {
+          "type": "resref",
+          "value": ""
+        },
+        "Text": {
+          "type": "cexolocstring",
+          "value": {
+            "0": "Creatures I have slain."
+          }
+        }
       },
       {
         "__struct_id": 1,
-        "Animation": { "type": "dword", "value": 0 },
-        "AnimLoop": { "type": "byte", "value": 1 },
-        "Comment": { "type": "cexostring", "value": "R_UNKILLED" },
-        "Delay": { "type": "dword", "value": 4294967295 },
+        "Animation": {
+          "type": "dword",
+          "value": 0
+        },
+        "AnimLoop": {
+          "type": "byte",
+          "value": 1
+        },
+        "Comment": {
+          "type": "cexostring",
+          "value": "R_UNKILLED"
+        },
+        "Delay": {
+          "type": "dword",
+          "value": 4294967295
+        },
         "EntriesList": {
           "type": "list",
           "value": [
-            { "__struct_id": 0, "Active": { "type": "resref", "value": "" }, "Index": { "type": "dword", "value": 1 }, "IsChild": { "type": "byte", "value": 0 } }
+            {
+              "__struct_id": 0,
+              "Active": {
+                "type": "resref",
+                "value": ""
+              },
+              "Index": {
+                "type": "dword",
+                "value": 1
+              },
+              "IsChild": {
+                "type": "byte",
+                "value": 0
+              }
+            }
           ]
         },
-        "Quest": { "type": "cexostring", "value": "" },
-        "Script": { "type": "resref", "value": "bst_open_unk" },
-        "Sound": { "type": "resref", "value": "" },
-        "Text": { "type": "cexolocstring", "value": { "0": "Creatures I have not yet slain." } }
+        "Quest": {
+          "type": "cexostring",
+          "value": ""
+        },
+        "Script": {
+          "type": "resref",
+          "value": "bst_open_unk"
+        },
+        "Sound": {
+          "type": "resref",
+          "value": ""
+        },
+        "Text": {
+          "type": "cexolocstring",
+          "value": {
+            "0": "Creatures I have not yet slain."
+          }
+        }
       },
       {
         "__struct_id": 2,
-        "Animation": { "type": "dword", "value": 0 },
-        "AnimLoop": { "type": "byte", "value": 1 },
-        "Comment": { "type": "cexostring", "value": "R_CLOSE" },
-        "Delay": { "type": "dword", "value": 4294967295 },
-        "EntriesList": { "type": "list", "value": [] },
-        "Quest": { "type": "cexostring", "value": "" },
-        "Script": { "type": "resref", "value": "" },
-        "Sound": { "type": "resref", "value": "" },
-        "Text": { "type": "cexolocstring", "value": { "0": "Close the book." } }
+        "Animation": {
+          "type": "dword",
+          "value": 0
+        },
+        "AnimLoop": {
+          "type": "byte",
+          "value": 1
+        },
+        "Comment": {
+          "type": "cexostring",
+          "value": "R_CLOSE"
+        },
+        "Delay": {
+          "type": "dword",
+          "value": 4294967295
+        },
+        "EntriesList": {
+          "type": "list",
+          "value": []
+        },
+        "Quest": {
+          "type": "cexostring",
+          "value": ""
+        },
+        "Script": {
+          "type": "resref",
+          "value": ""
+        },
+        "Sound": {
+          "type": "resref",
+          "value": ""
+        },
+        "Text": {
+          "type": "cexolocstring",
+          "value": {
+            "0": "Close the book."
+          }
+        }
       },
       {
         "__struct_id": 3,
-        "Animation": { "type": "dword", "value": 0 },
-        "AnimLoop": { "type": "byte", "value": 1 },
-        "Comment": { "type": "cexostring", "value": "R_PREV" },
-        "Delay": { "type": "dword", "value": 4294967295 },
+        "Animation": {
+          "type": "dword",
+          "value": 0
+        },
+        "AnimLoop": {
+          "type": "byte",
+          "value": 1
+        },
+        "Comment": {
+          "type": "cexostring",
+          "value": "R_PREV"
+        },
+        "Delay": {
+          "type": "dword",
+          "value": 4294967295
+        },
         "EntriesList": {
           "type": "list",
           "value": [
-            { "__struct_id": 0, "Active": { "type": "resref", "value": "" }, "Index": { "type": "dword", "value": 1 }, "IsChild": { "type": "byte", "value": 0 } }
+            {
+              "__struct_id": 0,
+              "Active": {
+                "type": "resref",
+                "value": ""
+              },
+              "Index": {
+                "type": "dword",
+                "value": 1
+              },
+              "IsChild": {
+                "type": "byte",
+                "value": 0
+              }
+            }
           ]
         },
-        "Quest": { "type": "cexostring", "value": "" },
-        "Script": { "type": "resref", "value": "bst_page_p" },
-        "Sound": { "type": "resref", "value": "" },
-        "Text": { "type": "cexolocstring", "value": { "0": "[<< Previous page]" } }
+        "Quest": {
+          "type": "cexostring",
+          "value": ""
+        },
+        "Script": {
+          "type": "resref",
+          "value": "bst_page_p"
+        },
+        "Sound": {
+          "type": "resref",
+          "value": ""
+        },
+        "Text": {
+          "type": "cexolocstring",
+          "value": {
+            "0": "[<< Previous page]"
+          }
+        }
       },
       {
         "__struct_id": 4,
-        "Animation": { "type": "dword", "value": 0 },
-        "AnimLoop": { "type": "byte", "value": 1 },
-        "Comment": { "type": "cexostring", "value": "R_SLOT0" },
-        "Delay": { "type": "dword", "value": 4294967295 },
+        "Animation": {
+          "type": "dword",
+          "value": 0
+        },
+        "AnimLoop": {
+          "type": "byte",
+          "value": 1
+        },
+        "Comment": {
+          "type": "cexostring",
+          "value": "R_SLOT0"
+        },
+        "Delay": {
+          "type": "dword",
+          "value": 4294967295
+        },
         "EntriesList": {
           "type": "list",
           "value": [
-            { "__struct_id": 0, "Active": { "type": "resref", "value": "" }, "Index": { "type": "dword", "value": 1 }, "IsChild": { "type": "byte", "value": 0 } }
+            {
+              "__struct_id": 0,
+              "Active": {
+                "type": "resref",
+                "value": ""
+              },
+              "Index": {
+                "type": "dword",
+                "value": 1
+              },
+              "IsChild": {
+                "type": "byte",
+                "value": 0
+              }
+            }
           ]
         },
-        "Quest": { "type": "cexostring", "value": "" },
-        "Script": { "type": "resref", "value": "" },
-        "Sound": { "type": "resref", "value": "" },
-        "Text": { "type": "cexolocstring", "value": { "0": "<CUSTOM5030>" } }
+        "Quest": {
+          "type": "cexostring",
+          "value": ""
+        },
+        "Script": {
+          "type": "resref",
+          "value": ""
+        },
+        "Sound": {
+          "type": "resref",
+          "value": ""
+        },
+        "Text": {
+          "type": "cexolocstring",
+          "value": {
+            "0": "<CUSTOM5030>"
+          }
+        }
       },
       {
         "__struct_id": 5,
-        "Animation": { "type": "dword", "value": 0 },
-        "AnimLoop": { "type": "byte", "value": 1 },
-        "Comment": { "type": "cexostring", "value": "R_SLOT1" },
-        "Delay": { "type": "dword", "value": 4294967295 },
+        "Animation": {
+          "type": "dword",
+          "value": 0
+        },
+        "AnimLoop": {
+          "type": "byte",
+          "value": 1
+        },
+        "Comment": {
+          "type": "cexostring",
+          "value": "R_SLOT1"
+        },
+        "Delay": {
+          "type": "dword",
+          "value": 4294967295
+        },
         "EntriesList": {
           "type": "list",
           "value": [
-            { "__struct_id": 0, "Active": { "type": "resref", "value": "" }, "Index": { "type": "dword", "value": 1 }, "IsChild": { "type": "byte", "value": 0 } }
+            {
+              "__struct_id": 0,
+              "Active": {
+                "type": "resref",
+                "value": ""
+              },
+              "Index": {
+                "type": "dword",
+                "value": 1
+              },
+              "IsChild": {
+                "type": "byte",
+                "value": 0
+              }
+            }
           ]
         },
-        "Quest": { "type": "cexostring", "value": "" },
-        "Script": { "type": "resref", "value": "" },
-        "Sound": { "type": "resref", "value": "" },
-        "Text": { "type": "cexolocstring", "value": { "0": "<CUSTOM5031>" } }
+        "Quest": {
+          "type": "cexostring",
+          "value": ""
+        },
+        "Script": {
+          "type": "resref",
+          "value": ""
+        },
+        "Sound": {
+          "type": "resref",
+          "value": ""
+        },
+        "Text": {
+          "type": "cexolocstring",
+          "value": {
+            "0": "<CUSTOM5031>"
+          }
+        }
       },
       {
         "__struct_id": 6,
-        "Animation": { "type": "dword", "value": 0 },
-        "AnimLoop": { "type": "byte", "value": 1 },
-        "Comment": { "type": "cexostring", "value": "R_SLOT2" },
-        "Delay": { "type": "dword", "value": 4294967295 },
+        "Animation": {
+          "type": "dword",
+          "value": 0
+        },
+        "AnimLoop": {
+          "type": "byte",
+          "value": 1
+        },
+        "Comment": {
+          "type": "cexostring",
+          "value": "R_SLOT2"
+        },
+        "Delay": {
+          "type": "dword",
+          "value": 4294967295
+        },
         "EntriesList": {
           "type": "list",
           "value": [
-            { "__struct_id": 0, "Active": { "type": "resref", "value": "" }, "Index": { "type": "dword", "value": 1 }, "IsChild": { "type": "byte", "value": 0 } }
+            {
+              "__struct_id": 0,
+              "Active": {
+                "type": "resref",
+                "value": ""
+              },
+              "Index": {
+                "type": "dword",
+                "value": 1
+              },
+              "IsChild": {
+                "type": "byte",
+                "value": 0
+              }
+            }
           ]
         },
-        "Quest": { "type": "cexostring", "value": "" },
-        "Script": { "type": "resref", "value": "" },
-        "Sound": { "type": "resref", "value": "" },
-        "Text": { "type": "cexolocstring", "value": { "0": "<CUSTOM5032>" } }
+        "Quest": {
+          "type": "cexostring",
+          "value": ""
+        },
+        "Script": {
+          "type": "resref",
+          "value": ""
+        },
+        "Sound": {
+          "type": "resref",
+          "value": ""
+        },
+        "Text": {
+          "type": "cexolocstring",
+          "value": {
+            "0": "<CUSTOM5032>"
+          }
+        }
       },
       {
         "__struct_id": 7,
-        "Animation": { "type": "dword", "value": 0 },
-        "AnimLoop": { "type": "byte", "value": 1 },
-        "Comment": { "type": "cexostring", "value": "R_SLOT3" },
-        "Delay": { "type": "dword", "value": 4294967295 },
+        "Animation": {
+          "type": "dword",
+          "value": 0
+        },
+        "AnimLoop": {
+          "type": "byte",
+          "value": 1
+        },
+        "Comment": {
+          "type": "cexostring",
+          "value": "R_SLOT3"
+        },
+        "Delay": {
+          "type": "dword",
+          "value": 4294967295
+        },
         "EntriesList": {
           "type": "list",
           "value": [
-            { "__struct_id": 0, "Active": { "type": "resref", "value": "" }, "Index": { "type": "dword", "value": 1 }, "IsChild": { "type": "byte", "value": 0 } }
+            {
+              "__struct_id": 0,
+              "Active": {
+                "type": "resref",
+                "value": ""
+              },
+              "Index": {
+                "type": "dword",
+                "value": 1
+              },
+              "IsChild": {
+                "type": "byte",
+                "value": 0
+              }
+            }
           ]
         },
-        "Quest": { "type": "cexostring", "value": "" },
-        "Script": { "type": "resref", "value": "" },
-        "Sound": { "type": "resref", "value": "" },
-        "Text": { "type": "cexolocstring", "value": { "0": "<CUSTOM5033>" } }
+        "Quest": {
+          "type": "cexostring",
+          "value": ""
+        },
+        "Script": {
+          "type": "resref",
+          "value": ""
+        },
+        "Sound": {
+          "type": "resref",
+          "value": ""
+        },
+        "Text": {
+          "type": "cexolocstring",
+          "value": {
+            "0": "<CUSTOM5033>"
+          }
+        }
       },
       {
         "__struct_id": 8,
-        "Animation": { "type": "dword", "value": 0 },
-        "AnimLoop": { "type": "byte", "value": 1 },
-        "Comment": { "type": "cexostring", "value": "R_SLOT4" },
-        "Delay": { "type": "dword", "value": 4294967295 },
+        "Animation": {
+          "type": "dword",
+          "value": 0
+        },
+        "AnimLoop": {
+          "type": "byte",
+          "value": 1
+        },
+        "Comment": {
+          "type": "cexostring",
+          "value": "R_SLOT4"
+        },
+        "Delay": {
+          "type": "dword",
+          "value": 4294967295
+        },
         "EntriesList": {
           "type": "list",
           "value": [
-            { "__struct_id": 0, "Active": { "type": "resref", "value": "" }, "Index": { "type": "dword", "value": 1 }, "IsChild": { "type": "byte", "value": 0 } }
+            {
+              "__struct_id": 0,
+              "Active": {
+                "type": "resref",
+                "value": ""
+              },
+              "Index": {
+                "type": "dword",
+                "value": 1
+              },
+              "IsChild": {
+                "type": "byte",
+                "value": 0
+              }
+            }
           ]
         },
-        "Quest": { "type": "cexostring", "value": "" },
-        "Script": { "type": "resref", "value": "" },
-        "Sound": { "type": "resref", "value": "" },
-        "Text": { "type": "cexolocstring", "value": { "0": "<CUSTOM5034>" } }
+        "Quest": {
+          "type": "cexostring",
+          "value": ""
+        },
+        "Script": {
+          "type": "resref",
+          "value": ""
+        },
+        "Sound": {
+          "type": "resref",
+          "value": ""
+        },
+        "Text": {
+          "type": "cexolocstring",
+          "value": {
+            "0": "<CUSTOM5034>"
+          }
+        }
       },
       {
         "__struct_id": 9,
-        "Animation": { "type": "dword", "value": 0 },
-        "AnimLoop": { "type": "byte", "value": 1 },
-        "Comment": { "type": "cexostring", "value": "R_SLOT5" },
-        "Delay": { "type": "dword", "value": 4294967295 },
+        "Animation": {
+          "type": "dword",
+          "value": 0
+        },
+        "AnimLoop": {
+          "type": "byte",
+          "value": 1
+        },
+        "Comment": {
+          "type": "cexostring",
+          "value": "R_SLOT5"
+        },
+        "Delay": {
+          "type": "dword",
+          "value": 4294967295
+        },
         "EntriesList": {
           "type": "list",
           "value": [
-            { "__struct_id": 0, "Active": { "type": "resref", "value": "" }, "Index": { "type": "dword", "value": 1 }, "IsChild": { "type": "byte", "value": 0 } }
+            {
+              "__struct_id": 0,
+              "Active": {
+                "type": "resref",
+                "value": ""
+              },
+              "Index": {
+                "type": "dword",
+                "value": 1
+              },
+              "IsChild": {
+                "type": "byte",
+                "value": 0
+              }
+            }
           ]
         },
-        "Quest": { "type": "cexostring", "value": "" },
-        "Script": { "type": "resref", "value": "" },
-        "Sound": { "type": "resref", "value": "" },
-        "Text": { "type": "cexolocstring", "value": { "0": "<CUSTOM5035>" } }
+        "Quest": {
+          "type": "cexostring",
+          "value": ""
+        },
+        "Script": {
+          "type": "resref",
+          "value": ""
+        },
+        "Sound": {
+          "type": "resref",
+          "value": ""
+        },
+        "Text": {
+          "type": "cexolocstring",
+          "value": {
+            "0": "<CUSTOM5035>"
+          }
+        }
       },
       {
         "__struct_id": 10,
-        "Animation": { "type": "dword", "value": 0 },
-        "AnimLoop": { "type": "byte", "value": 1 },
-        "Comment": { "type": "cexostring", "value": "R_SLOT6" },
-        "Delay": { "type": "dword", "value": 4294967295 },
+        "Animation": {
+          "type": "dword",
+          "value": 0
+        },
+        "AnimLoop": {
+          "type": "byte",
+          "value": 1
+        },
+        "Comment": {
+          "type": "cexostring",
+          "value": "R_SLOT6"
+        },
+        "Delay": {
+          "type": "dword",
+          "value": 4294967295
+        },
         "EntriesList": {
           "type": "list",
           "value": [
-            { "__struct_id": 0, "Active": { "type": "resref", "value": "" }, "Index": { "type": "dword", "value": 1 }, "IsChild": { "type": "byte", "value": 0 } }
+            {
+              "__struct_id": 0,
+              "Active": {
+                "type": "resref",
+                "value": ""
+              },
+              "Index": {
+                "type": "dword",
+                "value": 1
+              },
+              "IsChild": {
+                "type": "byte",
+                "value": 0
+              }
+            }
           ]
         },
-        "Quest": { "type": "cexostring", "value": "" },
-        "Script": { "type": "resref", "value": "" },
-        "Sound": { "type": "resref", "value": "" },
-        "Text": { "type": "cexolocstring", "value": { "0": "<CUSTOM5036>" } }
+        "Quest": {
+          "type": "cexostring",
+          "value": ""
+        },
+        "Script": {
+          "type": "resref",
+          "value": ""
+        },
+        "Sound": {
+          "type": "resref",
+          "value": ""
+        },
+        "Text": {
+          "type": "cexolocstring",
+          "value": {
+            "0": "<CUSTOM5036>"
+          }
+        }
       },
       {
         "__struct_id": 11,
-        "Animation": { "type": "dword", "value": 0 },
-        "AnimLoop": { "type": "byte", "value": 1 },
-        "Comment": { "type": "cexostring", "value": "R_SLOT7" },
-        "Delay": { "type": "dword", "value": 4294967295 },
+        "Animation": {
+          "type": "dword",
+          "value": 0
+        },
+        "AnimLoop": {
+          "type": "byte",
+          "value": 1
+        },
+        "Comment": {
+          "type": "cexostring",
+          "value": "R_SLOT7"
+        },
+        "Delay": {
+          "type": "dword",
+          "value": 4294967295
+        },
         "EntriesList": {
           "type": "list",
           "value": [
-            { "__struct_id": 0, "Active": { "type": "resref", "value": "" }, "Index": { "type": "dword", "value": 1 }, "IsChild": { "type": "byte", "value": 0 } }
+            {
+              "__struct_id": 0,
+              "Active": {
+                "type": "resref",
+                "value": ""
+              },
+              "Index": {
+                "type": "dword",
+                "value": 1
+              },
+              "IsChild": {
+                "type": "byte",
+                "value": 0
+              }
+            }
           ]
         },
-        "Quest": { "type": "cexostring", "value": "" },
-        "Script": { "type": "resref", "value": "" },
-        "Sound": { "type": "resref", "value": "" },
-        "Text": { "type": "cexolocstring", "value": { "0": "<CUSTOM5037>" } }
+        "Quest": {
+          "type": "cexostring",
+          "value": ""
+        },
+        "Script": {
+          "type": "resref",
+          "value": ""
+        },
+        "Sound": {
+          "type": "resref",
+          "value": ""
+        },
+        "Text": {
+          "type": "cexolocstring",
+          "value": {
+            "0": "<CUSTOM5037>"
+          }
+        }
       },
       {
         "__struct_id": 12,
-        "Animation": { "type": "dword", "value": 0 },
-        "AnimLoop": { "type": "byte", "value": 1 },
-        "Comment": { "type": "cexostring", "value": "R_SLOT8" },
-        "Delay": { "type": "dword", "value": 4294967295 },
+        "Animation": {
+          "type": "dword",
+          "value": 0
+        },
+        "AnimLoop": {
+          "type": "byte",
+          "value": 1
+        },
+        "Comment": {
+          "type": "cexostring",
+          "value": "R_SLOT8"
+        },
+        "Delay": {
+          "type": "dword",
+          "value": 4294967295
+        },
         "EntriesList": {
           "type": "list",
           "value": [
-            { "__struct_id": 0, "Active": { "type": "resref", "value": "" }, "Index": { "type": "dword", "value": 1 }, "IsChild": { "type": "byte", "value": 0 } }
+            {
+              "__struct_id": 0,
+              "Active": {
+                "type": "resref",
+                "value": ""
+              },
+              "Index": {
+                "type": "dword",
+                "value": 1
+              },
+              "IsChild": {
+                "type": "byte",
+                "value": 0
+              }
+            }
           ]
         },
-        "Quest": { "type": "cexostring", "value": "" },
-        "Script": { "type": "resref", "value": "" },
-        "Sound": { "type": "resref", "value": "" },
-        "Text": { "type": "cexolocstring", "value": { "0": "<CUSTOM5038>" } }
+        "Quest": {
+          "type": "cexostring",
+          "value": ""
+        },
+        "Script": {
+          "type": "resref",
+          "value": ""
+        },
+        "Sound": {
+          "type": "resref",
+          "value": ""
+        },
+        "Text": {
+          "type": "cexolocstring",
+          "value": {
+            "0": "<CUSTOM5038>"
+          }
+        }
       },
       {
         "__struct_id": 13,
-        "Animation": { "type": "dword", "value": 0 },
-        "AnimLoop": { "type": "byte", "value": 1 },
-        "Comment": { "type": "cexostring", "value": "R_NEXT" },
-        "Delay": { "type": "dword", "value": 4294967295 },
+        "Animation": {
+          "type": "dword",
+          "value": 0
+        },
+        "AnimLoop": {
+          "type": "byte",
+          "value": 1
+        },
+        "Comment": {
+          "type": "cexostring",
+          "value": "R_NEXT"
+        },
+        "Delay": {
+          "type": "dword",
+          "value": 4294967295
+        },
         "EntriesList": {
           "type": "list",
           "value": [
-            { "__struct_id": 0, "Active": { "type": "resref", "value": "" }, "Index": { "type": "dword", "value": 1 }, "IsChild": { "type": "byte", "value": 0 } }
+            {
+              "__struct_id": 0,
+              "Active": {
+                "type": "resref",
+                "value": ""
+              },
+              "Index": {
+                "type": "dword",
+                "value": 1
+              },
+              "IsChild": {
+                "type": "byte",
+                "value": 0
+              }
+            }
           ]
         },
-        "Quest": { "type": "cexostring", "value": "" },
-        "Script": { "type": "resref", "value": "bst_page_n" },
-        "Sound": { "type": "resref", "value": "" },
-        "Text": { "type": "cexolocstring", "value": { "0": "[Next page >>]" } }
+        "Quest": {
+          "type": "cexostring",
+          "value": ""
+        },
+        "Script": {
+          "type": "resref",
+          "value": "bst_page_n"
+        },
+        "Sound": {
+          "type": "resref",
+          "value": ""
+        },
+        "Text": {
+          "type": "cexolocstring",
+          "value": {
+            "0": "[Next page >>]"
+          }
+        }
       },
       {
         "__struct_id": 14,
-        "Animation": { "type": "dword", "value": 0 },
-        "AnimLoop": { "type": "byte", "value": 1 },
-        "Comment": { "type": "cexostring", "value": "R_BACK" },
-        "Delay": { "type": "dword", "value": 4294967295 },
+        "Animation": {
+          "type": "dword",
+          "value": 0
+        },
+        "AnimLoop": {
+          "type": "byte",
+          "value": 1
+        },
+        "Comment": {
+          "type": "cexostring",
+          "value": "R_BACK"
+        },
+        "Delay": {
+          "type": "dword",
+          "value": 4294967295
+        },
         "EntriesList": {
           "type": "list",
           "value": [
-            { "__struct_id": 0, "Active": { "type": "resref", "value": "" }, "Index": { "type": "dword", "value": 0 }, "IsChild": { "type": "byte", "value": 0 } }
+            {
+              "__struct_id": 0,
+              "Active": {
+                "type": "resref",
+                "value": ""
+              },
+              "Index": {
+                "type": "dword",
+                "value": 0
+              },
+              "IsChild": {
+                "type": "byte",
+                "value": 0
+              }
+            }
           ]
         },
-        "Quest": { "type": "cexostring", "value": "" },
-        "Script": { "type": "resref", "value": "" },
-        "Sound": { "type": "resref", "value": "" },
-        "Text": { "type": "cexolocstring", "value": { "0": "[Back to the index]" } }
+        "Quest": {
+          "type": "cexostring",
+          "value": ""
+        },
+        "Script": {
+          "type": "resref",
+          "value": ""
+        },
+        "Sound": {
+          "type": "resref",
+          "value": ""
+        },
+        "Text": {
+          "type": "cexolocstring",
+          "value": {
+            "0": "[Back to the index]"
+          }
+        }
       }
     ]
   },
@@ -342,8 +1187,14 @@
     "value": [
       {
         "__struct_id": 0,
-        "Active": { "type": "resref", "value": "" },
-        "Index": { "type": "dword", "value": 0 }
+        "Active": {
+          "type": "resref",
+          "value": ""
+        },
+        "Index": {
+          "type": "dword",
+          "value": 0
+        }
       }
     ]
   }
