@@ -148,14 +148,19 @@ internal sealed class ServerRestartManager
         Log.Info($"[ServerRestart] broadcast: {message}");
     }
 
-    // Has the [SERVER] NPC in House of Homer shout the message so it lands in
-    // the main chat channel (separate from the server-message / combat-log panel).
-    // Shout range is area-scoped; SendServerMessage above still covers all areas.
+    // Has the [SERVER] NPC shout the message so it lands in the main chat channel
+    // (separate from the server-message / combat-log panel). NPC shouts are server-wide.
+    // Uses AssignCommand so SpeakString runs with proper OBJECT_SELF context in the
+    // engine's action queue, matching how scripted NPC speech works in NWScript.
     private static void Shout(string message)
     {
         NwCreature? npc = NwObject.FindObjectsWithTag<NwCreature>("SERVER_NPC").FirstOrDefault();
-        if (npc is { IsValid: true })
-            npc.SpeakString(message, TalkVolume.Shout);
+        if (npc is not { IsValid: true })
+        {
+            Log.Warn("[ServerRestart] SERVER_NPC not found — shout skipped.");
+            return;
+        }
+        NWScript.AssignCommand(npc, () => NWScript.SpeakString(message, NWScript.TALKVOLUME_SHOUT));
     }
 
     private void OnPlayerEnter(ModuleEvents.OnClientEnter evt)
