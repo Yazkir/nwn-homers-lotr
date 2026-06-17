@@ -77,11 +77,11 @@ def reply_node(sid, text, script):
 
 # PC replies: 5 columns, the AoE "unleash", and a cancel.
 replies = [
-    reply_node(0, "Attack the first column.",  "ds_atk1"),
-    reply_node(1, "Attack the second column.", "ds_atk2"),
-    reply_node(2, "Attack the third column.",  "ds_atk3"),
-    reply_node(3, "Attack the fourth column.", "ds_atk4"),
-    reply_node(4, "Attack the fifth column.",  "ds_atk5"),
+    reply_node(0, "Attack <CUSTOM5420> (first column).",  "ds_atk1"),
+    reply_node(1, "Attack <CUSTOM5421> (second column).", "ds_atk2"),
+    reply_node(2, "Attack <CUSTOM5422> (third column).",  "ds_atk3"),
+    reply_node(3, "Attack <CUSTOM5423> (fourth column).", "ds_atk4"),
+    reply_node(4, "Attack <CUSTOM5424> (fifth column).",  "ds_atk5"),
     reply_node(5, "Unleash its power upon the dungeon!", "ds_atkaoedo"),
     reply_node(6, "Hold — not this one.", ""),
 ]

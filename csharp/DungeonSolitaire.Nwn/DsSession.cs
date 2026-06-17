@@ -104,6 +104,24 @@ internal sealed class DsSession : IGameEventListener
     public bool ColumnHasEnemies(int col)
         => col >= 0 && col < _engine.EnemyColumns.Count && _engine.EnemyColumns[col].Count > 0;
 
+    /// <summary>The front (first still-alive) enemy of a column — the card an attack on it strikes.</summary>
+    public Card? ColumnFront(int col)
+        => col >= 0 && col < _engine.EnemyColumns.Count
+            ? _engine.EnemyColumns[col].FirstOrDefault(c => c.currentHealth > 0)
+            : null;
+
+    /// <summary>
+    /// Seed the ds_attack reply tokens (ColumnNameTokenBase + col0) with each column's
+    /// front-enemy name, so the picker reads "Attack &lt;name&gt; (Nth column)". Called on the
+    /// main thread from DsManager just before the conversation opens. Empty columns get a
+    /// blank token; their reply is hidden anyway by the ds_atkc* condition handlers.
+    /// </summary>
+    public void RefreshAttackTokens()
+    {
+        for (int col = 0; col < DsConfig.ColumnCount; col++)
+            NWScript.SetCustomToken(DsConfig.ColumnNameTokenBase + col, ColumnFront(col)?.name ?? "");
+    }
+
     public static bool IsInsteadOfAttack(Card card)
         => card.attackEffect?.triggerWhen == TriggerWhen.InsteadOfAttack;
 

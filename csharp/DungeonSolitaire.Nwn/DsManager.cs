@@ -138,11 +138,27 @@ internal sealed class DsManager
     // ── Attack conversation (ds_attack) ──────────────────────────────────────────
     private void OnAllyConversation(CreatureEvents.OnConversation evt)
     {
+        if (_session is not { IsAlive: true }) return;
         NwPlayer? speaker = evt.PlayerSpeaker;
-        if (_session is { IsAlive: true } && speaker?.PlayerName != _session.ActivePlayerName)
-            speaker?.SendServerMessage(
+        if (speaker is not { IsValid: true }) return;
+
+        // Re-entrancy guard: ActionStartConversation below can re-raise OnConversation
+        // on the same ally; once a window is up, ignore the echo.
+        if (evt.Creature.IsInConversation) return;
+
+        if (speaker.PlayerName != _session.ActivePlayerName)
+        {
+            speaker.SendServerMessage(
                 $"You are watching {_session.ActivePlayerName}'s game of Dungeon Solitaire.",
                 ColorConstants.Orange);
+            return;
+        }
+
+        // Subscribing to OnConversation replaced the creature's default dialogue script
+        // (and the DS_* blueprints carry none), so the engine never opens the picker on
+        // its own — start it ourselves after seeding the per-column target names.
+        _session.RefreshAttackTokens();
+        speaker.ActionStartConversation(evt.Creature, DsConfig.AttackDialog, true, false);
     }
 
     // Per-column conversation handlers. Distinct script names (rather than script

@@ -32,6 +32,14 @@ internal static class DsConfig
     /// <summary>Conversation resref popped for secondary mid-turn choices (discard, pick target, effect order, …).</summary>
     public const string ChoiceDialog = "ds_choice";
 
+    // ── Attack-dialog custom tokens (set via NWScript.SetCustomToken before opening ds_attack) ──
+    /// <summary>
+    /// First column-name token; column <c>col0</c> uses <c>ColumnNameTokenBase + col0</c>
+    /// (5420..5424). Each holds the name of the front enemy that column's reply will strike.
+    /// Kept clear of the ds_choice token range (5400..5411).
+    /// </summary>
+    public const int ColumnNameTokenBase = 5420;
+
     // ── Choice-popup custom tokens (set via NWScript.SetCustomToken before each popup) ──
     /// <summary>Custom token holding the choice prompt text (the entry node shows &lt;CUSTOM5400&gt;).</summary>
     public const int ChoicePromptToken = 5400;
