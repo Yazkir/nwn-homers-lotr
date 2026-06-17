@@ -28,6 +28,7 @@ internal sealed class ServerRestartManager
 
     private readonly TimeSpan? _target;     // local time-of-day, or null when disabled
     private readonly string _controlFile;
+    private DateTime? _nextRestart;          // updated by RunLoop; read by OnClientEnter
 
     public ServerRestartManager()
     {
@@ -42,6 +43,7 @@ internal sealed class ServerRestartManager
         {
             Log.Info($"[ServerRestart] daily restart armed for {_target:hh\\:mm} server-local time.");
         }
+        NwModule.Instance.OnClientEnter += OnPlayerEnter;
         _ = RunLoop();
     }
 
@@ -56,7 +58,7 @@ internal sealed class ServerRestartManager
     {
         await NwTask.SwitchToMainThread();
 
-        DateTime? nextRestart = _target == null ? null : NextOccurrence(_target.Value);
+        _nextRestart = _target == null ? null : NextOccurrence(_target.Value);
         var announced = new HashSet<int>();
         double prevRemaining = double.MaxValue;   // for once-only "crossing" detection
 
@@ -72,20 +74,20 @@ internal sealed class ServerRestartManager
                 await ShutdownSequence();
                 announced.Clear();
                 prevRemaining = double.MaxValue;
-                nextRestart = _target == null ? null : NextOccurrence(_target.Value);
+                _nextRestart = _target == null ? null : NextOccurrence(_target.Value);
                 continue;
             }
 
-            if (nextRestart == null) continue;
+            if (_nextRestart == null) continue;
 
-            double remaining = (nextRestart.Value - DateTime.Now).TotalMinutes;
+            double remaining = (_nextRestart.Value - DateTime.Now).TotalMinutes;
 
             if (remaining <= 0)
             {
                 await ShutdownSequence();
                 announced.Clear();
                 prevRemaining = double.MaxValue;
-                nextRestart = NextOccurrence(_target!.Value);
+                _nextRestart = NextOccurrence(_target!.Value);
                 continue;
             }
 
@@ -154,6 +156,28 @@ internal sealed class ServerRestartManager
         NwCreature? npc = NwObject.FindObjectsWithTag<NwCreature>("SERVER_NPC").FirstOrDefault();
         if (npc is { IsValid: true })
             npc.SpeakString(message, TalkVolume.Shout);
+    }
+
+    private void OnPlayerEnter(ModuleEvents.OnClientEnter evt)
+    {
+        if (evt.Player is not { IsValid: true } player) return;
+        string? notice = RestartNotice();
+        if (notice != null)
+            player.SendServerMessage(notice, ColorConstants.Lime);
+    }
+
+    private string? RestartNotice()
+    {
+        if (_nextRestart == null) return null;
+        double remaining = (_nextRestart.Value - DateTime.Now).TotalMinutes;
+        if (remaining <= 0) return null;
+
+        int hours = (int)remaining / 60;
+        int minutes = (int)remaining % 60;
+        string when = hours > 0
+            ? $"{hours} hour{(hours == 1 ? "" : "s")} {minutes} minute{(minutes == 1 ? "" : "s")}"
+            : $"{minutes} minute{(minutes == 1 ? "" : "s")}";
+        return $"[Server] Next scheduled restart in {when}.";
     }
 
     private static void TryDelete(string path)
