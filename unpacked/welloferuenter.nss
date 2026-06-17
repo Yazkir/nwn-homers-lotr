@@ -110,6 +110,11 @@ void QuarantineIllicitItem(object oItem, object oPC)
     string sLog = "Illicit donations item '" + sName + "' (resref: " + GetResRef(oItem)
                 + ") reclaimed from " + GetName(oPC) + "; refunded " + IntToString(nComp) + " gp (5x value).";
 
+    // Stamp provenance onto the item so it persists in the quarantine chest
+    // snapshot until a DM removes it (the quarantine_*_info row is cleared as
+    // soon as the chest is opened — see zep_cr_qrestore.nss).
+    SetLocalString(oItem, "QUARANTINE_INFO", sLog);
+
     int nQ = GetCampaignInt("craftdb", "quarantine_count");
     StoreCampaignObject("craftdb", "quarantine_" + IntToString(nQ), oItem);
     SetCampaignString("craftdb", "quarantine_" + IntToString(nQ) + "_info", sLog);
