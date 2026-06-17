@@ -96,7 +96,9 @@ internal sealed class ServerRestartManager
             {
                 if (!announced.Contains(mark) && remaining <= mark && prevRemaining > mark)
                 {
-                    Broadcast(WarnMessage(mark), mark <= 5 ? ColorConstants.Red : ColorConstants.Orange);
+                    string msg = WarnMessage(mark);
+                    Broadcast(msg, mark <= 5 ? ColorConstants.Red : ColorConstants.Orange);
+                    Shout(msg);
                     announced.Add(mark);
                 }
             }
@@ -121,8 +123,9 @@ internal sealed class ServerRestartManager
     private async Task ShutdownSequence()
     {
         await NwTask.SwitchToMainThread();
-        Broadcast($"[Server] Restarting NOW — saving characters. Back online in {DownDuration}.",
-                  ColorConstants.Red);
+        string shutdownMsg = $"[Server] Restarting NOW — saving characters. Back online in {DownDuration}.";
+        Broadcast(shutdownMsg, ColorConstants.Red);
+        Shout(shutdownMsg);
 
         // Persist every online character to the vault before the server exits.
         try { NWScript.ExportAllCharacters(); }
@@ -141,6 +144,16 @@ internal sealed class ServerRestartManager
             if (p.IsValid)
                 p.SendServerMessage(message, color);
         Log.Info($"[ServerRestart] broadcast: {message}");
+    }
+
+    // Has the [SERVER] NPC in House of Homer shout the message so it lands in
+    // the main chat channel (separate from the server-message / combat-log panel).
+    // Shout range is area-scoped; SendServerMessage above still covers all areas.
+    private static void Shout(string message)
+    {
+        NwCreature? npc = NwObject.FindObjectsWithTag<NwCreature>("SERVER_NPC").FirstOrDefault();
+        if (npc is { IsValid: true })
+            npc.SpeakString(message, TalkVolume.Shout);
     }
 
     private static void TryDelete(string path)
