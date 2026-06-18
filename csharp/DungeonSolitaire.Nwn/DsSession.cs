@@ -101,6 +101,13 @@ internal sealed class DsSession : IGameEventListener
 
     public Card? CardForCreature(NwCreature creature) => Board.ActorFor(creature)?.Card;
 
+    /// <summary>True if the creature backs a card currently in the player's hand — i.e. a selectable ally.</summary>
+    public bool IsHandAlly(NwCreature creature)
+    {
+        Card? card = CardForCreature(creature);
+        return card != null && _engine.Hand.cards.Contains(card);
+    }
+
     public bool ColumnHasEnemies(int col)
         => col >= 0 && col < _engine.EnemyColumns.Count && _engine.EnemyColumns[col].Count > 0;
 
@@ -213,11 +220,12 @@ internal sealed class DsSession : IGameEventListener
         {
             case InputType.SelectAlly:
                 // Engine is blocked here — safe to reconcile the board to the new turn's state.
-                // Resolved by the player clicking an ally NPC (see DsManager conversation handlers).
+                // Resolved by the player cursor-targeting an ally NPC (see DsManager targeting handlers).
                 _dispatcher.Enqueue(() =>
                 {
                     Board.Sync(_engine);
-                    MessageActive("Click an ally to send it into battle.");
+                    MessageActive("Choose an ally to send into battle.");
+                    RequestAllyTargetingHook?.Invoke();
                 });
                 break;
 
@@ -403,10 +411,14 @@ internal sealed class DsSession : IGameEventListener
             a.Obj.ApplyEffect(EffectDuration.Instant, NwEffect.VisualEffect(Vfx.ForEffect(effectName)));
     }
 
-    private void OnAllyCreatureSpawned(NwCreature ally) => AllyConversationHook?.Invoke(ally);
+    private void OnAllyCreatureSpawned(NwCreature ally) => AllySpawnedHook?.Invoke(ally);
 
-    /// <summary>DsManager wires this to attach its OnConversation handler to each new ally NPC.</summary>
-    public System.Action<NwCreature>? AllyConversationHook { get; set; }
+    /// <summary>DsManager wires this to run per-ally diagnostics as each ally NPC spawns.</summary>
+    public System.Action<NwCreature>? AllySpawnedHook { get; set; }
+
+    /// <summary>DsManager wires this to put the active player into cursor-targeting mode
+    /// when the engine asks for an ally selection.</summary>
+    public System.Action? RequestAllyTargetingHook { get; set; }
 
     // ── Engine log relay (GameLogger.Log fires on the engine background thread) ──
     /// <summary>
