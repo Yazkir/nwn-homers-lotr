@@ -83,9 +83,14 @@ void main()
     // it), so we deliver unconditionally on every login — this reaches existing
     // characters too, not just first-time logins. mod_enter.nss (the old, never-
     // wired delivery, which also had a "gguild" tag typo) is bypassed entirely.
-    AddJournalQuestEntry("rules",      1, oPC, FALSE, FALSE);
-    AddJournalQuestEntry("website",    1, oPC, FALSE, FALSE);
-    AddJournalQuestEntry("modcustoms", 1, oPC, FALSE, FALSE);
+    AddJournalQuestEntry("rules",        1, oPC, FALSE, FALSE);
+    AddJournalQuestEntry("website",      1, oPC, FALSE, FALSE);
+    AddJournalQuestEntry("modcustoms",   1, oPC, FALSE, FALSE);
+    AddJournalQuestEntry("mod_progress", 1, oPC, FALSE, FALSE);
+    AddJournalQuestEntry("mod_death",    1, oPC, FALSE, FALSE);
+    AddJournalQuestEntry("mod_forge",    1, oPC, FALSE, FALSE);
+    AddJournalQuestEntry("mod_systems",  1, oPC, FALSE, FALSE);
+    AddJournalQuestEntry("mod_factions", 1, oPC, FALSE, FALSE);
 
     DelayCommand(1.0, HgllPostEnter(oPC));
 

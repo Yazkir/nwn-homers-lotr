@@ -738,7 +738,7 @@
         "__struct_id": 11,
         "Comment": {
           "type": "cexostring",
-          "value": "@group 'MeaningWave'\n@group-order 2\n@order 1\nMeaningWave meta-quest. Stage 1 added on first module entry; stages 2-8 tick per guide unlock; stage 9 ends at Akira's finale."
+          "value": "@group 'MeaningWave'\n@group-order 4\n@order 1\nMeaningWave meta-quest. Stage 1 added on first module entry; stages 2-8 tick per guide unlock; stage 9 ends at Akira's finale."
         },
         "EntryList": {
           "type": "list",
@@ -2014,7 +2014,7 @@
               "Text": {
                 "type": "cexolocstring",
                 "value": {
-                  "0": "=== Module Customizations ===\n\nThis module includes custom changes to spells, appearance, and leveling. Read on for an overview.\n\n--- Epic Spell Enhancements ---\n\nEpic spells have been greatly improved beyond standard NWN:\n\nDragon Knight: Summons a level-60 Fighter Red Dragon (CR 123, 540 HP, Str/Dex/Con/Cha 40). Duration 30 rounds. Cannot be dispelled.\n\nMummy Dust: Summons a dual-class level-60 undead warrior (CR 212, 520 HP). Duration 30 hours. Cannot be dispelled.\n\nEpic Ward: Damage Reduction 60/+20. Cannot be dispelled. Duration scales with caster level.\n\nHellball: 10d20 of each damage type (Acid, Electrical, Fire, Sonic) in a massive area. Reflex save for partial reduction. Causes knockdown if total damage exceeds 200.\n\nGreater Ruin: Up to 5000 damage (10d20 x25) to a single target. Fortitude save for partial reduction.\n\nCurse Song (Bard): Fully custom scaling across 30+ tiers based on Perform skill and level. At high ranks: -15 attack, -15 AC, -7 all saves, -18 all skills, and 98 sonic damage in a colossal radius.\n\n--- Other Spell Changes ---\n\nSummon Creature (I-IX): Fixed duration of 24 hours (no longer scales with level).\n\nTime Stop: Disabled. Cannot be cast.\n\n--- Spells/Systems NOT Changed (Stock Standard) ---\n\nThe following are commonly modified on other servers but are left at standard NWN behavior here:\n\nTrue Seeing: Works exactly as written - penetrates all illusions and invisibility. No nerfs.\n\nStealth/Hide: Standard mechanics. No custom detection bonuses or penalties beyond what the ruleset provides.\n\nSubraces: No subrace system. All characters use standard NWN races with default racial bonuses only.\n\n--- Appearance Customization ---\n\nPlayer Appearance (Bree): Talk to one of the cows in Bree to access an appearance menu with 315+ creature forms. This is free and permanent until changed again.\n\nItem Appearance Crafting: Armor and weapon appearance can be remodelled using the CEP crafting system (accessed via the Craft Armor/Weapon skill in conversation). No fail chance - all appearance changes succeed automatically regardless of skill level.\n\n--- Legendary Leveling: Levels 41-60 ---\n\nOnce you reach level 40, you may continue advancing to level 60 through the Legendary Leveling system. Speak to the Legendary Leveler NPC in the Legendary Leveling area to advance.\n\nOn each Legendary level-up you WILL gain:\n  - Skill points\n  - Hit Points (based on your highest-class hit die, not caster level)\n  - Ability score increases (at standard intervals)\n  - Feats (one selectable feat per level)\n\nOn each Legendary level-up you will NOT gain:\n  - Caster level increases (spell power does not grow past level 40)\n  - New spell slots or spell levels\n  - Class-based progression (no new class features, BAB, or saving throw improvements)\n\nIn short: Legendary levels make you tougher and more versatile through raw stats and feats, but do not increase spellcasting power.\n\nXP required climbs steeply - from ~49,000 per level at 41 to over 3,000,000 for level 60 (total ~17.5M XP to reach 60)."
+                  "0": "=== Spells & Magic ===\n\nEpic spells are enhanced and cannot be dispelled:\n  Dragon Knight: Level-60 Red Dragon Fighter, 540 HP, 30-round duration.\n  Mummy Dust: Level-60 undead warrior, 520 HP, 30-hour duration.\n  Epic Ward: DR 60/+20, duration scales with caster level.\n  Hellball: 10d20 of each of 4 damage types; knocks down if total exceeds 200.\n  Greater Ruin: ~5250 avg damage to single target; Fort save divides by 300.\n  Curse Song: 23-tier scaling by Perform+level. Top tier: -15 atk, -15 AC, -7 saves, 98 sonic dmg in 30 ft AoE.\n  Summon Creature I-IX: Fixed 24-hour duration.\n  Time Stop: Disabled.\n\nUnchanged from stock NWN: True Seeing, Stealth/Hide, subraces, critical hits.\n\nSee wiki: Manual > Customizations > Spell Changes"
                 }
               }
             }
@@ -2023,7 +2023,7 @@
         "Name": {
           "type": "cexolocstring",
           "value": {
-            "0": "Module Customizations"
+            "0": "Spells & Magic"
           }
         },
         "Picture": {
@@ -2156,6 +2156,261 @@
         "Tag": {
           "type": "cexostring",
           "value": "paths_of_the_dead"
+        },
+        "XP": {
+          "type": "dword",
+          "value": 0
+        }
+      },
+      {
+        "__struct_id": 32,
+        "Comment": {
+          "type": "cexostring",
+          "value": "@group 'Server Info'\n@order 4"
+        },
+        "EntryList": {
+          "type": "list",
+          "value": [
+            {
+              "__struct_id": 0,
+              "End": {
+                "type": "word",
+                "value": 1
+              },
+              "ID": {
+                "type": "dword",
+                "value": 1
+              },
+              "Text": {
+                "type": "cexolocstring",
+                "value": {
+                  "0": "=== Character Progression ===\n\n  Max HP on every level-up (no die roll).\n  Item ability score bonus cap raised from +12 to +24.\n  Legendary Levels 41-60 via HGLL — gain HP, skill points, ability scores, and 1 feat/level.\n    Does NOT extend caster level, spell slots, or class progression.\n    XP cost: ~49k at level 41, over 3M at level 60 (~17.5M total to reach 60).\n\nSee wiki: Manual > Customizations > Character Progression"
+                }
+              }
+            }
+          ]
+        },
+        "Name": {
+          "type": "cexolocstring",
+          "value": {
+            "0": "Character Progression"
+          }
+        },
+        "Picture": {
+          "type": "word",
+          "value": 65535
+        },
+        "Priority": {
+          "type": "dword",
+          "value": 4
+        },
+        "Tag": {
+          "type": "cexostring",
+          "value": "mod_progress"
+        },
+        "XP": {
+          "type": "dword",
+          "value": 0
+        }
+      },
+      {
+        "__struct_id": 33,
+        "Comment": {
+          "type": "cexostring",
+          "value": "@group 'Server Info'\n@order 5"
+        },
+        "EntryList": {
+          "type": "list",
+          "value": [
+            {
+              "__struct_id": 0,
+              "End": {
+                "type": "word",
+                "value": 1
+              },
+              "ID": {
+                "type": "dword",
+                "value": 1
+              },
+              "Text": {
+                "type": "cexolocstring",
+                "value": {
+                  "0": "=== Death & Respawn ===\n\n  Bleed-out: drop at 0 HP, lose 1 HP/round, die at -20 HP (standard is -10).\n  10% chance to stabilize each round without assistance.\n  Death state persists across logouts — no relog escape.\n  Respawn: return at 5 HP, no XP loss, 10% gold penalty dropped as a lootable bag at your death location.\n\nSee wiki: Manual > Customizations > Death, Dying & Respawn"
+                }
+              }
+            }
+          ]
+        },
+        "Name": {
+          "type": "cexolocstring",
+          "value": {
+            "0": "Death & Respawn"
+          }
+        },
+        "Picture": {
+          "type": "word",
+          "value": 65535
+        },
+        "Priority": {
+          "type": "dword",
+          "value": 4
+        },
+        "Tag": {
+          "type": "cexostring",
+          "value": "mod_death"
+        },
+        "XP": {
+          "type": "dword",
+          "value": 0
+        }
+      },
+      {
+        "__struct_id": 34,
+        "Comment": {
+          "type": "cexostring",
+          "value": "@group 'Server Info'\n@order 6"
+        },
+        "EntryList": {
+          "type": "list",
+          "value": [
+            {
+              "__struct_id": 0,
+              "End": {
+                "type": "word",
+                "value": 1
+              },
+              "ID": {
+                "type": "dword",
+                "value": 1
+              },
+              "Text": {
+                "type": "cexolocstring",
+                "value": {
+                  "0": "=== Appearance & Crafting ===\n\n  Player Appearance: Talk to a cow in Bree — 315+ creature forms, free and permanent.\n  Alignment changes also available (enables monk/barbarian, paladin/blackguard, etc.).\n  Item Appearance: CEP crafting system, zero fail chance.\n\nForge of Wonders (item enchanting — 3 tiers):\n  Tagget's Smithy (Bree)  — Low:  250k gp cap, 4 properties max. Open to all.\n  Rivendell Smithy        — Mid:  500k gp cap, 5 properties. Requires Elrond's Writ.\n  Moria Forge             — High: 750k gp cap, 6 properties. Requires Forgekey (from Balrog).\n  Appraise skill (take 20) raises each cap up to +500k gp at Appraise 65.\n  Cost = increase in item's assessed value. Disenchanting strips one property; no refund.\n  Contraband: items over 750k gp or 6 enchantments trigger Pit Prison at Well of Eru.\n\n  Rod of Fast Buffing: store buff spells by casting at it; activate out-of-combat to replay all.\n\nSee wiki: Manual > Customizations > Appearance & Crafting"
+                }
+              }
+            }
+          ]
+        },
+        "Name": {
+          "type": "cexolocstring",
+          "value": {
+            "0": "Appearance & Crafting"
+          }
+        },
+        "Picture": {
+          "type": "word",
+          "value": 65535
+        },
+        "Priority": {
+          "type": "dword",
+          "value": 4
+        },
+        "Tag": {
+          "type": "cexostring",
+          "value": "mod_forge"
+        },
+        "XP": {
+          "type": "dword",
+          "value": 0
+        }
+      },
+      {
+        "__struct_id": 35,
+        "Comment": {
+          "type": "cexostring",
+          "value": "@group 'Server Info'\n@order 7"
+        },
+        "EntryList": {
+          "type": "list",
+          "value": [
+            {
+              "__struct_id": 0,
+              "End": {
+                "type": "word",
+                "value": 1
+              },
+              "ID": {
+                "type": "dword",
+                "value": 1
+              },
+              "Text": {
+                "type": "cexolocstring",
+                "value": {
+                  "0": "=== Custom Systems ===\n\n  Appraise & Selling: Appraise check (take 20) lifts shop sell cap up to double at Appraise 65.\n  Banking: Deposit/withdraw gold and XP at bank NPCs. Family accounts shared across all your characters.\n  Merit Reward System: DMs award points for bug reports and ideas; redeem at Keeper-of-Records.\n  MeaningWave: 8 philosopher NPCs — answer their questions to unlock them as summonable companions.\n  Instant Resting: No cooldown. Rest menu also offers teleport and henchman summoning.\n  Dungeon Solitaire: A card-game-style encounter arena in Moria.\n\nSee wiki: Manual > Customizations > Notable Custom Systems"
+                }
+              }
+            }
+          ]
+        },
+        "Name": {
+          "type": "cexolocstring",
+          "value": {
+            "0": "Custom Systems"
+          }
+        },
+        "Picture": {
+          "type": "word",
+          "value": 65535
+        },
+        "Priority": {
+          "type": "dword",
+          "value": 4
+        },
+        "Tag": {
+          "type": "cexostring",
+          "value": "mod_systems"
+        },
+        "XP": {
+          "type": "dword",
+          "value": 0
+        }
+      },
+      {
+        "__struct_id": 36,
+        "Comment": {
+          "type": "cexostring",
+          "value": "@group 'Server Info'\n@order 8"
+        },
+        "EntryList": {
+          "type": "list",
+          "value": [
+            {
+              "__struct_id": 0,
+              "End": {
+                "type": "word",
+                "value": 1
+              },
+              "ID": {
+                "type": "dword",
+                "value": 1
+              },
+              "Text": {
+                "type": "cexolocstring",
+                "value": {
+                  "0": "=== Good/Evil Factions ===\n\n  Two factions: Good (Gondor, Rivendell, Lothlorien) and Evil (Mordor, Isengard).\n  D&D alignment on your character sheet has NO effect on NPC hostility — it is cosmetic only.\n  Set your faction each session in the Well of Eru by clicking an orb:\n    Shaft of Light (white) = Good\n    Shaft of Light (red)   = Evil\n  Use Guardian of Light or Guardian of Darkness to reach faction-appropriate teleport hubs.\n\nSee wiki: Manual > Customizations > Good/Evil Faction"
+                }
+              }
+            }
+          ]
+        },
+        "Name": {
+          "type": "cexolocstring",
+          "value": {
+            "0": "Good/Evil Factions"
+          }
+        },
+        "Picture": {
+          "type": "word",
+          "value": 65535
+        },
+        "Priority": {
+          "type": "dword",
+          "value": 4
+        },
+        "Tag": {
+          "type": "cexostring",
+          "value": "mod_factions"
         },
         "XP": {
           "type": "dword",
