@@ -16,7 +16,7 @@ void main()
     if (GetObjectType(oTarget) != OBJECT_TYPE_CREATURE || !GetIsPC(oTarget))
     {
         FloatingTextStringOnCreature(
-            "Rod of Fast Lore: invalid target — must be used on a player character.",
+            "Rod of Fast Lore: invalid target - must be used on a player character.",
             oUser, FALSE);
         SetExecutedScriptReturnValue(X2_EXECUTE_SCRIPT_END);
         return;
