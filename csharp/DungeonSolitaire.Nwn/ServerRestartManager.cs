@@ -118,15 +118,18 @@ internal sealed class ServerRestartManager
 
     private static string WarnMessage(int minutes)
     {
-        string unit = minutes == 1 ? "minute" : "minutes";
-        return $"[Server] Scheduled restart in {minutes} {unit}. The server will reboot for {DownDuration}; "
-             + "find a safe spot and expect a brief disconnect.";
+        // Only the final 1-minute alert carries the downtime/safe-spot verbiage; the
+        // earlier marks stay terse so the chat isn't spammed with the long sentence.
+        if (minutes == 1)
+            return $"[Server] Scheduled restart in 1 minute. The server will reboot for {DownDuration}; "
+                 + "find a safe spot and expect a brief disconnect.";
+        return $"[Server] Scheduled restart in {minutes} minutes.";
     }
 
     private async Task ShutdownSequence()
     {
         await NwTask.SwitchToMainThread();
-        string shutdownMsg = $"[Server] Restarting NOW — saving characters. Back online in {DownDuration}.";
+        string shutdownMsg = "[Server] Restarting NOW — saving characters.";
         Broadcast(shutdownMsg, ColorConstants.Red);
         Shout(shutdownMsg);
 
@@ -154,7 +157,7 @@ internal sealed class ServerRestartManager
     // that have at least one player present — so we can't use the static NPC in
     // House of Homer if that area is empty. Spawning next to any online player
     // guarantees the area is active and the shout fires immediately.
-    private static void Shout(string message)
+    private static async void Shout(string message)
     {
         NwCreature? anchor = NwModule.Instance.Players
             .Where(p => p.IsValid && p.ControlledCreature?.Area != null)
@@ -174,17 +177,27 @@ internal sealed class ServerRestartManager
             return;
         }
 
-        NWScript.AssignCommand(herald, () => NWScript.SpeakString(message, NWScript.TALKVOLUME_SHOUT));
-        NWScript.DestroyObject(herald, 2.0f);
+        // The shout is dropped if it fires the same instant the herald is created (the
+        // object isn't fully registered module-wide yet). Let it settle for a beat, then
+        // shout; keep the herald alive past the speak so it isn't destroyed mid-shout.
+        NWScript.DestroyObject(herald, 6.0f);
+        await NwTask.Delay(TimeSpan.FromSeconds(1));
+        if (herald.IsValid)
+            await herald.SpeakString(message, TalkVolume.Shout);
         Log.Info($"[ServerRestart] Shout herald spawned in area {anchor.Area!.Name}.");
     }
 
-    private void OnPlayerEnter(ModuleEvents.OnClientEnter evt)
+    private async void OnPlayerEnter(ModuleEvents.OnClientEnter evt)
     {
         if (evt.Player is not { IsValid: true } player) return;
         string? notice = RestartNotice();
-        if (notice != null)
-            player.SendServerMessage(notice, ColorConstants.Lime);
+        if (notice == null) return;
+
+        // Messages sent the instant a client connects are dropped before the chat UI
+        // is ready — wait a few seconds so the player actually sees the red notice.
+        await NwTask.Delay(TimeSpan.FromSeconds(5));
+        if (player.IsValid)
+            player.SendServerMessage(notice, ColorConstants.Red);
     }
 
     private string? RestartNotice()

@@ -13,6 +13,9 @@ Normal production schedule: **server shuts at 03:00, OS reboots at 03:03**.
 
 ---
 
+## enable
+sudo systemctl enable --now nwn-reboot.timer
+
 ## Changing the OS timer (Linux side)
 
 1. Edit the timer unit file:
@@ -25,7 +28,7 @@ Normal production schedule: **server shuts at 03:00, OS reboots at 03:03**.
    ```
 
 one-line version
-  sudo sed -i 's/OnCalendar=.*/OnCalendar=*-*-* 13:01:00/' /etc/systemd/system/nwn-reboot.timer
+  sudo sed -i 's/OnCalendar=.*/OnCalendar=*-*-* 03:01:00/' /etc/systemd/system/nwn-reboot.timer
 
 2. Reload and restart the timer:
    ```bash
