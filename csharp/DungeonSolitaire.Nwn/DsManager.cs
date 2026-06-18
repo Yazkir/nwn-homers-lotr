@@ -87,8 +87,7 @@ internal sealed class DsManager
 
         var board = new BoardView(_area);
         var session = new DsSession(pc, board, _dispatcher, _scores, onEnded: () => { });
-        session.AllySpawnedHook = WireAlly;                    // per-ally diagnostics as each spawns
-        session.RequestAllyTargetingHook = EnterAllyTargeting; // engine asks for an ally -> cursor targeting
+        session.AllySpawnedHook = WireAlly;   // per-ally diagnostics as each spawns
         _session = session;
         _awaySeconds = 0;
         session.Start();
@@ -140,80 +139,15 @@ internal sealed class DsManager
         }
     }
 
-    // ── Ally selection via cursor targeting ──────────────────────────────────────
-    // Click-to-talk on the ally NPC proved unreliable: it depends on the creature's
-    // OnDialogue script slot, DialogResRef, faction and conversation conditions all
-    // lining up, and the live log showed the ally's OnConversation never firing on a
-    // real click (only overheard SpeakString events). Instead, when the engine asks the
-    // active player to pick an ally we put them into NWN cursor-targeting mode, which
-    // fires OnPlayerTarget reliably for players and DMs alike, independent of dialogue.
-    private void EnterAllyTargeting()
-    {
-        if (_session is not { IsAlive: true } s) return;
-        NwPlayer p = s.ActivePlayer;
-        if (!p.IsValid) return;
-        Log.Info($"[DungeonSolitaire] EnterAllyTargeting: arming cursor for {p.PlayerName}.");
-        p.TryEnterTargetMode(OnAllyTargeted, new TargetModeSettings { ValidTargets = ObjectTypes.Creature });
-    }
-
-    // Re-arm the cursor next frame when the player cancelled or picked a non-ally and the
-    // engine is still waiting for an ally — so they are never left stuck with no input.
-    private void ReenterAllyTargeting()
-        => _dispatcher.Enqueue(() => { if (_session is { IsAlive: true, IsAwaitingAlly: true }) EnterAllyTargeting(); });
-
-    private void OnAllyTargeted(ModuleEvents.OnPlayerTarget evt)
-    {
-        NwPlayer speaker = evt.Player;
-        NwCreature? ally = evt.TargetObject as NwCreature;
-        Log.Info($"[DungeonSolitaire] OnAllyTargeted: player={speaker?.PlayerName ?? "<null>"} " +
-                 $"cancelled={evt.IsCancelled} target={evt.TargetObject?.Name ?? "<null>"} " +
-                 $"isCreature={ally != null} sessionAlive={_session?.IsAlive} awaitingAlly={_session?.IsAwaitingAlly}");
-
-        if (_session is not { IsAlive: true } s) return;
-        if (speaker is not { IsValid: true } || speaker.PlayerName != s.ActivePlayerName) return;
-        if (!s.IsAwaitingAlly) return;   // engine already advanced — ignore a stray target
-
-        if (evt.IsCancelled)
-        {
-            speaker.SendServerMessage("Choose an ally to send into battle.", ColorConstants.Orange);
-            ReenterAllyTargeting();
-            return;
-        }
-
-        if (ally == null || !s.IsHandAlly(ally))
-        {
-            speaker.SendServerMessage("That isn't one of your allies — target a creature lined up in your hand.", ColorConstants.Orange);
-            ReenterAllyTargeting();
-            return;
-        }
-
-        OpenAttackPicker(speaker, ally);
-    }
-
-    // Open the ds_attack column picker on the chosen ally. The dialog's StartingConditional
-    // scripts (ds_atkc*) run with the ally as ObjectSelf and gate the per-column replies, so
-    // seed the column-name tokens first. Deferred one frame for conversation-start safety.
-    private void OpenAttackPicker(NwPlayer speaker, NwCreature ally)
-    {
-        if (_session is not { IsAlive: true } s) return;
-        s.RefreshAttackTokens();
-        Log.Info($"[DungeonSolitaire] OpenAttackPicker: queuing ds_attack for {speaker.PlayerName} on '{ally.Name}'.");
-        _dispatcher.Enqueue(() =>
-        {
-            if (speaker.IsValid && ally.IsValid)
-            {
-                Log.Info("[DungeonSolitaire] OpenAttackPicker: opening ds_attack now.");
-                speaker.ActionStartConversation(ally, DsConfig.AttackDialog, true, false);
-            }
-            else
-            {
-                Log.Warn("[DungeonSolitaire] OpenAttackPicker: speaker/ally invalid at open time.");
-            }
-        });
-    }
+    // ── Ally selection via native click-to-talk ──────────────────────────────────
+    // The active player left-clicks (or F1s) an ally NPC to open the ds_attack picker.
+    // Each ally carries DialogResRef = ds_attack and a PC-click-only OnConversation script
+    // (ds_ally_conv) installed in CardActor.Render, so the engine opens the dialog natively
+    // — leaving normal movement / door / right-click-examine controls intact (unlike the
+    // old cursor-targeting mode). The ds_atkc*/ds_atk* handlers below then drive the picker.
 
     // Diagnostic: log each ally's dialogue wiring as it spawns, so the log shows the
-    // runtime DialogResRef and OnDialogue script slot for the (now unused) click path.
+    // runtime DialogResRef and OnDialogue script slot.
     private void WireAlly(NwCreature ally)
     {
         string onDialogue = NWScript.GetEventScript(ally.ObjectId, NWScript.EVENT_SCRIPT_CREATURE_ON_DIALOGUE);
@@ -245,7 +179,7 @@ internal sealed class DsManager
     {
         if (_session is not { IsAlive: true }) return ScriptHandleResult.False;
         if (info.ObjectSelf is not NwCreature ally) return ScriptHandleResult.False;
-        if (!_session.IsAwaitingAlly) return ScriptHandleResult.False;
+        if (!_session.IsAwaitingAlly || !_session.IsActivePlayerSpeaker()) return ScriptHandleResult.False;
         Card? card = _session.CardForCreature(ally);
         if (card == null || DsSession.IsInsteadOfAttack(card)) return ScriptHandleResult.False;
         return _session.ColumnHasEnemies(col0) ? ScriptHandleResult.True : ScriptHandleResult.False;
@@ -263,7 +197,7 @@ internal sealed class DsManager
     {
         if (_session is not { IsAlive: true }) return ScriptHandleResult.False;
         if (info.ObjectSelf is not NwCreature ally) return ScriptHandleResult.False;
-        if (!_session.IsAwaitingAlly) return ScriptHandleResult.False;
+        if (!_session.IsAwaitingAlly || !_session.IsActivePlayerSpeaker()) return ScriptHandleResult.False;
         Card? card = _session.CardForCreature(ally);
         return card != null && DsSession.IsInsteadOfAttack(card) ? ScriptHandleResult.True : ScriptHandleResult.False;
     }

@@ -53,6 +53,16 @@ internal sealed class BoardView
         return Location.Create(baseLoc.Area, new Vector3(p.X + offset, p.Y, p.Z), baseLoc.Rotation);
     }
 
+    private Location? GraveLoc(int index, int count)
+    {
+        Location? baseLoc = WaypointLoc(DsConfig.GraveyardTag);
+        if (baseLoc == null) return null;
+        // Stagger corpses in a tight cluster around the waypoint so they read as a heap.
+        float offset = (index - (count - 1) / 2f) * 0.6f;
+        Vector3 p = baseLoc.Position;
+        return Location.Create(baseLoc.Area, new Vector3(p.X + offset, p.Y, p.Z), baseLoc.Rotation);
+    }
+
     // ── Reconciliation ─────────────────────────────────────────────────────────
     public void Sync(GameEngine engine)
     {
@@ -63,7 +73,7 @@ internal sealed class BoardView
         foreach (NwPlaceable p in NwObject.FindObjectsWithTag<NwPlaceable>("ds_card").ToList())
             if (_actors.Values.All(a => a.Obj?.ObjectId != p.ObjectId)) p.Destroy();
 
-        var desired = new Dictionary<Card, (Location loc, bool statue, bool ally)>();
+        var desired = new Dictionary<Card, (Location loc, ActorKind kind)>();
 
         for (int col = 0; col < engine.EnemyColumns.Count && col < DsConfig.ColumnCount; col++)
         {
@@ -71,7 +81,8 @@ internal sealed class BoardView
             for (int row = 0; row < column.Count && row < DsConfig.RowCount; row++)
             {
                 Location? loc = ColumnLoc(col, row);
-                if (loc != null) desired[column[row]] = (loc, !column[row].revealed, false);
+                if (loc != null)
+                    desired[column[row]] = (loc, column[row].revealed ? ActorKind.EnemyCreature : ActorKind.EnemyStatue);
             }
         }
 
@@ -79,7 +90,16 @@ internal sealed class BoardView
         for (int i = 0; i < hand.Count; i++)
         {
             Location? loc = HandLoc(i, hand.Count);
-            if (loc != null) desired[hand[i]] = (loc, false, true);
+            if (loc != null) desired[hand[i]] = (loc, ActorKind.Ally);
+        }
+
+        // Defeated enemies and spent allies have been moved to the engine's Graveyard:
+        // render them as a corpse pile at DS_Graveyard.
+        var grave = engine.Graveyard.cards;
+        for (int i = 0; i < grave.Count; i++)
+        {
+            Location? loc = GraveLoc(i, grave.Count);
+            if (loc != null) desired[grave[i]] = (loc, ActorKind.Grave);
         }
 
         // Remove actors whose card left play (graveyard / exile / attacker / killed).
@@ -90,11 +110,20 @@ internal sealed class BoardView
         }
 
         // Add / update the rest.
-        foreach ((Card card, (Location loc, bool statue, bool ally)) in desired)
+        foreach ((Card card, (Location loc, ActorKind kind)) in desired)
         {
+            bool statue = kind == ActorKind.EnemyStatue;
+            bool ally = kind == ActorKind.Ally;
+
             if (_actors.TryGetValue(card, out CardActor? actor) && actor.Obj is { IsValid: true })
             {
-                if (!actor.MatchesReveal(statue))
+                if (kind == ActorKind.Grave)
+                {
+                    // Card just died / was spent: play the death beat and move it to the pile.
+                    // Already-buried corpses are left lying where they are.
+                    if (!actor.IsBuried) _ = actor.BuryAt(loc);
+                }
+                else if (!actor.MatchesReveal(statue))
                 {
                     bool wasStatue = actor.IsStatue;
                     actor.Render(loc, statue, false);
@@ -110,7 +139,14 @@ internal sealed class BoardView
             else
             {
                 actor = new CardActor(card);
-                if (ally)
+                if (kind == ActorKind.Grave)
+                {
+                    // Card entered the graveyard without ever being on the board (e.g. milled
+                    // from the library): spawn it straight into the corpse pose at the pile.
+                    actor.Render(loc, false, false);
+                    actor.SetBuriedPose();
+                }
+                else if (ally)
                 {
                     // Allies appear at the spawn-in point and walk to their place in the hand line.
                     Location spawn = WaypointLoc(DsConfig.HandSpawnTag) ?? loc;
@@ -127,6 +163,8 @@ internal sealed class BoardView
             }
         }
     }
+
+    private enum ActorKind { EnemyStatue, EnemyCreature, Ally, Grave }
 
     private void Reposition(CardActor actor, Location target, bool ally)
     {
@@ -149,13 +187,13 @@ internal sealed class BoardView
     }
 
     // ── Attack animation ───────────────────────────────────────────────────────
-    /// <summary>Lunge an ally onto the front of a column, flash the impact, then return — Godot's attack beat.</summary>
+    /// <summary>Lunge an ally onto the front of a column and flash the impact — Godot's attack beat.
+    /// The ally is left at the target; the next Sync buries it (graveyard) or returns it to hand.</summary>
     public async Task AnimateAttack(CardActor ally, int columnIndex, GameEngine engine)
     {
         NwCreature? c = ally.Creature;
         if (c is not { IsValid: true }) return;
 
-        Location home = c.Location!;
         CardActor? target = FrontEnemyActor(engine, columnIndex);
         Location? targetLoc = target?.Obj?.Location ?? ColumnLoc(columnIndex, 0);
         if (targetLoc == null) return;
@@ -164,7 +202,10 @@ internal sealed class BoardView
         c.FaceToPoint(targetLoc.Position);
         target?.Obj?.ApplyEffect(EffectDuration.Instant, NwEffect.VisualEffect(Vfx.MeleeImpact));
         await NwTask.Delay(TimeSpan.FromSeconds(DsConfig.LungeSeconds));
-        await c.ActionForceMoveTo(home, true);
+        // No walk-back: a spent ally is moved to the graveyard by the engine, so the next
+        // Sync buries it (BuryAt). Allies that an effect returns to hand are repositioned
+        // to the hand line there instead. (Returning home here made spent cards look like
+        // they went back to the hand.)
     }
 
     private CardActor? FrontEnemyActor(GameEngine engine, int columnIndex)

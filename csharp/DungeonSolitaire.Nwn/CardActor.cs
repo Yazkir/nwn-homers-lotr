@@ -1,3 +1,6 @@
+using System;
+using System.Linq;
+using System.Threading.Tasks;
 using Anvil.API;
 using Anvil.API.Events;
 using NWN.Core;
@@ -19,6 +22,9 @@ internal sealed class CardActor
 
     /// <summary>The current HP we last asserted on the creature; re-applied if the player damages it.</summary>
     public int DesiredHp { get; private set; }
+
+    /// <summary>True once this card has died and been moved to the graveyard pile (don't re-animate).</summary>
+    public bool IsBuried { get; private set; }
 
     public NwCreature? Creature => Obj as NwCreature;
 
@@ -70,9 +76,12 @@ internal sealed class CardActor
         }
         else
         {
-            // Allies are clickable to start the attack conversation.
-            // Blueprint already has ds_attack set; redundantly assert it here for robustness.
+            // Allies are clickable to start the attack conversation. Native click-to-talk
+            // only opens a creature's DialogResRef if its OnConversation (event 5007) slot
+            // calls BeginConversation — so install a PC-click-only opener there. Without it
+            // the empty slot means clicking does nothing (the bug that defeated earlier fixes).
             c.DialogResRef = DsConfig.AttackDialog;
+            NWScript.SetEventScript(c.ObjectId, NWScript.EVENT_SCRIPT_CREATURE_ON_DIALOGUE, "ds_ally_conv");
         }
 
         // Map the card's life onto NWN HP so the engine's "badly wounded" / "near death"
@@ -136,14 +145,58 @@ internal sealed class CardActor
     /// </summary>
     private static void StripCombatAi(NwCreature c)
     {
-        // NWN SetEventScript event-type integers for creature slots.
-        const int EvtHeartbeat  = 0; // EVENT_SCRIPT_CREATURE_ON_HEARTBEAT
-        const int EvtNotice     = 1; // EVENT_SCRIPT_CREATURE_ON_NOTICE (perception)
-        const int EvtEndCombat  = 6; // EVENT_SCRIPT_CREATURE_ON_END_COMBATROUND
+        // NWN SetEventScript event-type integers for creature slots are 5000-based.
         uint id = c.ObjectId;
-        NWScript.SetEventScript(id, EvtHeartbeat, "");
-        NWScript.SetEventScript(id, EvtNotice, "");
-        NWScript.SetEventScript(id, EvtEndCombat, "");
+        NWScript.SetEventScript(id, NWScript.EVENT_SCRIPT_CREATURE_ON_HEARTBEAT, "");
+        NWScript.SetEventScript(id, NWScript.EVENT_SCRIPT_CREATURE_ON_NOTICE, "");           // perception
+        NWScript.SetEventScript(id, NWScript.EVENT_SCRIPT_CREATURE_ON_END_COMBATROUND, "");
+    }
+
+    /// <summary>
+    /// Play the card's death beat where it stands — death cry + fall prone — then
+    /// teleport the corpse to the graveyard waypoint and hold it prone there. Called
+    /// from BoardView.Sync when the card's engine zone changes to Graveyard. Runs at a
+    /// safe point (engine parked), so animating here is safe.
+    /// </summary>
+    public async Task BuryAt(Location grave)
+    {
+        IsBuried = true;
+        if (Creature is not { IsValid: true } c)
+        {
+            // No live creature (e.g. an unrevealed statue) — just relocate the object.
+            if (Obj is { IsValid: true }) _ = Obj.ActionJumpToLocation(grave);
+            return;
+        }
+
+        // Stop reverting damage/attacks, and free the body from the board-freeze paralyze
+        // (revealed enemies are permanently CutsceneParalyzed) so it can fall.
+        c.OnDamaged -= RevertDamage;
+        c.OnPhysicalAttacked -= IgnoreAttack;
+        foreach (NwEffect e in c.ActiveEffects.ToList()) c.RemoveEffect(e);
+
+        c.ApplyEffect(EffectDuration.Instant, NwEffect.VisualEffect(Vfx.MeleeImpact));
+        c.PlayVoiceChat(VoiceChatType.Death);
+        _ = c.PlayAnimation(Animation.LoopingDeadFront, 1f, false, TimeSpan.FromSeconds(9999));
+        await NwTask.Delay(TimeSpan.FromSeconds(0.6));
+
+        if (c.IsValid)
+        {
+            await c.ActionJumpToLocation(grave);
+            _ = c.PlayAnimation(Animation.LoopingDeadFront, 1f, false, TimeSpan.FromSeconds(9999));
+        }
+    }
+
+    /// <summary>Put a freshly-spawned graveyard card (e.g. milled from the library) straight
+    /// into the prone corpse pose — no fall/sound, it was never on the board.</summary>
+    public void SetBuriedPose()
+    {
+        IsBuried = true;
+        if (Creature is { IsValid: true } c)
+        {
+            c.OnDamaged -= RevertDamage;
+            c.OnPhysicalAttacked -= IgnoreAttack;
+            _ = c.PlayAnimation(Animation.LoopingDeadFront, 1f, false, TimeSpan.FromSeconds(9999));
+        }
     }
 
     public void Destroy()

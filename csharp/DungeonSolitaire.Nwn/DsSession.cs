@@ -220,12 +220,14 @@ internal sealed class DsSession : IGameEventListener
         {
             case InputType.SelectAlly:
                 // Engine is blocked here — safe to reconcile the board to the new turn's state.
-                // Resolved by the player cursor-targeting an ally NPC (see DsManager targeting handlers).
+                // Resolved by the player left-clicking an ally NPC, which opens ds_attack
+                // natively (ds_ally_conv OnConversation + DialogResRef). Seed the column-name
+                // tokens now so the picker reads correctly the instant the player clicks.
                 _dispatcher.Enqueue(() =>
                 {
                     Board.Sync(_engine);
-                    MessageActive("Choose an ally to send into battle.");
-                    RequestAllyTargetingHook?.Invoke();
+                    RefreshAttackTokens();
+                    MessageActive("Click one of your allies to send it into battle.");
                 });
                 break;
 
@@ -416,9 +418,15 @@ internal sealed class DsSession : IGameEventListener
     /// <summary>DsManager wires this to run per-ally diagnostics as each ally NPC spawns.</summary>
     public System.Action<NwCreature>? AllySpawnedHook { get; set; }
 
-    /// <summary>DsManager wires this to put the active player into cursor-targeting mode
-    /// when the engine asks for an ally selection.</summary>
-    public System.Action? RequestAllyTargetingHook { get; set; }
+    /// <summary>True when the PC currently in conversation (GetPCSpeaker) is the active
+    /// player — gates the ds_attack picker so a bystander clicking an ally can't drive the turn.</summary>
+    public bool IsActivePlayerSpeaker()
+    {
+        uint pc = NWScript.GetPCSpeaker();
+        return ActivePlayer.IsValid
+            && ActivePlayer.ControlledCreature is { IsValid: true } c
+            && c.ObjectId == pc;
+    }
 
     // ── Engine log relay (GameLogger.Log fires on the engine background thread) ──
     /// <summary>
