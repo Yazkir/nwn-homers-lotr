@@ -33,7 +33,7 @@ void main()
     {
         if (!GetIdentified(oItem))
         {
-            string sTypeName = GetName(oItem);
+            string sTypeName = Get2DAString("baseitems", "label", GetBaseItemType(oItem));
             int    nDC       = GetGoldPieceValue(oItem) / 100 + 1;
             int    nCheck    = d20() + nLore;
 
