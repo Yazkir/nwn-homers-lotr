@@ -138,16 +138,18 @@ internal sealed class DsManager
     // ── Attack conversation (ds_attack) ──────────────────────────────────────────
     private void OnAllyConversation(CreatureEvents.OnConversation evt)
     {
-        if (_session is not { IsAlive: true }) return;
         NwPlayer? speaker = evt.PlayerSpeaker;
-        if (speaker is not { IsValid: true }) return;
+        // DEBUG (round 2): trace the click path — remove once the picker opens reliably.
+        Log.Info($"[DungeonSolitaire] OnAllyConversation fired: speaker={speaker?.PlayerName ?? "<null>"} " +
+                 $"valid={speaker?.IsValid} sessionAlive={_session?.IsAlive} active={_session?.ActivePlayerName} " +
+                 $"awaitingAlly={_session?.IsAwaitingAlly} creatureInConv={evt.Creature.IsInConversation}");
 
-        // Re-entrancy guard: ActionStartConversation below can re-raise OnConversation
-        // on the same ally; once a window is up, ignore the echo.
-        if (evt.Creature.IsInConversation) return;
+        if (_session is not { IsAlive: true }) return;
+        if (speaker is not { IsValid: true }) return;
 
         if (speaker.PlayerName != _session.ActivePlayerName)
         {
+            Log.Info("[DungeonSolitaire] OnAllyConversation: spectator — sending watch message.");
             speaker.SendServerMessage(
                 $"You are watching {_session.ActivePlayerName}'s game of Dungeon Solitaire.",
                 ColorConstants.Orange);
@@ -157,8 +159,23 @@ internal sealed class DsManager
         // Subscribing to OnConversation replaced the creature's default dialogue script
         // (and the DS_* blueprints carry none), so the engine never opens the picker on
         // its own — start it ourselves after seeding the per-column target names.
+        // Defer the start off the event: starting a conversation from inside the
+        // click-to-talk OnConversation event (mid engine-initiation) is unreliable.
+        NwCreature ally = evt.Creature;
         _session.RefreshAttackTokens();
-        speaker.ActionStartConversation(evt.Creature, DsConfig.AttackDialog, true, false);
+        Log.Info($"[DungeonSolitaire] OnAllyConversation: queuing ds_attack for {speaker.PlayerName}.");
+        _dispatcher.Enqueue(() =>
+        {
+            if (speaker.IsValid && ally.IsValid)
+            {
+                Log.Info("[DungeonSolitaire] OnAllyConversation: opening ds_attack now.");
+                speaker.ActionStartConversation(ally, DsConfig.AttackDialog, true, false);
+            }
+            else
+            {
+                Log.Warn("[DungeonSolitaire] OnAllyConversation: speaker/ally invalid at open time.");
+            }
+        });
     }
 
     // Per-column conversation handlers. Distinct script names (rather than script
@@ -177,6 +194,13 @@ internal sealed class DsManager
 
     private ScriptHandleResult ColumnCondition(CallInfo info, int col0)
     {
+        ScriptHandleResult r = EvalColumnCondition(info, col0);
+        Log.Info($"[DungeonSolitaire] ColumnCondition col={col0} -> {r}"); // DEBUG (round 2)
+        return r;
+    }
+
+    private ScriptHandleResult EvalColumnCondition(CallInfo info, int col0)
+    {
         if (_session is not { IsAlive: true }) return ScriptHandleResult.False;
         if (info.ObjectSelf is not NwCreature ally) return ScriptHandleResult.False;
         if (!_session.IsAwaitingAlly) return ScriptHandleResult.False;
@@ -187,6 +211,7 @@ internal sealed class DsManager
 
     private void ColumnChosen(CallInfo info, int col0)
     {
+        Log.Info($"[DungeonSolitaire] ColumnChosen col={col0}"); // DEBUG (round 2)
         if (_session is not { IsAlive: true } || info.ObjectSelf is not NwCreature ally) return;
         _session.SubmitAttack(ally, col0);
     }

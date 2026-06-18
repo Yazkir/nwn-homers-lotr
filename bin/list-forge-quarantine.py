@@ -54,9 +54,16 @@ def _zstd_decompress(buf: bytes) -> bytes:
         return zstandard.ZstdDecompressor().decompress(buf)
 
 
-def decode_int(payload: bytes) -> int:
-    # Stored as decimal ASCII text in the legacy EE campaign DB.
-    return int(payload.decode("latin1").strip() or "0")
+def decode_int(payload) -> int:
+    # Legacy EE campaign DB stores ints as decimal ASCII text, but SQLite's
+    # type affinity can hand them back as a native int — accept either.
+    if isinstance(payload, int):
+        return payload
+    if isinstance(payload, memoryview):
+        payload = payload.tobytes()
+    if isinstance(payload, bytes):
+        payload = payload.decode("latin1")
+    return int(str(payload).strip() or "0")
 
 
 def decode_string(payload: bytes, compressed: int) -> str:
@@ -319,6 +326,17 @@ def main() -> int:
         except Exception as e:
             return {"_error": f"could not decode object payload: {e}"}
 
+    def indices(prefix):
+        # Enumerate actual <prefix><N> rows rather than trusting the *_count
+        # key, which can go stale (e.g. chest_count=2 while chest_0..chest_13
+        # exist after an interrupted snapshot).
+        rows = con.execute(
+            "SELECT varname FROM db WHERE varname GLOB ?", (prefix + "[0-9]*",)
+        ).fetchall()
+        pat = re.compile(re.escape(prefix) + r"(\d+)$")
+        return sorted(int(m.group(1)) for r in rows
+                      if (m := pat.match(r["varname"])))
+
     print("=" * 78)
     print(f"Forge Warden quarantine chest  —  {args.db}")
     print("=" * 78)
@@ -326,13 +344,12 @@ def main() -> int:
     # --- Items physically in the chest (persistent snapshot, last OnClose) ---
     # These survive until a DM removes the item from the chest. Provenance is
     # read from the item-embedded QUARANTINE_INFO local var (see forge_inc.nss).
-    chest_row = get("chest_count")
-    chest_count = decode_int(chest_row["payload"]) if chest_row else 0
+    chest_idx = indices("chest_")
     in_chest = 0
-    print(f"\n### In the quarantine chest ({chest_count} item(s) at last close) ###")
-    if chest_count == 0:
+    print(f"\n### In the quarantine chest ({len(chest_idx)} item(s) at last close) ###")
+    if not chest_idx:
         print("  (empty, or the chest has not been closed since the last reboot)")
-    for n in range(chest_count):
+    for n in chest_idx:
         item_row = get(f"chest_{n}")
         if item_row is None:
             continue
@@ -343,14 +360,13 @@ def main() -> int:
     # --- Items still in the inbox (quarantined, chest not yet opened since) ---
     # These vanish into the chest on the next chest open. Provenance comes from
     # the transient quarantine_*_info row (and the embedded var as a fallback).
-    q_row = get("quarantine_count")
-    q_count = decode_int(q_row["payload"]) if q_row else 0
+    q_idx = indices("quarantine_")
     in_inbox = 0
     print(f"\n### Pending inbox — not yet pulled into the chest "
-          f"({q_count} item(s)) ###")
-    if q_count == 0:
+          f"({len(q_idx)} item(s)) ###")
+    if not q_idx:
         print("  (none)")
-    for n in range(q_count):
+    for n in q_idx:
         info_row = get(f"quarantine_{n}_info")
         item_row = get(f"quarantine_{n}")
         if info_row is None and item_row is None:

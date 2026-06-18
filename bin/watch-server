@@ -1,0 +1,33 @@
+#!/usr/bin/env bash
+# watch-server — live, read-only view of the running Homer's LotR NWN server:
+# player joins/leaves, DM messages, Anvil errors, as they happen.
+#
+# This only WATCHES. It never starts or stops the server -- that's
+# `homers-lotr-server.service` (systemd --user). Closing this window or hitting
+# Ctrl+C just stops watching; the server keeps running headlessly.
+#
+# Run it from any terminal, over SSH, or via the "Server Monitor" app launcher.
+set -uo pipefail
+
+PROJECT_ROOT=$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)
+
+# Read the container name from server.env without sourcing the whole file.
+NWN_CONTAINER_NAME=$(grep -E '^NWN_CONTAINER_NAME=' "$PROJECT_ROOT/server.env" 2>/dev/null \
+  | tail -1 | cut -d= -f2- | tr -d '"')
+NWN_CONTAINER_NAME=${NWN_CONTAINER_NAME:-nwnxee-homer}
+
+echo "=== Homer's LotR — live server monitor ==="
+echo "Container: $NWN_CONTAINER_NAME"
+echo "(Read-only. Ctrl+C / closing this window stops watching, NOT the server.)"
+echo
+
+# After a reboot the boot service takes ~40s to load the module. Wait for the
+# container rather than erroring out on an empty window.
+if ! podman container exists "$NWN_CONTAINER_NAME" 2>/dev/null; then
+  echo "Waiting for the server container to come up..."
+  until podman container exists "$NWN_CONTAINER_NAME" 2>/dev/null; do sleep 2; done
+  echo
+fi
+
+# Show recent history, then follow live.
+exec podman logs --tail 100 -f "$NWN_CONTAINER_NAME"

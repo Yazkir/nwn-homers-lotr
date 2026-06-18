@@ -1,0 +1,23 @@
+#!/usr/bin/env bash
+# server-stop — cleanly shut the Homer's LotR server down via its systemd user
+# service. systemd runs the unit's ExecStop (`podman stop -t 20 nwnxee-homer`),
+# i.e. SIGTERM with a 20s grace period -- the same clean path the old Ctrl+C in
+# the server terminal used. Players are disconnected.
+#
+# The server will start again on the next boot (homers-lotr-server.service), or
+# bring it back now with `server-restart`.
+set -uo pipefail
+
+echo "=== Shut down Homer's LotR server ==="
+echo "Players will be disconnected."
+echo
+systemctl --user stop homers-lotr-server.service
+echo
+if systemctl --user is-active --quiet homers-lotr-server.service; then
+  echo "WARNING: still active -- check: systemctl --user status homers-lotr-server"
+else
+  echo "Server stopped cleanly. (Starts again on next boot, or run server-restart.)"
+fi
+echo
+# Keep the window open when launched from the app grid.
+[[ -t 0 ]] && read -rp "Press Enter to close..."

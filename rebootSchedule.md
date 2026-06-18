@@ -25,7 +25,7 @@ Normal production schedule: **server shuts at 03:00, OS reboots at 03:03**.
    ```
 
 one-line version
-  sudo sed -i 's/OnCalendar=.*/OnCalendar=*-*-* 11:33:00/' /etc/systemd/system/nwn-reboot.timer
+  sudo sed -i 's/OnCalendar=.*/OnCalendar=*-*-* 13:01:00/' /etc/systemd/system/nwn-reboot.timer
 
 2. Reload and restart the timer:
    ```bash
@@ -38,6 +38,40 @@ one-line version
    systemctl list-timers nwn-reboot.timer
    ```
    The `NEXT` column should show the new time.
+
+### Disabling the OS reboot (turning it off)
+
+To stop the daily OS reboot entirely:
+```bash
+sudo systemctl disable --now nwn-reboot.timer
+```
+- `disable` removes it from `timers.target`, so it won't arm on future boots.
+- `--now` also stops the timer already armed this boot. Plain `disable` (without
+  `--now`) leaves the current timer running until the next reboot.
+
+Verify it's off:
+```bash
+systemctl is-enabled nwn-reboot.timer        # -> disabled
+systemctl list-timers --all nwn-reboot.timer # nwn-reboot.timer should not show an active NEXT time
+```
+
+Re-enable it later:
+```bash
+sudo systemctl enable --now nwn-reboot.timer
+```
+
+> ⚠️ **This only stops the OS reboot, not the in-game shutdown.** The Anvil
+> `ServerRestartManager` still saves characters and shuts the NWN server down at
+> `ANVIL_RESTART_DAILY`. The server normally comes back *because the machine
+> reboots and the `homers-lotr-server.service` boot service relaunches it* — and
+> that service is `Restart=on-failure`, so it will **not** relaunch after a clean
+> Anvil shutdown. Net effect: with the OS timer off but Anvil still scheduled,
+> the server shuts down at the configured time and **stays down** until you start
+> it manually (`systemctl --user start homers-lotr-server`) or reboot.
+>
+> To turn the daily restart **off completely**, also disable the Anvil side —
+> clear `ANVIL_RESTART_DAILY` in `server.env` (see next section) and restart the
+> container so no daily in-game shutdown is scheduled.
 
 ---
 

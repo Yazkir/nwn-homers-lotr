@@ -1,0 +1,19 @@
+#!/usr/bin/env bash
+# server-restart — cleanly restart the Homer's LotR server via its systemd user
+# service (full stop + start). Players are disconnected, then can reconnect once
+# the module reloads (~40s). After restarting, this follows the live log so you
+# can watch it come back up.
+#
+# Replaces the old "Host Homer's LotR Server" launcher, which ran `serve`
+# directly and would now collide with homers-lotr-server.service. `restart`
+# also works as a plain start if the server is currently stopped.
+set -uo pipefail
+
+echo "=== Restart Homer's LotR server ==="
+echo "Players will be disconnected; the module reloads in ~40s."
+echo
+systemctl --user restart homers-lotr-server.service
+echo "Restart issued. Following the log (Ctrl+C closes this; the server keeps running)..."
+echo
+sleep 2
+exec /var/home/james/GIT/nwn_homers_lotr/bin/watch-server
