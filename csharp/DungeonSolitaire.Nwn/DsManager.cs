@@ -162,6 +162,17 @@ internal sealed class DsManager
     [ScriptHandler("ds_atkc4")] public ScriptHandleResult ColCond4(CallInfo i) => ColumnCondition(i, 3);
     [ScriptHandler("ds_atkc5")] public ScriptHandleResult ColCond5(CallInfo i) => ColumnCondition(i, 4);
 
+    // Entry StartingConditional: runs first (OBJECT_SELF = the clicked ally), before the
+    // entry text renders, so it seeds every ds_attack token from the actual ally + columns.
+    // Always returns True so the entry (and its "Hold — not this one" reply) shows.
+    [ScriptHandler("ds_atkentry")]
+    public ScriptHandleResult AttackEntry(CallInfo info)
+    {
+        if (_session is { IsAlive: true })
+            _session.RefreshAttackDialogTokens(info.ObjectSelf as NwCreature);
+        return ScriptHandleResult.True;
+    }
+
     [ScriptHandler("ds_atk1")] public void ColDo1(CallInfo i) => ColumnChosen(i, 0);
     [ScriptHandler("ds_atk2")] public void ColDo2(CallInfo i) => ColumnChosen(i, 1);
     [ScriptHandler("ds_atk3")] public void ColDo3(CallInfo i) => ColumnChosen(i, 2);

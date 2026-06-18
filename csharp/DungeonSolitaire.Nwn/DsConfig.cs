@@ -40,6 +40,14 @@ internal static class DsConfig
     /// </summary>
     public const int ColumnNameTokenBase = 5420;
 
+    /// <summary>Per-column front-enemy detail token; column <c>col0</c> uses
+    /// <c>ColumnDetailTokenBase + col0</c> (5430..5434). Holds "(if survives: …)/(if dies: …)".</summary>
+    public const int ColumnDetailTokenBase = 5430;
+
+    /// <summary>Token (5440) holding the chosen ally's attack-effect description (no effect name),
+    /// shown in the ds_attack entry prompt.</summary>
+    public const int AttackEffectToken = 5440;
+
     // ── Choice-popup custom tokens (set via NWScript.SetCustomToken before each popup) ──
     /// <summary>Custom token holding the choice prompt text (the entry node shows &lt;CUSTOM5400&gt;).</summary>
     public const int ChoicePromptToken = 5400;

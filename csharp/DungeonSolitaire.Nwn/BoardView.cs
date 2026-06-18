@@ -23,6 +23,7 @@ internal sealed class BoardView
 
     private readonly Dictionary<Card, CardActor> _actors = new();
     private readonly Dictionary<string, Location?> _locCache = new();
+    private int _graveCount;   // running count of corpses placed in the graveyard pile
 
     public BoardView(NwArea area) => Area = area;
 
@@ -53,14 +54,15 @@ internal sealed class BoardView
         return Location.Create(baseLoc.Area, new Vector3(p.X + offset, p.Y, p.Z), baseLoc.Rotation);
     }
 
-    private Location? GraveLoc(int index, int count)
+    /// <summary>Absolute graveyard slot for the Nth corpse — laid out in staggered rows of
+    /// five so the pile grows as a heap around the DS_Graveyard waypoint.</summary>
+    private Location? GraveSlot(int slot)
     {
         Location? baseLoc = WaypointLoc(DsConfig.GraveyardTag);
         if (baseLoc == null) return null;
-        // Stagger corpses in a tight cluster around the waypoint so they read as a heap.
-        float offset = (index - (count - 1) / 2f) * 0.6f;
+        int row = slot / 5, col = slot % 5;
         Vector3 p = baseLoc.Position;
-        return Location.Create(baseLoc.Area, new Vector3(p.X + offset, p.Y, p.Z), baseLoc.Rotation);
+        return Location.Create(baseLoc.Area, new Vector3(p.X + (col - 2) * 0.8f, p.Y - row * 0.8f, p.Z), baseLoc.Rotation);
     }
 
     // ── Reconciliation ─────────────────────────────────────────────────────────
@@ -93,19 +95,15 @@ internal sealed class BoardView
             if (loc != null) desired[hand[i]] = (loc, ActorKind.Ally);
         }
 
-        // Defeated enemies and spent allies have been moved to the engine's Graveyard:
-        // render them as a corpse pile at DS_Graveyard.
-        var grave = engine.Graveyard.cards;
-        for (int i = 0; i < grave.Count; i++)
-        {
-            Location? loc = GraveLoc(i, grave.Count);
-            if (loc != null) desired[grave[i]] = (loc, ActorKind.Grave);
-        }
-
-        // Remove actors whose card left play (graveyard / exile / attacker / killed).
+        // The graveyard zone is NOT rendered here: defeated/spent cards are kept as their
+        // existing actors (see MarkPendingBurial / MarchPendingToGraveyard) so they don't
+        // get a duplicate body. Remove only actors whose card truly left play (exile /
+        // recycled to library); never the in-flight attacker or a dead/dying body.
         foreach (Card gone in _actors.Keys.Where(c => !desired.ContainsKey(c)).ToList())
         {
-            _actors[gone].Destroy();
+            CardActor a = _actors[gone];
+            if (a.PendingBurial || a.IsBuried || ReferenceEquals(gone, engine.attacker)) continue;
+            a.Destroy();
             _actors.Remove(gone);
         }
 
@@ -117,13 +115,7 @@ internal sealed class BoardView
 
             if (_actors.TryGetValue(card, out CardActor? actor) && actor.Obj is { IsValid: true })
             {
-                if (kind == ActorKind.Grave)
-                {
-                    // Card just died / was spent: play the death beat and move it to the pile.
-                    // Already-buried corpses are left lying where they are.
-                    if (!actor.IsBuried) _ = actor.BuryAt(loc);
-                }
-                else if (!actor.MatchesReveal(statue))
+                if (!actor.MatchesReveal(statue))
                 {
                     bool wasStatue = actor.IsStatue;
                     actor.Render(loc, statue, false);
@@ -139,14 +131,7 @@ internal sealed class BoardView
             else
             {
                 actor = new CardActor(card);
-                if (kind == ActorKind.Grave)
-                {
-                    // Card entered the graveyard without ever being on the board (e.g. milled
-                    // from the library): spawn it straight into the corpse pose at the pile.
-                    actor.Render(loc, false, false);
-                    actor.SetBuriedPose();
-                }
-                else if (ally)
+                if (ally)
                 {
                     // Allies appear at the spawn-in point and walk to their place in the hand line.
                     Location spawn = WaypointLoc(DsConfig.HandSpawnTag) ?? loc;
@@ -164,7 +149,26 @@ internal sealed class BoardView
         }
     }
 
-    private enum ActorKind { EnemyStatue, EnemyCreature, Ally, Grave }
+    private enum ActorKind { EnemyStatue, EnemyCreature, Ally }
+
+    // ── Burial (death feedback now, march to the graveyard at end of turn) ───────
+    /// <summary>Play the in-place death feedback for a card that just entered the graveyard
+    /// (called from the engine's CardZoneChanged→Graveyard event). The body stays put.</summary>
+    public void MarkPendingBurial(Card? card)
+    {
+        if (card != null && _actors.TryGetValue(card, out CardActor? a)) a.DieInPlace();
+    }
+
+    /// <summary>End-of-turn: walk every pending corpse over to the graveyard pile and lie it
+    /// prone. Fire-and-forget so the bodies march in parallel.</summary>
+    public void MarchPendingToGraveyard()
+    {
+        foreach (CardActor a in _actors.Values.Where(x => x.PendingBurial).ToList())
+        {
+            Location? slot = GraveSlot(_graveCount++);
+            if (slot != null) _ = a.MarchTo(slot);
+        }
+    }
 
     private void Reposition(CardActor actor, Location target, bool ally)
     {
@@ -196,16 +200,31 @@ internal sealed class BoardView
 
         CardActor? target = FrontEnemyActor(engine, columnIndex);
         Location? targetLoc = target?.Obj?.Location ?? ColumnLoc(columnIndex, 0);
-        if (targetLoc == null) return;
+        if (targetLoc == null || c.Location == null) return;
 
-        await c.ActionForceMoveTo(targetLoc, true);
-        c.FaceToPoint(targetLoc.Position);
+        // Stop SHORT of the enemy's (occupied) tile. Pathing onto the exact tile fails and
+        // ActionForceMoveTo completes instantly, which fired the damage/VFX before the ally
+        // had moved. Stopping ~1.8 m short makes the walk real and complete on arrival.
+        Vector3 from = c.Location.Position;
+        Vector3 to = targetLoc.Position;
+        Vector3 delta = to - from;
+        Vector3 stopPos = delta.Length() > 1.8f ? to - Vector3.Normalize(delta) * 1.8f : from;
+
+        _ = c.ActionForceMoveTo(Location.Create(targetLoc.Area, stopPos, targetLoc.Rotation), true);
+
+        // Wait for real arrival (or a short timeout) before landing the blow, so the engine's
+        // damage + impact VFX (gated behind this await by SubmitAttack) play on contact.
+        for (int i = 0; i < 40 && c.IsValid; i++)
+        {
+            if (c.Location != null && Vector3.Distance(c.Location.Position, stopPos) <= 1.0f) break;
+            await NwTask.Delay(TimeSpan.FromSeconds(0.05));
+        }
+
+        if (!c.IsValid) return;
+        c.FaceToPoint(to);
         target?.Obj?.ApplyEffect(EffectDuration.Instant, NwEffect.VisualEffect(Vfx.MeleeImpact));
         await NwTask.Delay(TimeSpan.FromSeconds(DsConfig.LungeSeconds));
-        // No walk-back: a spent ally is moved to the graveyard by the engine, so the next
-        // Sync buries it (BuryAt). Allies that an effect returns to hand are repositioned
-        // to the hand line there instead. (Returning home here made spent cards look like
-        // they went back to the hand.)
+        // No walk-back: the spent ally stays here until the end-of-turn burial march.
     }
 
     private CardActor? FrontEnemyActor(GameEngine engine, int columnIndex)
@@ -219,5 +238,6 @@ internal sealed class BoardView
     {
         foreach (CardActor a in _actors.Values) a.Destroy();
         _actors.Clear();
+        _graveCount = 0;
     }
 }

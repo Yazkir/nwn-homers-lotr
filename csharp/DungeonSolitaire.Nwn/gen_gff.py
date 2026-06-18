@@ -75,13 +75,14 @@ def reply_node(sid, text, script):
         "Text": loc(text),
     }
 
-# PC replies: 5 columns, the AoE "unleash", and a cancel.
+# PC replies: 5 columns (with the front enemy's survivor/death detail in <CUSTOM543x>),
+# the AoE "unleash", and a cancel.
 replies = [
-    reply_node(0, "Attack <CUSTOM5420> (first column).",  "ds_atk1"),
-    reply_node(1, "Attack <CUSTOM5421> (second column).", "ds_atk2"),
-    reply_node(2, "Attack <CUSTOM5422> (third column).",  "ds_atk3"),
-    reply_node(3, "Attack <CUSTOM5423> (fourth column).", "ds_atk4"),
-    reply_node(4, "Attack <CUSTOM5424> (fifth column).",  "ds_atk5"),
+    reply_node(0, "Attack <CUSTOM5420> (first column). <CUSTOM5430>",  "ds_atk1"),
+    reply_node(1, "Attack <CUSTOM5421> (second column). <CUSTOM5431>", "ds_atk2"),
+    reply_node(2, "Attack <CUSTOM5422> (third column). <CUSTOM5432>",  "ds_atk3"),
+    reply_node(3, "Attack <CUSTOM5423> (fourth column). <CUSTOM5433>", "ds_atk4"),
+    reply_node(4, "Attack <CUSTOM5424> (fifth column). <CUSTOM5434>",  "ds_atk5"),
     reply_node(5, "Unleash its power upon the dungeon!", "ds_atkaoedo"),
     reply_node(6, "Hold — not this one.", ""),
 ]
@@ -109,7 +110,7 @@ entry = {
     "RepliesList": lst(reply_links),
     "Script": rs(""),
     "Sound": rs(""),
-    "Text": loc("This ally awaits your command. Which target shall it strike?"),
+    "Text": loc("This ally awaits your command. <CUSTOM5440>Which target shall it strike?"),
 }
 
 dlg = {
@@ -122,7 +123,8 @@ dlg = {
     "NumWords": dw(0),
     "PreventZoomIn": by(1),
     "ReplyList": lst(replies),
-    "StartingList": lst([{"__struct_id": 0, "Active": rs(""), "Index": dw(0)}]),
+    # ds_atkentry runs first (OBJECT_SELF = the ally) to seed the custom tokens, then returns True.
+    "StartingList": lst([{"__struct_id": 0, "Active": rs("ds_atkentry"), "Index": dw(0)}]),
 }
 with open(os.path.join(ROOT, "ds_attack.dlg.json"), "w") as f:
     json.dump(dlg, f, indent=2)

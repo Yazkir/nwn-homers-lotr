@@ -1,0 +1,132 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Script rodfastlore</title>
+  <link rel="stylesheet" href="../assets/style.css">
+  <link rel="stylesheet" href="../assets/theme.css">
+  <link rel="icon" href="../assets/favicon.png">
+  <script src="../assets/site.js" defer></script>
+</head>
+<body>
+  <header class="site-header">
+    <a class="brand" href="../index.html"><img class="site-header-img" src="../assets/header.png" alt="Home"></a>
+    <nav>
+      <a href="../map/index.html">Map</a>
+      <a href="../areas/index.html">Areas</a>
+      <div class="nav-dropdown">
+        <span class="nav-dropdown-label">Creatures &#9660;</span>
+        <div class="nav-dropdown-menu">
+          <a href="../creatures/index.html">All Creatures</a>
+          <a href="../creatures/by-area/index.html">By Area</a>
+          <a href="../creatures/by-cr/index.html">By Challenge Rating</a>
+          <a href="../creatures/by-race/index.html">By Race</a>
+          <a href="../creatures/pictures.html">Pictures</a>
+        </div>
+      </div>
+      <div class="nav-dropdown">
+        <span class="nav-dropdown-label">Items &#9660;</span>
+        <div class="nav-dropdown-menu">
+          <a href="../items/index.html">Accessible</a>
+          <a href="../items/inaccessible/index.html">Inaccessible</a>
+          <a href="../items/properties/index.html">By Property</a>
+          <a href="../items/search.html">Search</a>
+        </div>
+      </div>
+      <a href="../stores/index.html">Stores</a>
+      <a href="../conversations/index.html">Conversations</a>
+      <a href="../factions.html">Factions</a>
+      <a href="../quests/index.html">Quests</a>
+      <div class="nav-dropdown"><span class="nav-dropdown-label">Activity &#9660;</span><div class="nav-dropdown-menu"><a href="../activity.html">Player Activity</a>
+<a href="../manual/ServerFirsts.html">Server Firsts</a></div></div>
+      <div class="nav-dropdown"><span class="nav-dropdown-label">Documents &#9660;</span><div class="nav-dropdown-menu"><a href="../manual/Customizations.html">Customizations</a>
+<a href="../manual/LevelingGuide.html">Leveling Guide</a>
+<a href="../manual/MeaningWave.html">MeaningWave: A Guide to the Guides</a>
+<a href="../manual/Quest Ideas.html">Quest Ideas (Draft Concepts)</a>
+<a href="../manual/QuestGuide.html">Quest Guide</a></div></div>
+    </nav>
+  </header>
+  <main>
+<h1>Script: <code>rodfastlore</code></h1><pre class="nss-source"><code>#include &quot;x2_inc_switches&quot;
+
+void main()
+{
+    int nEvent = GetUserDefinedItemEventNumber();
+
+    if (nEvent != X2_ITEM_EVENT_ACTIVATE)
+    {
+        SetExecutedScriptReturnValue(X2_EXECUTE_SCRIPT_CONTINUE);
+        return;
+    }
+
+    object oUser   = GetItemActivator();
+    object oTarget = GetItemActivatedTarget();
+
+    if (GetObjectType(oTarget) != OBJECT_TYPE_CREATURE || !GetIsPC(oTarget))
+    {
+        FloatingTextStringOnCreature(
+            &quot;Rod of Fast Lore: invalid target - must be used on a player character.&quot;,
+            oUser, FALSE);
+        SetExecutedScriptReturnValue(X2_EXECUTE_SCRIPT_END);
+        return;
+    }
+
+    int    nLore      = GetSkillRank(SKILL_LORE, oUser);
+    string sSuccesses = &quot;&quot;;
+    string sFailures  = &quot;&quot;;
+    int    nIdentified = 0;
+    int    nFailed     = 0;
+
+    object oItem = GetFirstItemInInventory(oTarget);
+    while (GetIsObjectValid(oItem))
+    {
+        if (!GetIdentified(oItem))
+        {
+            string sTypeName = Get2DAString(&quot;baseitems&quot;, &quot;label&quot;, GetBaseItemType(oItem));
+            int    nDC       = GetGoldPieceValue(oItem) / 100 + 1;
+            int    nCheck    = d20() + nLore;
+
+            if (nCheck &gt;= nDC)
+            {
+                SetIdentified(oItem, TRUE);
+                sSuccesses += &quot;\n  &quot; + sTypeName + &quot; -&gt; &quot; + GetName(oItem);
+                nIdentified++;
+            }
+            else
+            {
+                sFailures += &quot;\n  &quot; + sTypeName;
+                nFailed++;
+            }
+        }
+        oItem = GetNextItemInInventory(oTarget);
+    }
+
+    string sHeader;
+    string sTargetHeader;
+    if (oUser == oTarget)
+    {
+        sHeader = &quot;Rod of Fast Lore: scanned your inventory (Lore &quot; + IntToString(nLore) + &quot;).&quot;;
+        sTargetHeader = sHeader;
+    }
+    else
+    {
+        sHeader       = &quot;Rod of Fast Lore: scanned &quot; + GetName(oTarget) + &quot;&#x27;s inventory (Lore &quot; + IntToString(nLore) + &quot;).&quot;;
+        sTargetHeader = &quot;Rod of Fast Lore: &quot; + GetName(oUser) + &quot; scanned your inventory (Lore &quot; + IntToString(nLore) + &quot;).&quot;;
+    }
+
+    string sBody = &quot; Identified (&quot; + IntToString(nIdentified) + &quot;):&quot;
+                 + (nIdentified &gt; 0 ? sSuccesses : &quot; none&quot;)
+                 + &quot;\n Failed (&quot; + IntToString(nFailed) + &quot;):&quot;
+                 + (nFailed &gt; 0 ? sFailures : &quot; none&quot;);
+
+    SendMessageToPC(oUser, sHeader + &quot;\n&quot; + sBody);
+    if (oUser != oTarget)
+        SendMessageToPC(oTarget, sTargetHeader + &quot;\n&quot; + sBody);
+
+    SetExecutedScriptReturnValue(X2_EXECUTE_SCRIPT_END);
+}
+</code></pre>
+  </main>
+  <footer>generated by <a href="https://github.com/mrprice22/nwn-manager">nwn-manager</a> &mdash; <span id="wiki-generated-at" data-meta-url="../assets/meta.json"></span></footer>
+</body>
+</html>

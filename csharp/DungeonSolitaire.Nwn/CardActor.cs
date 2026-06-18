@@ -26,6 +26,10 @@ internal sealed class CardActor
     /// <summary>True once this card has died and been moved to the graveyard pile (don't re-animate).</summary>
     public bool IsBuried { get; private set; }
 
+    /// <summary>True after the card died but before the end-of-turn march to the graveyard.
+    /// The body stays where it fell and is protected from Sync's removal sweep.</summary>
+    public bool PendingBurial { get; private set; }
+
     public NwCreature? Creature => Obj as NwCreature;
 
     public CardActor(Card card) => Card = card;
@@ -153,50 +157,42 @@ internal sealed class CardActor
     }
 
     /// <summary>
-    /// Play the card's death beat where it stands — death cry + fall prone — then
-    /// teleport the corpse to the graveyard waypoint and hold it prone there. Called
-    /// from BoardView.Sync when the card's engine zone changes to Graveyard. Runs at a
-    /// safe point (engine parked), so animating here is safe.
+    /// Death feedback played where the card stands the moment it is defeated/spent: a
+    /// death cry + blood. The body is left in place (marked PendingBurial) and only walks
+    /// to the graveyard at end of turn (see <see cref="MarchTo"/>). Called from the engine's
+    /// CardZoneChanged→Graveyard event.
     /// </summary>
-    public async Task BuryAt(Location grave)
+    public void DieInPlace()
     {
+        if (IsBuried || PendingBurial) return;
+        PendingBurial = true;
+        if (Creature is not { IsValid: true } c) return;
+        c.ApplyEffect(EffectDuration.Instant, NwEffect.VisualEffect(Vfx.MeleeImpact));
+        c.PlayVoiceChat(VoiceChatType.Death);
+    }
+
+    /// <summary>
+    /// End-of-turn burial: free the body (drop the damage/attack guards and the board-freeze
+    /// paralyze on revealed enemies), run it over to the graveyard, then lie it prone. Runs at
+    /// a safe point (engine parked).
+    /// </summary>
+    public async Task MarchTo(Location grave)
+    {
+        if (IsBuried) return;
         IsBuried = true;
+        PendingBurial = false;
         if (Creature is not { IsValid: true } c)
         {
-            // No live creature (e.g. an unrevealed statue) — just relocate the object.
             if (Obj is { IsValid: true }) _ = Obj.ActionJumpToLocation(grave);
             return;
         }
 
-        // Stop reverting damage/attacks, and free the body from the board-freeze paralyze
-        // (revealed enemies are permanently CutsceneParalyzed) so it can fall.
         c.OnDamaged -= RevertDamage;
         c.OnPhysicalAttacked -= IgnoreAttack;
         foreach (NwEffect e in c.ActiveEffects.ToList()) c.RemoveEffect(e);
 
-        c.ApplyEffect(EffectDuration.Instant, NwEffect.VisualEffect(Vfx.MeleeImpact));
-        c.PlayVoiceChat(VoiceChatType.Death);
+        await c.ActionForceMoveTo(grave, true);
         _ = c.PlayAnimation(Animation.LoopingDeadFront, 1f, false, TimeSpan.FromSeconds(9999));
-        await NwTask.Delay(TimeSpan.FromSeconds(0.6));
-
-        if (c.IsValid)
-        {
-            await c.ActionJumpToLocation(grave);
-            _ = c.PlayAnimation(Animation.LoopingDeadFront, 1f, false, TimeSpan.FromSeconds(9999));
-        }
-    }
-
-    /// <summary>Put a freshly-spawned graveyard card (e.g. milled from the library) straight
-    /// into the prone corpse pose — no fall/sound, it was never on the board.</summary>
-    public void SetBuriedPose()
-    {
-        IsBuried = true;
-        if (Creature is { IsValid: true } c)
-        {
-            c.OnDamaged -= RevertDamage;
-            c.OnPhysicalAttacked -= IgnoreAttack;
-            _ = c.PlayAnimation(Animation.LoopingDeadFront, 1f, false, TimeSpan.FromSeconds(9999));
-        }
     }
 
     public void Destroy()

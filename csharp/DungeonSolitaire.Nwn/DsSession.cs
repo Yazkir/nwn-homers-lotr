@@ -118,15 +118,39 @@ internal sealed class DsSession : IGameEventListener
             : null;
 
     /// <summary>
-    /// Seed the ds_attack reply tokens (ColumnNameTokenBase + col0) with each column's
-    /// front-enemy name, so the picker reads "Attack &lt;name&gt; (Nth column)". Called on the
-    /// main thread from DsManager just before the conversation opens. Empty columns get a
-    /// blank token; their reply is hidden anyway by the ds_atkc* condition handlers.
+    /// Seed every ds_attack custom token from the clicked <paramref name="ally"/> and the
+    /// current columns: the attack-effect description (AttackEffectToken), and per column the
+    /// front-enemy name (ColumnNameTokenBase + col) and its survivor/death detail
+    /// (ColumnDetailTokenBase + col). Called from the dialog's StartingConditional
+    /// (ds_atkentry) with OBJECT_SELF = the ally, before the entry text renders. Empty
+    /// columns / absent effects produce blank tokens.
     /// </summary>
-    public void RefreshAttackTokens()
+    public void RefreshAttackDialogTokens(NwCreature? ally)
     {
+        Card? allyCard = ally != null ? CardForCreature(ally) : null;
+        NWScript.SetCustomToken(DsConfig.AttackEffectToken, EffectDesc(allyCard?.attackEffect));
         for (int col = 0; col < DsConfig.ColumnCount; col++)
-            NWScript.SetCustomToken(DsConfig.ColumnNameTokenBase + col, ColumnFront(col)?.name ?? "");
+        {
+            Card? front = ColumnFront(col);
+            NWScript.SetCustomToken(DsConfig.ColumnNameTokenBase + col, front?.name ?? "");
+            NWScript.SetCustomToken(DsConfig.ColumnDetailTokenBase + col, BuildEnemyDetail(front));
+        }
+    }
+
+    // Trailing space so the entry prompt reads "...<desc>. Which target..." with no run-on.
+    private static string EffectDesc(Effect? e)
+        => string.IsNullOrWhiteSpace(e?.description) ? "" : e!.description.Trim() + " ";
+
+    /// <summary>"(if survives: …)" and/or "(if dies: …)" for an enemy's conditional effects.</summary>
+    private static string BuildEnemyDetail(Card? enemy)
+    {
+        if (enemy == null) return "";
+        var parts = new List<string>();
+        if (!string.IsNullOrWhiteSpace(enemy.survivorEffect?.description))
+            parts.Add($"(if survives: {enemy.survivorEffect!.description})");
+        if (!string.IsNullOrWhiteSpace(enemy.deathEffect?.description))
+            parts.Add($"(if dies: {enemy.deathEffect!.description})");
+        return string.Join(" ", parts);
     }
 
     public static bool IsInsteadOfAttack(Card card)
@@ -206,11 +230,22 @@ internal sealed class DsSession : IGameEventListener
                 break;
             }
 
-            // CardRevealed / CardZoneChanged / CardRepositioned / CardHealed fire while the
-            // engine thread is still running, so we do NOT read engine state here. The board
-            // is reconciled at the next safe point (paced effect beat, turn-end, game-over),
-            // where the engine is provably blocked. Win/loss is likewise finalised in the
-            // turn-end handler, the first point after game over where the engine is parked.
+            case GameEventType.CardZoneChanged:
+                // A card just died / was spent → play its in-place death feedback now and
+                // leave the body where it fell; the end-of-turn handler marches it to the
+                // graveyard. Only reads event fields + the actor dict (no engine state).
+                if (e.ToZone == CardZone.Graveyard)
+                {
+                    Card? dead = e.Source;
+                    _dispatcher.Enqueue(() => Board.MarkPendingBurial(dead));
+                }
+                break;
+
+            // CardRevealed / CardRepositioned / CardHealed fire while the engine thread is
+            // still running, so we do NOT read engine state here. The board is reconciled at
+            // the next safe point (paced effect beat, turn-end, game-over), where the engine
+            // is provably blocked. Win/loss is likewise finalised in the turn-end handler, the
+            // first point after game over where the engine is parked.
         }
     }
 
@@ -221,12 +256,11 @@ internal sealed class DsSession : IGameEventListener
             case InputType.SelectAlly:
                 // Engine is blocked here — safe to reconcile the board to the new turn's state.
                 // Resolved by the player left-clicking an ally NPC, which opens ds_attack
-                // natively (ds_ally_conv OnConversation + DialogResRef). Seed the column-name
-                // tokens now so the picker reads correctly the instant the player clicks.
+                // natively (ds_ally_conv OnConversation + DialogResRef). The dialog's
+                // StartingConditional (ds_atkentry) seeds the reply tokens from the clicked ally.
                 _dispatcher.Enqueue(() =>
                 {
                     Board.Sync(_engine);
-                    RefreshAttackTokens();
                     MessageActive("Click one of your allies to send it into battle.");
                 });
                 break;
@@ -245,6 +279,7 @@ internal sealed class DsSession : IGameEventListener
                 _dispatcher.Enqueue(async () =>
                 {
                     Board.Sync(_engine);                       // engine blocked here — safe snapshot
+                    Board.MarchPendingToGraveyard();           // dead enemies + spent ally run to the pile
                     bool over = _engine.IsWin || _engine.IsLoss;
                     if (over && !_recorded)
                     {
@@ -430,27 +465,30 @@ internal sealed class DsSession : IGameEventListener
 
     // ── Engine log relay (GameLogger.Log fires on the engine background thread) ──
     /// <summary>
-    /// Relay an engine log line to the narrator as spoken talk. Marshals onto the
-    /// main thread via the dispatcher (in emission order, so narration interleaves
-    /// correctly with the paced VFX/Sync beats). Suppressed levels are dropped;
-    /// banners that span multiple lines are spoken one line at a time.
+    /// Relay an engine log line into the combat/server message pane for everyone in the
+    /// area — the same pane the input prompts use, so all game feedback lives in one place.
+    /// Marshals onto the main thread via the dispatcher (in emission order, so it interleaves
+    /// correctly with the paced VFX/Sync beats). Suppressed levels are dropped; banners that
+    /// span multiple lines are sent one line at a time, colour-keyed by content/level.
     /// </summary>
     private void OnEngineLog(LogLevel level, string message)
     {
         if (DsConfig.SuppressedLogLevels.Contains(level)) return;
-        Color color = LogColors.ForLevel(level);
         foreach (string raw in message.Split('\n'))
         {
             string line = raw.Trim();
             if (line.Length == 0) continue;
-            string spoken = line.ColorString(color);
-            _dispatcher.Enqueue(() => Narrate(spoken));
+            Color color = LogColors.ForLine(level, line);
+            _dispatcher.Enqueue(() => LogToArea(line, color));
         }
     }
 
-    private void Narrate(string text)
+    private void LogToArea(string text, Color color)
     {
-        if (_alive && _narrator is { IsValid: true } n) n.SpeakString(text);
+        if (!_alive) return;
+        foreach (NwPlayer p in NwModule.Instance.Players)
+            if (p.IsValid && p.ControlledCreature?.Area == Board.Area)
+                p.SendServerMessage(text, color);
     }
 
     // ── Messaging ───────────────────────────────────────────────────────────────

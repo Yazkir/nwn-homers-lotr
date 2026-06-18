@@ -10,6 +10,10 @@ namespace DungeonSolitaire.Nwn;
 /// </summary>
 internal static class LogColors
 {
+    private static readonly Color Cyan   = new(0, 255, 255, 255);
+    private static readonly Color Green  = new(0, 200, 0, 255);
+    private static readonly Color Orange = new(255, 140, 0, 255);
+
     public static Color ForLevel(LogLevel level) => level switch
     {
         LogLevel.Info         => new Color(255, 255, 255, 255), // White
@@ -21,4 +25,19 @@ internal static class LogColors
         LogLevel.Effect       => new Color(128, 128, 0, 255),   // DarkYellow
         _                     => new Color(255, 255, 255, 255),
     };
+
+    /// <summary>
+    /// Colour for a single log line: content accents override the per-level colour so the
+    /// unified combat log reads at a glance — phase banners (a line wrapped in '=') in cyan,
+    /// rewards in green, damage/defeat in orange. Everything else falls back to the level.
+    /// </summary>
+    public static Color ForLine(LogLevel level, string line)
+    {
+        string t = line.Trim();
+        if (t.StartsWith("=") && t.EndsWith("=")) return Cyan;     // === Phase banners ===
+        string lower = t.ToLowerInvariant();
+        if (lower.Contains("reward")) return Green;
+        if (lower.Contains("defeated") || lower.Contains("damage")) return Orange;
+        return ForLevel(level);
+    }
 }
