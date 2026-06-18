@@ -47,9 +47,201 @@
     </nav>
   </header>
   <main>
+<main>
+<style>
+  /* Scoped landing-page styles — header/footer/head are injected by nwn-wiki. */
+  .home-hero {
+    text-align: center;
+    padding: 1.5em 1em 2em;
+    border-bottom: 1px solid var(--border);
+    margin-bottom: 2em;
+  }
+  .home-hero h1 {
+    margin: 0 0 0.25em;
+    font-size: 2.2em;
+  }
+  .home-tagline {
+    font-size: 1.2em;
+    color: var(--fg);
+    margin: 0.25em auto 1.5em;
+    max-width: 640px;
+  }
+
+  /* Connect call-to-action card */
+  .connect-card {
+    display: inline-block;
+    text-align: left;
+    background: var(--card);
+    border: 1px solid var(--accent-soft);
+    border-radius: 6px;
+    padding: 1.2em 1.6em;
+    margin: 0 auto;
+  }
+  .connect-card h2 {
+    margin: 0 0 0.6em;
+    font-size: 1.05em;
+    border: 0;
+    color: var(--accent);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+  }
+  .connect-row {
+    display: flex;
+    align-items: baseline;
+    gap: 0.6em;
+    margin: 0.35em 0;
+    font-size: 1.05em;
+  }
+  .connect-row .label {
+    color: var(--muted);
+    min-width: 5.5em;
+    display: inline-block;
+  }
+  .connect-row code {
+    font-size: 1.05em;
+    user-select: all;
+  }
+
+  /* Feature grid */
+  .feature-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 1em;
+    margin: 1.2em 0 2em;
+  }
+  .feature-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 1em 1.2em;
+  }
+  .feature-card h3 {
+    margin: 0 0 0.4em;
+    font-size: 1.05em;
+    color: var(--accent);
+  }
+  .feature-card p {
+    margin: 0;
+    color: var(--fg);
+  }
+
+  /* Wiki feature links */
+  .wiki-links {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+    gap: 0.8em;
+    margin: 1.2em 0;
+  }
+  .wiki-links a {
+    display: block;
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 5px;
+    padding: 0.8em 1em;
+    text-decoration: none;
+  }
+  .wiki-links a:hover {
+    border-color: var(--accent);
+  }
+  .wiki-links a strong {
+    display: block;
+    color: var(--accent);
+    margin-bottom: 0.15em;
+  }
+  .wiki-links a span {
+    color: var(--muted);
+    font-size: 0.92em;
+  }
+</style>
+
+<section class="home-hero">
+  <h1>Homer's Legendary LotR</h1>
+  <p class="home-tagline">
+    A Tolkien-themed action server for Neverwinter Nights: EE. Powerlevel to 60,
+    experiment with wild class &amp; item builds, hunt down the iconic heroes and
+    villains of Middle-earth &mdash; and throw down in open PvP almost anywhere.
+  </p>
+
+  <div class="connect-card">
+    <h2>Jump In</h2>
+    <div class="connect-row">
+      <span class="label">Direct connect</span>
+      <code class="tag">homerslotr.ddns.net:5121</code>
+    </div>
+    <div class="connect-row">
+      <span class="label">Discord</span>
+      <a href="https://discord.gg/VpAtSpe">discord.gg/VpAtSpe</a>
+    </div>
+    <div class="connect-row">
+      <span class="label">Wiki</span>
+      <a href="https://homerslotr.com">homerslotr.com</a>
+    </div>
+  </div>
+</section>
+
+<h2>What makes this server unique</h2>
+<div class="feature-grid">
+  <div class="feature-card">
+    <h3>Powerlevel to 60</h3>
+    <p>A custom HGLL leveling framework takes you all the way to level&nbsp;60,
+    with 1.5&times; XP so you spend more time building and fighting and less time grinding.</p>
+  </div>
+  <div class="feature-card">
+    <h3>Build experimentation</h3>
+    <p>Multiclass up to <strong>4 classes</strong> per character and respec your look freely.
+    There's no single "right" build &mdash; the fun is in trying combinations no one else has.</p>
+  </div>
+  <div class="feature-card">
+    <h3>Item builds matter</h3>
+    <p>Gear is as important as class here. The legendary loot scattered across
+    Middle-earth can make or break a build &mdash; plan your equipment as carefully as your levels.</p>
+  </div>
+  <div class="feature-card">
+    <h3>Defeat the legends</h3>
+    <p>Hunt iconic characters from the LotR universe as boss fights across the
+    Shire, Bree, Moria, Lothl&oacute;rien, Rohan, Gondor, Mordor and beyond.</p>
+  </div>
+  <div class="feature-card">
+    <h3>Open PvP</h3>
+    <p>Feeling bold? PvP is open almost anywhere. Test your build against other
+    players, not just the monsters &mdash; if you're up for it.</p>
+  </div>
+  <div class="feature-card">
+    <h3>Play your way</h3>
+    <p>Free appearance, weapon-FX and alignment changing, built on CEP&nbsp;2 with
+    expanded creatures, placeables and gear. Make a character that's truly yours.</p>
+  </div>
+</div>
+
+<h2>Plan your build with the wiki</h2>
 <p>
-HELLO WORLD!
+  Great characters here are built on <em>both</em> class <em>and</em> item choices &mdash;
+  and this wiki is your planning workbench for both. Every creature, item, store, quest
+  and area in the module is documented so you can theorycraft before you ever log in:
+  scout a boss's stats, hunt down the gear that counters it, and map your route there.
 </p>
+
+<div class="wiki-links">
+  <a href="./map/index.html"><strong>Area Map</strong><span>See how all of Middle-earth connects.</span></a>
+  <a href="./areas/index.html"><strong>Areas</strong><span>Every region, its creatures and contents.</span></a>
+  <a href="./creatures/index.html"><strong>Creatures</strong><span>Stats, CR, HP &amp; loot &mdash; plan your boss kills.</span></a>
+  <a href="./items/index.html"><strong>Items</strong><span>Every blueprint &mdash; design your item build.</span></a>
+  <a href="./stores/index.html"><strong>Stores</strong><span>Who sells what, and where to find them.</span></a>
+  <a href="./quests/index.html"><strong>Quests</strong><span>Journal walkthroughs and rewards.</span></a>
+  <a href="./conversations/index.html"><strong>Conversations</strong><span>NPC dialogue trees and branches.</span></a>
+  <a href="./factions.html"><strong>Factions</strong><span>Who's friendly, who's hostile.</span></a>
+  <a href="./manual/LevelingGuide.html"><strong>Leveling Guide</strong><span>How the HGLL system works.</span></a>
+  <a href="./manual/QuestGuide.html"><strong>Quest Guide</strong><span>Narrative walkthrough of the quests.</span></a>
+  <a href="./manual/Customizations.html"><strong>Customizations</strong><span>Server-specific systems and tweaks.</span></a>
+  <a href="./manual/MeaningWave.html"><strong>MeaningWave</strong><span>The wandering philosopher NPCs.</span></a>
+</div>
+
+<p class="muted">
+  New here? Come say hello on <a href="https://discord.gg/VpAtSpe">Discord</a>,
+  point your NWN:EE client at <code class="tag">homerslotr.ddns.net:5121</code>,
+  and forge your legend.
+</p>
+</main>
 
   </main>
   <footer>generated by <a href="https://github.com/mrprice22/nwn-manager">nwn-manager</a> &mdash; <span id="wiki-generated-at" data-meta-url="./assets/meta.json"></span></footer>
