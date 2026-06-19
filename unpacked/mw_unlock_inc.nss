@@ -11,6 +11,8 @@
 //::   9 = finale (added by Akira's dialogue when mixtape is granted)
 //:://////////////////////////////////////////////
 
+#include "x2_inc_itemprop"
+
 const string MW_DB         = "meaningwave";
 const string MW_META_QUEST = "MW Path of Meaning";
 const int    MW_ROSTER_SIZE = 7;
@@ -133,6 +135,92 @@ void MW_DismissActiveGuide(object oPC)
     DeleteLocalString(oPC, "mw_current");
 }
 
+// Map a flat damage amount (+N) to its iprp_damagecost.2da row index.
+// This module's hak extends the table to +20 (rows 21..30 = +11..+20), so we
+// pass the raw row index rather than the stock IP_CONST_DAMAGEBONUS_* constants
+// (which only reach +10). Layout: +1..+5 = rows 1..5; +6..+20 = rows 16..30.
+int MW_DmgBonusConst(int n)
+{
+    if (n < 1)  n = 1;
+    if (n > 20) n = 20;     // hak maximum is +20
+    if (n <= 5) return n;   // rows 1..5   -> +1..+5
+    return n + 10;          // rows 16..30 -> +6..+20
+}
+
+// Add scaled +divine / +positive damage to a weapon (or unarmed gloves/bracers).
+void MW_AddWeaponDamage(object oItem, int nDivine, int nPositive)
+{
+    if (!GetIsObjectValid(oItem)) return;
+    IPSafeAddItemProperty(oItem,
+        ItemPropertyDamageBonus(IP_CONST_DAMAGETYPE_DIVINE,   MW_DmgBonusConst(nDivine)));
+    IPSafeAddItemProperty(oItem,
+        ItemPropertyDamageBonus(IP_CONST_DAMAGETYPE_POSITIVE, MW_DmgBonusConst(nPositive)));
+}
+
+// Ward the aegis ring against a single damage type: +15/- resist & 25% immunity.
+void MW_WardRing(object oRing, int nType)
+{
+    IPSafeAddItemProperty(oRing,
+        ItemPropertyDamageResistance(nType, IP_CONST_DAMAGERESIST_15));
+    IPSafeAddItemProperty(oRing,
+        ItemPropertyDamageImmunity(nType, IP_CONST_DAMAGEIMMUNITY_25_PERCENT));
+}
+
+// Scale a freshly-summoned guide by how many MeaningWave figures oPC has unlocked.
+// Re-summoning makes a fresh CreateObject, so these bonuses never stack across summons.
+void MW_ScaleGuide(object oGuide, object oPC)
+{
+    int nCount = MW_UnlockCount(oPC);
+    if (nCount < 1) nCount = 1; // you must own a guide to summon it
+
+    // --- Aegis ring: resistance + immunity to every damage type ---
+    object oRing = GetItemInSlot(INVENTORY_SLOT_LEFTRING, oGuide);
+    if (GetIsObjectValid(oRing))
+    {
+        MW_WardRing(oRing, IP_CONST_DAMAGETYPE_BLUDGEONING);
+        MW_WardRing(oRing, IP_CONST_DAMAGETYPE_PIERCING);
+        MW_WardRing(oRing, IP_CONST_DAMAGETYPE_SLASHING);
+        MW_WardRing(oRing, IP_CONST_DAMAGETYPE_MAGICAL);
+        MW_WardRing(oRing, IP_CONST_DAMAGETYPE_ACID);
+        MW_WardRing(oRing, IP_CONST_DAMAGETYPE_COLD);
+        MW_WardRing(oRing, IP_CONST_DAMAGETYPE_DIVINE);
+        MW_WardRing(oRing, IP_CONST_DAMAGETYPE_ELECTRICAL);
+        MW_WardRing(oRing, IP_CONST_DAMAGETYPE_FIRE);
+        MW_WardRing(oRing, IP_CONST_DAMAGETYPE_NEGATIVE);
+        MW_WardRing(oRing, IP_CONST_DAMAGETYPE_POSITIVE);
+        MW_WardRing(oRing, IP_CONST_DAMAGETYPE_SONIC);
+    }
+
+    // --- Ability scaling: +6 to every ability per unlocked guide ---
+    // Stacked supernatural effects bypass the per-effect cap, so this is uncapped.
+    int i;
+    for (i = 0; i < nCount; i++)
+    {
+        int a;
+        for (a = ABILITY_STRENGTH; a <= ABILITY_CHARISMA; a++)
+            ApplyEffectToObject(DURATION_TYPE_PERMANENT,
+                SupernaturalEffect(EffectAbilityIncrease(a, 6)), oGuide);
+    }
+
+    // --- Weapon scaling: +2 divine & +2 positive damage per unlocked guide ---
+    int nDmg = 2 * nCount;
+    object oWpnR = GetItemInSlot(INVENTORY_SLOT_RIGHTHAND, oGuide);
+    object oWpnL = GetItemInSlot(INVENTORY_SLOT_LEFTHAND,  oGuide);
+    int bArmed = FALSE;
+    if (GetIsObjectValid(oWpnR)) { MW_AddWeaponDamage(oWpnR, nDmg, nDmg); bArmed = TRUE; }
+    if (GetIsObjectValid(oWpnL)) { MW_AddWeaponDamage(oWpnL, nDmg, nDmg); bArmed = TRUE; }
+    if (!bArmed)
+    {
+        // Unarmed monks (Watts, Jocko): bonus rides on their gloves/bracers.
+        object oArms = GetItemInSlot(INVENTORY_SLOT_ARMS, oGuide);
+        MW_AddWeaponDamage(oArms, nDmg, nDmg);
+    }
+
+    // --- Spellcraft so casters succeed at the Counterspell combat mode ---
+    ApplyEffectToObject(DURATION_TYPE_PERMANENT,
+        SupernaturalEffect(EffectSkillIncrease(SKILL_SPELLCRAFT, 30)), oGuide);
+}
+
 void MW_SummonGuide(object oPC, string sGuide)
 {
     if (!MW_IsUnlocked(oPC, sGuide))
@@ -159,4 +247,8 @@ void MW_SummonGuide(object oPC, string sGuide)
     SetLocalString(oPC, "mw_current", sGuide);
     ApplyEffectToObject(DURATION_TYPE_INSTANT,
         EffectVisualEffect(VFX_FNF_SUMMON_MONSTER_3), oGuide);
+
+    // Scale gear/stats to the number of guides oPC has unlocked, and apply the
+    // aegis ring's resistance/immunity to the freshly-equipped instance.
+    MW_ScaleGuide(oGuide, oPC);
 }

@@ -8,6 +8,8 @@
 //::   Skip the warding step; lead with epic nukes immediately.
 //::   x2 AI handles regular memorized spells afterward.
 
+#include "mw_counter_inc"
+
 const int FEAT_EPIC_WARDING  = 990;
 const int FEAT_EPIC_HELLBALL = 876;
 const int FEAT_EPIC_RUIN     = 878;
@@ -16,6 +18,9 @@ const int FEAT_EPIC_DK       = 875;
 void main()
 {
     int nStyle  = GetLocalInt(OBJECT_SELF, "MW_STYLE");
+
+    if (nStyle == 3) { MW_CounterspellRound(); return; } // Counterspell mode
+
     object oEnemy = GetNearestCreature(CREATURE_TYPE_REPUTATION, REPUTATION_TYPE_ENEMY, OBJECT_SELF, 1, CREATURE_TYPE_IS_ALIVE, TRUE);
 
     // Style 0: apply Epic Warding on self before going offensive.

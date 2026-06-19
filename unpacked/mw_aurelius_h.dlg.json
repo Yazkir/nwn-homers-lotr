@@ -166,7 +166,7 @@
         "Text": {
           "type": "cexolocstring",
           "value": {
-            "0": "Listen — Acceptable. Walk on now."
+            "0": "Listen \u2014 Acceptable. Walk on now."
           }
         }
       },
@@ -264,6 +264,21 @@
               "Index": {
                 "type": "dword",
                 "value": 5
+              },
+              "IsChild": {
+                "type": "byte",
+                "value": 0
+              }
+            },
+            {
+              "__struct_id": 7,
+              "Active": {
+                "type": "resref",
+                "value": ""
+              },
+              "Index": {
+                "type": "dword",
+                "value": 7
               },
               "IsChild": {
                 "type": "byte",
@@ -568,7 +583,7 @@
         "Text": {
           "type": "cexolocstring",
           "value": {
-            "0": "Protect me — keep me alive."
+            "0": "Protect me \u2014 keep me alive."
           }
         }
       },
@@ -651,6 +666,47 @@
           "type": "cexolocstring",
           "value": {
             "0": "Never mind."
+          }
+        }
+      },
+      {
+        "__struct_id": 7,
+        "Animation": {
+          "type": "dword",
+          "value": 0
+        },
+        "AnimLoop": {
+          "type": "byte",
+          "value": 1
+        },
+        "Comment": {
+          "type": "cexostring",
+          "value": ""
+        },
+        "Delay": {
+          "type": "dword",
+          "value": 4294967295
+        },
+        "EntriesList": {
+          "type": "list",
+          "value": []
+        },
+        "Quest": {
+          "type": "cexostring",
+          "value": ""
+        },
+        "Script": {
+          "type": "resref",
+          "value": "mw_style_3"
+        },
+        "Sound": {
+          "type": "resref",
+          "value": ""
+        },
+        "Text": {
+          "type": "cexolocstring",
+          "value": {
+            "0": "Stand against their sorcery. Deny them every incantation."
           }
         }
       }

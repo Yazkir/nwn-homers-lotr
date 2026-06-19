@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="utf-8">
-  <title>Script mw_arc_er</title>
+  <title>Script mw_counter_inc</title>
   <link rel="stylesheet" href="../assets/style.css">
   <link rel="stylesheet" href="../assets/theme.css">
   <link rel="icon" href="../assets/favicon.png">
@@ -47,55 +47,46 @@
     </nav>
   </header>
   <main>
-<h1>Script: <code>mw_arc_er</code></h1><pre class="nss-source"><code>//:: mw_arc_er -- OnEndCombatRound for Peterson (Wizard).
-//::
-//:: MW_STYLE 0 (Calculated, default):
-//::   Ward self with Epic Warding before engaging offensively.
-//::   Then layer in epic nukes and let x2 AI handle regular spells.
-//::
-//:: MW_STYLE 1 (Aggressive):
-//::   Skip the warding step; lead with epic nukes immediately.
-//::   x2 AI handles regular memorized spells afterward.
+<h1>Script: <code>mw_counter_inc</code></h1><pre class="nss-source"><code>//:: mw_counter_inc -- shared Counterspell combat mode (MW_STYLE 3) for caster guides.
+//:: Readies a counterspell against the nearest enemy spellcaster (or, failing
+//:: that, the nearest foe). The guide&#x27;s Spellcraft is boosted in MW_ScaleGuide
+//:: so the counter actually lands. Falls through to standard AI when no foe is in
+//:: sight so the guide isn&#x27;t left idle.
 
-#include &quot;mw_counter_inc&quot;
-
-const int FEAT_EPIC_WARDING  = 990;
-const int FEAT_EPIC_HELLBALL = 876;
-const int FEAT_EPIC_RUIN     = 878;
-const int FEAT_EPIC_DK       = 875;
-
-void main()
+void MW_CounterspellRound()
 {
-    int nStyle  = GetLocalInt(OBJECT_SELF, &quot;MW_STYLE&quot;);
+    object oNearest = GetNearestCreature(CREATURE_TYPE_REPUTATION, REPUTATION_TYPE_ENEMY,
+        OBJECT_SELF, 1, CREATURE_TYPE_IS_ALIVE, TRUE);
 
-    if (nStyle == 3) { MW_CounterspellRound(); return; } // Counterspell mode
-
-    object oEnemy = GetNearestCreature(CREATURE_TYPE_REPUTATION, REPUTATION_TYPE_ENEMY, OBJECT_SELF, 1, CREATURE_TYPE_IS_ALIVE, TRUE);
-
-    // Style 0: apply Epic Warding on self before going offensive.
-    if (nStyle == 0 &amp;&amp; GetHasFeat(FEAT_EPIC_WARDING))
+    // Prefer an enemy who can actually cast.
+    object oFoe = oNearest;
+    object oTarget = OBJECT_INVALID;
+    int k = 1;
+    while (GetIsObjectValid(oFoe))
     {
-        if (!GetHasFeatEffect(FEAT_EPIC_WARDING, OBJECT_SELF))
+        if (GetLevelByClass(CLASS_TYPE_WIZARD,   oFoe) &gt; 0 ||
+            GetLevelByClass(CLASS_TYPE_SORCERER, oFoe) &gt; 0 ||
+            GetLevelByClass(CLASS_TYPE_CLERIC,   oFoe) &gt; 0 ||
+            GetLevelByClass(CLASS_TYPE_DRUID,    oFoe) &gt; 0 ||
+            GetLevelByClass(CLASS_TYPE_BARD,     oFoe) &gt; 0)
         {
-            ActionUseFeat(FEAT_EPIC_WARDING, OBJECT_SELF);
-            // Fall through -- x2 will handle casting in the same round.
+            oTarget = oFoe;
+            break;
         }
+        k++;
+        oFoe = GetNearestCreature(CREATURE_TYPE_REPUTATION, REPUTATION_TYPE_ENEMY,
+            OBJECT_SELF, k, CREATURE_TYPE_IS_ALIVE, TRUE);
     }
+    if (!GetIsObjectValid(oTarget)) oTarget = oNearest;
 
-    // Both styles: queue an epic nuke if there is a target.
-    // ActionUseFeat silently no-ops once the daily slot is expended,
-    // so x2_def_endcombat still handles regular memorized spells below.
-    if (GetIsObjectValid(oEnemy))
+    if (GetIsObjectValid(oTarget))
     {
-        if (GetHasFeat(FEAT_EPIC_HELLBALL))
-            ActionUseFeat(FEAT_EPIC_HELLBALL, oEnemy);
-        else if (GetHasFeat(FEAT_EPIC_RUIN))
-            ActionUseFeat(FEAT_EPIC_RUIN, oEnemy);
-        else if (GetHasFeat(FEAT_EPIC_DK))
-            ActionUseFeat(FEAT_EPIC_DK, OBJECT_SELF);
+        ClearAllActions();
+        ActionCounterSpell(oTarget);
+        return;
     }
 
-    // Standard associate AI handles memorized spells and basic attacks.
+    // Nothing to counter -- act normally.
     ExecuteScript(&quot;x2_def_endcombat&quot;, OBJECT_SELF);
 }
 </code></pre>

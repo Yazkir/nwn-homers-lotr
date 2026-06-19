@@ -13,10 +13,14 @@ const int SPELL_CCW     = 31;   // Cure Critical Wounds -- Paladin L4
 const int SPELL_CSW     = 35;   // Cure Serious Wounds  -- Paladin L3
 const int SPELL_CMW     = 34;   // Cure Moderate Wounds -- Paladin L2
 
+#include "mw_counter_inc"
+
 void main()
 {
     int nStyle = GetLocalInt(OBJECT_SELF, "MW_STYLE");
     object oPC = GetMaster();
+
+    if (nStyle == 3) { MW_CounterspellRound(); return; } // Counterspell mode
 
     if (nStyle == 0) // Guardian: prioritize keeping master alive
     {

@@ -166,7 +166,7 @@
         "Text": {
           "type": "cexolocstring",
           "value": {
-            "0": "Listen — Hahaha. Walk on now."
+            "0": "Listen \u2014 Hahaha. Walk on now."
           }
         }
       },
@@ -279,6 +279,21 @@
               "Index": {
                 "type": "dword",
                 "value": 6
+              },
+              "IsChild": {
+                "type": "byte",
+                "value": 0
+              }
+            },
+            {
+              "__struct_id": 8,
+              "Active": {
+                "type": "resref",
+                "value": ""
+              },
+              "Index": {
+                "type": "dword",
+                "value": 8
               },
               "IsChild": {
                 "type": "byte",
@@ -624,7 +639,7 @@
         "Text": {
           "type": "cexolocstring",
           "value": {
-            "0": "Hold the balance — act when you must."
+            "0": "Hold the balance \u2014 act when you must."
           }
         }
       },
@@ -707,6 +722,47 @@
           "type": "cexolocstring",
           "value": {
             "0": "Never mind."
+          }
+        }
+      },
+      {
+        "__struct_id": 8,
+        "Animation": {
+          "type": "dword",
+          "value": 0
+        },
+        "AnimLoop": {
+          "type": "byte",
+          "value": 1
+        },
+        "Comment": {
+          "type": "cexostring",
+          "value": ""
+        },
+        "Delay": {
+          "type": "dword",
+          "value": 4294967295
+        },
+        "EntriesList": {
+          "type": "list",
+          "value": []
+        },
+        "Quest": {
+          "type": "cexostring",
+          "value": ""
+        },
+        "Script": {
+          "type": "resref",
+          "value": "mw_style_3"
+        },
+        "Sound": {
+          "type": "resref",
+          "value": ""
+        },
+        "Text": {
+          "type": "cexolocstring",
+          "value": {
+            "0": "Turn their magic aside \u2014 flow around it, then unmake it."
           }
         }
       }

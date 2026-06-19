@@ -166,7 +166,7 @@
         "Text": {
           "type": "cexolocstring",
           "value": {
-            "0": "Listen — You walk the path. Walk on now."
+            "0": "Listen \u2014 You walk the path. Walk on now."
           }
         }
       },
@@ -279,6 +279,21 @@
               "Index": {
                 "type": "dword",
                 "value": 6
+              },
+              "IsChild": {
+                "type": "byte",
+                "value": 0
+              }
+            },
+            {
+              "__struct_id": 8,
+              "Active": {
+                "type": "resref",
+                "value": ""
+              },
+              "Index": {
+                "type": "dword",
+                "value": 8
               },
               "IsChild": {
                 "type": "byte",
@@ -583,7 +598,7 @@
         "Text": {
           "type": "cexolocstring",
           "value": {
-            "0": "Tend the wounded — keep us alive."
+            "0": "Tend the wounded \u2014 keep us alive."
           }
         }
       },
@@ -707,6 +722,47 @@
           "type": "cexolocstring",
           "value": {
             "0": "Never mind."
+          }
+        }
+      },
+      {
+        "__struct_id": 8,
+        "Animation": {
+          "type": "dword",
+          "value": 0
+        },
+        "AnimLoop": {
+          "type": "byte",
+          "value": 1
+        },
+        "Comment": {
+          "type": "cexostring",
+          "value": ""
+        },
+        "Delay": {
+          "type": "dword",
+          "value": 4294967295
+        },
+        "EntriesList": {
+          "type": "list",
+          "value": []
+        },
+        "Quest": {
+          "type": "cexostring",
+          "value": ""
+        },
+        "Script": {
+          "type": "resref",
+          "value": "mw_style_3"
+        },
+        "Sound": {
+          "type": "resref",
+          "value": ""
+        },
+        "Text": {
+          "type": "cexolocstring",
+          "value": {
+            "0": "Unmake their magic. Break the enemy's story before it is told."
           }
         }
       }

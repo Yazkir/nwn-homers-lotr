@@ -19,6 +19,8 @@ const int SPELL_HOLD_P   = 80;
 // Druid offensive
 const int SPELL_STORM    = 173;
 
+#include "mw_counter_inc"
+
 object FindHurt(float fRatio)
 {
     object oPC = GetMaster();
@@ -40,6 +42,9 @@ object FindHurt(float fRatio)
 void main()
 {
     int nStyle = GetLocalInt(OBJECT_SELF, "MW_STYLE");
+
+    if (nStyle == 3) { MW_CounterspellRound(); return; } // Counterspell mode
+
     object oEnemy = GetNearestCreature(CREATURE_TYPE_REPUTATION, REPUTATION_TYPE_ENEMY, OBJECT_SELF, 1, CREATURE_TYPE_IS_ALIVE, TRUE);
 
     if (nStyle == 1) // Combat: attack first, emergency heal only

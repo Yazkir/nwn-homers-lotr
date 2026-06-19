@@ -19,6 +19,8 @@ const int SPELL_CSW            = 35;
 const int FEAT_QUIV_PALM       = 296;
 const int FEAT_STUN_FIST       = 39;
 
+#include "mw_counter_inc"
+
 // Return the first party member (master + henchmen) below fRatio of max HP.
 // Returns OBJECT_INVALID if everyone is healthy.
 object FindHurt(float fRatio)
@@ -42,6 +44,8 @@ object FindHurt(float fRatio)
 void main()
 {
     int nStyle = GetLocalInt(OBJECT_SELF, "MW_STYLE");
+
+    if (nStyle == 3) { MW_CounterspellRound(); return; } // Counterspell mode
 
     if (nStyle == 1) // Guardian: pure healing/support
     {
