@@ -63,6 +63,7 @@
 #include &quot;pc_export_inc&quot;
 #include &quot;color&quot;
 #include &quot;nwnx_admin&quot;
+#include &quot;nwnx_events&quot;
 #include &quot;x2_inc_switches&quot;
 
 
@@ -82,6 +83,9 @@ SetModuleSwitch(MODULE_SWITCH_ENABLE_TAGBASED_SCRIPTS, TRUE);
 
 // Spawn Meaningwave NPCs at their designated waypoints
 ExecuteScript(&quot;mw_spawn&quot;, GetModule());
+
+// Double the duration of every temporary effect a player creates (eff_dur_x2).
+NWNX_Events_SubscribeEvent(NWNX_ON_EFFECT_APPLIED_AFTER, &quot;eff_dur_x2&quot;);
 
 // Color tokens for dialogue text (used in bank XP retirement warnings)
 // CUSTOM6100 = red, CUSTOM6101 = yellow, CUSTOM6102 = close
