@@ -1,0 +1,1693 @@
+==============================================================================
+  ENHANCEMENT + ATTACK BONUS STACKING CONFLICT  —  ITEM AUDIT REPORT
+  Homer's LOTR module   |   generated 2026-06-19 01:31
+==============================================================================
+
+1. SUMMARY
+------------------------------------------------------------------------------
+Players/builders noticed that putting BOTH a 'plus enchant' (Enhancement)
+bonus AND a 'plus attack' bonus on the same weapon (or on gauntlets worn with
+a weapon) does not add up the way the numbers suggest. This is NOT a module
+defect -- it is documented Neverwinter Nights engine behaviour. In NWN an
+Enhancement Bonus is internally an attack bonus + a damage bonus bundled
+together. A separate Attack Bonus item property does NOT stack with the attack
+portion of an enhancement bonus: the engine uses the HIGHER of the two, not
+the sum. So on every affected item the smaller of {enhancement, attack-bonus}
+is silently wasted on the to-hit roll.
+
+  (1) Single-item conflict (weapon has BOTH enh + attack): 253 blueprints
+        - Player-obtainable weapons .......... 108
+        - NPC-carried / store / unreachable .. 116
+        - Monster natural weapons (claw/bite). 29
+  (2) Cross-slot gauntlet conflict (gloves w/ attack bonus): 50 gloves
+        These have NO on-item enhancement, but their attack bonus does NOT
+        stack with the to-hit of any enhancement weapon the wearer wields.
+
+2. THE RULE (why it happens)
+------------------------------------------------------------------------------
+  * Enhancement Bonus (item prop #6)  = attack bonus + damage bonus, bundled.
+  * Attack Bonus (item prop #56)      = pure to-hit.
+  * Enhancement attack portion and a separate Attack Bonus DO NOT STACK.
+    The engine takes max(E, A) for to-hit -- never E + A.
+    (Community test: a +1 enchant / +1 attack weapon hits at +1, not +2.)
+  * This applies REGARDLESS OF SLOT: an attack bonus on GAUNTLETS also fails
+    to stack with the weapon's enhancement bonus. Worn separately makes no
+    difference.
+  * DAMAGE bonuses DO stack with enhancement bonuses (different mechanic).
+  * Enhancement still does work the attack bonus can't: it adds DAMAGE and
+    helps bypass damage reduction. So enhancement is rarely the part to drop.
+  * Attack Bonus vs. Alignment Group (#57) / vs. Racial Group (#58) ARE
+    conditional and DO stack vs matching targets -- NOT buggy, left untouched.
+
+  Sources:
+   - https://nwn.fandom.com/wiki/Enhancement_bonus
+   - https://nwn.fandom.com/wiki/Attack_bonus_(item_property)
+   - https://steamcommunity.com/app/704450/discussions/0/689742575370785900/
+
+3. REMEDIATION OPTIONS (shown per item as A / B below)
+------------------------------------------------------------------------------
+Option A -- REMOVE the redundant Attack Bonus property. When the attack bonus
+is <= the enhancement bonus it is doing literally nothing, so deleting it
+changes ZERO actual player power; it just cleans the property list and lowers
+the item's listed gold cost.
+
+Option B -- CONVERT the wasted attack bonus into a Damage Bonus of equal
+magnitude. Damage bonuses DO stack with enhancement, so this preserves (or
+raises) the item's power and makes the item as strong as its property list
+implies. Pick a damage type (Magical is the safe default; or thematic).
+
+  Property struct to edit (entry in PropertiesList.value[]):
+     PropertyName=56 (Attack Bonus)  CostTable=2  CostValue=N  Subtype=0
+  Option A: delete that struct.   Option B: change PropertyName 56 -> the
+  Damage Bonus property id with the appropriate CostTable/CostValue.
+
+4. PRIORITY PICKS  (player-accessible, largest wasted to-hit first)
+------------------------------------------------------------------------------
+  wasted+15  avenger002             Avenger                            ENH+15 ATK+15 [greatsword]
+  wasted+15  doombringer            Doombringer                        ENH+15 ATK+15 [greataxe]
+  wasted+15  item060                Glamdring                          ENH+15 ATK+15 [bastardsword]
+  wasted+15  maceofthedark001       Greater Mace of Morannon           ENH+15 ATK+15 [lightmace]
+  wasted+14  handofpaladine         Longsword of Elrond                ENH+14 ATK+14 [longsword]
+  wasted+14  item042                Durin's Axe                        ENH+14 ATK+14 [greataxe]
+  wasted+14  item044                Gimli's Waraxe                     ENH+14 ATK+14 [dwarvenwaraxe]
+  wasted+13  067                    Claw of Smaug                      ENH+13 ATK+13 [kama]
+  wasted+13  068                    The Tongue of Smaug                ENH+13 ATK+13 [Whip]
+  wasted+13  142                    Orc Smasher                        ENH+13 ATK+13 [maul]
+  wasted+13  chosenkama             Chosen Kama                        ENH+13 ATK+13 [kama]
+  wasted+13  glamhring              Bastard Sword of Denethor          ENH+13 ATK+13 [bastardsword]
+  wasted+13  glamhring2             Flame of the West                  ENH+13 ATK+13 [bastardsword]
+  wasted+13  grond                  Grond                              ENH+13 ATK+13 [lightmace]
+  wasted+13  item127                Witch King's Scythe                ENH+13 ATK+13 [scythe]
+
+5. GAUNTLETS / GLOVES -- CROSS-SLOT CONFLICT  (the 'gauntlet' half of the bug)
+------------------------------------------------------------------------------
+  No glove/gauntlet in the module carries an enhancement bonus, so none has an
+  on-item conflict. The conflict is CROSS-SLOT: each glove below grants an
+  Attack Bonus, and that to-hit does NOT add to the enhancement bonus of
+  whatever weapon the character wields -- the engine uses the higher of the two.
+  Effect: a wielder of, say, an enhancement +15 weapon gets ZERO extra to-hit
+  from a +15 (or lower) attack-bonus gauntlet; only the excess above the
+  weapon's enhancement does anything. For unarmed/monk builds the glove IS the
+  weapon, so its attack bonus is the weapon's to-hit (still won't stack with
+  Magic Weapon / enhancement effects).
+
+  Fix per glove:
+   A) Leave as-is if it is meant for high-attack unarmed builds (it works as
+      the unarmed weapon's to-hit), OR
+   B) Convert the glove's Attack Bonus -> a Damage Bonus (stacks with any
+      weapon's enhancement) so the gauntlet always contributes regardless of
+      what the wearer wields. Recommended for gauntlets meant to be worn
+      alongside a melee weapon.
+
+  065                    Epic Hands of Smaug                ATK+20  [npc/unreach]  (no source)
+  107                    Gaunlets of the Shadow {EPIC}      ATK+20  [npc/unreach]  Carried by: Gwathdor Lord of the Dark Arts (Gwathdor:  Throne of the Lord)
+  drowgauntletm002       Gollum Gauntlets                   ATK+20  [npc/unreach]  (no source)
+  epichansoftreebe       Epic Hands of Nappy Root           ATK+20  [npc/unreach]  (no source)
+  fistifthebalrog        Fist of the Balrog {EPIC}          ATK+20  [npc/unreach]  (no source)
+  handsoftheappren       Hands of the Apprentice {EPIC}     ATK+20  [npc/unreach]  (no source)
+  item064                Homer's Hand                       ATK+20  [npc/unreach]  (no source)
+  item068                Homer's Touch                      ATK+20  [npc/unreach]  (no source)
+  item085                Wraith Warrior's Touch {EPIC}      ATK+20  [npc/unreach]  (no source)
+  item087                Gloves of the Hobbits{EPIC}        ATK+20  [npc/unreach]  (no source)
+  item095                Chosen Fist{EPIC}                  ATK+20  [npc/unreach]  (no source)
+  item108                *test one*                         ATK+20  [npc/unreach]  (no source)
+  item109                *test two*                         ATK+20  [npc/unreach]  (no source)
+  item112                Tarrels, a thousand fists          ATK+20  [npc/unreach]  (no source)
+  item119                *test three*                       ATK+20  [npc/unreach]  (no source)
+  supernuts              super nuts                         ATK+20  [npc/unreach]  (no source)
+  thehandofbroc001       The Epic Hand of Broc              ATK+20  [npc/unreach]  (no source)
+  tournamentgauntl       Tournament Gauntlets               ATK+20  [npc/unreach]  (no source)
+  wiltedtouch001         Wilted Touch {EPIC}                ATK+20  [npc/unreach]  (no source)
+  handsoftheapp001       Hands of the Apprentice            ATK+19  [npc/unreach]  (no source)
+  epicmonkgloves         Epic Monk Gloves                   ATK+18  [npc/unreach]  (no source)
+  097                    Gaunlets of the Shadow             ATK+15  [player]  Carried by: Gwathdor Lord of the Dark Arts (Gwathdor:  Throne of the Lord)
+  cursedguantle002       Cursed Guantlets                   ATK+15  [player]  Carried by: Heir of Haldor (Dimholt: The Forgotten King)
+  gauntletsofcrush       Gauntlets of Epic Crushing         ATK+15  [player]  Carried by: Sauron's Chosen Guardian (Dol Guldur:  Tower Of Black Magic Main Hall)
+  item069                Wraith Warrior's Touch             ATK+15  [npc/unreach]  (no source)
+  thehandofbroc          The Hand of Forostar               ATK+15  [npc/unreach]  Carried by: Khamûl The Ringwraith (Carn Dum: Throne); Carried by: Khamûl The Ringwraith (Dol Guldur:  Tower Of Black Magic  Nazgul Quaters)
+  chanceguard            Chance Guard                       ATK+14  [player]  Sold at: saaurmanmagic (Isengard (Magic Room))
+  item075                Gullom's Gloves                    ATK+14  [player]  Carried by: Gollum (Gollum's Chambers); Carried by: Bobo (Goblin Town: Warrens)
+  epichansoftre001       Afghani Seed                       ATK+13  [npc/unreach]  (no source)
+  item096                Chosen Fist                        ATK+13  [player]  Carried by: Theoden's Chosen (Helm's Deep: Cave)
+  basiliskclaw006        Basilisk Claw                      ATK+12  [player]  Carried by: Mutated Basilisk (Mirkwood: Crypt Lower); Carried by: Mutated Basilisk (Mirkwood: Crypt Lower)
+  item116                Thurindil's Corruption             ATK+12  [npc/unreach]  Carried by: Nature's Defender (Mirkwood: Thranduil's Hall)
+  cursedguantle003       Cursed Guantlets                   ATK+10  [npc/unreach]  (no source)
+  cursedguantlets        Cursed Guantlets                   ATK+10  [npc/unreach]  (no source)
+  viperstrike            Viper Strike                       ATK+9   [npc/unreach]  (no source)
+  cursedguantle004       Greater Cursed Guantlets           ATK+8   [npc/unreach]  (no source)
+  item046                Gullom's glove                     ATK+8   [player]  Carried by: Bobo (Goblin Town: Warrens)
+  item088                Glove of the Hobbits               ATK+8   [player]  Carried by: Hobbit (Hobbiton)
+  wiltedtouch            Wilted Touch                       ATK+8   [npc/unreach]  (no source)
+  fistoftheninja         Fist of the Ninja                  ATK+7   [npc/unreach]  (no source)
+  doomstouch             Dooms Touch                        ATK+5   [player]  Carried by: Mount Doom Skeleton Monk (Mount Doom: Lower Caverns)
+  empoweredfist          Empowered Fist                     ATK+5   [npc/unreach]  (no source)
+  glovstonehear001       Greater Gloves of the Stone Heart  ATK+5   [player]  Carried by: Numarok The Black Hand (Carn Dum: Numerok's Den); Carried by: Numarok The Black Hand (Carn Dum: City)
+  glovstoneheart         Gloves of the Stone Heart          ATK+5   [npc/unreach]  (no source)
+  handsofdeath           Hands of Death                     ATK+5   [player]  Sold at: gondortemplestor (Minas Tirith: Temple)
+  it_mglove025           Epic Gloves of the Stone Heart     ATK+5   [player]  Carried by: Kainna the War Dancer (Isengard (Innerrim))
+  item024                Basher's Glory                     ATK+5   [player]  Carried by: Barad Berserker (Barad-Dûr: City)
+  mw_watts_glove         Way of the Tao                     ATK+5   [npc/unreach]  (no source)
+  gauntletsofcr001       Gauntlets of Crushing              ATK+4   [npc/unreach]  (no source)
+  gauntletsofthori       Gauntlets of Thorin                ATK+4   [player]  Carried by: The Ice Queen (Ice Queen: Nest)
+
+
+6a. SINGLE-ITEM CONFLICT -- PLAYER-OBTAINABLE WEAPONS
+------------------------------------------------------------------------------
+  avenger002               Avenger                                  [greatsword]
+      ENH+15  ATK+15   wasted_tohit=15
+      where: Carried by: Heir of Haldor (Dimholt: The Forgotten King)
+      A) REMOVE atk (100% dead: A<=E, no power change)
+      B) CONVERT atk+15 -> Damage Bonus +15 (stacks; +15 real dmg)
+
+  doombringer              Doombringer                              [greataxe]
+      ENH+15  ATK+15   wasted_tohit=15
+      where: Carried by: Sauron The Abhorred (Mount Doom: Halls of Sauron )
+      A) REMOVE atk (100% dead: A<=E, no power change)
+      B) CONVERT atk+15 -> Damage Bonus +15 (stacks; +15 real dmg)
+
+  item060                  Glamdring                                [bastardsword]
+      ENH+15  ATK+15   wasted_tohit=15
+      where: Carried by: Gandalf the Gray (Hobbiton)
+      A) REMOVE atk (100% dead: A<=E, no power change)
+      B) CONVERT atk+15 -> Damage Bonus +15 (stacks; +15 real dmg)
+
+  maceofthedark001         Greater Mace of Morannon                 [lightmace]
+      ENH+15  ATK+15   wasted_tohit=15
+      where: Carried by: High Priest of Morannon (The Temple of Morannon)
+      A) REMOVE atk (100% dead: A<=E, no power change)
+      B) CONVERT atk+15 -> Damage Bonus +15 (stacks; +15 real dmg)
+
+  handofpaladine           Longsword of Elrond                      [longsword]
+      ENH+14  ATK+14   wasted_tohit=14
+      where: Carried by: Elrond (Rivendell Upper Halls)
+      A) REMOVE atk (100% dead: A<=E, no power change)
+      B) CONVERT atk+14 -> Damage Bonus +14 (stacks; +14 real dmg)
+
+  item042                  Durin's Axe                              [greataxe]
+      ENH+14  ATK+14   wasted_tohit=14
+      where: Carried by: Gimli (The Halls of Truth)
+      A) REMOVE atk (100% dead: A<=E, no power change)
+      B) CONVERT atk+14 -> Damage Bonus +14 (stacks; +14 real dmg)
+
+  item044                  Gimli's Waraxe                           [dwarvenwaraxe]
+      ENH+14  ATK+14   wasted_tohit=14
+      where: Carried by: Gimli (The Halls of Truth)
+      A) REMOVE atk (100% dead: A<=E, no power change)
+      B) CONVERT atk+14 -> Damage Bonus +14 (stacks; +14 real dmg)
+
+  067                      Claw of Smaug                            [kama]
+      ENH+13  ATK+13   wasted_tohit=13
+      where: Carried by: The Mighty Smaug (The Ruins of Dale: Cavern)
+      A) REMOVE atk (100% dead: A<=E, no power change)
+      B) CONVERT atk+13 -> Damage Bonus +13 (stacks; +13 real dmg)
+
+  068                      The Tongue of Smaug                      [Whip]
+      ENH+13  ATK+13   wasted_tohit=13
+      where: Carried by: The Mighty Smaug (The Ruins of Dale: Cavern)
+      A) REMOVE atk (100% dead: A<=E, no power change)
+      B) CONVERT atk+13 -> Damage Bonus +13 (stacks; +13 real dmg)
+
+  142                      Orc Smasher                              [maul]
+      ENH+13  ATK+13   wasted_tohit=13
+      where: Carried by: Sauron's Chosen Minion (Dol Guldur:  Tower Of Black Magic Depths); Carried by: Sauron's Chosen Minion (Dol Guldur:  Tower Of Black Magic Main Hall)
+      A) REMOVE atk (100% dead: A<=E, no power change)
+      B) CONVERT atk+13 -> Damage Bonus +13 (stacks; +13 real dmg)
+
+  chosenkama               Chosen Kama                              [kama]
+      ENH+13  ATK+13   wasted_tohit=13
+      where: Carried by: Theoden's Chosen (Helm's Deep: Cave)
+      A) REMOVE atk (100% dead: A<=E, no power change)
+      B) CONVERT atk+13 -> Damage Bonus +13 (stacks; +13 real dmg)
+
+  glamhring                Bastard Sword of Denethor                [bastardsword]
+      ENH+13  ATK+13   wasted_tohit=13
+      where: Carried by: Denethor, Steward of Gondor (Minas Tirith: Keep)
+      A) REMOVE atk (100% dead: A<=E, no power change)
+      B) CONVERT atk+13 -> Damage Bonus +13 (stacks; +13 real dmg)
+
+  glamhring2               Flame of the West                        [bastardsword]
+      ENH+13  ATK+13   wasted_tohit=13
+      where: Carried by: Aragorn Son of Arathorn (Minas Tirith: Gates); Script: Well met, traveller. The road south runs into shadow, and da…
+      A) REMOVE atk (100% dead: A<=E, no power change)
+      B) CONVERT atk+13 -> Damage Bonus +13 (stacks; +13 real dmg)
+
+  grond                    Grond                                    [lightmace]
+      ENH+13  ATK+13   wasted_tohit=13
+      where: Carried by: Witch King Leader of The Nine (The Witch King's Throne)
+      A) REMOVE atk (100% dead: A<=E, no power change)
+      B) CONVERT atk+13 -> Damage Bonus +13 (stacks; +13 real dmg)
+
+  item127                  Witch King's Scythe                      [scythe]
+      ENH+13  ATK+13   wasted_tohit=13
+      where: Carried by: Witch King Leader of The Nine (The Witch King's Throne)
+      A) REMOVE atk (100% dead: A<=E, no power change)
+      B) CONVERT atk+13 -> Damage Bonus +13 (stacks; +13 real dmg)
+
+  katanaofdolguldu         Katana of Dol Guldur                     [katana]
+      ENH+13  ATK+13   wasted_tohit=13
+      where: Carried by: The Rancid Skinner Green Mortal of Khamul (Dol Guldur:  Tower Of Black Magic Depths)
+      A) REMOVE atk (100% dead: A<=E, no power change)
+      B) CONVERT atk+13 -> Damage Bonus +13 (stacks; +13 real dmg)
+
+  mindmelter               Mindmelter                               [kukri]
+      ENH+13  ATK+13   wasted_tohit=13
+      where: Carried by: Underlord of Sauron (Mount Doom: Grand Hall)
+      A) REMOVE atk (100% dead: A<=E, no power change)
+      B) CONVERT atk+13 -> Damage Bonus +13 (stacks; +13 real dmg)
+
+  swordofthewitchk         Sword of The Witch King                  [longsword]
+      ENH+13  ATK+13   wasted_tohit=13
+      where: Carried by: Witch King Leader of The Nine (The Witch King's Throne)
+      A) REMOVE atk (100% dead: A<=E, no power change)
+      B) CONVERT atk+13 -> Damage Bonus +13 (stacks; +13 real dmg)
+
+  warhammerofthest         War Hammer of the Stout                  [warhammer]
+      ENH+13  ATK+13   wasted_tohit=13
+      where: Carried by: Gloin King Under the Mountain (Lonely Mountain: Main Hall)
+      A) REMOVE atk (100% dead: A<=E, no power change)
+      B) CONVERT atk+13 -> Damage Bonus +13 (stacks; +13 real dmg)
+
+  item066                  Arwen's Katana                           [katana]
+      ENH+12  ATK+12   wasted_tohit=12
+      where: Carried by: Arwen, The Evenstar (Rivendell Upper Halls)
+      A) REMOVE atk (100% dead: A<=E, no power change)
+      B) CONVERT atk+12 -> Damage Bonus +12 (stacks; +12 real dmg)
+
+  jubmaghica               Gothmog's Meat Cleaver                   [scythe]
+      ENH+12  ATK+12   wasted_tohit=12
+      where: Carried by: Gothmog Lord of Barad-Dur (Barad-Dûr: Keep)
+      A) REMOVE atk (100% dead: A<=E, no power change)
+      B) CONVERT atk+12 -> Damage Bonus +12 (stacks; +12 real dmg)
+
+  mightofminas             Might of Minas                           [heavyflail]
+      ENH+12  ATK+12   wasted_tohit=12
+      where: Carried by: Denethor, Steward of Gondor (Minas Tirith: Keep)
+      A) REMOVE atk (100% dead: A<=E, no power change)
+      B) CONVERT atk+12 -> Damage Bonus +12 (stacks; +12 real dmg)
+
+  127                      Axe of the Orc General                   [dwarvenwaraxe]
+      ENH+11  ATK+11   wasted_tohit=11
+      where: Carried by: Dol Guldur Orc General (Dol Guldur City)
+      A) REMOVE atk (100% dead: A<=E, no power change)
+      B) CONVERT atk+11 -> Damage Bonus +11 (stacks; +11 real dmg)
+
+  137                      Greater Blade of the Dol Guldur Captain  [mercurial_greatsword]
+      ENH+11  ATK+11   wasted_tohit=11
+      where: Carried by: Morgrond Captain of Dol Guldur (Dol Guldur City)
+      A) REMOVE atk (100% dead: A<=E, no power change)
+      B) CONVERT atk+11 -> Damage Bonus +11 (stacks; +11 real dmg)
+
+  rapierofglorfind         Rapier of Glorfindel                     [rapier]
+      ENH+11  ATK+11   wasted_tohit=11
+      where: Carried by: Glorfindel (The Valley of Rivendell)
+      A) REMOVE atk (100% dead: A<=E, no power change)
+      B) CONVERT atk+11 -> Damage Bonus +11 (stacks; +11 real dmg)
+
+  wswmls007                Glorfindel's Longsword                   [longsword]
+      ENH+11  ATK+11   wasted_tohit=11
+      where: Carried by: Glorfindel (The Valley of Rivendell)
+      A) REMOVE atk (100% dead: A<=E, no power change)
+      B) CONVERT atk+11 -> Damage Bonus +11 (stacks; +11 real dmg)
+
+  102                      Gwathdor Tongue                          [Whip]
+      ENH+10  ATK+15   wasted_tohit=10
+      where: Carried by: Gwathdor Lord of the Dark Arts (Gwathdor:  Throne of the Lord)
+      A) KEEP enh (does dmg+DR); atk+15 sets to-hit; overlap 10 redundant
+      B) OPTIONAL: split — enh+10 for dmg, keep atk+15 to-hit (already optimal)
+
+  103                      Frozen Beauty                            [halberd]
+      ENH+10  ATK+10   wasted_tohit=10
+      where: Carried by: Gwathdor Lord of the Dark Arts (Gwathdor:  Throne of the Lord)
+      A) REMOVE atk (100% dead: A<=E, no power change)
+      B) CONVERT atk+10 -> Damage Bonus +10 (stacks; +10 real dmg)
+
+  bastardofthehobb         Bastard of the Hobbit                    [shortsword]
+      ENH+10  ATK+12   wasted_tohit=10
+      where: Carried by: High Wizard of Gondor (Tower of the High Wizard: The High Wizard's Chamber)
+      A) KEEP enh (does dmg+DR); atk+12 sets to-hit; overlap 10 redundant
+      B) OPTIONAL: split — enh+10 for dmg, keep atk+12 to-hit (already optimal)
+
+  celestialfury            Celestial Fury                           [katana]
+      ENH+10  ATK+10   wasted_tohit=10
+      where: Carried by: Elrond (Rivendell Upper Halls)
+      A) REMOVE atk (100% dead: A<=E, no power change)
+      B) CONVERT atk+10 -> Damage Bonus +10 (stacks; +10 real dmg)
+
+  item055                  The Prince's Blade                       [greatsword]
+      ENH+10  ATK+10   wasted_tohit=10
+      where: Carried by: Faramir, Prince of Ithillien (Osgiliath: Citidal of the Stars)
+      A) REMOVE atk (100% dead: A<=E, no power change)
+      B) CONVERT atk+10 -> Damage Bonus +10 (stacks; +10 real dmg)
+
+  item086                  Shadow Lord's Blade                      [katana]
+      ENH+10  ATK+10   wasted_tohit=10
+      where: Carried by: Shadow Lord of Dol Guldur (Mirkwood: Dol Guldur)
+      A) REMOVE atk (100% dead: A<=E, no power change)
+      B) CONVERT atk+10 -> Damage Bonus +10 (stacks; +10 real dmg)
+
+  sting                    Sting                                    [shortsword]
+      ENH+14  ATK+10   wasted_tohit=10
+      where: Carried by: Bilbo Baggins (Bilbo's House); Carried by: Bilbo Baggins (Bag End)
+      A) REMOVE atk (100% dead: A<=E, no power change)
+      B) CONVERT atk+10 -> Damage Bonus +10 (stacks; +10 real dmg)
+
+  swordoftheshield         Sword of the Shieldmaiden                [longsword]
+      ENH+10  ATK+15   wasted_tohit=10
+      where: Carried by: Eowyn the Shieldmaiden (Helm's Deep: Keep)
+      A) KEEP enh (does dmg+DR); atk+15 sets to-hit; overlap 10 redundant
+      B) OPTIONAL: split — enh+10 for dmg, keep atk+15 to-hit (already optimal)
+
+  wswmdg004                Legolas's Courtesan Blade                [dagger]
+      ENH+10  ATK+13   wasted_tohit=10
+      where: Sold at: NW_STORESPEC003 (The Smithy of Rivendell)
+      A) KEEP enh (does dmg+DR); atk+13 sets to-hit; overlap 10 redundant
+      B) OPTIONAL: split — enh+10 for dmg, keep atk+13 to-hit (already optimal)
+
+  wswmrp008                Shadow Rapier                            [rapier]
+      ENH+10  ATK+10   wasted_tohit=10
+      where: Carried by: Shadow Lord of Dol Guldur (Mirkwood: Dol Guldur)
+      A) REMOVE atk (100% dead: A<=E, no power change)
+      B) CONVERT atk+10 -> Damage Bonus +10 (stacks; +10 real dmg)
+
+  035                      Greatsword of Edoras                     [greatsword]
+      ENH+10  ATK+9    wasted_tohit=9
+      where: Carried by: Éothain Captain of Helm's Deep (Helm's Deep)
+      A) REMOVE atk (100% dead: A<=E, no power change)
+      B) CONVERT atk+9 -> Damage Bonus +9 (stacks; +9 real dmg)
+
+  147                      Blade of the Personal Guard              [longsword]
+      ENH+9   ATK+9    wasted_tohit=9
+      where: Carried by: Eowyn's Personal Guard (Helm's Deep: Keep)
+      A) REMOVE atk (100% dead: A<=E, no power change)
+      B) CONVERT atk+9 -> Damage Bonus +9 (stacks; +9 real dmg)
+
+  darkstonehamm002         Dark Stone Hammer                        [warhammer]
+      ENH+10  ATK+9    wasted_tohit=9
+      where: Carried by: Gwathdor Minitaour (Gwathdor:  Tomb)
+      A) REMOVE atk (100% dead: A<=E, no power change)
+      B) CONVERT atk+9 -> Damage Bonus +9 (stacks; +9 real dmg)
+
+  greatswordofgond         Greatsword of Gondor                     [greatsword]
+      ENH+9   ATK+9    wasted_tohit=9
+      where: Carried by: Denethor's Personal Guard (Minas Tirith: Keep)
+      A) REMOVE atk (100% dead: A<=E, no power change)
+      B) CONVERT atk+9 -> Damage Bonus +9 (stacks; +9 real dmg)
+
+  item026                  Devil's Advocate                         [dagger]
+      ENH+11  ATK+9    wasted_tohit=9
+      where: Carried by: Greater Black Numenorean Assassin (Angmar Dungeon); Carried by: Black Numenorean Assassin (Great East Road); Carried by: Black Numenorean Assassin (The Angmar Mountain Range)
+      A) REMOVE atk (100% dead: A<=E, no power change)
+      B) CONVERT atk+9 -> Damage Bonus +9 (stacks; +9 real dmg)
+
+  maceofdwarffoe           Mace of Dwarf Foe                        [lightmace]
+      ENH+10  ATK+9    wasted_tohit=9
+      where: Carried by: Gloin King Under the Mountain (Lonely Mountain: Main Hall)
+      A) REMOVE atk (100% dead: A<=E, no power change)
+      B) CONVERT atk+9 -> Damage Bonus +9 (stacks; +9 real dmg)
+
+  darkdirk                 Dark Dirk                                [dagger]
+      ENH+8   ATK+15   wasted_tohit=8
+      where: Carried by: Radagast the Brown (Rhosgobel:  Tower)
+      A) KEEP enh (does dmg+DR); atk+15 sets to-hit; overlap 8 redundant
+      B) OPTIONAL: split — enh+8 for dmg, keep atk+15 to-hit (already optimal)
+
+  decayerofdoom            Decayer of Doom                          [greatsword]
+      ENH+10  ATK+8    wasted_tohit=8
+      where: Carried by: Sauron's Personal Guards (Mount Doom: Halls of Sauron )
+      A) REMOVE atk (100% dead: A<=E, no power change)
+      B) CONVERT atk+8 -> Damage Bonus +8 (stacks; +8 real dmg)
+
+  dgr_backbiter            Backbiter                                [dagger]
+      ENH+10  ATK+8    wasted_tohit=8
+      where: Carried by: High Wizard of Gondor (Tower of the High Wizard: The High Wizard's Chamber)
+      A) REMOVE atk (100% dead: A<=E, no power change)
+      B) CONVERT atk+8 -> Damage Bonus +8 (stacks; +8 real dmg)
+
+  gondorianlong003         Wart's Blade                             [longsword]
+      ENH+12  ATK+8    wasted_tohit=8
+      where: Carried by: Wart Gondorian Gate Captain (Minas Tirith: Gates)
+      A) REMOVE atk (100% dead: A<=E, no power change)
+      B) CONVERT atk+8 -> Damage Bonus +8 (stacks; +8 real dmg)
+
+  gwathdorshortswo         Gwathdor Short Sword                     [shortsword]
+      ENH+8   ATK+8    wasted_tohit=8
+      where: Carried by: Gwathdor Shortsword Guardian (Gwathdor:  East Deeps); Carried by: Gwathdor Shortsword Guardian (Gwathdor:  Throne of the Lord); Carried by: Gwathdor Shortsword Guardian (Gwathdor:  West Deeps)
+      A) REMOVE atk (100% dead: A<=E, no power change)
+      B) CONVERT atk+8 -> Damage Bonus +8 (stacks; +8 real dmg)
+
+  gwathdortrident          Gwathdor Trident                         [fuscina_trident_1h]
+      ENH+8   ATK+8    wasted_tohit=8
+      where: Carried by: Gwathdor Trident Guardian (Gwathdor:  East Deeps); Carried by: Gwathdor Trident Guardian (Gwathdor:  West Deeps)
+      A) REMOVE atk (100% dead: A<=E, no power change)
+      B) CONVERT atk+8 -> Damage Bonus +8 (stacks; +8 real dmg)
+
+  headsplitter005          Drider Slasher                           [greatsword]
+      ENH+18  ATK+8    wasted_tohit=8
+      where: Carried by: Drider Militia (Angmar Dungeon); Carried by: Drider Militia (Angmar's Lair); Carried by: Drider Militia (Great East Road) ...
+      A) REMOVE atk (100% dead: A<=E, no power change)
+      B) CONVERT atk+8 -> Damage Bonus +8 (stacks; +8 real dmg)
+
+  maceofminas              Mace of Minas                            [lightmace2]
+      ENH+8   ATK+8    wasted_tohit=8
+      where: Carried by: High Priest of Gondor (Minas Tirith: Temple)
+      A) REMOVE atk (100% dead: A<=E, no power change)
+      B) CONVERT atk+8 -> Damage Bonus +8 (stacks; +8 real dmg)
+
+  maceofthedark003         Mace of a Drider Priestess               [lightmace]
+      ENH+12  ATK+8    wasted_tohit=8
+      where: Carried by: Drider Priestess (Angmar Dungeon); Carried by: Drider Priestess (Angmar's Lair)
+      A) REMOVE atk (100% dead: A<=E, no power change)
+      B) CONVERT atk+8 -> Damage Bonus +8 (stacks; +8 real dmg)
+
+  shadowsmash              Shadow Smash                             [warhammer]
+      ENH+10  ATK+8    wasted_tohit=8
+      where: Carried by: Shadow Priestess of Dol Guldur (Caves of Dol Guldur)
+      A) REMOVE atk (100% dead: A<=E, no power change)
+      B) CONVERT atk+8 -> Damage Bonus +8 (stacks; +8 real dmg)
+
+  swordofceleborn          Sword of Celeborn                        [longsword]
+      ENH+8   ATK+8    wasted_tohit=8
+      where: Carried by: Celeborn (Lothlorien: Flets)
+      A) REMOVE atk (100% dead: A<=E, no power change)
+      B) CONVERT atk+8 -> Damage Bonus +8 (stacks; +8 real dmg)
+
+  frostbite                Frost Bite                               [kukri]
+      ENH+16  ATK+7    wasted_tohit=7
+      where: Carried by: Frost (Emyn Arnen: Peak)
+      A) REMOVE atk (100% dead: A<=E, no power change)
+      B) CONVERT atk+7 -> Damage Bonus +7 (stacks; +7 real dmg)
+
+  graceofithilien          Grace of Ithilien                        [scimitar]
+      ENH+7   ATK+7    wasted_tohit=7
+      where: Carried by: Guardian of Henneth (Henneth Annun)
+      A) REMOVE atk (100% dead: A<=E, no power change)
+      B) CONVERT atk+7 -> Damage Bonus +7 (stacks; +7 real dmg)
+
+  item031                  Cat O' Nine Tails                        [heavyflail]
+      ENH+10  ATK+7    wasted_tohit=7
+      where: Carried by: Kerufall (Kerufall's Lair)
+      A) REMOVE atk (100% dead: A<=E, no power change)
+      B) CONVERT atk+7 -> Damage Bonus +7 (stacks; +7 real dmg)
+
+  item056                  Nazgul's Tooth                           [dagger]
+      ENH+7   ATK+8    wasted_tohit=7
+      where: Carried by: Nazgul (Temple of Nazgul)
+      A) KEEP enh (does dmg+DR); atk+8 sets to-hit; overlap 7 redundant
+      B) OPTIONAL: split — enh+7 for dmg, keep atk+8 to-hit (already optimal)
+
+  item057                  Nazgul's Claw                            [longsword]
+      ENH+10  ATK+7    wasted_tohit=7
+      where: Carried by: Nazgul (Temple of Nazgul)
+      A) REMOVE atk (100% dead: A<=E, no power change)
+      B) CONVERT atk+7 -> Damage Bonus +7 (stacks; +7 real dmg)
+
+  katanaofthegreat         Katana of the Great North                [katana]
+      ENH+16  ATK+7    wasted_tohit=7
+      where: Carried by: Frost (Emyn Arnen: Peak)
+      A) REMOVE atk (100% dead: A<=E, no power change)
+      B) CONVERT atk+7 -> Damage Bonus +7 (stacks; +7 real dmg)
+
+  katanaofthenoble         Katana of the Noble                      [katana]
+      ENH+10  ATK+7    wasted_tohit=7
+      where: Carried by: Denethor, Steward of Gondor (Minas Tirith: Keep)
+      A) REMOVE atk (100% dead: A<=E, no power change)
+      B) CONVERT atk+7 -> Damage Bonus +7 (stacks; +7 real dmg)
+
+  rohirrimlongswor         Rohirrim Longsword of the Elite          [longsword]
+      ENH+7   ATK+7    wasted_tohit=7
+      where: Carried by: Elite Rohirrim Soldier (Edoras)
+      A) REMOVE atk (100% dead: A<=E, no power change)
+      B) CONVERT atk+7 -> Damage Bonus +7 (stacks; +7 real dmg)
+
+  scimitarofthequi         Scimitar of the Quick                    [scimitar]
+      ENH+14  ATK+7    wasted_tohit=7
+      where: Carried by: Grimbeorn the Old Lord of the Beornings (Beorn); Carried by: Smithey the Sneak (Sharkey's Chamber)
+      A) REMOVE atk (100% dead: A<=E, no power change)
+      B) CONVERT atk+7 -> Damage Bonus +7 (stacks; +7 real dmg)
+
+  waxmbt009                Axe of the Battle Dwarf                  [battleaxe]
+      ENH+7   ATK+7    wasted_tohit=7
+      where: Carried by: A Dwarf Guardian (The Halls of Truth); Carried by: A Dwarf Guardian (Lonely Mountain: Main Hall); Carried by: A Dwarf Guardian (Temple of Marr)
+      A) REMOVE atk (100% dead: A<=E, no power change)
+      B) CONVERT atk+7 -> Damage Bonus +7 (stacks; +7 real dmg)
+
+  wblmml005                Mace of Doom                             [lightmace]
+      ENH+7   ATK+7    wasted_tohit=7
+      where: Carried by: Mount Doom Skeleton Priest (Mount Doom: Lower Caverns)
+      A) REMOVE atk (100% dead: A<=E, no power change)
+      B) CONVERT atk+7 -> Damage Bonus +7 (stacks; +7 real dmg)
+
+  030                      Sword of the Deep                        [longsword]
+      ENH+12  ATK+6    wasted_tohit=6
+      where: Carried by: Helm's Deep Elite Guard (Helm's Deep)
+      A) REMOVE atk (100% dead: A<=E, no power change)
+      B) CONVERT atk+6 -> Damage Bonus +6 (stacks; +6 real dmg)
+
+  badbrains                Bad Brains                               [Whip]
+      ENH+6   ATK+10   wasted_tohit=6
+      where: Carried by: Dol Guldur Gate Keeper (Mirkwood: Dol Guldur); Carried by: Dol Guldur Gate Keeper (Mirkwood: Dol Guldur)
+      A) KEEP enh (does dmg+DR); atk+10 sets to-hit; overlap 6 redundant
+      B) OPTIONAL: split — enh+6 for dmg, keep atk+10 to-hit (already optimal)
+
+  blackmist4               Blackmist                                [halberd]
+      ENH+12  ATK+6    wasted_tohit=6
+      where: Carried by: Uruk Hai First Born (Isengard (Innerrim)); Carried by: Uruk Hai First Born (Isengard (Outerrim)); Carried by: Uruk Hai First Born (Ettenmoors)
+      A) REMOVE atk (100% dead: A<=E, no power change)
+      B) CONVERT atk+6 -> Damage Bonus +6 (stacks; +6 real dmg)
+
+  bladeofthedancer         Blade of the Dancer                      [shortsword]
+      ENH+7   ATK+6    wasted_tohit=6
+      where: Carried by: Shadow Walker (Caves of Dol Guldur); Carried by: Shadow Walker (Mirkwood: Dol Guldur)
+      A) REMOVE atk (100% dead: A<=E, no power change)
+      B) CONVERT atk+6 -> Damage Bonus +6 (stacks; +6 real dmg)
+
+  dawnstar002              Dawn Star                                [bastardsword]
+      ENH+10  ATK+6    wasted_tohit=6
+      where: Carried by: Kerufall (Kerufall's Lair)
+      A) REMOVE atk (100% dead: A<=E, no power change)
+      B) CONVERT atk+6 -> Damage Bonus +6 (stacks; +6 real dmg)
+
+  headchopper              Head Chopper                             [halberd]
+      ENH+12  ATK+6    wasted_tohit=6
+      where: Carried by: Garbag Gulon (Orc Armory); Carried by: The Goblin King (Goblin Town: Main Hall)
+      A) REMOVE atk (100% dead: A<=E, no power change)
+      B) CONVERT atk+6 -> Damage Bonus +6 (stacks; +6 real dmg)
+
+  item022                  Sauron's Lash                            [Whip]
+      ENH+10  ATK+6    wasted_tohit=6
+      where: Carried by: Fist of Sauron (Barad-Dûr: City); Carried by: Fist of Sauron (Barad-Dûr: Keep)
+      A) REMOVE atk (100% dead: A<=E, no power change)
+      B) CONVERT atk+6 -> Damage Bonus +6 (stacks; +6 real dmg)
+
+  item023                  Sauron's Smite                           [club]
+      ENH+6   ATK+6    wasted_tohit=6
+      where: Carried by: Fist of Sauron (Barad-Dûr: City); Carried by: Fist of Sauron (Barad-Dûr: Keep)
+      A) REMOVE atk (100% dead: A<=E, no power change)
+      B) CONVERT atk+6 -> Damage Bonus +6 (stacks; +6 real dmg)
+
+  item084                  Deekin's Little Helper                   [doubleaxe]
+      ENH+6   ATK+9    wasted_tohit=6
+      where: Carried by: Deekin the General (Orc Armory)
+      A) KEEP enh (does dmg+DR); atk+9 sets to-hit; overlap 6 redundant
+      B) OPTIONAL: split — enh+6 for dmg, keep atk+9 to-hit (already optimal)
+
+  kukriofthegateco         Kukri of the Gate Commander              [kukri]
+      ENH+6   ATK+6    wasted_tohit=6
+      where: Carried by: Thragg, Gate Commander (Morannon - The Black Gate)
+      A) REMOVE atk (100% dead: A<=E, no power change)
+      B) CONVERT atk+6 -> Damage Bonus +6 (stacks; +6 real dmg)
+
+  kuotoapincers001         Kuo-Toa Pincer Staff                     [quarterstaff]
+      ENH+6   ATK+18   wasted_tohit=6
+      where: Sold at: saaurmanmagic (Isengard (Magic Room))
+      A) KEEP enh (does dmg+DR); atk+18 sets to-hit; overlap 6 redundant
+      B) OPTIONAL: split — enh+6 for dmg, keep atk+18 to-hit (already optimal)
+
+  swordofthegen            Sword of the General                     [greatsword]
+      ENH+6   ATK+9    wasted_tohit=6
+      where: Carried by: Gorg the General (Mount Gundabad); Carried by: Tirg the General (Angmar)
+      A) KEEP enh (does dmg+DR); atk+9 sets to-hit; overlap 6 redundant
+      B) OPTIONAL: split — enh+6 for dmg, keep atk+9 to-hit (already optimal)
+
+  twinkle                  Twinkle                                  [scimitar]
+      ENH+6   ATK+6    wasted_tohit=6
+      where: Carried by: Gondorian Bowman (Minas Tirith: City); Carried by: Gondorian Bowman (Minas Tirith: Gates); Carried by: Gondorian Bowman (Minas Tirith: Watchman Defender's Head Quarters)
+      A) REMOVE atk (100% dead: A<=E, no power change)
+      B) CONVERT atk+6 -> Damage Bonus +6 (stacks; +6 real dmg)
+
+  wblmml009                Tempest of Fifur                         [lightmace]
+      ENH+8   ATK+6    wasted_tohit=6
+      where: Carried by: Fifur the Craftsman (Temple of Marr)
+      A) REMOVE atk (100% dead: A<=E, no power change)
+      B) CONVERT atk+6 -> Damage Bonus +6 (stacks; +6 real dmg)
+
+  wswmgs008                Shining Light of Rohosgobel              [greatsword]
+      ENH+6   ATK+14   wasted_tohit=6
+      where: Carried by: Radagast's Elite Guard (Rhosgobel:  Tower)
+      A) KEEP enh (does dmg+DR); atk+14 sets to-hit; overlap 6 redundant
+      B) OPTIONAL: split — enh+6 for dmg, keep atk+14 to-hit (already optimal)
+
+  wswmrp005                Elven Rapier                             [rapier]
+      ENH+10  ATK+6    wasted_tohit=6
+      where: Carried by: Arwen, The Evenstar (Rivendell Upper Halls)
+      A) REMOVE atk (100% dead: A<=E, no power change)
+      B) CONVERT atk+6 -> Damage Bonus +6 (stacks; +6 real dmg)
+
+  arangerdefender          A Ranger Defender                        [longsword]
+      ENH+5   ATK+5    wasted_tohit=5
+      where: Carried by: Tren Notteel (Rivendell)
+      A) REMOVE atk (100% dead: A<=E, no power change)
+      B) CONVERT atk+5 -> Damage Bonus +5 (stacks; +5 real dmg)
+
+  axeofthereckleso         Axe of the Reckles Orc                   [handaxe]
+      ENH+5   ATK+5    wasted_tohit=5
+      where: Carried by: Mordor Hewer (Cirith Ungol); Carried by: Mordor Hewer (Orc Armory)
+      A) REMOVE atk (100% dead: A<=E, no power change)
+      B) CONVERT atk+5 -> Damage Bonus +5 (stacks; +5 real dmg)
+
+  deathspade               Deathspade                               [handaxe]
+      ENH+8   ATK+5    wasted_tohit=5
+      where: Carried by: Kainna the War Dancer (Isengard (Innerrim))
+      A) REMOVE atk (100% dead: A<=E, no power change)
+      B) CONVERT atk+5 -> Damage Bonus +5 (stacks; +5 real dmg)
+
+  felloak                  Felloak                                  [club]
+      ENH+5   ATK+6    wasted_tohit=5
+      where: Carried by: Dunland Shaman (Isengard (Innerrim)); Carried by: Dunland Shaman (Isengard (Magic Room)); Carried by: Dunland Shaman (Isengard (Outerrim)) ...
+      A) KEEP enh (does dmg+DR); atk+6 sets to-hit; overlap 5 redundant
+      B) OPTIONAL: split — enh+5 for dmg, keep atk+6 to-hit (already optimal)
+
+  flailofwar               Flail of War                             [heavyflail]
+      ENH+5   ATK+17   wasted_tohit=5
+      where: Sold at: saaurmanmagic (Isengard (Magic Room))
+      A) KEEP enh (does dmg+DR); atk+17 sets to-hit; overlap 5 redundant
+      B) OPTIONAL: split — enh+5 for dmg, keep atk+17 to-hit (already optimal)
+
+  longswordofthemo         Longsword of the Mordor Orc              [longsword]
+      ENH+5   ATK+5    wasted_tohit=5
+      where: Carried by: Mordor Orc Lieutenant Soldier (Cirith Ungol); Carried by: Mordor Orc Lieutenant Soldier (Orc Armory); Carried by: Mordor Orc Lieutenant Soldier (The Cirith Ungol Pass) ...
+      A) REMOVE atk (100% dead: A<=E, no power change)
+      B) CONVERT atk+5 -> Damage Bonus +5 (stacks; +5 real dmg)
+
+  orcscoutblade            Blade of the Orc Scout                   [scimitar]
+      ENH+5   ATK+5    wasted_tohit=5
+      where: Carried by: Mordor Orc Scout Soldier (Ered Duath Road: A); Carried by: Mordor Orc Scout Soldier (The Cirith Ungol Pass); Carried by: Sarumon's Personal Guard (The Dimrill Stair)
+      A) REMOVE atk (100% dead: A<=E, no power change)
+      B) CONVERT atk+5 -> Damage Bonus +5 (stacks; +5 real dmg)
+
+  scimitar008              Scimitar of the Marshall                 [scimitar]
+      ENH+5   ATK+8    wasted_tohit=5
+      where: Carried by: Marshall of the White Hand (Tower of Orthanc)
+      A) KEEP enh (does dmg+DR); atk+8 sets to-hit; overlap 5 redundant
+      B) OPTIONAL: split — enh+5 for dmg, keep atk+8 to-hit (already optimal)
+
+  skullsplitter            Skull Splitter                           [kama]
+      ENH+10  ATK+5    wasted_tohit=5
+      where: Carried by: Uruk Hai White Hand's Chosen (Isengard (Innerrim)); Carried by: Uruk Hai White Hand's Chosen (Isengard (Magic Room))
+      A) REMOVE atk (100% dead: A<=E, no power change)
+      B) CONVERT atk+5 -> Damage Bonus +5 (stacks; +5 real dmg)
+
+  warhammerofeog           War Hammer of Eog                        [warhammer]
+      ENH+5   ATK+15   wasted_tohit=5
+      where: Carried by: Servator of the Abyss (The Abyss of Moria)
+      A) KEEP enh (does dmg+DR); atk+15 sets to-hit; overlap 5 redundant
+      B) OPTIONAL: split — enh+5 for dmg, keep atk+15 to-hit (already optimal)
+
+  wblmml008                Greater Tempest                          [lightmace]
+      ENH+5   ATK+14   wasted_tohit=5
+      where: Carried by: A Dwarf Adjudicator (The Halls of Truth); Carried by: A Dwarf Adjudicator (Lonely Mountain: Main Hall); Carried by: A Dwarf Adjudicator (Temple of Marr)
+      A) KEEP enh (does dmg+DR); atk+14 sets to-hit; overlap 5 redundant
+      B) OPTIONAL: split — enh+5 for dmg, keep atk+14 to-hit (already optimal)
+
+  wspmka008                Numarok's Kama                           [kama]
+      ENH+5   ATK+5    wasted_tohit=5
+      where: Carried by: Numarok The Black Hand (Carn Dum: Numerok's Den); Carried by: Numarok The Black Hand (Carn Dum: City)
+      A) REMOVE atk (100% dead: A<=E, no power change)
+      B) CONVERT atk+5 -> Damage Bonus +5 (stacks; +5 real dmg)
+
+  wswmdg007                Risktaker                                [dagger]
+      ENH+5   ATK+5    wasted_tohit=5
+      where: Carried by: Archer of Dol Guldur (Caves of Dol Guldur); Carried by: Shadow Walker (Caves of Dol Guldur); Carried by: Archer of Dol Guldur (Mirkwood: Dol Guldur) ...
+      A) REMOVE atk (100% dead: A<=E, no power change)
+      B) CONVERT atk+5 -> Damage Bonus +5 (stacks; +5 real dmg)
+
+  wswmls008                Holy Avenger                             [longsword]
+      ENH+10  ATK+5    wasted_tohit=5
+      where: Sold at: M_CL05M (Taggets Smith Shop)
+      A) REMOVE atk (100% dead: A<=E, no power change)
+      B) CONVERT atk+5 -> Damage Bonus +5 (stacks; +5 real dmg)
+
+  armofadam                Arm of Adam                              [club]
+      ENH+8   ATK+4    wasted_tohit=4
+      where: Carried by: Troll King (The Trollshaws)
+      A) REMOVE atk (100% dead: A<=E, no power change)
+      B) CONVERT atk+4 -> Damage Bonus +4 (stacks; +4 real dmg)
+
+  axeofthebrute001         Axe of the Gate                          [greataxe]
+      ENH+10  ATK+4    wasted_tohit=4
+      where: Carried by: Gate Axeman (Morannon - The Black Gate)
+      A) REMOVE atk (100% dead: A<=E, no power change)
+      B) CONVERT atk+4 -> Damage Bonus +4 (stacks; +4 real dmg)
+
+  basherofthemutan         Basher of the Mutant                     [club]
+      ENH+15  ATK+4    wasted_tohit=4
+      where: Carried by: The Mutant Terror (Balin's Tomb)
+      A) REMOVE atk (100% dead: A<=E, no power change)
+      B) CONVERT atk+4 -> Damage Bonus +4 (stacks; +4 real dmg)
+
+  daggerofthest001         Dagger of the Stars                      [dagger]
+      ENH+4   ATK+4    wasted_tohit=4
+      where: Carried by: Black Numenorean Shadow Master (Carn Dum: Throne); Carried by: Black Numenorean Shadow Master (Great East Road); Carried by: Black Numenorean Shadow Master (The Angmar Mountain Range)
+      A) REMOVE atk (100% dead: A<=E, no power change)
+      B) CONVERT atk+4 -> Damage Bonus +4 (stacks; +4 real dmg)
+
+  halberd005               Halberd of the Rohir                     [halberd]
+      ENH+5   ATK+4    wasted_tohit=4
+      where: Carried by: A Rohirrim Soldier (Edoras); Carried by: A Rohirrim Soldier (Theoden's Hall); Carried by: A Rohirrim Soldier Reinforcement (Gap of Rohan) ...
+      A) REMOVE atk (100% dead: A<=E, no power change)
+      B) CONVERT atk+4 -> Damage Bonus +4 (stacks; +4 real dmg)
+
+  item007                  Archer's Bane                            [halberd]
+      ENH+4   ATK+13   wasted_tohit=4
+      where: Carried by: Defender of The Deep (Helm's Deep)
+      A) KEEP enh (does dmg+DR); atk+13 sets to-hit; overlap 4 redundant
+      B) OPTIONAL: split — enh+4 for dmg, keep atk+13 to-hit (already optimal)
+
+  item019                  Viscera's Champion                       [sickle]
+      ENH+8   ATK+4    wasted_tohit=4
+      where: Carried by: Barad Berserker (Barad-Dûr: City)
+      A) REMOVE atk (100% dead: A<=E, no power change)
+      B) CONVERT atk+4 -> Damage Bonus +4 (stacks; +4 real dmg)
+
+  legofshelob002           Leg of Shelob                            [quarterstaff]
+      ENH+5   ATK+4    wasted_tohit=4
+      where: Carried by: Shelob (Shelob's Lair)
+      A) REMOVE atk (100% dead: A<=E, no power change)
+      B) CONVERT atk+4 -> Damage Bonus +4 (stacks; +4 real dmg)
+
+  bladeofithilien          Blade of Ithilien                        [shortsword]
+      ENH+8   ATK+3    wasted_tohit=3
+      where: Carried by: Ranger of Ithilien (Osgiliath: Citidal of the Stars); Carried by: Ranger of Ithilien (Vale of Henneth Annun); Carried by: Ranger of Ithilien (Northern Forests of Ithilien) ...
+      A) REMOVE atk (100% dead: A<=E, no power change)
+      B) CONVERT atk+3 -> Damage Bonus +3 (stacks; +3 real dmg)
+
+  brokenbranch             Broken Branch                            [club]
+      ENH+3   ATK+3    wasted_tohit=3
+      where: Carried by: Mordor Raider (Northern Forests of Ithilien); Carried by: Mordor Raider (Northern Forests of Ithilien); Carried by: Mordor Raider (Northern Forests of Ithilien) ...
+      A) REMOVE atk (100% dead: A<=E, no power change)
+      B) CONVERT atk+3 -> Damage Bonus +3 (stacks; +3 real dmg)
+
+  daggerofvenom002         Dagger of Venom                          [dagger]
+      ENH+6   ATK+3    wasted_tohit=3
+      where: Carried by: Shelob (Shelob's Lair)
+      A) REMOVE atk (100% dead: A<=E, no power change)
+      B) CONVERT atk+3 -> Damage Bonus +3 (stacks; +3 real dmg)
+
+  it_minoaxe001            Epic Minotaur Axe                        [greataxe]
+      ENH+3   ATK+4    wasted_tohit=3
+      where: Sold at: M_CL05M (Taggets Smith Shop)
+      A) KEEP enh (does dmg+DR); atk+4 sets to-hit; overlap 3 redundant
+      B) OPTIONAL: split — enh+3 for dmg, keep atk+4 to-hit (already optimal)
+
+  rapierofthegh            Rapier of the Ghaladrim                  [rapier]
+      ENH+10  ATK+3    wasted_tohit=3
+      where: Carried by: Galadhrim Shield Guardian (Lothlorien: Main)
+      A) REMOVE atk (100% dead: A<=E, no power change)
+      B) CONVERT atk+3 -> Damage Bonus +3 (stacks; +3 real dmg)
+
+  wswmls013                Longsword +3                             [longsword]
+      ENH+3   ATK+3    wasted_tohit=3
+      where: Carried by: Ranger of the North (The Valley of Rivendell)
+      A) REMOVE atk (100% dead: A<=E, no power change)
+      B) CONVERT atk+3 -> Damage Bonus +3 (stacks; +3 real dmg)
+
+
+6b. SINGLE-ITEM CONFLICT -- NPC-CARRIED / STORE / UNREACHABLE WEAPONS
+------------------------------------------------------------------------------
+  114                      Undead Kukri Boss Item                   [kukri]
+      ENH+20  ATK+20   wasted_tohit=20
+      where: (not placed / no source in index)
+      A) REMOVE atk (100% dead: A<=E, no power change)
+      B) CONVERT atk+20 -> Damage Bonus +20 (stacks; +20 real dmg)
+
+  badbrains001             Bad Brains {EPIC}                        [Whip]
+      ENH+20  ATK+20   wasted_tohit=20
+      where: (not placed / no source in index)
+      A) REMOVE atk (100% dead: A<=E, no power change)
+      B) CONVERT atk+20 -> Damage Bonus +20 (stacks; +20 real dmg)
+
+  decayerofdoom001         Decayer of Doom{EPIC}                    [greatsword]
+      ENH+20  ATK+20   wasted_tohit=20
+      where: (not placed / no source in index)
+      A) REMOVE atk (100% dead: A<=E, no power change)
+      B) CONVERT atk+20 -> Damage Bonus +20 (stacks; +20 real dmg)
+
+  doombringer001           Doombringer {EPIC}                       [greataxe]
+      ENH+20  ATK+20   wasted_tohit=20
+      where: Carried by: Sauron The Abhorred (Mount Doom: Halls of Sauron )
+      A) REMOVE atk (100% dead: A<=E, no power change)
+      B) CONVERT atk+20 -> Damage Bonus +20 (stacks; +20 real dmg)
+
+  gwathdorshort001         Gwathdor Short Sword {EPIC}              [shortsword]
+      ENH+20  ATK+20   wasted_tohit=20
+      where: (not placed / no source in index)
+      A) REMOVE atk (100% dead: A<=E, no power change)
+      B) CONVERT atk+20 -> Damage Bonus +20 (stacks; +20 real dmg)
+
+  gwathdortride001         Gwathdor Trident {EPIC}                  [fuscina_trident_1h]
+      ENH+20  ATK+20   wasted_tohit=20
+      where: (not placed / no source in index)
+      A) REMOVE atk (100% dead: A<=E, no power change)
+      B) CONVERT atk+20 -> Damage Bonus +20 (stacks; +20 real dmg)
+
+  headsplitter004          Drider Slasher {EPIC}                    [greatsword]
+      ENH+20  ATK+20   wasted_tohit=20
+      where: Carried by: Drider Militia (Angmar Dungeon); Carried by: Drider Militia (Angmar's Lair); Carried by: Drider Militia (Great East Road) ...
+      A) REMOVE atk (100% dead: A<=E, no power change)
+      B) CONVERT atk+20 -> Damage Bonus +20 (stacks; +20 real dmg)
+
+  item015                  Sauron's Lash {EPIC}                     [Whip]
+      ENH+20  ATK+20   wasted_tohit=20
+      where: (not placed / no source in index)
+      A) REMOVE atk (100% dead: A<=E, no power change)
+      B) CONVERT atk+20 -> Damage Bonus +20 (stacks; +20 real dmg)
+
+  item061                  Smash's Sword                            [twobladedsword]
+      ENH+20  ATK+20   wasted_tohit=20
+      where: (not placed / no source in index)
+      A) REMOVE atk (100% dead: A<=E, no power change)
+      B) CONVERT atk+20 -> Damage Bonus +20 (stacks; +20 real dmg)
+
+  item078                  Gandalf's Epic Glamhring                 [bastardsword]
+      ENH+20  ATK+20   wasted_tohit=20
+      where: (not placed / no source in index)
+      A) REMOVE atk (100% dead: A<=E, no power change)
+      B) CONVERT atk+20 -> Damage Bonus +20 (stacks; +20 real dmg)
+
+  item082                  *Super Kama*                             [kama]
+      ENH+20  ATK+20   wasted_tohit=20
+      where: (not placed / no source in index)
+      A) REMOVE atk (100% dead: A<=E, no power change)
+      B) CONVERT atk+20 -> Damage Bonus +20 (stacks; +20 real dmg)
+
+  item099                  Thuringwethil's Edge{EPIC}               [scimitar]
+      ENH+20  ATK+20   wasted_tohit=20
+      where: (not placed / no source in index)
+      A) REMOVE atk (100% dead: A<=E, no power change)
+      B) CONVERT atk+20 -> Damage Bonus +20 (stacks; +20 real dmg)
+
+  item103                  Durin's Axe{EPIC}                        [greataxe]
+      ENH+20  ATK+20   wasted_tohit=20
+      where: (not placed / no source in index)
+      A) REMOVE atk (100% dead: A<=E, no power change)
+      B) CONVERT atk+20 -> Damage Bonus +20 (stacks; +20 real dmg)
+
+  item104                  Viscera's Champion{EPIC}                 [sickle]
+      ENH+20  ATK+20   wasted_tohit=20
+      where: (not placed / no source in index)
+      A) REMOVE atk (100% dead: A<=E, no power change)
+      B) CONVERT atk+20 -> Damage Bonus +20 (stacks; +20 real dmg)
+
+  jubmaghica001            The Meat Cleaver{EPIC}                   [scythe]
+      ENH+20  ATK+20   wasted_tohit=20
+      where: (not placed / no source in index)
+      A) REMOVE atk (100% dead: A<=E, no power change)
+      B) CONVERT atk+20 -> Damage Bonus +20 (stacks; +20 real dmg)
+
+  spearofdistan001         Spear of Destiny{EPIC}                   [shortspear]
+      ENH+20  ATK+20   wasted_tohit=20
+      where: (not placed / no source in index)
+      A) REMOVE atk (100% dead: A<=E, no power change)
+      B) CONVERT atk+20 -> Damage Bonus +20 (stacks; +20 real dmg)
+
+  wswmgs009                Shining Light of Rohosgobel {EPIC}       [greatsword]
+      ENH+20  ATK+20   wasted_tohit=20
+      where: Carried by: Radagast's Elite Guard (Rhosgobel:  Tower)
+      A) REMOVE atk (100% dead: A<=E, no power change)
+      B) CONVERT atk+20 -> Damage Bonus +20 (stacks; +20 real dmg)
+
+  wswmrp007                Elven Rapier {EPIC}                      [rapier]
+      ENH+20  ATK+20   wasted_tohit=20
+      where: (not placed / no source in index)
+      A) REMOVE atk (100% dead: A<=E, no power change)
+      B) CONVERT atk+20 -> Damage Bonus +20 (stacks; +20 real dmg)
+
+  bastardoftheh001         Bastard of the Hobbit {EPIC}             [shortsword]
+      ENH+18  ATK+20   wasted_tohit=18
+      where: Carried by: High Wizard of Gondor (Tower of the High Wizard: The High Wizard's Chamber)
+      A) KEEP enh (does dmg+DR); atk+20 sets to-hit; overlap 18 redundant
+      B) OPTIONAL: split — enh+18 for dmg, keep atk+20 to-hit (already optimal)
+
+  rapierofangma001         Rapier of Angmar {EPIC}                  [rapier]
+      ENH+18  ATK+20   wasted_tohit=18
+      where: (not placed / no source in index)
+      A) KEEP enh (does dmg+DR); atk+20 sets to-hit; overlap 18 redundant
+      B) OPTIONAL: split — enh+18 for dmg, keep atk+20 to-hit (already optimal)
+
+  swordoftheste001         Sword of The Stewards {EPIC}             [longsword]
+      ENH+18  ATK+20   wasted_tohit=18
+      where: Carried by: Boromir, Steward of Gondor (Minas Tirith: City)
+      A) KEEP enh (does dmg+DR); atk+20 sets to-hit; overlap 18 redundant
+      B) OPTIONAL: split — enh+18 for dmg, keep atk+20 to-hit (already optimal)
+
+  wiltedstaff002           Wilted Staff {EPIC}                      [magicstaff]
+      ENH+18  ATK+20   wasted_tohit=18
+      where: (not placed / no source in index)
+      A) KEEP enh (does dmg+DR); atk+20 sets to-hit; overlap 18 redundant
+      B) OPTIONAL: split — enh+18 for dmg, keep atk+20 to-hit (already optimal)
+
+  kukri052                 Slice of Death{EPIC}                     [kukri]
+      ENH+16  ATK+16   wasted_tohit=16
+      where: (not placed / no source in index)
+      A) REMOVE atk (100% dead: A<=E, no power change)
+      B) CONVERT atk+16 -> Damage Bonus +16 (stacks; +16 real dmg)
+
+  tarrelskamaofthe         Tarrels Kama of the Seven Suns           [kama]
+      ENH+16  ATK+20   wasted_tohit=16
+      where: (not placed / no source in index)
+      A) KEEP enh (does dmg+DR); atk+20 sets to-hit; overlap 16 redundant
+      B) OPTIONAL: split — enh+16 for dmg, keep atk+20 to-hit (already optimal)
+
+  wspmka005                Kama of the Apprentice {EPIC}            [kama]
+      ENH+16  ATK+20   wasted_tohit=16
+      where: (not placed / no source in index)
+      A) KEEP enh (does dmg+DR); atk+20 sets to-hit; overlap 16 redundant
+      B) OPTIONAL: split — enh+16 for dmg, keep atk+20 to-hit (already optimal)
+
+  bladeofhareth001         Blade of Hareth +epic+                   [scimitar]
+      ENH+15  ATK+20   wasted_tohit=15
+      where: Carried by: Hareth of the Haladin (Edoras)
+      A) KEEP enh (does dmg+DR); atk+20 sets to-hit; overlap 15 redundant
+      B) OPTIONAL: split — enh+15 for dmg, keep atk+20 to-hit (already optimal)
+
+  gondorianstaf002         Greater Gondorian Staff {EPIC}           [magicstaff]
+      ENH+15  ATK+20   wasted_tohit=15
+      where: Carried by: Sarah the Librarian (Tower of the High Wizard: The Library)
+      A) KEEP enh (does dmg+DR); atk+20 sets to-hit; overlap 15 redundant
+      B) OPTIONAL: split — enh+15 for dmg, keep atk+20 to-hit (already optimal)
+
+  swordofthewit001         Sword of The Witch King {EPIC}           [longsword]
+      ENH+15  ATK+20   wasted_tohit=15
+      where: (not placed / no source in index)
+      A) KEEP enh (does dmg+DR); atk+20 sets to-hit; overlap 15 redundant
+      B) OPTIONAL: split — enh+15 for dmg, keep atk+20 to-hit (already optimal)
+
+  warhammerofth003         War Hammer of the Stout {EPIC}           [warhammer]
+      ENH+15  ATK+20   wasted_tohit=15
+      where: (not placed / no source in index)
+      A) KEEP enh (does dmg+DR); atk+20 sets to-hit; overlap 15 redundant
+      B) OPTIONAL: split — enh+15 for dmg, keep atk+20 to-hit (already optimal)
+
+  darkdirk001              Dark Dirk{EPIC}                          [dagger]
+      ENH+14  ATK+20   wasted_tohit=14
+      where: Carried by: Radagast the Brown (Rhosgobel:  Tower)
+      A) KEEP enh (does dmg+DR); atk+20 sets to-hit; overlap 14 redundant
+      B) OPTIONAL: split — enh+14 for dmg, keep atk+20 to-hit (already optimal)
+
+  item126                  Witch King's Scythe                      [scythe]
+      ENH+13  ATK+13   wasted_tohit=13
+      where: (not placed / no source in index)
+      A) REMOVE atk (100% dead: A<=E, no power change)
+      B) CONVERT atk+13 -> Damage Bonus +13 (stacks; +13 real dmg)
+
+  maceofthedark002         Greater Mace of the Dark Priestess{EPIC} [lightmace]
+      ENH+13  ATK+20   wasted_tohit=13
+      where: (not placed / no source in index)
+      A) KEEP enh (does dmg+DR); atk+20 sets to-hit; overlap 13 redundant
+      B) OPTIONAL: split — enh+13 for dmg, keep atk+20 to-hit (already optimal)
+
+  mindmelter001            Mindmelter *epic*                        [kukri]
+      ENH+13  ATK+20   wasted_tohit=13
+      where: Carried by: Underlord of Sauron (Mount Doom: Grand Hall)
+      A) KEEP enh (does dmg+DR); atk+20 sets to-hit; overlap 13 redundant
+      B) OPTIONAL: split — enh+13 for dmg, keep atk+20 to-hit (already optimal)
+
+  rapierofangmar           Rapier of Angmar                         [rapier]
+      ENH+13  ATK+13   wasted_tohit=13
+      where: Carried by: Angmar (Angmar's Lair)
+      A) REMOVE atk (100% dead: A<=E, no power change)
+      B) CONVERT atk+13 -> Damage Bonus +13 (stacks; +13 real dmg)
+
+  item101                  Wanker's Scimitar                        [scimitar]
+      ENH+11  ATK+19   wasted_tohit=11
+      where: (not placed / no source in index)
+      A) KEEP enh (does dmg+DR); atk+19 sets to-hit; overlap 11 redundant
+      B) OPTIONAL: split — enh+11 for dmg, keep atk+19 to-hit (already optimal)
+
+  091                      Epic Spear of Victory                    [shortspear]
+      ENH+10  ATK+20   wasted_tohit=10
+      where: (not placed / no source in index)
+      A) KEEP enh (does dmg+DR); atk+20 sets to-hit; overlap 10 redundant
+      B) OPTIONAL: split — enh+10 for dmg, keep atk+20 to-hit (already optimal)
+
+  093                      The Epic Tongue of Smaug                 [Whip]
+      ENH+10  ATK+20   wasted_tohit=10
+      where: (not placed / no source in index)
+      A) KEEP enh (does dmg+DR); atk+20 sets to-hit; overlap 10 redundant
+      B) OPTIONAL: split — enh+10 for dmg, keep atk+20 to-hit (already optimal)
+
+  095                      The Tongue of Smaug                      [Whip]
+      ENH+10  ATK+20   wasted_tohit=10
+      where: (not placed / no source in index)
+      A) KEEP enh (does dmg+DR); atk+20 sets to-hit; overlap 10 redundant
+      B) OPTIONAL: split — enh+10 for dmg, keep atk+20 to-hit (already optimal)
+
+  104                      Bone Escavator                           [lightpick]
+      ENH+10  ATK+10   wasted_tohit=10
+      where: (not placed / no source in index)
+      A) REMOVE atk (100% dead: A<=E, no power change)
+      B) CONVERT atk+10 -> Damage Bonus +10 (stacks; +10 real dmg)
+
+  105                      Gold Glow                                [heavypick]
+      ENH+10  ATK+10   wasted_tohit=10
+      where: (not placed / no source in index)
+      A) REMOVE atk (100% dead: A<=E, no power change)
+      B) CONVERT atk+10 -> Damage Bonus +10 (stacks; +10 real dmg)
+
+  115                      Undead Kukri                             [kukri]
+      ENH+10  ATK+18   wasted_tohit=10
+      where: (not placed / no source in index)
+      A) KEEP enh (does dmg+DR); atk+18 sets to-hit; overlap 10 redundant
+      B) OPTIONAL: split — enh+10 for dmg, keep atk+18 to-hit (already optimal)
+
+  151                      The Sword of Hatred                      [longsword]
+      ENH+10  ATK+10   wasted_tohit=10
+      where: Carried by: Sauron's Chosen Guardian (Dol Guldur:  Tower Of Black Magic Main Hall)
+      A) REMOVE atk (100% dead: A<=E, no power change)
+      B) CONVERT atk+10 -> Damage Bonus +10 (stacks; +10 real dmg)
+
+  152                      Dark Hand's Wrath                        [kukri]
+      ENH+10  ATK+10   wasted_tohit=10
+      where: Carried by: Sauron's Chosen Guardian (Dol Guldur:  Tower Of Black Magic Main Hall)
+      A) REMOVE atk (100% dead: A<=E, no power change)
+      B) CONVERT atk+10 -> Damage Bonus +10 (stacks; +10 real dmg)
+
+  dunharrowbutc001         Lost Soul Butcher                        [battleaxe]
+      ENH+10  ATK+20   wasted_tohit=10
+      where: (not placed / no source in index)
+      A) KEEP enh (does dmg+DR); atk+20 sets to-hit; overlap 10 redundant
+      B) OPTIONAL: split — enh+10 for dmg, keep atk+20 to-hit (already optimal)
+
+  eliteorcgreataxe         Elite Orc Greataxe                       [greataxe]
+      ENH+10  ATK+10   wasted_tohit=10
+      where: (not placed / no source in index)
+      A) REMOVE atk (100% dead: A<=E, no power change)
+      B) CONVERT atk+10 -> Damage Bonus +10 (stacks; +10 real dmg)
+
+  epickama001              Epic Kama                                [kama]
+      ENH+10  ATK+15   wasted_tohit=10
+      where: (not placed / no source in index)
+      A) KEEP enh (does dmg+DR); atk+15 sets to-hit; overlap 10 redundant
+      B) OPTIONAL: split — enh+10 for dmg, keep atk+15 to-hit (already optimal)
+
+  flamestike               Flame Stike                              [shuriken]
+      ENH+10  ATK+20   wasted_tohit=10
+      where: (not placed / no source in index)
+      A) KEEP enh (does dmg+DR); atk+20 sets to-hit; overlap 10 redundant
+      B) OPTIONAL: split — enh+10 for dmg, keep atk+20 to-hit (already optimal)
+
+  glamhring003             Flame of the West {Epic}                 [bastardsword]
+      ENH+10  ATK+20   wasted_tohit=10
+      where: (not placed / no source in index)
+      A) KEEP enh (does dmg+DR); atk+20 sets to-hit; overlap 10 redundant
+      B) OPTIONAL: split — enh+10 for dmg, keep atk+20 to-hit (already optimal)
+
+  gnasher                  Gnasher                                  [kukri2]
+      ENH+10  ATK+18   wasted_tohit=10
+      where: (not placed / no source in index)
+      A) KEEP enh (does dmg+DR); atk+18 sets to-hit; overlap 10 redundant
+      B) OPTIONAL: split — enh+10 for dmg, keep atk+18 to-hit (already optimal)
+
+  gs_psionsblade           Psion's Blade                            [greatsword]
+      ENH+10  ATK+16   wasted_tohit=10
+      where: (not placed / no source in index)
+      A) KEEP enh (does dmg+DR); atk+16 sets to-hit; overlap 10 redundant
+      B) OPTIONAL: split — enh+10 for dmg, keep atk+16 to-hit (already optimal)
+
+  item076                  Epic Devil's Advocate                    [dagger]
+      ENH+10  ATK+20   wasted_tohit=10
+      where: (not placed / no source in index)
+      A) KEEP enh (does dmg+DR); atk+20 sets to-hit; overlap 10 redundant
+      B) OPTIONAL: split — enh+10 for dmg, keep atk+20 to-hit (already optimal)
+
+  item091                  Samwise's Wish                           [club]
+      ENH+10  ATK+14   wasted_tohit=10
+      where: (not placed / no source in index)
+      A) KEEP enh (does dmg+DR); atk+14 sets to-hit; overlap 10 redundant
+      B) OPTIONAL: split — enh+10 for dmg, keep atk+14 to-hit (already optimal)
+
+  item093                  Tournament Bastard Sword                 [bastardsword]
+      ENH+10  ATK+16   wasted_tohit=10
+      where: (not placed / no source in index)
+      A) KEEP enh (does dmg+DR); atk+16 sets to-hit; overlap 10 redundant
+      B) OPTIONAL: split — enh+10 for dmg, keep atk+16 to-hit (already optimal)
+
+  item098                  Flame's Bane                             [diremace]
+      ENH+10  ATK+19   wasted_tohit=10
+      where: (not placed / no source in index)
+      A) KEEP enh (does dmg+DR); atk+19 sets to-hit; overlap 10 redundant
+      B) OPTIONAL: split — enh+10 for dmg, keep atk+19 to-hit (already optimal)
+
+  mummyreaperscy           Mummy Reaper Scythe                      [scythe]
+      ENH+10  ATK+20   wasted_tohit=10
+      where: (not placed / no source in index)
+      A) KEEP enh (does dmg+DR); atk+20 sets to-hit; overlap 10 redundant
+      B) OPTIONAL: split — enh+10 for dmg, keep atk+20 to-hit (already optimal)
+
+  serpentsstaff            Serpents Staff                           [quarterstaff]
+      ENH+10  ATK+10   wasted_tohit=10
+      where: (not placed / no source in index)
+      A) REMOVE atk (100% dead: A<=E, no power change)
+      B) CONVERT atk+10 -> Damage Bonus +10 (stacks; +10 real dmg)
+
+  spearofdistany           Spear of Destiny                         [shortspear]
+      ENH+10  ATK+20   wasted_tohit=10
+      where: (not placed / no source in index)
+      A) KEEP enh (does dmg+DR); atk+20 sets to-hit; overlap 10 redundant
+      B) OPTIONAL: split — enh+10 for dmg, keep atk+20 to-hit (already optimal)
+
+  swordoftheshi001         Epic Sword of the Shieldmaiden           [longsword]
+      ENH+10  ATK+20   wasted_tohit=10
+      where: (not placed / no source in index)
+      A) KEEP enh (does dmg+DR); atk+20 sets to-hit; overlap 10 redundant
+      B) OPTIONAL: split — enh+10 for dmg, keep atk+20 to-hit (already optimal)
+
+  tournamaentlongs         Tournament Longsword                     [longsword]
+      ENH+10  ATK+16   wasted_tohit=10
+      where: (not placed / no source in index)
+      A) KEEP enh (does dmg+DR); atk+16 sets to-hit; overlap 10 redundant
+      B) OPTIONAL: split — enh+10 for dmg, keep atk+16 to-hit (already optimal)
+
+  tournamentbattle         Tournament BattleAxe                     [battleaxe]
+      ENH+10  ATK+16   wasted_tohit=10
+      where: (not placed / no source in index)
+      A) KEEP enh (does dmg+DR); atk+16 sets to-hit; overlap 10 redundant
+      B) OPTIONAL: split — enh+10 for dmg, keep atk+16 to-hit (already optimal)
+
+  tournamentclub           Tournament Club                          [club]
+      ENH+10  ATK+16   wasted_tohit=10
+      where: (not placed / no source in index)
+      A) KEEP enh (does dmg+DR); atk+16 sets to-hit; overlap 10 redundant
+      B) OPTIONAL: split — enh+10 for dmg, keep atk+16 to-hit (already optimal)
+
+  tournamentdagger         Tournament Dagger                        [dagger]
+      ENH+10  ATK+16   wasted_tohit=10
+      where: (not placed / no source in index)
+      A) KEEP enh (does dmg+DR); atk+16 sets to-hit; overlap 10 redundant
+      B) OPTIONAL: split — enh+10 for dmg, keep atk+16 to-hit (already optimal)
+
+  tournamentgreata         Tournament Greataxe                      [greataxe]
+      ENH+10  ATK+16   wasted_tohit=10
+      where: (not placed / no source in index)
+      A) KEEP enh (does dmg+DR); atk+16 sets to-hit; overlap 10 redundant
+      B) OPTIONAL: split — enh+10 for dmg, keep atk+16 to-hit (already optimal)
+
+  tournamentgreats         Tournament Greatsword                    [greatsword]
+      ENH+10  ATK+16   wasted_tohit=10
+      where: (not placed / no source in index)
+      A) KEEP enh (does dmg+DR); atk+16 sets to-hit; overlap 10 redundant
+      B) OPTIONAL: split — enh+10 for dmg, keep atk+16 to-hit (already optimal)
+
+  tournamenthal001         Greater Halberd                          [halberd]
+      ENH+10  ATK+20   wasted_tohit=10
+      where: (not placed / no source in index)
+      A) KEEP enh (does dmg+DR); atk+20 sets to-hit; overlap 10 redundant
+      B) OPTIONAL: split — enh+10 for dmg, keep atk+20 to-hit (already optimal)
+
+  tournamenthalber         Tournament Halberd                       [halberd]
+      ENH+10  ATK+16   wasted_tohit=10
+      where: (not placed / no source in index)
+      A) KEEP enh (does dmg+DR); atk+16 sets to-hit; overlap 10 redundant
+      B) OPTIONAL: split — enh+10 for dmg, keep atk+16 to-hit (already optimal)
+
+  tournamentkama           Tournament Kama                          [kama]
+      ENH+10  ATK+16   wasted_tohit=10
+      where: (not placed / no source in index)
+      A) KEEP enh (does dmg+DR); atk+16 sets to-hit; overlap 10 redundant
+      B) OPTIONAL: split — enh+10 for dmg, keep atk+16 to-hit (already optimal)
+
+  tournamentkuk001         Tournament Kukri                         [kukri]
+      ENH+10  ATK+16   wasted_tohit=10
+      where: (not placed / no source in index)
+      A) KEEP enh (does dmg+DR); atk+16 sets to-hit; overlap 10 redundant
+      B) OPTIONAL: split — enh+10 for dmg, keep atk+16 to-hit (already optimal)
+
+  tournamentkukri          Kukri 2                                  [kukri2]
+      ENH+10  ATK+20   wasted_tohit=10
+      where: (not placed / no source in index)
+      A) KEEP enh (does dmg+DR); atk+20 sets to-hit; overlap 10 redundant
+      B) OPTIONAL: split — enh+10 for dmg, keep atk+20 to-hit (already optimal)
+
+  tournamentmace           Tournament Mace                          [lightmace]
+      ENH+10  ATK+16   wasted_tohit=10
+      where: (not placed / no source in index)
+      A) KEEP enh (does dmg+DR); atk+16 sets to-hit; overlap 10 redundant
+      B) OPTIONAL: split — enh+10 for dmg, keep atk+16 to-hit (already optimal)
+
+  tournamentmaugdo         Tournament Maug DoubleSword              [maugdoublesword]
+      ENH+10  ATK+20   wasted_tohit=10
+      where: (not placed / no source in index)
+      A) KEEP enh (does dmg+DR); atk+20 sets to-hit; overlap 10 redundant
+      B) OPTIONAL: split — enh+10 for dmg, keep atk+20 to-hit (already optimal)
+
+  tournamentmornin         Tournament Morningstar                   [morningstar]
+      ENH+10  ATK+16   wasted_tohit=10
+      where: (not placed / no source in index)
+      A) KEEP enh (does dmg+DR); atk+16 sets to-hit; overlap 10 redundant
+      B) OPTIONAL: split — enh+10 for dmg, keep atk+16 to-hit (already optimal)
+
+  tournamentscimit         Tournament Scimitar                      [scimitar]
+      ENH+10  ATK+16   wasted_tohit=10
+      where: (not placed / no source in index)
+      A) KEEP enh (does dmg+DR); atk+16 sets to-hit; overlap 10 redundant
+      B) OPTIONAL: split — enh+10 for dmg, keep atk+16 to-hit (already optimal)
+
+  tournamentscythe         Tournament Scythe                        [scythe]
+      ENH+10  ATK+16   wasted_tohit=10
+      where: (not placed / no source in index)
+      A) KEEP enh (does dmg+DR); atk+16 sets to-hit; overlap 10 redundant
+      B) OPTIONAL: split — enh+10 for dmg, keep atk+16 to-hit (already optimal)
+
+  tournamentshorts         Tournament Short Sword                   [shortsword]
+      ENH+10  ATK+16   wasted_tohit=10
+      where: (not placed / no source in index)
+      A) KEEP enh (does dmg+DR); atk+16 sets to-hit; overlap 10 redundant
+      B) OPTIONAL: split — enh+10 for dmg, keep atk+16 to-hit (already optimal)
+
+  tournamentwarham         Tournament Warhammer                     [warhammer]
+      ENH+10  ATK+16   wasted_tohit=10
+      where: (not placed / no source in index)
+      A) KEEP enh (does dmg+DR); atk+16 sets to-hit; overlap 10 redundant
+      B) OPTIONAL: split — enh+10 for dmg, keep atk+16 to-hit (already optimal)
+
+  wswmrp006                The Sand Piper                           [rapier]
+      ENH+10  ATK+20   wasted_tohit=10
+      where: (not placed / no source in index)
+      A) KEEP enh (does dmg+DR); atk+20 sets to-hit; overlap 10 redundant
+      B) OPTIONAL: split — enh+10 for dmg, keep atk+20 to-hit (already optimal)
+
+  wthmsh004                Somango                                  [shuriken]
+      ENH+10  ATK+16   wasted_tohit=10
+      where: (not placed / no source in index)
+      A) KEEP enh (does dmg+DR); atk+16 sets to-hit; overlap 10 redundant
+      B) OPTIONAL: split — enh+10 for dmg, keep atk+16 to-hit (already optimal)
+
+  108                      Gilded Blade                             [longsword]
+      ENH+9   ATK+9    wasted_tohit=9
+      where: Carried by: Elite Rohirrim Warrior (Helm's Deep: Cave); Carried by: Elite Rohirrim Warrior (Path To Helm's Deep)
+      A) REMOVE atk (100% dead: A<=E, no power change)
+      B) CONVERT atk+9 -> Damage Bonus +9 (stacks; +9 real dmg)
+
+  falsehope                False Hope                               [scimitar]
+      ENH+9   ATK+19   wasted_tohit=9
+      where: (not placed / no source in index)
+      A) KEEP enh (does dmg+DR); atk+19 sets to-hit; overlap 9 redundant
+      B) OPTIONAL: split — enh+9 for dmg, keep atk+19 to-hit (already optimal)
+
+  item058                  The Prince's Lil Blade                   [shortsword]
+      ENH+9   ATK+18   wasted_tohit=9
+      where: (not placed / no source in index)
+      A) KEEP enh (does dmg+DR); atk+18 sets to-hit; overlap 9 redundant
+      B) OPTIONAL: split — enh+9 for dmg, keep atk+18 to-hit (already optimal)
+
+  impaler                  Impaler                                  [falchion_2]
+      ENH+8   ATK+20   wasted_tohit=8
+      where: (not placed / no source in index)
+      A) KEEP enh (does dmg+DR); atk+20 sets to-hit; overlap 8 redundant
+      B) OPTIONAL: split — enh+8 for dmg, keep atk+20 to-hit (already optimal)
+
+  kukriofthemum001         Mindmelt of the Mummylord [EPIC]         [kukri2]
+      ENH+8   ATK+20   wasted_tohit=8
+      where: (not placed / no source in index)
+      A) KEEP enh (does dmg+DR); atk+20 sets to-hit; overlap 8 redundant
+      B) OPTIONAL: split — enh+8 for dmg, keep atk+20 to-hit (already optimal)
+
+  spearofdestany           Spear of Destany                         [shortspear]
+      ENH+8   ATK+20   wasted_tohit=8
+      where: (not placed / no source in index)
+      A) KEEP enh (does dmg+DR); atk+20 sets to-hit; overlap 8 redundant
+      B) OPTIONAL: split — enh+8 for dmg, keep atk+20 to-hit (already optimal)
+
+  thegutter                The Gutter                               [shortsword]
+      ENH+8   ATK+8    wasted_tohit=8
+      where: (not placed / no source in index)
+      A) REMOVE atk (100% dead: A<=E, no power change)
+      B) CONVERT atk+8 -> Damage Bonus +8 (stacks; +8 real dmg)
+
+  wswmgs007                Harbinger Kin +8 [Mt Doom]               [greatsword]
+      ENH+8   ATK+20   wasted_tohit=8
+      where: (not placed / no source in index)
+      A) KEEP enh (does dmg+DR); atk+20 sets to-hit; overlap 8 redundant
+      B) OPTIONAL: split — enh+8 for dmg, keep atk+20 to-hit (already optimal)
+
+  bladeofthedan001         Blade of the Dancer{EPIC)                [shortsword]
+      ENH+7   ATK+20   wasted_tohit=7
+      where: (not placed / no source in index)
+      A) KEEP enh (does dmg+DR); atk+20 sets to-hit; overlap 7 redundant
+      B) OPTIONAL: split — enh+7 for dmg, keep atk+20 to-hit (already optimal)
+
+  item027                  Thuringwethil's Edge                     [scimitar]
+      ENH+7   ATK+20   wasted_tohit=7
+      where: (not placed / no source in index)
+      A) KEEP enh (does dmg+DR); atk+20 sets to-hit; overlap 7 redundant
+      B) OPTIONAL: split — enh+7 for dmg, keep atk+20 to-hit (already optimal)
+
+  mountdoomdecayer         Mount Doom Decayer                       [scythe]
+      ENH+13  ATK+7    wasted_tohit=7
+      where: (not placed / no source in index)
+      A) REMOVE atk (100% dead: A<=E, no power change)
+      B) CONVERT atk+7 -> Damage Bonus +7 (stacks; +7 real dmg)
+
+  thegnasher               The Gnasher                              [handaxe]
+      ENH+7   ATK+10   wasted_tohit=7
+      where: (not placed / no source in index)
+      A) KEEP enh (does dmg+DR); atk+10 sets to-hit; overlap 7 redundant
+      B) OPTIONAL: split — enh+7 for dmg, keep atk+10 to-hit (already optimal)
+
+  deadlywhisper            Deadly Whisper                           [rapier]
+      ENH+12  ATK+6    wasted_tohit=6
+      where: (not placed / no source in index)
+      A) REMOVE atk (100% dead: A<=E, no power change)
+      B) CONVERT atk+6 -> Damage Bonus +6 (stacks; +6 real dmg)
+
+  easterlingfury           Easterling Fury                          [greataxe]
+      ENH+7   ATK+6    wasted_tohit=6
+      where: (not placed / no source in index)
+      A) REMOVE atk (100% dead: A<=E, no power change)
+      B) CONVERT atk+6 -> Damage Bonus +6 (stacks; +6 real dmg)
+
+  kukriofthereckle         Kukri of the Reckles Orc                 [kukri2]
+      ENH+6   ATK+6    wasted_tohit=6
+      where: (not placed / no source in index)
+      A) REMOVE atk (100% dead: A<=E, no power change)
+      B) CONVERT atk+6 -> Damage Bonus +6 (stacks; +6 real dmg)
+
+  ls_bladeofros002         Blade of Roses +6                        [longsword]
+      ENH+6   ATK+6    wasted_tohit=6
+      where: (not placed / no source in index)
+      A) REMOVE atk (100% dead: A<=E, no power change)
+      B) CONVERT atk+6 -> Damage Bonus +6 (stacks; +6 real dmg)
+
+  ls_bladeofros003         Blade of Roses +6                        [longsword]
+      ENH+6   ATK+6    wasted_tohit=6
+      where: (not placed / no source in index)
+      A) REMOVE atk (100% dead: A<=E, no power change)
+      B) CONVERT atk+6 -> Damage Bonus +6 (stacks; +6 real dmg)
+
+  ls_bladeofroses          Blade of Roses +6                        [longsword]
+      ENH+6   ATK+6    wasted_tohit=6
+      where: (not placed / no source in index)
+      A) REMOVE atk (100% dead: A<=E, no power change)
+      B) CONVERT atk+6 -> Damage Bonus +6 (stacks; +6 real dmg)
+
+  smaugsbane001            Smaug's Bane                             [diremace]
+      ENH+6   ATK+11   wasted_tohit=6
+      where: Carried by: Lake Town Defender (Esgaroth (Lake Town))
+      A) KEEP enh (does dmg+DR); atk+11 sets to-hit; overlap 6 redundant
+      B) OPTIONAL: split — enh+6 for dmg, keep atk+11 to-hit (already optimal)
+
+  thebladeofthe002         the blade of the dead                    [scimitar]
+      ENH+6   ATK+10   wasted_tohit=6
+      where: (not placed / no source in index)
+      A) KEEP enh (does dmg+DR); atk+10 sets to-hit; overlap 6 redundant
+      B) OPTIONAL: split — enh+6 for dmg, keep atk+10 to-hit (already optimal)
+
+  thebladeofthe003         the blade of the dead                    [scimitar]
+      ENH+6   ATK+10   wasted_tohit=6
+      where: (not placed / no source in index)
+      A) KEEP enh (does dmg+DR); atk+10 sets to-hit; overlap 6 redundant
+      B) OPTIONAL: split — enh+6 for dmg, keep atk+10 to-hit (already optimal)
+
+  thebladeofthedea         the blade of the dead                    [scimitar]
+      ENH+6   ATK+10   wasted_tohit=6
+      where: (not placed / no source in index)
+      A) KEEP enh (does dmg+DR); atk+10 sets to-hit; overlap 6 redundant
+      B) OPTIONAL: split — enh+6 for dmg, keep atk+10 to-hit (already optimal)
+
+  whitejitte               White Jitte                              [sai]
+      ENH+6   ATK+6    wasted_tohit=6
+      where: (not placed / no source in index)
+      A) REMOVE atk (100% dead: A<=E, no power change)
+      B) CONVERT atk+6 -> Damage Bonus +6 (stacks; +6 real dmg)
+
+  015                      Smash                                    [diremace]
+      ENH+5   ATK+20   wasted_tohit=5
+      where: Carried by: Gate Giant (Morannon - The Black Gate)
+      A) KEEP enh (does dmg+DR); atk+20 sets to-hit; overlap 5 redundant
+      B) OPTIONAL: split — enh+5 for dmg, keep atk+20 to-hit (already optimal)
+
+  bastardswordofth         Bastard Sword of the Fallen Hero         [bastardsword]
+      ENH+5   ATK+10   wasted_tohit=5
+      where: (not placed / no source in index)
+      A) KEEP enh (does dmg+DR); atk+10 sets to-hit; overlap 5 redundant
+      B) OPTIONAL: split — enh+5 for dmg, keep atk+10 to-hit (already optimal)
+
+  kukri051                 Slice of Death                           [kukri]
+      ENH+10  ATK+5    wasted_tohit=5
+      where: Carried by: Dunlending Shock Trooper (Isengard (Innerrim)); Carried by: Dunlending Shock Trooper (Isengard (Outerrim)); Carried by: Mordor Orc Bowman (Ered Duath Road: A) ...
+      A) REMOVE atk (100% dead: A<=E, no power change)
+      B) CONVERT atk+5 -> Damage Bonus +5 (stacks; +5 real dmg)
+
+  scimitar006              Scimitar of the Marshall                 [scimitar]
+      ENH+5   ATK+16   wasted_tohit=5
+      where: (not placed / no source in index)
+      A) KEEP enh (does dmg+DR); atk+16 sets to-hit; overlap 5 redundant
+      B) OPTIONAL: split — enh+5 for dmg, keep atk+16 to-hit (already optimal)
+
+  swordoflifest002         Sword of Life Stealing                   [longsword]
+      ENH+5   ATK+5    wasted_tohit=5
+      where: (not placed / no source in index)
+      A) REMOVE atk (100% dead: A<=E, no power change)
+      B) CONVERT atk+5 -> Damage Bonus +5 (stacks; +5 real dmg)
+
+  bladesofthedeath         Blades of the Death Dealer               [twobladedsword]
+      ENH+4   ATK+10   wasted_tohit=4
+      where: (not placed / no source in index)
+      A) KEEP enh (does dmg+DR); atk+10 sets to-hit; overlap 4 redundant
+      B) OPTIONAL: split — enh+4 for dmg, keep atk+10 to-hit (already optimal)
+
+  halberd007               Halberd of the Elite Rohirrim            [halberd]
+      ENH+8   ATK+4    wasted_tohit=4
+      where: (not placed / no source in index)
+      A) REMOVE atk (100% dead: A<=E, no power change)
+      B) CONVERT atk+4 -> Damage Bonus +4 (stacks; +4 real dmg)
+
+  warhammerofth001         Warhammer of the Life Sapper             [warhammer]
+      ENH+6   ATK+4    wasted_tohit=4
+      where: Carried by: White Hand Enervator (Isengard (Innerrim))
+      A) REMOVE atk (100% dead: A<=E, no power change)
+      B) CONVERT atk+4 -> Damage Bonus +4 (stacks; +4 real dmg)
+
+  greataxeofakulat         Greataxe of Akulatraxas                  [greataxe]
+      ENH+10  ATK+3    wasted_tohit=3
+      where: (not placed / no source in index)
+      A) REMOVE atk (100% dead: A<=E, no power change)
+      B) CONVERT atk+3 -> Damage Bonus +3 (stacks; +3 real dmg)
+
+  hammerofmidnight         Hammer of Midnight                       [lighthammer]
+      ENH+3   ATK+18   wasted_tohit=3
+      where: (not placed / no source in index)
+      A) KEEP enh (does dmg+DR); atk+18 sets to-hit; overlap 3 redundant
+      B) OPTIONAL: split — enh+3 for dmg, keep atk+18 to-hit (already optimal)
+
+  item                     Khamûl's Sword                           [longsword]
+      ENH+10  ATK+3    wasted_tohit=3
+      where: Carried by: Banker (Bank of Bree )
+      A) REMOVE atk (100% dead: A<=E, no power change)
+      B) CONVERT atk+3 -> Damage Bonus +3 (stacks; +3 real dmg)
+
+  item017                  Sauron's Smite                           [club]
+      ENH+8   ATK+3    wasted_tohit=3
+      where: (not placed / no source in index)
+      A) REMOVE atk (100% dead: A<=E, no power change)
+      B) CONVERT atk+3 -> Damage Bonus +3 (stacks; +3 real dmg)
+
+  kukriofthemummyl         Mindmelter of the Mummylord              [kukri2]
+      ENH+4   ATK+3    wasted_tohit=3
+      where: (not placed / no source in index)
+      A) REMOVE atk (100% dead: A<=E, no power change)
+      B) CONVERT atk+3 -> Damage Bonus +3 (stacks; +3 real dmg)
+
+  badbrains002             Bad Brains                               [Whip]
+      ENH+2   ATK+18   wasted_tohit=2
+      where: (not placed / no source in index)
+      A) KEEP enh (does dmg+DR); atk+18 sets to-hit; overlap 2 redundant
+      B) OPTIONAL: split — enh+2 for dmg, keep atk+18 to-hit (already optimal)
+
+  spearoftheroh004         Greater Spear of the Ridermark           [shortspear]
+      ENH+2   ATK+16   wasted_tohit=2
+      where: (not placed / no source in index)
+      A) KEEP enh (does dmg+DR); atk+16 sets to-hit; overlap 2 redundant
+      B) OPTIONAL: split — enh+2 for dmg, keep atk+16 to-hit (already optimal)
+
+
+6c. SINGLE-ITEM CONFLICT -- MONSTER NATURAL WEAPONS (low priority -- bug barely matters on NPCs)
+------------------------------------------------------------------------------
+  chosenfist               chosen fist                              [cpiercweapon]
+      ENH+20  ATK+20   wasted_tohit=20
+      where: Carried by: Theoden's Chosen (Helm's Deep: Cave); Carried by: Bishop of Sauron (Mount Doom: Grand Hall)
+      A) REMOVE atk (100% dead: A<=E, no power change)
+      B) CONVERT atk+20 -> Damage Bonus +20 (stacks; +20 real dmg)
+
+  chosenfist001            Pet Rock                                 [cpiercweapon]
+      ENH+20  ATK+20   wasted_tohit=20
+      where: (not placed / no source in index)
+      A) REMOVE atk (100% dead: A<=E, no power change)
+      B) CONVERT atk+20 -> Damage Bonus +20 (stacks; +20 real dmg)
+
+  chosenfist002            hobbit                                   [cpiercweapon]
+      ENH+20  ATK+20   wasted_tohit=20
+      where: Carried by: Hobbit (Hobbiton)
+      A) REMOVE atk (100% dead: A<=E, no power change)
+      B) CONVERT atk+20 -> Damage Bonus +20 (stacks; +20 real dmg)
+
+  devstatingcla001         Devstating Claw 2                        [cslshprcweap]
+      ENH+20  ATK+20   wasted_tohit=20
+      where: Carried by: High Priest of Morannon (The Temple of Morannon)
+      A) REMOVE atk (100% dead: A<=E, no power change)
+      B) CONVERT atk+20 -> Damage Bonus +20 (stacks; +20 real dmg)
+
+  epicdragonknib           Epic Dragon Knight Bite                  [cpiercweapon]
+      ENH+20  ATK+20   wasted_tohit=20
+      where: (not placed / no source in index)
+      A) REMOVE atk (100% dead: A<=E, no power change)
+      B) CONVERT atk+20 -> Damage Bonus +20 (stacks; +20 real dmg)
+
+  it_crewp_drac001         Mazguls Claw                             [cslshprcweap]
+      ENH+20  ATK+20   wasted_tohit=20
+      where: Carried by: Nazgul (Temple of Nazgul)
+      A) REMOVE atk (100% dead: A<=E, no power change)
+      B) CONVERT atk+20 -> Damage Bonus +20 (stacks; +20 real dmg)
+
+  it_crewpb009             Greater Warrior/Greater Mummy Slam       [cbludgweapon]
+      ENH+20  ATK+20   wasted_tohit=20
+      where: (not placed / no source in index)
+      A) REMOVE atk (100% dead: A<=E, no power change)
+      B) CONVERT atk+20 -> Damage Bonus +20 (stacks; +20 real dmg)
+
+  it_crewps066             Saruman's Greater Familiar Bite Level 40 [cslashweapon]
+      ENH+20  ATK+20   wasted_tohit=20
+      where: Carried by: Sarumon's Master Experiment (Tower of Orthanc: Saruman's Chambers)
+      A) REMOVE atk (100% dead: A<=E, no power change)
+      B) CONVERT atk+20 -> Damage Bonus +20 (stacks; +20 real dmg)
+
+  it_crewpsp022            Balrog's Battle Claw                     [cslshprcweap]
+      ENH+20  ATK+20   wasted_tohit=20
+      where: Carried by: The Balrog of Moria (Moria: The Balrog of Moria)
+      A) REMOVE atk (100% dead: A<=E, no power change)
+      B) CONVERT atk+20 -> Damage Bonus +20 (stacks; +20 real dmg)
+
+  it_crewpsp045            H2O Elmental Claw Level 40               [cslshprcweap]
+      ENH+20  ATK+20   wasted_tohit=20
+      where: (not placed / no source in index)
+      A) REMOVE atk (100% dead: A<=E, no power change)
+      B) CONVERT atk+20 -> Damage Bonus +20 (stacks; +20 real dmg)
+
+  it_crewpsp046            Frost Claw                               [cslshprcweap]
+      ENH+20  ATK+20   wasted_tohit=20
+      where: Carried by: Frost (Emyn Arnen: Peak)
+      A) REMOVE atk (100% dead: A<=E, no power change)
+      B) CONVERT atk+20 -> Damage Bonus +20 (stacks; +20 real dmg)
+
+  it_crewpsp047            Flame Claw                               [cslshprcweap]
+      ENH+20  ATK+20   wasted_tohit=20
+      where: (not placed / no source in index)
+      A) REMOVE atk (100% dead: A<=E, no power change)
+      B) CONVERT atk+20 -> Damage Bonus +20 (stacks; +20 real dmg)
+
+  summanusclaw             summanus claw                            [cpiercweapon]
+      ENH+20  ATK+20   wasted_tohit=20
+      where: Carried by: Summanus (Númenor:  Noirinan)
+      A) REMOVE atk (100% dead: A<=E, no power change)
+      B) CONVERT atk+20 -> Damage Bonus +20 (stacks; +20 real dmg)
+
+  gollumsfist              Gollums fist                             [cbludgweapon]
+      ENH+18  ATK+20   wasted_tohit=18
+      where: Carried by: Gollum (Gollum's Chambers)
+      A) KEEP enh (does dmg+DR); atk+20 sets to-hit; overlap 18 redundant
+      B) OPTIONAL: split — enh+18 for dmg, keep atk+20 to-hit (already optimal)
+
+  epicdragonknic           Epic Dragon Knight Claw                  [cslshprcweap]
+      ENH+15  ATK+20   wasted_tohit=15
+      where: (not placed / no source in index)
+      A) KEEP enh (does dmg+DR); atk+20 sets to-hit; overlap 15 redundant
+      B) OPTIONAL: split — enh+15 for dmg, keep atk+20 to-hit (already optimal)
+
+  hugedragonclaw           Huge Dragon Claw/Wing                    [cslshprcweap]
+      ENH+15  ATK+20   wasted_tohit=15
+      where: Carried by: Great Black Dragon (Temple of Nazgul)
+      A) KEEP enh (does dmg+DR); atk+20 sets to-hit; overlap 15 redundant
+      B) OPTIONAL: split — enh+15 for dmg, keep atk+20 to-hit (already optimal)
+
+  ooze                     Ooze                                     [cbludgweapon]
+      ENH+15  ATK+20   wasted_tohit=15
+      where: (not placed / no source in index)
+      A) KEEP enh (does dmg+DR); atk+20 sets to-hit; overlap 15 redundant
+      B) OPTIONAL: split — enh+15 for dmg, keep atk+20 to-hit (already optimal)
+
+  wraithsfist              Wraiths Warriors Fist                    [cbludgweapon]
+      ENH+15  ATK+20   wasted_tohit=15
+      where: (not placed / no source in index)
+      A) KEEP enh (does dmg+DR); atk+20 sets to-hit; overlap 15 redundant
+      B) OPTIONAL: split — enh+15 for dmg, keep atk+20 to-hit (already optimal)
+
+  frostbite001             Frostbite                                [cpiercweapon]
+      ENH+14  ATK+20   wasted_tohit=14
+      where: (not placed / no source in index)
+      A) KEEP enh (does dmg+DR); atk+20 sets to-hit; overlap 14 redundant
+      B) OPTIONAL: split — enh+14 for dmg, keep atk+20 to-hit (already optimal)
+
+  batbite                  bat bite                                 [cslshprcweap]
+      ENH+10  ATK+20   wasted_tohit=10
+      where: (not placed / no source in index)
+      A) KEEP enh (does dmg+DR); atk+20 sets to-hit; overlap 10 redundant
+      B) OPTIONAL: split — enh+10 for dmg, keep atk+20 to-hit (already optimal)
+
+  it_crewps065             Saruman's Familiar Bite Level 40         [cslashweapon]
+      ENH+10  ATK+15   wasted_tohit=10
+      where: Carried by: Sarumon's Experiment (Tower of Orthanc: Saruman's Chambers)
+      A) KEEP enh (does dmg+DR); atk+15 sets to-hit; overlap 10 redundant
+      B) OPTIONAL: split — enh+10 for dmg, keep atk+15 to-hit (already optimal)
+
+  it_crewpsp003            Claw1d2 / 2d10 acid Giant Spider         [cslshprcweap]
+      ENH+10  ATK+10   wasted_tohit=10
+      where: Carried by: White Widow (Old Forest)
+      A) REMOVE atk (100% dead: A<=E, no power change)
+      B) CONVERT atk+10 -> Damage Bonus +10 (stacks; +10 real dmg)
+
+  kerufallsfistsof         Kerufalls Fists of Fury                  [cbludgweapon]
+      ENH+20  ATK+10   wasted_tohit=10
+      where: Carried by: Kerufall (Kerufall's Lair)
+      A) REMOVE atk (100% dead: A<=E, no power change)
+      B) CONVERT atk+10 -> Damage Bonus +10 (stacks; +10 real dmg)
+
+  vampirictouch            Vampiric Touch                           [cbludgweapon]
+      ENH+10  ATK+20   wasted_tohit=10
+      where: Carried by: Vampiric Mist (Temple of Nazgul)
+      A) KEEP enh (does dmg+DR); atk+20 sets to-hit; overlap 10 redundant
+      B) OPTIONAL: split — enh+10 for dmg, keep atk+20 to-hit (already optimal)
+
+  crewplcl001              LostSoul Claw                            [cslshprcweap]
+      ENH+6   ATK+19   wasted_tohit=6
+      where: (not placed / no source in index)
+      A) KEEP enh (does dmg+DR); atk+19 sets to-hit; overlap 6 redundant
+      B) OPTIONAL: split — enh+6 for dmg, keep atk+19 to-hit (already optimal)
+
+  golemslammer             Golemslammer                             [cbludgweapon]
+      ENH+5   ATK+5    wasted_tohit=5
+      where: Carried by: A Golden Protector (Kerufall's Lair)
+      A) REMOVE atk (100% dead: A<=E, no power change)
+      B) CONVERT atk+5 -> Damage Bonus +5 (stacks; +5 real dmg)
+
+  it_crewps006             Doom Beetle Bite                         [cslashweapon]
+      ENH+5   ATK+15   wasted_tohit=5
+      where: Carried by: Skeleton of Doom (Mount Doom: Upper Level)
+      A) KEEP enh (does dmg+DR); atk+15 sets to-hit; overlap 5 redundant
+      B) OPTIONAL: split — enh+5 for dmg, keep atk+15 to-hit (already optimal)
+
+  it_crewpsp021            Zombie, Tyrantfog Claw                   [cslshprcweap]
+      ENH+5   ATK+15   wasted_tohit=5
+      where: Carried by: Zombie of Dol Guldur (Mirkwood: Dol Guldur)
+      A) KEEP enh (does dmg+DR); atk+15 sets to-hit; overlap 5 redundant
+      B) OPTIONAL: split — enh+5 for dmg, keep atk+15 to-hit (already optimal)
+
+  it_crewpsp024            Homer Claw                               [cslshprcweap]
+      ENH+20  ATK+1    wasted_tohit=1
+      where: (not placed / no source in index)
+      A) REMOVE atk (100% dead: A<=E, no power change)
+      B) CONVERT atk+1 -> Damage Bonus +1 (stacks; +1 real dmg)
+
+
+7. APPENDIX -- reproduce this audit
+------------------------------------------------------------------------------
+  Conflict set = every *.uti.json whose PropertiesList contains BOTH
+  PropertyName 6 (Enhancement) and 56 (Attack Bonus). jq one-liner:
+
+    cd unpacked
+    for f in *.uti.json; do jq -r --arg f "$f" '
+      [.PropertiesList.value[].PropertyName.value] as $p
+      | select(($p|index(6)) and ($p|index(56)))
+      | [$f,(.BaseItem.value)] | @tsv' "$f" 2>/dev/null; done
+
+  Total conflicting blueprints: 253
+==============================================================================
