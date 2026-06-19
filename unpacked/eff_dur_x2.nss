@@ -44,6 +44,8 @@ void main()
     if (fDur <= 0.0)
         return;
 
+    // Requires the NWNX_Effect plugin (NWNX_EFFECT_SKIP=n in server.env).
+
     // Optional: spells whose duration is deliberately fixed and should NOT double can
     // be excluded here, e.g.:
     //   int nSpell = StringToInt(NWNX_Events_GetEventData("SPELL_ID"));
