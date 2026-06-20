@@ -29,4 +29,7 @@ void main()
     }
     else
         SetLocalInt(oPC, "FORGE_RVT_OK", FALSE);
+    // Reverting an item changes the contraband picture — refresh the cached gate
+    // verdict off the hot path so the release reply tracks the new state.
+    ForgeBeginWardenScan(oPC);
 }

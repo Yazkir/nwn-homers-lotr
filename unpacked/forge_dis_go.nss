@@ -21,4 +21,7 @@ void main()
     }
     // Refresh the list tokens for the re-shown menu.
     ForgeDisenchantSetup(oPC, oItem);
+    // Disenchanting may have made the PC lawful — refresh the cached gate
+    // verdict off the hot path so the release reply can appear on the next click.
+    ForgeBeginWardenScan(oPC);
 }

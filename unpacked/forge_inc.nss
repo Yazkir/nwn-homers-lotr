@@ -361,24 +361,38 @@ int ForgeRevertSeen(object oItem, object oPC)
         == GetLocalInt(oPC, "FORGE_RVT_RUN");
 }
 
+// An item the login/Warden scan already verified legal carries the current
+// FORGE_CLEAN stamp. Legality is intrinsic to the item and a forge clears the
+// stamp on any change (see modifyitem / forge_dis_go), so a stamped item can be
+// skipped without re-running the expensive valuation — this is what keeps the
+// synchronous scanners (revert-all loop, release guard) under the instruction
+// cap once an inventory has been scanned.
+int ForgeIsKnownClean(object oItem)
+{
+    return GetLocalInt(oItem, "FORGE_CLEAN") == FORGE_CLEAN_VER;
+}
+
 // First illegal item on the PC: equipped slots, then inventory, descending
 // one level into containers (bags can't nest in NWN). bSkipMarked skips items
 // already handled by the current revert-all pass (see ForgeRevertSeen) — they
-// still count as illegal everywhere else.
+// still count as illegal everywhere else. Clean-stamped items are skipped before
+// the costly legality check (short-circuit), so a fully-scanned inventory costs
+// little here.
 object ForgeFindIllegalItem(object oPC, int bSkipMarked = FALSE)
 {
     int nSlot;
     for (nSlot = 0; nSlot < NUM_INVENTORY_SLOTS; nSlot++)
     {
         object oItem = GetItemInSlot(nSlot, oPC);
-        if (GetIsObjectValid(oItem) && ForgeIsItemIllegal(oItem)
+        if (GetIsObjectValid(oItem) && !ForgeIsKnownClean(oItem)
+            && ForgeIsItemIllegal(oItem)
             && !(bSkipMarked && ForgeRevertSeen(oItem, oPC)))
             return oItem;
     }
     object oItem = GetFirstItemInInventory(oPC);
     while (GetIsObjectValid(oItem))
     {
-        if (ForgeIsItemIllegal(oItem)
+        if (!ForgeIsKnownClean(oItem) && ForgeIsItemIllegal(oItem)
             && !(bSkipMarked && ForgeRevertSeen(oItem, oPC)))
             return oItem;
         if (GetHasInventory(oItem))
@@ -386,7 +400,7 @@ object ForgeFindIllegalItem(object oPC, int bSkipMarked = FALSE)
             object oInBag = GetFirstItemInInventory(oItem);
             while (GetIsObjectValid(oInBag))
             {
-                if (ForgeIsItemIllegal(oInBag)
+                if (!ForgeIsKnownClean(oInBag) && ForgeIsItemIllegal(oInBag)
                     && !(bSkipMarked && ForgeRevertSeen(oInBag, oPC)))
                     return oInBag;
                 oInBag = GetNextItemInInventory(oItem);
@@ -545,6 +559,11 @@ void ForgeJailForItem(object oPC, object oBad)
     if (!GetIsObjectValid(oBad))
         return;
     SetLocalObject(oPC, "FORGE_ILLEGAL_ITEM", oBad);
+    // Seed the Warden's O(1) gate verdict: the scan just proved this item
+    // illegal, so the gates can trust "dirty" the moment the PC arrives, with
+    // no need to re-scan a (possibly huge) inventory inside a StartingConditional.
+    SetLocalInt(oPC, "FORGE_WARDEN_DIRTY", TRUE);
+    SetLocalInt(oPC, "FORGE_WARDEN_READY", TRUE);
     ForgeLog("Jailing " + GetName(oPC) + " for item '" + GetName(oBad)
         + "' (resref " + GetResRef(oBad) + ", props "
         + IntToString(ForgeCountProps(oBad)) + ", value "
@@ -576,17 +595,14 @@ void ForgeJailIfIllegal(object oPC)
     ForgeJailForItem(oPC, ForgeFindIllegalItem(oPC));
 }
 
-// Begin a chunked contraband scan of oPC. Cheaply enumerates equipment, then
-// inventory and one level of bag contents into ordered item-handle locals
-// (FORGE_SCAN_0..N-1, count FORGE_SCAN_N, cursor FORGE_SCAN_I), then kicks off
-// forge_scan_step which evaluates ONE item per delayed step — each step gets a
-// fresh NWScript instruction budget, so a full inventory can't overflow. This
-// enumeration pass does no valuation/blueprint work, so it is cheap even for a
-// large inventory.
-void ForgeBeginScan(object oPC)
+// Enumerate oPC's equipment, then inventory and one level of bag contents into
+// ordered item-handle locals (FORGE_SCAN_0..N-1, count FORGE_SCAN_N, cursor
+// FORGE_SCAN_I reset to 0). Returns the item count. This pass does no
+// valuation/blueprint work, so it is cheap even for a large inventory; the
+// per-item cost is paid one item at a time by forge_scan_step. Shared by the
+// login (jail) scan and the Warden (verdict) scan.
+int ForgeEnqueueScan(object oPC)
 {
-    if (!GetIsPC(oPC) || GetIsDM(oPC))
-        return;
     int n = 0;
     int nSlot;
     for (nSlot = 0; nSlot < NUM_INVENTORY_SLOTS; nSlot++)
@@ -612,6 +628,43 @@ void ForgeBeginScan(object oPC)
     }
     SetLocalInt(oPC, "FORGE_SCAN_N", n);
     SetLocalInt(oPC, "FORGE_SCAN_I", 0);
+    return n;
+}
+
+// Begin a chunked contraband scan of oPC in LOGIN mode: forge_scan_step
+// evaluates ONE item per delayed step — each step gets a fresh NWScript
+// instruction budget, so a full inventory can't overflow — and jails the bearer
+// on the first illegal item.
+void ForgeBeginScan(object oPC)
+{
+    if (!GetIsPC(oPC) || GetIsDM(oPC))
+        return;
+    SetLocalInt(oPC, "FORGE_SCAN_MODE", 0); // login/jail mode
+    int n = ForgeEnqueueScan(oPC);
     if (n > 0)
         DelayCommand(0.1, ExecuteScript("forge_scan_step", oPC));
+}
+
+// Begin a chunked scan of oPC in WARDEN VERDICT mode: forge_scan_step records
+// the contraband verdict into FORGE_WARDEN_DIRTY / FORGE_WARDEN_READY (and
+// FORGE_ILLEGAL_ITEM) WITHOUT jailing, so the Forge Warden's dialog gates
+// (forge_ward_c_il / forge_ward_c_ok) can read an O(1) cached result instead of
+// scanning a whole inventory inside a StartingConditional (the cause of the
+// TOO MANY INSTRUCTIONS prison trap). Refreshed on each mutating Warden action.
+void ForgeBeginWardenScan(object oPC)
+{
+    if (!GetIsPC(oPC) || GetIsDM(oPC))
+        return;
+    SetLocalInt(oPC, "FORGE_SCAN_MODE", 1); // warden verdict mode
+    SetLocalInt(oPC, "FORGE_WARDEN_READY", FALSE); // verdict pending until scan ends
+    int n = ForgeEnqueueScan(oPC);
+    if (n > 0)
+    {
+        DelayCommand(0.1, ExecuteScript("forge_scan_step", oPC));
+        return;
+    }
+    // Empty inventory: trivially clean, verdict known immediately.
+    SetLocalInt(oPC, "FORGE_WARDEN_DIRTY", FALSE);
+    DeleteLocalObject(oPC, "FORGE_ILLEGAL_ITEM");
+    SetLocalInt(oPC, "FORGE_WARDEN_READY", TRUE);
 }

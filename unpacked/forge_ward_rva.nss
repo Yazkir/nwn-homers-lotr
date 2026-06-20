@@ -10,6 +10,10 @@ void main()
     int nFail = ForgeRevertAllIllegal(oPC);
     ForgeLog("forge_ward_rva: " + GetName(oPC) + " revert-all, "
         + IntToString(nFail) + " item(s) had no blueprint");
+    // Refresh the cached gate verdict off the hot path. When items remain
+    // (nFail > 0) this lets the "still unlawful" branch reflect reality on the
+    // next click; when clean we still release immediately below.
+    ForgeBeginWardenScan(oPC);
     if (nFail > 0)
         return;
     DeleteLocalObject(oPC, "FORGE_ILLEGAL_ITEM");
