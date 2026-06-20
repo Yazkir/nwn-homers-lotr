@@ -196,6 +196,7 @@ effects <strong>cannot be dispelled</strong>.</p>
     <tr><td>Hellball</td><td>10d20 of <em>each</em> damage type (Acid, Electrical, Fire, Sonic) over a massive area. Reflex save for partial reduction; knocks down targets if total damage exceeds 200.</td></tr>
     <tr><td>Greater Ruin</td><td><strong>500d20</strong> damage to a single target (roughly 500–10,000, averaging ~5,250). Fortitude save (DC&nbsp;= your epic spell save DC). On a <em>successful</em> save the damage is <strong>divided by 300</strong> — i.e. cut to a few dozen points, effectively negligible rather than merely halved.</td></tr>
     <tr><td>Curse Song (Bard)</td><td>Fully custom debuff that scales with your Perform skill <em>and</em> Bard level across 23 tiers, in a colossal-radius (30&nbsp;ft) sphere. At the top tier: −15 attack, −10 damage, −7 all saves, −15 AC, −18 all skills, and 98 sonic damage. See the <a href="#cursesong-table">full Curse Song ladder</a> below.</td></tr>
+    <tr><td>Bard Song (Bard)</td><td>The companion buff to Curse Song, rebuilt to match: a 23-tier ladder scaling with your Perform skill <em>and</em> Bard level, buffing the bard and nearby allies in a colossal-radius (30&nbsp;ft) sphere. At the top tier: +6 attack, +6 damage, +4 all saves, +60 temporary HP, +6 AC, +12 all skills. Tuned conservatively (about half of Curse Song's magnitudes) so a party-wide buff stays fair. See the <a href="#bardsong-table">full Bard Song ladder</a> below.</td></tr>
   </tbody>
 </table>
 
@@ -235,6 +236,50 @@ multiplies the duration ×15.</p>
     <tr><td>2</td><td>3</td><td>−2</td><td>−3</td><td>−1</td><td>−1</td><td>0</td><td>0</td><td>0</td><td>0</td></tr>
     <tr><td>1</td><td>2</td><td>−1</td><td>−2</td><td>−1</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td></tr>
     <tr><td>1</td><td>1</td><td>−1</td><td>−1</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td></tr>
+  </tbody>
+</table>
+
+<h3 id="bardsong-table">Bard Song Ladder (Bard)</h3>
+<p>Stock Bard Song stopped scaling at Bard&nbsp;level&nbsp;20 and gave only modest bonuses. Here it
+is rebuilt as the mirror of <a href="#cursesong-table">Curse Song</a>: a ladder of 23 tiers reached
+only when you meet <em>both</em> its Perform-skill rank <em>and</em> its Bard-level requirement. The
+song then grants every bonus on that row to the bard and to allies in a 30&nbsp;ft (colossal-radius)
+sphere. The lowest tier kicks in at Perform&nbsp;1 / Bard&nbsp;1. Base duration is 15 rounds — the
+<strong>Lingering Song</strong> feat adds +15 rounds, and <strong>Lasting Impression</strong>
+multiplies the duration ×15 (identical to Curse Song).</p>
+<p>Because buffing a whole party is stronger than debuffing enemies, the bonuses are tuned
+<strong>conservatively</strong> — roughly half of Curse Song's combat magnitudes — and Curse Song's
+sonic-damage column becomes <strong>temporary hit points</strong> here (softened at the very top from
+98 to 60). Even so, every tier is a clear upgrade over the old stock song.</p>
+
+<table class="data change-table">
+  <thead><tr>
+    <th>Perform ≥</th><th>Bard lvl ≥</th><th>Attack</th><th>Damage</th><th>Will</th><th>Fort</th><th>Reflex</th><th>Temp HP</th><th>AC</th><th>Skills</th>
+  </tr></thead>
+  <tbody>
+    <tr><td>80</td><td>30</td><td>+6</td><td>+6</td><td>+4</td><td>+4</td><td>+4</td><td>60</td><td>+6</td><td>+12</td></tr>
+    <tr><td>75</td><td>29</td><td>+6</td><td>+5</td><td>+4</td><td>+4</td><td>+4</td><td>52</td><td>+5</td><td>+11</td></tr>
+    <tr><td>60</td><td>28</td><td>+5</td><td>+5</td><td>+4</td><td>+4</td><td>+4</td><td>46</td><td>+5</td><td>+10</td></tr>
+    <tr><td>55</td><td>27</td><td>+5</td><td>+5</td><td>+4</td><td>+4</td><td>+4</td><td>44</td><td>+5</td><td>+10</td></tr>
+    <tr><td>50</td><td>26</td><td>+5</td><td>+5</td><td>+3</td><td>+3</td><td>+3</td><td>42</td><td>+4</td><td>+9</td></tr>
+    <tr><td>45</td><td>25</td><td>+5</td><td>+5</td><td>+3</td><td>+3</td><td>+3</td><td>40</td><td>+4</td><td>+9</td></tr>
+    <tr><td>40</td><td>24</td><td>+4</td><td>+4</td><td>+3</td><td>+2</td><td>+2</td><td>36</td><td>+4</td><td>+8</td></tr>
+    <tr><td>35</td><td>23</td><td>+4</td><td>+4</td><td>+3</td><td>+2</td><td>+2</td><td>34</td><td>+4</td><td>+8</td></tr>
+    <tr><td>30</td><td>22</td><td>+4</td><td>+4</td><td>+3</td><td>+2</td><td>+2</td><td>32</td><td>+3</td><td>+7</td></tr>
+    <tr><td>25</td><td>21</td><td>+4</td><td>+4</td><td>+3</td><td>+2</td><td>+2</td><td>30</td><td>+3</td><td>+7</td></tr>
+    <tr><td>20</td><td>20</td><td>+4</td><td>+4</td><td>+3</td><td>+2</td><td>+2</td><td>28</td><td>+3</td><td>+6</td></tr>
+    <tr><td>15</td><td>19</td><td>+4</td><td>+4</td><td>+2</td><td>+2</td><td>+2</td><td>26</td><td>+3</td><td>+6</td></tr>
+    <tr><td>12</td><td>18</td><td>+3</td><td>+4</td><td>+2</td><td>+2</td><td>+2</td><td>24</td><td>+3</td><td>+5</td></tr>
+    <tr><td>10</td><td>17</td><td>+3</td><td>+4</td><td>+2</td><td>+2</td><td>+2</td><td>22</td><td>+3</td><td>+5</td></tr>
+    <tr><td>9</td><td>16</td><td>+3</td><td>+3</td><td>+2</td><td>+2</td><td>+2</td><td>20</td><td>+2</td><td>+4</td></tr>
+    <tr><td>8</td><td>15</td><td>+3</td><td>+3</td><td>+2</td><td>+1</td><td>+1</td><td>16</td><td>+2</td><td>+3</td></tr>
+    <tr><td>7</td><td>14</td><td>+3</td><td>+3</td><td>+1</td><td>+1</td><td>+1</td><td>14</td><td>+2</td><td>+2</td></tr>
+    <tr><td>6</td><td>12</td><td>+2</td><td>+3</td><td>+1</td><td>+1</td><td>+1</td><td>10</td><td>+2</td><td>+2</td></tr>
+    <tr><td>5</td><td>8</td><td>+2</td><td>+3</td><td>+1</td><td>+1</td><td>+1</td><td>8</td><td>+1</td><td>+1</td></tr>
+    <tr><td>4</td><td>6</td><td>+2</td><td>+3</td><td>+1</td><td>+1</td><td>+1</td><td>4</td><td>+1</td><td>+1</td></tr>
+    <tr><td>2</td><td>3</td><td>+1</td><td>+2</td><td>+1</td><td>+1</td><td>0</td><td>0</td><td>0</td><td>+1</td></tr>
+    <tr><td>1</td><td>2</td><td>+1</td><td>+2</td><td>+1</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td></tr>
+    <tr><td>1</td><td>1</td><td>+1</td><td>+1</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td></tr>
   </tbody>
 </table>
 
