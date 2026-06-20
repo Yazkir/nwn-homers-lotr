@@ -1,9 +1,15 @@
 //::///////////////////////////////////////////////
 //:: Bard Song
-//:: x0_s2_bardsong
+//:: nw_s2_bardsong
 //:://////////////////////////////////////////////
 /*
     Homer's LotR custom Bard Song override.
+
+    NOTE ON RESREF: the Bard Song feat's spell (spells.2da row 411
+    "Bards_Song") has ImpactScript NW_S2_BardSong — bard song is core game
+    content, so it is nw_* (not x0_*/x2_*). This file MUST be named
+    nw_s2_bardsong to actually replace the ability. (Curse Song, by contrast,
+    is HotU content and routes to x2_s2_cursesong.)
 
     Restores the buff/debuff symmetry with this module's customized Curse
     Song (x2_s2_cursesong): a 23-tier ladder keyed on BOTH Perform skill and
@@ -17,10 +23,6 @@
 
     Duration mirrors Curse Song: base 15 rounds, Lingering Song (feat 424)
     +15 rounds, Lasting Impression (feat 870) x15.
-
-    Same resref as stock x0_s2_bardsong, so this replaces the base ability
-    with no spells.2da / feat.2da changes (same mechanism as the Curse Song
-    override).
 */
 //:://////////////////////////////////////////////
 
