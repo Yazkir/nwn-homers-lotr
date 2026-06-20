@@ -65,6 +65,9 @@ void main()
         return;
     ForgeQuarantineDisputedItem(oItem, oPC);
     DeleteLocalObject(oPC, &quot;FORGE_ILLEGAL_ITEM&quot;);
+    // The disputed item left the PC&#x27;s inventory — refresh the cached gate verdict
+    // off the hot path so a now-clean PC can ask for release on the next click.
+    ForgeBeginWardenScan(oPC);
 }
 </code></pre>
   </main>

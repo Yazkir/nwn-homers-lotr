@@ -48,11 +48,16 @@
   </header>
   <main>
 <h1>Script: <code>forge_ward_c_il</code></h1><pre class="nss-source"><code>// Forge Warden greeting gate: TRUE when the PC still carries illegal gear.
+// Reads the cached verdict (FORGE_WARDEN_DIRTY) computed off the dialog hot path
+// by the chunked Warden scan (ForgeBeginWardenScan / forge_scan_step). Must stay
+// O(1): a full inventory scan inside a StartingConditional overflows the
+// NWScript instruction cap for large inventories, and the failed conditional
+// reads FALSE — which used to hide the release reply and trap cleaned-up players.
 #include &quot;forge_inc&quot;
 
 int StartingConditional()
 {
-    return GetIsObjectValid(ForgeFindIllegalItem(GetPCSpeaker()));
+    return GetLocalInt(GetPCSpeaker(), &quot;FORGE_WARDEN_DIRTY&quot;);
 }
 </code></pre>
   </main>

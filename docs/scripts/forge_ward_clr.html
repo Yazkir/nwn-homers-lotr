@@ -52,6 +52,8 @@
 // slate and forge_ward_intro re-scans the live inventory. Without this the
 // cached handles linger on the PC and can be recycled by the engine to
 // point at a different item.
+#include &quot;forge_inc&quot;
+
 void main()
 {
     object oPC = GetPCSpeaker();
@@ -62,6 +64,10 @@ void main()
     DeleteLocalInt(oPC, &quot;FORGE_DIS_COUNT&quot;);
     DeleteLocalInt(oPC, &quot;FORGE_DIS_PICK&quot;);
     DeleteLocalInt(oPC, &quot;FORGE_RVT_OK&quot;);
+    // Refresh the cached contraband verdict off the hot path so the NEXT
+    // conversation greets from a fresh state (covers items dropped/moved between
+    // turns). Chunked, so it can never overflow the instruction cap.
+    ForgeBeginWardenScan(oPC);
 }
 </code></pre>
   </main>

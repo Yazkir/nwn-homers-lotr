@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="utf-8">
-  <title>Script forge_ward_intro</title>
+  <title>Script forge_stg_anvil</title>
   <link rel="stylesheet" href="../assets/style.css">
   <link rel="stylesheet" href="../assets/theme.css">
   <link rel="icon" href="../assets/favicon.png">
@@ -47,28 +47,19 @@
     </nav>
   </header>
   <main>
-<h1>Script: <code>forge_ward_intro</code></h1><pre class="nss-source"><code>// Forge Warden accusation entry: name the offending item and prime the
-// disenchant property list (shared forge_dis_* scripts work off these).
+<h1>Script: <code>forge_stg_anvil</code></h1><pre class="nss-source"><code>// Staged anvil disenchant menu entry: prime the property list, per-slot cues
+// (tokens 6110-6117) and the running status header (token 6119) for the item on
+// the anvil. Starts each visit with an empty plan so a re-opened menu is fresh.
 #include &quot;forge_inc&quot;
 
 void main()
 {
     object oPC = GetPCSpeaker();
-    // Name the offending item from the cached verdict (set by the jail scan or a
-    // prior Warden scan) instead of re-scanning the whole inventory here — the
-    // synchronous scan is the instruction-cap hazard we are eliminating. Fall
-    // back to one scan only if nothing is cached yet.
-    object oBad = GetLocalObject(oPC, &quot;FORGE_ILLEGAL_ITEM&quot;);
-    if (!ForgePCHolds(oPC, oBad) || !ForgeIsItemIllegal(oBad))
-        oBad = ForgeFindIllegalItem(oPC);
-    SetLocalObject(oPC, &quot;FORGE_ILLEGAL_ITEM&quot;, oBad);
-    // A stale success flag must not leak into the revert branch gate.
-    DeleteLocalInt(oPC, &quot;FORGE_RVT_OK&quot;);
-    ForgeDisenchantSetup(oPC, oBad);
-    SetCustomToken(6119, ForgeLegalStatus(oBad));
-    // Refresh the cached gate verdict off the hot path so manual changes since
-    // the PC was jailed (e.g. dropping the item) are reflected on the next click.
-    ForgeBeginWardenScan(oPC);
+    object oItem = GetLocalObject(oPC, &quot;MODIFY_ITEM&quot;);
+    // Fresh plan whenever the menu is opened on a different item than last time.
+    if (oItem != GetLocalObject(oPC, &quot;FORGE_STG_ITEM&quot;))
+        DeleteLocalInt(oPC, &quot;FORGE_STG_MASK&quot;);
+    ForgeStageSetupCued(oPC, oItem);
 }
 </code></pre>
   </main>

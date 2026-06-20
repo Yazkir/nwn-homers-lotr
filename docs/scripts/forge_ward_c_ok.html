@@ -48,11 +48,17 @@
   </header>
   <main>
 <h1>Script: <code>forge_ward_c_ok</code></h1><pre class="nss-source"><code>// Forge Warden release gate: TRUE when no illegal gear remains on the PC.
+// Reads the cached verdict (FORGE_WARDEN_DIRTY) computed off the dialog hot path
+// by the chunked Warden scan; requires FORGE_WARDEN_READY so release is never
+// offered before the first verdict is known. Must stay O(1) — see forge_ward_c_il
+// for why a synchronous scan here is unsafe.
 #include &quot;forge_inc&quot;
 
 int StartingConditional()
 {
-    return !GetIsObjectValid(ForgeFindIllegalItem(GetPCSpeaker()));
+    object oPC = GetPCSpeaker();
+    return GetLocalInt(oPC, &quot;FORGE_WARDEN_READY&quot;)
+        &amp;&amp; !GetLocalInt(oPC, &quot;FORGE_WARDEN_DIRTY&quot;);
 }
 </code></pre>
   </main>
