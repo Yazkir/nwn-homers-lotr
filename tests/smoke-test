@@ -22,4 +22,12 @@ else
   rc=1
 fi
 
+echo "[smoke-test] running: forge disenchant wiring…"
+if python3 "$HERE/check_forge_disenchant.py"; then
+  echo "ok: forge disenchant wiring"
+else
+  echo "fail: forge disenchant wiring"
+  rc=1
+fi
+
 exit $rc

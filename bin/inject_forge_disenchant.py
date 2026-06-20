@@ -1,23 +1,37 @@
 #!/usr/bin/env python3
-"""Inject the forge disenchant sub-conversation into the three forge dialogs.
+"""Inject the STAGED forge disenchant sub-conversation into the three forge dialogs.
 
-Appends (never renumbers) a shared subtree to each dialog:
+The forge masters let a player PLAN which enchantments to strike from an
+over-quality item and only commit the removals once the planned result would be
+lawful — so the real item never passes through an illegal state (and the player
+is never jailed mid-effort). The running worth and per-slot cues are computed by
+forge_inc.nss (ForgeStageSetupCued) and rendered through custom tokens.
 
-  Entry D1  "Which enchantment shall I strike..."  (Script: forge_dis_anvil)
-    -> 8 token replies <CUSTOM6110..6117> (Active: forge_dis_cN, Script: forge_dis_pN)
-         -> Entry D2 confirm "<CUSTOM6118>"
-              -> "Yes, strike it..." (Script: forge_dis_go) -> back to D1 (child link)
-              -> "No..."                                    -> back to D1 (child link)
-    -> "Never mind." (ends)
+Appends a shared subtree to each anvil dialog (Tagget / Kimli / Bellnius):
 
-and hooks a new reply "Strip an enchantment..." (gated by isitemonanvil) into
-every menu entry that already offers the "modify the item" reply (ReplyList[1]).
+  Entry D1  "<CUSTOM6119> Which enchantments shall I strike..."  (Script: forge_stg_anvil)
+    -> 8 slot toggles <CUSTOM6110..6117>  (Active: forge_dis_cN, Script: forge_stg_tN)
+         -> back to D1 (child link: re-show with refreshed cues)
+    -> "Strike the planned enchantments now."  (Active: forge_stg_ok)  -> Entry D2 confirm
+    -> "Never mind — leave it whole."          (Script: forge_stg_cancel)  -> ends
+  Entry D2  confirm  "<CUSTOM6119> Shall I strike..."
+    -> "Aye, strike them..."  (Script: forge_stg_go)  -> back to D1 (child)
+    -> "No, let me reconsider."                        -> back to D1 (child)
 
-Idempotent: skips a dialog that already contains the hook reply text.
+and hooks a new reply "Strip enchantments..." (gated by isitemonanvil) into every
+menu entry that already offers the "modify the item" reply (ReplyList[1]).
+
+The commit reply is gated by forge_stg_ok, which is TRUE only when the planned
+removals would bring the item within the lawful value/property ceiling — that is
+what stops a forge from ever minting contraband.
+
+Idempotent: a previously-injected subtree (old immediate-removal OR this staged
+one) is detected and removed first, then the current subtree is appended. The
+Forge Warden dialog is NOT in DIALOGS and is never touched (it keeps the
+immediate-removal forge_dis_* scripts).
 """
 
 import json
-import sys
 from pathlib import Path
 
 DIALOGS = [
@@ -26,13 +40,19 @@ DIALOGS = [
     "bellnius_smith.dlg.json",
 ]
 
-HOOK_TEXT = "Strip an enchantment from the item on the anvil. (no refund)"
-D1_TEXT = ("Which enchantment shall I strike from the <CUSTOM100>? "
-           "Mind you — the magic is lost forever, and I pay nothing for unmaking.")
-D2_TEXT = ("Strike the <CUSTOM6118> from it? There is no refund and no undoing.")
-YES_TEXT = "Yes, strike it. The magic is forfeit."
-NO_TEXT = "No, leave it be."
-NEVERMIND_TEXT = "Never mind."
+# Markers identifying our D1 menu entry across versions (immediate or staged).
+ANVIL_SCRIPTS = {"forge_dis_anvil", "forge_stg_anvil"}
+
+HOOK_TEXT = "Strip enchantments from the item on the anvil to make it lawful. (no gold returned)"
+D1_TEXT = ("<CUSTOM6119> Which enchantments shall I strike from the <CUSTOM100>? "
+           "Choose as many as you need — nothing is unmade until you bid me "
+           "strike, and I take no payment for the unmaking.")
+D2_TEXT = ("<CUSTOM6119> Shall I strike the planned enchantments from your "
+           "<CUSTOM100>? There is no undoing it.")
+COMMIT_TEXT = "Strike the planned enchantments now."
+CANCEL_TEXT = "Never mind — leave it whole."
+YES_TEXT = "Aye, strike them. The magic is forfeit."
+NO_TEXT = "No, let me reconsider."
 
 
 def resref(v):
@@ -75,67 +95,105 @@ def node(struct_id, text, script="", entry=False):
     return d
 
 
-def inject(path: Path) -> bool:
-    data = json.loads(path.read_text())
+def migrate(data) -> bool:
+    """Remove any previously-injected subtree, returning the dialog to its
+    pre-injection state. The injected nodes are always a contiguous tail block of
+    both lists; the only edits to pre-existing nodes are the hook links appended
+    to anchor entries. Returns True if a subtree was removed."""
     entries = data["EntryList"]["value"]
     replies = data["ReplyList"]["value"]
 
-    for r in replies:
-        if r["Text"]["value"].get("0") == HOOK_TEXT:
-            print(f"{path.name}: already injected, skipping")
-            return False
+    d1 = next((i for i, e in enumerate(entries)
+               if e.get("Script", {}).get("value") in ANVIL_SCRIPTS), None)
+    if d1 is None:
+        return False
+
+    # First injected reply = smallest reply index linked from the D1 entry
+    # (the slot replies / nevermind it owns).
+    r_base = min(l["Index"]["value"]
+                 for l in entries[d1]["RepliesList"]["value"])
+
+    del entries[d1:]      # drop injected entries (D1, D2)
+    del replies[r_base:]  # drop injected replies (slots, commit, cancel, yes/no, hook)
+
+    # Drop any link into the removed reply block (the hook links on anchors).
+    for e in entries:
+        e["RepliesList"]["value"] = [
+            l for l in e["RepliesList"]["value"]
+            if l["Index"]["value"] < r_base
+        ]
+    return True
+
+
+def inject(path: Path):
+    data = json.loads(path.read_text())
+    migrated = migrate(data)
+
+    entries = data["EntryList"]["value"]
+    replies = data["ReplyList"]["value"]
 
     # Anchor entries: those whose RepliesList links the anvil-menu reply (index
-    # 1, the one carrying the isitemonanvil-gated link in all three dialogs).
+    # 1, the isitemonanvil-gated "modify the item" link in all three dialogs).
     anchors = []
     for ei, e in enumerate(entries):
         for l in e["RepliesList"]["value"]:
             if l["Index"]["value"] == 1:
-                ischild = l.get("IsChild", {}).get("value", 0)
-                anchors.append((ei, ischild))
+                anchors.append((ei, l.get("IsChild", {}).get("value", 0)))
                 break
     if not anchors:
         raise SystemExit(f"{path.name}: no anchor entry links ReplyList[1]")
 
-    d1 = len(entries)       # disenchant menu entry
-    d2 = d1 + 1             # confirm entry
-    r_slot0 = len(replies)  # 8 slot replies: r_slot0 .. r_slot0+7
-    r_never = r_slot0 + 8
-    r_yes = r_slot0 + 9
-    r_no = r_slot0 + 10
-    r_hook = r_slot0 + 11
+    d1 = len(entries)        # disenchant menu entry
+    d2 = d1 + 1              # confirm entry
+    r_slot0 = len(replies)   # 8 slot replies: r_slot0 .. r_slot0+7
+    r_commit = r_slot0 + 8
+    r_cancel = r_slot0 + 9
+    r_yes = r_slot0 + 10
+    r_no = r_slot0 + 11
+    r_hook = r_slot0 + 12
 
-    # Entry D1: slot replies (owned here) + never mind.
-    e1 = node(d1, D1_TEXT, script="forge_dis_anvil", entry=True)
+    # Entry D1: 8 slot toggles + commit + cancel.
+    e1 = node(d1, D1_TEXT, script="forge_stg_anvil", entry=True)
     for n in range(8):
         e1["RepliesList"]["value"].append(
             link(n, r_slot0 + n, active=f"forge_dis_c{n}"))
-    e1["RepliesList"]["value"].append(link(8, r_never))
+    e1["RepliesList"]["value"].append(link(8, r_commit, active="forge_stg_ok"))
+    e1["RepliesList"]["value"].append(link(9, r_cancel))
 
-    # Entry D2: yes/no (owned here).
+    # Entry D2: confirm yes/no.
     e2 = node(d2, D2_TEXT, entry=True)
     e2["RepliesList"]["value"].append(link(0, r_yes))
     e2["RepliesList"]["value"].append(link(1, r_no))
 
     new_replies = []
+    # Slot toggles: each re-shows D1 (child link) so the cues refresh.
     for n in range(8):
-        r = node(r_slot0 + n, f"<CUSTOM{6110 + n}>", script=f"forge_dis_p{n}")
-        # First slot owns D2; the rest reference it as child links.
-        r["EntriesList"]["value"].append(link(0, d2, child=(n != 0)))
+        r = node(r_slot0 + n, f"<CUSTOM{6110 + n}>", script=f"forge_stg_t{n}")
+        r["EntriesList"]["value"].append(link(0, d1, child=True))
         new_replies.append(r)
 
-    new_replies.append(node(r_never, NEVERMIND_TEXT))  # ends conversation
+    # Commit reply: navigation only (the actual removal runs from D2's "Aye").
+    # Owns D2.
+    r = node(r_commit, COMMIT_TEXT)
+    r["EntriesList"]["value"].append(link(0, d2))
+    new_replies.append(r)
 
-    r = node(r_yes, YES_TEXT, script="forge_dis_go")
+    # Cancel reply: clears the plan and ends (no entry link).
+    new_replies.append(node(r_cancel, CANCEL_TEXT, script="forge_stg_cancel"))
+
+    # D2 "Aye": commit, then back to D1 to show the now-lawful status.
+    r = node(r_yes, YES_TEXT, script="forge_stg_go")
     r["EntriesList"]["value"].append(link(0, d1, child=True))
     new_replies.append(r)
 
+    # D2 "No": back to D1, no change.
     r = node(r_no, NO_TEXT)
     r["EntriesList"]["value"].append(link(0, d1, child=True))
     new_replies.append(r)
 
+    # Hook reply: owns D1 (the one non-child link to it).
     r = node(r_hook, HOOK_TEXT)
-    r["EntriesList"]["value"].append(link(0, d1))  # hook reply owns D1
+    r["EntriesList"]["value"].append(link(0, d1))
     new_replies.append(r)
 
     entries.extend([e1, e2])
@@ -149,9 +207,9 @@ def inject(path: Path) -> bool:
                        child=(ischild == 1)))
 
     path.write_text(json.dumps(data, indent=2, ensure_ascii=False) + "\n")
-    print(f"{path.name}: injected (D1=entry {d1}, D2=entry {d2}, "
+    verb = "re-injected (migrated)" if migrated else "injected"
+    print(f"{path.name}: {verb} (D1=entry {d1}, D2=entry {d2}, "
           f"replies {r_slot0}..{r_hook}, anchors {[a for a, _ in anchors]})")
-    return True
 
 
 def main():

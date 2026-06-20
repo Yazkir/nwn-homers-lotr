@@ -514,6 +514,209 @@ void ForgeDisenchantSetup(object oPC, object oTarget)
     }
 }
 
+// ---------------------------------------------------------------------------
+// Staged (transactional) anvil disenchant. The forge masters let a player PLAN
+// which properties to strike from an over-quality item and only commit the
+// removals once the planned result would be lawful — so the real item never
+// passes through an illegal state (and the player is never jailed mid-effort).
+// A per-PC bitmask FORGE_STG_MASK records which ORIGINAL permanent-property
+// indices are planned for removal; because nothing is mutated until commit, the
+// indices stay stable for the whole conversation. These are ANVIL-ONLY — the
+// Forge Warden's jail dialog keeps using the immediate-removal forge_dis_*
+// scripts above.
+
+// Effective per-item legality ceiling for oPC working oItem: the global cap
+// raised by the player's live Appraise headroom, never below a FORGE_CEIL the
+// item already carries. Mirrors the max() ForgeItemLegality uses, plus the live
+// Appraise bonus (what this smith may allow this player).
+int ForgeEffectiveCeil(object oPC, object oItem)
+{
+    int nCeil = FORGE_LEGAL_MAX_VALUE + ForgeAppraiseBonus(oPC);
+    int nStamp = GetLocalInt(oItem, FORGE_CEIL);
+    if (nStamp > nCeil)
+        nCeil = nStamp;
+    return nCeil;
+}
+
+// Projected per-unit value of oItem if every permanent-property index whose bit
+// is set in nMask were removed. Works on a throwaway copy in FORGE_VAULT: copy,
+// remove the staged props in DESCENDING index order (so the lower indices stay
+// valid as we go), then price it identified/non-plot/per-unit exactly like
+// ForgeItemValue. Returns -1 when valuation infrastructure is unavailable.
+int ForgeProjectedValue(object oItem, int nMask)
+{
+    if (!GetIsObjectValid(oItem))
+        return -1;
+    object oHolder = ForgeHolder();
+    if (!GetIsObjectValid(oHolder))
+        return -1;
+    object oCopy = CopyItem(oItem, oHolder, TRUE);
+    if (!GetIsObjectValid(oCopy))
+        return -1;
+    int n;
+    for (n = FORGE_DIS_SLOTS - 1; n >= 0; n--)
+    {
+        if (nMask & (1 << n))
+        {
+            itemproperty ip = ForgeGetPermPropByIndex(oCopy, n);
+            if (GetIsItemPropertyValid(ip))
+                RemoveItemProperty(oCopy, ip);
+        }
+    }
+    SetItemStackSize(oCopy, 1);
+    SetIdentified(oCopy, TRUE);
+    SetPlotFlag(oCopy, FALSE);
+    int nValue = GetGoldPieceValue(oCopy);
+    DestroyObject(oCopy);
+    return nValue;
+}
+
+// Permanent-property count remaining after the planned removals.
+int ForgeProjectedPropCount(object oItem, int nMask)
+{
+    int nCount = ForgeCountProps(oItem);
+    int nRemoved = 0;
+    int n;
+    for (n = 0; n < FORGE_DIS_SLOTS && n < nCount; n++)
+        if (nMask & (1 << n))
+            nRemoved++;
+    return nCount - nRemoved;
+}
+
+// Player-facing running status of the planned result (header token 6119): the
+// projected worth and whether it is within the law or how much it is still over.
+string ForgeProjectedStatus(object oPC, object oItem, int nMask)
+{
+    if (!GetIsObjectValid(oItem))
+        return "";
+    int nVal = ForgeProjectedValue(oItem, nMask);
+    if (nVal < 0)
+        return "";
+    int nCeil = ForgeEffectiveCeil(oPC, oItem);
+    int nProps = ForgeProjectedPropCount(oItem, nMask);
+    string s;
+    if (nMask == 0)
+        s = "As it stands the " + GetName(oItem) + " is worth "
+            + IntToString(nVal) + " gold";
+    else
+        s = "With your plan struck, the " + GetName(oItem) + " would be worth "
+            + IntToString(nVal) + " gold";
+    if (nVal <= nCeil && nProps <= FORGE_LEGAL_MAX_PROPS)
+        return s + " — within the lawful " + IntToString(nCeil) + ".";
+    if (nVal > nCeil)
+        s += ", still " + IntToString(nVal - nCeil) + " over the lawful "
+            + IntToString(nCeil);
+    if (nProps > FORGE_LEGAL_MAX_PROPS)
+        s += ", and bears " + IntToString(nProps) + " enchantments where the law "
+            + "allows but " + IntToString(FORGE_LEGAL_MAX_PROPS);
+    return s + ". Strike more to bring it within the law.";
+}
+
+// TRUE when the plan is non-empty AND the projected result is lawful (worth
+// within ForgeEffectiveCeil and at most FORGE_LEGAL_MAX_PROPS properties).
+// Drives the commit reply's Active gate (forge_stg_ok).
+int ForgeStagePlanIsLawful(object oPC, object oItem, int nMask)
+{
+    if (nMask == 0 || !GetIsObjectValid(oItem))
+        return FALSE;
+    int nVal = ForgeProjectedValue(oItem, nMask);
+    if (nVal < 0)
+        return FALSE;
+    if (nVal > ForgeEffectiveCeil(oPC, oItem))
+        return FALSE;
+    return ForgeProjectedPropCount(oItem, nMask) <= FORGE_LEGAL_MAX_PROPS;
+}
+
+// Prime the staged anvil disenchant menu: target item, property count, name
+// token 100, per-slot label+cue tokens 6110-6117 (each marked planned/kept with
+// the worth that CLICKING it would produce), and the running status token 6119.
+void ForgeStageSetupCued(object oPC, object oItem)
+{
+    SetLocalObject(oPC, "FORGE_STG_ITEM", oItem);
+    int nCount = 0;
+    if (GetIsObjectValid(oItem))
+    {
+        nCount = ForgeCountProps(oItem);
+        SetCustomToken(100, GetName(oItem));
+    }
+    SetLocalInt(oPC, "FORGE_DIS_COUNT", nCount);
+    int nMask = GetLocalInt(oPC, "FORGE_STG_MASK");
+    int nCeil = GetIsObjectValid(oItem) ? ForgeEffectiveCeil(oPC, oItem) : 0;
+    int n;
+    for (n = 0; n < FORGE_DIS_SLOTS; n++)
+    {
+        string sLabel = "";
+        if (n < nCount)
+        {
+            int bStaged = (nMask & (1 << n)) != 0;
+            string sName = ForgePropName(ForgeGetPermPropByIndex(oItem, n));
+            // Worth the item would have if the player CLICKS this slot (toggles
+            // its plan bit): striking an unplanned prop, or keeping a planned one.
+            int nVal = ForgeProjectedValue(oItem, nMask ^ (1 << n));
+            string sCue = "";
+            if (nVal >= 0)
+            {
+                string sVerb = bStaged ? "keep" : "strike";
+                if (nVal <= nCeil)
+                    sCue = "  (" + sVerb + " -> " + IntToString(nVal)
+                        + " gp: lawful)";
+                else
+                    sCue = "  (" + sVerb + " -> " + IntToString(nVal) + " gp: "
+                        + IntToString(nVal - nCeil) + " over)";
+            }
+            sLabel = (bStaged ? "[planned] " : "") + sName + sCue;
+        }
+        SetCustomToken(6110 + n, sLabel);
+    }
+    SetCustomToken(6119, ForgeProjectedStatus(oPC, oItem, nMask));
+}
+
+// Stamp the lawful ceiling and clean mark on a freshly-worked item so legality
+// is intrinsic and the login/Well contraband scan agrees in O(1). Per the user
+// request the ceiling (with Appraise headroom) is recorded whenever the smith
+// works the item, so it stays lawful even if the bearer later loses Appraise or
+// trades the item away. Mirrors the FORGE_CEIL/FORGE_CLEAN contract in
+// modifyitem.nss.
+void ForgeStampLawful(object oPC, object oItem)
+{
+    if (!GetIsObjectValid(oItem))
+        return;
+    int nCeil = FORGE_LEGAL_MAX_VALUE + ForgeAppraiseBonus(oPC);
+    if (nCeil > GetLocalInt(oItem, FORGE_CEIL))
+        SetLocalInt(oItem, FORGE_CEIL, nCeil);
+    if (ForgeItemLegality(oItem) == FORGE_LEG_LEGAL)
+        SetLocalInt(oItem, "FORGE_CLEAN", FORGE_CLEAN_VER);
+}
+
+// Commit the plan: strike every planned property from the REAL item (highest
+// index first so lower indices stay valid), then stamp it lawful and clear the
+// plan. Called only from forge_stg_go, whose reply is gated by ForgeStagePlanIsLawful.
+void ForgeStageCommit(object oPC, object oItem)
+{
+    if (!GetIsObjectValid(oItem))
+        return;
+    int nMask = GetLocalInt(oPC, "FORGE_STG_MASK");
+    int n;
+    for (n = FORGE_DIS_SLOTS - 1; n >= 0; n--)
+    {
+        if (nMask & (1 << n))
+        {
+            itemproperty ip = ForgeGetPermPropByIndex(oItem, n);
+            if (GetIsItemPropertyValid(ip))
+            {
+                ForgeLog("stage-disenchant: PC=" + GetName(oPC) + " item='"
+                    + GetName(oItem) + "' removing [" + ForgePropName(ip) + "]");
+                RemoveItemProperty(oItem, ip);
+            }
+        }
+    }
+    // Footprint changed — drop the stale clean stamp, then re-stamp the lawful
+    // ceiling + clean mark on the now-lawful result.
+    DeleteLocalInt(oItem, "FORGE_CLEAN");
+    ForgeStampLawful(oPC, oItem);
+    DeleteLocalInt(oPC, "FORGE_STG_MASK");
+}
+
 // Sequester a contested item for DM review: stored in the craftdb quarantine
 // queue (same keys welloferuenter.nss uses), so it lands in the DM-review
 // chest (ZEP_CR_QUARANTINE, House of Homer) on next open. No refund — a DM

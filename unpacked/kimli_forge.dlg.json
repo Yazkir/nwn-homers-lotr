@@ -97,7 +97,7 @@
               },
               "Index": {
                 "type": "dword",
-                "value": 250
+                "value": 251
               },
               "IsChild": {
                 "type": "byte",
@@ -333,7 +333,7 @@
               },
               "Index": {
                 "type": "dword",
-                "value": 250
+                "value": 251
               },
               "IsChild": {
                 "type": "byte",
@@ -5100,6 +5100,24 @@
           "type": "cexostring",
           "value": ""
         },
+        "Script": {
+          "type": "resref",
+          "value": "forge_stg_anvil"
+        },
+        "Sound": {
+          "type": "resref",
+          "value": ""
+        },
+        "Text": {
+          "type": "cexolocstring",
+          "value": {
+            "0": "<CUSTOM6119> Which enchantments shall I strike from the <CUSTOM100>? Choose as many as you need — nothing is unmade until you bid me strike, and I take no payment for the unmaking."
+          }
+        },
+        "Speaker": {
+          "type": "cexostring",
+          "value": ""
+        },
         "RepliesList": {
           "type": "list",
           "value": [
@@ -5227,7 +5245,7 @@
               "__struct_id": 8,
               "Active": {
                 "type": "resref",
-                "value": ""
+                "value": "forge_stg_ok"
               },
               "Index": {
                 "type": "dword",
@@ -5237,26 +5255,23 @@
                 "type": "byte",
                 "value": 0
               }
+            },
+            {
+              "__struct_id": 9,
+              "Active": {
+                "type": "resref",
+                "value": ""
+              },
+              "Index": {
+                "type": "dword",
+                "value": 248
+              },
+              "IsChild": {
+                "type": "byte",
+                "value": 0
+              }
             }
           ]
-        },
-        "Script": {
-          "type": "resref",
-          "value": "forge_dis_anvil"
-        },
-        "Sound": {
-          "type": "resref",
-          "value": ""
-        },
-        "Speaker": {
-          "type": "cexostring",
-          "value": ""
-        },
-        "Text": {
-          "type": "cexolocstring",
-          "value": {
-            "0": "Which enchantment shall I strike from the <CUSTOM100>? Mind you — the magic is lost forever, and I pay nothing for unmaking."
-          }
         }
       },
       {
@@ -5281,6 +5296,24 @@
           "type": "cexostring",
           "value": ""
         },
+        "Script": {
+          "type": "resref",
+          "value": ""
+        },
+        "Sound": {
+          "type": "resref",
+          "value": ""
+        },
+        "Text": {
+          "type": "cexolocstring",
+          "value": {
+            "0": "<CUSTOM6119> Shall I strike the planned enchantments from your <CUSTOM100>? There is no undoing it."
+          }
+        },
+        "Speaker": {
+          "type": "cexostring",
+          "value": ""
+        },
         "RepliesList": {
           "type": "list",
           "value": [
@@ -5292,7 +5325,7 @@
               },
               "Index": {
                 "type": "dword",
-                "value": 248
+                "value": 249
               },
               "IsChild": {
                 "type": "byte",
@@ -5307,7 +5340,7 @@
               },
               "Index": {
                 "type": "dword",
-                "value": 249
+                "value": 250
               },
               "IsChild": {
                 "type": "byte",
@@ -5315,24 +5348,6 @@
               }
             }
           ]
-        },
-        "Script": {
-          "type": "resref",
-          "value": ""
-        },
-        "Sound": {
-          "type": "resref",
-          "value": ""
-        },
-        "Speaker": {
-          "type": "cexostring",
-          "value": ""
-        },
-        "Text": {
-          "type": "cexolocstring",
-          "value": {
-            "0": "Strike the <CUSTOM6118> from it? There is no refund and no undoing."
-          }
         }
       }
     ]
@@ -19777,6 +19792,24 @@
           "type": "dword",
           "value": 4294967295
         },
+        "Quest": {
+          "type": "cexostring",
+          "value": ""
+        },
+        "Script": {
+          "type": "resref",
+          "value": "forge_stg_t0"
+        },
+        "Sound": {
+          "type": "resref",
+          "value": ""
+        },
+        "Text": {
+          "type": "cexolocstring",
+          "value": {
+            "0": "<CUSTOM6110>"
+          }
+        },
         "EntriesList": {
           "type": "list",
           "value": [
@@ -19788,32 +19821,18 @@
               },
               "Index": {
                 "type": "dword",
-                "value": 38
+                "value": 37
               },
               "IsChild": {
                 "type": "byte",
-                "value": 0
+                "value": 1
+              },
+              "LinkComment": {
+                "type": "cexostring",
+                "value": ""
               }
             }
           ]
-        },
-        "Quest": {
-          "type": "cexostring",
-          "value": ""
-        },
-        "Script": {
-          "type": "resref",
-          "value": "forge_dis_p0"
-        },
-        "Sound": {
-          "type": "resref",
-          "value": ""
-        },
-        "Text": {
-          "type": "cexolocstring",
-          "value": {
-            "0": "<CUSTOM6110>"
-          }
         }
       },
       {
@@ -19834,6 +19853,24 @@
           "type": "dword",
           "value": 4294967295
         },
+        "Quest": {
+          "type": "cexostring",
+          "value": ""
+        },
+        "Script": {
+          "type": "resref",
+          "value": "forge_stg_t1"
+        },
+        "Sound": {
+          "type": "resref",
+          "value": ""
+        },
+        "Text": {
+          "type": "cexolocstring",
+          "value": {
+            "0": "<CUSTOM6111>"
+          }
+        },
         "EntriesList": {
           "type": "list",
           "value": [
@@ -19845,7 +19882,7 @@
               },
               "Index": {
                 "type": "dword",
-                "value": 38
+                "value": 37
               },
               "IsChild": {
                 "type": "byte",
@@ -19857,24 +19894,6 @@
               }
             }
           ]
-        },
-        "Quest": {
-          "type": "cexostring",
-          "value": ""
-        },
-        "Script": {
-          "type": "resref",
-          "value": "forge_dis_p1"
-        },
-        "Sound": {
-          "type": "resref",
-          "value": ""
-        },
-        "Text": {
-          "type": "cexolocstring",
-          "value": {
-            "0": "<CUSTOM6111>"
-          }
         }
       },
       {
@@ -19895,6 +19914,24 @@
           "type": "dword",
           "value": 4294967295
         },
+        "Quest": {
+          "type": "cexostring",
+          "value": ""
+        },
+        "Script": {
+          "type": "resref",
+          "value": "forge_stg_t2"
+        },
+        "Sound": {
+          "type": "resref",
+          "value": ""
+        },
+        "Text": {
+          "type": "cexolocstring",
+          "value": {
+            "0": "<CUSTOM6112>"
+          }
+        },
         "EntriesList": {
           "type": "list",
           "value": [
@@ -19906,7 +19943,7 @@
               },
               "Index": {
                 "type": "dword",
-                "value": 38
+                "value": 37
               },
               "IsChild": {
                 "type": "byte",
@@ -19918,24 +19955,6 @@
               }
             }
           ]
-        },
-        "Quest": {
-          "type": "cexostring",
-          "value": ""
-        },
-        "Script": {
-          "type": "resref",
-          "value": "forge_dis_p2"
-        },
-        "Sound": {
-          "type": "resref",
-          "value": ""
-        },
-        "Text": {
-          "type": "cexolocstring",
-          "value": {
-            "0": "<CUSTOM6112>"
-          }
         }
       },
       {
@@ -19956,6 +19975,24 @@
           "type": "dword",
           "value": 4294967295
         },
+        "Quest": {
+          "type": "cexostring",
+          "value": ""
+        },
+        "Script": {
+          "type": "resref",
+          "value": "forge_stg_t3"
+        },
+        "Sound": {
+          "type": "resref",
+          "value": ""
+        },
+        "Text": {
+          "type": "cexolocstring",
+          "value": {
+            "0": "<CUSTOM6113>"
+          }
+        },
         "EntriesList": {
           "type": "list",
           "value": [
@@ -19967,7 +20004,7 @@
               },
               "Index": {
                 "type": "dword",
-                "value": 38
+                "value": 37
               },
               "IsChild": {
                 "type": "byte",
@@ -19979,24 +20016,6 @@
               }
             }
           ]
-        },
-        "Quest": {
-          "type": "cexostring",
-          "value": ""
-        },
-        "Script": {
-          "type": "resref",
-          "value": "forge_dis_p3"
-        },
-        "Sound": {
-          "type": "resref",
-          "value": ""
-        },
-        "Text": {
-          "type": "cexolocstring",
-          "value": {
-            "0": "<CUSTOM6113>"
-          }
         }
       },
       {
@@ -20017,6 +20036,24 @@
           "type": "dword",
           "value": 4294967295
         },
+        "Quest": {
+          "type": "cexostring",
+          "value": ""
+        },
+        "Script": {
+          "type": "resref",
+          "value": "forge_stg_t4"
+        },
+        "Sound": {
+          "type": "resref",
+          "value": ""
+        },
+        "Text": {
+          "type": "cexolocstring",
+          "value": {
+            "0": "<CUSTOM6114>"
+          }
+        },
         "EntriesList": {
           "type": "list",
           "value": [
@@ -20028,7 +20065,7 @@
               },
               "Index": {
                 "type": "dword",
-                "value": 38
+                "value": 37
               },
               "IsChild": {
                 "type": "byte",
@@ -20040,24 +20077,6 @@
               }
             }
           ]
-        },
-        "Quest": {
-          "type": "cexostring",
-          "value": ""
-        },
-        "Script": {
-          "type": "resref",
-          "value": "forge_dis_p4"
-        },
-        "Sound": {
-          "type": "resref",
-          "value": ""
-        },
-        "Text": {
-          "type": "cexolocstring",
-          "value": {
-            "0": "<CUSTOM6114>"
-          }
         }
       },
       {
@@ -20078,6 +20097,24 @@
           "type": "dword",
           "value": 4294967295
         },
+        "Quest": {
+          "type": "cexostring",
+          "value": ""
+        },
+        "Script": {
+          "type": "resref",
+          "value": "forge_stg_t5"
+        },
+        "Sound": {
+          "type": "resref",
+          "value": ""
+        },
+        "Text": {
+          "type": "cexolocstring",
+          "value": {
+            "0": "<CUSTOM6115>"
+          }
+        },
         "EntriesList": {
           "type": "list",
           "value": [
@@ -20089,7 +20126,7 @@
               },
               "Index": {
                 "type": "dword",
-                "value": 38
+                "value": 37
               },
               "IsChild": {
                 "type": "byte",
@@ -20101,24 +20138,6 @@
               }
             }
           ]
-        },
-        "Quest": {
-          "type": "cexostring",
-          "value": ""
-        },
-        "Script": {
-          "type": "resref",
-          "value": "forge_dis_p5"
-        },
-        "Sound": {
-          "type": "resref",
-          "value": ""
-        },
-        "Text": {
-          "type": "cexolocstring",
-          "value": {
-            "0": "<CUSTOM6115>"
-          }
         }
       },
       {
@@ -20139,6 +20158,24 @@
           "type": "dword",
           "value": 4294967295
         },
+        "Quest": {
+          "type": "cexostring",
+          "value": ""
+        },
+        "Script": {
+          "type": "resref",
+          "value": "forge_stg_t6"
+        },
+        "Sound": {
+          "type": "resref",
+          "value": ""
+        },
+        "Text": {
+          "type": "cexolocstring",
+          "value": {
+            "0": "<CUSTOM6116>"
+          }
+        },
         "EntriesList": {
           "type": "list",
           "value": [
@@ -20150,7 +20187,7 @@
               },
               "Index": {
                 "type": "dword",
-                "value": 38
+                "value": 37
               },
               "IsChild": {
                 "type": "byte",
@@ -20162,24 +20199,6 @@
               }
             }
           ]
-        },
-        "Quest": {
-          "type": "cexostring",
-          "value": ""
-        },
-        "Script": {
-          "type": "resref",
-          "value": "forge_dis_p6"
-        },
-        "Sound": {
-          "type": "resref",
-          "value": ""
-        },
-        "Text": {
-          "type": "cexolocstring",
-          "value": {
-            "0": "<CUSTOM6116>"
-          }
         }
       },
       {
@@ -20200,6 +20219,24 @@
           "type": "dword",
           "value": 4294967295
         },
+        "Quest": {
+          "type": "cexostring",
+          "value": ""
+        },
+        "Script": {
+          "type": "resref",
+          "value": "forge_stg_t7"
+        },
+        "Sound": {
+          "type": "resref",
+          "value": ""
+        },
+        "Text": {
+          "type": "cexolocstring",
+          "value": {
+            "0": "<CUSTOM6117>"
+          }
+        },
         "EntriesList": {
           "type": "list",
           "value": [
@@ -20211,7 +20248,7 @@
               },
               "Index": {
                 "type": "dword",
-                "value": 38
+                "value": 37
               },
               "IsChild": {
                 "type": "byte",
@@ -20223,24 +20260,6 @@
               }
             }
           ]
-        },
-        "Quest": {
-          "type": "cexostring",
-          "value": ""
-        },
-        "Script": {
-          "type": "resref",
-          "value": "forge_dis_p7"
-        },
-        "Sound": {
-          "type": "resref",
-          "value": ""
-        },
-        "Text": {
-          "type": "cexolocstring",
-          "value": {
-            "0": "<CUSTOM6117>"
-          }
         }
       },
       {
@@ -20261,10 +20280,6 @@
           "type": "dword",
           "value": 4294967295
         },
-        "EntriesList": {
-          "type": "list",
-          "value": []
-        },
         "Quest": {
           "type": "cexostring",
           "value": ""
@@ -20280,8 +20295,28 @@
         "Text": {
           "type": "cexolocstring",
           "value": {
-            "0": "Never mind."
+            "0": "Strike the planned enchantments now."
           }
+        },
+        "EntriesList": {
+          "type": "list",
+          "value": [
+            {
+              "__struct_id": 0,
+              "Active": {
+                "type": "resref",
+                "value": ""
+              },
+              "Index": {
+                "type": "dword",
+                "value": 38
+              },
+              "IsChild": {
+                "type": "byte",
+                "value": 0
+              }
+            }
+          ]
         }
       },
       {
@@ -20302,37 +20337,13 @@
           "type": "dword",
           "value": 4294967295
         },
-        "EntriesList": {
-          "type": "list",
-          "value": [
-            {
-              "__struct_id": 0,
-              "Active": {
-                "type": "resref",
-                "value": ""
-              },
-              "Index": {
-                "type": "dword",
-                "value": 37
-              },
-              "IsChild": {
-                "type": "byte",
-                "value": 1
-              },
-              "LinkComment": {
-                "type": "cexostring",
-                "value": ""
-              }
-            }
-          ]
-        },
         "Quest": {
           "type": "cexostring",
           "value": ""
         },
         "Script": {
           "type": "resref",
-          "value": "forge_dis_go"
+          "value": "forge_stg_cancel"
         },
         "Sound": {
           "type": "resref",
@@ -20341,8 +20352,12 @@
         "Text": {
           "type": "cexolocstring",
           "value": {
-            "0": "Yes, strike it. The magic is forfeit."
+            "0": "Never mind — leave it whole."
           }
+        },
+        "EntriesList": {
+          "type": "list",
+          "value": []
         }
       },
       {
@@ -20363,6 +20378,24 @@
           "type": "dword",
           "value": 4294967295
         },
+        "Quest": {
+          "type": "cexostring",
+          "value": ""
+        },
+        "Script": {
+          "type": "resref",
+          "value": "forge_stg_go"
+        },
+        "Sound": {
+          "type": "resref",
+          "value": ""
+        },
+        "Text": {
+          "type": "cexolocstring",
+          "value": {
+            "0": "Aye, strike them. The magic is forfeit."
+          }
+        },
         "EntriesList": {
           "type": "list",
           "value": [
@@ -20386,24 +20419,6 @@
               }
             }
           ]
-        },
-        "Quest": {
-          "type": "cexostring",
-          "value": ""
-        },
-        "Script": {
-          "type": "resref",
-          "value": ""
-        },
-        "Sound": {
-          "type": "resref",
-          "value": ""
-        },
-        "Text": {
-          "type": "cexolocstring",
-          "value": {
-            "0": "No, leave it be."
-          }
         }
       },
       {
@@ -20424,6 +20439,85 @@
           "type": "dword",
           "value": 4294967295
         },
+        "Quest": {
+          "type": "cexostring",
+          "value": ""
+        },
+        "Script": {
+          "type": "resref",
+          "value": ""
+        },
+        "Sound": {
+          "type": "resref",
+          "value": ""
+        },
+        "Text": {
+          "type": "cexolocstring",
+          "value": {
+            "0": "No, let me reconsider."
+          }
+        },
+        "EntriesList": {
+          "type": "list",
+          "value": [
+            {
+              "__struct_id": 0,
+              "Active": {
+                "type": "resref",
+                "value": ""
+              },
+              "Index": {
+                "type": "dword",
+                "value": 37
+              },
+              "IsChild": {
+                "type": "byte",
+                "value": 1
+              },
+              "LinkComment": {
+                "type": "cexostring",
+                "value": ""
+              }
+            }
+          ]
+        }
+      },
+      {
+        "__struct_id": 251,
+        "Animation": {
+          "type": "dword",
+          "value": 0
+        },
+        "AnimLoop": {
+          "type": "byte",
+          "value": 1
+        },
+        "Comment": {
+          "type": "cexostring",
+          "value": ""
+        },
+        "Delay": {
+          "type": "dword",
+          "value": 4294967295
+        },
+        "Quest": {
+          "type": "cexostring",
+          "value": ""
+        },
+        "Script": {
+          "type": "resref",
+          "value": ""
+        },
+        "Sound": {
+          "type": "resref",
+          "value": ""
+        },
+        "Text": {
+          "type": "cexolocstring",
+          "value": {
+            "0": "Strip enchantments from the item on the anvil to make it lawful. (no gold returned)"
+          }
+        },
         "EntriesList": {
           "type": "list",
           "value": [
@@ -20443,24 +20537,6 @@
               }
             }
           ]
-        },
-        "Quest": {
-          "type": "cexostring",
-          "value": ""
-        },
-        "Script": {
-          "type": "resref",
-          "value": ""
-        },
-        "Sound": {
-          "type": "resref",
-          "value": ""
-        },
-        "Text": {
-          "type": "cexolocstring",
-          "value": {
-            "0": "Strip an enchantment from the item on the anvil. (no refund)"
-          }
         }
       }
     ]
