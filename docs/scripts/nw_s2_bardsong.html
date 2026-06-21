@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="utf-8">
-  <title>Script x0_s2_bardsong</title>
+  <title>Script nw_s2_bardsong</title>
   <link rel="stylesheet" href="../assets/style.css">
   <link rel="stylesheet" href="../assets/theme.css">
   <link rel="icon" href="../assets/favicon.png">
@@ -47,12 +47,18 @@
     </nav>
   </header>
   <main>
-<h1>Script: <code>x0_s2_bardsong</code></h1><pre class="nss-source"><code>//::///////////////////////////////////////////////
+<h1>Script: <code>nw_s2_bardsong</code></h1><pre class="nss-source"><code>//::///////////////////////////////////////////////
 //:: Bard Song
-//:: x0_s2_bardsong
+//:: nw_s2_bardsong
 //:://////////////////////////////////////////////
 /*
     Homer&#x27;s LotR custom Bard Song override.
+
+    NOTE ON RESREF: the Bard Song feat&#x27;s spell (spells.2da row 411
+    &quot;Bards_Song&quot;) has ImpactScript NW_S2_BardSong - bard song is core game
+    content, so it uses the nw_ prefix (not the HotU x0_ or x2_ prefix). This
+    file MUST be named nw_s2_bardsong to actually replace the ability. (Curse
+    Song, by contrast, is HotU content and routes to x2_s2_cursesong.)
 
     Restores the buff/debuff symmetry with this module&#x27;s customized Curse
     Song (x2_s2_cursesong): a 23-tier ladder keyed on BOTH Perform skill and
@@ -66,10 +72,6 @@
 
     Duration mirrors Curse Song: base 15 rounds, Lingering Song (feat 424)
     +15 rounds, Lasting Impression (feat 870) x15.
-
-    Same resref as stock x0_s2_bardsong, so this replaces the base ability
-    with no spells.2da / feat.2da changes (same mechanism as the Curse Song
-    override).
 */
 //:://////////////////////////////////////////////
 
