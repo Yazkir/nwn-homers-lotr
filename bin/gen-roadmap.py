@@ -239,7 +239,7 @@ def render_redemption(red: dict) -> str:
             for it in cat.get("items", [])
         )
         cats.append(
-            f'<h3>{amp(cat["name"])}</h3>'
+            f'<h4>{amp(cat["name"])}</h4>'
             '<table class="data change-table rm-cost-table">'
             '<thead><tr><th>Merit</th><th>Reward</th></tr></thead>'
             f'<tbody>{rows}</tbody></table>'
@@ -261,13 +261,13 @@ def render_housing(h: dict) -> str:
     note = f'<p class="rm-notes">{amp(h["extras_note"])}</p>' if h.get("extras_note") else ""
     return (
         f'<p>{h.get("blurb", "")}</p>'
-        f'<h3>Pricing</h3>'
+        f'<h4>Pricing</h4>'
         f'<p class="rm-notes">{amp(h.get("pricing_note", ""))}</p>'
         '<table class="data change-table rm-cost-table">'
         '<thead><tr><th>Area size (L&times;W)</th><th>Merit</th></tr></thead>'
         f'<tbody>{tiers}</tbody></table>'
         f'{note}'
-        '<h3>Optional features</h3>'
+        '<h4>Optional features</h4>'
         '<table class="data change-table rm-cost-table">'
         '<thead><tr><th>Merit</th><th>Feature</th></tr></thead>'
         f'<tbody>{feats}</tbody></table>'
@@ -365,9 +365,12 @@ def build_html(data: dict) -> str:
       <h2>Contents</h2>
       <ol>
         <li><a href="#about">About this page</a></li>
-        <li><a href="#earn-spend">Earning &amp; Spending Merit</a></li>
-        <li><a href="#shop">Merit Redemption Shop</a></li>
-        <li><a href="#housing">Player Housing</a></li>
+        <li><a href="#earn-spend">Earning &amp; Spending Merit</a>
+          <ol style="margin:0.2em 0 0 0;">
+            <li><a href="#shop">Merit Redemption Shop</a></li>
+            <li><a href="#housing">Player Housing</a></li>
+          </ol>
+        </li>
         <li><a href="#next">Roadmap &mdash; In Progress &amp; Up Next</a>
           <ol style="margin:0.2em 0 0 0;">
 {toc_next}
@@ -403,15 +406,11 @@ def build_html(data: dict) -> str:
   <p class="section-sub">Report a bug that gets fixed, or suggest a feature that ships, and you earn Merit. Spend it on the rewards below.</p>
 </div>
 
-<div class="section-header" id="shop">
-  <h2>Merit Redemption Shop</h2>
-</div>
+<h3 id="shop">Merit Redemption Shop</h3>
 {render_redemption(data.get("redemption", {}))}
 
-<div class="section-header" id="housing">
-  <h2>Player Housing</h2>
-  <p class="section-sub">Turn an unused town door into your own home.</p>
-</div>
+<h3 id="housing">Player Housing</h3>
+<p>Turn an unused town door into your own home.</p>
 {render_housing(data.get("housing", {}))}
 
 <hr>
