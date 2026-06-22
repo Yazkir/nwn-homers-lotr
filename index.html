@@ -103,6 +103,44 @@
     color: var(--muted);
     font-size: 0.92em;
   }
+
+  /* Community / roadmap call-to-action */
+  .community-cta {
+    background: rgba(107,58,28,0.10);
+    border: 1px solid var(--accent-soft);
+    border-left: 5px solid var(--accent);
+    border-radius: 6px;
+    padding: 1.2em 1.6em;
+    margin: 1.5em 0 2em;
+  }
+  .community-cta h2 {
+    margin: 0 0 0.4em;
+    border: 0;
+  }
+  .community-cta p {
+    margin: 0.5em 0;
+    max-width: 70ch;
+  }
+  .community-cta .cta-actions {
+    margin-top: 0.9em;
+  }
+  .community-cta .cta-btn {
+    display: inline-block;
+    background: var(--accent);
+    color: #fff;
+    border-radius: 5px;
+    padding: 0.55em 1.1em;
+    text-decoration: none;
+    font-weight: 600;
+    margin: 0.2em 0.4em 0.2em 0;
+  }
+  .community-cta .cta-btn:hover { filter: brightness(1.1); }
+  .community-cta .cta-btn.secondary {
+    background: transparent;
+    color: var(--accent);
+    border: 1px solid var(--accent);
+  }
+  .community-cta code { user-select: all; }
 </style>
 
 <section class="home-hero">
@@ -164,6 +202,31 @@
   </div>
 </div>
 
+<section class="community-cta">
+  <h2>A server shaped by its players</h2>
+  <p>
+    This module is actively developed and <strong>built around player ideas</strong>.
+    Almost every feature and fix on the server started as a suggestion or bug report from
+    someone like you &mdash; and when your idea ships, you earn <strong>Merit</strong> points
+    to spend on teleports, premium boosts, player housing and more.
+  </p>
+  <p>
+    The <a href="./manual/Roadmap.html">Roadmap &amp; Player Ideas</a> page is the living
+    record of that: everything recently shipped (with credit to whoever suggested it) and a
+    grouped roadmap of what's in progress and coming next.
+  </p>
+  <p>
+    Got an idea or found a bug? Catch a DM in-game if we're online at the same time &mdash; but
+    the most reliable way to reach me is the <strong>#feature-requests</strong> and
+    <strong>#bugs</strong> channels on <a href="https://discord.gg/VpAtSpe">Discord</a>, where
+    nothing gets lost.
+  </p>
+  <div class="cta-actions">
+    <a class="cta-btn" href="./manual/Roadmap.html">View the Roadmap</a>
+    <a class="cta-btn secondary" href="https://discord.gg/VpAtSpe">Submit on Discord</a>
+  </div>
+</section>
+
 <h2>Plan your build with the wiki</h2>
 <p>
   Great characters here are built on <em>both</em> class <em>and</em> item choices &mdash;
@@ -185,6 +248,7 @@
   <a href="./manual/QuestGuide.html"><strong>Quest Guide</strong><span>Narrative walkthrough of the quests.</span></a>
   <a href="./manual/Customizations.html"><strong>Customizations</strong><span>Server-specific systems and tweaks.</span></a>
   <a href="./manual/MeaningWave.html"><strong>MeaningWave</strong><span>The wandering philosopher NPCs.</span></a>
+  <a href="./manual/Roadmap.html"><strong>Roadmap &amp; Player Ideas</strong><span>What's shipped, what's coming next.</span></a>
 </div>
 
 <p class="muted">
