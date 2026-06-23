@@ -240,6 +240,27 @@ Merchant (`bdm_cnv_opn_stor.nss`, persuade-based haggling) and the thief fence
 
 After adding or editing an opener, recompile (`nwn-manager repack`).
 
+## Roadmap & merit backlog
+
+`roadmap.yaml` is the source of truth for the public dev roadmap and the
+merit-tracking backlog — shipped player ideas credit a submitter with Merit.
+Edit it (by hand or with the GUI editor), then
+`python3 bin/gen-roadmap.py` and `bin/refresh-homers-lotr-wiki` to publish.
+
+To avoid typos in the controlled fields (player names, group ids, statuses,
+`dupe_of`), use the local web editor:
+
+```sh
+python3 bin/roadmap-editor.py          # opens http://localhost:8765
+```
+
+It validates with `gen-roadmap.py`'s own checks before writing and only
+rewrites the `ideas:` block, leaving the rest of the file untouched. It can run
+on boot as a systemd user service (`systemd/roadmap-editor.service`).
+
+See **[CLAUDE-roadmap.md](CLAUDE-roadmap.md)** for the full schema, the refresh
+process, and the editor + service setup.
+
 ## Redemption codes
 
 Players redeem codes by typing `Code:<name>` in chat (any channel). The
