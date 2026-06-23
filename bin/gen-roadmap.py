@@ -36,7 +36,9 @@ STATUS = {
     "implemented": {"label": "Shipped · in testing",     "cls": "testing",  "board": "shipped", "rank": 1},
     "confirmed":   {"label": "In progress",                  "cls": "active",   "board": "roadmap", "rank": 0},
     "wip":         {"label": "Up next",                      "cls": "queued",   "board": "roadmap", "rank": 1},
-    "planned":     {"label": "Under consideration",          "cls": "planned",  "board": "roadmap", "rank": 2},
+    "soon":        {"label": "Soon",                         "cls": "soon",     "board": "roadmap", "rank": 2},
+    "later":       {"label": "Later",                        "cls": "later",    "board": "roadmap", "rank": 3},
+    "planned":     {"label": "Under consideration",          "cls": "planned",  "board": "roadmap", "rank": 4},
 }
 
 PLAYER_LABEL = {"community": "Community"}
@@ -329,6 +331,8 @@ STYLE = """  <style>
     .rm-testing { background: rgba(40,90,50,0.10); border-color: #3a7d44; }
     .rm-active  { background: rgba(30,90,160,0.16); border-color: #2e6fb0; }
     .rm-queued  { background: rgba(107,58,28,0.14); border-color: var(--accent); }
+    .rm-soon    { background: rgba(107,58,28,0.09); border-color: var(--accent-soft); }
+    .rm-later   { background: rgba(120,120,120,0.18); border-color: var(--accent-soft); }
     .rm-planned { background: rgba(120,120,120,0.14); }
 
     .rm-cost-table td.rm-cost, .rm-cost-table th:first-child { white-space: nowrap; }
@@ -417,7 +421,7 @@ def build_html(data: dict) -> str:
 
 <div class="section-header" id="next">
   <h2>Roadmap &mdash; In Progress &amp; Up Next</h2>
-  <p class="section-sub">Where the module is heading, grouped by feature. "In progress" is being actively worked; "Up next" is queued; "Under consideration" is captured but not yet committed to.</p>
+  <p class="section-sub">Where the module is heading, grouped by feature. "In progress" is being actively worked; "Up next" is queued, with "Soon" and "Later" progressively further out; "Under consideration" is captured but not yet committed to.</p>
 </div>
 {render_roadmap_board(groups, canon)}
 

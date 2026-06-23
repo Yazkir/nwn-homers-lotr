@@ -1,18 +1,21 @@
 [Unit]
-# Local web GUI for editing roadmap.yaml (the dev-roadmap / merit-tracking
-# backlog). A user service so it runs as James and binds localhost only.
-# Always-on so the editor is a bookmark (http://localhost:8765) rather than a
-# command to remember. Install:
+# Web GUI for editing roadmap.yaml (the dev-roadmap / merit-tracking backlog).
+# A user service so it runs as James. Binds all interfaces (--host 0.0.0.0) so
+# it's reachable from any device on the LAN — no auth, so trust your network;
+# bind 127.0.0.1 instead to lock it to this machine. Fedora firewalld may need
+# the port opened:  firewall-cmd --add-port=8765/tcp  (add --permanent to keep).
+# Always-on so the editor is a bookmark rather than a command to remember.
+# Install:
 #   systemctl --user enable --now roadmap-editor.service
 #   loginctl enable-linger james     # so it starts at boot, before login
-Description=Homer's LotR roadmap.yaml web editor (localhost:8765)
+Description=Homer's LotR roadmap.yaml web editor (LAN, :8765)
 Documentation=file:///var/home/james/GIT/nwn_homers_lotr/CLAUDE-roadmap.md
 After=default.target
 
 [Service]
 Type=simple
 WorkingDirectory=/var/home/james/GIT/nwn_homers_lotr
-ExecStart=/usr/bin/python3 /var/home/james/GIT/nwn_homers_lotr/bin/roadmap-editor.py --serve --port 8765
+ExecStart=/usr/bin/python3 /var/home/james/GIT/nwn_homers_lotr/bin/roadmap-editor.py --serve --host 0.0.0.0 --port 8765
 Restart=on-failure
 RestartSec=5
 Nice=10

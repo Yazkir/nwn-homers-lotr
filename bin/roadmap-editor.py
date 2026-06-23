@@ -25,6 +25,7 @@ import io
 import json
 import os
 import re
+import socket
 import subprocess
 import sys
 import tempfile
@@ -71,10 +72,18 @@ def read_yaml() -> dict:
 def vocab(data: dict) -> dict:
     """Controlled vocabularies for the UI pickers, sourced from the file."""
     ideas = data.get("ideas", []) or []
-    groups = [{"id": g["id"], "title": g["title"]} for g in data.get("groups", [])]
-    seen_players = {i["player"] for i in ideas if i.get("player")}
-    players = sorted(seen_players - set(RESERVED_PLAYERS), key=str.lower)
-    players = RESERVED_PLAYERS + players
+    groups = [{"id": g["id"], "title": g["title"], "order": g.get("order")}
+              for g in data.get("groups", [])]
+    # Player picker = the managed roster, unioned with any name an idea already
+    # uses (so a stray name is never silently dropped). `community` first.
+    roster = [str(p) for p in (data.get("players", []) or [])]
+    used = sorted({i["player"] for i in ideas if i.get("player")}, key=str.lower)
+    names: list[str] = []
+    for n in roster + used:
+        if n and n not in names:
+            names.append(n)
+    players = ([p for p in RESERVED_PLAYERS if p in names]
+               + [p for p in names if p not in RESERVED_PLAYERS])
     statuses = [{"id": k, "label": v["label"]} for k, v in STATUS.items()]
     ids = [i.get("id") for i in ideas if i.get("id")]
     return {"groups": groups, "players": players, "statuses": statuses, "ids": ids}
@@ -148,12 +157,69 @@ def serialize_ideas(ideas: list[dict], prefixes: dict, trailing: list[str]) -> s
     return "\n".join(out).rstrip("\n") + "\n"
 
 
-def write_yaml(ideas: list[dict]) -> None:
-    """Rewrite only the ideas block; everything above it is preserved verbatim."""
-    original = YAML_PATH.read_text(encoding="utf-8")
-    head, prefixes, trailing = split_head_and_prefixes(original)
-    body = serialize_ideas(ideas, prefixes, trailing)
-    new_text = head + body
+TOP_KEY = re.compile(r"^[A-Za-z_][\w-]*:")
+
+
+def replace_block(text: str, key: str, new_body: str) -> str:
+    """Replace a top-level `key:` block's body, preserving everything else.
+
+    Spans from the `key:` line to the next top-level key (or EOF). Trailing
+    blank/comment lines inside the span belong to the *next* section's header,
+    so they are kept; only the data rows are swapped for `new_body`.
+    """
+    lines = text.splitlines()
+    start = next(i for i, ln in enumerate(lines)
+                 if re.match(rf"^{re.escape(key)}:\s*$", ln))
+    end = len(lines)
+    for j in range(start + 1, len(lines)):
+        if TOP_KEY.match(lines[j]):
+            end = j
+            break
+    tail = end
+    while tail - 1 > start and (lines[tail - 1].strip() == ""
+                                or lines[tail - 1].lstrip().startswith("#")):
+        tail -= 1
+    new_lines = lines[:start + 1] + new_body.splitlines() + lines[tail:]
+    return "\n".join(new_lines) + ("\n" if text.endswith("\n") else "")
+
+
+def serialize_groups(groups: list[dict]) -> str:
+    out: list[str] = []
+    for g in groups:
+        out.append(f"  - id: {g['id']}")
+        out.append(f'    title: {dquote(str(g.get("title", "")))}')
+        if g.get("order") not in (None, ""):
+            out.append(f"    order: {g['order']}")
+    return "\n".join(out)
+
+
+def serialize_players(players: list[str]) -> str:
+    out: list[str] = []
+    for p in players:
+        s = str(p)
+        # Bare scalar is fine for plain names (incl. internal spaces); quote
+        # only when YAML would otherwise mis-parse it.
+        bare = re.fullmatch(r"[A-Za-z0-9_][A-Za-z0-9_ ]*", s)
+        out.append(f"  - {s}" if bare else f"  - {dquote(s)}")
+    return "\n".join(out)
+
+
+def replace_ideas_block(text: str, ideas: list[dict]) -> str:
+    """Rewrite the ideas block in `text` (it is the last top-level key)."""
+    head, prefixes, trailing = split_head_and_prefixes(text)
+    return head + serialize_ideas(ideas, prefixes, trailing)
+
+
+def write_document(ideas: list[dict], groups: list[dict] | None = None,
+                   players: list[str] | None = None) -> None:
+    """Rewrite the ideas block, plus groups/players when supplied; everything
+    else (meta/redemption/housing and all comments) is preserved verbatim."""
+    text = YAML_PATH.read_text(encoding="utf-8")
+    if groups is not None:
+        text = replace_block(text, "groups", serialize_groups(groups))
+    if players is not None:
+        text = replace_block(text, "players", serialize_players(players))
+    new_text = replace_ideas_block(text, ideas)
     fd, tmp = tempfile.mkstemp(dir=str(REPO), prefix=".roadmap.", suffix=".tmp")
     try:
         with os.fdopen(fd, "w", encoding="utf-8") as f:
@@ -165,13 +231,44 @@ def write_yaml(ideas: list[dict]) -> None:
         raise
 
 
-def validate_ideas(ideas: list[dict]) -> tuple[list[str], list[str]]:
-    """Run gen-roadmap's validate(); return (fatal errors, warnings)."""
+def extra_validate(groups, players) -> list[str]:
+    """Structural checks for the editor-managed groups/players blocks."""
+    errs: list[str] = []
+    if groups is not None:
+        seen = set()
+        for g in groups:
+            gid = g.get("id", "")
+            if not re.fullmatch(r"[a-z0-9-]+", gid or ""):
+                errs.append(f"group id '{gid}' must be lowercase letters/digits/hyphens")
+            if gid in seen:
+                errs.append(f"duplicate group id '{gid}'")
+            seen.add(gid)
+            if not str(g.get("title", "")).strip():
+                errs.append(f"group '{gid}' needs a title")
+    if players is not None:
+        seen = set()
+        for p in players:
+            s = str(p).strip()
+            if not s:
+                errs.append("player roster has a blank name")
+            if s in seen:
+                errs.append(f"duplicate player '{s}'")
+            seen.add(s)
+    return errs
+
+
+def validate_document(ideas, groups=None, players=None) -> tuple[list[str], list[str]]:
+    """Run gen-roadmap's validate() plus our structural checks."""
     data = read_yaml()
     data["ideas"] = ideas
+    if groups is not None:
+        data["groups"] = groups
+    if players is not None:
+        data["players"] = players
     buf = io.StringIO()
     with redirect_stderr(buf):
         errors = GEN.validate(data)
+    errors = list(errors) + extra_validate(groups, players)
     warnings = [ln.strip() for ln in buf.getvalue().splitlines() if ln.strip()]
     return errors, warnings
 
@@ -221,16 +318,25 @@ class Handler(BaseHTTPRequestHandler):
         except Exception as e:
             return self._json({"ok": False, "errors": [f"bad request: {e}"]}, 400)
         ideas = payload.get("ideas", [])
-        errors, warnings = validate_ideas(ideas)
+        groups = payload.get("groups")
+        players = payload.get("players")
+        if groups is not None:
+            for g in groups:
+                if str(g.get("order", "")).strip() != "":
+                    try:
+                        g["order"] = int(g["order"])
+                    except (TypeError, ValueError):
+                        pass
+        errors, warnings = validate_document(ideas, groups, players)
         if errors:
             return self._json({"ok": False, "errors": errors, "warnings": warnings})
 
         if self.path == "/api/save":
-            write_yaml(ideas)
+            write_document(ideas, groups, players)
             return self._json({"ok": True, "warnings": warnings,
                                "message": "Saved roadmap.yaml."})
         if self.path == "/api/regenerate":
-            write_yaml(ideas)
+            write_document(ideas, groups, players)
             ok, output = regenerate()
             return self._json({"ok": ok, "warnings": warnings, "output": output,
                                "message": "Saved + regenerated Roadmap.html."
@@ -269,6 +375,8 @@ PAGE = r"""<!doctype html>
            background:#3a3f4a; color:#cfd6e0; }
   .badge.shipped,.badge.awarded { background:#26543f; color:#bdf0d6; }
   .badge.wip { background:#3a4a66; color:#cfe0ff; }
+  .badge.soon { background:#34405c; color:#c4d3f0; }
+  .badge.later { background:#3c4150; color:#c7cdde; }
   .badge.planned { background:#4a4636; color:#f0e6bd; }
   .badge.confirmed,.badge.implemented { background:#503a4f; color:#f0cfe6; }
   label { display:block; margin:10px 0 3px; color:var(--mut); font-size:12px; }
@@ -295,14 +403,54 @@ PAGE = r"""<!doctype html>
                border:1px solid #6b5e2c; }
   .hint { color:var(--warn); font-size:12px; margin-top:3px; min-height:14px; }
   .small { color:var(--mut); font-size:12px; }
+  .filters { display:grid; grid-template-columns:1fr 1fr; gap:6px; margin-top:8px; }
+  .filters select { padding:5px 7px; font-size:12px; }
+  .filters .full { grid-column:1 / -1; }
+  .chk { display:flex; align-items:center; gap:6px; margin-top:8px; font-size:12px;
+         color:var(--mut); cursor:pointer; }
+  .chk input { width:auto; }
+  .linkbtn { background:none; border:none; color:var(--accent); cursor:pointer;
+             padding:0; font:inherit; font-size:12px; }
+  .modal-bg { position:fixed; inset:0; background:rgba(0,0,0,0.55); display:none;
+              align-items:flex-start; justify-content:center; padding:6vh 16px; z-index:9; }
+  .modal-bg.show { display:flex; }
+  .modal { background:var(--panel); border:1px solid var(--line); border-radius:8px;
+           width:min(560px,100%); max-height:86vh; overflow:auto; padding:16px 18px; }
+  .modal h2 { margin:0 0 10px; }
+  .mlist { border:1px solid var(--line); border-radius:6px; overflow:hidden; margin:8px 0; }
+  .mrow { display:flex; gap:8px; align-items:center; padding:6px 8px;
+          border-bottom:1px solid var(--line); }
+  .mrow:last-child { border-bottom:none; }
+  .mrow input { flex:1; }
+  .mrow input.ord { flex:0 0 64px; }
+  .mrow .gid { flex:0 0 130px; color:var(--mut); font-size:12px; font-family:monospace;
+               white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+  .mrow .use { flex:0 0 auto; color:var(--mut); font-size:11px; }
 </style></head>
 <body>
 <div id="left">
   <div class="pad">
     <h1>Roadmap / Merit Backlog</h1>
-    <input id="filter" placeholder="filter by title, player, group, status…">
+    <input id="filter" placeholder="search title, player, group, status…">
+    <div class="filters">
+      <select id="f_fstatus"><option value="">All statuses</option></select>
+      <select id="f_fplayer"><option value="">All players</option></select>
+      <select id="f_fgroup"><option value="">All groups</option></select>
+      <select id="f_sort">
+        <option value="status">Sort: status</option>
+        <option value="group">Sort: group</option>
+        <option value="player">Sort: player</option>
+        <option value="date">Sort: date (newest)</option>
+        <option value="title">Sort: title</option>
+        <option value="file">Sort: file order</option>
+      </select>
+    </div>
+    <label class="chk"><input type="checkbox" id="f_showawarded">
+      Show awarded (done) ideas</label>
     <div class="bar">
       <button id="add">+ Add idea</button>
+      <button id="mgroups" class="linkbtn">Manage groups</button>
+      <button id="mplayers" class="linkbtn">Manage players</button>
       <span class="spacer"></span>
       <span id="count" class="small"></span>
     </div>
@@ -313,6 +461,7 @@ PAGE = r"""<!doctype html>
   <div id="banner"></div>
   <div id="form"></div>
 </div>
+<div class="modal-bg" id="modal"><div class="modal" id="modalbox"></div></div>
 <script>
 let DATA = {ideas:[], vocab:{groups:[],players:[],statuses:[],ids:[]}};
 let sel = -1;
@@ -329,26 +478,61 @@ function groupTitle(id){
 
 async function load(){
   const r = await fetch('/api/data'); DATA = await r.json();
-  renderList(); if (DATA.ideas.length) select(0);
+  populateFilters(); renderList(); if (DATA.ideas.length) select(0);
+}
+
+function populateFilters(){
+  const sSel=$('#f_fstatus'), pSel=$('#f_fplayer'), gSel=$('#f_fgroup');
+  const sCur=sSel.value, pCur=pSel.value, gCur=gSel.value;
+  sSel.innerHTML='<option value="">All statuses</option>'+
+    DATA.vocab.statuses.map(s=>`<option value="${esc(s.id)}">${esc(s.id)} — ${esc(s.label)}</option>`).join('');
+  pSel.innerHTML='<option value="">All players</option>'+
+    DATA.vocab.players.map(p=>`<option value="${esc(p)}">${esc(p)}</option>`).join('');
+  gSel.innerHTML='<option value="">All groups</option>'+
+    DATA.vocab.groups.map(g=>`<option value="${esc(g.id)}">${esc(groupTitle(g.id))}</option>`).join('');
+  sSel.value=sCur; pSel.value=pCur; gSel.value=gCur;
+}
+
+function statusRank(s){
+  const i = DATA.vocab.statuses.findIndex(x=>x.id===s);
+  return i<0 ? 999 : i;
 }
 
 function renderList(){
   const q = $('#filter').value.toLowerCase();
-  const box = $('#list'); box.innerHTML='';
-  let shown=0;
-  DATA.ideas.forEach((it,i)=>{
-    const hay = [it.title,it.player,it.group,it.status,it.id].join(' ').toLowerCase();
-    if (q && !hay.includes(q)) return;
-    shown++;
-    const d = document.createElement('div');
-    d.className = 'row'+(i===sel?' sel':'');
-    d.innerHTML = `<span class="t">${esc(it.title||'(untitled)')}</span>
+  const fs=$('#f_fstatus').value, fp=$('#f_fplayer').value, fg=$('#f_fgroup').value;
+  const showAwarded=$('#f_showawarded').checked, sort=$('#f_sort').value;
+  let rows = DATA.ideas.map((it,idx)=>({it,idx})).filter(({it})=>{
+    if (!showAwarded && it.status==='awarded') return false;
+    if (fs && it.status!==fs) return false;
+    if (fp && (it.player||'')!==fp) return false;
+    if (fg && it.group!==fg) return false;
+    if (q){
+      const hay=[it.title,it.player,it.group,it.status,it.id].join(' ').toLowerCase();
+      if(!hay.includes(q)) return false;
+    }
+    return true;
+  });
+  const cmp = {
+    status:(a,b)=> statusRank(a.it.status)-statusRank(b.it.status) || (a.it.title||'').localeCompare(b.it.title||''),
+    group: (a,b)=> (groupTitle(a.it.group)).localeCompare(groupTitle(b.it.group)) || statusRank(a.it.status)-statusRank(b.it.status),
+    player:(a,b)=> (a.it.player||'~~').toLowerCase().localeCompare((b.it.player||'~~').toLowerCase()) || (a.it.title||'').localeCompare(b.it.title||''),
+    date:  (a,b)=> (b.it.date||'').localeCompare(a.it.date||''),
+    title: (a,b)=> (a.it.title||'').localeCompare(b.it.title||''),
+    file:  (a,b)=> a.idx-b.idx,
+  }[sort] || ((a,b)=>a.idx-b.idx);
+  rows.sort(cmp);
+  const box=$('#list'); box.innerHTML='';
+  rows.forEach(({it,idx})=>{
+    const d=document.createElement('div');
+    d.className='row'+(idx===sel?' sel':'');
+    d.innerHTML=`<span class="t">${esc(it.title||'(untitled)')}</span>
       <span class="meta"><span class="badge ${statusCls(it.status)}">${esc(it.status||'?')}</span>
       ${esc(groupTitle(it.group))}${it.player?' · '+esc(it.player):''}</span>`;
-    d.onclick = ()=>select(i);
+    d.onclick=()=>select(idx);
     box.appendChild(d);
   });
-  $('#count').textContent = `${shown}/${DATA.ideas.length} ideas`;
+  $('#count').textContent=`${rows.length}/${DATA.ideas.length} ideas`;
 }
 
 function opt(value,label,cur){
@@ -448,7 +632,8 @@ async function commit(endpoint){
   if (sel>=0) DATA.ideas[sel] = pruneEmpty(readForm());
   const r = await fetch(endpoint, {method:'POST',
     headers:{'Content-Type':'application/json'},
-    body: JSON.stringify({ideas: DATA.ideas})});
+    body: JSON.stringify({ideas: DATA.ideas, groups: DATA.vocab.groups,
+                          players: DATA.vocab.players})});
   const res = await r.json();
   if (!res.ok){
     banner('bad', 'Not saved:\n• ' + (res.errors||['unknown error']).join('\n• ')
@@ -485,6 +670,108 @@ $('#add').onclick = ()=>{
   sel=0; renderList(); select(0);
   banner('warn','New idea added. Give it a unique id + title, then Save.');
 };
+
+// ---- group / player management modals -----------------------------------
+const escAmp = s => s.replace(/&/g,'&amp;');          // store titles in YAML form
+const dispAmp = s => (s||'').replace(/&amp;/g,'&');   // ...show them un-escaped
+function modalHTML(html){ $('#modalbox').innerHTML=html; $('#modal').classList.add('show'); }
+function closeModal(){ $('#modal').classList.remove('show'); }
+$('#modal').onclick = e=>{ if(e.target.id==='modal') closeModal(); };
+
+function openGroups(){
+  const rows = DATA.vocab.groups.map((g,i)=>`
+    <div class="mrow" data-i="${i}">
+      <span class="gid" title="${esc(g.id)}">${esc(g.id)}</span>
+      <input class="gt" value="${esc(dispAmp(g.title))}">
+      <input class="ord" type="number" value="${g.order==null?'':g.order}">
+      <span class="use">${DATA.ideas.filter(it=>it.group===g.id).length}</span>
+    </div>`).join('');
+  modalHTML(`<h2>Manage groups</h2>
+    <p class="small">Rename a title or change its order. The <b>id</b> is the stable key
+      ideas reference — it can't be changed here. The number is how many ideas use it.</p>
+    <div class="mlist" id="grows">${rows}</div>
+    <h3 style="font-size:13px;margin:12px 0 4px;">Add a group</h3>
+    <div class="mrow">
+      <input id="ng_id" class="gid" style="flex:0 0 150px;" placeholder="id (lowercase-hyphen)">
+      <input id="ng_title" placeholder="Title (shown on the page)">
+      <input id="ng_order" class="ord" type="number" placeholder="ord">
+      <button id="ng_add">Add</button>
+    </div>
+    <div class="hint" id="g_hint"></div>
+    <div class="bar"><button class="primary" id="g_save">Save changes</button>
+      <span class="spacer"></span><button id="g_close">Close</button></div>`);
+  $('#ng_add').onclick=()=>{
+    const id=$('#ng_id').value.trim(), title=$('#ng_title').value.trim();
+    const ord=$('#ng_order').value.trim();
+    if(!/^[a-z0-9-]+$/.test(id)){ $('#g_hint').textContent='id must be lowercase letters/digits/hyphens'; return; }
+    if(DATA.vocab.groups.some(g=>g.id===id)){ $('#g_hint').textContent='that id already exists'; return; }
+    if(!title){ $('#g_hint').textContent='give the group a title'; return; }
+    DATA.vocab.groups.push({id, title:escAmp(title), order: ord===''?null:parseInt(ord,10)});
+    openGroups();
+  };
+  $('#g_save').onclick=()=>{
+    document.querySelectorAll('#grows .mrow').forEach(row=>{
+      const g=DATA.vocab.groups[+row.dataset.i];
+      g.title=escAmp(row.querySelector('.gt').value.trim());
+      const o=row.querySelector('.ord').value.trim();
+      g.order = o===''?null:parseInt(o,10);
+    });
+    commit('/api/save'); closeModal();
+  };
+  $('#g_close').onclick=closeModal;
+}
+
+function openPlayers(){
+  const rows = DATA.vocab.players.map((p,i)=>{
+    const n = DATA.ideas.filter(it=>it.player===p).length;
+    const reserved = p==='community';
+    return `<div class="mrow" data-orig="${esc(p)}">
+      <input class="pn" value="${esc(p)}" ${reserved?'disabled':''}>
+      <span class="use">${n} ideas</span>
+      ${reserved?'<span class="use">(reserved)</span>':'<button class="linkbtn pdel">remove</button>'}
+    </div>`;}).join('');
+  modalHTML(`<h2>Manage players</h2>
+    <p class="small">Rename a submitter and it updates every idea credited to them.
+      Add a name below to pre-register someone before they have an idea.</p>
+    <div class="mlist" id="prows">${rows}</div>
+    <h3 style="font-size:13px;margin:12px 0 4px;">Add a player</h3>
+    <div class="mrow"><input id="np_name" placeholder="Submitter name">
+      <button id="np_add">Add</button></div>
+    <div class="hint" id="p_hint"></div>
+    <div class="bar"><button class="primary" id="p_save">Save changes</button>
+      <span class="spacer"></span><button id="p_close">Close</button></div>`);
+  $('#np_add').onclick=()=>{
+    const n=$('#np_name').value.trim();
+    if(!n) return;
+    if(DATA.vocab.players.includes(n)){ $('#p_hint').textContent='already in the roster'; return; }
+    DATA.vocab.players.push(n); openPlayers();
+  };
+  document.querySelectorAll('#prows .pdel').forEach(b=>b.onclick=()=>{
+    const orig=b.closest('.mrow').dataset.orig;
+    const n=DATA.ideas.filter(it=>it.player===orig).length;
+    if(n>0){ $('#p_hint').textContent=`“${orig}” is used by ${n} idea(s) — rename or reassign first`; return; }
+    DATA.vocab.players=DATA.vocab.players.filter(x=>x!==orig); openPlayers();
+  });
+  $('#p_save').onclick=()=>{
+    const names=[];
+    for(const row of document.querySelectorAll('#prows .mrow')){
+      const orig=row.dataset.orig, inp=row.querySelector('.pn');
+      const val=inp.disabled?orig:inp.value.trim();
+      if(!val){ $('#p_hint').textContent='names cannot be blank'; return; }
+      if(val!==orig) DATA.ideas.forEach(it=>{ if(it.player===orig) it.player=val; });
+      names.push(val);
+    }
+    if(new Set(names).size!==names.length){ $('#p_hint').textContent='two rows ended up with the same name'; return; }
+    DATA.vocab.players=names;
+    commit('/api/save'); closeModal();
+  };
+  $('#p_close').onclick=closeModal;
+}
+
+['f_fstatus','f_fplayer','f_fgroup','f_sort'].forEach(id=>$('#'+id).onchange=renderList);
+$('#f_showawarded').onchange=renderList;
+$('#mgroups').onclick=openGroups;
+$('#mplayers').onclick=openPlayers;
 $('#filter').oninput = renderList;
 load();
 </script>
@@ -495,13 +782,24 @@ load();
 def main():
     ap = argparse.ArgumentParser(description="Local web editor for roadmap.yaml ideas.")
     ap.add_argument("--port", type=int, default=8765)
+    ap.add_argument("--host", default="0.0.0.0",
+                    help="bind address (default 0.0.0.0 = reachable from any LAN device; "
+                         "use 127.0.0.1 to restrict to this machine)")
     ap.add_argument("--serve", action="store_true",
                     help="serve without opening a browser (used by the systemd unit)")
     args = ap.parse_args()
 
-    httpd = ThreadingHTTPServer(("127.0.0.1", args.port), Handler)
+    httpd = ThreadingHTTPServer((args.host, args.port), Handler)
     url = f"http://localhost:{args.port}/"
-    print(f"Roadmap editor serving at {url}  (editing {YAML_PATH})")
+    print(f"Roadmap editor serving on {args.host}:{args.port}  (editing {YAML_PATH})")
+    if args.host == "0.0.0.0":
+        try:
+            host = socket.gethostname()
+            ip = socket.gethostbyname(host)
+            print(f"  LAN access: http://{host}:{args.port}/  or  http://{ip}:{args.port}/")
+        except Exception:
+            pass
+        print("  (bound to all interfaces, no auth — trusts your local network)")
     if not args.serve:
         try:
             webbrowser.open(url)

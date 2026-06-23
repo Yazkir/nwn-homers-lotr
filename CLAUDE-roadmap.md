@@ -26,8 +26,13 @@ yourself first.
 
 ## `roadmap.yaml` schema
 
-Top-level keys, in order: `meta`, `groups`, `redemption`, `housing`, `ideas`. The GUI
-editor only touches `ideas` (the last key); the others stay hand-edited.
+Top-level keys, in order: `meta`, `groups`, `players`, `redemption`, `housing`, `ideas`.
+The GUI editor manages `groups`, `players`, and `ideas`; `meta`/`redemption`/`housing`
+stay hand-edited (and are preserved verbatim, comments and all, on every save).
+
+`players` is a flat list of submitter names — the merit ledger's controlled vocabulary.
+The GUI's player picker is sourced from it (unioned with any name an idea already uses, so
+nothing is ever silently dropped). `community` is the reserved crowd-sourced sentinel.
 
 Each entry under `ideas:` is one backlog item:
 
@@ -44,9 +49,10 @@ Each entry under `ideas:` is one backlog item:
 | `dupe_of` | no | Another item's `id`; merges this submitter's credit into that canonical item. |
 
 **Statuses** (workflow order): `awarded` (shipped, merit awarded) · `implemented`
-(shipped, in testing) · `confirmed` (actively being worked) · `wip` (queued, "Up Next")
-· `planned` (under consideration). The badge labels live in `STATUS` in
-`bin/gen-roadmap.py` — the editor reads them from there so the two never drift.
+(shipped, in testing) · `confirmed` (actively being worked) · `wip` (queued, "Up Next") ·
+`soon` (one tier deeper) · `later` (further out still) · `planned` (under consideration).
+The badge labels live in `STATUS` in `bin/gen-roadmap.py` — the editor reads them from
+there so the two never drift, and the roadmap board orders tiers by their `rank`.
 
 **Duplicate ideas:** when several players suggest the same thing, keep one canonical item
 and add a row per other submitter with `dupe_of: <canonical-id>` and their `player:`.
@@ -60,32 +66,48 @@ picker from the names already in the file.
 
 ## GUI editor — `bin/roadmap-editor.py`
 
-A local web app (Python stdlib `http.server` + PyYAML, no extra deps) that edits the
-`ideas` backlog without the typo classes above. Run it and open the printed URL:
+A web app (Python stdlib `http.server` + PyYAML, no extra deps) that edits the `ideas`
+backlog plus the `groups` and `players` blocks, without the typo classes above. Run it and
+open the printed URL:
 
 ```
 python3 bin/roadmap-editor.py            # serve + open a browser
 python3 bin/roadmap-editor.py --serve    # serve only (no browser; used by the service)
 python3 bin/roadmap-editor.py --port N   # default port is 8765
+python3 bin/roadmap-editor.py --host H   # bind address; default 0.0.0.0 (LAN-reachable)
 ```
 
 What it does:
 
 - **Typo-proofs the controlled fields.** `group`, `status`, and `dupe_of` are dropdowns
-  sourced from the file itself; `player` is a combobox of existing submitters that warns
+  sourced from the file itself; `player` is a combobox of the managed roster that warns
   (but still allows) when you type a name that isn't already in use.
-- **Validates before writing** using `gen-roadmap.py`'s own `validate()` — duplicate
-  ids, unknown group/status, and dangling `dupe_of` block the save and are shown inline;
-  nothing is written on error.
-- **Preserves the file.** It only rewrites the `ideas:` block (the last top-level key);
-  the header comments and the `meta`/`groups`/`redemption`/`housing` blocks are kept
-  verbatim, and each item's leading section-header comment travels with it by `id`. An
-  unchanged save is a byte-for-byte no-op.
+- **Filter, sort, and hide done.** The list has dropdown filters (status / player /
+  group), a sort selector, and a free-text search, all combinable. `awarded` (done) ideas
+  are **hidden by default** — tick "Show awarded" to see them.
+- **Manage groups** (button): add a group (`id` + title + order) or rename a title /
+  change order. The `id` is the immutable stable key ideas reference, so a title rename
+  needs no cascade — every idea shows the new title automatically. A group in use can't be
+  dropped (a referencing idea would fail validation).
+- **Manage players** (button): add a name (even before they have an idea) or rename one —
+  a rename **cascades** to every idea credited to that name. `community` is reserved.
+- **Validates before writing** using `gen-roadmap.py`'s own `validate()` plus structural
+  checks (group id format/uniqueness, blank/duplicate player names) — errors block the
+  save and are shown inline; nothing is written on error.
+- **Preserves the file.** It rewrites only the `groups`/`players`/`ideas` blocks; the
+  header comments and the `meta`/`redemption`/`housing` blocks are kept verbatim, and each
+  idea's leading section-header comment travels with it by `id`. An unchanged save is a
+  byte-for-byte no-op.
 - **Save & regenerate** writes `roadmap.yaml` then runs `gen-roadmap.py`, surfacing its
   output (including duplicate-idea warnings) in the page. You still run
   `bin/refresh-homers-lotr-wiki` to publish.
 
 Reordering items in the list reorders them in the file; Add/Delete behave as expected.
+
+**LAN access:** the editor binds `0.0.0.0` by default, so it's reachable from any device
+on the local network (`http://<host>:8765/`) — no auth, so trust your network, or pass
+`--host 127.0.0.1` to lock it to this machine. On Fedora, open the firewall port if the
+phone can't connect: `firewall-cmd --add-port=8765/tcp` (`--permanent` to persist).
 
 ### Run it on boot (systemd user service)
 

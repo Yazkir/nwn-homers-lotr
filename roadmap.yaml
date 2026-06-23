@@ -4,11 +4,13 @@
 # Edit this file, then run:  python3 bin/gen-roadmap.py
 # It regenerates docs.manual/Roadmap.html (published by the wiki build).
 #
-# status values:
+# status values (workflow order):
 #   awarded     -> shipped; merit awarded to the player (or admin-shipped)
 #   implemented -> shipped, in testing / needs verification
 #   confirmed   -> bug confirmed / actively being worked right now
 #   wip         -> accepted, in the queue ("Up Next")
+#   soon        -> queued, one tier deeper than Up Next
+#   later        -> queued, further out still
 #   planned     -> idea captured, under consideration (not committed to)
 #
 # Set `player:` to credit a submitter. Omit it for admin/community items.
@@ -63,6 +65,22 @@ groups:
   - id: qol
     title: "Quality of Life &amp; Buffs"
     order: 12
+
+# -----------------------------------------------------------------------------
+# Known submitter names (the merit ledger). Managed by bin/roadmap-editor.py:
+# add a name here, or rename one (the editor cascades a rename to every idea).
+# `community` is the reserved crowd-sourced sentinel, not a real person.
+# -----------------------------------------------------------------------------
+players:
+  - community
+  - dc0960
+  - FLYING HITCHER
+  - Fugdish
+  - McGondy
+  - Methonash
+  - Piskan
+  - Tukwut
+  - Yazkir
 
 # -----------------------------------------------------------------------------
 # How merit is spent. Cost is in Merit points unless noted.
