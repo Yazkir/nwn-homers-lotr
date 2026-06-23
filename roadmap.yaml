@@ -26,7 +26,7 @@
 # =============================================================================
 
 meta:
-  as_of: "2026-06-23 07:11 CDT"
+  as_of: "2026-06-23 07:38 CDT"
   intro: >-
     This is the living development roadmap for Homer's LOTR. Almost everything
     here started as a player suggestion or bug report — <strong><em>when an idea
@@ -102,6 +102,13 @@ players:
 # Ideas / bugs / features.
 # -----------------------------------------------------------------------------
 ideas:
+  - id: kallrist-dungeon-removed
+    title: "Dungeon Area Transition in Kallrist North Shore intentionally removed?"
+    group: travel
+    status: soon
+    type: Defect
+    player: Yazkir
+    notes: "Looks like broken/removed area transition:&nbsp;<span>the waypoints still exist and the dungeon still exists in the module itself.</span>"
   - id: server-seasons-character-wipe
     title: "Server-wide 'seasons' where achievements get archived and characters get wiped with partial XP bank"
     group: progression
@@ -708,7 +715,7 @@ ideas:
     status: planned
     type: Enhancement
     player: "Piskan (Alec Cain)"
-    notes: "examples{ Monk: Quarterstaff +15 Enhancement 20 Divine dmg 2d12 Blud 2d12 Sonic Keen +2 Apr Sorc/Wiz: Staff +10 Con +10 Int +10 Cha Flowcasting (Make spell slots reset after doing a certain amount of dmg with spells) Will work on some more class spec ideas ^^ Also, QS needs to be added to Monk weapons for it to work as intended (Which they should have been from the start imo) Paladin: Maul (if you can add them, can add it to Warhammer spec) +15 Enhancement 20 Divine 2d12 Positive 2d12 Lightning Keen Chance on Hit: Sunbeam Barbarian: Greataxe +15 Enhancement 20 Slashing 2d12 Piercing 2d12 Blud Keen Call lightning On-Hit (Once per round, if possible) }"
+    notes: "<div><b>Examples </b>(Will work on some more class spec ideas)</div><div><ul><li>Monk: Quarterstaff +15 Enhancement 20 Divine dmg 2d12 Blud 2d12 Sonic Keen +2 Apr (Also, QS needs to be added to Monk weapons for it to work as intended, which they should have been from the start imo)</li><li>Sorc/Wiz: Staff +10 Con +10 Int +10 Cha Flowcasting (Make spell slots reset after doing a certain amount of dmg with spells)&nbsp;</li><li>Paladin: Maul (if you can add them, can add it to Warhammer spec) +15 Enhancement 20 Divine 2d12 Positive 2d12 Lightning Keen Chance on Hit: Sunbeam</li><li>Barbarian: Greataxe +15 Enhancement 20 Slashing 2d12 Piercing 2d12 Blud Keen Call lightning On-Hit (Once per round, if possible) }</li></ul></div>"
   - id: monk-weapons
     title: "Add Shuriken, Katana and Quarterstaff to monk weapons (usable with Flurry of Blows)"
     group: combat-classes
@@ -754,7 +761,7 @@ ideas:
     status: unlikely
     type: Enhancement
     player: "Piskan (Alec Cain)"
-    notes: "This is resolved basically by updates to the forge system"
+    notes: "This is resolved basically by&nbsp;<a href=\"#idea-forge-bree-starter\">updates to the forge system</a>"
   - id: true-damage-type
     title: "A new low-dice 'true' damage type no boss is immune to — made incompatible with the forge so you choose optimized gear vs. boss-chipping gear"
     group: bosses
@@ -904,7 +911,7 @@ ideas:
     status: unlikely
     type: Enhancement
     player: community
-    notes: ";-)"
+    notes: "<font color=\"#2ec27e\">;-)</font>"
 
   # ---- Meaningwave (open) ---------------------------------------------------
   - id: mw-appearance
