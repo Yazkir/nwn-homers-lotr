@@ -39,6 +39,7 @@ STATUS = {
     "soon":        {"label": "Soon",                         "cls": "soon",     "board": "roadmap", "rank": 2},
     "later":       {"label": "Later",                        "cls": "later",    "board": "roadmap", "rank": 3},
     "planned":     {"label": "Under consideration",          "cls": "planned",  "board": "roadmap", "rank": 4},
+    "unlikely":    {"label": "Not likely to implement",      "cls": "unlikely", "board": "roadmap", "rank": 5},
 }
 
 PLAYER_LABEL = {"community": "Community"}
@@ -334,6 +335,8 @@ STYLE = """  <style>
     .rm-soon    { background: rgba(107,58,28,0.09); border-color: var(--accent-soft); }
     .rm-later   { background: rgba(120,120,120,0.18); border-color: var(--accent-soft); }
     .rm-planned { background: rgba(120,120,120,0.14); }
+    .rm-unlikely { background: rgba(120,120,120,0.08); color: var(--muted);
+      border-style: dashed; }
 
     .rm-cost-table td.rm-cost, .rm-cost-table th:first-child { white-space: nowrap; }
     .rm-cost { font-weight: 600; text-align: center; }
@@ -421,7 +424,7 @@ def build_html(data: dict) -> str:
 
 <div class="section-header" id="next">
   <h2>Roadmap &mdash; In Progress &amp; Up Next</h2>
-  <p class="section-sub">Where the module is heading, grouped by feature. "In progress" is being actively worked; "Up next" is queued, with "Soon" and "Later" progressively further out; "Under consideration" is captured but not yet committed to.</p>
+  <p class="section-sub">Where the module is heading, grouped by feature. "In progress" is being actively worked; "Up next" is queued, with "Soon" and "Later" progressively further out; "Under consideration" is captured but not yet committed to; "Not likely to implement" is logged but probably won't happen.</p>
 </div>
 {render_roadmap_board(groups, canon)}
 

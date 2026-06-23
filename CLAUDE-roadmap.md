@@ -50,7 +50,8 @@ Each entry under `ideas:` is one backlog item:
 
 **Statuses** (workflow order): `awarded` (shipped, merit awarded) · `implemented`
 (shipped, in testing) · `confirmed` (actively being worked) · `wip` (queued, "Up Next") ·
-`soon` (one tier deeper) · `later` (further out still) · `planned` (under consideration).
+`soon` (one tier deeper) · `later` (further out still) · `planned` (under consideration) ·
+`unlikely` (logged but not likely to be implemented).
 The badge labels live in `STATUS` in `bin/gen-roadmap.py` — the editor reads them from
 there so the two never drift, and the roadmap board orders tiers by their `rank`.
 

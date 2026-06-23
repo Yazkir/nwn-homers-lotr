@@ -378,6 +378,7 @@ PAGE = r"""<!doctype html>
   .badge.soon { background:#34405c; color:#c4d3f0; }
   .badge.later { background:#3c4150; color:#c7cdde; }
   .badge.planned { background:#4a4636; color:#f0e6bd; }
+  .badge.unlikely { background:#33363d; color:#9aa3af; }
   .badge.confirmed,.badge.implemented { background:#503a4f; color:#f0cfe6; }
   label { display:block; margin:10px 0 3px; color:var(--mut); font-size:12px; }
   input,select,textarea { width:100%; padding:7px 9px; background:var(--panel);
@@ -498,7 +499,7 @@ function statusRank(s){
   return i<0 ? 999 : i;
 }
 
-function renderList(){
+function visibleRows(){
   const q = $('#filter').value.toLowerCase();
   const fs=$('#f_fstatus').value, fp=$('#f_fplayer').value, fg=$('#f_fgroup').value;
   const showAwarded=$('#f_showawarded').checked, sort=$('#f_sort').value;
@@ -522,6 +523,11 @@ function renderList(){
     file:  (a,b)=> a.idx-b.idx,
   }[sort] || ((a,b)=>a.idx-b.idx);
   rows.sort(cmp);
+  return rows;
+}
+
+function renderList(){
+  const rows = visibleRows();
   const box=$('#list'); box.innerHTML='';
   rows.forEach(({it,idx})=>{
     const d=document.createElement('div');
@@ -629,7 +635,16 @@ function pruneEmpty(o){
 function banner(cls,msg){ const b=$('#banner'); b.className=cls; b.textContent=msg; }
 
 async function commit(endpoint){
-  if (sel>=0) DATA.ideas[sel] = pruneEmpty(readForm());
+  // Capture where we are in the *visible* (filtered + sorted) list so we can
+  // advance to the next item there after the save reloads from the file, even
+  // if the edit moved or dropped the current item out of the view.
+  let nextId=null, curPos=-1;
+  if (sel>=0){
+    DATA.ideas[sel] = pruneEmpty(readForm());
+    const vis = visibleRows();
+    curPos = vis.findIndex(r=>r.idx===sel);
+    if (curPos>=0 && curPos+1<vis.length) nextId = vis[curPos+1].it.id;
+  }
   const r = await fetch(endpoint, {method:'POST',
     headers:{'Content-Type':'application/json'},
     body: JSON.stringify({ideas: DATA.ideas, groups: DATA.vocab.groups,
@@ -644,7 +659,19 @@ async function commit(endpoint){
   if (res.warnings && res.warnings.length) msg += '\n\nWarnings:\n• '+res.warnings.join('\n• ');
   if (res.output) msg += '\n\n'+res.output;
   banner(res.warnings&&res.warnings.length ? 'warn':'ok', msg);
-  await load(); if (sel>=0) select(Math.min(sel, DATA.ideas.length-1));
+  await load();
+  advanceSelection(nextId, curPos);
+}
+
+function advanceSelection(nextId, curPos){
+  const vis = visibleRows();
+  let target = -1;
+  // Prefer the item that followed the one we just edited.
+  if (nextId){ const r = vis.find(x=>x.it.id===nextId); if (r) target = r.idx; }
+  // Otherwise hold the same slot in the (possibly shorter) visible list.
+  if (target<0 && curPos>=0 && vis.length) target = vis[Math.min(curPos, vis.length-1)].idx;
+  if (target>=0){ select(target); }
+  else { sel=-1; renderList(); $('#form').innerHTML=''; }
 }
 
 function move(dir){
