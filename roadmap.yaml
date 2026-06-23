@@ -140,6 +140,12 @@ housing:
 # Ideas / bugs / features.
 # -----------------------------------------------------------------------------
 ideas:
+  - id: wiki-playerguide-legendarylevelingare
+    title: "Adjust verbiage in leveing guide of wiki: legendary leveler area makes current verbiage makes it sound like you can fight enemies and gain XP there."
+    group: wiki-tools
+    status: implemented
+    player: Yazkir
+    date: "2026-06-22"
 
   # ---- SHIPPED: Forge & crafting -------------------------------------------
   - id: forge-zero-value-exploit
@@ -411,15 +417,15 @@ ideas:
     player: Fugdish
     date: "2026-06-04"
     commit: e4d66bb40bc
-  - id: potion-stack
+  - id: potion-stack99
     title: "Raised consumable stack size to 99 (potions)"
     group: items-gear
     status: awarded
     player: Piskan
     date: "2026-06-14"
     commit: 94e5cd7b150
-  - id: ammo-stack
-    title: "Raised ammunition stack size"
+  - id: ammo-stack999
+    title: "Raised ammunition stack size to 999"
     group: items-gear
     status: awarded
     player: Piskan
@@ -485,7 +491,7 @@ ideas:
   - id: legendary-forge-4th
     title: "A 4th legendary forge for Magical / Positive / Negative damage (component-gated, up to +20)"
     group: forge
-    status: wip
+    status: later
     notes: "Even the high-quality forge omits these damage types — good candidates for component-required enchanting."
   - id: cnr-crafting
     title: "Gathering-based crafting (mining, fishing, hunting, skinning) as a non-boss path to good gear"
@@ -508,32 +514,30 @@ ideas:
     group: forge
     status: wip
     player: McGondy
-
-  # ---- Combat, classes & builds (queued / planned) -------------------------
-  - id: sneak-attack-roll
+  - id: sneak-attack-shadowdmg
     title: "Convert Sneak Attack to a roll for bonus damage (or a new 'shadow' damage type)"
     group: combat-classes
-    status: wip
+    status: planned
     player: community
   - id: devcrit-roll
     title: "Convert Devastating Critical to a roll for bonus damage (or a new 'chaos' damage type)"
     group: combat-classes
-    status: wip
+    status: planned
     player: community
   - id: ll-modern-leveling
     title: "Replace the conversation-based Legendary Leveler with normal 1-40 leveling (works with 4x multiclass)"
     group: combat-classes
-    status: wip
+    status: later
     player: Methonash
   - id: relevel-option
     title: "A 1-40 re-level / de-level option (when not exploitable)"
     group: combat-classes
-    status: wip
+    status: planned
     player: McGondy
   - id: delevel-mcgondy
     title: "Be able to de-level a character when not exploitable"
     group: combat-classes
-    status: wip
+    status: later
     player: dc0960
     dupe_of: relevel-option
   - id: summons-boost
@@ -586,8 +590,9 @@ ideas:
   - id: theoden-chosen-ac
     title: "Theoden's Chosen seems to have more AC than the wiki's 82"
     group: bosses
-    status: wip
+    status: implemented
     player: Methonash
+    date: "2026-06-22"
   - id: remove-crit-immunity
     title: "Remove boss crit immunities; rework Dev Crit to an extra multiplier or a stun instead"
     group: bosses
@@ -601,24 +606,24 @@ ideas:
   - id: true-damage-type
     title: "A new low-dice 'true' damage type no boss is immune to — made incompatible with the forge so you choose optimized gear vs. boss-chipping gear"
     group: bosses
-    status: wip
+    status: later
     player: community
 
   # ---- Progression, bestiary & achievements --------------------------------
   - id: achievements
     title: "Achievement / kill-tracking system: bosses drop trackable items for all-time / weekly / daily kill counts and rewards"
     group: progression
-    status: wip
+    status: soon
     player: community
   - id: long-term-currency
     title: "A longer-term reward currency (digital or tokens) redeemable for gold, XP, a special shop, a new forge, or to enhance legendary summons"
     group: progression
-    status: wip
+    status: later
     player: community
   - id: item-slot-tokens
     title: "Increase an item's property slots using boss-drop 'tokens' or a rare boss drop"
     group: progression
-    status: wip
+    status: soon
     player: dc0960
   - id: forge-limits-progressive
     title: "Tie forge limits to boss-kill progress (kill more bosses to earn a slight gear edge)"
@@ -631,12 +636,12 @@ ideas:
   - id: teleport-expansion
     title: "Expand rest-menu teleports (earned via quests or by killing each area's boss)"
     group: travel
-    status: wip
+    status: planned
     player: community
   - id: teleport-last-eru
     title: "Rest-menu teleport back to where you last used the Well-of-Eru port"
     group: travel
-    status: wip
+    status: planned
     player: dc0960
     dupe_of: teleport-expansion
 
@@ -651,40 +656,40 @@ ideas:
   - id: wiki-kill-counts
     title: "Show per-character kill counts on creature pages, with KD ratio and total deaths"
     group: wiki-tools
-    status: wip
+    status: planned
     player: Tukwut
   - id: wiki-top-killers
     title: "On each creature page, show the top players/characters by kills"
     group: wiki-tools
-    status: wip
+    status: soon
     player: Tukwut
     dupe_of: wiki-kill-counts
   - id: discord-bot
     title: "Discord/wiki bot listing logged-in players and summarizing their gear stats (plus fun stats like unique creatures killed)"
     group: wiki-tools
-    status: wip
+    status: planned
     player: Tukwut
   - id: wiki-chest-stats
     title: "Wiki stat: how many items each player has added vs. removed from the community chest"
     group: wiki-tools
-    status: wip
+    status: planned
     player: Tukwut
 
   # ---- Items & gear (queued / planned) -------------------------------------
   - id: item-rename
     title: "Let players rename their weapons (e.g. a chisel item)"
     group: items-gear
-    status: wip
+    status: soon
     player: Piskan
   - id: item-morph-type
     title: "Change an item's type/subtype while keeping its properties (e.g. bastard sword -> kama)"
     group: items-gear
-    status: wip
+    status: planned
     player: Yazkir
   - id: mail-delivery
     title: "Mail-delivery system: pay postage by weight to send items to a specific character; they're notified after login (post office if no player house)"
     group: items-gear
-    status: wip
+    status: later
   - id: party-loot-roll
     title: "Chat command to roll d100 for boss loot, or one command to roll for the whole party"
     group: items-gear
@@ -693,19 +698,19 @@ ideas:
   - id: npc-disarm-despawn
     title: "When an NPC disarms you the weapon can despawn — send disarms to your inventory instead of the ground"
     group: items-gear
-    status: wip
+    status: later
     player: Tukwut
 
   # ---- Quests, areas & world fixes (open) ----------------------------------
   - id: gwathdor-stuck
     title: "Getting stuck in the wall at Gwathdor"
     group: quests-areas
-    status: wip
+    status: soon
     player: Tukwut
   - id: glorfind-potion-quest
     title: "Glorfindel's potion quest: the plant doesn't spawn and there are no journal entries"
     group: quests-areas
-    status: wip
+    status: soon
     player: "FLYING HITCHER"
   - id: moria-door
     title: "Once the Moria door is closed you must use the Balin's Tomb side entrance until reset; 'Mellon' password and gate state inconsistent"
@@ -717,12 +722,12 @@ ideas:
   - id: true-seeing-spot
     title: "True Seeing should add a bonus to Spot instead of bypassing Hide entirely"
     group: combat-classes
-    status: wip
+    status: planned
     player: community
   - id: nerf-yazkir
     title: "Nerf Yazkir (multiboxing shenanigans)"
     group: combat-classes
-    status: wip
+    status: planned
     player: community
 
   # ---- Meaningwave (open) ---------------------------------------------------
@@ -735,4 +740,4 @@ ideas:
   - id: merit-redemption-poc
     title: "Build out the Merit redemption options (see the shop above) as a proof of concept"
     group: economy
-    status: wip
+    status: soon
