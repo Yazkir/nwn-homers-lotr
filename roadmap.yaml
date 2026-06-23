@@ -14,6 +14,11 @@
 #   planned     -> idea captured, under consideration (not committed to)
 #   unlikely    -> logged but not likely to be implemented
 #
+# Set `type:` to classify the idea (color-coded on the editor + wiki):
+#   Defect      -> a bug / broken behavior         (worth 1 merit point if awarded)
+#   Enhancement -> a feature / improvement request  (worth 2 merit points if awarded)
+#   Exploit     -> an exploit / abuse to close      (worth 3 merit points if awarded)
+#
 # Set `player:` to credit a submitter. Omit it for admin/community items.
 # Use `dupe_of: <id>` to merge the same idea submitted by multiple players;
 # list each requester with `player:` on the duplicate row.
@@ -21,7 +26,7 @@
 # =============================================================================
 
 meta:
-  as_of: "2026-06-22"
+  as_of: "2026-06-23 06:41 CDT"
   intro: >-
     This is the living development roadmap for Homer's LOTR. Almost everything
     here started as a player suggestion or bug report — when an idea ships, the
@@ -86,67 +91,34 @@ players:
   - "HomelessSon (Server Admin)"
 
 # -----------------------------------------------------------------------------
-# How merit is spent. Cost is in Merit points unless noted.
+# How merit is earned and spent (Merit Redemption Shop + Player Housing price
+# tables) now lives on the Customizations wiki page, under "Merit Reward System"
+# (docs.manual/Customizations.html#merit). The roadmap just links to it.
 # -----------------------------------------------------------------------------
-redemption:
-  blurb: >-
-    Earn Merit by having your reported bugs fixed or your suggested features
-    shipped. Spend it from the rest menu (or with a DM) on any of the following.
-    Costs are a proof-of-concept and may be tuned.
-  categories:
-    - name: "Teleport & travel"
-      items:
-        - { cost: 3,  text: "Rest-menu teleport to your party leader" }
-        - { cost: 4,  text: "Rest-menu teleport back to your last Well-of-Eru save point (persists across reboots)" }
-        - { cost: 6,  text: "Dedicated, rewriteable save-slot teleport (Slot 1)" }
-        - { cost: 7,  text: "Save-slot teleport (Slot 2)" }
-        - { cost: 8,  text: "Save-slot teleport (Slot 3)" }
-        - { cost: 9,  text: "Save-slot teleport (Slot 4)" }
-        - { cost: 10, text: "Save-slot teleport (Slot 5)" }
-    - name: "Premium boosts (3x gold & XP)"
-      items:
-        - { cost: 1, text: "1 week of premium for you (3x gold & XP on all your characters)" }
-        - { cost: 3, text: "1 month of premium for you" }
-        - { cost: 4, text: "1 week of premium for the whole server — your name joins the login welcome message" }
-        - { cost: 8, text: "1 month of premium for the whole server — your name joins the login welcome message" }
-    - name: "Vanity & swag"
-      items:
-        - { cost: 5,  text: "Permanently graffiti the Well of Eru: add a floor/wall placeable with your name & description (within reason, DM approval)" }
-        - { cost: 10, text: "A set of Tournament equipment (see the 'Tournament' inaccessible items on the wiki)" }
-        - { cost: 25, text: "A real, hand-made duct-tape wallet mailed to you — pick up to 3 colors and a logo/design" }
-
-housing:
-  blurb: >-
-    Claim any unoccupied locked door in any town as your home (1 per player /
-    CD key; moving or upgrading later refunds nothing). You build the area in the
-    toolset and send the file; a fast-travel option to it is added to your rest
-    menu. You teleport in, and leave through the front door to your chosen city.
-  pricing_note: "Cost scales with area size (Length x Width)."
-  tiers:
-    - { size: "2",   cost: 1 }
-    - { size: "4",   cost: 2 }
-    - { size: "8",   cost: 3 }
-    - { size: "16",  cost: 4 }
-    - { size: "32",  cost: 5 }
-    - { size: "64",  cost: 6 }
-    - { size: "81",  cost: 7 }
-    - { size: "100", cost: 8 }
-  extras_note: "An area may be split at no cost across up to 2 areas with transitions (basement, attic, arena, etc.)."
-  features:
-    - { cost: 2,  text: "Persistent storage chest shared across your characters" }
-    - { cost: 2,  text: "A Well-of-Eru store with a 100K max buy limit — you pick the NPC name & appearance" }
-    - { cost: 5,  text: "Add a Tagget-tier forge to your home" }
-    - { cost: 10, text: "Add a Rivendell-tier forge to your home" }
-    - { cost: 15, text: "Add a Balrog-tier forge to your home" }
 
 # -----------------------------------------------------------------------------
 # Ideas / bugs / features.
 # -----------------------------------------------------------------------------
 ideas:
+  - id: server-seasons-character-wipe
+    title: "Server-wide 'seasons' where achievements get archived and characters get wiped with partial XP bank"
+    group: progression
+    status: planned
+    type: Enhancement
+    player: "HomelessSon (Server Admin)"
+    notes: "Could be scheduled periodically eventually (e.g. every 3 months), but might be needed ad-hoc as game is re-balanced or major game-changing features are introduced. Season stats would be archived and still viewable on the wiki. Item banks would get wiped, and all characters deleted with with maybe 10% of their XP rolled over into xp bank  (plus keeping 10% of xp already banked)"
+  - id: Hard-mode-no-fasttravel
+    title: "Hardcore Mode with no fast travel options and permadeath"
+    group: progression
+    status: planned
+    type: Enhancement
+    player: "HomelessSon (Server Admin)"
+    notes: "For extra challenge: would give a symbol of some kind next to first kill stats for that player, increased rare loot chance, even faster XP. Heal potions have a cool down. Greater sanctuary has a 1 hour real time cooldown."
   - id: rod-of-fast-combat
     title: "Rod of fast combat"
     group: forge
     status: unlikely
+    type: Enhancement
     player: Tukwut
     date: "2026-06-18"
     notes: "upon use calculates based on character sheets what creatures you can defeat and instantly kill them all on the entire server. unlimited user per day, no cooldown"
@@ -154,6 +126,7 @@ ideas:
     title: "Gear to boost specific mage spells"
     group: items-gear
     status: soon
+    type: Enhancement
     player: "dc0960 (Dungeon_Crawler)"
     date: "2026-06-19"
     notes: "An item to improve epic summons would be nice, not to make them more tanks, but more dps so they do something vs higher bosses. Or a way to improve spells in general, obviously there are a lot of spells that can't be used as they are mobs are just immune to them. Like an item to change implosion to do 'chaos' dmg instead of deatg As a whole for casters there are very little ways to kill something, its either damage shields, igms or epic spell lucky rolls for the majority. So some boosting to lvl 9 spells would be nice"
@@ -161,6 +134,7 @@ ideas:
     title: "Respawn Tracker in Well of Eru"
     group: bosses
     status: soon
+    type: Enhancement
     player: "dc0960 (Dungeon_Crawler)"
     date: "2026-06-19"
     notes: "would a board in well of eru with bosses that are dead and showing how long till respawn be worth it or are respawn times short enough? Standardizing the boss respawn rate and maybe adding drop rates to the loot would be a nice complimenting feature to the bestiary"
@@ -168,6 +142,7 @@ ideas:
     title: "Discord <-> NWN server shout integration"
     group: wiki-tools
     status: later
+    type: Enhancement
     player: "HomelessSon (Server Admin)"
     date: "2026-06-20"
     notes: "kind of a random idea, but would anyone like to see a channel in this discord for in-game server shouts? where you could see any shouts coming from the server, and as a discord user, anything you typed into that channel would be sent back to the game also as a shout? In game you would see that as coming from someone named \"Discord\" and it would prefix the message with your discord name (i selfishly want this to give unscheduled reboot warnings easily)"
@@ -175,12 +150,14 @@ ideas:
     title: "Socket system for weapons, max dmg 2d10, max ab +16, limited properties"
     group: forge
     status: later
+    type: Enhancement
     player: "-Methonash-"
     date: "2026-06-20"
   - id: Card-mendard-drops-elronds-sword
     title: "Card Menard in Edoras drops Elrond's sword"
     group: items-gear
     status: later
+    type: Defect
     player: Yazkir
     date: "2026-06-22"
     notes: "Look into if this is a bug"
@@ -188,12 +165,14 @@ ideas:
     title: "party XP is applied to the whole party even if not in the same area"
     group: progression
     status: confirmed
+    type: Defect
     player: Yazkir
     date: "2026-06-22"
   - id: improved-invis-issues-part2
     title: "Issues with improved invisibility after buff duration exentsion (and exclusion)"
     group: qol
     status: soon
+    type: Defect
     player: Yazkir
     date: "2026-06-21"
     notes: "When casting imp invis, it now looks like 50% conceal isn't being applied (but you get the effect of it from combat log) And the invis icon stays up no matter what but it doesn’t actually stay once you do damage (but you are still attacked by mobs, so you're not really invis)"
@@ -201,6 +180,7 @@ ideas:
     title: "divine might duration bug"
     group: qol
     status: soon
+    type: Defect
     player: "dc0960 (Dungeon_Crawler)"
     date: "2026-06-20"
     notes: "I think divine might has a bug related to the double duration update, but instead of the dmg getting the duration it still lasts normal time but you can't re buff it till double the time"
@@ -208,6 +188,7 @@ ideas:
     title: "Wiki Missing creature: Numanan Numerocks Second Hand (CARN DUM)"
     group: wiki-tools
     status: confirmed
+    type: Defect
     player: Yazkir
     date: "2026-06-19"
     notes: "That spawn point is wacky, sometimes I see Numarok the black hand, and other times this guy. And Numarok the Black Hand has his own room to the left of the building, opposite way of the temple"
@@ -215,23 +196,27 @@ ideas:
     title: "Forge-Warden can get script overflow and leave you stuck in pit prison"
     group: forge
     status: awarded
+    type: Defect
     player: "dc0960 (Dungeon_Crawler)"
     date: "2026-06-19"
   - id: Bard-song-boost-not-working
     title: "New bardsong updates not working as expected"
     group: qol
     status: awarded
+    type: Defect
     player: "-Methonash-"
     date: "2026-06-20"
   - id: teleport-to-fornost
     title: "Fornost teleport Broken"
     group: travel
     status: soon
+    type: Defect
     player: Llikanthus
   - id: wiki-playerguide-legendarylevelingare
     title: "Adjust verbiage in leveing guide of wiki: legendary leveler area makes current verbiage makes it sound like you can fight enemies and gain XP there."
     group: wiki-tools
     status: awarded
+    type: Defect
     player: Yazkir
     date: "2026-06-22"
 
@@ -240,6 +225,7 @@ ideas:
     title: "Closed the 0-value forge exploit; forge now prices by true item value"
     group: forge
     status: awarded
+    type: Exploit
     player: "Fugdish (Try_this)"
     date: "2026-06-10"
     commit: a2026079753
@@ -248,6 +234,7 @@ ideas:
     title: "Nerfed the overpowered Forge of Moria (godlike amulets for 8M gold)"
     group: forge
     status: awarded
+    type: Exploit
     player: Tukwut
     date: "2026-06-08"
     commit: 3b89c91f1f8
@@ -255,6 +242,7 @@ ideas:
     title: "Disenchant-one-property service at all three forges; staged so an illegal item can never be minted"
     group: forge
     status: awarded
+    type: Enhancement
     player: "dc0960 (Dungeon_Crawler)"
     date: "2026-06-20"
     commit: 7e51810b008
@@ -263,18 +251,23 @@ ideas:
     title: "Illegally-forged gear is quarantined in the Pit Prison; Forge Wardens can revert items to stock"
     group: forge
     status: awarded
+    type: Exploit
+    player: "HomelessSon (Server Admin)"
     date: "2026-06-11"
     commit: 6bc9051624a
   - id: forge-caps
     title: "Forges gained gold/value enchanting caps and tell you the value remaining to enchant with"
     group: forge
     status: awarded
+    type: Enhancement
+    player: "-Methonash-"
     date: "2026-06-15"
     commit: 4c79e495011
   - id: smith-confirm-gp
     title: "Smith conversations now confirm current and available GP values for enchanting"
     group: forge
     status: awarded
+    type: Enhancement
     player: "-Methonash-"
     date: "2026-06-15"
     commit: 3393f5197d4
@@ -282,6 +275,7 @@ ideas:
     title: "Cheap starter forge added in Bree"
     group: forge
     status: awarded
+    type: Enhancement
     player: "-Methonash-"
     date: "2026-06-07"
     notes: "date approx."
@@ -291,6 +285,7 @@ ideas:
     title: "Combat modes (Power Attack, Rapid Shot, etc.) are now permanent toggles"
     group: combat-classes
     status: awarded
+    type: Enhancement
     player: "Piskan (Alec Cain)"
     date: "2026-05-31"
     commit: 37a52f8f51d
@@ -298,6 +293,7 @@ ideas:
     title: "Raised the max ability-score bonus to 24 (was 12)"
     group: combat-classes
     status: awarded
+    type: Enhancement
     player: "Piskan (Alec Cain)"
     date: "2026-06-07"
     commit: 5a33cd17c1a
@@ -305,6 +301,7 @@ ideas:
     title: "Doubled player-cast spell/effect durations server-wide"
     group: combat-classes
     status: awarded
+    type: Enhancement
     player: "Piskan (Alec Cain)"
     date: "2026-06-19"
     commit: 365b6f51064
@@ -312,6 +309,7 @@ ideas:
     title: "Always roll max hit points on level up (no more re-rolling for theorycrafting)"
     group: combat-classes
     status: awarded
+    type: Enhancement
     player: "-Methonash-"
     date: "2026-05-31"
     commit: 5ad22a3a8fe
@@ -319,6 +317,7 @@ ideas:
     title: "Fixed duplicate Weapon Focus / Improved Critical feats (from a CEP2 HAK update)"
     group: combat-classes
     status: awarded
+    type: Defect
     player: "-Methonash-"
     date: "2026-05-31"
     commit: 33389e25c2e
@@ -326,6 +325,7 @@ ideas:
     title: "Bard Song customized to mirror the customized Curse Song"
     group: combat-classes
     status: awarded
+    type: Enhancement
     player: "-Methonash-"
     date: "2026-06-19"
     commit: 8c762f5c412
@@ -333,6 +333,7 @@ ideas:
     title: "Documented Curse Song behavior in the Customizations wiki page"
     group: combat-classes
     status: awarded
+    type: Enhancement
     player: "-Methonash-"
     date: "2026-06-03"
     commit: a06a987af71
@@ -342,6 +343,7 @@ ideas:
     title: "Balrog no longer vanishes when the last player leaves and rests (respawn 90m -> 15m)"
     group: bosses
     status: awarded
+    type: Defect
     player: Tukwut
     date: "2026-06-07"
     commit: aea503afcac
@@ -349,6 +351,7 @@ ideas:
     title: "Khamul's pulse attack no longer haunts players across the module after death"
     group: bosses
     status: awarded
+    type: Defect
     player: Tukwut
     date: "2026-05-28"
     commit: 35ce15473bf
@@ -356,6 +359,7 @@ ideas:
     title: "Dimholt forgotten king: added a questline and fixed the bark frequency / damage handling"
     group: bosses
     status: awarded
+    type: Enhancement
     player: Tukwut
     date: "2026-06-16"
     commit: 2e0934d39b1
@@ -365,6 +369,7 @@ ideas:
     title: "Bestiary kill-tracking with both PARTY and SOLO credit"
     group: progression
     status: awarded
+    type: Enhancement
     player: "dc0960 (Dungeon_Crawler)"
     date: "2026-06-14"
     commit: 3df8b1bcba4
@@ -374,6 +379,7 @@ ideas:
     title: "Family bank: persistent XP, gold and Strongbox storage shared across your account"
     group: banking
     status: awarded
+    type: Enhancement
     player: "-Methonash-"
     date: "2026-05-27"
     commit: 5debb87f271
@@ -381,6 +387,7 @@ ideas:
     title: "Removed the requirements for depositing / withdrawing XP"
     group: banking
     status: awarded
+    type: Defect
     player: "-Methonash-"
     date: "2026-05-30"
     commit: c70a26108b7
@@ -390,6 +397,7 @@ ideas:
     title: "Fixed Isengard / Dol Guldur faction issues"
     group: quests-areas
     status: awarded
+    type: Defect
     player: Tukwut
     date: "2026-05-30"
     commit: a0c79d27b17
@@ -397,6 +405,7 @@ ideas:
     title: "Helms Deep cave & road: Edoras folk were Evil — set to Good"
     group: quests-areas
     status: awarded
+    type: Defect
     player: McGondy
     date: "2026-06-08"
     commit: 2449300ae4a
@@ -404,6 +413,7 @@ ideas:
     title: "Neutral alignments no longer attacked by both factions; alignment auto-syncs via the Well-of-Eru orbs"
     group: quests-areas
     status: awarded
+    type: Defect
     player: "Fugdish (Try_this)"
     date: "2026-06-04"
     commit: 619eee0f3c6
@@ -411,6 +421,7 @@ ideas:
     title: "Hall of Sauron (Mount Doom): fixed mixed-up factions (Bishop killing Underlord)"
     group: quests-areas
     status: awarded
+    type: Defect
     player: "-Methonash-"
     date: "2026-06-08"
     notes: "date approx."
@@ -418,6 +429,7 @@ ideas:
     title: "Fixed weird interactions entering Legolas's area (disappear/reappear + periodic damage) and the missing inbound transition"
     group: quests-areas
     status: awarded
+    type: Defect
     player: "-Methonash-"
     date: "2026-05-31"
     commit: 04133df3658
@@ -425,6 +437,7 @@ ideas:
     title: "Fixed the Mirkwood door that should lead to the Basilisk King (was an empty tomb)"
     group: quests-areas
     status: awarded
+    type: Defect
     player: "-Methonash-"
     date: "2026-06-02"
     commit: 9ca1f8651c2
@@ -432,6 +445,7 @@ ideas:
     title: "Fixed Elrond's quest (couldn't use forge/smith even with the writ)"
     group: quests-areas
     status: awarded
+    type: Defect
     player: "FLYING HITCHER"
     date: "2026-06-05"
     commit: 2dac0cce611
@@ -439,6 +453,7 @@ ideas:
     title: "Closed the exploit that let you cast spells in the Well of Eru after resting"
     group: quests-areas
     status: awarded
+    type: Exploit
     player: Tukwut
     date: "2026-06-03"
     commit: 579e48af15f
@@ -446,6 +461,7 @@ ideas:
     title: "Fixed the endless bleed-out loop where regen kept you stuck dying"
     group: quests-areas
     status: awarded
+    type: Defect
     player: Tukwut
     date: "2026-05-21"
     commit: e8bbe391425
@@ -453,6 +469,7 @@ ideas:
     title: "Fixed Dol Guldur Smithy refusing to buy gear (item-type filtering audit across all smiths)"
     group: quests-areas
     status: awarded
+    type: Defect
     player: "-Methonash-"
     date: "2026-06-07"
     commit: a7c4d5ea213
@@ -460,6 +477,7 @@ ideas:
     title: "Lonely Mountain — Temple of Marr: restored the merchant's missing store conversation"
     group: quests-areas
     status: awarded
+    type: Defect
     player: "-Methonash-"
     date: "2026-06-07"
     notes: "date approx."
@@ -467,6 +485,7 @@ ideas:
     title: "Fixed the White Hand Blaster failing with the wrong faction in the Magic Room"
     group: quests-areas
     status: awarded
+    type: Defect
     player: "-Methonash-"
     date: "2026-06-07"
     notes: "date approx."
@@ -474,6 +493,7 @@ ideas:
     title: "Name/typo fixes across creatures, items and all 337 conversations (gadalf, captian, etc.)"
     group: quests-areas
     status: awarded
+    type: Defect
     player: Tukwut
     date: "2026-06-17"
     commit: 7103c4afe5a
@@ -481,6 +501,7 @@ ideas:
     title: "Fixed no-XP-for-kills after a weekend of server downtime"
     group: quests-areas
     status: awarded
+    type: Defect
     player: Tukwut
     date: "2026-06-14"
     notes: "date approx."
@@ -490,6 +511,7 @@ ideas:
     title: "Rod of Fast Casting — a fast-buff tool"
     group: items-gear
     status: awarded
+    type: Enhancement
     player: "Piskan (Alec Cain)"
     date: "2026-06-03"
     commit: 6e78ec48efa
@@ -497,6 +519,7 @@ ideas:
     title: "Rod of Fast Lore — identifies all items in your inventory using your own Lore (castable on others)"
     group: items-gear
     status: awarded
+    type: Enhancement
     player: McGondy
     date: "2026-06-18"
     commit: 36fe44b0696
@@ -504,6 +527,7 @@ ideas:
     title: "Well-Mart option to auto-identify every item you carry"
     group: items-gear
     status: awarded
+    type: Enhancement
     player: "Fugdish (Try_this)"
     date: "2026-06-04"
     commit: e4d66bb40bc
@@ -511,6 +535,7 @@ ideas:
     title: "Raised consumable stack size to 99 (potions)"
     group: items-gear
     status: awarded
+    type: Enhancement
     player: "Piskan (Alec Cain)"
     date: "2026-06-14"
     commit: 94e5cd7b150
@@ -518,6 +543,7 @@ ideas:
     title: "Raised ammunition stack size to 999"
     group: items-gear
     status: awarded
+    type: Enhancement
     player: "Piskan (Alec Cain)"
     date: "2026-06-14"
     notes: "date approx."
@@ -525,6 +551,7 @@ ideas:
     title: "Fixed Gloin's amulet immunity mismatch (wiki said 20%, item was 25%)"
     group: items-gear
     status: awarded
+    type: Defect
     player: Tukwut
     date: "2026-06-17"
     notes: "date approx."
@@ -532,22 +559,26 @@ ideas:
     title: "Fixed damage-immunity percentages not showing after the NWSync / CEP2 HAK update"
     group: items-gear
     status: awarded
+    type: Defect
     player: "-Methonash-"
     date: "2026-05-31"
     commit: 33389e25c2e
   - id: reboot-loot-inaccessible
-    title: "Reboot loot on the donation chest no longer hands out Inaccessible (boss) items"
+    title: "Donation chest hands out Inaccessible (boss) items"
     group: items-gear
     status: awarded
+    type: Exploit
     player: "-Methonash-"
     date: "2026-05-18"
     commit: c3bf1fafc34
+    notes: "Fixed"
 
   # ---- SHIPPED: Meaningwave --------------------------------------------------
   - id: mw-counterspell
     title: "Meaningwave companions: aegis ring, scaling unlocks, battlefield cures and a counterspell mode"
     group: meaningwave
     status: implemented
+    type: Enhancement
     player: "HomelessSon (Server Admin)"
     date: "2026-06-18"
     commit: c680d66439a
@@ -558,6 +589,7 @@ ideas:
     title: "Good/Evil orbs at the Well of Eru: alignment VFX, a warning you'll be disliked by the other side, and auto-sync on teleport out"
     group: qol
     status: awarded
+    type: Enhancement
     player: McGondy
     date: "2026-06-07"
     commit: 062d9023a75
@@ -571,11 +603,13 @@ ideas:
     title: "Legendary Leveler: can't find Tumble"
     group: combat-classes
     status: confirmed
+    type: Defect
     player: "Piskan (Alec Cain)"
   - id: ab-enhance-stack-bug
     title: "Weapons with both Attack Bonus and Enhancement Bonus appear to mis-calculate stats"
     group: combat-classes
     status: confirmed
+    type: Defect
     player: "Piskan (Alec Cain)"
 
   # ---- Forge & crafting (queued / planned) ---------------------------------
@@ -583,84 +617,101 @@ ideas:
     title: "A 4th legendary forge for Magical / Positive / Negative damage (component-gated, up to +20)"
     group: forge
     status: later
+    type: Enhancement
+    player: "HomelessSon (Server Admin)"
     notes: "Even the high-quality forge omits these damage types — good candidates for component-required enchanting."
   - id: cnr-crafting
     title: "Gathering-based crafting (mining, fishing, hunting, skinning) as a non-boss path to good gear"
     group: forge
     status: planned
+    type: Enhancement
     player: Tukwut
   - id: high-end-mat-crafting
     title: "Craft high-end gear from materials gathered around the world, up to +20 weapons"
     group: forge
     status: planned
+    type: Enhancement
     player: "Piskan (Alec Cain)"
     dupe_of: cnr-crafting
   - id: plot-flag-craft
     title: "Tainted Steel of Morgrond & Skinner's Acidic Plate are flagged Plot and can't be used in the craft-skill menu"
     group: forge
     status: wip
+    type: Defect
     player: "-Methonash-"
   - id: discipline-forge-craft
     title: "Discipline missing from the forge craft list (Rivendell forge)"
     group: forge
     status: wip
+    type: Defect
     player: McGondy
   - id: sneak-attack-shadowdmg
     title: "Convert Sneak Attack to a roll for bonus damage (or a new 'shadow' damage type)"
     group: combat-classes
     status: planned
+    type: Enhancement
     player: community
   - id: devcrit-roll
     title: "Convert Devastating Critical to a roll for bonus damage (or a new 'chaos' damage type)"
     group: combat-classes
     status: planned
+    type: Enhancement
     player: community
   - id: ll-modern-leveling
     title: "Replace the conversation-based Legendary Leveler with normal 1-40 leveling (works with 4x multiclass)"
     group: combat-classes
     status: later
+    type: Enhancement
     player: "-Methonash-"
   - id: relevel-option
     title: "A 1-40 re-level / de-level option (when not exploitable)"
     group: combat-classes
     status: planned
+    type: Enhancement
     player: McGondy
   - id: delevel-mcgondy
     title: "Be able to de-level a character when not exploitable"
     group: combat-classes
     status: later
+    type: Enhancement
     player: "dc0960 (Dungeon_Crawler)"
     dupe_of: relevel-option
   - id: summons-boost
     title: "Scale druid summons/companions (HP, saves, AB, AC) with level, Animal Empathy and epic Conjuration"
     group: combat-classes
     status: later
+    type: Enhancement
     player: "Piskan (Alec Cain)"
   - id: dr-stacks
     title: "Make class/feat damage reduction stack with gear damage reduction"
     group: combat-classes
     status: planned
+    type: Enhancement
     player: "Piskan (Alec Cain)"
   - id: dd-defensive-stance
     title: "Let Dwarven Defenders move while in Defensive Stance"
     group: combat-classes
     status: planned
+    type: Enhancement
     player: "Piskan (Alec Cain)"
   - id: remove-class-restrictions
     title: "Remove all class restrictions"
     group: combat-classes
     status: planned
+    type: Enhancement
     player: "Piskan (Alec Cain)"
   - id: class-specific-gear
     title: "Class-locked signature weapons (need ~20-25 levels of a class to equip)"
     group: combat-classes
     status: planned
+    type: Enhancement
     player: "Piskan (Alec Cain)"
     notes: "examples{ Monk: Quarterstaff +15 Enhancement 20 Divine dmg 2d12 Blud 2d12 Sonic Keen +2 Apr Sorc/Wiz: Staff +10 Con +10 Int +10 Cha Flowcasting (Make spell slots reset after doing a certain amount of dmg with spells) Will work on some more class spec ideas ^^ Also, QS needs to be added to Monk weapons for it to work as intended (Which they should have been from the start imo) Paladin: Maul (if you can add them, can add it to Warhammer spec) +15 Enhancement 20 Divine 2d12 Positive 2d12 Lightning Keen Chance on Hit: Sunbeam Barbarian: Greataxe +15 Enhancement 20 Slashing 2d12 Piercing 2d12 Blud Keen Call lightning On-Hit (Once per round, if possible) }"
   - id: monk-weapons
     title: "Add Shuriken, Katana and Quarterstaff to monk weapons (usable with Flurry of Blows)"
     group: combat-classes
     status: planned
+    type: Enhancement
     player: "Piskan (Alec Cain)"
 
   # ---- Bosses & difficulty (queued / planned) ------------------------------
@@ -668,38 +719,45 @@ ideas:
     title: "Balrog (and possibly other bosses) not healing itself"
     group: bosses
     status: confirmed
+    type: Defect
     player: community
   - id: sauron-minion-faction
     title: "Sauron's Chosen Minion fights his own faction (faction looks wrong)"
     group: bosses
     status: wip
+    type: Defect
     player: community
   - id: rancid-skinner-bark
     title: "The Rancid Skinner shouts 'Helms Deep is under attack' on death"
     group: bosses
     status: wip
+    type: Defect
     player: community
   - id: theoden-chosen-ac
     title: "Theoden's Chosen seems to have more AC than the wiki's 82"
     group: bosses
     status: awarded
+    type: Defect
     player: "-Methonash-"
     date: "2026-06-22"
   - id: remove-crit-immunity
     title: "Remove boss crit immunities; rework Dev Crit to an extra multiplier or a stun instead"
     group: bosses
     status: planned
+    type: Enhancement
     player: "Piskan (Alec Cain)"
   - id: boss-tuning-post40
     title: "Boss tuning so you can progress past level 40 (starter bosses are currently unkillable)"
     group: bosses
     status: unlikely
+    type: Enhancement
     player: "Piskan (Alec Cain)"
     notes: "This is resolved basically by updates to the forge system"
   - id: true-damage-type
     title: "A new low-dice 'true' damage type no boss is immune to — made incompatible with the forge so you choose optimized gear vs. boss-chipping gear"
     group: bosses
     status: later
+    type: Enhancement
     player: community
 
   # ---- Progression, bestiary & achievements --------------------------------
@@ -707,21 +765,25 @@ ideas:
     title: "Achievement / kill-tracking system: bosses drop trackable items for all-time / weekly / daily kill counts and rewards"
     group: progression
     status: soon
+    type: Enhancement
     player: community
   - id: long-term-currency
     title: "A longer-term reward currency (digital or tokens) redeemable for gold, XP, a special shop, a new forge, or to enhance legendary summons"
     group: progression
     status: later
+    type: Enhancement
     player: community
   - id: item-slot-tokens
     title: "Increase an item's property slots using boss-drop 'tokens' or a rare boss drop"
     group: progression
     status: soon
+    type: Enhancement
     player: "dc0960 (Dungeon_Crawler)"
   - id: forge-limits-progressive
     title: "Tie forge limits to boss-kill progress (kill more bosses to earn a slight gear edge)"
     group: progression
     status: later
+    type: Enhancement
     player: community
     dupe_of: achievements
 
@@ -730,11 +792,13 @@ ideas:
     title: "Expand rest-menu teleports (earned via quests or by killing each area's boss)"
     group: travel
     status: planned
+    type: Enhancement
     player: community
   - id: teleport-last-eru
     title: "Rest-menu teleport back to where you last used the Well-of-Eru port"
     group: travel
     status: planned
+    type: Enhancement
     player: "dc0960 (Dungeon_Crawler)"
     dupe_of: teleport-expansion
 
@@ -743,6 +807,7 @@ ideas:
     title: "Don't withdraw XP from the bank while on an XP penalty; banker should warn about multiclass penalties first"
     group: banking
     status: wip
+    type: Defect
     player: "-Methonash-"
 
   # ---- Wiki & tools ---------------------------------------------------------
@@ -750,22 +815,26 @@ ideas:
     title: "Show per-character kill counts on creature pages, with KD ratio and total deaths"
     group: wiki-tools
     status: planned
+    type: Enhancement
     player: Tukwut
   - id: wiki-top-killers
     title: "On each creature page, show the top players/characters by kills"
     group: wiki-tools
     status: soon
+    type: Enhancement
     player: Tukwut
     dupe_of: wiki-kill-counts
   - id: discord-bot
     title: "Discord/wiki bot listing logged-in players and summarizing their gear stats (plus fun stats like unique creatures killed)"
     group: wiki-tools
     status: planned
+    type: Enhancement
     player: Tukwut
   - id: wiki-chest-stats
     title: "Wiki stat: how many items each player has added vs. removed from the community chest"
     group: wiki-tools
     status: planned
+    type: Enhancement
     player: Tukwut
 
   # ---- Items & gear (queued / planned) -------------------------------------
@@ -773,25 +842,31 @@ ideas:
     title: "Let players rename their weapons (e.g. a chisel item)"
     group: items-gear
     status: soon
+    type: Enhancement
     player: "Piskan (Alec Cain)"
   - id: item-morph-type
     title: "Change an item's type/subtype while keeping its properties (e.g. bastard sword -> kama)"
     group: items-gear
     status: planned
+    type: Enhancement
     player: Yazkir
   - id: mail-delivery
     title: "Mail-delivery system: pay postage by weight to send items to a specific character; they're notified after login (post office if no player house)"
     group: items-gear
     status: later
+    type: Enhancement
+    player: "HomelessSon (Server Admin)"
   - id: party-loot-roll
     title: "Chat command to roll d100 for boss loot, or one command to roll for the whole party"
     group: items-gear
     status: wip
+    type: Enhancement
     player: "-Methonash-"
   - id: npc-disarm-despawn
     title: "When an NPC disarms you the weapon can despawn — send disarms to your inventory instead of the ground"
     group: items-gear
     status: later
+    type: Defect
     player: Tukwut
 
   # ---- Quests, areas & world fixes (open) ----------------------------------
@@ -799,16 +874,19 @@ ideas:
     title: "Getting stuck in the wall at Gwathdor"
     group: quests-areas
     status: soon
+    type: Defect
     player: Tukwut
   - id: glorfind-potion-quest
     title: "Glorfindel's potion quest: the plant doesn't spawn and there are no journal entries"
     group: quests-areas
     status: soon
+    type: Defect
     player: "FLYING HITCHER"
   - id: moria-door
     title: "Once the Moria door is closed you must use the Balin's Tomb side entrance until reset; 'Mellon' password and gate state inconsistent"
     group: quests-areas
     status: wip
+    type: Defect
     player: community
 
   # ---- Combat / rules tweaks (open) ----------------------------------------
@@ -816,11 +894,13 @@ ideas:
     title: "True Seeing should add a bonus to Spot instead of bypassing Hide entirely"
     group: combat-classes
     status: planned
+    type: Enhancement
     player: community
   - id: nerf-yazkir
     title: "Nerf Yazkir (multiboxing shenanigans)"
     group: combat-classes
     status: unlikely
+    type: Enhancement
     player: community
     notes: ";-)"
 
@@ -829,9 +909,13 @@ ideas:
     title: "Tune Meaningwave appearances — some spawn naked instead of wearing their armor"
     group: meaningwave
     status: wip
+    type: Defect
+    player: "HomelessSon (Server Admin)"
 
   # ---- Economy & merit (open) ----------------------------------------------
   - id: merit-redemption-poc
-    title: "Build out the Merit redemption options (see the shop above) as a proof of concept"
+    title: "Build out the Merit redemption options as a proof of concept"
     group: economy
-    status: soon
+    status: confirmed
+    type: Enhancement
+    player: "HomelessSon (Server Admin)"

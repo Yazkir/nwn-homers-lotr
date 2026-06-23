@@ -42,6 +42,15 @@ STATUS = {
     "unlikely":    {"label": "Not likely to implement",      "cls": "unlikely", "board": "roadmap", "rank": 5},
 }
 
+# Idea kind -> (badge label, css modifier). The merit value of a *shipped*
+# (awarded) idea depends on its type: Defect=1, Enhancement=2, Exploit=3.
+TYPES = {
+    "Defect":      {"label": "Defect",      "cls": "defect"},
+    "Enhancement": {"label": "Enhancement", "cls": "enhancement"},
+    "Exploit":     {"label": "Exploit",     "cls": "exploit"},
+}
+MERIT_POINTS = {"Defect": 1, "Enhancement": 2, "Exploit": 3}
+
 PLAYER_LABEL = {"community": "Community"}
 
 _ENTITY_RE = re.compile(r"&(?:[a-zA-Z][a-zA-Z0-9]+|#\d+|#x[0-9a-fA-F]+);")
@@ -81,6 +90,19 @@ def pretty_date(iso: str) -> str:
     return f"{MONTHS[mo]} {ordinal(d)}, {y}"
 
 
+def pretty_asof(value: str) -> str:
+    """Render meta.as_of, which may be a bare date ('2026-06-22') or a date with
+    a local time/zone the editor stamps ('2026-06-23 14:30 CDT'). The date part
+    is prettified; any trailing time/zone is appended as 'at <rest>'."""
+    value = (value or "").strip()
+    if not value:
+        return ""
+    date_part, sep, rest = value.partition(" ")
+    pretty = pretty_date(date_part)
+    rest = rest.strip()
+    return f"{pretty} at {rest}" if rest else pretty
+
+
 def norm_title(t: str) -> str:
     return re.sub(r"[^a-z0-9]+", " ", t.lower()).strip()
 
@@ -110,6 +132,8 @@ def validate(data: dict) -> list[str]:
             errors.append(f"'{iid}': unknown status {idea.get('status')!r}")
         if idea.get("group") not in group_ids:
             errors.append(f"'{iid}': unknown group {idea.get('group')!r}")
+        if idea.get("type") is not None and idea.get("type") not in TYPES:
+            errors.append(f"'{iid}': unknown type {idea.get('type')!r}")
 
     # dupe_of must point at a real id, and the target must not itself be a dupe.
     for idea in ideas:
@@ -183,7 +207,11 @@ def credit_html(idea: dict, shipped: bool) -> str:
 
 def idea_row(idea: dict, shipped: bool) -> str:
     meta = STATUS[idea["status"]]
-    bits = [f'<span class="rm-badge rm-{meta["cls"]}">{meta["label"]}</span>']
+    bits = []
+    if idea.get("type") in TYPES:
+        tmeta = TYPES[idea["type"]]
+        bits.append(f'<span class="rm-type rm-type-{tmeta["cls"]}">{tmeta["label"]}</span>')
+    bits.append(f'<span class="rm-badge rm-{meta["cls"]}">{meta["label"]}</span>')
     if shipped and idea.get("date"):
         bits.append(f'<span class="rm-date">{amp(pretty_date(idea["date"]))}</span>')
     credit = credit_html(idea, shipped)
@@ -230,51 +258,6 @@ def render_shipped_board(ideas) -> str:
     rows.sort(key=lambda i: (i.get("date") or "", i["id"]), reverse=True)
     items = "\n".join(idea_row(i, shipped=True) for i in rows)
     return f'<ul class="rm-list">{items}</ul>'
-
-
-def render_redemption(red: dict) -> str:
-    if not red:
-        return ""
-    cats = []
-    for cat in red.get("categories", []):
-        rows = "\n".join(
-            f'<tr><td class="rm-cost">{it["cost"]}</td><td>{amp(it["text"])}</td></tr>'
-            for it in cat.get("items", [])
-        )
-        cats.append(
-            f'<h4>{amp(cat["name"])}</h4>'
-            '<table class="data change-table rm-cost-table">'
-            '<thead><tr><th>Merit</th><th>Reward</th></tr></thead>'
-            f'<tbody>{rows}</tbody></table>'
-        )
-    return f'<p>{red.get("blurb", "")}</p>' + "\n".join(cats)
-
-
-def render_housing(h: dict) -> str:
-    if not h:
-        return ""
-    tiers = "\n".join(
-        f'<tr><td>{amp(str(t["size"]))}</td><td class="rm-cost">{t["cost"]}</td></tr>'
-        for t in h.get("tiers", [])
-    )
-    feats = "\n".join(
-        f'<tr><td class="rm-cost">{f["cost"]}</td><td>{amp(f["text"])}</td></tr>'
-        for f in h.get("features", [])
-    )
-    note = f'<p class="rm-notes">{amp(h["extras_note"])}</p>' if h.get("extras_note") else ""
-    return (
-        f'<p>{h.get("blurb", "")}</p>'
-        f'<h4>Pricing</h4>'
-        f'<p class="rm-notes">{amp(h.get("pricing_note", ""))}</p>'
-        '<table class="data change-table rm-cost-table">'
-        '<thead><tr><th>Area size (L&times;W)</th><th>Merit</th></tr></thead>'
-        f'<tbody>{tiers}</tbody></table>'
-        f'{note}'
-        '<h4>Optional features</h4>'
-        '<table class="data change-table rm-cost-table">'
-        '<thead><tr><th>Merit</th><th>Feature</th></tr></thead>'
-        f'<tbody>{feats}</tbody></table>'
-    )
 
 
 STYLE = """  <style>
@@ -338,6 +321,15 @@ STYLE = """  <style>
     .rm-unlikely { background: rgba(120,120,120,0.08); color: var(--muted);
       border-style: dashed; }
 
+    /* Idea type (Defect / Enhancement / Exploit) — color-coded so the kind of
+       contribution is scannable at a glance. Defect=red, Enhancement=blue,
+       Exploit=purple. */
+    .rm-type { display: inline-block; padding: 0.1em 0.6em; border-radius: 999px;
+      font-size: 0.8em; font-weight: 600; white-space: nowrap; border: 1px solid; }
+    .rm-type-defect      { background: rgba(200,50,50,0.16);  border-color: #c0392b; color: #c0392b; }
+    .rm-type-enhancement { background: rgba(40,110,200,0.16); border-color: #2e6fb0; color: #2e6fb0; }
+    .rm-type-exploit     { background: rgba(140,70,200,0.18); border-color: #7d4fc0; color: #7d4fc0; }
+
     .rm-cost-table td.rm-cost, .rm-cost-table th:first-child { white-space: nowrap; }
     .rm-cost { font-weight: 600; text-align: center; }
     .change-table td, .change-table th { font-size: 0.92em; vertical-align: top; }
@@ -351,7 +343,7 @@ def build_html(data: dict) -> str:
     ideas = data.get("ideas", [])
 
     canon = merge_dupes(ideas)
-    asof = pretty_date(meta.get("as_of", ""))
+    asof = pretty_asof(meta.get("as_of", ""))
 
     # TOC: roadmap groups that actually have queued items
     roadmap_groups = group_order([
@@ -372,12 +364,7 @@ def build_html(data: dict) -> str:
       <h2>Contents</h2>
       <ol>
         <li><a href="#about">About this page</a></li>
-        <li><a href="#earn-spend">Earning &amp; Spending Merit</a>
-          <ol style="margin:0.2em 0 0 0;">
-            <li><a href="#shop">Merit Redemption Shop</a></li>
-            <li><a href="#housing">Player Housing</a></li>
-          </ol>
-        </li>
+        <li><a href="#earn-spend">Earning &amp; Spending Merit</a></li>
         <li><a href="#next">Roadmap &mdash; In Progress &amp; Up Next</a>
           <ol style="margin:0.2em 0 0 0;">
 {toc_next}
@@ -410,15 +397,13 @@ def build_html(data: dict) -> str:
 
 <div class="section-header" id="earn-spend">
   <h2>Earning &amp; Spending Merit</h2>
-  <p class="section-sub">Report a bug that gets fixed, or suggest a feature that ships, and you earn Merit. Spend it on the rewards below.</p>
+  <p class="section-sub">Report a bug that gets fixed, or suggest a feature that ships, and you earn Merit.</p>
 </div>
 
-<h3 id="shop">Merit Redemption Shop</h3>
-{render_redemption(data.get("redemption", {}))}
-
-<h3 id="housing">Player Housing</h3>
-<p>Turn an unused town door into your own home.</p>
-{render_housing(data.get("housing", {}))}
+<p>For the full breakdown of what Merit buys &mdash; the Merit Redemption Shop and Player Housing
+price tables &mdash; see the
+<a href="../manual/Customizations.html#merit">Merit Reward System</a> section of the
+Customizations page.</p>
 
 <hr>
 

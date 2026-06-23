@@ -31,18 +31,27 @@ import sys
 import tempfile
 import webbrowser
 from contextlib import redirect_stderr
+from datetime import datetime
 from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 from pathlib import Path
+from zoneinfo import ZoneInfo
 
 import yaml
 
 REPO = Path(__file__).resolve().parent.parent
 YAML_PATH = REPO / "roadmap.yaml"
 GEN_PATH = REPO / "bin" / "gen-roadmap.py"
+SERVER_ENV = REPO / "server.env"
+# Published copy of the roadmap inside the generated wiki (docs/). Created by a
+# full `nwn-manager wiki` build; Publish to Wiki swaps just its <main> body.
+DOCS_ROADMAP = REPO / "docs" / "manual" / "Roadmap.html"
+SRC_ROADMAP = REPO / "docs.manual" / "Roadmap.html"
+# Standardized commit subject for editor-driven wiki publishes.
+PUBLISH_COMMIT_MSG = "Roadmap: publish update via roadmap editor"
 
 # Field order each idea is serialized in. Only `id/title/group/status` are
 # required; the rest are emitted only when present.
-FIELD_ORDER = ["id", "title", "group", "status", "player", "date",
+FIELD_ORDER = ["id", "title", "group", "status", "type", "player", "date",
                "commit", "notes", "dupe_of"]
 # Fields always rendered as YAML double-quoted scalars.
 QUOTED_FIELDS = {"title", "notes", "date"}
@@ -60,6 +69,7 @@ def load_gen():
 
 GEN = load_gen()
 STATUS = GEN.STATUS  # ordered dict: status -> {label, cls, board, rank}
+TYPES = GEN.TYPES    # ordered dict: type -> {label, cls}
 
 
 # --------------------------------------------------------------------------
@@ -85,8 +95,10 @@ def vocab(data: dict) -> dict:
     players = ([p for p in RESERVED_PLAYERS if p in names]
                + [p for p in names if p not in RESERVED_PLAYERS])
     statuses = [{"id": k, "label": v["label"]} for k, v in STATUS.items()]
+    types = [{"id": k, "label": v["label"]} for k, v in TYPES.items()]
     ids = [i.get("id") for i in ideas if i.get("id")]
-    return {"groups": groups, "players": players, "statuses": statuses, "ids": ids}
+    return {"groups": groups, "players": players, "statuses": statuses,
+            "types": types, "ids": ids}
 
 
 # --------------------------------------------------------------------------
@@ -283,6 +295,104 @@ def regenerate() -> tuple[bool, str]:
 
 
 # --------------------------------------------------------------------------
+# "as of" timestamp — stamped on regenerate/publish in server-local time
+# --------------------------------------------------------------------------
+def server_tz() -> str:
+    """Read TZ from server.env (e.g. 'America/Chicago'); default to it."""
+    try:
+        for ln in SERVER_ENV.read_text(encoding="utf-8").splitlines():
+            m = re.match(r"\s*(?:export\s+)?TZ\s*=\s*(.+?)\s*$", ln)
+            if m:
+                return m.group(1).strip().strip('"').strip("'")
+    except OSError:
+        pass
+    return "America/Chicago"
+
+
+def now_stamp() -> str:
+    """Current date + local time + zone abbrev, e.g. '2026-06-23 14:30 CDT'."""
+    try:
+        tz = ZoneInfo(server_tz())
+    except Exception:
+        tz = ZoneInfo("America/Chicago")
+    return datetime.now(tz).strftime("%Y-%m-%d %H:%M %Z")
+
+
+def stamp_as_of() -> str:
+    """Rewrite the `as_of:` line inside the meta block to the current stamp,
+    preserving everything else verbatim. Returns the stamp written."""
+    text = YAML_PATH.read_text(encoding="utf-8")
+    stamp = now_stamp()
+    new_text, n = re.subn(
+        r'^(\s*as_of:\s*).*$', rf'\g<1>"{stamp}"', text, count=1, flags=re.M)
+    if n:
+        fd, tmp = tempfile.mkstemp(dir=str(REPO), prefix=".roadmap.", suffix=".tmp")
+        try:
+            with os.fdopen(fd, "w", encoding="utf-8") as f:
+                f.write(new_text)
+            os.replace(tmp, YAML_PATH)
+        except BaseException:
+            if os.path.exists(tmp):
+                os.unlink(tmp)
+            raise
+    return stamp
+
+
+# --------------------------------------------------------------------------
+# Publish to wiki: body-swap docs.manual/Roadmap.html into docs/manual/, then
+# commit (roadmap.yaml + both Roadmap.html) and push.
+# --------------------------------------------------------------------------
+def publish_roadmap_to_docs() -> tuple[bool, str]:
+    """Replicate nwn-wiki's manual-page publish for the roadmap alone: take the
+    freshly generated source body and swap it into the already-published page's
+    outer <main>, preserving the wiki header/footer/nav from the last full build.
+    """
+    if not DOCS_ROADMAP.exists():
+        return False, (f"{DOCS_ROADMAP.relative_to(REPO)} does not exist — run a "
+                       "full `nwn-manager wiki` build once before publishing.")
+    src = SRC_ROADMAP.read_text(encoding="utf-8")
+    m = re.search(r"<body[^>]*>(.*?)</body>", src, re.IGNORECASE | re.DOTALL)
+    body = (m.group(1) if m else src).strip("\n")
+
+    published = DOCS_ROADMAP.read_text(encoding="utf-8")
+    # Greedy: <main> appears only in the body region, so this spans the first
+    # <main> to the last </main> (the outer wiki <main>).
+    swapped, n = re.subn(r"<main>.*</main>",
+                         lambda _: f"<main>\n{body}\n  </main>",
+                         published, count=1, flags=re.DOTALL)
+    if not n:
+        return False, "could not find <main> block in published Roadmap.html"
+    DOCS_ROADMAP.write_text(swapped, encoding="utf-8")
+    return True, f"published {DOCS_ROADMAP.relative_to(REPO)}"
+
+
+def _git(*args: str) -> subprocess.CompletedProcess:
+    return subprocess.run(["git", *args], cwd=str(REPO),
+                          capture_output=True, text=True)
+
+
+def git_publish() -> tuple[bool, str]:
+    """Stage roadmap.yaml + both Roadmap.html, commit with the standard message,
+    and push. 'Nothing to commit' is treated as success (nothing to publish)."""
+    paths = ["roadmap.yaml", "docs.manual/Roadmap.html", "docs/manual/Roadmap.html"]
+    add = _git("add", "--", *paths)
+    if add.returncode != 0:
+        return False, f"git add failed:\n{(add.stdout + add.stderr).strip()}"
+    # Anything staged among our paths?
+    staged = _git("diff", "--cached", "--quiet", "--", *paths)
+    if staged.returncode == 0:
+        return True, "nothing to commit — docs already up to date."
+    commit = _git("commit", "-m", PUBLISH_COMMIT_MSG, "--", *paths)
+    if commit.returncode != 0:
+        return False, f"git commit failed:\n{(commit.stdout + commit.stderr).strip()}"
+    push = _git("push")
+    out = (commit.stdout + push.stdout + push.stderr).strip()
+    if push.returncode != 0:
+        return False, f"committed but push failed:\n{out}"
+    return True, f"committed + pushed.\n{out}"
+
+
+# --------------------------------------------------------------------------
 # HTTP server
 # --------------------------------------------------------------------------
 class Handler(BaseHTTPRequestHandler):
@@ -337,10 +447,34 @@ class Handler(BaseHTTPRequestHandler):
                                "message": "Saved roadmap.yaml."})
         if self.path == "/api/regenerate":
             write_document(ideas, groups, players)
+            stamp = stamp_as_of()
             ok, output = regenerate()
             return self._json({"ok": ok, "warnings": warnings, "output": output,
-                               "message": "Saved + regenerated Roadmap.html."
-                                          if ok else "Regenerate FAILED."})
+                               "message": (f"Saved + regenerated Roadmap.html (as of {stamp})."
+                                           if ok else "Regenerate FAILED.")})
+        if self.path == "/api/publish":
+            write_document(ideas, groups, players)
+            stamp = stamp_as_of()
+            steps: list[str] = [f"Stamped as of {stamp}."]
+            ok, output = regenerate()
+            if output:
+                steps.append(output)
+            if not ok:
+                return self._json({"ok": False, "warnings": warnings,
+                                   "output": "\n".join(steps),
+                                   "message": "Regenerate FAILED — not published."})
+            pub_ok, pub_msg = publish_roadmap_to_docs()
+            steps.append(pub_msg)
+            if not pub_ok:
+                return self._json({"ok": False, "warnings": warnings,
+                                   "output": "\n".join(steps),
+                                   "message": "Publish FAILED."})
+            git_ok, git_msg = git_publish()
+            steps.append(git_msg)
+            return self._json({"ok": git_ok, "warnings": warnings,
+                               "output": "\n".join(steps),
+                               "message": ("Published to wiki + pushed to git."
+                                           if git_ok else "Publish/push FAILED.")})
         return self._json({"ok": False, "errors": ["unknown endpoint"]}, 404)
 
 
@@ -380,6 +514,11 @@ PAGE = r"""<!doctype html>
   .badge.planned { background:#4a4636; color:#f0e6bd; }
   .badge.unlikely { background:#33363d; color:#9aa3af; }
   .badge.confirmed,.badge.implemented { background:#503a4f; color:#f0cfe6; }
+  .tbadge { display:inline-block; padding:1px 7px; border-radius:10px; font-size:11px;
+            border:1px solid transparent; }
+  .tbadge.defect      { background:#4a2626; color:#f0b8b8; border-color:#7a3a3a; }
+  .tbadge.enhancement { background:#23364f; color:#b8d2f0; border-color:#36567a; }
+  .tbadge.exploit     { background:#3c2a4f; color:#d8b8f0; border-color:#5c3a7a; }
   label { display:block; margin:10px 0 3px; color:var(--mut); font-size:12px; }
   input,select,textarea { width:100%; padding:7px 9px; background:var(--panel);
            color:var(--ink); border:1px solid var(--line); border-radius:6px;
@@ -427,6 +566,15 @@ PAGE = r"""<!doctype html>
   .mrow .gid { flex:0 0 130px; color:var(--mut); font-size:12px; font-family:monospace;
                white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
   .mrow .use { flex:0 0 auto; color:var(--mut); font-size:11px; }
+  .merit { margin-top:18px; padding:11px 13px; border:1px solid var(--line);
+           border-radius:8px; background:#23272f; }
+  .merit h3 { margin:0 0 8px; font-size:13px; color:var(--ink); }
+  .merit .who { color:var(--accent); }
+  .merit .counts { display:flex; gap:8px; flex-wrap:wrap; align-items:center; }
+  .merit .pts { margin-top:9px; font-size:13px; }
+  .merit .pts b { font-size:16px; color:var(--ok); }
+  .merit .note { color:var(--warn); font-size:11px; margin-top:6px; }
+  .merit .sub { color:var(--mut); font-size:11px; margin-top:6px; }
 </style></head>
 <body>
 <div id="left">
@@ -435,6 +583,7 @@ PAGE = r"""<!doctype html>
     <input id="filter" placeholder="search title, player, group, status…">
     <div class="filters">
       <select id="f_fstatus"><option value="">All statuses</option></select>
+      <select id="f_ftype"><option value="">All types</option></select>
       <select id="f_fplayer"><option value="">All players</option></select>
       <select id="f_fgroup"><option value="">All groups</option></select>
       <select id="f_sort">
@@ -466,9 +615,13 @@ PAGE = r"""<!doctype html>
 <script>
 let DATA = {ideas:[], vocab:{groups:[],players:[],statuses:[],ids:[]}};
 let sel = -1;
+// Sentinel filter value: match rows whose field is empty/unset.
+const BLANK = '__BLANK__';
+const BLANK_OPT = `<option value="${BLANK}">&lt;Is Blank&gt;</option>`;
 const $ = s => document.querySelector(s);
 
 function statusCls(s){ return s || ''; }
+function typeCls(t){ return (t||'').toLowerCase(); }
 function esc(s){ return (s||'').replace(/[&<>"]/g, c => (
   {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c])); }
 
@@ -483,15 +636,18 @@ async function load(){
 }
 
 function populateFilters(){
-  const sSel=$('#f_fstatus'), pSel=$('#f_fplayer'), gSel=$('#f_fgroup');
-  const sCur=sSel.value, pCur=pSel.value, gCur=gSel.value;
+  const sSel=$('#f_fstatus'), tSel=$('#f_ftype'), pSel=$('#f_fplayer'), gSel=$('#f_fgroup');
+  const sCur=sSel.value, tCur=tSel.value, pCur=pSel.value, gCur=gSel.value;
   sSel.innerHTML='<option value="">All statuses</option>'+
     DATA.vocab.statuses.map(s=>`<option value="${esc(s.id)}">${esc(s.id)} — ${esc(s.label)}</option>`).join('');
-  pSel.innerHTML='<option value="">All players</option>'+
+  tSel.innerHTML='<option value="">All types</option>'+
+    (DATA.vocab.types||[]).map(t=>`<option value="${esc(t.id)}">${esc(t.label)}</option>`).join('')+
+    BLANK_OPT;
+  pSel.innerHTML='<option value="">All players</option>'+BLANK_OPT+
     DATA.vocab.players.map(p=>`<option value="${esc(p)}">${esc(p)}</option>`).join('');
   gSel.innerHTML='<option value="">All groups</option>'+
     DATA.vocab.groups.map(g=>`<option value="${esc(g.id)}">${esc(groupTitle(g.id))}</option>`).join('');
-  sSel.value=sCur; pSel.value=pCur; gSel.value=gCur;
+  sSel.value=sCur; tSel.value=tCur; pSel.value=pCur; gSel.value=gCur;
 }
 
 function statusRank(s){
@@ -501,15 +657,17 @@ function statusRank(s){
 
 function visibleRows(){
   const q = $('#filter').value.toLowerCase();
-  const fs=$('#f_fstatus').value, fp=$('#f_fplayer').value, fg=$('#f_fgroup').value;
+  const fs=$('#f_fstatus').value, ft=$('#f_ftype').value;
+  const fp=$('#f_fplayer').value, fg=$('#f_fgroup').value;
   const showAwarded=$('#f_showawarded').checked, sort=$('#f_sort').value;
   let rows = DATA.ideas.map((it,idx)=>({it,idx})).filter(({it})=>{
     if (!showAwarded && it.status==='awarded') return false;
     if (fs && it.status!==fs) return false;
-    if (fp && (it.player||'')!==fp) return false;
+    if (ft){ if (ft===BLANK){ if (it.type) return false; } else if ((it.type||'')!==ft) return false; }
+    if (fp){ if (fp===BLANK){ if (it.player) return false; } else if ((it.player||'')!==fp) return false; }
     if (fg && it.group!==fg) return false;
     if (q){
-      const hay=[it.title,it.player,it.group,it.status,it.id].join(' ').toLowerCase();
+      const hay=[it.title,it.player,it.group,it.status,it.type,it.id].join(' ').toLowerCase();
       if(!hay.includes(q)) return false;
     }
     return true;
@@ -532,8 +690,10 @@ function renderList(){
   rows.forEach(({it,idx})=>{
     const d=document.createElement('div');
     d.className='row'+(idx===sel?' sel':'');
+    const tbadge = it.type
+      ? `<span class="tbadge ${typeCls(it.type)}">${esc(it.type)}</span> ` : '';
     d.innerHTML=`<span class="t">${esc(it.title||'(untitled)')}</span>
-      <span class="meta"><span class="badge ${statusCls(it.status)}">${esc(it.status||'?')}</span>
+      <span class="meta">${tbadge}<span class="badge ${statusCls(it.status)}">${esc(it.status||'?')}</span>
       ${esc(groupTitle(it.group))}${it.player?' · '+esc(it.player):''}</span>`;
     d.onclick=()=>select(idx);
     box.appendChild(d);
@@ -550,6 +710,8 @@ function select(i){
   const it = DATA.ideas[i]; if (!it) { $('#form').innerHTML=''; return; }
   const groups = DATA.vocab.groups.map(g=>opt(g.id, g.title.replace(/&amp;/g,'&'), it.group)).join('');
   const stats  = DATA.vocab.statuses.map(s=>opt(s.id, s.id+' — '+s.label, it.status)).join('');
+  const types  = ['<option value=""></option>'].concat(
+      (DATA.vocab.types||[]).map(t=>opt(t.id, t.label, it.type||''))).join('');
   const players = ['<option value=""></option>'].concat(
       DATA.vocab.players.map(p=>opt(p,p,it.player||''))).join('');
   const dupes = ['<option value=""></option>'].concat(
@@ -560,6 +722,11 @@ function select(i){
     <div class="grid2">
       <div><label>Group</label><select id="f_group">${groups}</select></div>
       <div><label>Status</label><select id="f_status">${stats}</select></div>
+    </div>
+    <div class="grid2">
+      <div><label>Type (Defect / Enhancement / Exploit)</label>
+        <select id="f_type">${types}</select></div>
+      <div></div>
     </div>
     <div class="grid2">
       <div>
@@ -585,6 +752,7 @@ function select(i){
     <div class="bar">
       <button class="primary" id="save">Save</button>
       <button id="regen">Save &amp; regenerate HTML</button>
+      <button id="publish">Publish to Wiki</button>
       <span class="spacer"></span>
       <button class="danger" id="del">Delete</button>
     </div>
@@ -592,13 +760,51 @@ function select(i){
     <div class="bar">
       <button id="up">↑ Move up</button>
       <button id="down">↓ Move down</button>
-    </div>`;
+    </div>
+    <div id="merit"></div>`;
   bindPlayerHint();
+  renderMerit(it.player||'');
+  $('#f_player').addEventListener('input', e=>renderMerit(e.target.value.trim()));
   $('#save').onclick = ()=>commit('/api/save');
   $('#regen').onclick = ()=>commit('/api/regenerate');
+  $('#publish').onclick = ()=>{
+    if(!confirm('Regenerate, publish the roadmap into docs/, commit & git push?')) return;
+    commit('/api/publish');
+  };
   $('#del').onclick = del;
   $('#up').onclick = ()=>move(-1);
   $('#down').onclick = ()=>move(1);
+}
+
+// Lifetime merit for a submitter: count their *awarded* (totally done) ideas by
+// type and weight them Defect=1, Enhancement=2, Exploit=3.
+const MERIT_POINTS = {Defect:1, Enhancement:2, Exploit:3};
+function playerMerit(name){
+  const c={Defect:0, Enhancement:0, Exploit:0}; let untyped=0;
+  DATA.ideas.forEach(it=>{
+    if(it.status!=='awarded' || (it.player||'')!==name) return;
+    if(c[it.type]!=null) c[it.type]++; else untyped++;
+  });
+  const total=c.Defect*MERIT_POINTS.Defect + c.Enhancement*MERIT_POINTS.Enhancement
+            + c.Exploit*MERIT_POINTS.Exploit;
+  return {c, untyped, total};
+}
+
+function renderMerit(name){
+  const box=$('#merit'); if(!box) return;
+  if(!name){ box.innerHTML=''; return; }
+  const {c, untyped, total}=playerMerit(name);
+  const awarded=c.Defect+c.Enhancement+c.Exploit;
+  const chip=(t,n)=>`<span class="tbadge ${t.toLowerCase()}">${t}: ${n}</span>`;
+  const note = untyped>0
+    ? `<div class="note">${untyped} awarded item(s) for this player have no type set — not counted.</div>` : '';
+  box.innerHTML=`<div class="merit">
+    <h3>Lifetime merit — <span class="who">${esc(name)}</span></h3>
+    <div class="counts">${chip('Defect',c.Defect)} ${chip('Enhancement',c.Enhancement)} ${chip('Exploit',c.Exploit)}</div>
+    <div class="pts">Total awarded points: <b>${total}</b></div>
+    <div class="sub">${awarded} awarded idea(s) · Defect=1, Enhancement=2, Exploit=3.</div>
+    ${note}
+  </div>`;
 }
 
 function bindPlayerHint(){
@@ -618,6 +824,7 @@ function readForm(){
     title: $('#f_title').value.trim(),
     group: $('#f_group').value,
     status: $('#f_status').value,
+    type: $('#f_type').value,
     player: $('#f_player').value.trim(),
     date: $('#f_date').value.trim(),
     commit: $('#f_commit').value.trim(),
@@ -627,7 +834,7 @@ function readForm(){
 }
 
 function pruneEmpty(o){
-  const r={}; for (const k of ['id','title','group','status','player','date','commit','notes','dupe_of'])
+  const r={}; for (const k of ['id','title','group','status','type','player','date','commit','notes','dupe_of'])
     if (o[k]!=='' && o[k]!=null) r[k]=o[k];
   return r;
 }
@@ -795,7 +1002,7 @@ function openPlayers(){
   $('#p_close').onclick=closeModal;
 }
 
-['f_fstatus','f_fplayer','f_fgroup','f_sort'].forEach(id=>$('#'+id).onchange=renderList);
+['f_fstatus','f_ftype','f_fplayer','f_fgroup','f_sort'].forEach(id=>$('#'+id).onchange=renderList);
 $('#f_showawarded').onchange=renderList;
 $('#mgroups').onclick=openGroups;
 $('#mplayers').onclick=openPlayers;
